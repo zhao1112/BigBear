@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_trolley_has_product_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <com.yunqin.bearmall.widget.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/cart_buttom_menu_line"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ExpandableListView
+                android:id="@+id/cart_expandable_listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"></ExpandableListView>
+
+        </LinearLayout>
+
+    </com.yunqin.bearmall.widget.BounceScrollView>
+
+
+    <View
+        android:id="@+id/cart_buttom_menu_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:layout_above="@+id/cart_buttom_menu"
+        android:background="@color/item_specification_item_minus_border"></View>
+
+    <LinearLayout
+        android:id="@+id/cart_buttom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/item_cart_child_check_layout"
+            android:layout_width="@dimen/ds64"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ds14">
+
+            <ImageView
+                android:id="@+id/item_cart_all_check"
+                android:layout_width="@dimen/ds32"
+                android:layout_height="@dimen/ds32"
+                android:layout_centerInParent="true"
+                android:background="@drawable/icon_cart_selector_normal"
+                android:button="@null" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全选"
+            android:textColor="@color/product_customer_collect"
+            android:textSize="@dimen/ds28" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds32">
+
+            <LinearLayout
+                android:id="@+id/cart_buy_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:orientation="horizontal"
+
+                >
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/ds30"
+                    android:gravity="center_vertical|right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/cart_all_product_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥0.00+BC0.00"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/ds32"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="立即成为金熊会员，此单可省X元。"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/ds18"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/cart_selector_product_count"
+                    android:layout_width="@dimen/ds220"
+                    android:layout_height="match_parent"
+                    android:background="@color/home_text_unselect"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="去结算"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds28" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cart_edit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/cart_add_collect"
+                    android:layout_width="@dimen/ds168"
+                    android:layout_height="match_parent"
+                    android:background="@color/collect_bg"
+                    android:gravity="center"
+                    android:text="移入收藏"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds32" />
+
+                <TextView
+                    android:id="@+id/cart_delete"
+                    android:layout_width="@dimen/ds168"
+                    android:layout_height="match_parent"
+                    android:background="@color/delete_bg"
+                    android:gravity="center"
+                    android:text="删除"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds28" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

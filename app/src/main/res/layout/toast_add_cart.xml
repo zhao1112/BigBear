@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/gray_color_corner_4"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:paddingTop="@dimen/ds40"
+    android:paddingBottom="@dimen/ds40"
+    android:paddingLeft="@dimen/ds56"
+    android:paddingRight="@dimen/ds56"
+    >
+
+    <ImageView
+        android:layout_width="@dimen/ds72"
+        android:layout_height="@dimen/ds72"
+        android:src="@drawable/icon_select"
+        />
+
+    <TextView
+        android:id="@+id/toast_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加入购物车成功"
+        android:textColor="@color/white"
+        android:textSize="@dimen/ds24"
+        android:layout_marginTop="@dimen/ds24"/>
+
+</LinearLayout>

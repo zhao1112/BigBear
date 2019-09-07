@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_topbar" />
+
+    <View
+        android:id="@+id/top_line"
+        android:layout_width="match_parent"
+        android:layout_height="1pt"
+        android:background="#E7E7E7"
+        app:layout_constraintTop_toBottomOf="@id/top_bar" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:paddingLeft="30pt"
+        android:paddingRight="30pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_line">
+
+        <TextView
+            android:id="@+id/phone_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44pt"
+            android:textColor="#333333"
+            android:textSize="48pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/operator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt"
+            android:textColor="#999999"
+            android:textSize="28pt"
+            app:layout_constraintTop_toBottomOf="@id/phone_num" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:layout_marginTop="20pt"
+            android:background="#E7E7E7"
+            app:layout_constraintTop_toBottomOf="@id/operator" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/telephone_charge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50pt"
+            android:paddingLeft="30pt"
+            android:paddingTop="10pt"
+            android:paddingRight="30pt"
+            android:paddingBottom="10pt"
+            android:text="充话费"
+            android:textSize="32pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@id/guide_line"
+            app:layout_constraintTop_toBottomOf="@id/line" />
+
+        <View
+            android:id="@+id/left_line"
+            android:layout_width="@dimen/ds52"
+            android:layout_height="4pt"
+            android:background="#23A064"
+            app:layout_constraintLeft_toLeftOf="@id/telephone_charge"
+            app:layout_constraintRight_toRightOf="@id/telephone_charge"
+            app:layout_constraintTop_toBottomOf="@id/telephone_charge" />
+
+        <TextView
+            android:id="@+id/telephone_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30pt"
+            android:paddingTop="10pt"
+            android:paddingRight="30pt"
+            android:paddingBottom="10pt"
+            android:text="充流量"
+            android:textSize="32pt"
+            app:layout_constraintLeft_toRightOf="@id/guide_line"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/telephone_charge" />
+
+        <View
+            android:id="@+id/right_line"
+            android:layout_width="@dimen/ds52"
+            android:layout_height="4pt"
+            android:background="#23A064"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@id/telephone_flow"
+            app:layout_constraintRight_toRightOf="@id/telephone_flow"
+            app:layout_constraintTop_toBottomOf="@id/telephone_flow" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/left_line" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/red_package_layout"
+        android:layout_width="@dimen/ds150"
+        android:layout_height="@dimen/ds150"
+        android:layout_marginTop="@dimen/ds50"
+        android:layout_marginRight="@dimen/ds50"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_line">
+
+        <ImageView
+            android:id="@+id/red_package_close"
+            android:layout_width="@dimen/ds30"
+            android:layout_height="@dimen/ds30"
+            android:src="@drawable/ad_close"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/red_package_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/red_"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/red_package_close" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

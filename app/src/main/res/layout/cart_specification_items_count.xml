@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds44"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/ds30"
+    android:gravity="right"
+    >
+
+    <TextView
+        android:id="@+id/item_cart_child_minus"
+        android:layout_width="@dimen/ds52"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/ds16"
+        android:textColor="@color/item_specification_item_minus_tv"
+        android:background="@drawable/specifition_item_minus_disabled"
+        android:gravity="center"
+        android:clickable="false"
+        android:text="-"/>
+
+    <TextView
+        android:id="@+id/item_cart_child_count"
+        android:layout_width="@dimen/ds72"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/ds16"
+        android:textColor="@color/product_brand_name_color"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/ds_1"
+        android:background="@drawable/specifition_item_count_border"
+        android:text="1"/>
+
+
+    <TextView
+        android:id="@+id/item_cart_child_plus"
+        android:layout_width="@dimen/ds52"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/ds16"
+        android:textColor="@color/product_customer_collect"
+        android:background="@drawable/specifition_item_add_abled"
+        android:layout_marginLeft="@dimen/ds_1"
+        android:gravity="center"
+        android:text="+"/>
+
+
+
+</LinearLayout>

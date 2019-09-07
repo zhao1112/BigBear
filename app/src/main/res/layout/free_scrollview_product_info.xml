@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds124"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds30"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[大熊商城] 100%纯棉 女式纯棉百搭V领T恤"
+            android:textColor="@color/product_name_color"
+            android:textSize="@dimen/ds32"
+            android:singleLine="true"
+            android:ellipsize="end"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

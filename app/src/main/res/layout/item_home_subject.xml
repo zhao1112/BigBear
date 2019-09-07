@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#F7F7F7" />
+
+    <LinearLayout
+        android:id="@+id/bg_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds640"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds140"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds96">
+
+                <TextView
+                    android:id="@+id/huodong_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="砍价0元拿专区"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds36"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/huodong_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/right"
+                    android:text="更多商品"
+                    android:textColor="#b3b3b3"
+                    android:textSize="@dimen/ds26"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/right"
+                    android:layout_width="@dimen/ds24"
+                    android:layout_height="@dimen/ds24"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/ds8"
+                    android:layout_marginRight="@dimen/ds18"
+                    android:src="@drawable/icon_arrow" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds44">
+
+                <TextView
+                    android:id="@+id/huodong_title_bottom_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="邀请好友砍价 0 元到手，送糖果"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds26" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:id="@+id/click_left"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds20"
+                android:layout_marginRight="@dimen/ds7"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/ds348"
+                    android:layout_height="@dimen/ds348"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:background="@color/md_white">
+
+                    <ImageView
+                        android:id="@+id/img_left"
+                        android:layout_width="@dimen/ds290"
+                        android:layout_height="@dimen/ds290"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_horizontal" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="@dimen/ds346"
+                    android:layout_height="@dimen/ds72"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/ds30"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:background="@drawable/price_1bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/ds212"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/ds16">
+
+                        <TextView
+                            android:id="@+id/uuu_tv_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="大熊零售价"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds20" />
+
+                        <TextView
+                            android:id="@+id/tv_left_rmb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/ds142"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/ds16">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="大熊零售价"
+                            android:visibility="gone"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/ds20" />
+
+                        <TextView
+                            android:id="@+id/tv_left_bt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds7"
+                android:layout_marginRight="@dimen/ds20"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/ds348"
+                    android:layout_height="@dimen/ds348"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:background="@color/md_white">
+
+                    <ImageView
+                        android:id="@+id/img_right"
+                        android:layout_width="@dimen/ds290"
+                        android:layout_height="@dimen/ds290"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_horizontal" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="@dimen/ds346"
+                    android:layout_height="@dimen/ds72"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/ds30"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:background="@drawable/price_1bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/ds212"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/ds16">
+
+                        <TextView
+                            android:id="@+id/uuu_tv_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="大熊零售价"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds20" />
+
+                        <TextView
+                            android:id="@+id/tv_right_rmb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/ds142"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/ds16">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="大熊零售价"
+                            android:visibility="gone"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/ds20" />
+
+                        <TextView
+                            android:id="@+id/tv_right_bt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#F7F7F7" />
+
+
+</LinearLayout>

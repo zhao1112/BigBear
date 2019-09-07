@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds514"
+        android:background="@drawable/subject_bg"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds20"
+            android:background="#F7F7F7"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/ds120"
+                android:layout_height="@dimen/ds172"
+                android:src="@drawable/tree_img" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="砍价0元拿专区"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds36"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="邀请好友砍价 0 元到手，送糖果"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds26" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/goods_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dsl40"
+                android:layout_marginRight="@dimen/ds20"
+                android:layout_marginTop="@dimen/ds10"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/ds40">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="更多商品"
+                    android:textColor="#b3b3b3"
+                    android:textSize="@dimen/ds26"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="@dimen/ds24"
+                    android:layout_height="@dimen/ds24"
+                    android:layout_marginLeft="@dimen/ds8"
+                    android:src="@drawable/icon_arrow" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dsl40">
+
+            <LinearLayout
+                android:id="@+id/subject_left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/ds230"
+                    android:layout_height="@dimen/ds230"
+                    android:src="@drawable/test_goods_image" />
+
+                <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                    android:layout_width="@dimen/ds160"
+                    android:layout_height="@dimen/ds52"
+                    android:layout_marginTop="@dimen/ds12"
+                    android:background="@drawable/subject_btn_bg"
+                    android:gravity="center"
+                    android:text="砍价0元拿"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subject_center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/ds230"
+                    android:layout_height="@dimen/ds230"
+                    android:src="@drawable/test_goods_image" />
+
+                <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                    android:layout_width="@dimen/ds160"
+                    android:layout_height="@dimen/ds52"
+                    android:layout_marginTop="@dimen/ds12"
+                    android:background="@drawable/subject_btn_bg"
+                    android:gravity="center"
+                    android:text="砍价0元拿"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subject_right"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/ds230"
+                    android:layout_height="@dimen/ds230"
+                    android:src="@drawable/test_goods_image" />
+
+                <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                    android:layout_width="@dimen/ds160"
+                    android:layout_height="@dimen/ds52"
+                    android:layout_marginTop="@dimen/ds12"
+                    android:background="@drawable/subject_btn_bg"
+                    android:gravity="center"
+                    android:text="砍价0元拿"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#F7F7F7"/>
+</LinearLayout>

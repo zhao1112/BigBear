@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/layout_topbar" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="156pt"
+            android:layout_height="156pt"
+            android:layout_marginTop="120pt"
+            android:src="@drawable/icon_money"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            android:text="我的余额"
+            android:textColor="#333333"
+            android:textSize="32pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_view" />
+
+        <TextView
+            android:id="@+id/banlance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:textColor="#333333"
+            android:textSize="80pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view"
+
+            />
+
+        <com.yunqin.bearmall.widget.Highlight.HighlightButton
+            android:id="@+id/withdraw_deposit"
+            android:layout_width="0dp"
+            android:layout_height="72pt"
+            android:layout_marginLeft="66pt"
+            android:layout_marginTop="70pt"
+            android:layout_marginRight="66pt"
+            android:background="#33A76F"
+            android:text="提现"
+            android:textColor="@color/white"
+            android:textSize="28pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/banlance_text" />
+
+
+        <LinearLayout
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/withdraw_deposit">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/ti_xian_ji_lu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36pt"
+                    android:text="提现记录"
+                    android:textColor="#23A064"
+                    android:textSize="26pt"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1pt"
+                    android:background="#23A064"
+                    app:layout_constraintEnd_toEndOf="@+id/ti_xian_ji_lu"
+                    app:layout_constraintStart_toStartOf="@+id/ti_xian_ji_lu"
+                    app:layout_constraintTop_toBottomOf="@id/ti_xian_ji_lu" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/ti_xian_gui_ze"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36pt"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="提现规则"
+                    android:textColor="#23A064"
+                    android:textSize="26pt"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1pt"
+                    android:background="#23A064"
+                    app:layout_constraintEnd_toEndOf="@+id/ti_xian_gui_ze"
+                    app:layout_constraintStart_toStartOf="@+id/ti_xian_gui_ze"
+                    app:layout_constraintTop_toBottomOf="@id/ti_xian_gui_ze" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/ti_xian_ti_shi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30pt"
+            android:text="最小提现金额100为大家开始"
+            android:textColor="#999999"
+            android:textSize="26pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/red_package_layout"
+        android:layout_width="@dimen/ds150"
+        android:layout_height="@dimen/ds150"
+        android:layout_marginTop="@dimen/ds50"
+        android:layout_marginRight="@dimen/ds50"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <ImageView
+            android:id="@+id/red_package_close"
+            android:layout_width="@dimen/ds30"
+            android:layout_height="@dimen/ds30"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ad_close"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/red_package_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/red_"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/red_package_close" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

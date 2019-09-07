@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="88pt"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="28pt"
+        android:layout_marginLeft="30pt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="做任务，领糖果"
+        />
+    
+    
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="12pt"
+        android:layout_height="24pt"
+        android:src="@drawable/icon_arrow_right"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="32pt"
+        />
+
+    <TextView
+        android:layout_marginRight="@dimen/ds20"
+        android:textSize="@dimen/ds28"
+        android:textColor="#23A064"
+        android:text="NEW"
+        app:layout_constraintRight_toLeftOf="@id/image_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1pt"
+        android:background="@color/divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/n_v_tj_xiangqing"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds618"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/n_v_tj_image"
+            android:layout_width="@dimen/ds710"
+            android:layout_height="@dimen/ds400"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_tuijian" />
+
+        <LinearLayout
+            android:layout_width="@dimen/ds680"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds20">
+
+            <TextView
+                android:id="@+id/n_v_tj_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/ds10"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="金刚葫芦娃哪吒金刚葫芦娃哪吒金刚葫芦娃哪吒金刚葫芦娃哪吒"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:id="@+id/n_v_tj_maiguo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100人付款"
+                android:textColor="#999999"
+                android:textSize="@dimen/ds20" />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/ds710"
+            android:layout_height="@dimen/ds72"
+            android:layout_marginTop="@dimen/ds30">
+
+            <LinearLayout
+                android:layout_width="@dimen/ds360"
+                android:layout_height="match_parent"
+                android:background="@drawable/price_bg"
+                android:orientation="horizontal">
+
+                <com.yunqin.bearmall.widget.PriceView
+                    android:id="@+id/price_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </com.yunqin.bearmall.widget.PriceView>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/n_v_tj_goumai"
+                android:layout_width="@dimen/ds176"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_green"
+                android:text="立即购买"
+                android:textColor="#23A064"
+                android:textSize="@dimen/ds28"
+                android:visibility="invisible" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

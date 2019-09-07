@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:layout_gravity="center"
+
+    android:paddingTop="@dimen/ds10"
+    android:paddingBottom="@dimen/ds10"
+
+
+    >
+
+
+    <LinearLayout
+        android:layout_width="550pt"
+        android:layout_height="120pt"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_bank_13"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds30">
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/ds70"
+            android:layout_height="@dimen/ds70"
+            android:src="@drawable/icon_mine_liwu" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/ds30"
+            android:paddingRight="@dimen/ds30"
+            app:layout_constraintLeft_toRightOf="@id/image"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="完成一次抽奖"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/ds24"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/ds8"
+                    android:background="@drawable/progress_background"
+                    android:progressDrawable="@drawable/progress_drawable"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/name"
+                    app:layout_constraintRight_toRightOf="@id/name"
+                    app:layout_constraintTop_toBottomOf="@id/name" />
+
+                <TextView
+                    android:id="@+id/progress_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds10"
+                    android:text="3/3"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/ds18"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/progress_bar"
+                    app:layout_constraintTop_toBottomOf="@id/name"
+
+                    />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/yi_ling_qu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已领取X30"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/ds26"
+            android:visibility="gone" />
+
+
+        <com.yunqin.bearmall.widget.Highlight.HighlightButton
+            android:id="@+id/ling_qu"
+            android:layout_width="110pt"
+            android:layout_height="50pt"
+            android:background="@drawable/in_shop_look"
+            android:text="领取"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/ds22"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/wei_wan_cheng"
+            android:layout_width="110pt"
+            android:layout_height="50pt"
+            android:background="@drawable/in_shop_look1"
+            android:gravity="center"
+            android:text="未完成"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/ds22"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

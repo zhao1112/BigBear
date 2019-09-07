@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/ds20"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/look_all_order"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <TextView
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_weight="1"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="什么是BC糖果？"/>
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="#F7F7F7"/>
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds228">
+        <RelativeLayout
+            android:id="@+id/about_bigbear"
+            android:layout_marginLeft="@dimen/ds30"
+            android:background="@drawable/mine_bg3"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/ds168">
+            <LinearLayout
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_marginTop="@dimen/ds30"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="大熊小课堂"
+                    android:textSize="@dimen/ds28"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="@dimen/ds8"
+                    android:text="看视频  学知识"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/bt_community"
+            android:layout_marginRight="@dimen/ds30"
+            android:layout_marginLeft="@dimen/ds30"
+            android:background="@drawable/mine_bg2"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/ds168">
+            <LinearLayout
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_marginTop="@dimen/ds30"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="BC糖果社群"
+                    android:textSize="@dimen/ds28"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="@dimen/ds8"
+                    android:text="价值生态  熊熊有责"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

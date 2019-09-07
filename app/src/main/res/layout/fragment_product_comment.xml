@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7">
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/ds128">
+                <ListView
+                    android:id="@+id/list_view"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    android:divider="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </ListView>
+
+                <include
+                    android:visibility="gone"
+                    android:id="@+id/empty_view"
+                    layout="@layout/bt_empty_comment_layout"
+                    />
+
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
+
+</RelativeLayout>

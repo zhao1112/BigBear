@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds382"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/dialog_share_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/ds32"
+            android:textColor="@color/product_name_color"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/ds40"
+            />
+
+        <TextView
+            android:id="@+id/dialog_share_bargain_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/ds24"
+            android:textColor="@color/collect_bg"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/ds10"
+            />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds96"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/ds60"
+            android:paddingLeft="@dimen/ds96"
+            android:paddingRight="@dimen/ds96"
+            android:weightSum="2"
+            >
+
+            <ImageView
+                android:id="@+id/dialog_share_wechat_friend"
+                android:layout_width="82pt"
+                android:layout_height="@dimen/ds72"
+                android:layout_marginRight="@dimen/ds80"
+                android:background="@null"
+                android:src="@drawable/icon_weixin"/>
+
+            <ImageView
+                android:id="@+id/dialog_share_qq"
+                android:layout_width="@dimen/ds82"
+                android:layout_marginLeft="@dimen/ds80"
+                android:layout_height="@dimen/ds72"
+                android:src="@drawable/icon_qq_share"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/dialog_share_first_share_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/ds16"
+            android:gravity="center_horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分享群聊进度"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds24"/>
+
+            <TextView
+                android:id="@+id/dialog_share_first_share_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="@dimen/ds24"
+                android:layout_marginLeft="@dimen/ds20"
+                android:textColor="@color/main_color"/>
+
+            <TextView
+                android:id="@+id/dialog_share_total_share_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/2"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds24"/>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="@color/divider">
+
+    </View>
+
+    <TextView
+        android:id="@+id/dialog_share_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:textColor="@color/product_customer_collect"
+        android:textSize="@dimen/ds28"
+        android:text="取消"
+        android:gravity="center"
+        />
+
+</LinearLayout>

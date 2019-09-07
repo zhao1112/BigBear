@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line">
+
+    <!--线宽为dashWith，线之间空隙dashGap，dashGap=0dp时，是实线 -->
+
+    <stroke
+        android:width="@dimen/ds1"
+        android:color="#23A064"
+        android:dashGap="@dimen/ds5"
+        android:dashWidth="@dimen/ds10"/>
+</shape>

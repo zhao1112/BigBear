@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:gravity="center"
+        android:text="价格说明"
+        android:textColor="@color/product_brand_name_color"
+        android:textSize="@dimen/ds28" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="@color/service_specification_line"></View>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/ds30"
+            android:paddingTop="@dimen/ds32"
+            android:paddingRight="@dimen/ds48">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="1、直接购买价：是您单独购买商品的价格；"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="2、金熊价：大熊商城金熊会员可购买商品的价格，优惠于普通注册用户购买商品的价格；"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="3、划线价：可能是商品的吊牌价、品牌供应商指导价/建议零售价、品牌专柜标价或该商品曾经展示过的销售价等，并非《价格法》、《禁止价格欺诈行为的规定》规定的“原价”，仅供您参考；"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="4、特别提示：实际成交价格可能会因您是否为金熊会员或使用糖果抵扣等发生变化，最终以订单结算价格为准。若商家单独对价格进行说明的，以商家的表述为准。"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

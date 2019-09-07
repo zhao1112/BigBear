@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds30">
+
+        <TextView
+            android:id="@+id/new_version_comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="评论 (0)"
+            android:textColor="#666666"
+            android:textSize="@dimen/ds28" />
+
+        <LinearLayout
+            android:id="@+id/switch_ping_lun"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="查看全部"
+                android:textColor="#666666"
+                android:textSize="@dimen/ds24" />
+
+            <ImageView
+                android:layout_width="@dimen/ds12"
+                android:layout_height="@dimen/ds24"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/ds10"
+                android:src="@drawable/icon_arrow_right" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="#E7E7E7" />
+
+    <LinearLayout
+        android:id="@+id/comment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds30">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/comment_empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds400"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/ds216"
+            android:layout_height="@dimen/ds168"
+            android:layout_marginTop="@dimen/ds60"
+            android:src="@drawable/ic_empty_comment" />
+
+        <TextView
+            android:id="@+id/tip_no_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds50"
+            android:text="暂无评论"
+            android:textColor="@color/product_customer_collect"
+            android:textSize="@dimen/ds28" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

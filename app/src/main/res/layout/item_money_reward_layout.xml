@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/money_reward_title_time"
+        android:layout_width="116pt"
+        android:layout_height="44pt"
+        android:layout_gravity="center"
+        android:layout_marginTop="40pt"
+        android:layout_marginBottom="30pt"
+        android:background="#D3D0D4"
+        android:gravity="center"
+        android:text="12月31日"
+        android:textColor="#FFFFFF"
+        android:textSize="24pt" />
+
+
+    <LinearLayout
+        android:layout_width="690pt"
+        android:layout_height="374pt"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="30pt"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:paddingLeft="30pt"
+        android:paddingTop="22pt"
+        android:paddingRight="30pt">
+
+        <TextView
+            android:id="@+id/money_reward_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邀请好友"
+            android:textColor="#333333"
+            android:textSize="28pt" />
+
+        <TextView
+            android:id="@+id/money_reward_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4pt"
+            android:text="大熊用户某某某通过您的邀请成为金熊会员大熊用户某某某通过您的邀请成为金熊会员大熊用户某某某通过您的邀请成为金熊会员"
+            android:textColor="#999999"
+            android:textSize="24pt" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="赏金数量"
+                android:textColor="#999999"
+                android:textSize="24pt" />
+
+            <TextView
+                android:id="@+id/money_reward_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+99.99"
+                android:textColor="#333333"
+                android:textSize="48pt" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="630pt"
+            android:layout_height="2pt"
+            android:layout_gravity="center_horizontal"
+            android:background="#51999999" />
+
+        <TextView
+            android:id="@+id/money_reward_time"
+            android:layout_width="match_parent"
+            android:layout_height="78pt"
+            android:gravity="center_vertical"
+            android:text="获取时间：2019-02-14 08:4"
+            android:textColor="#666666"
+            android:textSize="24pt" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

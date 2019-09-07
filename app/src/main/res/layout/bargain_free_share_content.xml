@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/bottom_layout"
+    android:layout_below="@+id/head_layout">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_bargain_free_share_head_bg"
+                android:paddingLeft="@dimen/ds30"
+                android:paddingTop="@dimen/ds30"
+                android:paddingRight="@dimen/ds30">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds448"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/ds30"
+                    android:paddingTop="@dimen/ds20"
+                    android:paddingRight="@dimen/ds30"
+                    android:paddingBottom="@dimen/ds20">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.yunqin.bearmall.widget.CircleImageView
+                            android:id="@+id/bargain_share_user_head_img"
+                            android:layout_width="@dimen/ds60"
+                            android:layout_height="@dimen/ds60" />
+
+                        <TextView
+                            android:id="@+id/bargain_share_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ds16"
+                            android:layout_weight="1"
+                            android:text="李丽"
+                            android:textColor="@color/product_brand_name_color"
+                            android:textSize="@dimen/ds28" />
+
+                        <TextView
+                            android:id="@+id/bargain_share_price_explain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="活动价格说明"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds24" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ds30"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="我发现一件好货，一起来砍价0元拿"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/ds28" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/ds20"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/bargain_share_product_img"
+                            android:layout_width="@dimen/ds164"
+                            android:layout_height="@dimen/ds164"
+                            android:background="@drawable/default_product_small" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/ds30"
+                            android:layout_marginTop="@dimen/ds4"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/bargain_share_product_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="@dimen/ds8"
+                                android:maxLines="2"
+                                android:textColor="@color/product_brand_name_color"
+                                android:textSize="@dimen/ds24" />
+
+                            <TextView
+                                android:id="@+id/bargain_share_product_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/ds16"
+                                android:text=""
+                                android:textColor="@color/product_sell_count"
+                                android:textSize="@dimen/ds20" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/ds72"
+                                android:layout_marginTop="@dimen/ds16"
+                                android:background="@drawable/main_color_border_corner_4"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical"
+                                android:paddingLeft="@dimen/ds10"
+                                android:paddingRight="@dimen/ds10">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="直接购买"
+                                    android:textColor="@color/main_color"
+                                    android:textSize="@dimen/ds20" />
+
+                                <TextView
+                                    android:id="@+id/bargain_share_original_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/main_color"
+                                    android:textSize="@dimen/ds24" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/bargain_share_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="完善收货地址，砍成后即可发货"
+                                android:textColor="@color/product_customer_collect"
+                                android:textSize="@dimen/ds20" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main_color"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/ds30"
+                android:paddingTop="@dimen/ds40"
+                android:paddingRight="@dimen/ds30"
+                android:paddingBottom="@dimen/ds40">
+
+                <TextView
+                    android:id="@+id/bargain_share_already_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24" />
+
+                <ProgressBar
+                    android:id="@+id/bargain_share_progress"
+                    style="@style/StyleProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds18"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:max="100"
+                    android:progress="20"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/bargain_share_criticalRatio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="砍到50%，可多砍4元"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/bargain_share_invite_friend"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds88"
+                    android:layout_marginLeft="@dimen/ds10"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:layout_marginRight="@dimen/ds10"
+                    android:background="@drawable/orange_bg"
+                    android:text="喊好友砍一刀"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds32" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds24"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:layout_marginRight="@dimen/ds24"
+                    android:layout_marginBottom="@dimen/ds36"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="距离砍价结束"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds24" />
+
+                    <TextView
+                        android:id="@+id/bargain_share_expire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ds20"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当前价格"
+                        android:textColor="@color/bargain_share_current_price"
+                        android:textSize="@dimen/ds24" />
+
+                    <TextView
+                        android:id="@+id/bargain_share_current_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ds20"
+                        android:textColor="@color/bargain_share_current_price"
+                        android:textSize="@dimen/ds24" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#32005134"
+                    android:minHeight="@dimen/ds320"
+                    android:orientation="vertical"
+                    android:padding="@dimen/ds30">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="砍价帮"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds32" />
+
+                    <com.yunqin.bearmall.widget.ScrollListView
+                        android:id="@+id/bargain_share_friend_bargain_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ds30"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"></com.yunqin.bearmall.widget.ScrollListView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds108"
+                android:background="@color/divider"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/ds40"
+                    android:layout_height="@dimen/ds36"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:src="@drawable/icon_kanjia" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:text="砍价随意拿"
+                    android:textColor="@color/product_name_color"
+                    android:textSize="@dimen/ds32" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:text="随砍随拿，价格自定"
+                    android:textColor="@color/product_sweets_explain"
+                    android:textSize="@dimen/ds24" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/product_service_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds80"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ds30"
+                android:paddingRight="@dimen/ds32">
+
+                <ImageView
+                    android:layout_width="@dimen/ds30"
+                    android:layout_height="@dimen/ds30"
+                    android:src="@drawable/icon_pei" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds16"
+                    android:text="全场包邮"
+                    android:textColor="@color/product_sweets_explain"
+                    android:textSize="@dimen/ds24" />
+
+                <ImageView
+                    android:layout_width="@dimen/ds30"
+                    android:layout_height="@dimen/ds30"
+                    android:layout_marginLeft="@dimen/ds80"
+                    android:src="@drawable/icon_7" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds16"
+                    android:text="7天退换"
+                    android:textColor="@color/product_sweets_explain"
+                    android:textSize="@dimen/ds24" />
+
+          
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/ds12"
+                    android:layout_height="@dimen/ds24"
+                    android:layout_marginLeft="@dimen/ds80"
+                    android:src="@drawable/icon_arrow_right" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds22"
+                android:background="@color/divider"></View>
+
+            <!--推荐-->
+            <com.yunqin.bearmall.widget.CustomRecommendView
+                android:id="@+id/custom_recommend_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"></com.yunqin.bearmall.widget.CustomRecommendView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

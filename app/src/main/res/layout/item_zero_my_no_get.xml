@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="336pt"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/ds20"
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds20"
+            android:layout_width="200pt"
+            android:layout_height="200pt">
+            <ImageView
+                android:id="@+id/goods_img"
+                android:background="#234"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <RelativeLayout
+                android:background="#cc999999"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_top_img_center_info"
+                    android:textSize="@dimen/ds32"
+                    android:textColor="#FFFFFF"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/pintuan_guimo"
+            android:paddingRight="@dimen/ds8"
+            android:paddingLeft="@dimen/ds8"
+            android:paddingBottom="@dimen/ds4"
+            android:paddingTop="@dimen/ds4"
+            android:background="@drawable/zero_10_bg"
+            android:layout_marginTop="@dimen/ds40"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/ds20"
+            android:textColor="#D0021B"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/ds20"
+        android:layout_marginLeft="@dimen/ds20"
+        android:layout_marginRight="@dimen/ds30"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/goods_name"
+            android:text="[大熊商城]参加0元拼团，就有机会中奖0元拿走 "
+            android:textSize="@dimen/ds28"
+            android:textColor="#333333"
+            android:lineSpacingExtra="@dimen/ds8"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ds80" />
+
+
+        <TextView
+            android:layout_marginTop="@dimen/ds20"
+            android:textSize="@dimen/ds28"
+            android:textColor="#999999"
+            android:id="@+id/tv_kj_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tip_no_get"
+            android:layout_marginTop="@dimen/ds10"
+            android:textSize="@dimen/ds20"
+            android:textColor="#999999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_marginTop="@dimen/ds22"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds1"
+            android:background="#E7E7E7"/>
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                android:id="@+id/my_wallet"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:layout_width="200pt"
+                android:text="我的糖果钱包"
+                android:textSize="@dimen/ds26"
+                android:textColor="@color/main_color"
+                android:layout_marginLeft="@dimen/ds68"
+                android:layout_height="@dimen/ds52"
+                android:background="@drawable/bg_green"/>
+
+            <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                android:id="@+id/join_again"
+                android:layout_width="160pt"
+                android:text="重新参与"
+                android:textSize="@dimen/ds26"
+                android:textColor="#FFFFFF"
+                android:layout_marginLeft="@dimen/ds20"
+                android:layout_height="@dimen/ds52"
+                android:background="@drawable/bt_give_btn_focused"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

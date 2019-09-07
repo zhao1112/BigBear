@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/ds30">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_close" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/ds210"
+        android:layout_height="@dimen/ds272"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/ds212"
+        android:src="@drawable/logo" />
+
+    <com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout
+        android:id="@+id/wx_login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:layout_marginLeft="@dimen/ds64"
+        android:layout_marginTop="@dimen/ds160"
+        android:layout_marginRight="@dimen/ds64"
+        android:background="@drawable/login_wx_bg"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/ds40"
+            android:layout_height="@dimen/ds40"
+            android:src="@drawable/wechat" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds20"
+            android:text="微信登录"
+            android:textColor="@color/md_white"
+            android:textSize="@dimen/ds32" />
+    </com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout>
+
+    <Button
+
+        android:id="@+id/other_login_way"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:layout_marginLeft="@dimen/ds64"
+        android:layout_marginTop="@dimen/ds40"
+        android:layout_marginRight="@dimen/ds64"
+        android:background="@drawable/btn_other_way_login_bg"
+        android:text="使用其他方式登录"
+        android:textColor="#35AC79"
+        android:textSize="@dimen/ds32"
+        android:visibility="visible" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0pt"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="查看"
+            android:textColor="#999999"
+            android:textSize="@dimen/ds28" />
+
+        <TextView
+            android:id="@+id/user_protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/ds20"
+            android:paddingBottom="@dimen/ds60"
+            android:text="@string/app_login_tip3"
+            android:textColor="#35AC79"
+            android:textSize="@dimen/ds28" />
+    </LinearLayout>
+</LinearLayout>

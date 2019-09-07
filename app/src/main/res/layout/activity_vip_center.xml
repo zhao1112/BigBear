@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/top_bar_right_image" />
+
+    <com.newversions.view.VerticalViewPager
+        android:id="@+id/vertical_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_layout">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#D5233A"
+            android:clickable="true"
+
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iamge"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#D5233A"
+                android:focusable="true"
+                android:src="@drawable/bg_vip_center"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/activity_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="30pt"
+                android:paddingRight="30pt"
+                android:text="活动说明"
+                android:textColor="#CD1D17"
+                android:textSize="28pt"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="120pt"
+                android:layout_height="2pt"
+                android:background="#CD1D17"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="@id/activity_desc"
+                app:layout_constraintRight_toRightOf="@id/activity_desc"
+                app:layout_constraintTop_toBottomOf="@id/activity_desc" />
+
+
+            <ImageView
+                android:id="@+id/bottom_image"
+                android:layout_width="222pt"
+                android:layout_height="50pt"
+                android:layout_marginBottom="20pt"
+                android:padding="10pt"
+                android:src="@drawable/icon_more_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <Button
+                android:id="@+id/open_vip"
+                android:layout_width="0dp"
+                android:layout_height="98pt"
+                android:layout_marginLeft="48pt"
+                android:layout_marginRight="48pt"
+                android:background="@drawable/icon_kt_bg"
+                android:focusable="false"
+                android:text="邀请好友  立赚赏金"
+                android:textColor="#A11B10"
+                android:textSize="26pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iamge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20pt"
+                android:text="百万现金赚不停"
+                android:textColor="#F5BB6A"
+                android:textSize="24pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/open_vip" />
+
+            <TextView
+                android:id="@+id/text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70pt"
+                android:text="赚钱攻略"
+                android:textColor="@color/white"
+                android:textSize="32pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/open_vip"
+
+                />
+
+            <View
+                android:layout_width="368pt"
+                android:layout_height="4pt"
+                android:background="@drawable/icon_zq_bg"
+                app:layout_constraintBottom_toBottomOf="@id/text_1"
+                app:layout_constraintLeft_toLeftOf="@id/text_1"
+                app:layout_constraintRight_toRightOf="@id/text_1"
+                app:layout_constraintTop_toTopOf="@id/text_1" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:focusable="true"
+                android:maxHeight="134pt"
+                app:layout_constraintBottom_toTopOf="@id/bottom_image"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_1">
+
+                <LinearLayout
+                    android:id="@+id/text_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minWidth="210pt"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/text_13"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_12"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread">
+
+                    <View
+                        android:layout_width="8pt"
+                        android:layout_height="8pt"
+                        android:layout_marginRight="20pt"
+                        android:background="@drawable/shape_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="推荐好友赚钱"
+                        android:textColor="@color/white"
+                        android:textSize="28pt" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/text_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minWidth="210pt"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/text_14"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintLeft_toRightOf="@id/text_11"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread">
+
+                    <View
+                        android:layout_width="8pt"
+                        android:layout_height="8pt"
+                        android:layout_marginRight="20pt"
+                        android:background="@drawable/shape_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="做任务赚钱"
+                        android:textColor="@color/white"
+                        android:textSize="28pt" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/text_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minWidth="210pt"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_14"
+                    app:layout_constraintTop_toBottomOf="@id/text_11"
+                    app:layout_constraintVertical_chainStyle="spread">
+
+                    <View
+                        android:layout_width="8pt"
+                        android:layout_height="8pt"
+                        android:layout_marginRight="20pt"
+                        android:background="@drawable/shape_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="买东西赚钱"
+                        android:textColor="@color/white"
+                        android:textSize="28pt" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/text_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minWidth="210pt"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/text_13"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_12">
+
+                    <View
+                        android:layout_width="8pt"
+                        android:layout_height="8pt"
+                        android:layout_marginRight="20pt"
+                        android:background="@drawable/shape_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="玩游戏赚钱"
+                        android:textColor="@color/white"
+                        android:textSize="28pt" />
+
+                </LinearLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/hui_yuan_quan_yi"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </com.newversions.view.VerticalViewPager>
+
+
+</android.support.constraint.ConstraintLayout>

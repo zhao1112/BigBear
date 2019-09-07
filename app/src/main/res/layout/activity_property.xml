@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/layout_topbar" />
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30pt"
+        android:layout_marginTop="40pt"
+        android:text="全部资产"
+        android:textColor="#333333"
+        android:textSize="32pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+    <com.yunqin.bearmall.widget.ShadowLayout
+        android:id="@+id/rest_money_layout"
+        android:layout_width="match_parent"
+        android:layout_height="144pt"
+        android:layout_marginLeft="30pt"
+        android:layout_marginTop="24pt"
+        android:layout_marginRight="30pt"
+        android:background="@drawable/selector_bg"
+        app:layout_constraintTop_toBottomOf="@id/text_view"
+        app:shadowColor="#66000000"
+        app:shadowDx="0dp"
+        app:shadowDy="3dp"
+        app:shadowSide="all">
+
+        <ImageView
+            android:id="@+id/money_left_image"
+            android:layout_width="64pt"
+            android:layout_height="64pt"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30pt"
+            android:src="@drawable/icon_rest_money" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30pt"
+            android:layout_toRightOf="@id/money_left_image"
+            android:text="余额"
+            android:textColor="#333333"
+            android:textSize="32pt" />
+
+        <ImageView
+            android:id="@+id/money_rightArrow"
+            android:layout_width="12pt"
+            android:layout_height="24pt"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="32pt"
+            android:src="@drawable/icon_arrow_right" />
+
+
+        <TextView
+            android:id="@+id/money_rest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30pt"
+            android:layout_toLeftOf="@id/money_rightArrow"
+            android:text="0.00"
+            android:textSize="32pt" />
+
+    </com.yunqin.bearmall.widget.ShadowLayout>
+
+    <com.yunqin.bearmall.widget.ShadowLayout
+        android:id="@+id/coupon_layout"
+        android:layout_width="match_parent"
+        android:layout_height="144pt"
+        android:layout_marginLeft="30pt"
+        android:layout_marginTop="24pt"
+        android:layout_marginRight="30pt"
+        android:background="@drawable/selector_bg"
+        app:layout_constraintTop_toBottomOf="@id/rest_money_layout"
+        app:shadowColor="#66000000"
+        app:shadowDx="0dp"
+        app:shadowDy="3dp"
+        app:shadowSide="all">
+
+        <ImageView
+            android:id="@+id/coupon_left_image"
+            android:layout_width="64pt"
+            android:layout_height="64pt"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30pt"
+            android:src="@drawable/icon_coupon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30pt"
+            android:layout_toRightOf="@id/coupon_left_image"
+            android:text="优惠券"
+            android:textColor="#333333"
+            android:textSize="32pt" />
+
+        <ImageView
+            android:id="@+id/coupon_rightArrow"
+            android:layout_width="12pt"
+            android:layout_height="24pt"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="32pt"
+            android:src="@drawable/icon_arrow_right" />
+
+
+        <TextView
+            android:id="@+id/coupon_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30pt"
+            android:layout_toLeftOf="@id/coupon_rightArrow"
+            android:text="0张"
+            android:textSize="32pt" />
+
+    </com.yunqin.bearmall.widget.ShadowLayout>
+
+    <com.yunqin.bearmall.widget.ShadowLayout
+        android:id="@+id/property_layout"
+        android:layout_width="match_parent"
+        android:layout_height="144pt"
+        android:layout_marginLeft="30pt"
+        android:layout_marginTop="24pt"
+        android:layout_marginRight="30pt"
+        android:background="@drawable/selector_bg"
+        app:layout_constraintTop_toBottomOf="@id/coupon_layout"
+        app:shadowColor="#66000000"
+        app:shadowDx="0dp"
+        app:shadowDy="3dp"
+        app:shadowSide="all">
+
+        <ImageView
+            android:id="@+id/left_image"
+            android:layout_width="64pt"
+            android:layout_height="64pt"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30pt"
+            android:src="@drawable/bt_bear" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30pt"
+            android:layout_toRightOf="@id/left_image"
+            android:text="BC糖果"
+            android:textColor="#333333"
+            android:textSize="32pt" />
+
+        <ImageView
+            android:id="@+id/rightArrow"
+            android:layout_width="12pt"
+            android:layout_height="24pt"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="32pt"
+            android:src="@drawable/icon_arrow_right" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30pt"
+            android:layout_toLeftOf="@id/rightArrow"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total_sweet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#23A064"
+                android:textSize="32pt"
+
+                />
+
+            <TextView
+                android:id="@+id/today_sweet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 今日获取：0"
+                android:textColor="#999999"
+                android:textSize="20pt" />
+
+
+        </LinearLayout>
+
+    </com.yunqin.bearmall.widget.ShadowLayout>
+
+
+    <ImageView
+        android:id="@+id/img_kai_"
+        android:layout_width="@dimen/ds250"
+        android:layout_height="@dimen/ds250"
+        android:layout_marginTop="@dimen/ds100"
+        android:src="@drawable/kai_"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/property_layout" />
+
+
+    <LinearLayout
+        android:id="@+id/not_net_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/ds88"
+        android:visibility="gone">
+
+        <include layout="@layout/network_error_layout" />
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

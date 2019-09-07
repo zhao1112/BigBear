@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <LinearLayout
+        android:gravity="center"
+        android:background="#66b9b9b9"
+        android:orientation="vertical"
+        android:layout_width="240pt"
+        android:layout_height="@dimen/ds256">
+        
+        <ImageView
+            android:src="@drawable/get_toast_img"
+            android:layout_width="100pt"
+            android:layout_height="@dimen/ds100" />
+
+        <TextView
+            android:id="@+id/get_how"
+            android:layout_marginTop="@dimen/ds16"
+            android:textSize="@dimen/ds32"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

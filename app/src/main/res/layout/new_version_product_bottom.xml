@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds96"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:layout_alignParentTop="true"
+        android:background="#E7E7E7"></View>
+
+    <LinearLayout
+        android:layout_width="@dimen/ds750"
+        android:layout_height="@dimen/ds95"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/product_detail_customer"
+            android:layout_width="@dimen/ds100"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/ds30"
+            android:paddingRight="@dimen/ds22">
+
+            <ImageView
+                android:layout_width="@dimen/ds50"
+                android:layout_height="@dimen/ds50"
+                android:layout_marginTop="@dimen/ds12"
+                android:src="@drawable/icon_like_normal1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/ds2"
+                android:layout_marginBottom="@dimen/ds4"
+                android:gravity="center"
+                android:text="客服"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds20" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/product_layout_collect"
+            android:layout_width="@dimen/ds100"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/product_collect"
+                android:layout_width="@dimen/ds50"
+                android:layout_height="@dimen/ds50"
+                android:layout_marginTop="@dimen/ds12"
+                android:src="@drawable/icon_like_normal" />
+
+            <TextView
+                android:id="@+id/product_detail_collect_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/ds2"
+                android:layout_marginBottom="@dimen/ds4"
+                android:gravity="center"
+                android:text="收藏"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds20" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/product_detail_add_cart"
+            android:layout_width="@dimen/ds170"
+            android:layout_height="match_parent"
+            android:background="#F5A623"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds28" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/product_price_bg"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/product_detail_direct_buy"
+                android:layout_width="@dimen/ds170"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/product_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/product_detail_bt_buy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds15"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/product_detail_bt_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

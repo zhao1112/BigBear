@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="340pt">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_all_type_bg" />
+
+    <TextView
+        android:id="@+id/text_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32pt"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="44pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/text_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="70pt"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="24pt"
+        app:layout_constraintBottom_toBottomOf="@id/text_total"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_total" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="总额"
+        android:textColor="@color/white"
+        android:textSize="28pt"
+        app:layout_constraintBottom_toTopOf="@id/text_total"
+        app:layout_constraintLeft_toLeftOf="@id/text_total" />
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/red_package_layout"
+        android:layout_width="@dimen/ds150"
+        android:layout_height="@dimen/ds150"
+        android:layout_marginTop="@dimen/ds80"
+        android:layout_marginRight="@dimen/ds30"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/red_package_close"
+            android:layout_width="@dimen/ds30"
+            android:layout_height="@dimen/ds30"
+            android:src="@drawable/ad_close"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/red_package_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/red_"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/red_package_close" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

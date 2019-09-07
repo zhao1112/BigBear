@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/head_layout"
+        layout="@layout/bargain_free_head"></include>
+
+
+    <include
+        android:id="@+id/content_layout"
+        layout="@layout/bargain_free_content"></include>
+
+
+    <LinearLayout
+        android:id="@+id/bargain_empty_layout_add_p"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds340"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/ds216"
+            android:layout_height="@dimen/ds168"
+            android:src="@drawable/ic_empty_comment" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds50"
+            android:text="暂无砍价商品"
+            android:textColor="@color/product_customer_collect"
+            android:textSize="@dimen/ds28" />
+
+    </LinearLayout>
+
+
+    <include
+        android:id="@+id/bottom_layout"
+        layout="@layout/bargain_free_bottom"></include>
+
+</LinearLayout>

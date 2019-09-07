@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.AddressActivity">
+
+    <include layout="@layout/actionbar_layout" />
+
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ListView
+            android:id="@+id/address_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        </ListView>
+
+
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/empty_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+
+        <Button
+            android:id="@+id/add_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds104"
+            android:layout_gravity="bottom"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="新增收货地址"
+            android:textColor="@color/md_white"
+            android:textSize="@dimen/ds32" />
+    </LinearLayout>
+
+
+</LinearLayout>

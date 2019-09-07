@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:text="服务说明"
+        android:textSize="@dimen/ds28"
+        android:textColor="@color/product_brand_name_color"
+        android:gravity="center"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="@color/service_specification_line"
+        ></View>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/ds40"
+                android:paddingLeft="@dimen/ds32"
+                android:paddingRight="@dimen/ds32"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/ds36"
+                    android:layout_height="@dimen/ds36"
+                    android:src="@drawable/icon_baoyou"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/ds20"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全场包邮"
+                        android:textColor="@color/product_brand_name_color"
+                        android:textSize="@dimen/ds28"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="所有商品均无条件包邮"
+                        android:textColor="@color/product_customer_collect"
+                        android:layout_marginTop="@dimen/ds14"
+                        android:textSize="@dimen/ds24"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/ds40"
+                android:paddingLeft="@dimen/ds32"
+                android:paddingRight="@dimen/ds32"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/ds36"
+                    android:layout_height="@dimen/ds36"
+                    android:src="@drawable/icon_7"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/ds20"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7天退换"
+                        android:textColor="@color/product_brand_name_color"
+                        android:textSize="@dimen/ds28"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商家承诺7天无理由退换货"
+                        android:textColor="@color/product_customer_collect"
+                        android:layout_marginTop="@dimen/ds14"
+                        android:textSize="@dimen/ds24"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/ds40"
+                android:paddingLeft="@dimen/ds32"
+                android:paddingRight="@dimen/ds32"
+                android:visibility="gone"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/ds36"
+                    android:layout_height="@dimen/ds36"
+                    android:src="@drawable/icon_48_hour_deliver_goods"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/ds20"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="48小时发货"
+                        android:textColor="@color/product_brand_name_color"
+                        android:textSize="@dimen/ds28"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="若超时未发货，消费者将会收到3元无门槛代金券"
+                        android:textColor="@color/product_customer_collect"
+                        android:layout_marginTop="@dimen/ds14"
+                        android:textSize="@dimen/ds24"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

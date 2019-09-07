@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/ds168"
+    android:layout_height="@dimen/ds168"
+    android:layout_marginLeft="@dimen/ds16"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="@dimen/ds168"
+        android:layout_height="@dimen/ds168"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher" />
+
+    <com.yunqin.bearmall.widget.CircleImageView
+        android:id="@+id/img_del"
+        android:layout_width="@dimen/ds32"
+        android:layout_height="@dimen/ds32"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/ds3"
+        android:layout_marginTop="@dimen/ds3"
+        android:src="@drawable/icon_input_delete" />
+
+
+</RelativeLayout>
+
+

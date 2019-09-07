@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:gravity="center"
+        android:text="规则说明"
+        android:textColor="@color/product_brand_name_color"
+        android:textSize="@dimen/ds28" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="@color/service_specification_line" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/ds30"
+            android:paddingRight="@dimen/ds48">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="1、注册完成的用户即可参与砍价随意拿，通过邀约好友砍价至金熊价。"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="2、选择您心仪的商品，邀请好友一起砍价，可以通过微信和QQ分享。"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="3、每次砍价金额随机，协助砍价的好友数量越多，价格越优惠。"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="4、砍价商品的数量有限，请在砍价发起后24小时内购买，如未在24小时内购买则视为放弃。"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="5、本活动最终解释权归大熊商城所有。"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds20" />
+
+
+            <!-- 以下是无用代码 -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds80"
+                android:gravity="center_vertical"
+                android:text="参与规则"
+                android:textColor="@color/product_brand_name_color"
+                android:textSize="@dimen/ds28"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:text="1、活动用户需要依据网页提示进行操作，如出现商品无法发放、活动无法继续等异常现象，可惜讯商家或大熊客服;"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds20"
+                android:lineSpacingExtra="@dimen/ds10"
+                android:paddingBottom="@dimen/ds32"
+                android:text="2、砍价商品库存有限，如因库存不足导致的砍价失败或发货失败，糖果全额退回。"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

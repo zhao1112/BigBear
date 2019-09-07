@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+
+      beforeDescendants：viewgroup会优先其子类控件而获取到焦点
+      afterDescendants：viewgroup只有当其子类控件不需要获取焦点时才获取焦点
+      blocksDescendants：viewgroup会覆盖子类控件而直接获得焦点
+      解决RecyclerView 抢占焦点问题
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/top_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds500"
+            android:background="#F7F7F7">
+
+            <ImageView
+                android:id="@+id/custom_img_bg"
+                android:layout_width="@dimen/ds216"
+                android:layout_height="@dimen/ds190"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/custom_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/custom_img_bg"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/ds50"
+                android:textColor="#999999"
+                android:textSize="@dimen/ds28" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds60"
+            android:background="#F7F7F7"
+            android:gravity="center"
+            android:text="- 推荐商品 -"
+            android:textColor="#333333"
+            android:paddingRight="@dimen/ds30"
+            android:paddingLeft="@dimen/ds30"
+            android:textSize="@dimen/ds28" />
+
+        <View
+            android:id="@+id/divier"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds1"
+            android:visibility="gone"
+            android:background="@color/item_specification_item_minus_border"
+            ></View>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/custom_view_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:nestedScrollingEnabled="false">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

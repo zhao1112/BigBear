@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar_layout"/>
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/ds1"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="@dimen/ds40"
+            android:textSize="@dimen/ds32"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查找赠送人"/>
+        <LinearLayout
+            android:layout_marginTop="@dimen/ds10"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="我的糖果钱包:"
+                android:textColor="#999999"
+                android:textSize="@dimen/ds24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/bt_money"
+                android:text=""
+                android:layout_marginLeft="@dimen/ds10"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/ds24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        
+       <EditText
+           android:id="@+id/bt_number_editext"
+           android:layout_marginTop="@dimen/ds40"
+           android:gravity="center_vertical"
+           android:textSize="@dimen/ds28"
+           android:textColor="#000000"
+           android:textColorHint="#B3B3B3"
+           android:paddingLeft="@dimen/ds10"
+           android:maxLines="1"
+           android:digits="1234567890"
+           android:background="@drawable/bt_give_seclect"
+           android:layout_marginRight="@dimen/ds64"
+           android:layout_marginLeft="@dimen/ds64"
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/ds72"
+           android:hint="糖果数量"/>
+
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_marginTop="@dimen/ds30"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/ds28"
+            android:textColor="#000000"
+            android:textColorHint="#B3B3B3"
+            android:paddingLeft="@dimen/ds10"
+            android:maxLines="1"
+            android:background="@drawable/bt_give_seclect"
+            android:layout_marginRight="@dimen/ds64"
+            android:layout_marginLeft="@dimen/ds64"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds72"
+            android:hint="大熊ID/手机号"/>
+
+        <TextView
+            android:id="@+id/rule"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/ds12"
+            android:layout_marginLeft="@dimen/ds64"
+            android:layout_marginRight="@dimen/ds64"
+            android:textSize="@dimen/ds20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/member"
+            android:visibility="invisible"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/ds20"
+            android:layout_marginLeft="@dimen/ds96"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds100">
+            
+            <com.yunqin.bearmall.widget.CircleImageView
+                android:id="@+id/member_head"
+                android:layout_width="@dimen/ds100"
+                android:layout_height="@dimen/ds100"
+                android:src="@drawable/mine_user_icon_defult"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/ds24"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/menber_name"
+                    android:textSize="@dimen/ds28"
+                    android:textColor="#666666"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/menber_number"
+                    android:layout_marginTop="@dimen/ds6"
+                    android:textSize="@dimen/ds28"
+                    android:textColor="#666666"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/ds64"
+            android:layout_marginRight="@dimen/ds64"
+            android:layout_marginTop="@dimen/ds20"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/search_btn"
+                android:text="查找"
+                android:textColor="#B3B3B3"
+                android:textSize="@dimen/ds28"
+                android:background="@drawable/bt_give_btn_unfocused"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds72" />
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/sure_btn"
+                android:layout_marginLeft="@dimen/ds20"
+                android:text="赠送"
+                android:textColor="#B3B3B3"
+                android:textSize="@dimen/ds28"
+                android:background="@drawable/bt_give_btn_unfocused"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds72" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/do_task"
+            android:layout_marginBottom="@dimen/ds5"
+            android:layout_marginTop="@dimen/ds5"
+            android:padding="@dimen/ds25"
+            android:textColor="#23A064"
+            android:textSize="@dimen/ds24"
+            android:text="做任务，领糖果"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

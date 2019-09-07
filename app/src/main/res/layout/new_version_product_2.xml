@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds196"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds30">
+
+        <TextView
+            android:id="@+id/n_v_ttt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds20"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#484848"
+            android:textSize="@dimen/ds32" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds72"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/jaige_layout"
+                    android:layout_width="@dimen/ds360"
+                    android:layout_height="@dimen/ds72"
+                    android:background="@drawable/price_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/ds130"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/ds10">
+
+                        <TextView
+                            android:id="@+id/n_v_dangqianjia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#23A064"
+                            android:textSize="@dimen/ds24" />
+
+                        <TextView
+                            android:id="@+id/n_v_yuanjia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="#B3B3B3"
+                            android:textSize="@dimen/ds20"
+                            android:visibility="gone" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/ds25"
+                        android:layout_weight="1"
+                        android:paddingLeft="10pt"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/n_v_bear_dangqianjia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/ds24" />
+
+                        <TextView
+                            android:id="@+id/n_v_bear_yuanjia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/ds20"
+                            android:visibility="gone" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/dandu_jiage_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_green"
+                    android:paddingLeft="@dimen/ds28"
+                    android:paddingTop="@dimen/ds20"
+                    android:paddingRight="@dimen/ds28"
+                    android:paddingBottom="@dimen/ds20"
+                    >
+
+                    <TextView
+                        android:id="@+id/no_no_dangqianjia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$999900.00"
+                        android:textColor="#23A064"
+                        android:textSize="@dimen/ds24" />
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/n_v_xiaoshou_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds24" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

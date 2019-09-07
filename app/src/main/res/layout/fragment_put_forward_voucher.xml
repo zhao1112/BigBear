@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/ds216"
+            android:layout_height="@dimen/ds186"
+            android:layout_marginTop="@dimen/ds168"
+            android:src="@drawable/voucher_empty" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds32"
+            android:text="暂无提现券记录"
+            android:textColor="#666666"
+            android:textSize="@dimen/ds28" />
+    </LinearLayout>
+
+
+    <include
+        android:id="@+id/not_net"
+        layout="@layout/network_error_layout"
+        android:visibility="gone" />
+
+
+</LinearLayout>

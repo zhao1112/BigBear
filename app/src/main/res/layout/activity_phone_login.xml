@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/acount_login_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/acount_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="网站密码登录"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:id="@+id/acount_login_line"
+                android:layout_width="@dimen/ds52"
+                android:layout_height="@dimen/ds4"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/main_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/emsg_login_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/emsg_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="短信随机码登录"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:id="@+id/emsg_login_line"
+                android:layout_width="@dimen/ds52"
+                android:layout_height="@dimen/ds4"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/main_color"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include layout="@layout/item_login_regiest" />
+</LinearLayout>

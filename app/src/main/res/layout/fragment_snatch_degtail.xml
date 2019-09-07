@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/fillStatusBarView"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/white" />
+
+    <com.yunqin.bearmall.widget.DeficitScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+
+            <!--商品图片-->
+            <include android:id="@+id/snatch_head"
+                layout="@layout/snatch_detail_top_image"> </include>
+
+            <!--拼团信息-->
+            <include layout="@layout/item_snatch_goods_info"> </include>
+
+            <include layout="@layout/divider_20"> </include>
+
+
+            <include layout="@layout/product_scrollview_sweets_explain"> </include>
+
+
+            <include layout="@layout/divider_20"> </include>
+            <!--推荐-->
+            <com.yunqin.bearmall.widget.CustomRecommendView
+                android:id="@+id/custom_recommend_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                ></com.yunqin.bearmall.widget.CustomRecommendView>
+
+        </LinearLayout>
+
+    </com.yunqin.bearmall.widget.DeficitScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

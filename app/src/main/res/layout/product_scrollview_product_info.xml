@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="@color/divider"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/ds20"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds30"
+        android:paddingBottom="@dimen/ds30"
+        >
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/product_name_color"
+            android:textSize="@dimen/ds32"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/ds30"
+            android:layout_height="@dimen/ds72">
+
+            <!--android:layout_width="@dimen/ds336"-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/price_bg"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/ds20"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/ds20"
+                        android:text="直接购买"/>
+
+                    <TextView
+                        android:id="@+id/product_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/ds24"
+                        android:text="¥0.00"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/ds158"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/ds20"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds20"
+                        android:text="大熊零售价"/>
+
+                    <TextView
+                        android:id="@+id/product_bt_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds24"
+
+                        android:text="¥0.00+BT0"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/product_sales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:textSize="@dimen/ds24"
+                android:textColor="@color/product_sell_count"
+                android:text="已销0笔"/>
+
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

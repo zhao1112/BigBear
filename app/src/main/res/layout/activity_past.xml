@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/layout_topbar"/>
+
+
+    <com.yunqin.bearmall.widget.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/top_image"
+                android:layout_width="match_parent"
+                android:layout_height="386pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/icon_snatch_top_bg"
+                android:scaleType="centerCrop"
+                />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/center_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="80pt"
+                app:layout_constraintTop_toBottomOf="@id/top_image"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="30pt"
+                android:background="#F5A623"
+                android:paddingLeft="50pt"
+                android:paddingRight="50pt"
+                >
+
+                <TextView
+                    android:id="@+id/past_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="48pt"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
+
+                <ImageView
+                    android:layout_width="120pt"
+                    android:layout_height="40pt"
+                    android:src="@drawable/icon_win_info"
+                    app:layout_constraintTop_toTopOf="@id/past_title"
+                    app:layout_constraintBottom_toBottomOf="@id/past_title"
+                    app:layout_constraintLeft_toRightOf="@id/past_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginLeft="10pt"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/center_text"
+                android:layout_width="0pt"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/center_layout"
+                app:layout_constraintRight_toRightOf="@id/center_layout"
+                app:layout_constraintTop_toBottomOf="@id/center_layout"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="24pt"
+                android:layout_marginTop="25pt"
+                />
+
+
+            <TextView
+                android:id="@+id/bottom_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="恭喜以上用户，所有商品将由商家自动发货"
+                android:textSize="24pt"
+                android:textColor="#E3DAF6"
+                android:paddingTop="20pt"
+                android:paddingBottom="40pt"
+                />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout"
+                android:layout_width="0pt"
+                android:layout_height="0pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/center_text"
+                app:layout_constraintBottom_toTopOf="@id/bottom_text"
+                android:layout_marginTop="30pt"
+                android:layout_marginLeft="30pt"
+                android:layout_marginRight="30pt"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/bottom_top_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="88pt"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="28pt"
+                        android:textColor="@color/white"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="50pt"
+                        android:text="中奖人"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="28pt"
+                        android:textColor="@color/white"
+                        android:text="开奖时间"
+                        android:layout_centerInParent="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="50pt"
+                        android:textSize="28pt"
+                        android:textColor="@color/white"
+                        android:layout_centerVertical="true"
+                        />
+
+                </RelativeLayout>
+
+                <com.yunqin.bearmall.widget.CustomRecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0pt"
+                    app:layout_constraintTop_toBottomOf="@id/bottom_top_layout"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/layout"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </com.yunqin.bearmall.widget.BounceScrollView>
+
+    
+
+
+
+</android.support.constraint.ConstraintLayout>

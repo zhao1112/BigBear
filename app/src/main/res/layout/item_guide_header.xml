@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F7F7F7"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/guide_header_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="13pt"
+            android:textSize="26pt"
+            android:textColor="#999999"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/guide_header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="32pt"
+        android:text="title"
+        app:layout_constraintTop_toBottomOf="@id/time_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30pt"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="30pt"
+        />
+
+    <ImageView
+        android:id="@+id/guide_header_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="2.12960:1"
+        app:layout_constraintTop_toBottomOf="@id/guide_header_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30pt"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="30pt"
+        android:scaleType="centerCrop"
+        />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1pt"
+        android:layout_marginTop="30pt"
+        android:background="#E5E5E5"
+        app:layout_constraintTop_toBottomOf="@id/guide_header_image"
+        android:layout_marginLeft="30pt"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

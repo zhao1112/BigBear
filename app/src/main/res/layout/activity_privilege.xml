@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <include
+        android:layout_marginBottom="@dimen/ds1"
+        layout="@layout/actionbar_layout"
+        tools:ignore="IncludeLayoutParam" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:scrollbars="none"
+
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/ds60"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="@dimen/ds32"
+                        android:text="尊敬的金熊会员："
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_marginTop="-2dp"
+                        android:src="@drawable/privilege_1"
+                        android:layout_width="@dimen/ds54"
+                        android:layout_height="@dimen/ds36" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_marginLeft="@dimen/ds8"
+                        android:textSize="@dimen/ds28"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_marginTop="@dimen/ds40"
+                    android:layout_gravity="center"
+                    android:src="@drawable/privilege_2"
+                    android:layout_width="@dimen/ds690"
+                    android:layout_height="@dimen/ds176" />
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/ds40"
+                    android:layout_marginRight="@dimen/ds30"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ds106">
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/t1"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/ds28"
+                                android:text="1、糖果0元兑本月还可参与 0 次"
+                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/t6"
+                                android:layout_marginLeft="@dimen/ds44"
+                                android:textSize="@dimen/ds24"
+                                android:textColor="#999"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                            android:id="@+id/type_2"
+                            android:layout_marginRight="@dimen/ds10"
+                            android:layout_width="@dimen/ds140"
+                            android:layout_height="@dimen/ds56"
+                            android:text="立即参与"
+                            android:textSize="@dimen/ds24"
+                            android:textColor="#fff"
+                            android:background="@drawable/privilege_shape_1"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="#E7E7E7"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ds0.33"/>
+
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ds106">
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/t2"
+                                android:textStyle="bold"
+                                android:text="2、抵扣券剩余 0 张"
+                                android:textSize="@dimen/ds28"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/t3"
+                                android:layout_marginLeft="@dimen/ds44"
+                                android:textSize="@dimen/ds24"
+                                android:textColor="#999"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                            android:id="@+id/type_1"
+                            android:layout_marginRight="@dimen/ds10"
+                            android:layout_width="@dimen/ds140"
+                            android:layout_height="@dimen/ds56"
+                            android:text="立即使用"
+                            android:textSize="@dimen/ds24"
+                            android:textColor="#fff"
+                            android:background="@drawable/privilege_shape_1"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="#E7E7E7"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ds0.33"/>
+
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ds106">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/t4"
+                                android:textStyle="bold"
+                                android:text="3、优惠券剩余 0 张"
+                                android:textSize="@dimen/ds28"
+                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/t5"
+                                android:layout_marginLeft="@dimen/ds44"
+                                android:textSize="@dimen/ds24"
+                                android:textColor="#999"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+
+
+                        <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                            android:id="@+id/type_0"
+                            android:layout_marginRight="@dimen/ds10"
+                            android:text="立即使用"
+                            android:textSize="@dimen/ds24"
+                            android:textColor="#fff"
+                            android:background="@drawable/privilege_shape_1"
+                            android:layout_width="@dimen/ds140"
+                            android:layout_height="@dimen/ds56" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.newversions.view.NewVersionChoicenessView
+                android:id="@+id/recommend_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

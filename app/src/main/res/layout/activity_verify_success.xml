@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yunqin.bearmall.ui.activity.VerifySuccessActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/new_version_back"
+            android:layout_width="@dimen/ds74"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/ds30">
+
+            <ImageView
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_backs" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/new_version_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="验证通过"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds32" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1pt"
+        android:background="#F7F7F7" />
+
+
+    <ImageView
+        android:layout_width="446pt"
+        android:layout_height="260pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20pt"
+        android:src="@drawable/img_th" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60pt"
+        android:gravity="center"
+        android:text="验证成功！您已成功绑定银行卡！"
+        android:textColor="#23A064"
+        android:textSize="32pt" />
+
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="376pt"
+        android:layout_height="72pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100pt"
+        android:background="@drawable/bg_green"
+        android:text="返回"
+        android:textColor="#33A76F"
+        android:textSize="28pt" />
+
+
+    <TextView
+        android:id="@+id/_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40pt"
+        android:gravity="center_horizontal"
+        android:text="3秒后自动返回"
+        android:textColor="#666666"
+        android:textSize="28pt" />
+
+
+</LinearLayout>

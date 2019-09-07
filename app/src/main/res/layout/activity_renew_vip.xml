@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="104pt"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/confirm_btn"
+            android:layout_width="234pt"
+            android:layout_height="match_parent"
+            android:background="#EBD6AC"
+            android:text="立即续费"
+            android:textColor="#614919"
+            android:textSize="32pt"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30pt"
+            android:text="应付："
+            android:textColor="#333333"
+            android:textSize="32pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
+
+
+        <TextView
+            android:id="@+id/real_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="#E75B56"
+            android:textSize="32pt"
+            app:layout_constraintBottom_toBottomOf="@id/text_3"
+            app:layout_constraintLeft_toRightOf="@id/text_3"
+            app:layout_constraintTop_toTopOf="@id/text_3" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_layout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/card_layout"
+                android:layout_width="match_parent"
+                android:layout_height="494pt"
+                android:background="#14100D">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="366pt"
+                    android:src="@drawable/icon_vip_card"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/price_container"
+                android:layout_width="match_parent"
+                android:layout_height="438pt"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/card_layout">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="260pt"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/left"
+                        android:layout_width="290pt"
+                        android:layout_height="180pt"
+                        android:layout_marginLeft="60pt"
+                        android:layout_marginRight="50pt"
+                        android:background="@drawable/selector_vip_item_bg"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/right"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.yunqin.bearmall.widget.SlantTextView
+                            android:id="@+id/left_slant"
+                            android:layout_width="68pt"
+                            android:layout_height="70pt"
+                            android:visibility="invisible"
+                            app:corner="8pt"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:textColor="@color/white"
+                            app:textSize="18pt" />
+
+                        <TextView
+                            android:id="@+id/left_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30pt"
+                            android:layout_marginTop="30pt"
+                            android:layout_marginRight="30pt"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="@color/selector_vip_item_title"
+                            android:textSize="32pt"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/left_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10pt"
+                            android:background="@drawable/cost_price_bg"
+                            android:gravity="center"
+
+                            android:textColor="@color/selector_vip_item_price"
+                            android:textSize="28pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/left_real_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:textSize="28pt"
+                            app:layout_constraintBottom_toTopOf="@id/left_price"
+                            app:layout_constraintLeft_toLeftOf="@id/left_price"
+                            app:layout_constraintRight_toRightOf="@id/left_price" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/right"
+                        android:layout_width="290pt"
+                        android:layout_height="180pt"
+                        android:layout_marginRight="60pt"
+                        android:background="@drawable/selector_vip_item_bg"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/left"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.yunqin.bearmall.widget.SlantTextView
+                            android:id="@+id/right_slant"
+                            android:layout_width="68pt"
+                            android:layout_height="70pt"
+                            android:visibility="invisible"
+                            app:corner="8pt"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:textColor="@color/white"
+                            app:textSize="18pt" />
+
+                        <TextView
+                            android:id="@+id/right_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30pt"
+                            android:layout_marginTop="30pt"
+                            android:layout_marginRight="30pt"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="@color/selector_vip_item_title"
+                            android:textSize="32pt"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/right_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10pt"
+                            android:background="@drawable/cost_price_bg"
+
+                            android:textColor="@color/selector_vip_item_price"
+                            android:textSize="28pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/right_real_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:textSize="28pt"
+                            app:layout_constraintBottom_toTopOf="@id/right_price"
+                            app:layout_constraintLeft_toLeftOf="@id/right_price"
+                            app:layout_constraintRight_toRightOf="@id/right_price" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@id/bottom"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/text_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="60pt"
+                        android:text="尊敬的金熊会员："
+                        android:textColor="#333333"
+                        android:textSize="32pt"
+                        app:layout_constraintBottom_toTopOf="@id/text_member_info"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="spread" />
+
+                    <TextView
+                        android:id="@+id/text_member_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="60pt"
+                        android:maxLines="1"
+                        android:textColor="#333333"
+                        android:textSize="28pt"
+                        app:layout_constraintBottom_toBottomOf="@id/text_1"
+                        app:layout_constraintLeft_toRightOf="@id/text_1"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/text_1" />
+
+                    <TextView
+                        android:id="@+id/text_member_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="60pt"
+                        android:maxLines="1"
+                        android:textColor="#333333"
+                        android:textSize="24pt"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/text_1"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_1" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20pt"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/price_container">
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:background="@drawable/icon_text_bg"
+                    android:gravity="center"
+                    android:paddingLeft="64pt"
+                    android:paddingRight="64pt"
+                    android:text="尊享权益"
+                    android:textSize="36pt"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <LinearLayout
+                    android:id="@+id/equity_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginRight="60pt"
+                    android:background="@drawable/shape_vip_item_bg_def"
+                    android:orientation="vertical"
+                    android:padding="30pt"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text">
+
+                    <TextView
+                        android:id="@+id/equity_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1.5"
+                        android:textColor="#666666"
+                        android:textSize="28pt" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60pt"
+                    android:layout_marginTop="40pt"
+                    android:layout_marginBottom="5pt"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="60pt"
+                    android:paddingRight="60pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/equity_content">
+
+
+                    <LinearLayout
+                        android:id="@+id/agree_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/radio_image"
+                            android:layout_width="24pt"
+                            android:layout_height="24pt"
+                            android:src="@drawable/selector_vip_radio" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8pt"
+                            android:text="我已同意"
+                            android:textColor="#333333"
+                            android:textSize="28pt" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/server_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:text="《大熊会员服务协议》"
+                        android:textColor="#8B5D21"
+                        android:textSize="28pt" />
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="128pt">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="88pt"
+            android:layout_marginTop="40pt">
+
+            <ImageView
+                android:id="@+id/toolbar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20pt"
+                android:padding="5dp"
+                android:src="@drawable/icon_nav_arrow_white" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="会员续费"
+                android:textColor="@color/white"
+                android:textSize="32pt" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

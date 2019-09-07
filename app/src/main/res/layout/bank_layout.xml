@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#303030"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:layout_marginTop="50pt"
+        android:layout_marginRight="50pt">
+
+        <RelativeLayout
+            android:id="@+id/new_version_back"
+            android:layout_width="@dimen/ds74"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/ds30">
+
+            <ImageView
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_nav_arrow_white" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/new_version_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="银行卡"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds32" />
+
+        <TextView
+            android:id="@+id/jei_chu_bang_ding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="解除绑定"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds32" />
+
+
+    </RelativeLayout>
+
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/bank_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bank_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
+</LinearLayout>

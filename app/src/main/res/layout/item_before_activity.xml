@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:background="#F7F7F7"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"/>
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_centerHorizontal="true"
+        android:layout_width="690pt"
+        android:layout_height="240pt" />
+    
+</LinearLayout>

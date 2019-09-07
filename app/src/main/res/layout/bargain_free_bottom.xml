@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds104"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    >
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="@color/item_specification_item_minus_border"
+        ></View>
+
+    <LinearLayout
+        android:layout_below="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:alpha="0.9"
+        >
+
+        <LinearLayout
+            android:id="@+id/bargain_free_shop_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/bargain_free_shop_img"
+                android:layout_width="@dimen/ds32"
+                android:layout_height="@dimen/ds32"
+                android:src="@drawable/ic_bargain_free_shop_selected"
+                />
+
+            <TextView
+                android:id="@+id/bargain_free_shop_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/ds28"
+                android:layout_marginLeft="@dimen/ds16"
+                android:text="可砍商品"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/ds1"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/ds20"
+            android:layout_marginBottom="@dimen/ds20"
+            android:background="@color/item_specification_item_minus_border"
+            ></View>
+
+        <LinearLayout
+            android:id="@+id/bargain_free_my_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/bargain_free_my_img"
+                android:layout_width="@dimen/ds32"
+                android:layout_height="@dimen/ds32"
+                android:src="@drawable/ic_bargain_free_my_normal"
+                />
+
+            <TextView
+                android:id="@+id/bargain_free_my_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28"
+                android:layout_marginLeft="@dimen/ds16"
+                android:text="已砍商品"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

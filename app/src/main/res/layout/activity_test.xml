@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.yunqin.bearmall.widget.SlantTextView
+        android:id="@+id/test_slant"
+        android:layout_width="200pt"
+        android:layout_height="200pt"
+        android:layout_marginTop="50pt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textSize="20pt"
+        app:textColor="@color/white"
+        app:text="6折"
+        app:corner="15pt"
+        />
+
+</android.support.constraint.ConstraintLayout>

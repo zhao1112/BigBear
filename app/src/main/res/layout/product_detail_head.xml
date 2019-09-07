@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds128"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:id="@+id/transparent_status_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:alpha="1"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/transparent_status_head_back"
+            android:layout_width="@dimen/ds64"
+            android:layout_height="@dimen/ds64"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/ds20"
+            android:background="@drawable/btn_back_circle_bg">
+
+            <ImageView
+                android:id="@+id/transparent_status_back_img"
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_nav_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/transparent_status_head_add_cart"
+            android:layout_width="@dimen/ds64"
+            android:layout_height="@dimen/ds64"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/ds20"
+            android:layout_toLeftOf="@+id/transparent_status_share"
+            android:background="@drawable/btn_back_circle_bg">
+
+            <ImageView
+                android:id="@+id/transparent_status_add_cart_img"
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_product_cart" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/transparent_status_share"
+            android:layout_width="@dimen/ds64"
+            android:layout_height="@dimen/ds64"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/ds20"
+            android:background="@drawable/btn_back_circle_bg">
+
+            <ImageView
+                android:id="@+id/transparent_status_share_img"
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_nav_share" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/show_status_back_img"
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/ds30"
+                android:src="@drawable/icon_nav_arrow" />
+
+            <ImageView
+                android:id="@+id/show_status_go_cart_img"
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/ds40"
+                android:layout_toLeftOf="@+id/show_status_share_img"
+                android:src="@drawable/icon_product_cart" />
+
+            <ImageView
+                android:id="@+id/show_status_share_img"
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/ds30"
+                android:src="@drawable/icon_nav_share" />
+
+
+            <com.androidkun.xtablayout.XTabLayout
+                android:id="@+id/xtablelayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerInParent="true"
+
+                android:overScrollMode="never"
+                app:xTabDisplayNum="4"
+
+                app:xTabDividerHeight="@dimen/ds16"
+                app:xTabDividerWidthWidthText="true"
+                app:xTabIndicatorColor="@color/main_color"
+                app:xTabMaxWidth="@dimen/ds112"
+                app:xTabMode="scrollable"
+                app:xTabSelectedTextColor="@color/main_color"
+                app:xTabSelectedTextSize="@dimen/ds30"
+                app:xTabTextColor="#666666"
+                app:xTabTextSelectedBold="true"
+                app:xTabTextSize="@dimen/ds28" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds2"
+                android:layout_alignParentBottom="true"
+                android:background="#E7E7E7" />
+
+
+        </RelativeLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+</RelativeLayout>

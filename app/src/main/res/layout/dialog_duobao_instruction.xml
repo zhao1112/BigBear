@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds100"
+                android:text="夺宝说明"
+                android:textSize="@dimen/ds28"
+                android:textColor="@color/product_brand_name_color"
+                android:gravity="center"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds1"
+                android:background="@color/service_specification_line"
+                ></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/ds30"
+                android:paddingRight="@dimen/ds48"
+                android:paddingTop="@dimen/ds32"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/duobao_tip1"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:textSize="@dimen/ds28"
+                    android:textColor="@color/product_customer_collect"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参与限制："
+                    android:textSize="@dimen/ds28"
+                    android:lineSpacingExtra="@dimen/ds20"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:textColor="@color/product_customer_collect"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:text="@string/duobao_tip2"
+                    android:textSize="@dimen/ds28"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:textColor="@color/product_customer_collect"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参与规则："
+                    android:textSize="@dimen/ds28"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:lineSpacingExtra="@dimen/ds20"
+                    android:textColor="@color/product_customer_collect"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:text="@string/duobao_tip3"
+                    android:textSize="@dimen/ds28"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:textColor="@color/product_customer_collect"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

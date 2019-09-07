@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds184">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds184"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <CheckBox
+                android:id="@+id/check_box"
+                style="@style/CheckBoxTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds30"
+                android:checked="true" />
+
+
+            <ImageView
+                android:id="@+id/goods_pic"
+                android:layout_width="@dimen/ds144"
+                android:layout_height="@dimen/ds144"
+                android:layout_marginLeft="@dimen/ds30"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds20"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/goods_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds28" />
+
+                <TextView
+                    android:id="@+id/goods_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds16"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/ds20" />
+
+                <TextView
+                    android:id="@+id/goods_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds12"
+                    android:gravity="center_vertical"
+                    android:textColor="#23A064"
+                    android:textSize="@dimen/ds28" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/shou_hou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/ds10"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:text="已申请售后"
+                    android:textSize="@dimen/ds24"
+                    android:visibility="visible" />
+
+
+                <TextView
+                    android:id="@+id/goods_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:layout_marginRight="@dimen/ds60"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/ds26" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#b7999999"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
+    <include layout="@layout/line" />
+
+
+</LinearLayout>

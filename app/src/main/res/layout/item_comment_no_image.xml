@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds10"
+        android:background="#F7F7F7"/>
+    <LinearLayout
+        android:padding="@dimen/ds30"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:id="@+id/head_img"
+            android:layout_width="@dimen/ds56"
+            android:layout_height="@dimen/ds56"
+            android:src="@drawable/mine_user_icon_defult"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/ds18"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <TextView
+            android:id="@+id/time"
+            android:textColor="#999999"
+            android:textSize="@dimen/ds20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="#F7F7F7"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds184"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_marginLeft="@dimen/ds30"
+            android:id="@+id/goods_pic"
+            android:layout_width="@dimen/ds144"
+            android:layout_height="@dimen/ds144"
+            android:scaleType="fitXY"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/goods_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:id="@+id/goods_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds32"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/ds20" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/goods_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds12"
+                android:gravity="center_vertical"
+                android:textColor="#23A064"
+                android:textSize="@dimen/ds28" />
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/goods_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/ds60"
+            android:layout_marginTop="@dimen/ds30"
+            android:text="X2"
+            android:textSize="@dimen/ds26" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginTop="@dimen/ds20"
+        android:layout_marginBottom="@dimen/ds30"
+        android:text=""
+        android:textColor="#333333"
+        android:textSize="@dimen/ds24" />
+
+
+</LinearLayout>

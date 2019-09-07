@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_icon_choose_a"
+    android:orientation="vertical">
+    <LinearLayout
+        android:paddingBottom="@dimen/ds60"
+        android:paddingTop="@dimen/ds60"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/num_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id="@+id/tip1"
+                android:textSize="32pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20pt"
+                android:layout_marginRight="20pt"
+                android:textColor="#333333"
+                android:gravity="center"
+                android:text="份数"/>
+
+            <Button
+                android:layout_marginTop="@dimen/ds1"
+                android:id="@+id/cut"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:text="-"
+                android:layout_marginRight="@dimen/ds10"
+                android:background="@drawable/shape_num_bg"
+                />
+
+            <EditText
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="50pt"
+                android:minWidth="120pt"
+                android:maxLength="5"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="#333333"
+                android:background="@drawable/shape_num_bg"
+                />
+
+            <Button
+                android:layout_marginTop="@dimen/ds1"
+                android:id="@+id/add"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginLeft="@dimen/ds10"
+                android:text="+"
+                android:background="@drawable/shape_num_bg"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="35pt"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_color"
+                android:gravity="center"
+                android:text="支付糖果："
+                android:textSize="32pt"
+                />
+
+            <TextView
+                android:id="@+id/pay_bc_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="32pt"
+                android:textColor="@color/main_color"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:background="#F7F7F7"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds96">
+        <com.yunqin.bearmall.widget.Highlight.HighlightRelativeLayout
+            android:id="@+id/cancle"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="#000"
+                android:textSize="@dimen/ds30"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"/>
+        </com.yunqin.bearmall.widget.Highlight.HighlightRelativeLayout>
+        <com.yunqin.bearmall.widget.Highlight.HighlightRelativeLayout
+            android:id="@+id/confirm"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:textSize="@dimen/ds30"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_color"
+                android:text="确认"/>
+        </com.yunqin.bearmall.widget.Highlight.HighlightRelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
+

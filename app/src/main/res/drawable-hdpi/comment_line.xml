@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- 圆角 -->
+    <!--<corners-->
+        <!--android:radius="@dimen/ds4"-->
+        <!--/>-->
+    <!--填充颜色-->
+    <solid android:color="#ffffff" />
+    <stroke
+        android:dashGap="@dimen/ds15"
+        android:dashWidth="@dimen/ds12"
+        android:width="@dimen/ds1"
+        android:color="#abaaaa" />
+</shape>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds184"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    >
+
+
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/goods_pic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentLeft="true"
+        android:src="@mipmap/ic_launcher" />
+
+
+    <TextView
+        android:id="@+id/p1"
+        android:layout_marginRight="@dimen/ds60"
+        android:layout_marginLeft="10dp"
+
+        android:layout_toRightOf="@+id/goods_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="每日签到领糖果"
+        android:textSize="12sp" />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="@dimen/ds60"
+        android:id="@+id/goods_count"
+        android:layout_below="@+id/p1"
+        android:layout_toRightOf="@+id/goods_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="单日100积分"
+        android:textSize="12sp" />
+
+    <Button
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="签到"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>

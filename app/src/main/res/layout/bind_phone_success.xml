@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <ImageView
+        android:layout_marginTop="@dimen/ds250"
+        android:layout_marginLeft="@dimen/ds130"
+        android:layout_width="@dimen/ds446"
+        android:layout_height="@dimen/ds260"
+        android:src="@drawable/bind_phone_bg" />
+
+    <com.yunqin.bearmall.widget.CircleImageView
+        android:id="@+id/user_head_img"
+        android:layout_width="@dimen/ds212"
+        android:layout_height="@dimen/ds212"
+        android:layout_marginLeft="@dimen/ds270"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/ds336"
+        android:src="@drawable/ic_launcher"
+        app:border_color="@color/main_color"
+        app:border_width="@dimen/ds1" />
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_marginTop="@dimen/ds600"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#23A064"
+        android:textSize="@dimen/ds36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AAAAAA"/>
+    <TextView
+        android:layout_marginTop="@dimen/ds670"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#999999"
+        android:textSize="@dimen/ds28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手机号绑定成功，欢迎进入大熊商城"/>
+
+    <Button
+        android:id="@+id/getcode_btn"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/ds60"
+        android:layout_marginTop="@dimen/ds800"
+        android:layout_height="@dimen/ds88"
+        android:text="进入商城"
+        android:layout_marginRight="@dimen/ds60"
+        android:background="@drawable/btn_other_way_login_bg"
+        android:textColor="#169F65"
+        android:textSize="@dimen/ds28"/>
+</FrameLayout>

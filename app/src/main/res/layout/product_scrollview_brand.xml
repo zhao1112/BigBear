@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds160"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds30">
+
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:id="@+id/brand_icon"
+            android:layout_width="@dimen/ds96"
+            android:layout_height="@dimen/ds96" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_weight="1"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:id="@+id/brand_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/product_brand_name_color"
+                android:textSize="@dimen/ds28"
+
+                ></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds4"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品数量："
+                    android:textColor="@color/product_sell_count"
+                    android:textSize="@dimen/ds24" />
+
+                <TextView
+                    android:id="@+id/brand_product_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:text="已销售"
+                    android:textColor="@color/product_sell_count"
+                    android:textSize="@dimen/ds24" />
+
+                <TextView
+                    android:id="@+id/brand_sales_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds4"
+                    android:layout_marginRight="@dimen/ds4"
+                    android:text="0"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="件"
+                    android:textColor="@color/product_sell_count"
+                    android:textSize="@dimen/ds24" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/brand_shopping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/enter_brand_btn_bg"
+            android:gravity="center"
+            android:text="进店看看"
+            android:textColor="@color/white"
+            android:elevation="@dimen/ds8"
+            android:textSize="@dimen/ds26" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/ds36"
+        android:paddingLeft="@dimen/ds20"
+        android:paddingRight="@dimen/ds20"
+
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/brand_hot_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+</LinearLayout>

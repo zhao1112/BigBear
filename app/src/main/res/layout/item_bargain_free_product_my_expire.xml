@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#F7F7F7"
+        ></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_marginTop="@dimen/ds16"
+        >
+
+        <RelativeLayout
+            android:layout_width="@dimen/ds200"
+            android:layout_height="@dimen/ds200"
+            >
+
+            <ImageView
+                android:id="@+id/bargain_free_product_img_my_expire"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/default_product_small"
+                />
+
+            <RelativeLayout
+                android:id="@+id/bargain_free_product_expire_layout__expire"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/product_sell_count"
+                    android:alpha="0.8"
+                    ></View>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="砍价已过期"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds28"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ds30"
+            >
+
+            <TextView
+                android:id="@+id/bargain_free_product_name_my_expire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SHISEIDO资生堂UNO男士洗面奶磨砂清凉型蓝色130克"
+                android:textColor="@color/product_brand_name_color"
+                android:textSize="@dimen/ds28"
+                android:lineSpacingExtra="@dimen/ds4"
+                android:layout_marginRight="@dimen/ds30"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="未在24小时内完成，砍价已过期"
+                android:textColor="@color/product_sell_count"
+                android:textSize="@dimen/ds28"
+                android:layout_marginTop="@dimen/ds60"
+                />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds1"
+                android:layout_marginTop="@dimen/ds42"
+                android:background="@color/item_specification_item_minus_border"
+                ></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds88"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/ds26"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/ds24"
+                    android:textColor="@color/collect_bg"
+                    android:text=""
+                    android:layout_weight="1"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/bargain_free_again_layout_expire"
+                    android:layout_width="160pt"
+                    android:layout_height="@dimen/ds52"
+                    android:orientation="vertical"
+                    android:background="@drawable/main_color_corner_4"
+                    android:gravity="center"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="重砍一次"
+                        android:textSize="@dimen/ds24"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400pt"
+    android:background="@color/white"
+    android:orientation="vertical"
+
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#F7F7F7"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="200pt"
+                android:layout_height="200pt"
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_marginTop="@dimen/ds20">
+
+                <ImageView
+                    android:id="@+id/goods_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#234" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ccF5A623">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="砍价成功"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/ds32" />
+                </RelativeLayout>
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_marginTop="@dimen/ds20"
+            android:layout_marginRight="@dimen/ds30"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/goods_name"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ds80"
+                android:lineSpacingExtra="@dimen/ds8"
+                android:text="[大熊商城]参加0元拼团，就有机会中奖0元拿走 "
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:id="@+id/bargain_free_product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds10"
+                android:text="已有0人参加"
+                android:textColor="@color/product_sell_count"
+                android:textSize="@dimen/ds20" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds10"
+                android:text="恭喜您砍价成功，快去个人中心查看订单吧"
+                android:textColor="#F5A623"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds1"
+                android:layout_marginTop="@dimen/ds10"
+                android:layout_marginBottom="@dimen/ds20"
+                android:background="#E7E7E7" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/ds20"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                    android:id="@+id/look_order"
+                    android:layout_width="160pt"
+                    android:layout_height="@dimen/ds52"
+                    android:layout_marginLeft="@dimen/ds68"
+                    android:background="@drawable/bg_green"
+                    android:text="查看订单"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds26" />
+
+                <com.yunqin.bearmall.widget.Highlight.HighlightButton
+                    android:id="@+id/join_again"
+                    android:layout_width="160pt"
+                    android:layout_height="@dimen/ds52"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:background="@drawable/bt_give_btn_focused"
+                    android:text="重新参与"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/ds26" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

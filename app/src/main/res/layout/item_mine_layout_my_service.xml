@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/ds20"
+    android:orientation="vertical">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <TextView
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_weight="1"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的服务"/>
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="#F7F7F7"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds144">
+        <LinearLayout
+            android:id="@+id/layout_address"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/icon_mine_address"
+                android:layout_width="@dimen/ds48"
+                android:layout_height="@dimen/ds48" />
+            <TextView
+                android:layout_marginTop="@dimen/ds16"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds24"
+                android:text="收货地址"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_candy_out"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/icon_mine_candy"
+                android:layout_width="@dimen/ds48"
+                android:layout_height="@dimen/ds48" />
+            <TextView
+                android:layout_marginTop="@dimen/ds16"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds24"
+                android:text="糖果赠送"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_my_collection"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/icon_mine_fav"
+                android:layout_width="@dimen/ds48"
+                android:layout_height="@dimen/ds48" />
+            <TextView
+                android:layout_marginTop="@dimen/ds16"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds24"
+                android:text="我的收藏"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_my_ticket"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/icon_mine_ticket"
+                android:layout_width="@dimen/ds48"
+                android:layout_height="@dimen/ds48" />
+            <TextView
+                android:layout_marginTop="@dimen/ds16"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds24"
+                android:text="我的券"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_my_comment"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/icon_mine_pingjai"
+                android:layout_width="@dimen/ds48"
+                android:layout_height="@dimen/ds48" />
+            <TextView
+                android:layout_marginTop="@dimen/ds16"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds24"
+                android:text="我的评价"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

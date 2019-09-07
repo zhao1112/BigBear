@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="320pt"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/top_divider"
+        android:layout_width="match_parent"
+        android:layout_height="20pt"
+        android:background="#F7F7F7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/item_my_snatch_image"
+        android:layout_width="200pt"
+        android:layout_height="200pt"
+        app:layout_constraintTop_toBottomOf="@id/top_divider"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20pt"
+        android:layout_marginLeft="30pt"
+        />
+
+    <View
+        android:id="@+id/image_alph"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_image"
+        app:layout_constraintRight_toRightOf="@id/item_my_snatch_image"
+        app:layout_constraintTop_toTopOf="@id/item_my_snatch_image"
+        app:layout_constraintBottom_toBottomOf="@id/item_my_snatch_image"
+        android:alpha="0.8"
+        />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_image"
+        app:layout_constraintRight_toRightOf="@id/item_my_snatch_image"
+        app:layout_constraintTop_toTopOf="@id/item_my_snatch_image"
+        app:layout_constraintBottom_toBottomOf="@id/item_my_snatch_image"
+        android:textColor="@color/white"
+        android:textSize="32pt"
+        android:maxLines="2"
+        />
+
+    <TextView
+        android:id="@+id/item_my_snatch_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_my_snatch_image"
+        app:layout_constraintTop_toTopOf="@id/item_my_snatch_image"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="20pt"
+        android:layout_marginRight="30pt"
+        android:textColor="#333333"
+        android:textSize="28pt"
+        />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/ds2"
+        android:background="#E7E7E7"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/item_my_snatch_image"
+        android:layout_marginRight="30pt"
+        android:layout_marginBottom="15pt"
+        />
+
+    <com.yunqin.bearmall.widget.Highlight.HighlightButton
+        android:id="@+id/item_my_snatch_pre_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="52pt"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="30pt"
+        android:textColor="@color/white"
+        android:textSize="26pt"
+        android:text="重新参与"
+        android:background="@drawable/shape_my_snatch_text_bg"
+        />
+
+    <com.yunqin.bearmall.widget.Highlight.HighlightButton
+        android:id="@+id/item_show_sweet"
+        android:layout_width="wrap_content"
+        android:layout_height="52pt"
+        app:layout_constraintRight_toLeftOf="@id/item_my_snatch_pre_finish"
+        app:layout_constraintBottom_toBottomOf="@id/item_my_snatch_pre_finish"
+        android:layout_marginRight="20pt"
+        android:text="查看糖果钱包"
+        android:textSize="26pt"
+        android:textColor="@color/Green"
+        android:background="@drawable/shape_show_wallet"
+        />
+
+
+    <TextView
+        android:id="@+id/buy_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_title"
+        app:layout_constraintTop_toBottomOf="@id/item_my_snatch_title"
+        app:layout_constraintBottom_toTopOf="@id/line"
+        android:textColor="#999999"
+        android:textSize="20pt"
+        android:text="20"
+        />
+
+    <TextView
+        android:id="@+id/join_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_title"
+        app:layout_constraintBottom_toTopOf="@id/buy_count"
+        android:textColor="#23A064"
+        android:textSize="24pt"
+        android:text="30"
+        android:layout_marginBottom="5pt"
+        />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="0pt"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/buy_count"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_title"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="30pt"
+        android:textSize="28pt"
+        android:layout_marginTop="5pt"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

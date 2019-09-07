@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/ds20"
+    android:paddingLeft="@dimen/ds30"
+
+    >
+
+    <TextView
+        android:id="@+id/product_bt_info_text"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/product_customer_collect"
+        android:textSize="@dimen/ds28"
+        android:text="糖果说明"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/product_bt_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="@dimen/ds24"
+        android:textColor="@color/product_sweets_explain"
+        android:paddingRight="@dimen/ds30"
+        android:layout_marginTop="@dimen/ds10"
+        android:lines="3"
+        android:ellipsize="end"
+        android:layout_marginBottom="@dimen/ds18"
+        />
+
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="@color/divider"></View>
+
+    <LinearLayout
+        android:id="@+id/product_service_instruction"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/ds2"
+        android:paddingRight="@dimen/ds32"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/ds30"
+            android:layout_height="@dimen/ds30"
+            android:src="@drawable/icon_pei"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/product_sweets_explain"
+            android:textSize="@dimen/ds24"
+            android:layout_marginLeft="@dimen/ds16"
+            android:text="全场包邮"/>
+
+        <ImageView
+            android:layout_width="@dimen/ds30"
+            android:layout_height="@dimen/ds30"
+            android:layout_marginLeft="@dimen/ds80"
+            android:src="@drawable/icon_7"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/product_sweets_explain"
+            android:textSize="@dimen/ds24"
+            android:layout_marginLeft="@dimen/ds16"
+            android:text="7天退换"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="@dimen/ds12"
+            android:layout_height="@dimen/ds24"
+            android:layout_marginLeft="@dimen/ds80"
+            android:src="@drawable/icon_arrow_right"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="@color/divider"/>
+
+
+    <!--todo 熊波，隐藏的时候把分割线也一起隐藏了-->
+    <LinearLayout
+        android:id="@+id/zero_rule_instruction"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds82"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds80"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/ds32"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:id="@+id/center_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28"
+                android:layout_weight="1"
+                android:text="糖果0元兑"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/ds30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详细规则"
+                android:textSize="@dimen/ds24"
+                android:textColor="#999999"/>
+
+            <ImageView
+                android:layout_width="@dimen/ds12"
+                android:layout_height="@dimen/ds24"
+                android:src="@drawable/icon_arrow_right"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds2"
+            android:background="@color/divider"></View>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/product_price_instruction"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/ds32"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/product_customer_collect"
+            android:textSize="@dimen/ds28"
+            android:layout_weight="1"
+            android:text="价格说明"/>
+
+        <ImageView
+            android:layout_width="@dimen/ds12"
+            android:layout_height="@dimen/ds24"
+            android:src="@drawable/icon_arrow_right"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

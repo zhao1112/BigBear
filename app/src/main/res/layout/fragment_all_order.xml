@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:orientation="vertical">
+
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_all_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    <com.yunqin.bearmall.widget.CustomRecommendView
+        android:id="@+id/custom_empty_recommend_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </com.yunqin.bearmall.widget.CustomRecommendView>
+
+
+    <include
+        android:id="@+id/not_net"
+        layout="@layout/network_error_layout"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

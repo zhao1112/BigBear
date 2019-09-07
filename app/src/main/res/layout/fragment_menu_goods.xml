@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/sort"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds72"
+        android:background="@color/white">
+
+
+        <LinearLayout
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds146"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="价格"
+                android:textColor="#23A064"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="@dimen/ds52"
+                android:layout_height="@dimen/ds4"
+                android:background="#23A064" />
+        </LinearLayout>
+
+        <ImageView
+
+            android:layout_width="@dimen/ds8"
+            android:layout_height="@dimen/ds16"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/ds8"
+            android:src="@drawable/icon_paixu" />
+
+        <LinearLayout
+            android:id="@+id/sales"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds130"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="销量"
+                android:textColor="#666666"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="@dimen/ds52"
+                android:layout_height="@dimen/ds4"
+                android:background="#23A064"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds146"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="评分"
+                android:textColor="#666666"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="@dimen/ds52"
+                android:layout_height="@dimen/ds4"
+                android:background="#23A064"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:layout_marginTop="@dimen/ds1"
+        android:background="#F7F7F7" />
+
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/twink_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/menu_goods_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
+    <LinearLayout
+        android:id="@+id/no_data_layout"
+        android:layout_width="@dimen/ds250"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/ds130"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds226"
+            android:src="@drawable/no_data" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds40"
+            android:text="抱歉，暂无商品"
+            android:textColor="#999999"
+            android:textSize="@dimen/ds28" />
+    </LinearLayout>
+
+
+</LinearLayout>

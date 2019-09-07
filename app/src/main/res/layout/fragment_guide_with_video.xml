@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:background="#ffffff"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="推荐"
+            android:textColor="#333333"
+            android:textSize="32pt" />
+
+
+        <RelativeLayout
+            android:layout_width="44pt"
+            android:layout_height="48pt"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/ds30">
+
+            <ImageView
+                android:id="@+id/top_xiao_xi"
+                android:layout_width="44pt"
+                android:layout_height="44pt"
+                android:layout_marginTop="4pt"
+                android:src="@drawable/icon_tab_message_normal" />
+
+
+            <com.yunqin.bearmall.widget.DotView
+                android:id="@+id/dot_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+            </com.yunqin.bearmall.widget.DotView>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/guide_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds72"
+        android:layout_marginLeft="50pt"
+        android:layout_marginRight="50pt"
+        android:background="@color/white"
+        android:overScrollMode="never"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_layout"
+        app:xTabDisplayNum="5"
+        app:xTabDividerHeight="@dimen/ds16"
+        app:xTabDividerWidthWidthText="true"
+        app:xTabIndicatorColor="@color/main_color"
+        app:xTabMode="fixed"
+        app:xTabSelectedTextColor="@color/main_color"
+        app:xTabSelectedTextSize="@dimen/ds30"
+        app:xTabTextColor="#666666"
+        app:xTabTextSelectedBold="true"
+        app:xTabTextSize="@dimen/ds28"></com.androidkun.xtablayout.XTabLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1pt"
+        android:background="#E5E5E5"
+        app:layout_constraintTop_toBottomOf="@id/guide_tab" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/guide_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line" />
+
+
+</android.support.constraint.ConstraintLayout>

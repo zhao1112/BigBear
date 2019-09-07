@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MineOrderActivity">
+
+
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F7F7F7"
+        android:orientation="vertical">
+
+        <com.androidkun.xtablayout.XTabLayout
+            android:id="@+id/x_table_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds72"
+            android:layout_gravity="center"
+            android:background="@color/md_white"
+            android:overScrollMode="never"
+            app:xTabDisplayNum="10"
+            app:xTabDividerHeight="@dimen/ds16"
+            app:xTabDividerWidthWidthText="true"
+            app:xTabIndicatorColor="@color/main_color"
+            app:xTabMode="scrollable"
+            app:xTabSelectedTextColor="@color/main_color"
+            app:xTabSelectedTextSize="@dimen/ds30"
+            app:xTabTextColor="#666666"
+            app:xTabTextSelectedBold="true"
+            app:xTabTextSize="@dimen/ds28" />
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds96"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:layout_alignParentTop="true"
+        android:background="#E7E7E7"></View>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:orientation="horizontal"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/product_layout_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:paddingLeft="@dimen/ds22"
+            android:paddingRight="@dimen/ds22"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:id="@+id/product_collect"
+                android:layout_width="@dimen/ds50"
+                android:layout_height="@dimen/ds50"
+                android:layout_marginTop="@dimen/ds12"
+                android:src="@drawable/icon_like_normal"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="收藏"
+                android:textSize="@dimen/ds20"
+                android:layout_marginTop="@dimen/ds2"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/product_customer_collect"
+                android:layout_marginBottom="@dimen/ds4"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/zero_detail_add_cart"
+            android:paddingLeft="@dimen/ds30"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:background="#F5A623"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大熊零售价"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ds24"
+                />
+            <TextView
+                android:id="@+id/buy_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:gravity="center"
+                android:layout_marginTop="@dimen/ds3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ds28"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="#23A064"
+            android:clickable="true"
+            android:id="@+id/product_detail_join_act"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:paddingLeft="@dimen/ds30"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                >
+                <TextView
+                    android:id="@+id/status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24"
+                    />
+                <cn.iwgang.countdownview.CountdownView
+                    android:id="@+id/snatch_timer_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:isHideTimeBackground="true"
+                    android:gravity="center"
+                    app:isShowDay="false"
+                    app:isShowHour="true"
+                    app:isShowMinute="true"
+                    app:isShowSecond="true"
+                    app:isShowMillisecond="false"
+                    app:timeTextColor="#ffffff"
+                    app:timeTextSize="24pt"
+                    app:isTimeTextBold="false"
+                    app:suffixGravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10pt"
+                    app:suffixTextColor="@color/white" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pre_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:gravity="center"
+                android:layout_marginTop="@dimen/ds3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ds28"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

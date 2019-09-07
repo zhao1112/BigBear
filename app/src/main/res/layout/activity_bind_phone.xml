@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <include layout="@layout/actionbar_layout"/>
+
+    <com.yunqin.bearmall.widget.CircleImageView
+        android:id="@+id/head_img"
+        android:layout_width="@dimen/ds144"
+        android:layout_height="@dimen/ds144"
+        android:layout_marginTop="@dimen/ds60"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/mine_user_icon_defult"/>
+    <TextView
+        android:id="@+id/bind_name"
+        android:layout_marginTop="@dimen/ds28"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/ds28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bind_name"/>
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/ds8"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/ds28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="为了您的账户安全，请关联您的手机号"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/phone_layout"
+        android:layout_marginTop="@dimen/ds20"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <ImageView
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_width="@dimen/ds22"
+            android:layout_height="@dimen/ds28"
+            android:src="@drawable/icon_login_phone"/>
+
+        <com.yunqin.bearmall.widget.DelEditText
+            android:id="@+id/phone_number"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/ds28"
+            android:layout_marginRight="@dimen/ds40"
+            android:background="@null"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textColor="@color/home_select_color"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/ds28" />
+    </LinearLayout>
+    <View
+        android:background="#EEEEEE"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/img_code_layout"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/ds22"
+                android:layout_height="@dimen/ds28"
+                android:src="@drawable/icon_pic"/>
+
+            <com.yunqin.bearmall.widget.DelEditText
+                android:id="@+id/img_code"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/ds28"
+                android:layout_marginRight="@dimen/ds40"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:digits="0123456789qazwsxedcrfvtgbyhnujmikolpQAZWSXEDCRFVTGBYHNUJMIKOLP"
+                android:layout_height="match_parent"
+                android:hint="请输入图片码"
+                android:maxLines="1"
+                android:textColor="@color/home_select_color"
+                android:textColorHint="#999999"
+                android:textSize="@dimen/ds28" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/get_img_code"
+            android:layout_width="@dimen/ds168"
+            android:layout_height="@dimen/ds64"
+            android:scaleType="fitXY"
+            android:layout_marginRight="@dimen/ds30"
+            android:background="#bdbdbd"
+            android:textSize="@dimen/ds30"/>
+
+    </LinearLayout>
+    <View
+        android:background="#EEEEEE"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/code_layout"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/ds22"
+                android:layout_height="@dimen/ds28"
+                android:src="@drawable/icon_login_code"/>
+
+            <com.yunqin.bearmall.widget.DelEditText
+                android:id="@+id/msg_Code"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/ds28"
+                android:layout_marginRight="@dimen/ds40"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:inputType="number"
+                android:layout_height="match_parent"
+                android:hint="请输入随机码"
+                android:maxLines="1"
+                android:textColor="@color/home_select_color"
+                android:textColorHint="#999999"
+                android:textSize="@dimen/ds28" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/getcode_btn"
+            android:layout_width="@dimen/ds168"
+            android:layout_height="@dimen/ds64"
+            android:text="发送随机码"
+            android:layout_marginRight="@dimen/ds30"
+            android:background="@drawable/btn_other_way_login_bg"
+            android:textColor="#169F65"
+            android:textSize="@dimen/ds28"/>
+    </LinearLayout>
+
+    <com.yunqin.bearmall.widget.Highlight.HighlightButton
+        android:id="@+id/bind_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:layout_marginTop="@dimen/ds60"
+        android:layout_marginRight="@dimen/ds40"
+        android:layout_marginLeft="@dimen/ds40"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_bg"
+        android:textSize="@dimen/ds32"
+        android:text="绑定手机号"/>
+
+</LinearLayout>

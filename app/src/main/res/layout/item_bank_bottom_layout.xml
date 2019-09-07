@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/add_bank_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="78pt">
+
+        <ImageView
+            android:layout_width="36pt"
+            android:layout_height="36pt"
+            android:layout_marginTop="42pt"
+            android:layout_marginBottom="42pt"
+            android:src="@drawable/bank_add" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36pt"
+            android:text="添加银行卡"
+            android:textColor="#8B8B8B"
+            android:textSize="32pt" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="690pt"
+        android:layout_height="4pt"
+        android:background="#444444" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30pt"
+        android:text="银行卡仅支持绑定储蓄卡"
+        android:textColor="#666666"
+        android:textSize="28pt" />
+
+    <TextView
+        android:id="@+id/bangding_guize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:paddingBottom="30pt"
+        android:text="绑定规则"
+        android:textColor="#666666"
+        android:textSize="28pt" />
+
+
+</LinearLayout>

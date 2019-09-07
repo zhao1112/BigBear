@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds750">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/product_img_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+
+    <LinearLayout
+        android:id="@+id/overlay_video_pic_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds52"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/ds50"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+
+        <Button
+            android:id="@+id/shi_pin_button"
+            android:layout_width="@dimen/ds96"
+            android:layout_height="match_parent"
+            android:background="#23A064"
+            android:text="视频"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds24" />
+
+        <View
+            android:layout_width="@dimen/ds46"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/tu_pian_button"
+            android:layout_width="@dimen/ds96"
+            android:layout_height="match_parent"
+            android:background="#2b000000"
+            android:text="图片"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/ds24" />
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="68pt"
+        android:layout_height="32pt"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_marginBottom="@dimen/ds30"
+        android:background="@drawable/selector_product_img"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/product_img_selector_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="0/0"
+            android:textColor="@color/white"
+            android:textSize="24pt" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

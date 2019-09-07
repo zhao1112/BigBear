@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginTop="@dimen/ds40"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/icon_0yuan_img1"
+            android:layout_width="60pt"
+            android:layout_height="60pt" />
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="@dimen/ds20"
+            android:text="点击心仪活动"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_marginTop="-30pt"
+        android:background="@drawable/line_zero"
+        android:layout_width="@dimen/ds44"
+        android:layout_height="2dp"/>
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/icon_0yuan_img2"
+            android:layout_width="60pt"
+            android:layout_height="60pt" />
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="@dimen/ds20"
+            android:text="参与活动"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_marginTop="-30pt"
+        android:background="@drawable/line_zero"
+        android:layout_width="@dimen/ds44"
+        android:layout_height="2dp"/>
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/icon_0yuan_img4"
+            android:layout_width="60pt"
+            android:layout_height="60pt" />
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="@dimen/ds20"
+            android:text="公布开奖"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginTop="-30pt"
+        android:background="@drawable/line_zero"
+        android:layout_width="@dimen/ds44"
+        android:layout_height="2dp"/>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/icon_0yuan_img5"
+            android:layout_width="60pt"
+            android:layout_height="60pt" />
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="@dimen/ds18"
+            android:text="中奖得糖果"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/new_version_top1"
+        android:layout_width="@dimen/ds750"
+        android:layout_height="@dimen/ds148"
+        android:alpha="1"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/ds25">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/ds20">
+
+            <RelativeLayout
+                android:id="@+id/new_version_top1_back"
+                android:layout_width="@dimen/ds64"
+                android:layout_height="@dimen/ds64"
+                android:background="@drawable/bg_detail">
+
+                <ImageView
+                    android:layout_width="@dimen/ds44"
+                    android:layout_height="@dimen/ds44"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/new_version_back" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/new_version_top1_gouwuche"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <RelativeLayout
+                android:layout_width="@dimen/ds64"
+                android:layout_height="@dimen/ds64"
+                android:background="@drawable/bg_detail">
+
+                <ImageView
+                    android:layout_width="@dimen/ds44"
+                    android:layout_height="@dimen/ds44"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/new_version_gouwuche" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/new_version_top1_share"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_marginRight="@dimen/ds20"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:layout_width="@dimen/ds64"
+                android:layout_height="@dimen/ds64"
+                android:background="@drawable/bg_detail">
+
+                <ImageView
+                    android:layout_width="@dimen/ds44"
+                    android:layout_height="@dimen/ds44"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/new_version_share" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/new_version_top2"
+        android:layout_width="@dimen/ds750"
+        android:layout_height="@dimen/ds148"
+        android:alpha="0"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/ds25">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/ds20">
+
+            <RelativeLayout
+                android:id="@+id/new_version_top2_back"
+                android:layout_width="@dimen/ds64"
+                android:layout_height="@dimen/ds64"
+                android:background="@drawable/bg_detail">
+
+                <ImageView
+                    android:layout_width="@dimen/ds44"
+                    android:layout_height="@dimen/ds44"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/new_version_back" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/ds20"
+            android:visibility="invisible">
+
+            <RelativeLayout
+                android:layout_width="@dimen/ds64"
+                android:layout_height="@dimen/ds64"></RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ds20"
+            android:paddingRight="@dimen/ds20">
+
+            <RelativeLayout
+                android:id="@+id/new_version_top_shangpin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/new_version_top_shangpin_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="商品"
+                    android:textColor="#23A064"
+                    android:textSize="@dimen/ds28" />
+
+                <View
+                    android:id="@+id/new_version_top_shangpin_line"
+                    android:layout_width="@dimen/ds56"
+                    android:layout_height="@dimen/ds3"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/ds10"
+                    android:background="@color/main_color" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/new_version_top_pinglun"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/new_version_top_pinglun_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="评价"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds28" />
+
+                <View
+                    android:id="@+id/new_version_top_pinglun_line"
+                    android:layout_width="@dimen/ds56"
+                    android:layout_height="@dimen/ds3"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/ds10"
+                    android:background="@color/main_color"
+                    android:visibility="invisible" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/new_version_top_xiangqing"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/new_version_top_xiangqing_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="详情"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds28" />
+
+                <View
+                    android:id="@+id/new_version_top_xiangqing_line"
+                    android:layout_width="@dimen/ds56"
+                    android:layout_height="@dimen/ds3"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/ds10"
+                    android:background="@color/main_color"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/new_version_top_tuijian"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/new_version_top_tuijian_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="推荐"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds28" />
+
+                <View
+                    android:id="@+id/new_version_top_tuijian_line"
+                    android:layout_width="@dimen/ds56"
+                    android:layout_height="@dimen/ds3"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/ds10"
+                    android:background="@color/main_color"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/new_version_top2_gouwuche"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <RelativeLayout
+                android:layout_width="@dimen/ds64"
+                android:layout_height="@dimen/ds64"
+                android:background="@drawable/bg_detail">
+
+                <ImageView
+                    android:layout_width="@dimen/ds44"
+                    android:layout_height="@dimen/ds44"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/new_version_gouwuche" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/new_version_top2_share"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_marginRight="@dimen/ds20"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:layout_width="@dimen/ds64"
+                android:layout_height="@dimen/ds64"
+                android:background="@drawable/bg_detail">
+
+                <ImageView
+                    android:layout_width="@dimen/ds44"
+                    android:layout_height="@dimen/ds44"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/new_version_share" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

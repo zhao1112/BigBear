@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="536pt"
+        android:layout_height="920pt"
+        android:layout_marginBottom="@dimen/ds30"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:scaleType="centerCrop"
+        />
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <TextView
+            android:gravity="center"
+            android:textSize="@dimen/ds20"
+            android:textColor="#999999"
+            android:text="此二维码已包含“邀请下载”等功能"
+            android:layout_width="match_parent"
+            android:layout_height="58pt" />
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_marginRight="@dimen/ds20"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds184">
+
+            <LinearLayout
+                android:id="@+id/wx_share"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/icon_weixin"
+                    android:layout_width="52pt"
+                    android:layout_height="43pt" />
+                <TextView
+                    android:layout_marginTop="@dimen/ds15"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20"
+                    android:text="微信"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pyq_share"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/icon_pengyouquan"
+                    android:layout_width="@dimen/ds48"
+                    android:layout_height="@dimen/ds48" />
+                <TextView
+                    android:layout_marginTop="@dimen/ds15"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20"
+                    android:text="朋友圈"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/sina_share"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/icon_weibo"
+                    android:layout_width="52pt"
+                    android:layout_height="42pt" />
+                <TextView
+                    android:layout_marginTop="@dimen/ds15"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20"
+                    android:text="微博"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/qq_share"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/icon_qq_share"
+                    android:layout_width="40pt"
+                    android:layout_height="49pt" />
+                <TextView
+                    android:layout_marginTop="@dimen/ds15"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20"
+                    android:text="QQ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/save"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/icon_baocun"
+                    android:layout_width="44pt"
+                    android:layout_height="44pt" />
+                <TextView
+                    android:layout_marginTop="@dimen/ds15"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20"
+                    android:text="保存到手机"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout
+            android:id="@+id/canle"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="89pt">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds1"
+                android:background="#F7F7F7"/>
+            <TextView
+                android:gravity="center"
+                android:textSize="@dimen/ds28"
+                android:textColor="#666666"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="取消"/>
+        </com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout>
+
+
+    </LinearLayout>
+
+    
+</android.support.constraint.ConstraintLayout>

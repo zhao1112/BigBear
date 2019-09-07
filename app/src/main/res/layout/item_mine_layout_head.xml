@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds280"
+        android:background="@drawable/mine_bg1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <RelativeLayout
+                android:layout_width="188pt"
+                android:layout_height="188pt">
+
+                <com.yunqin.bearmall.widget.CircleImageView
+                    android:id="@+id/user_head"
+                    android:layout_width="@dimen/ds144"
+                    android:layout_height="@dimen/ds144"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mine_user_icon_defult"
+                    app:border_color="@color/main_color"
+                    app:border_width="@dimen/ds2" />
+
+                <ImageView
+                    android:id="@+id/head_vip_icon"
+                    android:layout_width="74pt"
+                    android:layout_height="64pt"
+                    android:src="@drawable/icon_mine_vip_small" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds144">
+
+                <LinearLayout
+                    android:id="@+id/user_info_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds32" />
+
+                    <TextView
+                        android:id="@+id/user_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/ds6"
+                        android:textColor="#BDE2D0"
+                        android:textSize="@dimen/ds24" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ds12">
+
+                        <TextView
+                            android:id="@+id/vip_mark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_vip_mark"
+                            android:paddingLeft="@dimen/ds15"
+                            android:paddingTop="@dimen/ds4"
+                            android:paddingRight="@dimen/ds15"
+                            android:paddingBottom="@dimen/ds4"
+                            android:text="金熊会员"
+                            android:textColor="@color/white"
+                            android:textSize="20pt" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/ds40"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="点击登录"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds32" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds144"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/today_bt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mine_today_bt_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00.00"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds40" />
+
+                <TextView
+                    android:id="@+id/head_text_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds10"
+                    android:text="今日获得糖果数"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds24" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/ds12"
+                android:layout_height="@dimen/ds24"
+                android:layout_marginRight="@dimen/ds32"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/ds1"
+            android:layout_height="@dimen/ds88"
+            android:layout_gravity="center"
+            android:background="#E7E7E7" />
+
+        <LinearLayout
+            android:id="@+id/bt_wallet"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mine_bt_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00.00"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds40" />
+
+                <TextView
+                    android:id="@+id/head_text_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds10"
+                    android:text="我的糖果钱包"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds24" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/ds12"
+                android:layout_height="@dimen/ds24"
+                android:layout_marginRight="@dimen/ds32"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds64"
+    android:layout_alignParentBottom="true"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/dialog_tv_minus"
+        android:layout_width="@dimen/ds96"
+        android:layout_height="@dimen/ds64"
+        android:background="@drawable/specifition_item_minus_disabled"
+        android:clickable="false"
+        android:gravity="center"
+        android:text="-"
+        android:textColor="@color/item_specification_item_minus_tv"
+        android:textSize="@dimen/ds28" />
+
+    <TextView
+        android:id="@+id/dialog_tv_count"
+        android:layout_width="@dimen/ds128"
+        android:layout_height="@dimen/ds64"
+        android:layout_marginLeft="@dimen/ds_1"
+        android:background="@drawable/specifition_item_count_border"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/product_brand_name_color"
+        android:textSize="@dimen/ds28" />
+
+
+    <TextView
+        android:id="@+id/dialog_tv_plus"
+        android:layout_width="@dimen/ds96"
+        android:layout_height="@dimen/ds64"
+        android:layout_marginLeft="@dimen/ds_1"
+        android:background="@drawable/specifition_item_add_abled"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@color/product_customer_collect"
+        android:textSize="@dimen/ds28" />
+
+
+</LinearLayout>

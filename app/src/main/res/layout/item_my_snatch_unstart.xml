@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="330pt"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/top_divider"
+        android:layout_width="match_parent"
+        android:layout_height="20pt"
+        android:background="#F7F7F7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/item_my_snatch_image"
+        android:layout_width="200pt"
+        android:layout_height="200pt"
+        app:layout_constraintTop_toBottomOf="@id/top_divider"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20pt"
+        android:layout_marginLeft="20pt"
+        />
+
+    <TextView
+        android:id="@+id/item_my_snatch_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_my_snatch_image"
+        app:layout_constraintTop_toTopOf="@id/item_my_snatch_image"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="20pt"
+        android:layout_marginRight="30pt"
+        android:textColor="#333333"
+        android:textSize="28pt"
+        android:maxLines="2"
+        />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/ds2"
+        android:background="#E7E7E7"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/item_my_snatch_image"
+        android:layout_marginRight="30pt"
+        android:layout_marginBottom="10pt"
+        />
+
+    <!--<com.yunqin.bearmall.widget.Highlight.HighlightButton-->
+        <!--android:id="@+id/item_my_snatch_pre"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="52pt"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/line"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:layout_marginRight="30pt"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="26pt"-->
+        <!--android:background="@drawable/shape_my_snatch_text_bg"-->
+        <!--/>-->
+
+    <LinearLayout
+        android:id="@+id/snatch_bottom_layout"
+        android:layout_width="0pt"
+        android:layout_height="72pt"
+        android:layout_gravity="center"
+        android:background="@drawable/product_price_bg"
+        android:foreground="@drawable/shape_snatch_forground_bg"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/line"
+        android:layout_marginRight="20pt"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/ds16"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/buy_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/ds24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="每份"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="@dimen/ds20" />-->
+
+            <TextView
+                android:id="@+id/bt_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ds24" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <!--<android.support.constraint.Guideline-->
+        <!--android:id="@+id/guide_line"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/item_my_snatch_title"-->
+        <!--app:layout_constraintBottom_toBottomOf="@id/line"-->
+        <!--app:layout_constraintGuide_percent="0.45"-->
+        <!--/>-->
+
+    <TextView
+        android:id="@+id/join_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/item_my_snatch_image"
+        app:layout_constraintBottom_toBottomOf="@id/item_my_snatch_image"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_title"
+        android:textColor="#23A064"
+        android:textSize="24pt"
+        />
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="距离夺宝结束"
+        android:textSize="24pt"
+        android:textColor="#F5A623"
+        app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_title"
+        app:layout_constraintTop_toBottomOf="@id/join_num"
+        app:layout_constraintBottom_toBottomOf="@id/line"
+        />
+
+    <cn.iwgang.countdownview.CountdownView
+        android:id="@+id/item_my_snatch_time"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:textSize="24pt"
+        android:textColor="#F5A623"
+        app:layout_constraintLeft_toRightOf="@id/text_view"
+        app:layout_constraintBottom_toBottomOf="@id/text_view"
+        app:layout_constraintTop_toTopOf="@id/text_view"
+        app:isHideTimeBackground="true"
+        android:gravity="center"
+        app:isShowDay="false"
+        app:isShowHour="true"
+        app:isShowMinute="true"
+        app:isShowSecond="true"
+        app:isShowMillisecond="false"
+        app:timeTextColor="#F5A623"
+        app:timeTextSize="24pt"
+        app:isTimeTextBold="false"
+        app:suffixGravity="center"
+        android:layout_gravity="center"
+        android:layout_marginLeft="2pt"
+        app:suffixTextColor="#F5A623"
+        />
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/buy_count"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintLeft_toLeftOf="@id/item_my_snatch_title"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/guide_line"-->
+        <!--android:textColor="#999999"-->
+        <!--android:textSize="20pt"-->
+        <!--android:layout_marginTop="5pt"-->
+        <!--/>-->
+
+
+</android.support.constraint.ConstraintLayout>

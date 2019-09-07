@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/ds20">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds100"
+                android:gravity="center"
+                android:text="规则说明"
+                android:textColor="@color/product_brand_name_color"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds1"
+                android:background="@color/service_specification_line"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/ds30"
+                android:paddingRight="@dimen/ds48">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:text="1、糖果在糖果0元兑板块中，可用于全部或部分现金抵用，购买该板块的商品购买兑换。"
+                    android:textColor="@color/product_customer_collect"
+                    android:textSize="@dimen/ds28" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:text="2、糖果使用过程中不找零、不兑现、不开发票，不可转移至其他账户。"
+                    android:textColor="@color/product_customer_collect"
+                    android:textSize="@dimen/ds28" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:text="3、使用糖果进行兑换，兑换申请一经提交, 一律不能取消(除礼品缺货等特殊情况)。"
+                    android:textColor="@color/product_customer_collect"
+                    android:textSize="@dimen/ds28" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:text="4、如因大熊商城缺货等原因导致的退货退款，则抵扣的糖果将返还到会员账户，如因会员个人原因导致的退货退款，则不返还抵扣糖果。"
+                    android:textColor="@color/product_customer_collect"
+                    android:textSize="@dimen/ds28" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:text="5、所有糖果0元兑活动的礼品数量有限，兑完即止。"
+                    android:textColor="@color/product_customer_collect"
+                    android:textSize="@dimen/ds28" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:lineSpacingExtra="@dimen/ds10"
+                    android:text="6、本活动最终解释权归大熊商城所有。"
+                    android:textColor="@color/product_customer_collect"
+                    android:textSize="@dimen/ds28" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

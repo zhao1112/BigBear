@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:com="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/ds20"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="我的钱包"
+        com:imageSrc="@drawable/icon_wallet" />
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_bank_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="银行卡"
+        com:imageSrc="@drawable/icon_bank_card" />
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_xin_yong_ka"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="信用卡"
+        com:imageSrc="@drawable/icon_xyka" />
+
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_tg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="我的推广"
+        com:imageSrc="@drawable/icon_tg" />
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_game_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="游戏中心"
+        com:imageSrc="@drawable/icon_game" />
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_fav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="我的收藏"
+        com:imageSrc="@drawable/icon_fac" />
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="我的评价"
+        com:imageSrc="@drawable/icon_comment" />
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="收货地址"
+        com:imageSrc="@drawable/icon_address" />
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="帮助中心"
+        com:imageSrc="@drawable/icon_help" />
+
+    <com.yunqin.bearmall.widget.MineVipItemView
+        android:id="@+id/container_im"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        com:centerText="客服中心"
+        com:imageSrc="@drawable/icon_im" />
+
+
+</LinearLayout>

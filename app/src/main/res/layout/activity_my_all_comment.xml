@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="#F7F7F7"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/actionbar_layout" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--app:layout_scrollFlags="scroll|enterAlways"-->
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
+
+                <include layout="@layout/item_all_comment_top_layout" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds88"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/layout_left"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/content_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="全部"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/ds28" />
+
+                    <View
+                        android:id="@+id/view_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ds4"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/main_color" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_right"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/content_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="有图"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/ds28" />
+
+                    <View
+                        android:id="@+id/view_right"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ds4"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/main_color"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </android.support.design.widget.AppBarLayout>
+        <FrameLayout
+            android:id="@+id/bt_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

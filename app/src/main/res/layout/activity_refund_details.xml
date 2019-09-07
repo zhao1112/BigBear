@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.RefundDetailsActivity">
+
+    <include layout="@layout/actionbar_layout" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="470pt"
+                android:background="@color/md_white"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/ds446"
+                    android:layout_height="@dimen/ds260"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:src="@drawable/img_th" />
+
+                <TextView
+                    android:id="@+id/th_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds50"
+                    android:layout_marginTop="@dimen/ds40"
+                    android:gravity="center"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds36" />
+
+
+                <TextView
+                    android:id="@+id/tk_shijian"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds34"
+                    android:layout_marginTop="@dimen/ds8"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds88"
+                android:layout_marginTop="@dimen/ds20"
+                android:background="@color/md_white"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="退款总金额"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds28" />
+
+                <TextView
+                    android:id="@+id/tk_jine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/ds30"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds32" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds88"
+                android:layout_marginTop="@dimen/ds20"
+                android:background="@color/md_white"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/from_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="返回银行卡"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds28" />
+
+                <TextView
+                    android:id="@+id/tk_yinhangka"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/ds30"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds32" />
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_white"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds88"
+                android:layout_marginTop="@dimen/ds20"
+                android:background="@color/md_white"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="协商历史"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds28" />
+
+                <ImageView
+                    android:layout_width="@dimen/ds12"
+                    android:layout_height="@dimen/ds24"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/ds30"
+                    android:src="@drawable/icon_arrow_right" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds88"
+                android:layout_marginTop="@dimen/ds2"
+                android:background="@color/md_white"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="售后服务评价"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds28" />
+
+                <ImageView
+                    android:layout_width="@dimen/ds12"
+                    android:layout_height="@dimen/ds24"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/ds30"
+                    android:src="@drawable/icon_arrow_right" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds88"
+                android:layout_marginTop="@dimen/ds20"
+                android:background="@color/md_white"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="退款信息"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds28" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds2"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds216"
+                android:layout_marginTop="@dimen/ds2"
+                android:background="@color/md_white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/ds30"
+                android:paddingTop="@dimen/ds24"
+                android:paddingRight="@dimen/ds30"
+                android:paddingBottom="@dimen/ds16">
+
+                <TextView
+                    android:id="@+id/tuikuanyuanyin"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="退款原因:"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds24" />
+
+                <TextView
+                    android:id="@+id/tuikuanjine"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="退款金额:"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds24" />
+
+                <TextView
+                    android:id="@+id/shenqingshijian"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="申请时间:"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds24" />
+
+                <TextView
+                    android:id="@+id/dingdanbianhao"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="订单编号:"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds24" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:layout_marginTop="@dimen/ds2"
+        android:background="@color/md_white"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/call_phone"
+            android:layout_width="@dimen/ds140"
+            android:layout_height="@dimen/ds52"
+            android:layout_marginRight="@dimen/ds30"
+            android:background="@drawable/address_bg"
+            android:gravity="center"
+            android:text="拨打电话"
+            android:textColor="#666666"
+            android:textSize="@dimen/ds24" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

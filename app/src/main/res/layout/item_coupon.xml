@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds200"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F7F7F7"
+    android:gravity="center_vertical"
+    android:paddingTop="10pt"
+    android:paddingBottom="10pt"
+    android:paddingLeft="30pt"
+    android:paddingRight="30pt"
+    android:orientation="vertical">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/voucher_bg_do"
+        >
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.29"
+            android:orientation="vertical"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@id/guide_line"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="32pt"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="优惠券"
+            />
+
+        <View
+          android:id="@+id/lin_line"
+             android:layout_gravity="center"
+          android:layout_width="180pt"
+             android:layout_height="match_parent"
+              app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="40pt"
+        android:background="@drawable/voucher_line"
+        android:layerType="software" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/right_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.81"
+            />
+
+        <com.yunqin.bearmall.widget.LinTextView
+                 android:id="@+id/status"
+                  android:lineSpacingExtra="@dimen/ds6"
+                  android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+               android:text="立即使用"
+               android:textColor="#CCCCCC"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/right_line"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+              android:textSize="@dimen/ds26" />
+
+        <TextView
+            android:id="@+id/remain_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/guide_line"
+            app:layout_constraintRight_toLeftOf="@id/right_line"
+            android:layout_marginLeft="15pt"
+            android:layout_marginRight="15pt"
+            android:textSize="20pt"
+            android:textColor="#23A064"
+            android:text="还剩0天"
+            />
+
+        <TextView
+            android:id="@+id/coupon_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/remain_date"
+            app:layout_constraintRight_toRightOf="@id/remain_date"
+            app:layout_constraintBottom_toTopOf="@id/remain_date"
+            android:layout_marginBottom="10pt"
+            android:maxLines="1"
+            android:textSize="26pt"
+            android:textColor="#333333"
+            android:text="标题"
+            />
+
+        <TextView
+            android:id="@+id/left_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/remain_date"
+            app:layout_constraintRight_toRightOf="@id/remain_date"
+            app:layout_constraintTop_toBottomOf="@id/remain_date"
+            android:layout_marginTop="10pt"
+            android:textColor="#999999"
+            android:textSize="20pt"
+            android:text="有效期"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/voucher_bg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/ds180"-->
+        <!--android:layout_marginLeft="@dimen/ds30"-->
+        <!--android:layout_marginRight="@dimen/ds30"-->
+        <!--android:background="@drawable/voucher_bg_do"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/numbers"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/ds40"-->
+            <!--android:text="优惠券"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:textSize="@dimen/ds32" />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/ds60"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/transfer_bt_number"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="转赠限额0BT"-->
+                <!--android:textColor="#333333"-->
+                <!--android:textSize="@dimen/ds26" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/days"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/ds8"-->
+                <!--android:text="还剩10天"-->
+                <!--android:textColor="#23A064"-->
+                <!--android:textSize="@dimen/ds20" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/time"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/ds8"-->
+                <!--android:text="截至时间：2018-09-08"-->
+                <!--android:textColor="#999999"-->
+                <!--android:textSize="@dimen/ds20" />-->
+        <!--</LinearLayout>-->
+
+        <!--<View-->
+            <!--android:id="@+id/lin_line"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_width="@dimen/ds180"-->
+            <!--android:layout_marginLeft="-90pt"-->
+            <!--android:layout_marginRight="-90pt"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/voucher_line"-->
+            <!--android:layerType="software" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/use_it"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="@dimen/ds140"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_height="match_parent">-->
+
+
+
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+</LinearLayout>

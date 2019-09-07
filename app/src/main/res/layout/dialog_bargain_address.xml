@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds120">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="选择收货地址"
+            android:textColor="@color/product_name_color"
+            android:textSize="@dimen/ds32" />
+
+        <RelativeLayout
+            android:id="@+id/bargain_cancel_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/ds30"
+            android:paddingRight="@dimen/ds30"
+            android:paddingTop="@dimen/ds30">
+
+            <ImageView
+                android:layout_width="@dimen/ds28"
+                android:layout_height="@dimen/ds28"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_close_28" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="#F7F7F7" />
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/bargain_address_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:visibility="gone"></ListView>
+
+        <RelativeLayout
+            android:id="@+id/gargain_free_address_empty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/gargain_address_img"
+                android:layout_width="@dimen/ds216"
+                android:layout_height="@dimen/ds174"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_gargain_address_empty" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gargain_address_img"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/ds44"
+                android:text="暂无收货地址"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds28" />
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/id_number_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/input_id_number_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds140"
+            android:background="@color/md_white"
+            android:gravity="center"
+            android:padding="@dimen/ds30">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff">
+
+                <EditText
+                    android:id="@+id/input_id_number_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/order_hai_wai_left"
+                    android:hint="因海关清关需要，请填写收货人的身份证号"
+                    android:maxLength="18"
+                    android:paddingLeft="@dimen/ds20"
+                    android:textSize="@dimen/ds28" />
+
+                <Button
+                    android:id="@+id/id_number_commit"
+                    android:layout_width="@dimen/ds110"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/order_button_selector"
+                    android:enabled="false"
+                    android:text="保存"
+                    android:textColor="@color/md_white"
+                    android:textSize="@dimen/ds28" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/bargain_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds104"
+        android:background="@color/main_color"
+        android:gravity="center"
+        android:text="新增收货地址"
+        android:textColor="@color/white"
+        android:textSize="@dimen/ds32" />
+
+
+</LinearLayout>

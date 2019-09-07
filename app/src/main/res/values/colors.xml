@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#23A064</color>
+
+    <color name="TRANSPARENT">#00000000</color>
+    <!--<color name="black_transparent_30">#00000000</color>-->
+
+    <color name="color_my_1">#292c30</color>
+    <color name="home_select_color">#e3010101</color>
+    <color name="home_select_color_normal">#db7f7a7a</color>
+    <color name="bank_select_color_normal">#98D2B6</color>
+
+    <color name="md_white">#ffffff</color>
+    <color name="md_grey_400">#bdbdbd</color>
+    <color name="text_color_1">#bdbdbd</color>
+    <color name="layout_bg">#fafafa</color>
+    <color name="navpage">#FFE1E8EB</color>
+
+
+    <color name="md_white_1">#e1e0e0</color>
+    <color name="md_red_1">#e33b3b</color>
+
+
+    <color name="light_green">#61BD91</color>
+
+    <color name="main_color">#23A064</color>
+    <color name="home_text_unselect">#B3B3B3</color>
+    <color name="tab_gb">#ffffff</color>
+    <color name="product_customer_collect">#666666</color>
+    <color name="divider">#f7f7f7</color>
+    <color name="product_name_color">#484848</color>
+    <color name="product_sell_count">#999999</color>
+    <color name="product_sweets_explain">#909090</color>
+    <color name="product_brand_name_color">#333333</color>
+    <color name="product_img_tip_bg">#45000000</color>
+    <color name="item_specification_item_minus_tv">#D8D8D8</color>
+    <color name="item_specification_item_minus_border">#E7E7E7</color>
+    <color name="service_specification_line">#E5E5E5</color>
+    <color name="collect_bg">#F5A623</color>
+    <color name="bargain_share_current_price">#FFA613</color>
+
+    <color name="delete_bg">#E75B56</color>
+
+    <color name="add_cart_bg">#88484848</color>
+
+
+    <color name="md_select_bg">#c3999999</color>
+    <color name="md_keyboard_gap">#cccccc</color>
+
+    <color name="md_bai">#ffffff</color>
+    <color name="md_hui">#bebdbd</color>
+    <color name="md_hui2">#9f9f9f</color>
+
+    <color name="charge_1">#61BD91</color>
+    <color name="bg_gray">#ffffff</color>
+
+    <color name="text_gray">#999999</color>
+
+
+</resources>

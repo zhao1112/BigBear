@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds92">
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:id="@+id/head_image"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_width="@dimen/ds48"
+            android:layout_height="@dimen/ds48"
+            android:background="@drawable/mine_user_icon_defult"/>
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_weight="1"
+            android:text="大熊用户123"
+            android:textSize="@dimen/ds28"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+        <Button
+            android:id="@+id/write_comment"
+            android:layout_marginRight="@dimen/ds20"
+            android:text="写评价"
+            android:textColor="#23A064"
+            android:textSize="@dimen/ds26"
+            android:background="@drawable/btn_other_way_login_bg"
+            android:layout_width="@dimen/ds120"
+            android:layout_height="@dimen/ds52" />
+    </LinearLayout>
+    <View
+        android:background="#F7F7F7"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds15"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="262pt">
+        <TextView
+            android:layout_marginTop="@dimen/ds24"
+            android:layout_marginLeft="@dimen/ds30"
+            android:textColor="#999999"
+            android:textSize="@dimen/ds24"
+            android:text="没来得及评价的宝贝，还有机会追评！"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <HorizontalScrollView
+            android:layout_marginRight="@dimen/ds30"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/images_layout"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+    <View
+        android:background="#F7F7F7"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds15"/>
+</LinearLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingTop="10pt"
+    android:paddingBottom="10pt">
+
+
+    <RelativeLayout
+        android:id="@+id/check_box_container"
+        android:layout_width="80pt"
+        android:layout_height="256pt">
+
+        <CheckBox
+            android:id="@+id/check_box"
+            style="@style/CheckBoxTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="690pt"
+        android:layout_height="256pt">
+
+        <ImageView
+            android:id="@+id/bank_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="144pt"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="30pt"
+                android:paddingRight="30pt">
+
+                <com.yunqin.bearmall.widget.CircleImageView
+                    android:id="@+id/bank_icon"
+                    android:layout_width="72pt"
+                    android:layout_height="72pt"
+                    android:layout_marginRight="0pt"
+                    android:scaleType="centerCrop"
+                    app:border_width="0pt" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="20pt">
+
+                    <TextView
+                        android:id="@+id/bank_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:textSize="32pt" />
+
+                    <TextView
+                        android:id="@+id/bank_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10pt"
+                        android:textColor="#DCBCBD"
+                        android:textSize="24pt" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="30pt"
+                android:paddingRight="30pt">
+
+                <ImageView
+                    android:layout_width="72pt"
+                    android:layout_height="72pt"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20pt">
+
+                    <TextView
+                        android:id="@+id/bank_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:textSize="52pt" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

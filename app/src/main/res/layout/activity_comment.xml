@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.CommentActivity">
+
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/actionbar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:layout_marginBottom="@dimen/ds116"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/comment_goods_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <CheckBox
+            android:id="@+id/check_box"
+            style="@style/CheckBoxTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds16"
+            android:layout_weight="1"
+            android:text="匿名"
+            android:textColor="#666666"
+            android:textSize="@dimen/ds28" />
+
+
+        <TextView
+            android:id="@+id/send_comment"
+            android:layout_width="@dimen/ds200"
+            android:layout_height="match_parent"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="发表评论"
+            android:textColor="@color/md_white"
+            android:textSize="@dimen/ds28" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

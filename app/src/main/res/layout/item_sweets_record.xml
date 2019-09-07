@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#F7F7F7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds184"
+        android:orientation="horizontal">
+
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:id="@+id/head_img"
+            android:layout_width="@dimen/ds100"
+            android:layout_height="@dimen/ds100"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds30"
+            android:src="@drawable/mine_user_icon_defult" />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/ds30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds24"
+            android:layout_marginRight="@dimen/ds24"
+            android:layout_weight="1"
+            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="用户名称123"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds28" />
+                <TextView
+                    android:id="@+id/bear_number"
+                    android:layout_marginTop="@dimen/ds6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="大熊号：485655245"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds24" />
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="2018-06-02 11:11:11"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds28" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/give_number"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/ds20"
+            android:text="赠送500"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/ds24" />
+
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:layout_width="@dimen/ds36"
+            android:layout_height="@dimen/ds36"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/ds30"
+            android:src="@drawable/bt_bear" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

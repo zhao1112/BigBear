@@ -1,0 +1,127 @@
+<resources tools:locale="zh-rCN" xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" >大熊商城</string>
+    <string-array name="adBlockDiv">
+        <item>ubmcmm.baidustatic.com</item>
+        <item>cpro2.baidustatic.com</item>
+        <item>cpro.baidustatic.com</item>
+        <item>s.lianmeng.360.cn</item>
+        <item>nsclick.baidu.com</item>
+        <item>pos.baidu.com</item>
+        <item>cbjs.baidu.com</item>
+        <item>cpro.baidu.com</item>
+        <item>images.sohu.com/cs/jsfile/js/c.js</item>
+        <item>union.sogou.com/</item>
+        <item>sogou.com/</item>
+        <item>a.baidu.com</item>
+        <item>c.baidu.com</item>
+        <item>div-gpt-ad-1443488528500-4</item>
+        <item>div-gpt-ad-1443727656867-1</item>
+        <item>div-gpt-ad-1443488528500-5</item>
+        <item>div-gpt-ad-1443488528500-6</item>
+        <item>div-gpt-ad-1443488528500-7</item>
+        <item>div-gpt-ad-1443727656867-0</item>
+        <item>div-gpt-ad-1443488528500-2</item>
+        <item>div-gpt-ad-1443488528500-3</item>
+        <item>div-gpt-ad-1443488528500-1</item>
+
+    </string-array>
+
+    <!-- WXPayEntryActivity -->
+    <string name="pay_result_tip">这个界面用于显示第三方app通过微信支付的结果</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="app_tip">提示</string>
+
+    <string name="charge_warn">您每月可使用一次话费优惠券，限本人号码</string>
+
+    <string name="loding_defult">加载中...</string>
+
+    <string name="app_home">首页</string>
+    <string name="app_recommend">推荐</string>
+    <string name="app_information">消息</string>
+    <string name="app_trolley">购物车</string>
+    <string name="app_mine">我的</string>
+
+    <string name="app_login">登录</string>
+
+    <string name="app_login_way">选择登录方式</string>
+
+    <string name="app_login_tip1">已在手机QQ或浏览器购买过？</string>
+    <string name="app_login_tip2">请使用其他方式登录</string>
+    <string name="app_login_tip3">《查看大熊用户协议》</string>
+
+
+    <string name="addr_name">收货人姓名（请使用真实姓名）</string>
+    <string name="addr_phone_number">手机号码</string>
+    <string name="addr_consignee">街道、小区门牌等详细地址</string>
+    <string name="addr_select">选择所在地区</string>
+
+    <string name="goods_number" formatted="false">
+    <![CDATA[<font color=\'#999999\'>商品数量：</font>  <font color=\'#23A064\'> %s </font> ]]>
+    </string>
+    <string name="sale_number" formatted="false">
+    <![CDATA[<font color=\'#999999\'>已销售：</font>  <font color=\'#23A064\'> %s </font> <font color=\'#999999\'>件</font> ]]>
+    </string>
+
+    <string name="bind_name" formatted="false">
+    <![CDATA[<font color=\'#999999\'>亲爱的 </font>  <font color=\'#23A064\'> %s </font> ]]>
+    </string>
+
+    <string name="get_total_bt" formatted="false">
+    <![CDATA[<font color=\'#333333\'>累计获得: </font>  <big><font color=\'#23A064\'> %sBC</font> </big> <font color=\'#333333\'>糖果</font>]]>
+    </string>
+
+    <string name="bt_give_rule" formatted="false">
+    <![CDATA[<font color=\'#E75B56\'>还可赠送</font>  <font color=\'#E75B56\'> %s </font> <font color=\'#E75B56\'>次，每次限额</font>  <font color=\'#E75B56\'> %s </font>
+    <font color=\'#E75B56\'>糖果</font>]]>
+    </string>
+
+
+    <string name="sign_rank" formatted="false">
+    <![CDATA[<font color=\'#999999\'>今日第 </font>  <font color=\'#23A064\'> %s </font> <font color=\'#999999\'>名签到，累计签到 </font> <font color=\'#23A064\'> %s </font> <font color=\'#999999\'>天</font>]]>
+    </string>
+    <string name="poster_link" formatted="false">
+    <![CDATA[<font color=\'#999999\'>邀请链接: </font>  <font color=\'#999999\'> %s </font> ]]>
+    </string>
+    <string name="rule" formatted="false">1、将你的专属二维码、链接分享至社区网络 \n2、邀请好友通过你的二维码、链接下载激活大熊商场APP \n3、好友在大熊商城绑定手机号后，即可立即获得糖果奖励 \n4、在此之后您还可额外获得活动期间好友分享快讯获得的收益作 为您的奖励佣金（%1$s） \n5、邀请奖励和收益分成支持2级，每级奖励递减，即：M1为直接 邀请每邀请1个用户，您可获得%2$s个糖果；M2为间接邀请，您邀 请的M1用户又邀请了用户，您也可以获得M2的分成奖励，M2的奖励为M1奖励的%3$s\n6、通过网络任务平台、众人帮、积分墙、猪八戒等网站付费激励 形式邀请的无活跃用户，将被视为无效用户。邀请大量无效用户 的用户，将被扣除帐号糖果 \n7、活动最终解释权归大熊商城所有 \n
+    </string>
+
+    <string name="string_help_text">当前应用缺少必要权限\n请点击"设置"-"权限"-打开所需权限\n所需权限为:手机存储权限</string>
+
+    <string name="text_info" formatted="false">
+    <![CDATA[<font color=\'#333333\'>已连续完成任务 </font>  <big><font color=\'#23A064\'> %s</font> </big>  <font color=\'#333333\'>天</font>   <font color=\'#333333\'>距离每月任务完成大奖 </font>  <big><font color=\'#23A064\'> %s</font> </big>  <font color=\'#333333\'>天</font> ]]>
+    </string>
+
+    <item name="type_group" type="integer" />
+    <item name="type_child" type="integer" />
+
+    <string name="invite_now"> <u>立即邀请</u></string>
+
+    <string name="zero_text_style" formatted="false">
+    <![CDATA[<font color=\'#999999\'>已有</font>  <big><font color=\'#F5A623\'> %s</font> </big> <font color=\'#999999\'>人参加，还差</font> <big><font color=\'#F5A623\'> %s</font> </big> <font color=\'#999999\'>人</font> ]]>
+    </string>
+
+    <string name="activity_zero_tip">1、点击首页0元拼团，进入拼团商品列表，通过发起拼团，支付相应糖果拼团成功;\n2、拼团活动时间为24小时，当拼团活动时间结束、或参团人数在活动时间内达到门槛值，拼团成功，立即开奖;\n3、每个拼团活动均设一名用户获奖，开奖信息将实时在平台上发布;\n4、商品充足时，获奖用户的奖品，直接由商家发货;\n5、对于为中奖用户，平台均奖励一定数量糖果。</string>
+    <string name="activity_zero_tip1">1、0元拼团活动，设置10、20、30、40、50人团;\n2、每日每人可参与拼团商品数不设限制，但单个商品拼团，每日每人只能参加一次。</string>
+
+    <string name="activity_zero_tip2">1、活动用户需要依据网页提示进行操作，如出现商品无法发放、活动无法继续等异常现象，可惜讯商家或大熊客服\n2、拼团商品库存有限，如因库存不足导致的砍价失败或发货失败，糖果全额退回。</string>
+    <string name="duobao_tip1">1、糖果夺宝由平台发起，每天早点8点开始，晚上10点结束\n2、查看夺宝详情，通过参与夺宝进行，根据夺宝商品每份的糖果数量，可购买任意多份\n3、每2小时开一场糖果夺宝，时间结束自动开奖\n4、对于中奖用户，系统自动发放中奖得糖果金额，对于未中奖用户系统不在返还相关糖果</string>
+
+    <string name="duobao_tip2">1、系统有666、888、999等夺宝商品\n2、对于夺宝商品，用户按每份糖果金额，可任意购买</string>
+
+    <string name="duobao_tip3">1、活动用户需依照页面提示进行操作，如出现夺宝商品无法发放，活动无法继续等异常情况，可咨询大熊客服\n2、夺宝商品每场数量有限，如因数量不足或其他原因导致的中奖夺宝商品，未及时发放，可咨询大熊客服。</string>
+
+    <string name="privitege_1" formatted="false"> <![CDATA[<font color=\'#333333\'>1、糖果0元兑本月还可参与 </font>  <font color=\'#E75B56\'> %s </font>  <font color=\'#333333\'> 次 </font>  ]]>   </string>
+
+    <string name="privitege_2" formatted="false"> <![CDATA[<font color=\'#333333\'>2、话费充值抵扣券剩余  </font>  <font color=\'#E75B56\'> %s </font>  <font color=\'#333333\'> 张 </font>  ]]>   </string>
+
+
+    <string name="privitege_3" formatted="false"> <![CDATA[<font color=\'#333333\'>3、400元现金优惠券剩余   </font>  <font color=\'#E75B56\'> %s </font>  <font color=\'#333333\'> 张 </font>  ]]>   </string>
+
+    <string name="vip_text">划线价：可能是商品的专柜价、吊牌价、零售价、指导价或该商品曾经展示过的销售价等，并非《价格法》、《禁止价格欺诈行为的规定》规定的“原价”，仅供您参考</string>
+
+    <string name="vip_deail">1、直接购买价：是您单独购买商品的价格；\n2、大熊零售价：是您支付部分大熊糖果购买商品的价格； \n3、划线价：可能是商品的专柜价、吊牌价、零售价、指导价或该商品曾经展示过的销售价等，并非《价格法》、《禁止价格欺诈行为的规定》规定的“原价”，仅供您参考； \n4、特别提示：实际的成交价格可能因您使用糖果等发生变化，最终以订单结算页的价格为准。若商家单独对价格进行说明的，以商家的表述为准。 \n5、直接购买价：是您单独购买商品的价格； \n6、大熊零售价：是您支付部分大熊糖果购买商品的价格； \n7、划线价：可能是商品的专柜价、吊牌价、零售价、指导价或该商品曾经展示过的销售价等，并非《价格法》、《禁止价格欺诈行为的规定》规定的“原价”，仅供您参考； \n8、特别提示：实际的成交价格可能因您使用糖果等发生变化，最终以订单结算页的价格为准。若商家单独对价格进行说明的，以商家的表述为准。</string>
+
+    <item name="tag_first" type="id" />
+
+
+</resources>

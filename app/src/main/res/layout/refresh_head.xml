@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="@dimen/ds70"
+            android:layout_height="@dimen/ds90"
+            android:indeterminateDrawable="@drawable/bear_loading" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ds70"
+            android:layout_marginLeft="@dimen/ds20"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="玩着就可以赚钱的会员商城"
+                android:textColor="#999999"
+                android:textSize="@dimen/ds22" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共建通证经济新生态"
+                android:textColor="#999999"
+                android:textSize="@dimen/ds20" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_gray_solid"
+    android:orientation="vertical"
+    android:padding="@dimen/ds10">
+
+    <RelativeLayout
+        android:id="@+id/layout_home_pro_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds180">
+
+        <ImageView
+            android:id="@+id/item_home_pro_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/layout_video_thumb"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="gone"-->
+        <!--android:background="#60000000">-->
+        <!--<ImageView
+            android:id="@+id/item_video_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_home_video_thumb"
+            android:visibility="gone" />-->
+        <!--</RelativeLayout>-->
+
+    </RelativeLayout>
+
+    <!---->
+    <!--<ImageView-->
+    <!--android:id="@+id/item_home_pro_image"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="180dp"-->
+    <!--android:scaleType="centerCrop"/>-->
+
+    <!--<ImageView
+        android:id="@+id/iv_collct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/ds20"
+        android:layout_marginRight="@dimen/ds20"
+        android:src="@mipmap/icon_collect"
+        android:visibility="gone" />-->
+
+    <TextView
+        android:id="@+id/item_home_pro_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_home_pro_image"
+        android:layout_marginTop="@dimen/ds6"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="@dimen/ds4"
+        android:maxLines="2"
+        android:text="123"
+        android:textColor="#333333">
+
+    </TextView>
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_home_pro_title"
+        android:layout_marginTop="@dimen/ds6"
+        android:orientation="horizontal">
+
+        <TextView
+            android:drawableLeft="@mipmap/icon_taobao"
+            android:drawablePadding="@dimen/ds3"
+            android:id="@+id/item_seller_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="淘宝店铺名称展示"
+            android:textColor="#A6A6A6"
+            android:textSize="@dimen/ds10" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rl2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl"
+        android:layout_marginTop="@dimen/ds6">
+
+        <TextView
+            android:id="@+id/item_home_pro_quan"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ds14"
+            android:background="@mipmap/icon_coupons"
+            android:paddingLeft="@dimen/ds5"
+            android:paddingRight="@dimen/ds5"
+            android:text="abc"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/ds9" />
+
+        <TextView
+            android:id="@+id/tv_commision"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds8"
+            android:background="@mipmap/bg_money"
+            android:drawableLeft="@mipmap/icon_money"
+            android:gravity="center"
+            android:text="预估佣金:¥0.00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds9" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl2"
+        android:layout_marginTop="@dimen/ds6">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="券后价"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds9" />
+
+            <TextView
+                android:id="@+id/item_home_pro_quanhoujia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textColor="#ED1205"
+                android:textSize="@dimen/ds12" />
+
+            <TextView
+                android:id="@+id/item_home_pro_yuanjia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds7"
+                android:text="123"
+                android:textColor="#888888"
+                android:textSize="@dimen/ds10" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_home_xiaoliang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="月销 "
+                android:textSize="@dimen/ds10" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:com="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_down_load_dialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_custom_dialog"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_fresh_down_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60pt"
+        android:textColor="#333333"
+        android:textSize="32pt" />
+
+
+    <com.videodown.CompletedView
+        android:id="@+id/progress_ring_view"
+        android:layout_width="132pt"
+        android:layout_height="132pt"
+        android:layout_marginBottom="80pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60pt"
+        com:circleColor="#FFFFFF"
+        com:radius="58pt"
+        com:ringBgColor="#808080"
+        com:ringTextColor="#666666"
+        com:ringColor="#23A064"
+        com:strokeWidth="6pt" />
+
+
+
+
+
+
+</LinearLayout>

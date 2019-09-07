@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.newversions.passwd.ChangePwdActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:background="#ffffff">
+
+
+        <RelativeLayout
+            android:id="@+id/new_version_back"
+            android:layout_width="@dimen/ds74"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/ds30">
+
+            <ImageView
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_backs" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="设置余额支付密码"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds32" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="#E7E7E7" />
+
+    <TextView
+        android:id="@+id/hint_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/ds100"
+        android:text="请输入旧的支付密码"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds28" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds90"
+        android:layout_marginLeft="@dimen/ds80"
+        android:layout_marginTop="@dimen/ds40"
+        android:layout_marginRight="@dimen/ds80"
+        android:background="@drawable/input_pwd_shape"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_pass1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textSize="@dimen/ds60" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_pass2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textSize="@dimen/ds60" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_pass3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textSize="@dimen/ds60" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_pass4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textSize="@dimen/ds60" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_pass5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textSize="@dimen/ds60" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_pass6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textSize="@dimen/ds60" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="@dimen/ds620"
+        android:layout_height="@dimen/ds72"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/ds100"
+        android:background="@drawable/new_version_pwd_button_selector"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="@dimen/ds28" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds434"
+        android:background="#D6D9DE"
+        android:orientation="vertical"
+        android:padding="@dimen/ds10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/keyboard_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="1"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+            <Button
+                android:id="@+id/keyboard_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds10"
+                android:layout_marginRight="@dimen/ds10"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="2"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+            <Button
+                android:id="@+id/keyboard_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="3"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds10"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/keyboard_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="4"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+            <Button
+                android:id="@+id/keyboard_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds10"
+                android:layout_marginRight="@dimen/ds10"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="5"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+            <Button
+                android:id="@+id/keyboard_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="6"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds10"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/keyboard_7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="7"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+            <Button
+                android:id="@+id/keyboard_8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds10"
+                android:layout_marginRight="@dimen/ds10"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="8"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+            <Button
+                android:id="@+id/keyboard_9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="9"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds10"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/keyboard_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ds10"
+                android:layout_marginRight="@dimen/ds10"
+                android:layout_weight="1"
+                android:background="@drawable/input_pwd_button_shape"
+                android:text="0"
+                android:textColor="#000000"
+                android:textSize="@dimen/ds40" />
+
+
+            <RelativeLayout
+                android:id="@+id/keyboard_del"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/new_version_pwd_button_del_selector"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="@dimen/ds54"
+                    android:layout_height="@dimen/ds54"
+                    android:layout_centerInParent="true"
+                    android:clickable="false"
+                    android:src="@drawable/num_del" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

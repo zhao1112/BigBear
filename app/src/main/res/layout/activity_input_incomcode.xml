@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds70">
+        <ImageView
+            android:id="@+id/im_back"
+            android:layout_width="@dimen/ds40"
+            android:layout_height="@dimen/ds40"
+            android:layout_marginLeft="@dimen/ds10"
+            android:src="@drawable/icon_backs"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邀请码或邀请人手机号"
+            android:textSize="@dimen/ds28"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+
+
+    <ImageView
+        android:layout_width="@dimen/ds210"
+        android:layout_height="@dimen/ds272"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/ds100"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/ds50"
+        android:layout_marginTop="@dimen/ds80"
+        android:layout_marginRight="@dimen/ds50"
+        android:gravity="center"
+        android:text="请输入邀请码或邀请人手机号"
+        android:textSize="@dimen/ds30" />
+    <EditText
+        android:id="@+id/ed_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ds20"
+        android:layout_marginEnd="@dimen/ds50"
+        android:layout_marginStart="@dimen/ds50"
+        android:layout_marginBottom="@dimen/ds10"
+        android:textSize="@dimen/ds100"
+        android:text=""
+        android:background="@color/white"
+        android:textColor="#868686"
+        android:gravity="center" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds4"
+        android:layout_marginStart="@dimen/ds50"
+        android:layout_marginEnd="@dimen/ds50"
+        android:background="#F5F5F5"/>
+    <TextView
+        android:textSize="@dimen/ds25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="长按粘贴邀请码或手机号"
+        android:layout_marginLeft="@dimen/ds50"
+        android:layout_marginRight="@dimen/ds50"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/ds36"
+        android:textColor="#999999"/>
+
+    <TextView
+        android:id="@+id/tv_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_wx_bg"
+        android:text="确定"
+        android:gravity="center"
+        android:textSize="@dimen/ds30"
+        android:textColor="@color/white"
+        android:padding="@dimen/ds20"
+        android:layout_marginTop="@dimen/ds80"
+        android:layout_marginLeft="@dimen/ds40"
+        android:layout_marginRight="@dimen/ds40"/>
+
+</LinearLayout>

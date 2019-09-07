@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds80"
+    android:layout_marginLeft="@dimen/ds30"
+    android:background="@android:color/white"
+    android:gravity="center_vertical|right"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/order_apply_after_sale"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg"
+        android:text="申请售后"
+        android:gravity="center"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/order_check_logistics"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg"
+        android:text="查看物流"
+        android:gravity="center"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/order_appraise"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg"
+        android:text="晒单评价"
+        android:gravity="center"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/order_confirm_receipt"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg"
+        android:gravity="center"
+        android:text="确认收货"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/order_cancel"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/order_go_pay"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg_green1"
+        android:text="去付款"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/order_del"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg"
+        android:text="删除订单"
+        android:gravity="center"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/order_buy_again"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg"
+        android:gravity="center"
+        android:text="再次购买"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+
+    <Button
+        android:id="@+id/order_check_info"
+        android:layout_width="@dimen/ds140"
+        android:layout_height="@dimen/ds52"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="@drawable/address_bg"
+        android:gravity="center"
+        android:text="查看详情"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds24"
+        android:visibility="gone" />
+
+
+</LinearLayout>

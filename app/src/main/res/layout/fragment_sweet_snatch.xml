@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            >
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="?attr/colorPrimary"
+                app:titleEnabled="false"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <com.yunqin.bearmall.widget.TopBanner
+                        android:id="@+id/top"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/default_banner"
+                        android:layout_height="300pt">
+                    </com.yunqin.bearmall.widget.TopBanner>
+
+                    <include
+                        android:id="@+id/jump_dalitask"
+                        layout="@layout/item_snatch_header"/>
+
+                </LinearLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <com.androidkun.xtablayout.XTabLayout
+                android:id="@+id/xtablelayout"
+                android:layout_width="match_parent"
+                android:layout_height="120pt"
+                android:layout_gravity="center"
+                app:xTabDisplayNum="10"
+                app:xTabMode="fixed"
+                app:xTabBackgroundColor="@color/white"
+                app:xTabSelectedBackgroundColor="#23A064"
+                app:xTabSelectedTextColor="@color/white"
+                app:xTabSelectedTextSize="@dimen/ds30"
+                app:xTabTextColor="#23A064"
+                app:xTabTextSize="@dimen/ds28"
+                >
+            </com.androidkun.xtablayout.XTabLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/divider"
+                />
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>
+
+

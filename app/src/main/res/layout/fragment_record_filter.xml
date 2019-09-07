@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <View
+        android:id="@+id/bg_click"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="0.5"
+        />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:background="#E5E5E5"
+            />
+
+        <Button
+            android:id="@+id/button1"
+            android:tag="5"
+            android:layout_width="0dp"
+            android:layout_height="64pt"
+            android:text="近三月"
+            android:layout_marginLeft="30pt"
+            android:layout_marginTop="40pt"
+            android:textSize="24pt"
+            android:paddingTop="14pt"
+            android:paddingBottom="14pt"
+            android:textColor="@color/selector_record_filter_text"
+            android:background="@drawable/selector_filter_text_bg"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/button2"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:tag="4"
+            android:layout_width="0dp"
+            android:layout_height="64pt"
+            android:text="近一月"
+            android:layout_marginLeft="20pt"
+            android:textSize="24pt"
+            android:paddingTop="14pt"
+            android:paddingBottom="14pt"
+            app:layout_constraintTop_toTopOf="@id/button1"
+            android:background="@drawable/selector_filter_text_bg"
+            android:textColor="@color/selector_record_filter_text"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toRightOf="@id/button1"
+            app:layout_constraintRight_toRightOf="@id/button3"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="64pt"
+            android:tag="3"
+            android:text="近一周"
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="30pt"
+            android:textSize="24pt"
+            android:paddingTop="14pt"
+            android:paddingBottom="14pt"
+            app:layout_constraintTop_toTopOf="@id/button1"
+            android:textColor="@color/selector_record_filter_text"
+            android:background="@drawable/selector_filter_text_bg"
+            app:layout_constraintLeft_toRightOf="@id/button2"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="64pt"
+            android:tag="2"
+            app:layout_constraintTop_toBottomOf="@id/button1"
+            app:layout_constraintLeft_toLeftOf="@id/button1"
+            app:layout_constraintRight_toRightOf="@id/button1"
+            android:layout_marginTop="40pt"
+            android:textSize="24pt"
+            android:paddingTop="14pt"
+            android:paddingBottom="14pt"
+            android:textColor="@color/selector_record_filter_text"
+            android:background="@drawable/selector_filter_text_bg"
+            android:layout_marginBottom="40pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="昨天"
+            />
+
+
+        <Button
+            android:id="@+id/button5"
+            android:tag="1"
+            android:layout_width="0dp"
+            android:layout_height="64pt"
+            app:layout_constraintTop_toBottomOf="@id/button2"
+            app:layout_constraintLeft_toLeftOf="@id/button2"
+            app:layout_constraintRight_toRightOf="@id/button2"
+            android:layout_marginTop="40pt"
+            android:textSize="24pt"
+            android:paddingTop="14pt"
+            android:paddingBottom="14pt"
+            android:textColor="@color/selector_record_filter_text"
+            android:background="@drawable/selector_filter_text_bg"
+            android:text="今日"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

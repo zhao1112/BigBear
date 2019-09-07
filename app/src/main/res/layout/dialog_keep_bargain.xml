@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_color_corner_8"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/ds40"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds68">
+
+        <RelativeLayout
+            android:id="@+id/dialog_cancel_layout"
+            android:layout_width="@dimen/ds88"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/ds30"
+            android:paddingLeft="@dimen/ds30"
+            >
+
+            <ImageView
+                android:layout_width="@dimen/ds28"
+                android:layout_height="@dimen/ds28"
+                android:src="@drawable/icon_close_28"
+                android:layout_marginTop="@dimen/ds30"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前商品有正在开的团， 快去砍价吧！"
+        android:textColor="@color/product_brand_name_color"
+        android:textSize="@dimen/ds30"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/ds10"
+        />
+
+    <Button
+        android:id="@+id/dialog_keep_bargain_bt"
+        android:layout_width="@dimen/ds374"
+        android:layout_height="@dimen/ds64"
+        android:text="继续砍价"
+        android:textSize="@dimen/ds26"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/ds52"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/main_color_corner_4"/>
+
+
+
+</LinearLayout>

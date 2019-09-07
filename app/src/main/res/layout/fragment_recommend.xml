@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds88"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
+
+            <include layout="@layout/layout_topbar" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <com.androidkun.xtablayout.XTabLayout
+            android:id="@+id/xtablelayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds72"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginRight="@dimen/ds30"
+            android:overScrollMode="never"
+            app:xTabDisplayNum="10"
+            app:xTabDividerHeight="@dimen/ds16"
+            app:xTabDividerWidthWidthText="true"
+            app:xTabIndicatorColor="@color/main_color"
+            app:xTabMode="scrollable"
+            app:xTabSelectedTextColor="@color/main_color"
+            app:xTabSelectedTextSize="@dimen/ds30"
+            app:xTabTextColor="#666666"
+            app:xTabTextSelectedBold="true"
+            app:xTabTextSize="@dimen/ds28" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    <LinearLayout
+        android:id="@+id/not_net_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/ds88"
+        android:visibility="gone">
+
+        <include layout="@layout/network_error_layout" />
+
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

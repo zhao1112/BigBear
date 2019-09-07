@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+
+        ></FrameLayout>
+
+
+    <!--app:shadowColor="#66000000" 控制阴影的颜色，注意：颜色必须带有透明度的值-->
+    <!--app:shadowDx="0dp" 控制阴影 x 轴的偏移量-->
+    <!--app:shadowDy="3dp" 控制阴影 y 轴的偏移量-->
+    <!--app:shadowRadius="10dp" 控制阴影的范围-->
+    <!--app:shadowSide="all|left|right|top|bottom" 控制阴影显示的边界，共有五个值-->
+    <com.yunqin.bearmall.widget.ShadowLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:shadowColor="#1A000000"
+        app:shadowRadius="@dimen/ds8"
+        app:shadowSide="top">
+
+        <com.chaychan.library.BottomBarLayout
+            android:id="@+id/bbl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds98"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="@dimen/ds44"
+                app:iconNormal="@drawable/icon_tab_home_normal"
+                app:iconSelected="@drawable/icon_tab_home_selected"
+                app:iconWidth="@dimen/ds44"
+                app:itemMarginTop="@dimen/ds14"
+                app:itemText="首页"
+                app:itemTextSize="@dimen/ds20"
+                app:openTouchBg="true"
+                app:textColorNormal="@color/home_text_unselect"
+                app:textColorSelected="@color/main_color"
+                app:touchDrawable="@drawable/selector_bg" />
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="@dimen/ds44"
+
+                app:iconNormal="@drawable/icon_tab_home_l"
+                app:iconSelected="@drawable/icon_tab_home_o"
+
+                app:iconWidth="@dimen/ds44"
+                app:itemMarginTop="@dimen/ds14"
+                app:itemText="赚钱中心"
+                app:itemTextSize="@dimen/ds20"
+                app:openTouchBg="true"
+                app:textColorNormal="@color/home_text_unselect"
+                app:textColorSelected="@color/main_color"
+                app:touchDrawable="@drawable/selector_bg" />
+
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="@dimen/ds44"
+
+
+                app:iconNormal="@drawable/icon_tab_tuijian_normal"
+                app:iconSelected="@drawable/icon_tab_tuijian_selected"
+
+                app:iconWidth="@dimen/ds44"
+                app:itemMarginTop="@dimen/ds14"
+                app:itemText="推荐"
+                app:itemTextSize="@dimen/ds20"
+                app:openTouchBg="true"
+                app:textColorNormal="@color/home_text_unselect"
+                app:textColorSelected="@color/main_color"
+                app:touchDrawable="@drawable/selector_bg"
+                app:unreadTextSize="@dimen/ds16"
+                app:unreadThreshold="99" />
+
+            <com.chaychan.library.BottomBarItem
+                android:id="@+id/shopcar_bar_item"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="@dimen/ds44"
+                app:iconNormal="@mipmap/icon_sugargray"
+                app:iconSelected="@mipmap/icon_sugargrean"
+                app:iconWidth="@dimen/ds44"
+                app:itemMarginTop="@dimen/ds14"
+                app:itemText="0元兑"
+                app:itemTextSize="@dimen/ds20"
+                app:openTouchBg="true"
+                app:textColorNormal="@color/home_text_unselect"
+                app:textColorSelected="@color/main_color"
+                app:touchDrawable="@drawable/selector_bg"
+                app:unreadTextSize="@dimen/ds16"
+                app:unreadThreshold="99" />
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="@dimen/ds44"
+                app:iconNormal="@drawable/icon_tab_mine_normal"
+                app:iconSelected="@drawable/icon_tab_mine_selected"
+                app:iconWidth="@dimen/ds44"
+                app:itemMarginTop="@dimen/ds14"
+                app:itemText="我的"
+                app:itemTextSize="@dimen/ds20"
+                app:openTouchBg="true"
+                app:textColorNormal="@color/home_text_unselect"
+                app:textColorSelected="@color/main_color"
+                app:touchDrawable="@drawable/selector_bg" />
+
+        </com.chaychan.library.BottomBarLayout>
+    </com.yunqin.bearmall.widget.ShadowLayout>
+
+</LinearLayout>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#F7F7F7"
+        ></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingTop="@dimen/ds16"
+        android:paddingRight="@dimen/ds30"
+        >
+
+        <RelativeLayout
+            android:layout_width="@dimen/ds200"
+            android:layout_height="@dimen/ds200"
+            >
+
+            <ImageView
+                android:id="@+id/bargain_free_product_img_my"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                >
+
+                <TextView
+                    android:id="@+id/bargain_free_product_name_my"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SHISEIDO 资生堂 UNO 男士洗面奶 磨砂清凉型 蓝色 130克"
+                    android:textColor="@color/product_brand_name_color"
+                    android:textSize="@dimen/ds24"
+                    android:lineSpacingExtra="@dimen/ds4"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    />
+
+                <TextView
+                    android:id="@+id/bargain_free_product_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已有0人参加"
+                    android:textColor="@color/product_sell_count"
+                    android:textSize="@dimen/ds20"
+                    android:layout_marginTop="@dimen/ds20"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/ds20"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/ds24"
+                        android:textColor="@color/collect_bg"
+                        android:text="距离活动结束 "
+                        />
+
+                    <TextView
+                        android:id="@+id/bargain_free_expire_my"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/ds24"
+                        android:textColor="@color/collect_bg"
+                        android:layout_marginLeft="@dimen/ds5"
+                        android:text=""
+                        android:layout_weight="1"
+                        />
+
+                </LinearLayout>
+
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds1"
+                android:layout_marginTop="@dimen/ds20"
+                android:background="@color/item_specification_item_minus_border"
+                ></View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds72"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/bargain_free_price_bg"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:layout_marginBottom="@dimen/ds30"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/ds10"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="直接购买"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds20" />
+
+                        <TextView
+                            android:id="@+id/bargain_free_product_price_my"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/ds18"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="当前价"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/ds20" />
+
+                        <TextView
+                            android:id="@+id/bargain_free_current_price_my"
+                            android:text=""
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="@dimen/ds72"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_marginTop="@dimen/ds20"-->
+                    <!--android:paddingLeft="@dimen/ds18"-->
+                    <!--android:paddingRight="@dimen/ds18"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:background="@drawable/main_color_border_corner_4"-->
+                    <!--android:visibility="gone"-->
+                    <!--&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="大熊零售价"-->
+                        <!--android:textColor="@color/main_color"-->
+                        <!--android:textSize="@dimen/ds20"></TextView>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/bargain_free_product_price_my"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="¥90.00＋BC100"-->
+                        <!--android:textColor="@color/main_color"-->
+                        <!--android:textSize="@dimen/ds24"-->
+                        <!--/>-->
+
+                <!--</LinearLayout>-->
+
+
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/ds88"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:visibility="gone"-->
+                    <!--&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="@dimen/ds24"-->
+                        <!--android:textColor="@color/collect_bg"-->
+                        <!--android:text="距离活动结束 "-->
+                        <!--/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/bargain_free_expire_my"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="@dimen/ds24"-->
+                        <!--android:textColor="@color/collect_bg"-->
+                        <!--android:layout_marginLeft="@dimen/ds5"-->
+                        <!--android:text=""-->
+                        <!--android:layout_weight="1"-->
+                        <!--/>-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="@dimen/ds200"-->
+                        <!--android:layout_height="@dimen/ds60"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:background="@drawable/main_color_corner_4"-->
+                        <!--android:gravity="center"-->
+                        <!--&gt;-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="当前价"-->
+                            <!--android:textSize="@dimen/ds20"-->
+                            <!--android:textColor="@color/white"/>-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/bargain_free_current_price_my"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="¥9999.00+BC1000000"-->
+                            <!--android:textSize="@dimen/ds18"-->
+                            <!--android:textColor="@color/white"/>-->
+
+                    <!--</LinearLayout>-->
+
+
+
+                <!--</LinearLayout>-->
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

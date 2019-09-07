@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="@color/layout_bg"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds72"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/ds32"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/ds20"
+        >
+
+        <RelativeLayout
+            android:id="@+id/item_cart_child_check_layout"
+            android:layout_width="@dimen/ds72"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ds10"
+            >
+
+            <ImageView
+                android:id="@+id/item_cart_group_check"
+                android:layout_width="@dimen/ds32"
+                android:layout_height="@dimen/ds32"
+                android:background="@drawable/icon_cart_selector_normal"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:id="@+id/item_cart_group_icon"
+            android:layout_width="@dimen/ds48"
+            android:layout_height="@dimen/ds48"
+            android:layout_marginLeft="@dimen/ds10"
+            />
+
+        <TextView
+            android:id="@+id/item_cart_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="明萨旗舰店"
+            android:textColor="@color/product_brand_name_color"
+            android:textSize="@dimen/ds24"
+            android:singleLine="true"
+            android:layout_marginLeft="@dimen/ds20"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

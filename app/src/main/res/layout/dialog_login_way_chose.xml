@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_margin="@dimen/ds24"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds226">
+
+        <com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout
+            android:id="@+id/phone_login"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAllCaps="false"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="@dimen/ds96"
+                android:layout_height="@dimen/ds96"
+                android:src="@drawable/icon_phone"/>
+            <TextView
+                android:textColor="#666666"
+                android:textSize="@dimen/ds24"
+                android:layout_marginTop="@dimen/ds16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机号登录"/>
+        </com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout>
+
+        <com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout
+            android:id="@+id/qq_login"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAllCaps="false"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="@dimen/ds96"
+                android:layout_height="@dimen/ds96"
+                android:src="@drawable/icon_qq"/>
+            <TextView
+                android:textColor="#666666"
+                android:layout_marginTop="@dimen/ds16"
+                android:textSize="@dimen/ds24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QQ登录"/>
+        </com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout>
+    </LinearLayout>
+
+    <View
+        android:background="#EEEEEE"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"/>
+
+    <com.yunqin.bearmall.widget.Highlight.HighlightRelativeLayout
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:textAllCaps="false"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_centerInParent="true"
+            android:textColor="#666666"
+            android:textSize="@dimen/ds28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"/>
+    </com.yunqin.bearmall.widget.Highlight.HighlightRelativeLayout>
+
+
+</LinearLayout>

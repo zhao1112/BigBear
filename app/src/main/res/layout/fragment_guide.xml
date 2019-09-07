@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/layout_topbar" />
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/guide_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_layout">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/guide_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
+    <LinearLayout
+        android:id="@+id/not_net"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/ds88"
+        android:visibility="gone">
+
+        <include
+
+            layout="@layout/network_error_layout" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/ds20"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="268pt"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30pt"
+            android:layout_marginTop="@dimen/ds40"
+            android:text="账号安全"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds32" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds8"
+            android:layout_marginRight="@dimen/ds30"
+            android:text="绑定手机号后，可使账号处于受保护状态。您的BC糖果将保存至 您的手机号账户。"
+            android:textColor="#666666"
+            android:textSize="@dimen/ds24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds110"
+            android:layout_marginLeft="30pt"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="手机号"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:id="@+id/phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/ds50"
+                android:textColor="#999999"
+                android:textSize="@dimen/ds24" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:layout_marginLeft="@dimen/ds30"
+        android:background="#F7F7F7" />
+
+    <LinearLayout
+        android:id="@+id/bind_wx"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:layout_marginLeft="30pt"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="微信"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds28" />
+
+        <TextView
+            android:id="@+id/is_bind_wx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/ds50"
+            android:textColor="#999999"
+            android:textSize="@dimen/ds24" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:layout_marginLeft="@dimen/ds30"
+        android:background="#F7F7F7" />
+
+
+    <LinearLayout
+        android:id="@+id/ye_pay_mm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:layout_marginLeft="30pt"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="余额支付密码"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds28" />
+
+        <ImageView
+            android:layout_width="30pt"
+            android:layout_height="32pt"
+            android:layout_marginRight="@dimen/ds50"
+            android:src="@drawable/arrow_right" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:layout_marginLeft="@dimen/ds30"
+        android:background="#F7F7F7" />
+
+
+    <LinearLayout
+        android:id="@+id/reset_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds110"
+        android:layout_marginLeft="30pt"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="重置密码"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds28" />
+
+        <ImageView
+            android:layout_width="30pt"
+            android:layout_height="32pt"
+            android:layout_marginRight="@dimen/ds50"
+            android:src="@drawable/arrow_right" />
+
+    </LinearLayout>
+
+</LinearLayout>

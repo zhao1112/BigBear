@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.newversions.help.HelpActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/aaa_aaa"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:background="#ffffff"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RelativeLayout
+            android:id="@+id/new_version_back"
+            android:layout_width="@dimen/ds74"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/ds30">
+
+            <ImageView
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_backs" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="帮助中心"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds32" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#E7E7E7"
+        app:layout_constraintTop_toBottomOf="@id/aaa_aaa" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/help_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="186pt"
+    android:background="@drawable/shape_charge_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/bear_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="24pt"
+        android:textColor="@color/white"
+        android:text="金熊价：0.00元"
+        android:background="@drawable/shape_charge_bear_bg"
+        android:gravity="center"
+        android:paddingTop="12pt"
+        android:paddingBottom="12pt"
+        />
+
+    <TextView
+        android:id="@+id/charge_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0元"
+        android:textColor="@color/selector_charge_price_text"
+        android:textSize="40pt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/charge_value"
+        app:layout_constraintVertical_chainStyle="spread"
+        />
+
+    <TextView
+        android:id="@+id/charge_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/bear_price"
+        app:layout_constraintTop_toBottomOf="@id/charge_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:text="售价：0.00元"
+        android:textSize="24pt"
+        android:textColor="@color/selector_charge_sale_price_text"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

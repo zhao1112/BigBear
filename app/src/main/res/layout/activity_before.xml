@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#F7F7F7">
+    <include
+        layout="@layout/actionbar_layout"/>
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/activity_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:overScrollMode="never"
+            android:scrollbars="none"></ListView>
+        <LinearLayout
+            android:id="@+id/empty"
+            android:layout_below="@+id/title"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/no_data"
+                android:layout_width="@dimen/ds300"
+                android:layout_height="@dimen/ds200" />
+
+            <TextView
+                android:layout_marginTop="@dimen/ds25"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂无更多往期活动"/>
+        </LinearLayout>
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
+
+</LinearLayout>

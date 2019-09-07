@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/no_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="暂无收货地址"
+        android:textColor="#666666"
+        android:textSize="@dimen/ds28" />
+
+
+    <ImageView
+        android:layout_width="@dimen/ds216"
+        android:layout_height="@dimen/ds170"
+        android:layout_above="@+id/no_address"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/ds44"
+        android:src="@drawable/img_no_address" />
+
+
+</RelativeLayout>

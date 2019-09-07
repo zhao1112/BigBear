@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds310"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.newversions.home.IImageView
+        android:id="@+id/n_v_tjw_img"
+        android:layout_width="@dimen/ds748"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_tuijian" />
+
+
+</LinearLayout>

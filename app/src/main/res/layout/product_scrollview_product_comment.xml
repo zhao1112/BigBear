@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds32"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:id="@+id/comment_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/ds24"
+            android:textColor="@color/product_sell_count"
+            android:layout_weight="1"
+            android:text="评价（0）"/>
+
+        <LinearLayout
+            android:id="@+id/check_all_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/ds24"
+                android:textColor="@color/product_customer_collect"
+                android:text="查看全部"/>
+
+            <ImageView
+                android:layout_width="@dimen/ds12"
+                android:layout_height="@dimen/ds24"
+                android:layout_marginLeft="@dimen/ds8"
+                android:src="@drawable/icon_arrow_right"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="@color/divider"></View>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.yunqin.bearmall.widget.ScrollListView
+            android:visibility="gone"
+            android:id="@+id/comment_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:dividerHeight="@dimen/ds14"
+            android:divider="@color/white"
+            ></com.yunqin.bearmall.widget.ScrollListView>
+
+        <LinearLayout
+            android:id="@+id/comment_empty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds400"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+
+            <ImageView
+                android:layout_width="@dimen/ds216"
+                android:layout_height="@dimen/ds168"
+                android:src="@drawable/ic_empty_comment"
+                android:layout_marginTop="@dimen/ds60"
+
+                />
+
+            <TextView
+                android:id="@+id/tip_no_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂无砍价晒单"
+                android:textColor="@color/product_customer_collect"
+                android:layout_marginTop="@dimen/ds50"
+                android:textSize="@dimen/ds28"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+
+
+
+</LinearLayout>

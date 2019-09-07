@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds200"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="@color/item_specification_item_minus_border"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="@dimen/ds200"
+            android:layout_height="@dimen/ds200">
+
+            <ImageView
+                android:id="@+id/bargain_free_product_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/ds16"
+                android:background="@drawable/default_product_small"
+                android:scaleType="fitXY" />
+
+            <RelativeLayout
+                android:id="@+id/goods_sell_out_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/ds16">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/goods_sell_out_view" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds30"
+            android:paddingRight="@dimen/ds30">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bargain_free_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="@dimen/ds4"
+                    android:maxLines="2"
+                    android:textColor="@color/product_brand_name_color"
+                    android:textSize="@dimen/ds24" />
+
+                <TextView
+                    android:id="@+id/bargain_free_product_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds10"
+                    android:textColor="@color/product_sell_count"
+                    android:textSize="@dimen/ds20" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds72"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="@dimen/ds8"
+                    android:layout_marginBottom="@dimen/ds10"
+                    android:background="@drawable/price_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="188pt"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/ds10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="直接购买"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds20" />
+
+                        <TextView
+                            android:id="@+id/bargain_free_product_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/ds22" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25pt"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="10pt">
+
+                        <TextView
+                            android:id="@+id/bargain_free_product_initiate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:text="发起砍价"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/ds26" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

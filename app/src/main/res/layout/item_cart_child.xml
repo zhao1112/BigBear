@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="@color/item_specification_item_minus_border"></View>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+
+        <RelativeLayout
+            android:id="@+id/item_cart_child_check_layout"
+            android:layout_width="@dimen/ds92"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/ds64"
+            android:layout_marginBottom="@dimen/ds64">
+
+            <ImageView
+                android:id="@+id/item_cart_child_check"
+                android:layout_width="@dimen/ds32"
+                android:layout_height="@dimen/ds32"
+                android:layout_centerInParent="true"
+                android:background="@drawable/icon_cart_selector_normal"
+                android:button="@null" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds20"
+            android:layout_marginBottom="@dimen/ds30"
+            android:orientation="vertical"
+            android:paddingRight="@dimen/ds30">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/item_cart_child_product_img"
+                    android:layout_width="@dimen/ds144"
+                    android:layout_height="@dimen/ds144"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/item_cart_child_product_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="奇亚籽谷物脆水果燕麦片 800克"
+                        android:textColor="@color/product_brand_name_color"
+                        android:textSize="@dimen/ds28" />
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ds10"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/hui_yuan_zhuan_shu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/ds20"
+                            android:background="@drawable/bg_huiyuan_1"
+                            android:paddingLeft="@dimen/ds10"
+                            android:paddingTop="@dimen/ds3"
+                            android:paddingRight="@dimen/ds10"
+                            android:paddingBottom="@dimen/ds3"
+                            android:singleLine="true"
+                            android:text="会员专属"
+                            android:textColor="#E3A832"
+                            android:textSize="@dimen/ds24" />
+
+                        <TextView
+                            android:id="@+id/item_cart_child_product_specification"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="大袋装800g"
+                            android:textColor="@color/product_sell_count"
+                            android:textSize="@dimen/ds24" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ds72"
+                        android:layout_marginLeft="@dimen/ds20"
+                        android:layout_marginTop="@dimen/ds16"
+                        android:layout_marginRight="@dimen/ds20"
+                        android:background="@drawable/price_bg"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/item_cart_child_bt_price_layout"
+                            android:layout_width="175pt"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingLeft="10pt">
+
+                            <TextView
+                                android:id="@+id/item_cart_child_price_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="123"
+                                android:textColor="@color/main_color"
+                                android:textSize="@dimen/ds24" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/item_cart_child_price_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingLeft="10pt">
+
+                            <TextView
+                                android:id="@+id/item_cart_child_bt_price_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/ds24" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <include layout="@layout/cart_specification_items_count"></include>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

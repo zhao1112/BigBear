@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_topbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="104pt"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/bottom_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/left_image"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:background="@drawable/selecter_diamond"
+                />
+
+            <TextView
+                android:id="@+id/left_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="夺宝商品"
+                android:textSize="28pt"
+                android:layout_marginLeft="16pt"
+                android:textColor="@color/selector_snatch_bottom_text"
+                />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1pt"
+            android:layout_height="64pt"
+            android:background="#E7E7E7"
+            android:layout_gravity="center_vertical"
+            />
+
+        <LinearLayout
+            android:id="@+id/bottom_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/right_image"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:background="@drawable/selector_my_snatch"
+                />
+
+            <TextView
+                android:id="@+id/right_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的夺宝"
+                android:layout_marginLeft="16pt"
+                android:textSize="28pt"
+                android:textColor="@color/selector_snatch_bottom_text"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1pt"
+        android:background="#E7E7E7"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        />
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toTopOf="@id/view"
+        ></FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>

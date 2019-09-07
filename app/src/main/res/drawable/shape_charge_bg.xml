@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/selector_charge_bg"/>
+
+    <corners android:radius="8pt"/>
+
+    <stroke android:width="2pt" android:color="#23A064"/>
+
+</shape>

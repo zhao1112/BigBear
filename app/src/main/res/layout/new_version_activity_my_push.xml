@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.newversions.push.MyPushActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds80"
+        android:background="#ffffff">
+
+
+        <RelativeLayout
+            android:id="@+id/new_version_back"
+            android:layout_width="@dimen/ds74"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/ds30">
+
+            <ImageView
+                android:layout_width="@dimen/ds44"
+                android:layout_height="@dimen/ds44"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_backs" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的推广"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds32" />
+
+
+    </RelativeLayout>
+
+
+    <RadioGroup
+        android:id="@+id/new_radio_group"
+        android:layout_width="@dimen/ds360"
+        android:layout_height="@dimen/ds56"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/ds16"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/new_m1"
+            android:layout_width="@dimen/ds180"
+            android:layout_height="@dimen/ds56"
+            android:background="@drawable/radiobutton_left_bg"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="我的M1"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/ds24" />
+
+        <RadioButton
+            android:id="@+id/new_m2"
+            android:layout_width="@dimen/ds180"
+            android:layout_height="@dimen/ds56"
+            android:background="@drawable/radiobutton_right_bg"
+            android:button="@null"
+            android:gravity="center"
+            android:text="我的M2"
+            android:textColor="#23A064"
+            android:textSize="@dimen/ds24" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/push_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/ds40">
+
+    </FrameLayout>
+
+
+</LinearLayout>

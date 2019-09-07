@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/fragment_view_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/child_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds88"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="@dimen/ds360"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/goods_check"
+                    android:layout_width="@dimen/ds180"
+                    android:layout_height="@dimen/ds56"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/radiobutton_left_bg"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="商品"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24" />
+
+                <RadioButton
+                    android:id="@+id/shop_check"
+                    android:layout_width="@dimen/ds180"
+                    android:layout_height="@dimen/ds56"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/radiobutton_right_bg"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="店铺"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/ds24" />
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds2"
+                android:background="#F7F7F7" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/frame_layout_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

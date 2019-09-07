@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <com.yunqin.bearmall.widget.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/bc_layout"
+                android:layout_width="match_parent"
+                android:layout_height="152pt"
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_marginTop="@dimen/ds20"
+                android:layout_marginRight="@dimen/ds30"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="92pt"
+                    android:layout_height="@dimen/ds92"
+                    android:layout_marginLeft="@dimen/ds30">
+
+                    <ImageView
+                        android:layout_width="@dimen/ds92"
+                        android:layout_height="@dimen/ds92"
+                        android:src="@drawable/message_1" />
+
+                    <TextView
+                        android:id="@+id/number_unread_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+
+                        android:background="@drawable/number_red_count_bg"
+                        android:paddingLeft="@dimen/ds8"
+                        android:paddingRight="@dimen/ds8"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds18"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="糖果提醒"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/ds28" />
+
+                    <LinearLayout
+                        android:id="@+id/info_layout_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/ds8"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/info1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds24" />
+
+                        <TextView
+                            android:id="@+id/time1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ds20"
+                            android:layout_marginRight="@dimen/ds30"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/deal_layout"
+                android:layout_width="match_parent"
+                android:layout_height="152pt"
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_marginTop="@dimen/ds20"
+                android:layout_marginRight="@dimen/ds30"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="92pt"
+                    android:layout_height="@dimen/ds92"
+                    android:layout_marginLeft="@dimen/ds30">
+
+                    <ImageView
+                        android:layout_width="@dimen/ds92"
+                        android:layout_height="@dimen/ds92"
+                        android:src="@drawable/message_2" />
+
+                    <TextView
+                        android:id="@+id/number_unread_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+
+                        android:background="@drawable/number_red_count_bg"
+                        android:paddingLeft="@dimen/ds8"
+                        android:paddingRight="@dimen/ds8"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds18"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="交易提醒"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/ds28" />
+
+                    <LinearLayout
+                        android:id="@+id/info_layout_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/ds8"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/info2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds24" />
+
+                        <TextView
+                            android:id="@+id/time2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ds20"
+                            android:layout_marginRight="@dimen/ds30"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/system_layout"
+                android:layout_width="match_parent"
+                android:layout_height="152pt"
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_marginTop="@dimen/ds20"
+                android:layout_marginRight="@dimen/ds30"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="92pt"
+                    android:layout_height="@dimen/ds92"
+                    android:layout_marginLeft="@dimen/ds30">
+
+                    <ImageView
+                        android:layout_width="@dimen/ds92"
+                        android:layout_height="@dimen/ds92"
+                        android:src="@drawable/message_3" />
+
+                    <TextView
+                        android:id="@+id/number_unread_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/number_red_count_bg"
+
+                        android:paddingLeft="@dimen/ds8"
+                        android:paddingRight="@dimen/ds8"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds18"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="系统通知"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/ds28" />
+
+                    <LinearLayout
+                        android:id="@+id/info_layout_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/ds8"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/info3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds24" />
+
+                        <TextView
+                            android:id="@+id/time3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ds20"
+                            android:layout_marginRight="@dimen/ds30"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/event_layout"
+                android:layout_width="match_parent"
+                android:layout_height="152pt"
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_marginTop="@dimen/ds20"
+                android:layout_marginRight="@dimen/ds30"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="92pt"
+                    android:layout_height="@dimen/ds92"
+                    android:layout_marginLeft="@dimen/ds30">
+
+                    <ImageView
+                        android:layout_width="@dimen/ds92"
+                        android:layout_height="@dimen/ds92"
+                        android:src="@drawable/message_4" />
+
+                    <TextView
+                        android:id="@+id/number_unread_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/number_red_count_bg"
+
+                        android:paddingLeft="@dimen/ds8"
+                        android:paddingRight="@dimen/ds8"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds18"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="活动通知"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/ds28" />
+
+                    <LinearLayout
+                        android:id="@+id/info_layout_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/ds8"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/info4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds24" />
+
+                        <TextView
+                            android:id="@+id/time4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ds20"
+                            android:layout_marginRight="@dimen/ds30"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/event_layout_shangjin"
+                android:layout_width="match_parent"
+                android:layout_height="152pt"
+                android:layout_marginLeft="@dimen/ds30"
+                android:layout_marginTop="@dimen/ds20"
+                android:layout_marginRight="@dimen/ds30"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="92pt"
+                    android:layout_height="@dimen/ds92"
+                    android:layout_marginLeft="@dimen/ds30">
+
+                    <ImageView
+                        android:layout_width="@dimen/ds92"
+                        android:layout_height="@dimen/ds92"
+                        android:src="@drawable/shangjin_icon" />
+
+                    <TextView
+                        android:id="@+id/number_unread_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/number_red_count_bg"
+                        android:paddingLeft="@dimen/ds8"
+                        android:paddingRight="@dimen/ds8"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds18"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds20"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="赏金提醒"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/ds28" />
+
+                    <LinearLayout
+                        android:id="@+id/info_layout_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/ds8"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/info5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds24" />
+
+                        <TextView
+                            android:id="@+id/time5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ds20"
+                            android:layout_marginRight="@dimen/ds30"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/ds20" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </com.yunqin.bearmall.widget.BounceScrollView>
+
+
+</LinearLayout>

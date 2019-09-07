@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.AddAddrActivity">
+
+    <include layout="@layout/actionbar_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ds20"
+        android:background="@color/md_white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds88"
+            android:background="@color/md_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="@dimen/ds150"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds30"
+                android:text="联系人"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <EditText
+                android:id="@+id/ed_consignee_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/addr_name"
+                android:textColor="#333333"
+                android:textColorHint="#999999"
+                android:textSize="@dimen/ds28" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds0.33"
+            android:layout_marginLeft="@dimen/ds30"
+            android:background="#F7F7F7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds88"
+            android:background="@color/md_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/ds150"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds30"
+                android:text="电话"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <EditText
+                android:id="@+id/ed_consignee_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/addr_phone_number"
+                android:textColor="#333333"
+                android:textColorHint="#999999"
+                android:textSize="@dimen/ds28" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds0.33"
+            android:layout_marginLeft="@dimen/ds30"
+            android:background="#F7F7F7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds88"
+            android:background="@color/md_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/ds150"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds30"
+                android:text="地址"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <TextView
+                android:id="@+id/add_address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/addr_select"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <ImageView
+                android:layout_width="@dimen/ds12"
+                android:layout_height="@dimen/ds24"
+                android:layout_marginRight="@dimen/ds32"
+                android:src="@drawable/arrow_right" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds88"
+            android:background="@color/md_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/ds150"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds30"
+                android:text="详细地址"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds28" />
+
+            <EditText
+                android:id="@+id/ed_consignee_addr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/addr_consignee"
+                android:textColor="#333333"
+                android:textColorHint="#999999"
+                android:textSize="@dimen/ds28" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:layout_marginTop="@dimen/ds20"
+        android:background="@color/md_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_weight="1"
+            android:text="设为默认地址"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds28" />
+
+        <com.yunqin.bearmall.widget.SwitchButton
+            android:id="@+id/default_addr"
+            android:layout_width="@dimen/ds100"
+            android:layout_height="@dimen/ds60"
+            android:layout_marginRight="@dimen/ds30"
+            app:sb_checked_color="@color/main_color"
+            app:sb_show_indicator="false" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="@dimen/ds0.33"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+
+    <Button
+        android:id="@+id/addr_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds104"
+        android:layout_gravity="bottom"
+        android:background="@color/main_color"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/md_white"
+        android:textSize="@dimen/ds32" />
+
+
+</LinearLayout>

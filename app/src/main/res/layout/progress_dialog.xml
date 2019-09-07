@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:paddingRight="@dimen/ds60"
+        android:paddingLeft="@dimen/ds60"
+        android:paddingBottom="@dimen/ds40"
+        android:paddingTop="@dimen/ds40"
+        android:background="@drawable/progress_dialog_bg"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/ds130"
+            android:layout_height="@dimen/ds130"
+            android:indeterminateDrawable="@drawable/animdrawloading"
+            android:indeterminateDuration="1500"
+            />
+
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/ds15"
+            android:textSize="@dimen/ds28"
+            android:layout_width="@dimen/ds70"
+            android:layout_height="@dimen/ds48"
+           android:src="@drawable/loading_center"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/ds15"
+            android:textSize="@dimen/ds28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加载中..."/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

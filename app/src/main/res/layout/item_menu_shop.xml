@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds636"
+        android:background="@drawable/subject_bg"
+        android:orientation="vertical">
+
+        <include layout="@layout/item_shop_top" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/left"
+                android:layout_width="@dimen/ds368"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/goods_1"
+                    android:layout_width="@dimen/ds348"
+                    android:layout_height="@dimen/ds348"
+                    android:layout_gravity="center"
+                    android:src="@drawable/default_product" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds72"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/ds9">
+
+                    <com.yunqin.bearmall.widget.PriceView
+
+                        android:id="@+id/price_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/ds14"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:id="@+id/right"
+                android:layout_width="@dimen/ds368"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/goods_2"
+                    android:layout_width="@dimen/ds348"
+                    android:layout_height="@dimen/ds348"
+                    android:layout_gravity="center"
+                    android:src="@drawable/default_product" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds72"
+                    android:layout_marginTop="@dimen/ds30"
+                    android:paddingLeft="@dimen/ds9">
+
+                    <com.yunqin.bearmall.widget.PriceView
+
+                        android:id="@+id/price_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds20"
+        android:background="#F7F7F7" />
+
+</LinearLayout>

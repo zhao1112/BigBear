@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/order_head_view"
+        layout="@layout/item_mall_title" />
+
+
+    <LinearLayout
+        android:id="@+id/order_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds70"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_marginTop="@dimen/ds30"
+        android:background="#F7F7F7"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/ds50"
+            android:layout_height="@dimen/ds40"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ds30"
+            android:src="@drawable/icon_deliver" />
+
+        <TextView
+            android:id="@+id/order_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ds20"
+            android:text="买家已付款，等待商家处理"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds24" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/order_info_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds76"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:background="#F7F7F7"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds100"
+                android:text="运单号："
+                android:textColor="#333333"
+                android:textSize="@dimen/ds24" />
+
+            <TextView
+                android:id="@+id/order_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1235485145254"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/ds24" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/order_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds100"
+            android:layout_weight="1"
+            android:text="2018-6-22 10:54:24"
+            android:textColor="#999999"
+            android:textSize="@dimen/ds24" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/order_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/ds30"
+        android:paddingRight="@dimen/ds30">
+
+
+    </LinearLayout>
+
+
+    <include
+        android:id="@+id/order_footer_view"
+        layout="@layout/item_order_footer" />
+
+
+</LinearLayout>

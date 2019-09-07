@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds158"
+        android:orientation="horizontal">
+
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:id="@+id/shop_img"
+            android:layout_width="@dimen/ds96"
+            android:layout_height="@dimen/ds96"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds30"
+            app:border_width="0dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds38"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/shop_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/ds44"
+                    android:layout_marginRight="@dimen/ds20"
+                    android:gravity="center"
+                    android:text="旗舰店"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/ds28" />
+
+                <LinearLayout
+                    android:id="@+id/lable_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/ds32"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lable_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/ds10"
+                        android:background="@drawable/pay_bg"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/ds6"
+                        android:paddingTop="@dimen/ds2"
+                        android:paddingRight="@dimen/ds6"
+                        android:paddingBottom="@dimen/ds2"
+                        android:text="自营"
+                        android:textColor="#23A064"
+                        android:textSize="@dimen/ds20" />
+
+                    <TextView
+                        android:id="@+id/lable_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/pay_bg_1"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/ds6"
+                        android:paddingTop="@dimen/ds2"
+                        android:paddingRight="@dimen/ds6"
+                        android:paddingBottom="@dimen/ds2"
+                        android:text="资质证书"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/ds20" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/shop_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds4"
+                android:gravity="center"
+                android:textSize="@dimen/ds20" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds8"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/goods_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds4"
+                    android:gravity="center"
+                    android:textSize="@dimen/ds20" />
+
+                <TextView
+                    android:id="@+id/sale_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds30"
+                    android:layout_marginTop="@dimen/ds4"
+                    android:gravity="center"
+                    android:textSize="@dimen/ds20" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.yunqin.bearmall.widget.Highlight.HighlightButton
+            android:id="@+id/in_shop"
+            android:layout_width="@dimen/ds160"
+            android:layout_height="@dimen/ds52"
+            android:layout_marginTop="@dimen/ds52"
+            android:layout_marginRight="@dimen/ds30"
+            android:background="@drawable/in_shop_look"
+            android:text="进店看看"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/ds26" />
+
+    </LinearLayout>
+
+</RelativeLayout>

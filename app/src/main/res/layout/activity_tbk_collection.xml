@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="88pt"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/toolbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20pt"
+            android:padding="5dp"
+            android:paddingBottom="@dimen/ds10"
+            android:paddingRight="@dimen/ds10"
+            android:paddingTop="@dimen/ds10"
+            android:src="@drawable/icon_backs" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的收藏"
+            android:textColor="#333333"
+            android:textSize="32pt" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/not_net_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/ds88"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/not_net"
+            layout="@layout/network_error_layout" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

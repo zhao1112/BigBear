@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds280"
+        android:background="@drawable/mine_bg1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:id="@+id/mine_setting"
+                android:layout_width="@dimen/ds80"
+                android:layout_height="@dimen/ds80"
+                android:layout_marginRight="@dimen/ds10"
+                android:layout_marginTop="@dimen/ds8"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/ds44"
+                    android:layout_height="@dimen/ds44"
+                    android:src="@drawable/icon_nav_setting" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.yunqin.bearmall.widget.CircleImageView
+                android:id="@+id/user_head"
+                android:layout_width="@dimen/ds144"
+                android:layout_height="@dimen/ds144"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mine_user_icon_defult"
+                app:border_color="@color/main_color"
+                app:border_width="@dimen/ds2" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds144"
+                android:layout_marginLeft="@dimen/ds40"
+                android:layout_marginTop="@dimen/ds8">
+
+                <LinearLayout
+                    android:id="@+id/user_info_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Title"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds32" />
+
+                    <TextView
+                        android:id="@+id/user_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/ds6"
+                        android:text="大熊号222222"
+                        android:textColor="#BDE2D0"
+                        android:textSize="@dimen/ds24" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ds12">
+
+                        <TextView
+                            android:id="@+id/user_lelve"
+                            android:layout_width="@dimen/ds150"
+                            android:layout_height="@dimen/ds32"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/ds10"
+                            android:background="@drawable/bear_level_bg"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/ds18"
+                            android:text="大熊先锋"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/ds20" />
+
+                        <ImageView
+                            android:layout_width="@dimen/ds36"
+                            android:layout_height="@dimen/ds36"
+                            android:src="@drawable/icon_mine_vip" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/ds40"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="点击登录"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds32" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

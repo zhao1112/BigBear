@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/persion"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds280"
+        android:background="@drawable/mine_bg1"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邀请码：ASDQWE"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds26"
+            android:layout_marginTop="@dimen/ds190"
+            android:layout_alignLeft="@id/user_name"/>
+
+        <TextView
+            android:id="@+id/tv_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/shape_vip_mark"
+            android:padding="@dimen/ds6"
+            android:text="点击复制"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds20"
+            android:layout_toRightOf="@id/tv_code"
+            android:layout_alignBottom="@id/tv_code"/>
+        <ImageView
+            android:id="@+id/mine_setting"
+            android:layout_width="@dimen/ds44"
+            android:layout_height="@dimen/ds44"
+            android:layout_marginTop="20pt"
+            android:layout_marginRight="@dimen/ds20"
+            android:src="@drawable/icon_nav_setting"
+            android:layout_toLeftOf="@id/qqww" />
+
+
+
+        <RelativeLayout
+            android:id="@+id/qqww"
+           android:layout_alignParentEnd="true"
+            android:layout_width="44pt"
+            android:layout_height="48pt"
+            android:layout_marginTop="16pt"
+            android:layout_marginRight="@dimen/ds30">
+
+            <ImageView
+                android:layout_marginTop="4pt"
+                android:id="@+id/xiao_xi"
+                android:layout_width="44pt"
+                android:layout_height="44pt"
+                android:src="@drawable/icon_tab_message_normal" />
+
+
+            <com.yunqin.bearmall.widget.DotView
+                android:id="@+id/dot_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+            </com.yunqin.bearmall.widget.DotView>
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:id="@+id/head_image"
+            android:layout_width="144pt"
+            android:layout_height="144pt"
+            android:layout_marginLeft="30pt"
+            android:layout_marginBottom="48pt"
+            android:scaleType="centerCrop"
+            android:src="@drawable/mine_user_icon_defult"
+            app:border_color="@color/main_color"
+            app:border_width="@dimen/ds2"
+            android:layout_centerVertical="true" />
+
+        <ImageView
+            android:id="@+id/head_vip_icon"
+            android:layout_width="74pt"
+            android:layout_height="64pt"
+            android:src="@drawable/icon_mine_vip_small"
+            android:visibility="invisible"
+            android:layout_alignTop="@id/head_image"
+            android:layout_alignLeft="@id/head_image" />
+
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds32"
+            android:visibility="invisible"
+            android:layout_toEndOf="@id/head_image"
+            android:layout_marginTop="@dimen/ds60"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/vip_container"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ds80"
+            android:layout_marginBottom="80pt"
+            android:minWidth="230pt"
+
+            android:layout_below="@id/user_name"
+            android:layout_alignLeft="@id/user_name">
+
+            <TextView
+                android:id="@+id/vip_mark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15pt"
+                android:background="@drawable/shape_vip_mark"
+                android:paddingLeft="16pt"
+                android:paddingTop="4pt"
+                android:paddingRight="16pt"
+                android:paddingBottom="4pt"
+                android:text="金熊会员"
+                android:textColor="@color/white"
+                android:textSize="20pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/vip_left_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="剩余0天,"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/renew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="立即续费"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ds24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/vip_left_days"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1pt"
+                    android:background="@color/white"
+                    app:layout_constraintLeft_toLeftOf="@id/renew"
+                    app:layout_constraintRight_toRightOf="@id/renew"
+                    app:layout_constraintTop_toBottomOf="@id/renew" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/login_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40pt"
+            android:padding="15pt"
+            android:text="点击登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds32"
+            android:visibility="gone"
+            android:layout_toRightOf="@id/head_image" />
+
+
+    </RelativeLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/invite_container"
+        android:layout_width="match_parent"
+        android:layout_height="74pt"
+        android:background="#FDB839"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/persion">
+
+        <TextView
+            android:id="@+id/head_invite_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="50pt"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="24pt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/head_invite_now"
+
+            />
+
+        <TextView
+            android:id="@+id/head_invite_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingRight="20pt"
+            android:text="立即邀请"
+            android:textColor="@color/white"
+            android:textSize="28pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toRightOf="@id/head_invite_count"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1pt"
+            android:layout_marginTop="2pt"
+            android:layout_marginRight="20pt"
+            android:background="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/head_invite_now"
+            app:layout_constraintRight_toRightOf="@id/head_invite_now"
+            app:layout_constraintTop_toBottomOf="@id/head_invite_now" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="666pt"
+    android:layout_height="920pt"
+    android:layout_gravity="center"
+    android:background="#00ffffff"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/ad_img"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_product" />
+
+
+    <ImageView
+        android:id="@+id/ad_close"
+        android:layout_width="50pt"
+        android:layout_height="50pt"
+        android:layout_marginTop="30pt"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ad_close" />
+
+
+</LinearLayout>

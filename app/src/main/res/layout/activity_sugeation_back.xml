@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="#F7F7F7" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds560"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds40"
+                android:layout_marginRight="@dimen/ds40"
+                android:layout_marginTop="@dimen/ds46"
+                android:background="@null"
+                android:hint="请输入您的建议"
+                android:text=""
+                android:textColor="#000"
+                android:textColorHint="@color/text_color_1"
+                android:textSize="@dimen/ds28" />
+
+
+            <TextView
+                android:id="@+id/input_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/ds38"
+                android:layout_marginRight="@dimen/ds40"
+                android:text="0/120"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/ds24" />
+
+        </RelativeLayout>
+
+        <com.yunqin.bearmall.widget.Highlight.HighlightButton
+            android:id="@+id/send_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds88"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/ds28"
+            android:layout_marginLeft="@dimen/ds40"
+            android:layout_marginRight="@dimen/ds40"
+            android:background="@drawable/address_bg_green1"
+            android:text="确认"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds32" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

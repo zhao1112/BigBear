@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/ds20"
+    android:layout_height="@dimen/ds220">
+    <com.yunqin.bearmall.widget.TopBanner
+        android:id="@+id/ad_banner"
+        android:layout_width="match_parent"
+        android:background="@drawable/default_ad_one"
+        android:layout_height="@dimen/ds168">
+    </com.yunqin.bearmall.widget.TopBanner>
+    <RelativeLayout
+
+        android:id="@+id/more_activity"
+        android:layout_below="@+id/ad_banner"
+        android:background="@drawable/mine_ad_layout_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds52">
+        <TextView
+            android:textColor="@color/white"
+            android:layout_marginRight="@dimen/ds20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/ds20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更多往期活动 >>"/>
+    </RelativeLayout>
+</RelativeLayout>

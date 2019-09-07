@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/top_img_t"
+        android:layout_width="600pt"
+        android:layout_height="920pt"
+        android:layout_marginBottom="@dimen/ds30"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_home_ad_three" />
+
+
+        <LinearLayout
+            android:id="@+id/fu_gai_wu"
+            android:layout_width="380pt"
+            android:layout_height="280pt"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:id="@+id/p_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ds30"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text=""
+                android:textSize="@dimen/ds25" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds70"
+                android:layout_marginTop="@dimen/ds20"
+                android:background="@drawable/price_bg"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/ds3"
+                    android:layout_marginBottom="@dimen/ds3"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="直接购买"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/ds20" />
+
+                    <TextView
+                        android:id="@+id/dialog_price_l"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$100"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/ds20" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/ds3"
+                    android:layout_marginBottom="@dimen/ds3"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="大熊零售价"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds20" />
+
+                    <TextView
+                        android:id="@+id/dialog_price_r"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$100"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ds20" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <!--<ImageView-->
+    <!--android:id="@+id/image"-->
+    <!--android:layout_width="600pt"-->
+    <!--android:layout_height="920pt"-->
+    <!--android:layout_marginBottom="@dimen/ds30"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/default_home_ad_three"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/bottom_layout"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent" />-->
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="58pt"
+            android:gravity="center"
+            android:text="此二维码已包含“邀请下载”等功能"
+            android:textColor="#999999"
+            android:textSize="@dimen/ds20"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds184"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_marginRight="@dimen/ds20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/wx_share"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="52pt"
+                    android:layout_height="43pt"
+                    android:src="@drawable/icon_weixin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds15"
+                    android:text="微信"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pyq_share"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/ds48"
+                    android:layout_height="@dimen/ds48"
+                    android:src="@drawable/icon_pengyouquan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds15"
+                    android:text="朋友圈"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sina_share"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="52pt"
+                    android:layout_height="42pt"
+                    android:src="@drawable/icon_weibo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds15"
+                    android:text="微博"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/qq_share"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="49pt"
+                    android:src="@drawable/icon_qq_share" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds15"
+                    android:text="QQ"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/save"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="44pt"
+                    android:layout_height="44pt"
+                    android:src="@drawable/icon_baocun" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds15"
+                    android:text="保存到手机"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/ds20" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout
+            android:id="@+id/canle"
+            android:layout_width="match_parent"
+            android:layout_height="89pt"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds1"
+                android:background="#F7F7F7" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="#666666"
+                android:textSize="@dimen/ds28" />
+        </com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

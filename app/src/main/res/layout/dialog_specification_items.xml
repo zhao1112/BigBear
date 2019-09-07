@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ds888"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ds788"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ds238"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/ds30">
+
+                    <ImageView
+                        android:id="@+id/dialog_product_img"
+                        android:layout_width="@dimen/ds208"
+                        android:layout_height="@dimen/ds208"
+                        android:layout_marginTop="@dimen/ds30"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/ds30"
+                        android:layout_marginLeft="@dimen/ds20"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="bottom"
+
+                        >
+
+                        <TextView
+                            android:id="@+id/dialog_specification_items_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/dialog_specification_items_bt_price"
+                            android:text="价格："
+                            android:textColor="@color/main_color"
+                            android:layout_marginBottom="@dimen/ds12"
+                            android:textSize="@dimen/ds28" />
+
+                        <TextView
+                            android:id="@+id/dialog_specification_items_bt_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/dialog_specification_items_parameter"
+                            android:text="价格："
+                            android:textColor="@color/main_color"
+                            android:layout_marginBottom="@dimen/ds12"
+                            android:textSize="@dimen/ds28" />
+
+                        <TextView
+                            android:id="@+id/dialog_specification_items_parameter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:text="已选："
+                            android:textColor="@color/product_customer_collect"
+                            android:textSize="@dimen/ds28" />
+
+
+                    </LinearLayout>
+
+                    <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginTop="@dimen/ds30"-->
+                    <!--android:layout_marginLeft="@dimen/ds20"-->
+                    <!--android:layout_weight="1">-->
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/dialog_specification_items_price"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_above="@+id/dialog_specification_items_bt_price"-->
+                    <!--android:text="价格：¥119.00"-->
+                    <!--android:textColor="@color/main_color"-->
+                    <!--android:layout_marginBottom="@dimen/ds12"-->
+                    <!--android:textSize="@dimen/ds28" />-->
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/dialog_specification_items_bt_price"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_above="@+id/dialog_specification_items_parameter"-->
+                    <!--android:text="价格：¥119.00+BT20"-->
+                    <!--android:textColor="@color/main_color"-->
+                    <!--android:layout_marginBottom="@dimen/ds12"-->
+                    <!--android:textSize="@dimen/ds28" />-->
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/dialog_specification_items_parameter"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:text="已选：浅蓝  XS"-->
+                    <!--android:textColor="@color/product_customer_collect"-->
+                    <!--android:textSize="@dimen/ds28" />-->
+
+                    <!--</RelativeLayout>-->
+
+                    <RelativeLayout
+                        android:id="@+id/dialog_specification_items_cancel"
+                        android:layout_width="@dimen/ds58"
+                        android:layout_height="@dimen/ds60"
+                        android:layout_marginRight="@dimen/ds15"
+                        android:layout_marginTop="@dimen/ds16">
+
+                        <ImageView
+                            android:layout_width="@dimen/ds28"
+                            android:layout_height="@dimen/ds28"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/icon_close_28" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <com.yunqin.bearmall.widget.RecyclerScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/ds20"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/scorllview_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/ds30"
+                        android:paddingRight="@dimen/ds30"
+                        android:paddingBottom="@dimen/ds20"
+                        >
+
+                        <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--&gt;-->
+
+                        <!--<LinearLayout-->
+                        <!--android:id="@+id/scorllview_layout"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="vertical"-->
+                        <!--&gt;</LinearLayout>-->
+
+                        <!--<include layout="@layout/dialog_specification_items_count"-->
+                        <!--&gt;</include>-->
+
+                        <!--</RelativeLayout>-->
+
+
+                    </LinearLayout>
+
+                </com.yunqin.bearmall.widget.RecyclerScrollView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+    <Button
+        android:id="@+id/dialog_specification_items_ok"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:text="确定"
+        android:background="@color/main_color"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/ds32"/>
+
+
+</RelativeLayout>

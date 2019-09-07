@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds64"
+        android:background="#F5A623"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/join_total_people_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_weight="1"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:text="距离活动结束 "
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/ds24"
+            android:visibility="gone" />
+
+        <cn.iwgang.countdownview.CountdownView
+            android:id="@+id/countdown_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds20"
+            android:layout_marginRight="@dimen/ds30"
+            android:visibility="gone"
+            app:isHideTimeBackground="true"
+            app:isShowDay="false"
+            app:isShowHour="true"
+            app:isShowMillisecond="false"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:isTimeTextBold="false"
+            app:suffixGravity="center"
+            app:suffixTextColor="@color/white"
+            app:timeTextColor="#ffffff"
+            app:timeTextSize="24pt" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ds36"
+            android:layout_marginLeft="@dimen/ds12"
+            android:layout_marginRight="@dimen/ds30"
+            android:background="#C47F0D"
+            android:paddingLeft="@dimen/ds8"
+            android:paddingRight="@dimen/ds8"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/goods_surplus_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="6"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ds24" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds30"
+            android:textColor="#484848"
+            android:textSize="@dimen/ds32"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/jion_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="18pt"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds30"
+            android:layout_marginRight="@dimen/ds30"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/progressbar_task"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds15"
+            android:text="糖果说明"
+            android:textColor="#8c8c8c"
+            android:textSize="@dimen/ds26" />
+
+
+        <TextView
+            android:id="@+id/jion_need_numner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds10"
+            android:layout_marginRight="@dimen/ds30"
+            android:layout_marginBottom="@dimen/ds30"
+            android:textColor="#8c8c8c"
+            android:textSize="@dimen/ds22" />
+
+        <TextView
+            android:id="@+id/get_bc_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_marginTop="@dimen/ds20"
+            android:layout_marginRight="@dimen/ds30"
+            android:layout_marginBottom="@dimen/ds30"
+            android:text="参团即获赠0个糖果"
+            android:textColor="#F5A623"
+            android:textSize="@dimen/ds24"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

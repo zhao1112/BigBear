@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7">
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/collection_shop_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:overScrollMode="never"
+            android:scrollbars="none"></ListView>
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    <com.yunqin.bearmall.widget.CustomRecommendView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"></com.yunqin.bearmall.widget.CustomRecommendView>
+
+
+    <include
+        android:id="@+id/not_net"
+        android:visibility="gone"
+        layout="@layout/network_error_layout" />
+
+
+
+
+
+
+
+</RelativeLayout>

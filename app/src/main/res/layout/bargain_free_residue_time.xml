@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds64"
+        android:background="@color/collect_bg"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/bargain_free_residue_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2012人已免费拿"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds24"
+            android:paddingLeft="@dimen/ds30"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="距离活动结束"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds24"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/bargain_free_residue_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23:34:13"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/ds20"
+            android:textSize="@dimen/ds24"
+            android:layout_marginRight="@dimen/ds30"
+            />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

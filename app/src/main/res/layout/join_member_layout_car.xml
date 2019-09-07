@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="@dimen/ds560"
+        android:layout_height="@dimen/ds356"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds50"
+                android:layout_marginTop="@dimen/ds50"
+                android:layout_marginRight="@dimen/ds50"
+                android:gravity="center"
+                android:text="购物车内存在会员专享物品，您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！"
+                android:textColor="#333333"
+                android:textSize="@dimen/ds32" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds72"
+            android:layout_marginBottom="@dimen/ds50"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/join_member_no"
+                    android:layout_width="@dimen/ds208"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_green"
+                    android:gravity="center"
+                    android:text="我再想想"
+                    android:textColor="#33A76F"
+                    android:textSize="@dimen/ds28" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/join_member_ok"
+                    android:layout_width="@dimen/ds208"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_green_1"
+                    android:gravity="center"
+                    android:text="成为会员"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/ds28" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

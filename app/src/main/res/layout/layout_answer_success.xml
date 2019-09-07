@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/ti_correct_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="28pt"
+        android:textColor="@color/white"
+        android:layout_marginTop="18pt"
+        android:text="恭喜回答正确！"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:id="@+id/ti_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="36pt"
+            android:textColor="@color/white"
+            android:text="获得"
+            />
+
+        <TextView
+            android:id="@+id/ti_earn_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="36pt"
+            android:textColor="#FABD2C"
+            />
+
+        <ImageView
+            android:layout_width="54pt"
+            android:layout_height="54pt"
+            android:layout_marginLeft="15pt"
+            android:src="@drawable/faq_icon"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ti_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="28pt"
+        android:layout_marginBottom="15pt"
+        android:textColor="#A0E1D1"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

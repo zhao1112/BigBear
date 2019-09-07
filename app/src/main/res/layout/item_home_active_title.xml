@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/ds40"
+    android:paddingLeft="@dimen/ds20"
+    android:paddingBottom="@dimen/ds20">
+
+    <TextView
+        android:textSize="@dimen/ds30"
+        android:textColor="#36A771"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="大熊推荐" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123"
+        android:textSize="@dimen/ds30"
+        android:layout_marginLeft="@dimen/ds10"/>
+</LinearLayout>

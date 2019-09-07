@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/shape_class_gradient_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/layout_topbar"/>
+
+    <ImageView
+        android:id="@+id/class_top_iamge"
+        android:layout_width="match_parent"
+        android:layout_height="480pt"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/class_top_bg"
+        android:scaleType="centerCrop"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/class_center_layout"
+        android:layout_width="0dp"
+        android:layout_height="180pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/class_top_iamge"
+        android:layout_marginTop="12pt"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="30pt"
+        android:background="@drawable/class_center_bg"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
+            android:alpha="0.2"
+            />
+
+        <include
+            android:id="@+id/answer_ing"
+            layout="@layout/layout_answer_ti"/>
+
+        <include
+            android:id="@+id/answer_success"
+            android:visibility="gone"
+            layout="@layout/layout_answer_success"/>
+
+        <include
+            android:id="@+id/answer_faile"
+            android:visibility="gone"
+            layout="@layout/layout_answer_fail"/>
+
+        <include
+            android:id="@+id/anser_all"
+            android:visibility="gone"
+            layout="@layout/layout_ti_all"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/class_center_layout"
+        android:layout_marginBottom="26pt"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="30pt"
+        android:layout_marginTop="22pt"
+        ></FrameLayout>
+
+
+    
+</android.support.constraint.ConstraintLayout>

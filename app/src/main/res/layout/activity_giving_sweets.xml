@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.GivingSweetsActivity">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="88pt"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/toolbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20pt"
+            android:padding="5dp"
+            android:paddingBottom="@dimen/ds10"
+            android:paddingRight="@dimen/ds10"
+            android:paddingTop="@dimen/ds10"
+            android:src="@drawable/icon_backs" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="糖果赠送"
+            android:textColor="#333333"
+            android:textSize="32pt" />
+
+        <TextView
+            android:id="@+id/toolbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/ds30"
+            android:paddingBottom="@dimen/ds10"
+            android:paddingLeft="@dimen/ds10"
+            android:paddingTop="@dimen/ds10"
+            android:text="赠送"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/ds28" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/layout_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/content_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="赠送好友"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:id="@+id/view_left"
+                android:layout_width="@dimen/ds52"
+                android:layout_height="@dimen/ds4"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/main_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/content_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="好友赠送"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/ds28" />
+
+            <View
+                android:id="@+id/view_right"
+                android:layout_width="@dimen/ds52"
+                android:layout_height="@dimen/ds4"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/main_color"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/bt_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+
+</LinearLayout>

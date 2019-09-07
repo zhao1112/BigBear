@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/ds48"
+    android:layout_marginBottom="@dimen/ds50"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/bt_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BC糖果"
+            android:textColor="#666666"
+            android:textSize="@dimen/ds28" />
+
+        <TextView
+            android:id="@+id/bt_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds20"
+            android:textColor="#23A064"
+            android:textSize="@dimen/ds52" />
+
+        <ImageView
+            android:layout_width="@dimen/ds56"
+            android:layout_height="@dimen/ds56"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ds10"
+            android:src="@drawable/sign_in_img" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ds10"
+        android:textColor="#999999"
+        android:textSize="@dimen/ds20"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_info" />
+
+    <TextView
+        android:id="@+id/rank_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ds14"
+        android:textColor="#999999"
+        android:textSize="@dimen/ds20"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time" />
+
+    <LinearLayout
+        android:id="@+id/more_bi_"
+        android:layout_width="wrap_content"
+        android:layout_height="48pt"
+        android:layout_marginTop="@dimen/ds30"
+        android:background="@drawable/sign_botton_layout_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rank_text">
+
+        <TextView
+            android:id="@+id/te_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds13"
+            android:layout_marginRight="@dimen/ds13"
+            android:text="点击领取更多福利"
+            android:textColor="#d14a4a"
+            android:textSize="@dimen/ds20" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="asdasd"
+            android:visibility="gone"
+            android:textColor="#666666"
+            android:textSize="@dimen/ds20" />
+
+        <com.yunqin.bearmall.widget.CircleImageView
+            android:id="@+id/image"
+            android:layout_width="36pt"
+            android:layout_height="36pt"
+            android:layout_marginRight="@dimen/ds12"
+            android:src="@drawable/xnb_"
+            app:border_width="0pt" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

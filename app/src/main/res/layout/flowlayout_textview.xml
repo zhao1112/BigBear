@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/ds15"
+    android:paddingRight="@dimen/ds30"
+    android:paddingTop="@dimen/ds15">
+
+
+    <TextView
+        android:id="@+id/flow_layout_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pay_bg"
+        android:paddingBottom="@dimen/ds8"
+        android:paddingLeft="@dimen/ds20"
+        android:paddingRight="@dimen/ds20"
+        android:paddingTop="@dimen/ds8"
+        android:text="aaaaaa"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/ds24" />
+
+</LinearLayout>
+
+
+
+
+

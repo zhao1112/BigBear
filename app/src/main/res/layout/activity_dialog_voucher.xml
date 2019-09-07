@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#F7F7F7">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <ImageView
+            android:id="@+id/toolbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/ds30"
+            android:layout_alignParentRight="true"
+            android:padding="5dp"
+            android:src="@drawable/icon_close" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#333333"
+            android:textSize="32pt" />
+
+    </RelativeLayout>
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/voucher_list"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:divider="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+
+        <LinearLayout
+            android:id="@+id/empty"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginTop="@dimen/ds80"
+                android:layout_width="@dimen/ds216"
+                android:layout_height="@dimen/ds186"
+                android:src="@drawable/voucher_empty"/>
+            <TextView
+                android:layout_marginTop="@dimen/ds32"
+                android:textColor="#666666"
+                android:textSize="@dimen/ds28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂无转赠券记录"/>
+        </LinearLayout>
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
+
+</LinearLayout>

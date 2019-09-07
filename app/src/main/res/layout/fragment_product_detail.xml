@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/layout_head_switcher"-->
+        <!--android:layout_width="@dimen/ds360"-->
+        <!--android:layout_height="@dimen/ds56"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginTop="@dimen/ds144"-->
+        <!--android:layout_centerHorizontal="true"-->
+
+        <!--&gt;-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/product_layout_head_left_solid_main_color"-->
+            <!--android:layout_weight="1"-->
+            <!--&gt;-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="商品介绍"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:textSize="@dimen/ds24"-->
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/product_layout_head_right_border_main_color"-->
+            <!--&gt;-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="规格参数"-->
+                <!--android:textColor="@color/main_color"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:textSize="@dimen/ds24"-->
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <WebView
+        android:id="@+id/product_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="65dp"
+        ></WebView>
+
+    <!--android:layout_marginTop="@dimen/ds144"-->
+
+
+</RelativeLayout>

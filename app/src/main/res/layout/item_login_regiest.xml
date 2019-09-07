@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/phone_layout"
+        android:layout_marginTop="@dimen/ds20"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <ImageView
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_width="@dimen/ds22"
+            android:layout_height="@dimen/ds28"
+            android:src="@drawable/icon_login_phone"/>
+
+        <com.yunqin.bearmall.widget.DelEditText
+            android:id="@+id/phone_number"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/ds28"
+            android:layout_marginRight="@dimen/ds40"
+            android:background="@null"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textColor="@color/home_select_color"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/ds28" />
+    </LinearLayout>
+
+    <View
+        android:background="#EEEEEE"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/pwd_layout"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <ImageView
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_width="@dimen/ds22"
+            android:layout_height="@dimen/ds28"
+            android:src="@drawable/icon_pwd"/>
+
+        <com.yunqin.bearmall.widget.DelEditText
+            android:id="@+id/psw_login"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/ds28"
+            android:layout_marginRight="@dimen/ds40"
+            android:background="@null"
+            android:layout_width="0dp"
+            android:inputType="textPassword"
+            android:digits="0123456789qazwsxedcrfvtgbyhnujmikolpQAZWSXEDCRFVTGBYHNUJMIKOLP"
+            android:layout_height="match_parent"
+            android:hint="请输入6-20位数字、字母组合的密码"
+            android:maxLines="1"
+            android:textColor="@color/home_select_color"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/ds28" />
+    </LinearLayout>
+
+    <View
+        android:background="#EEEEEE"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"/>
+
+    <LinearLayout
+        android:id="@+id/input_pwd_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/ds22"
+            android:layout_height="@dimen/ds28"
+            android:layout_marginLeft="@dimen/ds30"
+            android:src="@drawable/icon_pwd" />
+
+        <com.yunqin.bearmall.widget.DelEditText
+            android:id="@+id/psw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ds28"
+            android:layout_marginRight="@dimen/ds40"
+            android:layout_weight="1"
+            android:background="@null"
+            android:inputType="textPassword"
+            android:digits="0123456789qazwsxedcrfvtgbyhnujmikolpQAZWSXEDCRFVTGBYHNUJMIKOLP"
+            android:hint="6-20位数字、字母组合"
+            android:maxLines="1"
+            android:textColor="@color/home_select_color"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/ds28" />
+    </LinearLayout>
+
+
+    <View
+        android:background="#EEEEEE"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/img_code_layout"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/ds22"
+                android:layout_height="@dimen/ds28"
+                android:src="@drawable/icon_pic"/>
+
+            <com.yunqin.bearmall.widget.DelEditText
+                android:id="@+id/img_code"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/ds28"
+                android:layout_marginRight="@dimen/ds40"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:digits="0123456789qazwsxedcrfvtgbyhnujmikolpQAZWSXEDCRFVTGBYHNUJMIKOLP"
+                android:layout_height="match_parent"
+                android:hint="请输入图片码"
+                android:maxLines="1"
+                android:textColor="@color/home_select_color"
+                android:textColorHint="#999999"
+                android:textSize="@dimen/ds28" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/get_img_code"
+            android:layout_width="@dimen/ds168"
+            android:layout_height="@dimen/ds64"
+            android:scaleType="fitXY"
+            android:layout_marginRight="@dimen/ds30"
+            android:background="#bdbdbd"
+            android:textSize="@dimen/ds30"/>
+
+    </LinearLayout>
+
+    <View
+        android:background="#EEEEEE"
+        android:layout_marginLeft="@dimen/ds30"
+        android:layout_marginRight="@dimen/ds30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/code_layout"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88">
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/ds30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/ds22"
+                android:layout_height="@dimen/ds28"
+                android:src="@drawable/icon_login_code"/>
+
+            <com.yunqin.bearmall.widget.DelEditText
+                android:id="@+id/msg_Code"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/ds28"
+                android:layout_marginRight="@dimen/ds40"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:inputType="number"
+                android:layout_height="match_parent"
+                android:hint="请输入随机码"
+                android:maxLines="1"
+                android:textColor="@color/home_select_color"
+                android:textColorHint="#999999"
+                android:textSize="@dimen/ds28" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/getcode_btn"
+            android:layout_width="@dimen/ds168"
+            android:layout_height="@dimen/ds64"
+            android:text="发送随机码"
+            android:layout_marginRight="@dimen/ds30"
+            android:background="@drawable/btn_other_way_login_bg"
+            android:textColor="#169F65"
+            android:textSize="@dimen/ds28"/>
+    </LinearLayout>
+
+
+
+    <com.yunqin.bearmall.widget.Highlight.HighlightButton
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds88"
+        android:layout_marginTop="@dimen/ds60"
+        android:layout_marginRight="@dimen/ds40"
+        android:layout_marginLeft="@dimen/ds40"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_bg"
+        android:textSize="@dimen/ds32" />
+
+    <LinearLayout
+        android:id="@+id/regiedt_forgetpwd_layout"
+        android:layout_marginLeft="@dimen/ds45"
+        android:layout_marginRight="@dimen/ds45"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/regirst"
+            android:paddingTop="@dimen/ds40"
+            android:paddingBottom="@dimen/ds30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="还没注册？"
+            android:textColor="#35AC79"
+            android:textSize="@dimen/ds28"
+            />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/reset_pwd"
+            android:textSize="@dimen/ds28"
+            android:paddingTop="@dimen/ds40"
+            android:paddingBottom="@dimen/ds30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999999"
+            android:text="忘记密码"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

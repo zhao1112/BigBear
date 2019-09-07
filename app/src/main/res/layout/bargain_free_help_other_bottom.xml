@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_alignParentBottom="true"
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds1"
+        android:background="@color/item_specification_item_minus_border"
+        ></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:id="@+id/bargain_free_share_like_layout"
+            android:layout_width="@dimen/ds98"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/bargain_free_share_like_img"
+                android:layout_width="@dimen/ds50"
+                android:layout_height="@dimen/ds50"
+                android:src="@drawable/icon_like_normal"/>
+
+            <TextView
+                android:id="@+id/bargain_free_share_like_tv_isFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收藏"
+                android:textColor="@color/product_customer_collect"
+                android:textSize="@dimen/ds20"
+                android:layout_marginTop="@dimen/ds2"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bargain_free_share_original_price_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/main_color"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大熊零售价"
+                android:textSize="@dimen/ds24"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/bargain_free_share_original_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/ds24"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_aaa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ds3"
+        android:paddingLeft="@dimen/ds15"
+        android:paddingTop="@dimen/ds8"
+        android:paddingRight="@dimen/ds15"
+        android:paddingBottom="@dimen/ds8"
+        android:text="测试"
+        android:textColor="@color/product_brand_name_color"
+        android:textSize="@dimen/ds28" />
+
+</LinearLayout>
