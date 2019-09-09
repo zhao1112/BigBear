@@ -46,7 +46,7 @@ android {
         release {
             // 正式地址
 //            buildConfigField 'String', 'BASE_URL', '"http://47.95.115.244"'
-            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'
+            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'  //正式地址
             manifestPlaceholders = [
                     GETUI_APP_ID    : "P1WZUP1CCA83TQv6ROrw09",
                     GETUI_APP_KEY   : "4Q54VC50z36Dc3jFEHrdRA",
@@ -57,10 +57,12 @@ android {
         }
 
         debug {
-            // 测试地址
+            // 测试地址192.168.0.111
+            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
+//            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.112:80"' //本地服务
 //            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"'
 //            buildConfigField 'String', 'BASE_URL', '"http://47.95.13.29:80"'
-            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.198:7777"'
+//            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.198:7777"'  // 测试地址
 //            buildConfigField 'String', 'BASE_URL', '"http://39.98.167.127:80"'
             manifestPlaceholders = [
                     GETUI_APP_ID    : "vcUoVHlgI68fEjCXcSTWt9",
@@ -239,6 +241,11 @@ dependencies {
     api "com.android.support:support-compat:27.0.0"
     api "com.android.support:support-core-utils:27.0.0"
     api "com.android.support:support-fragment:27.0.0"
+
+    //XBanner
+    implementation 'com.github.xiaohaibin:XBanner:1.7.0'
+    //高斯模糊
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
 }
 
 private static def releaseTime() {

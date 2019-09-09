@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_share_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.stx.xhb.xbanner.XBanner
+        android:id="@+id/app_invitation_botton_banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:isAutoPlay="false">
+    </com.stx.xhb.xbanner.XBanner>
+
+
+    <LinearLayout
+        android:id="@+id/app_invitation_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/app_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_64"
+            android:background="@android:color/white">
+
+            <ImageView
+                android:id="@+id/app_invitation_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_30"
+                android:src="@drawable/icon_backs"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_30"
+                android:text="邀请好友获利"
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_14"/>
+
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/not_net"
+            layout="@layout/network_error_layout"
+            android:visibility="gone"/>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/app_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_500">
+
+                    <com.stx.xhb.xbanner.XBanner
+                        android:id="@+id/app_invitation_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:isAutoPlay="false"
+                        app:pointsVisibility="false">
+                    </com.stx.xhb.xbanner.XBanner>
+
+                    <com.stx.xhb.xbanner.XBanner
+                        android:id="@+id/app_invitation_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:clipChildrenLeftRightMargin="@dimen/dp_60"
+                        app:clipChildrenTopBottomMargin="@dimen/dp_40"
+                        app:isAutoPlay="false"
+                        app:isClipChildrenMode="true"
+                        app:isClipChildrenModeLessThree="true"
+                        app:pointsVisibility="false"
+                        app:viewpagerMargin="@dimen/dp_30">
+
+                    </com.stx.xhb.xbanner.XBanner>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/app_view_share"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="@dimen/dp_85">
+
+                    <TextView
+                        android:id="@+id/app_invitation_share"
+                        android:layout_width="256dp"
+                        android:layout_height="45dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/app_invitation"
+                        android:gravity="center"
+                        android:text="立即分享"
+                        android:textColor="#ffffff"
+                        android:textSize="15sp"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
+</LinearLayout>

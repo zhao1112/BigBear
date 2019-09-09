@@ -25,6 +25,7 @@ import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.eventbus.ChangeFragment;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity;
+import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
 import com.yunqin.bearmall.ui.activity.SweetRecordActivity;
@@ -205,7 +206,8 @@ public class MakeMoneyFragment extends BaseFragment {
 //                VipCenterActivity.startVipCenterActivity(getActivity(), "", "");
 
 
-                StarActivityUtil.starActivity(getActivity(),InvitationActivity.class);
+                //StarActivityUtil.starActivity(getActivity(),InvitationActivity.class);
+                StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
 
 
 
@@ -229,7 +231,8 @@ public class MakeMoneyFragment extends BaseFragment {
                 break;
             case R.id.new_menu_3:// 邀请好友
 //                VipCenterActivity.startVipCenterActivity(getActivity(), "", "");
-                InviteFriendActivity.startActivity(getActivity());
+                //InviteFriendActivity.startActivity(getActivity());
+                StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
 
                 break;
             case R.id.new_menu_4:// 领取信用卡

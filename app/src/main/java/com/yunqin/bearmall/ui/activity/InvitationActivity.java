@@ -94,6 +94,7 @@ public class InvitationActivity extends BaseActivity {
             case R.id.creat_poster:
             case R.id.creat_poster_text:
                 new InvitationPosterDialog(InvitationActivity.this);
+
                 break;
         }
     }

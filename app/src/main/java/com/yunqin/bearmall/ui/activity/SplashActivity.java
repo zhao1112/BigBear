@@ -44,6 +44,7 @@ public class SplashActivity extends BaseActivity {
                         dataBean.setMember(memberBean);
                         userInfo.setData(dataBean);
                         BearMallAplication.getInstance().setUser(userInfo);
+                        //InitInvitation();
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                     }
@@ -59,12 +60,14 @@ public class SplashActivity extends BaseActivity {
                 }
             });
 
+
 //            UserInfo user = BearMallAplication.getInstance().getUser();
 //
 //            Map<String, String> map = new HashMap<>();
 //            map.put("refresh_token", user.getData().getToken().getRefresh_token());
 //
-//            RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).refreshToken(map), new RetrofitApi.IResponseListener() {
+//            RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).refreshToken(map), new RetrofitApi
+//            .IResponseListener() {
 //                @Override
 //                public void onSuccess(String data) throws JSONException {
 //                    JSONObject jsonObject = new JSONObject(data);
@@ -90,6 +93,10 @@ public class SplashActivity extends BaseActivity {
         immerseStatusBar();
         Timer timer = new Timer();
         timer.schedule(new SplashTask(), 2500);
+    }
+
+    private void InitInvitation() {
+        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
     }
 
     class SplashTask extends TimerTask {

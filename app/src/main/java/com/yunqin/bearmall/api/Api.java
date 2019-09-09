@@ -1115,5 +1115,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/loansupermarket/getLoanSupermarketData")
     Observable<String> getLoanSupermarketData(@FieldMap() Map<String, String> params);
+
+    /**
+     * 生成多张邀请海报
+     */
+    @POST("api/member/createInviteFriendsImageTwo")
+    Observable<String> createManyInviteImage();
 }
 

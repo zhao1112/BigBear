@@ -24,6 +24,7 @@ import com.yunqin.bearmall.ui.activity.BargainFreeActivity;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity;
+import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZanWeiKaiFangActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
@@ -88,7 +89,8 @@ public class TopBarClicker {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-                StarActivityUtil.starActivity(activity, InvitationActivity.class);
+                //StarActivityUtil.starActivity(activity, InvitationActivity.class);
+                StarActivityUtil.starActivity(activity, InvitationActivity2.class);
 //                InviteFriendActivity.startActivity(activity);
 //                StarActivityUtil.starActivity(getActivity(), VipCenterActivity.class);
                 break;

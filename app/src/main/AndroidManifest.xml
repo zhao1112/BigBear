@@ -576,6 +576,11 @@
         <activity android:name="com.newversions.tbk.activity.ShareComissionActivity" />
         <activity android:name="com.newversions.tbk.activity.MyTBKCollectionActivity" />
         <activity android:name="com.newversions.tbk.activity.InputIncomCodeActivity" />
+        <activity
+            android:name=".ui.activity.InvitationActivity2"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
 
         <meta-data
             android:name="TUIA_APPKEY"

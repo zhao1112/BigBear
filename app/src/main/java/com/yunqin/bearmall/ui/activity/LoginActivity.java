@@ -18,6 +18,8 @@ import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.api.Api;
+import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.eventbus.FinishEvent;
@@ -83,7 +85,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         presenter = new LoginPresenter(this, this);
     }
 
-//15910008841
+    //15910008841
     @OnClick({R.id.wx_login_btn, R.id.other_login_way, R.id.user_protocol, R.id.close})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -220,11 +222,12 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                 finish();
             } else if (jsonObject.getJSONObject("data").optInt("status") == 1) {
                 UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
-                if(StringUtils.isEmpty(userInfo.getParentCode())){
-                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this,userInfo.getData().getToken().getAccess_token());
+                if (StringUtils.isEmpty(userInfo.getParentCode())) {
+                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this, userInfo.getData().getToken().getAccess_token());
                     finish();
-                }else {
+                } else {
                     BearMallAplication.getInstance().setUser(userInfo);
+                    InitInvitation();
                     finish();
                 }
             }
@@ -251,6 +254,10 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             }
         }
         return false;
+    }
+
+    private void InitInvitation() {
+        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
     }
 
 }
