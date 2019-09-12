@@ -1,6 +1,21 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 
+
+def releaseTimes() {
+    return new Date().format("yyyyMMddHH", TimeZone.getTimeZone("UTC")).toInteger()
+}
+
+//获取自动版本号
+def gitVersionCode() {
+    def cmd = 'git rev-list HEAD --count'
+    return cmd.execute().text.trim().toInteger()
+}
+//release
+def SDK_VERSION_CODE = gitVersionCode()
+def SDK_VERSION_NAME = "4.7"
+def RELEASE_TIME = releaseTimes()
+
 android {
 
     aaptOptions.cruncherEnabled = false
@@ -21,7 +36,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 30
-        versionName "4.7"
+        versionName SDK_VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        flavorDimensions "versionCode"
         multiDexEnabled true
@@ -76,11 +91,20 @@ android {
 
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
-                def outputFile = output.outputFile
-                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                    def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-${releaseTime()}-${variant.productFlavors[0].name}.apk")
-                    def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-${releaseTime()}.apk")
-                    outputFileName = fileName
+//                def outputFile = output.outputFile
+//                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+////                    def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-${releaseTime()}-${variant.productFlavors[0].name}.apk")
+//                    def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-${releaseTime()}.apk")
+//                    outputFileName = fileName
+//                }
+                if (variant.buildType.name.equals('release')) {
+                    variant.getPackageApplicationProvider().get().outputDirectory = project.file('../apk/')
+                    variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
+                        //这个修改输出APK的文件名
+                        apkData.outputFileName = variant.applicationId + "_" + variant.flavorName + "_" + variant.versionName + "_V." + variant.versionCode + "_" + RELEASE_TIME + '_release.apk'
+                    }
+                } else {
+                    outputFileName = variant.applicationId + "_" + variant.flavorName + "_" + variant.versionName + '_V.' + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
                 }
             }
         }
