@@ -1129,6 +1129,7 @@ public interface Api {
     @POST("api/member/createInviteFriendsImageTwo")
     Observable<String> createManyInviteImage();
 
+
     /**
      * 收集初始化信息
      */
