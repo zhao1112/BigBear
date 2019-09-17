@@ -7,13 +7,17 @@ import android.webkit.WebView;
 
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 
-public class NewWebViewActivity extends AppCompatActivity {
+public class NewWebViewActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_activity_new_web_view);
+    public int layoutId() {
+        return R.layout.new_activity_new_web_view;
+    }
+
+    @Override
+    public void init() {
 
         WebView webView = findViewById(R.id.web_view);
 
@@ -31,4 +35,5 @@ public class NewWebViewActivity extends AppCompatActivity {
         });
 
     }
+
 }

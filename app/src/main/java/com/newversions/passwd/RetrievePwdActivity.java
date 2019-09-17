@@ -11,8 +11,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 
-public class RetrievePwdActivity extends AppCompatActivity implements View.OnClickListener, FragmentToActivityInte {
+public class RetrievePwdActivity extends BaseActivity implements View.OnClickListener, FragmentToActivityInte {
 
     private FragmentManager fragmentManager;
     private ResetPwdFragment resetPwdFragment;
@@ -25,12 +26,16 @@ public class RetrievePwdActivity extends AppCompatActivity implements View.OnCli
     private String validCodeForReset;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_version_activity_retrieve_pwd);
+    public int layoutId() {
+        return R.layout.new_version_activity_retrieve_pwd;
+    }
+
+    @Override
+    public void init() {
         findViews();
         initializePage();
     }
+
 
     private void findViews() {
         new_version_back = findViewById(R.id.new_version_back);

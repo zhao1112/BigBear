@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.widget.LoadingView;
 
 import org.json.JSONException;
@@ -33,7 +34,7 @@ import io.reactivex.functions.Function;
  * 验证手机号
  */
 
-public class PhoneVerifyActivity extends AppCompatActivity implements View.OnClickListener {
+public class PhoneVerifyActivity extends BaseActivity implements View.OnClickListener {
 
     public static void startActivity(Context context, long userBankId) {
         Intent intent = new Intent(context, PhoneVerifyActivity.class);
@@ -46,10 +47,12 @@ public class PhoneVerifyActivity extends AppCompatActivity implements View.OnCli
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone_verify);
+    public int layoutId() {
+        return R.layout.activity_phone_verify;
+    }
 
+    @Override
+    public void init() {
         userBankId = getIntent().getLongExtra("userBankId", -100);
 
         if (userBankId == -100) {
@@ -57,6 +60,7 @@ public class PhoneVerifyActivity extends AppCompatActivity implements View.OnCli
         }
         initViews();
     }
+
 
     private Button get_code_;
     private TextView error_info_tv;
@@ -76,7 +80,7 @@ public class PhoneVerifyActivity extends AppCompatActivity implements View.OnCli
 
     private LoadingView loadingProgress;
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -85,7 +89,7 @@ public class PhoneVerifyActivity extends AppCompatActivity implements View.OnCli
         loadingProgress.show();
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }
@@ -116,7 +120,7 @@ public class PhoneVerifyActivity extends AppCompatActivity implements View.OnCli
      */
     private void createSmsCodeForVerifyBank() {
 
-        showLoading();
+        showLoadings();
 
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("userBankId", String.valueOf(userBankId));
@@ -124,18 +128,18 @@ public class PhoneVerifyActivity extends AppCompatActivity implements View.OnCli
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createSmsCodeForVerifyBank(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                hideLoading();
+                hideLoadings();
                 success();
             }
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
             }
         });
 
@@ -199,7 +203,7 @@ public class PhoneVerifyActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        showLoading();
+        showLoadings();
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("userBankId", String.valueOf(userBankId));
         mHashMap.put("smsVCod", smsCode);
@@ -214,12 +218,12 @@ public class PhoneVerifyActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
                 try {
                     JSONObject jsonObject = new JSONObject(e.getMessage());
                     error_info_tv.setText(jsonObject.optString("msg"));

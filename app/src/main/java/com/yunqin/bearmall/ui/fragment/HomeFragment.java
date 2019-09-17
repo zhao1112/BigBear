@@ -1,7 +1,9 @@
 package com.yunqin.bearmall.ui.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -40,6 +42,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import permison.PermissonUtil;
+import permison.listener.PermissionListener;
 
 /**
  * @author Master
@@ -69,11 +73,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
     View view;
 
 
-
     @BindView(R.id.dot_view)
     DotView dot_view;
-
-
 
 
     @Override
@@ -236,7 +237,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
                     .setOnDialogItemClickListener((thisDialog, clickView) -> {
                         thisDialog.dismiss();
                         if (clickView.getId() == R.id.ad_img) {
-                            IAdvClick.click(getActivity(), popBean.getData().getPopupAd().getType(), popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id());
+                            IAdvClick.click(getActivity(), popBean.getData().getPopupAd().getType(),
+                                    popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id());
                         }
                     }).build().show();
         }
@@ -258,7 +260,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
             timeMap.put("lastTime3", (long) SharedPreferencesHelper.get(getActivity(), "lastTime3", 0l) + "");
         }
 
-        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap),
+                new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
                 MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);

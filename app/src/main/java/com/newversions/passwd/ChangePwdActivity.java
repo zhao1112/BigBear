@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.widget.LoadingView;
 
 import org.json.JSONException;
@@ -28,7 +29,7 @@ import static com.newversions.passwd.ChangePwdActivity.PwStatus.TYPE_THREE;
 import static com.newversions.passwd.ChangePwdActivity.PwStatus.TYPE_TWO;
 
 
-public class ChangePwdActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChangePwdActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView hint_tip;
     private TextView tv_pass1;
@@ -54,13 +55,17 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_version_activity_change_pwd);
+    public int layoutId() {
+        return R.layout.new_version_activity_change_pwd;
+    }
+
+    @Override
+    public void init() {
         initData();
         findViews();
         initClick();
     }
+
 
     private void initData() {
         CURRTYPE = TYPE_ONE;
@@ -223,13 +228,13 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
 
 
     private void verifyPwd() {
-        showLoading();
+        showLoadings();
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("paymentPwd", IMD5.md5(oldPwdStringBuffer.toString()));
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).validPayPassword(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                hideLoading();
+                hideLoadings();
                 JSONObject jsonObject = new JSONObject(data);
                 if (jsonObject.optInt("code") == 1) {
                     resetPwd();
@@ -242,12 +247,12 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
                 resetStub();
             }
         });
@@ -261,7 +266,7 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
 
         if (newPwdStringBuffer.toString().equals(againPwdStringBuffer.toString())) {
 
-            showLoading();
+            showLoadings();
             Map<String, String> mHashMap = new HashMap<>();
             mHashMap.put("oldPaymentPwd", IMD5.md5(oldPwdStringBuffer.toString()));
             mHashMap.put("newPaymentPwd", IMD5.md5(newPwdStringBuffer.toString()));
@@ -269,7 +274,7 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
             RetrofitApi.request(this, RetrofitApi.createApi(Api.class).updatePayPassword(mHashMap), new RetrofitApi.IResponseListener() {
                 @Override
                 public void onSuccess(String data) throws JSONException {
-                    hideLoading();
+                    hideLoadings();
                     JSONObject jsonObject = new JSONObject(data);
                     if (jsonObject.optInt("code") == 1) {
                         // TODO 修改成功
@@ -295,12 +300,12 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
 
                 @Override
                 public void onNotNetWork() {
-                    hideLoading();
+                    hideLoadings();
                 }
 
                 @Override
                 public void onFail(Throwable e) {
-                    hideLoading();
+                    hideLoadings();
                     resetStub();
                 }
             });
@@ -329,7 +334,7 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
 
     protected LoadingView loadingProgress;
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -339,7 +344,7 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }

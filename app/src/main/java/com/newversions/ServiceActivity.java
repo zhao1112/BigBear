@@ -7,12 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 
 /**
  * 在线客服
  */
 
-public class ServiceActivity extends AppCompatActivity {
+public class ServiceActivity extends BaseActivity {
 
 
     public static void start(Context context) {
@@ -22,17 +23,18 @@ public class ServiceActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_version_activity_service);
+    public int layoutId() {
+        return R.layout.new_version_activity_service;
+    }
 
+    @Override
+    public void init() {
         findViewById(R.id.new_version_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
-
     }
+
 }

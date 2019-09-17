@@ -12,9 +12,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.umeng.analytics.MobclickAgent;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.BannerBean;
 import com.yunqin.bearmall.widget.RefreshFooterView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
@@ -31,7 +33,7 @@ import butterknife.OnClick;
 /**
  * 活动二级页面
  */
-public class HdActivity extends AppCompatActivity {
+public class HdActivity extends BaseActivity {
 
 
     @BindView(R.id.toolbar_title)
@@ -52,15 +54,17 @@ public class HdActivity extends AppCompatActivity {
     private String discountCampaign_id = "";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hd);
-        ButterKnife.bind(this);
-        discountCampaign_id = getIntent().getStringExtra("discountCampaign_id");
-        init();
+    public int layoutId() {
+        return R.layout.activity_hd;
     }
 
+    @Override
     public void init() {
+        discountCampaign_id = getIntent().getStringExtra("discountCampaign_id");
+        inits();
+    }
+
+    public void inits() {
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(this));
         mTwinklingRefreshLayout.setBottomView(new RefreshFooterView(this));
         mTwinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {

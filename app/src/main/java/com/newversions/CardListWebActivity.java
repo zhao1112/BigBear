@@ -20,6 +20,7 @@ import com.newversions.view.ICustomDialog3;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.ZhuanQianBean;
 
 import org.json.JSONException;
@@ -29,7 +30,7 @@ import org.json.JSONException;
  * 申请信用卡列表页面
  */
 
-public class CardListWebActivity extends AppCompatActivity {
+public class CardListWebActivity extends BaseActivity {
 
     private WebView webView;
 
@@ -45,10 +46,12 @@ public class CardListWebActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_list_web);
+    public int layoutId() {
+        return R.layout.activity_card_list_web;
+    }
 
+    @Override
+    public void init() {
         TextView top_title = findViewById(R.id.top_title);
 
 
@@ -79,7 +82,6 @@ public class CardListWebActivity extends AppCompatActivity {
                 CardListWebActivity.this.finish();
             }
         });
-
     }
 
 

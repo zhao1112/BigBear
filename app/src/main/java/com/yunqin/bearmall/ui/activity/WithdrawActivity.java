@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +23,7 @@ import io.reactivex.disposables.Disposable;
  * 提现完成
  */
 
-public class WithdrawActivity extends AppCompatActivity implements View.OnClickListener {
+public class WithdrawActivity extends BaseActivity implements View.OnClickListener {
 
 
     private final int codeTimes = 3;
@@ -37,10 +38,12 @@ public class WithdrawActivity extends AppCompatActivity implements View.OnClickL
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_withdraw);
+    public int layoutId() {
+        return R.layout.activity_withdraw;
+    }
 
+    @Override
+    public void init() {
         _tip = findViewById(R.id._tip);
 
 
@@ -80,7 +83,6 @@ public class WithdrawActivity extends AppCompatActivity implements View.OnClickL
                         WithdrawActivity.this.finish();
                     }
                 });
-
 
     }
 

@@ -6,7 +6,7 @@ buildscript {
         jcenter()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
         maven { url "https://jitpack.io" }
-
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
@@ -25,6 +25,7 @@ allprojects {
         maven {
             url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
         }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 }
 

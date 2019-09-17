@@ -13,11 +13,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ImageLookActivity extends AppCompatActivity {
+public class ImageLookActivity extends BaseActivity {
 
     private ArrayList<String> images = new ArrayList<>();
     private ViewPager mViewPager;
@@ -25,17 +26,20 @@ public class ImageLookActivity extends AppCompatActivity {
     private int pos;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_activity_image_look);
+    public int layoutId() {
+        return R.layout.new_activity_image_look;
+    }
+
+    @Override
+    public void init() {
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         mViewPager = findViewById(R.id.view_pager);
         number = findViewById(R.id.number);
 
         initViewPagerData();
-
     }
+
 
     public void initViewPagerData() {
 //        images = (ArrayList<String>) getIntent().getSerializableExtra("images");

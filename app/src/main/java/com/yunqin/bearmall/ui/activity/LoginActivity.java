@@ -91,6 +91,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         switch (view.getId()) {
             case R.id.wx_login_btn:
                 WxLogin();
+                //TODO[微信登录]
                 break;
             case R.id.other_login_way:
 //                DialogUtils.changeLoginWay(this, this);

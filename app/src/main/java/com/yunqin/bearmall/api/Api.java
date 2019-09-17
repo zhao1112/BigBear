@@ -75,8 +75,6 @@ public interface Api {
     Observable<String> fillCode(@FieldMap() Map<String, String> params);
 
 
-
-
     /**
      * 导航商品分类列表
      *
@@ -95,6 +93,7 @@ public interface Api {
 
     /**
      * 获取商品详情
+     *
      * @return
      */
     @FormUrlEncoded
@@ -229,7 +228,8 @@ public interface Api {
     Observable<String> collectionShop(@FieldMap() Map<String, String> params);
 
     /**
-     *获取收益记录
+     * 获取收益记录
+     *
      * @param params
      * @return
      */
@@ -239,6 +239,7 @@ public interface Api {
 
     /**
      * 获取商品列表
+     *
      * @param params
      * @return
      */
@@ -247,9 +248,9 @@ public interface Api {
     Observable<String> getGoodsList(@FieldMap() Map<String, String> params);
 
 
-
     /**
      * 获取淘宝跳转链接
+     *
      * @param params
      * @return
      */
@@ -396,6 +397,7 @@ public interface Api {
 
     /**
      * 解析复制的内容
+     *
      * @param params
      * @return
      */
@@ -468,6 +470,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/store/getStoreFavoriteList")
     Observable<String> getStoreFavoriteList(@FieldMap() Map<String, String> params);
+
     /**
      * 1.20.	获得tbk收藏店铺列表
      */
@@ -606,10 +609,9 @@ public interface Api {
     Observable<String> getHomeListData(@FieldMap() Map<String, String> params);
 
 
-
-
     /**
      * 淘宝客首页数据
+     *
      * @param params
      * @return
      */
@@ -620,6 +622,7 @@ public interface Api {
 
     /**
      * 修改收藏列表
+     *
      * @param params
      * @return
      */
@@ -629,14 +632,17 @@ public interface Api {
 
     /**
      * 获取分享信息
+     *
      * @param params
      * @return
      */
     @FormUrlEncoded
     @POST("api/commodity/getShareMsg")
     Observable<String> getShareMsg(@FieldMap() Map<String, String> params);
+
     /**
      * 获取淘客推荐商品
+     *
      * @param params
      * @return
      */
@@ -854,6 +860,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/member/memberThirdPartyBind")
     Observable<String> memberThirdPartyBind(@FieldMap() Map<String, String> params);//2.10.	会员第三方绑定
+
     //手机号绑定微信
     @FormUrlEncoded
     @POST("api/member/memberWeixinBind")
@@ -1121,5 +1128,11 @@ public interface Api {
      */
     @POST("api/member/createInviteFriendsImageTwo")
     Observable<String> createManyInviteImage();
+
+    /**
+     * 收集初始化信息
+     */
+    @POST("api/basic/init")
+    Observable<String> getInitMessage();
 }
 

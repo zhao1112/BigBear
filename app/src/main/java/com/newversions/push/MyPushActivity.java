@@ -12,8 +12,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 
-public class MyPushActivity extends AppCompatActivity implements View.OnClickListener {
+public class MyPushActivity extends BaseActivity implements View.OnClickListener {
 
     private RadioGroup radioGroup;
     private RadioButton new_m1;
@@ -24,9 +25,12 @@ public class MyPushActivity extends AppCompatActivity implements View.OnClickLis
     private MyTwoFragment m2Fragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_version_activity_my_push);
+    public int layoutId() {
+        return R.layout.new_version_activity_my_push;
+    }
+
+    @Override
+    public void init() {
         findViewById(R.id.new_version_back).setOnClickListener(this);
         radioGroup = findViewById(R.id.new_radio_group);
         new_m1 = findViewById(R.id.new_m1);

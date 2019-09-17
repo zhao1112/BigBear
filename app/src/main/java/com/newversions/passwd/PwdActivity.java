@@ -5,19 +5,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 
-public class PwdActivity extends AppCompatActivity implements View.OnClickListener {
+public class PwdActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_version_activity_pwd);
+    public int layoutId() {
+        return R.layout.new_version_activity_pwd;
+    }
 
+    @Override
+    public void init() {
         findViewById(R.id.new_version_back).setOnClickListener(this);
         findViewById(R.id.new_version_update).setOnClickListener(this);
         findViewById(R.id.new_version_reset).setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View view) {

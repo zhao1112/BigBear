@@ -12,8 +12,6 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 个推SDK权限配置开始 -->
 
-
-
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -585,6 +583,12 @@
         <meta-data
             android:name="TUIA_APPKEY"
             android:value="26VQ3Jizm2Xpd2KMJvk9g4HMgSA2" />
+
+        <!--value的值填写你在友盟后台申请的应用Appkey    5d7f75ad570df3730e0004cf-->
+        <meta-data android:value="5d7f75ad570df3730e0004cf" android:name="UMENG_APPKEY"/>
+
+        <!--value的值填写渠道名称，例如yingyongbao。这里设置动态渠道名称变量-->
+        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

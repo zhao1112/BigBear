@@ -15,6 +15,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.CreditCardBean;
 import com.yunqin.bearmall.widget.LoadingView;
 import com.yunqin.bearmall.widget.RefreshBottomView;
@@ -29,7 +30,7 @@ import java.util.Map;
  * 信用卡界面
  */
 
-public class CreditCardActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreditCardActivity extends BaseActivity implements View.OnClickListener {
 
     private TwinklingRefreshLayout mTwinklingRefreshLayout;
 
@@ -46,11 +47,14 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
     private int position = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_credit_card);
+    public int layoutId() {
+        return R.layout.activity_credit_card;
+    }
+
+    @Override
+    public void init() {
         initViews();
-        showLoading();
+        showLoadings();
     }
 
     private void initViews() {
@@ -100,7 +104,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onSuccess(String data) throws JSONException {
 
-                hideLoading();
+                hideLoadings();
                 CreditCardBean cardBean = new Gson().fromJson(data, CreditCardBean.class);
                 hasMore = cardBean.getData().getHas_more() == 0 ? false : true;
 
@@ -122,13 +126,13 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
                 mEmptyView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
                 mEmptyView.setVisibility(View.VISIBLE);
             }
         });
@@ -139,7 +143,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
 
     private LoadingView loadingProgress;
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -148,7 +152,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
         loadingProgress.show();
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }

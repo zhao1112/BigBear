@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.yunqin.bearmall.base.BaseActivity;
 
-public class ADGiveCandyActivity extends AppCompatActivity {
+
+public class ADGiveCandyActivity extends BaseActivity {
 
 
 //    private FoxWallView mFoxWallView;
@@ -20,9 +22,12 @@ public class ADGiveCandyActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adgive_candy);
+    public int layoutId() {
+        return R.layout.activity_adgive_candy;
+    }
+
+    @Override
+    public void init() {
 
 //        mFoxWallView = findViewById(R.id.app1);
 //        mFoxWallView.setAdListener(new FoxListener() {

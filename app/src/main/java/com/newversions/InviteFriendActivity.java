@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.ShareBean;
 import com.yunqin.bearmall.util.CShareUtil;
 import com.yunqin.bearmall.widget.LoadingView;
@@ -21,7 +22,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InviteFriendActivity extends AppCompatActivity implements View.OnClickListener {
+public class InviteFriendActivity extends BaseActivity implements View.OnClickListener {
 
 
     public static void startActivity(Context context) {
@@ -35,9 +36,12 @@ public class InviteFriendActivity extends AppCompatActivity implements View.OnCl
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invite_friend);
+    public int layoutId() {
+        return R.layout.activity_invite_friend;
+    }
+
+    @Override
+    public void init() {
         price_new = findViewById(R.id.price_new);
         price_old = findViewById(R.id.price_old);
         tip_b_1 = findViewById(R.id.tip_b_1);
@@ -49,12 +53,12 @@ public class InviteFriendActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initData() {
-        showLoading();
+        showLoadings();
 
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getInvitationPageInfo(), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                hideLoading();
+                hideLoadings();
                 IS_SUCCESS = true;
 
 
@@ -80,12 +84,12 @@ public class InviteFriendActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
                 IS_SUCCESS = false;
             }
         });
@@ -102,26 +106,26 @@ public class InviteFriendActivity extends AppCompatActivity implements View.OnCl
         }
 
 
-        showLoading();
+        showLoadings();
 
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("type", "6");
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getShareParams(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                hideLoading();
+                hideLoadings();
                 ShareBean shareBean = new Gson().fromJson(data, ShareBean.class);
                 CShareUtil.Share(InviteFriendActivity.this, shareBean.getData());
             }
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
             }
         });
     }
@@ -129,7 +133,7 @@ public class InviteFriendActivity extends AppCompatActivity implements View.OnCl
 
     private LoadingView loadingProgress;
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -138,7 +142,7 @@ public class InviteFriendActivity extends AppCompatActivity implements View.OnCl
         loadingProgress.show();
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.eventbus.UpdateBankEvent;
 import com.yunqin.bearmall.eventbus.UpdateBankListEvent;
 
@@ -25,7 +26,7 @@ import io.reactivex.disposables.Disposable;
  * 验证完成
  */
 
-public class VerifySuccessActivity extends AppCompatActivity implements View.OnClickListener {
+public class VerifySuccessActivity extends BaseActivity implements View.OnClickListener {
 
 
     private final int codeTimes = 3;
@@ -40,13 +41,15 @@ public class VerifySuccessActivity extends AppCompatActivity implements View.OnC
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verify_success);
+    public int layoutId() {
+        return R.layout.activity_verify_success;
+    }
 
+    @Override
+    public void init() {
         EventBus.getDefault().post(new UpdateBankEvent(true));
         EventBus.getDefault().post(new UpdateBankListEvent(true));
-        
+
         _tip = findViewById(R.id._tip);
 
         findViewById(R.id.new_version_back).setOnClickListener(this);
@@ -78,9 +81,8 @@ public class VerifySuccessActivity extends AppCompatActivity implements View.OnC
                         VerifySuccessActivity.this.finish();
                     }
                 });
-
-
     }
+
 
     @Override
     public void onClick(View view) {

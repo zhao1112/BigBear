@@ -23,6 +23,7 @@ import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.ProductSumActivity;
 import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.tbk.view.SearchDialog;
+import com.umeng.analytics.MobclickAgent;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
@@ -53,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("BaseActivity", "BaseActivity : "+getClass().getSimpleName());
+        Log.i("BaseActivity", "BaseActivity : " + getClass().getSimpleName());
         setContentView(layoutId());
 
 
@@ -74,7 +75,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         searchDialog();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private String content;
@@ -114,15 +122,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                         BearMallAplication.isFirst = true;
                         mSearchDialog.dismiss();
                         cm.setPrimaryClip(ClipData.newPlainText(null, ""));
-                        HashMap<String,String> map = new HashMap<>();
-                        map.put("content",content);
-                        RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).findCommodityIdByTpwd(map), new RetrofitApi.IResponseListener() {
+                        HashMap<String, String> map = new HashMap<>();
+                        map.put("content", content);
+                        RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).findCommodityIdByTpwd(map),
+                                new RetrofitApi.IResponseListener() {
                             @Override
                             public void onSuccess(String data) throws JSONException {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if (jsonObject.optInt("code") == 1) {
                                     // TODO: 2019/8/22 0022 跳转详情
-                                    GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,jsonObject.getString("data"),Constants.GOODS_TYPE_TBK_SEARCH);
+                                    GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString("data"),
+                                            Constants.GOODS_TYPE_TBK_SEARCH);
                                 } else {
                                     ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
                                 }

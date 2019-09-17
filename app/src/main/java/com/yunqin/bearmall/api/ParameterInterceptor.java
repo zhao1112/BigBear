@@ -3,6 +3,9 @@ package com.yunqin.bearmall.api;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.util.DeviceUtils;
 
@@ -34,6 +37,8 @@ public class ParameterInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+
+        HashMap<String, String> devParams = BearMallAplication.get().getDevParams();
 
         mParamsMap.clear();
         mParamsMap.put(DEVICES_ID, DeviceUtils.getUniqueId(BearMallAplication.getInstance().getApplicationContext()));
@@ -73,13 +78,20 @@ public class ParameterInterceptor implements Interceptor {
                     bodyBuilder.addEncoded(key, mParamsMap.get(key));
                 }
 
+                if (devParams != null) {
+                    for (String key : devParams.keySet()) {
+                        bodyBuilder.addEncoded(key, devParams.get(key));
+                    }
+                }
+
 
 //                bodyBuilder.addEncoded(DEVICES_ID, DeviceUtils.getUniqueId(BearMallAplication.getInstance().getApplicationContext()));
 
 //                if (checkAdd()) {
 //                    bodyBuilder.addEncoded(TOKEN, BearMallAplication.getInstance().getUser().getData().getAccess_token());
 //                }
-//                bodyBuilder.addEncoded(CID, (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(), "clientid", ""));
+//                bodyBuilder.addEncoded(CID, (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext
+//                (), "clientid", ""));
                 FormBody formBody = bodyBuilder.build();
 //                request = request.newBuilder().post(formBody).build();
                 request = requestBuilder.post(formBody).build();
@@ -101,6 +113,12 @@ public class ParameterInterceptor implements Interceptor {
                 for (String key : mParamsMap.keySet()) {
                     bodyBuilder.addEncoded(key, mParamsMap.get(key));
                 }
+//
+                if (devParams != null) {
+                    for (String key : devParams.keySet()) {
+                        bodyBuilder.addEncoded(key, devParams.get(key));
+                    }
+                }
 
 
 //                bodyBuilder.addEncoded(DEVICES_ID, DeviceUtils.getUniqueId(BearMallAplication.getInstance().getApplicationContext()));
@@ -108,7 +126,8 @@ public class ParameterInterceptor implements Interceptor {
 //                if (checkAdd()) {
 //                    bodyBuilder.addEncoded(TOKEN, BearMallAplication.getInstance().getUser().getData().getAccess_token());
 //                }
-//                bodyBuilder.addEncoded(CID, (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(), "clientid", ""));
+//                bodyBuilder.addEncoded(CID, (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext
+//                (), "clientid", ""));
 
                 FormBody formBody = bodyBuilder.build();
 //                request = request.newBuilder().post(formBody).build();
@@ -126,7 +145,8 @@ public class ParameterInterceptor implements Interceptor {
                 && BearMallAplication.getInstance().getUser().getData() != null
                 && BearMallAplication.getInstance().getUser().getData().getToken() != null
                 && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
-            Log.e("Token", "=====================" + BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() + "=============================");
+            Log.e("Token", "=====================" + BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() +
+                    "=============================");
             return true;
         }
         return false;

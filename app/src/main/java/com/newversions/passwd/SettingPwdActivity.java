@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.eventbus.PayPasswordEvent;
 import com.yunqin.bearmall.widget.LoadingView;
 
@@ -29,7 +30,7 @@ import java.util.Map;
 import static com.newversions.passwd.SettingPwdActivity.PwStatus.TYPE_ONE;
 import static com.newversions.passwd.SettingPwdActivity.PwStatus.TYPE_TWO;
 
-public class SettingPwdActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingPwdActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView hint_tip;
     private TextView tv_pass1;
@@ -52,13 +53,17 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_version_activity_setting_pwd);
+    public int layoutId() {
+        return R.layout.new_version_activity_setting_pwd;
+    }
+
+    @Override
+    public void init() {
         initData();
         initViews();
         initClicks();
     }
+
 
     private void initData() {
         CURRTYPE = TYPE_ONE;
@@ -103,7 +108,7 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
 
     protected LoadingView loadingProgress;
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -113,7 +118,7 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }
@@ -222,7 +227,7 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
     private void synchronizationPwd() {
         if (newPwdStringBuffer.toString().equals(againPwdStringBuffer.toString())) {
 
-            showLoading();
+            showLoadings();
 
             Map<String, String> mHashMap = new HashMap<>();
             mHashMap.put("paymentPwd", IMD5.md5(newPwdStringBuffer.toString()));
@@ -230,7 +235,7 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
             RetrofitApi.request(this, RetrofitApi.createApi(Api.class).setPayPassword(mHashMap), new RetrofitApi.IResponseListener() {
                 @Override
                 public void onSuccess(String data) throws JSONException {
-                    hideLoading();
+                    hideLoadings();
                     JSONObject jsonObject = new JSONObject(data);
                     if (jsonObject.optInt("code") == 1) {
                         // 设置成功
@@ -260,12 +265,12 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
 
                 @Override
                 public void onNotNetWork() {
-                    hideLoading();
+                    hideLoadings();
                 }
 
                 @Override
                 public void onFail(Throwable e) {
-                    hideLoading();
+                    hideLoadings();
                 }
             });
 

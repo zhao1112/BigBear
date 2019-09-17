@@ -177,6 +177,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 break;
             case R.id.login_btn:
                 login(loginType);
+                //TODO[登录]
                 break;
             case R.id.getcode_btn:
                 sendMsgCode();

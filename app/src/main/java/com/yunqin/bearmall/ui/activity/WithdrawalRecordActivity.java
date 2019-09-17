@@ -15,6 +15,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.BankTXAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.BankTxBean;
 import com.yunqin.bearmall.widget.LoadingView;
 import com.yunqin.bearmall.widget.RefreshBottomView;
@@ -31,7 +32,7 @@ import java.util.Map;
  * 提现申请记录
  */
 
-public class WithdrawalRecordActivity extends AppCompatActivity {
+public class WithdrawalRecordActivity extends BaseActivity {
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, WithdrawalRecordActivity.class);
@@ -45,7 +46,7 @@ public class WithdrawalRecordActivity extends AppCompatActivity {
 
     private LoadingView loadingProgress;
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -54,7 +55,7 @@ public class WithdrawalRecordActivity extends AppCompatActivity {
         loadingProgress.show();
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }
@@ -64,11 +65,14 @@ public class WithdrawalRecordActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_withdrawal_record);
+    public int layoutId() {
+        return R.layout.activity_withdrawal_record;
+    }
+
+    @Override
+    public void init() {
         initVeiws();
-        showLoading();
+        showLoadings();
         getData();
     }
 
@@ -122,7 +126,7 @@ public class WithdrawalRecordActivity extends AppCompatActivity {
                 BankTxBean bankTxBean = new Gson().fromJson(data, BankTxBean.class);
                 List<BankTxBean.DataBean.WithdrawListBean> withdrawList = bankTxBean.getData().getWithdrawList();
 
-                hideLoading();
+                hideLoadings();
                 mTwinklingRefreshLayout.finishRefreshing();
 
                 if (withdrawList.size() > 0) {
@@ -140,13 +144,13 @@ public class WithdrawalRecordActivity extends AppCompatActivity {
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
                 mTwinklingRefreshLayout.finishRefreshing();
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
                 mTwinklingRefreshLayout.finishRefreshing();
                 mEmptyView.setVisibility(View.VISIBLE);
             }
@@ -158,7 +162,7 @@ public class WithdrawalRecordActivity extends AppCompatActivity {
 
     private void addData() {
         pagePosition++;
-        showLoading();
+        showLoadings();
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("page_size", "30");
         mHashMap.put("page_number", String.valueOf(pagePosition));

@@ -13,7 +13,7 @@ def gitVersionCode() {
 }
 //release
 def SDK_VERSION_CODE = gitVersionCode()
-def SDK_VERSION_NAME = "4.7"
+def SDK_VERSION_NAME = "4.8"
 def RELEASE_TIME = releaseTimes()
 
 android {
@@ -35,17 +35,21 @@ android {
         applicationId "com.bbearmall.app"
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 30
+        versionCode 31
         versionName SDK_VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-//        flavorDimensions "versionCode"
+        flavorDimensions "versionCode"
         multiDexEnabled true
 
 
         buildConfigField "boolean", "CHANNEL_UPDATE", "false"
 
     }
+    productFlavors {
+        official { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "official"] }  //默认渠道;
 
+        xiaomi { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomix"] }
+    }
 
     repositories {
         flatDir {
@@ -55,9 +59,9 @@ android {
 
     buildTypes {
 
-        beta {
-            matchingFallbacks = ['release', 'debug']
-        }
+//        beta {
+//            matchingFallbacks = ['release', 'debug']
+//        }
         release {
             // 正式地址
 //            buildConfigField 'String', 'BASE_URL', '"http://47.95.115.244"'
@@ -74,7 +78,7 @@ android {
         debug {
             // 测试地址192.168.0.111
             buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
-//            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.112:80"' //本地服务
+//              buildConfigField 'String', 'BASE_URL', '"http://192.168.0.101"' //本地服务
 //            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"'
 //            buildConfigField 'String', 'BASE_URL', '"http://47.95.13.29:80"'
 //            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.198:7777"'  // 测试地址
@@ -270,6 +274,11 @@ dependencies {
     implementation 'com.github.xiaohaibin:XBanner:1.7.0'
     //高斯模糊
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
+    //友盟
+    implementation 'com.umeng.umsdk:analytics:8.0.0'
+    implementation 'com.umeng.umsdk:common:2.0.0'
+
+    implementation 'com.github.tyhjh:PermissionUtil:v1.0.7'
 }
 
 private static def releaseTime() {

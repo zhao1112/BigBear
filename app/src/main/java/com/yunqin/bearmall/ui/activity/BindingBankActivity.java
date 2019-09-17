@@ -17,6 +17,7 @@ import com.newversions.view.ICustomDialog;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.eventbus.UpdateBankListEvent;
 import com.yunqin.bearmall.widget.LoadingView;
 
@@ -27,7 +28,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BindingBankActivity extends AppCompatActivity implements View.OnClickListener {
+public class BindingBankActivity extends BaseActivity implements View.OnClickListener {
 
 
     public static void startActivity(Context context, String resValidCode) {
@@ -48,9 +49,12 @@ public class BindingBankActivity extends AppCompatActivity implements View.OnCli
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_binding_bank);
+    public int layoutId() {
+        return R.layout.activity_binding_bank;
+    }
+
+    @Override
+    public void init() {
         resValidCode = getIntent().getStringExtra("resValidCode");
         if (resValidCode == null || "".equals(resValidCode)) {
             return;
@@ -141,7 +145,7 @@ public class BindingBankActivity extends AppCompatActivity implements View.OnCli
         }
 
 
-        showLoading();
+        showLoadings();
 
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("accountName", masterName);
@@ -153,7 +157,7 @@ public class BindingBankActivity extends AppCompatActivity implements View.OnCli
         RetrofitApi.request3(BindingBankActivity.this, RetrofitApi.createApi(Api.class).userBankVaild(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                hideLoading();
+                hideLoadings();
                 JSONObject jsonObject = new JSONObject(data);
                 int code = jsonObject.optInt("code");
                 String mag = jsonObject.optString("msg");
@@ -188,13 +192,13 @@ public class BindingBankActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
                 Toast.makeText(BindingBankActivity.this, "当前无网络连接", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
                 Toast.makeText(BindingBankActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -205,7 +209,7 @@ public class BindingBankActivity extends AppCompatActivity implements View.OnCli
 
     private LoadingView loadingProgress;
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -214,7 +218,7 @@ public class BindingBankActivity extends AppCompatActivity implements View.OnCli
         loadingProgress.show();
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }

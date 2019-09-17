@@ -12,25 +12,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelpActivity extends AppCompatActivity implements View.OnClickListener {
+public class HelpActivity extends BaseActivity implements View.OnClickListener {
 
 
     private RecyclerView recyclerView;
     private ViewAdapter viewAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_version_activity_help);
+    public int layoutId() {
+        return R.layout.new_version_activity_help;
+    }
+
+    @Override
+    public void init() {
         recyclerView = findViewById(R.id.help_recycler_view);
         findViewById(R.id.new_version_back).setOnClickListener(this);
         viewAdapter = new ViewAdapter(this);
@@ -38,6 +43,7 @@ public class HelpActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(viewAdapter);
         initRHttp();
     }
+
 
     private void initRHttp() {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getQuestionList(), new RetrofitApi.IResponseListener() {

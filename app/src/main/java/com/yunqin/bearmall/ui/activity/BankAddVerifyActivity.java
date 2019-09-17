@@ -13,6 +13,7 @@ import com.newversions.passwd.IMD5;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.eventbus.UpdateBankEvent;
 import com.yunqin.bearmall.widget.LoadingView;
 
@@ -28,7 +29,7 @@ import java.util.Map;
 import static com.yunqin.bearmall.ui.activity.BankAddVerifyActivity.BankVerify.BANK_ADD;
 import static com.yunqin.bearmall.ui.activity.BankAddVerifyActivity.BankVerify.BANK_SUBTRACT;
 
-public class BankAddVerifyActivity extends AppCompatActivity implements View.OnClickListener {
+public class BankAddVerifyActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tv_pass1;
     private TextView tv_pass2;
@@ -59,10 +60,12 @@ public class BankAddVerifyActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bank_add_verify);
+    public int layoutId() {
+        return R.layout.activity_bank_add_verify;
+    }
 
+    @Override
+    public void init() {
         try {
             mType = getIntent().getIntExtra("type", 0);
             bankId = getIntent().getStringExtra("bankId");
@@ -104,7 +107,6 @@ public class BankAddVerifyActivity extends AppCompatActivity implements View.OnC
         findViewById(R.id.keyboard_9).setOnClickListener(this);
         findViewById(R.id.keyboard_0).setOnClickListener(this);
         findViewById(R.id.keyboard_del).setOnClickListener(this);
-
     }
 
     @Override
@@ -160,7 +162,7 @@ public class BankAddVerifyActivity extends AppCompatActivity implements View.OnC
 
 
         if (pwdStringBuffer.length() == 6) {
-            showLoading();
+            showLoadings();
             Map<String, String> mHashMap = new HashMap<>();
             mHashMap.put("paymentPwd", IMD5.md5(pwdStringBuffer.toString()));
             RetrofitApi.request(this, RetrofitApi.createApi(Api.class).validPayPassword(mHashMap), new RetrofitApi.IResponseListener() {
@@ -190,12 +192,12 @@ public class BankAddVerifyActivity extends AppCompatActivity implements View.OnC
 
                 @Override
                 public void onNotNetWork() {
-                    hideLoading();
+                    hideLoadings();
                 }
 
                 @Override
                 public void onFail(Throwable e) {
-                    hideLoading();
+                    hideLoadings();
                 }
             });
         } else {
@@ -239,7 +241,7 @@ public class BankAddVerifyActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -248,7 +250,7 @@ public class BankAddVerifyActivity extends AppCompatActivity implements View.OnC
         loadingProgress.show();
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }
@@ -276,13 +278,13 @@ public class BankAddVerifyActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onNotNetWork() {
 
-                hideLoading();
+                hideLoadings();
 
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
             }
         });
 

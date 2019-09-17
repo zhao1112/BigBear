@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.SplashActivity;
 
 import butterknife.BindView;
@@ -21,16 +22,18 @@ import butterknife.OnClick;
  * @author Master
  * @create 2018/8/16 19:30
  */
-public class AppReportActivity extends AppCompatActivity {
+public class AppReportActivity extends BaseActivity {
 
     @BindView(R.id.error_content)
     TextView mErrorContentTextView;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app_report);
-        ButterKnife.bind(this);
+    public int layoutId() {
+        return R.layout.activity_app_report;
+    }
+
+    @Override
+    public void init() {
         Intent intent = getIntent();
         String errorContent = intent.getStringExtra("error_data");
         if (errorContent == null) {

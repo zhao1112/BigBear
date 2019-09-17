@@ -21,6 +21,7 @@ import com.newversions.view.ICustomDialog;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.BankBean;
 import com.yunqin.bearmall.util.CashierInputFilter;
 import com.yunqin.bearmall.widget.LoadingView;
@@ -31,13 +32,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BalanceWithdrawalWxActivity extends AppCompatActivity implements View.OnClickListener {
+public class BalanceWithdrawalWxActivity extends BaseActivity implements View.OnClickListener {
 
 
     private LoadingView loadingProgress;
     private int selectPosition = 0;
 
-    private void showLoading() {
+    private void showLoadings() {
         if (loadingProgress == null) {
             loadingProgress = LoadingView.createDialog(this);
             loadingProgress.setCancelable(false);
@@ -46,7 +47,7 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
         loadingProgress.show();
     }
 
-    private void hideLoading() {
+    private void hideLoadings() {
         if (loadingProgress != null) {
             loadingProgress.dismiss();
         }
@@ -65,14 +66,15 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_balance_withdrawal);
+    public int layoutId() {
+        return R.layout.activity_balance_withdrawal;
+    }
 
+    @Override
+    public void init() {
         money = getIntent().getStringExtra("money");
 
         initViews();
-
     }
 
     private EditText edit_text;
@@ -107,11 +109,11 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
     private BankBean bankBean;
 
     private void initData(boolean showDialog) {
-        showLoading();
+        showLoadings();
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getUsersBankInfo(), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                hideLoading();
+                hideLoadings();
                 bankBean = new Gson().fromJson(data, BankBean.class);
                 setBankData(bankBean.getData().getList().get(selectPosition));
                 if (showDialog) {
@@ -121,12 +123,12 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
 
             @Override
             public void onNotNetWork() {
-                hideLoading();
+                hideLoadings();
             }
 
             @Override
             public void onFail(Throwable e) {
-                hideLoading();
+                hideLoadings();
             }
         });
     }
@@ -187,7 +189,7 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
 
     private void CalculationAmount(double drawMoney) {
 
-        showLoading();
+        showLoadings();
 
         Map<String, String> map = new HashMap<>();
         map.put("amount", drawMoney + "");
@@ -196,7 +198,7 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
             @Override
             public void onSuccess(String data) throws JSONException {
 
-                hideLoading();
+                hideLoadings();
 
                 JSONObject jsonObject = new JSONObject(data);
 
@@ -216,7 +218,7 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
                         .setOnDialogItemClickListener(new DrawMoneyDialog.OnDialogItemClickListener() {
                             @Override
                             public void onDialogItemClick(final DrawMoneyDialog thisDialog, String data) {
-                                showLoading();
+                                showLoadings();
 
                                 Map<String, String> mHashMap = new HashMap<>();
                                 mHashMap.put("paymentPwd", data);
@@ -265,12 +267,12 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
 
                                     @Override
                                     public void onNotNetWork() {
-                                        hideLoading();
+                                        hideLoadings();
                                     }
 
                                     @Override
                                     public void onFail(Throwable e) {
-                                        hideLoading();
+                                        hideLoadings();
                                         thisDialog.dismiss();
 
                                         new ICustomDialog.Builder(BalanceWithdrawalWxActivity.this)
@@ -313,14 +315,14 @@ public class BalanceWithdrawalWxActivity extends AppCompatActivity implements Vi
             @Override
             public void onNotNetWork() {
 
-                hideLoading();
+                hideLoadings();
 
             }
 
             @Override
             public void onFail(Throwable e) {
 
-                hideLoading();
+                hideLoadings();
 
             }
         });

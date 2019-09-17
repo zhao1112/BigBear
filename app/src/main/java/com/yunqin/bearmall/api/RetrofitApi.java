@@ -186,7 +186,10 @@ public class RetrofitApi {
                                                listener.onNotNetWork();
                                                listener.onFail(new Exception(data));
                                            }
-                                           Toast.makeText(mContext, jsonObject.optString("msg"), Toast.LENGTH_SHORT).show();
+                                           String msg = jsonObject.optString("msg");
+                                           if (!"重复请求".equals(msg)) {
+                                               Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+                                           }
                                        }
                                    } catch (JSONException e) {
                                        listener.onNotNetWork();
@@ -259,7 +262,10 @@ public class RetrofitApi {
                                                listener.onNotNetWork();
                                                listener.onFail(new Exception(data));
                                            }
-                                           Toast.makeText(mContext, jsonObject.optString("msg"), Toast.LENGTH_SHORT).show();
+                                           String msg = jsonObject.optString("msg");
+                                           if (!"重复请求".equals(msg)) {
+                                               Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+                                           }
                                        }
                                    } catch (JSONException e) {
                                        listener.onNotNetWork();

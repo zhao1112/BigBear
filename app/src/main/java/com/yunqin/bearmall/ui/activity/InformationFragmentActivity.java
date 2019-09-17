@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 
-public class InformationFragmentActivity extends AppCompatActivity {
+public class InformationFragmentActivity extends BaseActivity {
 
 
     public static void start(Context context) {
@@ -17,8 +18,13 @@ public class InformationFragmentActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_information_fragment);
+    public int layoutId() {
+        return R.layout.activity_information_fragment;
     }
+
+    @Override
+    public void init() {
+
+    }
+
 }

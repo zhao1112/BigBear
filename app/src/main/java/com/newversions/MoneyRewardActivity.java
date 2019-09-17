@@ -16,6 +16,7 @@ import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
 import com.yunqin.bearmall.widget.RefreshBottomView;
@@ -30,7 +31,7 @@ import java.util.Map;
 /**
  * 赏金消息
  */
-public class MoneyRewardActivity extends AppCompatActivity implements View.OnClickListener {
+public class MoneyRewardActivity extends BaseActivity implements View.OnClickListener {
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, MoneyRewardActivity.class);
@@ -49,9 +50,12 @@ public class MoneyRewardActivity extends AppCompatActivity implements View.OnCli
     private int index = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_activity_money_reward);
+    public int layoutId() {
+        return R.layout.new_activity_money_reward;
+    }
+
+    @Override
+    public void init() {
         initViews();
     }
 

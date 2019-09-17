@@ -12,6 +12,7 @@ import com.newversions.detail.NewProductDetailActivity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author Master
  * @create 2018/8/31 18:05
  */
-public class EmptyActivity extends AppCompatActivity {
+public class EmptyActivity extends BaseActivity {
 
     private static final String DAO_GOU_WEN_ZHANG = "0";
     private static final String FEN_XIANG_SHANG_PIN = "1";
@@ -38,10 +39,12 @@ public class EmptyActivity extends AppCompatActivity {
     private static final String TE_YAO_HUI_YUAN = "8";// 特邀
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.empty_layout);
+    public int layoutId() {
+        return R.layout.empty_layout;
+    }
 
+    @Override
+    public void init() {
         if (!isOtherUIExisting(this)) {
             this.startActivity(new Intent(this, HomeActivity.class));
             Observable.timer(2, TimeUnit.SECONDS)
@@ -52,8 +55,8 @@ public class EmptyActivity extends AppCompatActivity {
             goToTag();
         }
 
-
     }
+
 
 
     private void goToTag() {
