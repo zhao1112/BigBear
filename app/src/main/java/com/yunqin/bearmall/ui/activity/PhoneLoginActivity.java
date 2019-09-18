@@ -181,6 +181,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 break;
             case R.id.getcode_btn:
                 sendMsgCode();
+                //TODO[获取验证码]
                 break;
             case R.id.get_img_code:
                 //重新设置图片验证码
@@ -191,6 +192,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 break;
             case R.id.reset_pwd:
                 RegiestOrForgetPwdActivity.starActivity(PhoneLoginActivity.this, RegiestOrForgetPwdActivity.FORMFORGETPWD);
+                //TODO[找回密码]
                 break;
             case R.id.toolbar_back:
                 finish();

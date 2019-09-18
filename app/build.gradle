@@ -13,7 +13,7 @@ def gitVersionCode() {
 }
 //release
 def SDK_VERSION_CODE = gitVersionCode()
-def SDK_VERSION_NAME = "4.8"
+def SDK_VERSION_NAME = "4.8.1"
 def RELEASE_TIME = releaseTimes()
 
 android {
@@ -35,7 +35,7 @@ android {
         applicationId "com.bbearmall.app"
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 31
+        versionCode 32
         versionName SDK_VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "versionCode"
@@ -47,8 +47,12 @@ android {
     }
     productFlavors {
         official { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "official"] }  //默认渠道;
-
         xiaomi { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomix"] }
+        huawei { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"] }
+        _360 { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "_360"] }
+        oppo { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"] }
+        qq { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"] }
+        meizu { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu "] }
     }
 
     repositories {

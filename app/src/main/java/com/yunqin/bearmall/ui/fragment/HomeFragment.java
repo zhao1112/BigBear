@@ -102,6 +102,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 intent.putExtra("memberType", "0");
                 startActivity(intent);
+                //TODO[搜索]
                 break;
             case R.id.reset_load_data:
                 EventBus.getDefault().post(new GetMessageEvent());
