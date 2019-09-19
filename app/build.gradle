@@ -111,10 +111,10 @@ android {
                     variant.getPackageApplicationProvider().get().outputDirectory = project.file('../apk/')
                     variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
                         //这个修改输出APK的文件名
-                        apkData.outputFileName = variant.applicationId + "_" + variant.flavorName + "_" + variant.versionName + "_V." + variant.versionCode + "_" + RELEASE_TIME + '_release.apk'
+                        apkData.outputFileName = variant.applicationId + "_" + variant.flavorName + "_V." + variant.versionName + "_" + variant.versionCode + "_" + RELEASE_TIME + '_release.apk'
                     }
                 } else {
-                    outputFileName = variant.applicationId + "_" + variant.flavorName + "_" + variant.versionName + '_V.' + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
+                    outputFileName = variant.applicationId + "_" + variant.flavorName + "_V." + variant.versionName + '_' + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
                 }
             }
         }
@@ -283,7 +283,7 @@ dependencies {
     //友盟
     implementation 'com.umeng.umsdk:analytics:8.0.0'
     implementation 'com.umeng.umsdk:common:2.0.0'
-
+    //权限工具
     implementation 'com.github.tyhjh:PermissionUtil:v1.0.7'
 }
 
