@@ -52,9 +52,11 @@ android {
         _360 { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "_360"] }
         oppo { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"] }
         qq { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"] }
-        meizu { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu "] }
+        meizu { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"] }
         //TikTok
-        tiktok { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tiktok "] }
+        tiktok { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tiktok"] }
+        //快手
+        kuaishou { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuaishou"] }
     }
 
     repositories {
@@ -111,10 +113,10 @@ android {
                     variant.getPackageApplicationProvider().get().outputDirectory = project.file('../apk/')
                     variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
                         //这个修改输出APK的文件名
-                        apkData.outputFileName = variant.applicationId + "_" + variant.flavorName + "_V." + variant.versionName + "_" + variant.versionCode + "_" + RELEASE_TIME + '_release.apk'
+                        apkData.outputFileName = variant.applicationId + "_V" + variant.flavorName + "." + variant.versionName + "_" + variant.versionCode + "_" + RELEASE_TIME + '_release.apk'
                     }
                 } else {
-                    outputFileName = variant.applicationId + "_" + variant.flavorName + "_V." + variant.versionName + '_' + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
+                    outputFileName = variant.applicationId + "_V" + variant.flavorName + "." + variant.versionName + '_' + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
                 }
             }
         }
