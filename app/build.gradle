@@ -47,12 +47,14 @@ android {
     }
     productFlavors {
         official { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "official"] }  //默认渠道;
-        xiaomi { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomix"] }
+        xiaomi { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"] }
         huawei { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"] }
         _360 { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "_360"] }
         oppo { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"] }
         qq { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"] }
         meizu { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu "] }
+        //TikTok
+        tiktok { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tiktok "] }
     }
 
     repositories {
