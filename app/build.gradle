@@ -113,10 +113,10 @@ android {
                     variant.getPackageApplicationProvider().get().outputDirectory = project.file('../apk/')
                     variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
                         //这个修改输出APK的文件名
-                        apkData.outputFileName = variant.applicationId + "_V" + variant.flavorName + "." + variant.versionName + "_" + variant.versionCode + "_" + RELEASE_TIME + '_release.apk'
+                        apkData.outputFileName = variant.applicationId + "_" + variant.flavorName + "_V" + variant.versionName + "_" + variant.versionCode + "_" + RELEASE_TIME + '_release.apk'
                     }
                 } else {
-                    outputFileName = variant.applicationId + "_V" + variant.flavorName + "." + variant.versionName + '_' + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
+                    outputFileName = variant.applicationId + "_" + variant.flavorName + "_V" + variant.versionName + '_' + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
                 }
             }
         }
