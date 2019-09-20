@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.newversions.CardListWebActivity;
 import com.newversions.IAdvClick;
-import com.newversions.InviteFriendActivity;
 import com.newreward.SpecialRequestUI.RewardDetailActivity;
 import com.yunqin.bearmall.AdConstants;
 import com.yunqin.bearmall.BearMallAplication;
@@ -24,7 +23,6 @@ import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.eventbus.ChangeFragment;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
-import com.yunqin.bearmall.ui.activity.InvitationActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
@@ -36,15 +34,12 @@ import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.DotView;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
 import com.yunqin.bearmall.widget.TopBanner;
-
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -210,8 +205,6 @@ public class MakeMoneyFragment extends BaseFragment {
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
 
 
-
-
                 break;
             case R.id.mine_bottom_sign_in:// 签到按钮
                 DialogUtils.signInDialog(getActivity());
@@ -362,7 +355,9 @@ public class MakeMoneyFragment extends BaseFragment {
                         banner.setImagesUrl(adList);
                         banner.setOnItemClickListener(position -> {
 
-                            InviteFriendActivity.startActivity(getActivity());
+                            StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
+
+//                            InviteFriendActivity.startActivity(getActivity());
 
 //                            VipCenterActivity.startVipCenterActivity(getActivity(), "", "");
 
@@ -402,7 +397,8 @@ public class MakeMoneyFragment extends BaseFragment {
         imageaViews.get(pos).setOnClickListener(view -> {
             DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean adEarnMoneyListBean =
                     (DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean) view.getTag(R.id.tag_first);
-            IAdvClick.click(getActivity(), adEarnMoneyListBean.getType(), adEarnMoneyListBean.getSkipType(), adEarnMoneyListBean.getSource_id());
+            IAdvClick.click(getActivity(), adEarnMoneyListBean.getType(), adEarnMoneyListBean.getSkipType(),
+                    adEarnMoneyListBean.getSource_id());
         });
 
 

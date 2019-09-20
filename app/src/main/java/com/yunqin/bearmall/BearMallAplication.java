@@ -1,45 +1,37 @@
 package com.yunqin.bearmall;
 
 
-import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.util.Log;
-
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-
 import com.iBookStar.views.YmConfig;
 import com.lcodecore.tkrefreshlayout.utils.LogUtil;
 import com.mob.MobApplication;
 import com.mob.MobSDK;
 import com.newversions.tbk.utils.HomeListener;
 import com.umeng.commonsdk.UMConfigure;
-import com.umeng.commonsdk.debug.UMLogUtils;
 import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.Address;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.util.CommonUtil;
-import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ContextHelper;
 import com.yunqin.bearmall.util.DeviceInfo;
 import com.yunqin.bearmall.util.DeviceInfoHelper;
 import com.yunqin.bearmall.util.DeviceInfoInit;
 import com.yunqin.bearmall.util.FilePutGetUtils;
 import com.yunqin.bearmall.util.RudenessScreenHelper;
-
 import java.net.URLEncoder;
 import java.util.HashMap;
-
 import cn.example.lamor.AppContextLike;
 
 /**
@@ -70,12 +62,12 @@ BearMallAplication extends MobApplication {
 
         AppContextLike.getDefault().onCreate(this);
         // 添加异常捕获
-//        CrashHandler.getInstance().init(this);
+        //CrashHandler.getInstance().init(this);
 
-//        FoxSDK.init(this);
+        //FoxSDK.init(this);
         //阅读初始化
         YmConfig.initNovel(this, "8148");
-//阿里百川初始化
+        //阿里百川初始化
         AlibcTradeSDK.asyncInit(this, new AlibcTradeInitCallback() {
             @Override
             public void onSuccess() {
@@ -200,8 +192,8 @@ BearMallAplication extends MobApplication {
          * 参数5:Push推送业务的secret，需要集成Push功能时必须传入Push的secret，否则传空
          */
         //如果AndroidManifest.xml清单配置中没有设置appkey和channel，则可以在这里设置
-        //        UMConfigure.init(this, "58edcfeb310c93091c000be2", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
-        //        "1fe6a20054bcef865eeb0991ee84525b");
+        //UMConfigure.init(this, "58edcfeb310c93091c000be2", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
+        //"1fe6a20054bcef865eeb0991ee84525b");
         try {
             UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
         } catch (Exception e) {

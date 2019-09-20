@@ -177,7 +177,7 @@ MobSDK {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-//    implementation files('libs/alipaySdk-20180601.jar')
+    //implementation files('libs/alipaySdk-20180601.jar')
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -200,7 +200,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     //Gson converter
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
-
     //Okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     //RxJava　adapter
@@ -219,57 +218,47 @@ dependencies {
     implementation 'com.google.android:flexbox:0.3.0-alpha2'
     implementation 'com.github.donkingliang:ImageSelector:1.6.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-
     //倒计时组件
     implementation 'com.github.iwgang:countdownview:2.1.6'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation(name: 'lamorlibrary-release', ext: 'aar')
-//    implementation(name: 'tuia-2.4.3', ext: 'aar')
+    //implementation(name: 'tuia-2.4.3', ext: 'aar')
     implementation files('libs/GetuiSDK2.12.4.0.jar')
     //视频
-//    implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
+    //implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(':jiaozivideoplayer')
 
     implementation "com.android.support:support-v4:27.1.0"
-
-//阿里百川
+    //阿里百川
     //fastjson
     implementation 'com.alibaba:fastjson:1.2.9'
-
     //支付
     implementation 'com.alibaba.alipay:alipaySingle:20160825@jar'
-
     //登陆
     implementation 'com.ali.auth.sdk:alibabauth_core:1.1.4@jar'
     implementation 'com.ali.auth.sdk:alibabauth_ui:1.1.4@aar'
     implementation 'com.ali.auth.sdk:alibabauth_ext:1.1.4@jar'
     //【可选】仅供特殊合作伙伴使用
     implementation 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
-
     //安全基础
     implementation 'com.taobao.android:securityguardaar3:5.1.81@aar'
     //【可选】安全高级，如使用了发放红包、优惠券高级功能，则必须引入
     implementation 'com.taobao.android:securitybodyaar3:5.1.25@aar'
-
     //Mtop网关
     implementation 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
-
     //applink
     implementation 'com.taobao.android:alibc_applink:2.0.0.9@jar'
-
     //UT
     implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
     implementation 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
-
     //电商SDK
     implementation 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
-
     //
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
     implementation 'com.youth.banner:banner:1.4.9'
-// https://mvnrepository.com/artifact/com.google.code.gson/gson
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.blankj:utilcode:1.25.0'
     //阅读
@@ -277,7 +266,6 @@ dependencies {
     api "com.android.support:support-compat:27.0.0"
     api "com.android.support:support-core-utils:27.0.0"
     api "com.android.support:support-fragment:27.0.0"
-
     //XBanner
     implementation 'com.github.xiaohaibin:XBanner:1.7.0'
     //高斯模糊
