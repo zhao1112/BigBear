@@ -49,6 +49,7 @@ import com.newversions.tbk.fragment.NewVersionTBKHomeAdapter;
 import com.newversions.tbk.utils.GlideImageLoader;
 import com.newversions.tbk.utils.StringUtils;
 import com.newversions.tbk.view.ObservableScrollView;
+import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -59,10 +60,12 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.widget.RefreshFooterView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -145,30 +148,40 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     public static final int TYPE_GOODS = 1;
     public static final int TYPE_TBK = 2;
     private String goodsId;
+    private String keyword;
     private boolean hasNext;
     private GoodsDetailContract.Presenter mPresenter;
     private MyAdapter homeAdapter;
     private boolean collection;
+    private boolean search;
+    private double commission;
+    private int positin;
 
     public static void startGoodsDetailActivity(Context context, String goodsId) {
-       startGoodsDetailActivity(context,goodsId,Constants.GOODS_TYPE_DEFAULT);
+        startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT);
     }
-    public static void startGoodsDetailActivity(Context context, String goodsId,  int type){
+
+    public static void startGoodsDetailActivity(Context context, String goodsId, int type) {
         Intent intent = new Intent(context, GoodsDetailActivity.class);
         intent.putExtra(Constants.INTENT_KEY_ID, goodsId);
         intent.putExtra(Constants.INTENT_KEY_TYPE, type);
         context.startActivity(intent);
     }
+
     @Override
     public int layoutId() {
         return R.layout.activity_goods_detail;
     }
+
 
     @Override
     public void init() {
         mPresenter = new GoodsDetailPresenter(this, this);
         homeAdapter = new MyAdapter();
         goodsId = getIntent().getStringExtra(Constants.INTENT_KEY_ID);
+        keyword = getIntent().getStringExtra("DETAILSKEYWORD");
+        positin = getIntent().getIntExtra("POSITION", 0);
+        search = getIntent().getBooleanExtra("SEARCH", false);
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(this));
 //        mTwinklingRefreshLayout.setBottomView(new RefreshBottomView(getActivity()));
 //        mTwinklingRefreshLayout.setBottomView(new RefreshFooterView(this));
@@ -203,7 +216,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         wvGoodsDetail.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         wvGoodsDetail.getSettings().setDomStorageEnabled(true);
         getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_DEFAULT);
-        if(type == Constants.GOODS_TYPE_TBK || type == Constants.GOODS_TYPE_TBK_SEARCH){
+        if (type == Constants.GOODS_TYPE_TBK || type == Constants.GOODS_TYPE_TBK_SEARCH) {
             linCollect.setVisibility(View.GONE);
         }
     }
@@ -230,7 +243,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             goodsViewHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
             goodsViewHolder.tvCommision.setText("预估佣金：" + recommendBean.getCommision());
             Glide.with(GoodsDetailActivity.this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(recommendBean.getOutIcon()).into(goodsViewHolder.itemHomeProImage);
-            goodsViewHolder.itemSellerName.setText(StringUtils.addImageLabel(GoodsDetailActivity.this, recommendBean.getTmall() == 1 ? R.mipmap.icon_tmall : R.mipmap.icon_taobao1, recommendBean.getSellerName()));
+            goodsViewHolder.itemSellerName.setText(StringUtils.addImageLabel(GoodsDetailActivity.this, recommendBean.getTmall() == 1 ?
+                    R.mipmap.icon_tmall : R.mipmap.icon_taobao1, recommendBean.getSellerName()));
             goodsViewHolder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(GoodsDetailActivity.this, GoodsDetailActivity.class);
                 intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getItemId() + "");
@@ -311,10 +325,12 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         tvGoodsQixian.setText("使用期限：" + goodDetail.getCouponStartDate() + "-" + goodDetail.getCouponEndDate());
         tvStampsValue.setText(goodDetail.getCouponAmount() + "元优惠券");
 //                        tvQuanhoujiaBottom.setText("领券¥" + likeGuessEntity.getCouponAmount());
-        if(getIntent().getIntExtra(Constants.INTENT_KEY_TYPE,Constants.GOODS_TYPE_DEFAULT)== Constants.GOODS_TYPE_TBK){
-            tv_yongjin_num.setText("预估返：" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM,0) + "元");
-        }else {
+        if (getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_DEFAULT) == Constants.GOODS_TYPE_TBK) {
+            tv_yongjin_num.setText("预估返：" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
+            commission = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
+        } else {
             tv_yongjin_num.setText("预估返：" + goodDetail.getCommision() + "元");
+            commission = goodDetail.getCommision();
         }
         tvGoodsYuanjia.setText("￥" + goodDetail.getPrice());
         tvGoodsYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
@@ -349,10 +365,15 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     .MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
         }
         wvGoodsDetail.loadDataWithBaseURL(null, goodDetail.getContent(), "text/html", " charset=UTF-8", null);
-//        wvGoodsDetail.loadUrl("https://h5.m.taobao.com/app/detail/desc.html?_isH5Des=true#!id=" + goodsId + "&type=0&f=TB15f4sbbj1gK0jSZFu8qwrHpla&sellerType=B");
+//        wvGoodsDetail.loadUrl("https://h5.m.taobao.com/app/detail/desc.html?_isH5Des=true#!id=" + goodsId +
+//        "&type=0&f=TB15f4sbbj1gK0jSZFu8qwrHpla&sellerType=B");
         tvGoodsXiaoliang.setText(goodDetail.getSellNum() + "人已购");
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
+        //TODO[商品详情页]
+        searchDetail();
+        //TODO[搜索结果]
+        searchResult();
     }
 
     public void changeCollection(boolean collection) {
@@ -382,8 +403,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             @Override
             public void onSuccess(String data) throws JSONException {
                 ToTaoBaoEntity toTaoBaoEntity = new Gson().fromJson(data, ToTaoBaoEntity.class);
-                Log.d("TAG", "onSuccess: "+toTaoBaoEntity.getCode());
-                if(toTaoBaoEntity.getCode() == 2){
+                Log.d("TAG", "onSuccess: " + toTaoBaoEntity.getCode());
+                if (toTaoBaoEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
                     Intent intent = new Intent(GoodsDetailActivity.this, WebActivity.class);
                     intent.putExtra(Constants.INTENT_KEY_URL, toTaoBaoEntity.getData());
@@ -469,7 +490,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
 // todo 点击监听
 
-    @OnClick({R.id.iv_btn_back, R.id.lin_collect, R.id.lin_collect2, R.id.lin_share, R.id.lin_get_stamps, R.id.lin_quanhoujia, R.id.lin_buy, R.id.ll_more_comm})
+    @OnClick({R.id.iv_btn_back, R.id.lin_collect, R.id.lin_collect2, R.id.lin_share, R.id.lin_get_stamps, R.id.lin_quanhoujia,
+            R.id.lin_buy, R.id.ll_more_comm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_btn_back:
@@ -519,7 +541,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 break;
             case R.id.lin_collect2:
                 // TODO: 2019/7/16 0016 首页 
-                Intent intenta = new Intent(this, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intenta =
+                        new Intent(this, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intenta);
                 break;
             case R.id.lin_share:
@@ -528,6 +551,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     Intent intent = new Intent(this, ShareComissionActivity.class);
                     intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
                     startActivity(intent);
+                    //TODO[分享]
+                    searchShare();
                 } else {
                     showToast("请先登录");
                     LoginActivity.starActivity(this);
@@ -542,17 +567,19 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            if(wvGoodsDetail == null) return;
+            if (wvGoodsDetail == null) return;
             //  html加载完成之后，调用js的方法
             imgReset();
 //            // hide element by class name
-//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp rmsp-bl rmsp-bl')[0].style.display='none'; })()");
-//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp rmsp-bl')[0].style.display='none'; })()");
-//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp-hr')[0].style.display='none'; })()");
+//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp rmsp-bl rmsp-bl')[0]
+//            .style.display='none'; })()");
+//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp rmsp-bl')[0].style
+//            .display='none'; })()");
+//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp-hr')[0].style
+//            .display='none'; })()");
 ////            // hide element by id
-//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementById('J_fullBtn').style.display='none';})()");
-
-
+//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementById('J_fullBtn').style.display='none';})
+//            ()");
         }
 
         private void imgReset() {
@@ -570,6 +597,75 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
+        }
+    }
+
+    public void searchDetail() {
+        Log.i("searchDetail", "searchDetail ");
+        if (goodDetail != null) {
+            Map<String, String> map = new HashMap<>();
+            map.put("commodity_id", goodDetail.getId() + "");
+            map.put("commodity_name", goodDetail.getName());
+            map.put("first_commodity", goodDetail.getCategoryId() + "");
+            map.put("second_commodity", goodDetail.getSubCategoryId() + "");
+            //map.put("commodity_classification", "");
+            map.put("store_name", goodDetail.getSellerName());
+            map.put("commodity_bought_count", goodDetail.getSellNum() + "");
+            //map.put("coupon_name", "");
+            //map.put("coupont_type", "");
+            map.put("coupon_amount", goodDetail.getCouponAmount() + "");
+            map.put("predictive_commission", commission + "");
+            map.put("present_price", goodDetail.getPrice() + "");
+            map.put("coupon_price", goodDetail.getDiscountPrice() + "");
+            ConstantScUtil.sensorsTrack("commodityDetail", map);
+        }
+    }
+
+    //神策搜索结果统计
+    public void searchResult() {
+        if (search) {
+            Log.i("searchDetail", "searchResult: ");
+            if (goodDetail != null) {
+                Map<String, String> map = new HashMap<>();
+                map.put("key_word", keyword);
+                //map.put("key_word_classify", positin + "");
+                positin = positin + 1;
+                map.put("position_number", positin + "");
+                map.put("commodity_id", goodDetail.getId() + "");
+                map.put("commodity_name", goodDetail.getName());
+                map.put("first_commodity", goodDetail.getCategoryId() + "");
+                map.put("second_commodity", goodDetail.getSubCategoryId() + "");
+                //map.put("commodity_classification", "");
+                map.put("store_name", goodDetail.getSellerName());
+                map.put("commodity_bought_count", goodDetail.getSellNum() + "");
+                //map.put("coupon_name", "");
+                //map.put("coupont_type", "");
+                //map.put("没有", goodDetail.getCouponStartDate() + "");
+                map.put("coupon_amount", goodDetail.getCouponAmount() + "");
+                map.put("predictive_commission", commission + "");
+                map.put("present_price", goodDetail.getPrice() + "");
+                map.put("coupon_price", goodDetail.getDiscountPrice() + "");
+                ConstantScUtil.sensorsTrack("searchResultClick", map);
+            }
+        }
+    }
+
+    //神策分享统计
+    public void searchShare() {
+        Log.i("searchDetail", "searchShare: ");
+        Map<String, String> map = new HashMap<>();
+        if (goodDetail != null) {
+            map.put("commodity_id", goodDetail.getId() + "");
+            map.put("commodity_name", goodDetail.getName());
+            //map.put("commodity_classification", );
+            map.put("store_name", goodDetail.getSellerName());
+            //map.put("coupon_name", );
+            //map.put("coupont_type", );
+            map.put("coupon_amount", goodDetail.getCouponAmount() + "");
+            map.put("predictive_commission", commission + "");
+            map.put("present_price", goodDetail.getPrice() + "");
+            map.put("coupon_price", goodDetail.getDiscountPrice() + "");
+            ConstantScUtil.sensorsTrack("shareClick", map);
         }
     }
 

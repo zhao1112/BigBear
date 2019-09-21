@@ -32,13 +32,16 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.PermissionsChecker;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
@@ -207,6 +210,7 @@ public class NewInvitationDialog implements View.OnClickListener {
         shareParams.setImageUrl(mIageUrl);//图片的地址
         shareParams.setShareType(Platform.SHARE_IMAGE);//分享类型     // 设置成分享网页
         platform.share(shareParams);
+        sensorsType(name);
     }
 
     //保存
@@ -343,5 +347,12 @@ public class NewInvitationDialog implements View.OnClickListener {
         mContext.startActivity(intent);
     }
 
+
+    //神策分享统计
+    public static void sensorsType(String value) {
+        Map<String, String> map = new HashMap<>();
+        map.put("type_name", value);
+        ConstantScUtil.sensorsTrack("shareType", map);
+    }
 
 }

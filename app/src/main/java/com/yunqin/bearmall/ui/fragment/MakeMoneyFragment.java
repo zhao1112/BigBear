@@ -28,6 +28,7 @@ import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
 import com.yunqin.bearmall.ui.activity.SweetRecordActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -203,7 +204,8 @@ public class MakeMoneyFragment extends BaseFragment {
 
                 //StarActivityUtil.starActivity(getActivity(),InvitationActivity.class);
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
-
+                //TODO[邀请好友]
+                ConstantScUtil.sensorsTrack("inviteClick",null);
 
                 break;
             case R.id.mine_bottom_sign_in:// 签到按钮
@@ -226,7 +228,8 @@ public class MakeMoneyFragment extends BaseFragment {
 //                VipCenterActivity.startVipCenterActivity(getActivity(), "", "");
                 //InviteFriendActivity.startActivity(getActivity());
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
-
+                //TODO[邀请好友]
+                ConstantScUtil.sensorsTrack("inviteClick",null);
                 break;
             case R.id.new_menu_4:// 领取信用卡
 
@@ -356,6 +359,8 @@ public class MakeMoneyFragment extends BaseFragment {
                         banner.setOnItemClickListener(position -> {
 
                             StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
+                            //TODO[邀请好友]
+                            ConstantScUtil.sensorsTrack("inviteClick",null);
 
 //                            InviteFriendActivity.startActivity(getActivity());
 

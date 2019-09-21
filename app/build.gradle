@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
+//添加 com.sensorsdata.analytics.android 插件
+apply plugin: 'com.sensorsdata.analytics.android'
 
 
 def releaseTimes() {
@@ -74,6 +76,7 @@ android {
             // 正式地址
 //            buildConfigField 'String', 'BASE_URL', '"http://47.95.115.244"'
             buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'  //正式地址
+            buildConfigField 'String', 'SHENC_URL', '"default"'  //神策正式数据上传地址
             manifestPlaceholders = [
                     GETUI_APP_ID    : "P1WZUP1CCA83TQv6ROrw09",
                     GETUI_APP_KEY   : "4Q54VC50z36Dc3jFEHrdRA",
@@ -85,12 +88,13 @@ android {
 
         debug {
             // 测试地址192.168.0.111
-            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
-//              buildConfigField 'String', 'BASE_URL', '"http://192.168.0.101"' //本地服务
+//            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
+             buildConfigField 'String', 'BASE_URL', '"http://192.168.0.110:80"' //本地服务
 //            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"'
 //            buildConfigField 'String', 'BASE_URL', '"http://47.95.13.29:80"'
 //            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.198:7777"'  // 测试地址
 //            buildConfigField 'String', 'BASE_URL', '"http://39.98.167.127:80"'
+            buildConfigField 'String', 'SHENC_URL', '"default"'  //神策测试数据上传地址
             manifestPlaceholders = [
                     GETUI_APP_ID    : "vcUoVHlgI68fEjCXcSTWt9",
                     GETUI_APP_KEY   : "tHJQEhhpFi78oh6YEjTev8",
@@ -275,6 +279,8 @@ dependencies {
     implementation 'com.umeng.umsdk:common:2.0.0'
     //权限工具
     implementation 'com.github.tyhjh:PermissionUtil:v1.0.7'
+    //添加 Sensors Analytics SDK 依赖
+    implementation 'com.sensorsdata.analytics.android:SensorsAnalyticsSDK:3.2.5'
 }
 
 private static def releaseTime() {

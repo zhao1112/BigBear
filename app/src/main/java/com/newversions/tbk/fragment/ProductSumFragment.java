@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.widget.RefreshFooterView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
@@ -60,13 +62,15 @@ public class ProductSumFragment extends BaseFragment {
     private boolean isLoadMore = false;
     private boolean isFlash = false;
     private String groupId;
+    private String Keyword;
     private int selectTabIndex;
     private int type;//1:最上面的分类列表，2：导航栏的分类列表，3：快速导航的分类列表，8：搜索，9：限时抢购
 
-    public static ProductSumFragment getInstance(String goodsId, int type) {
+    public static ProductSumFragment getInstance(String goodsId, int type,String Keyword) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.INTENT_KEY_ID, goodsId);
         bundle.putInt(Constants.INTENT_KEY_TYPE, type);
+        bundle.putString("KEYWORD", Keyword);
         ProductSumFragment fragment = new ProductSumFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -81,9 +85,10 @@ public class ProductSumFragment extends BaseFragment {
     public void init() {
         groupId = getArguments().getString(Constants.INTENT_KEY_ID);
         type = getArguments().getInt(Constants.INTENT_KEY_TYPE, 1);
-        if (type == 8) {
+        Keyword = getArguments().getString("KEYWORD");
+        if (type == 8) {//搜索
             tablayout.setVisibility(View.GONE);
-        } else {
+        } else {//首页
             tablayout.setVisibility(View.VISIBLE);
         }
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(getActivity()));
@@ -114,10 +119,10 @@ public class ProductSumFragment extends BaseFragment {
         });
         tablayout.setTabMode(TabLayout.MODE_FIXED);
         if (type == 9) {
-            tabs.add("0:00\n"+ getCanBuyStr(0));
-            tabs.add("10:00\n"+ getCanBuyStr(1));
-            tabs.add("14:00\n"+ getCanBuyStr(2));
-            tabs.add("20:00\n"+ getCanBuyStr(3));
+            tabs.add("0:00\n" + getCanBuyStr(0));
+            tabs.add("10:00\n" + getCanBuyStr(1));
+            tabs.add("14:00\n" + getCanBuyStr(2));
+            tabs.add("20:00\n" + getCanBuyStr(3));
         } else {
 
             tabs.add("销量");
@@ -209,8 +214,8 @@ public class ProductSumFragment extends BaseFragment {
         homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(type == 9){
-                    if(!canBuyCheck()){
+                if (type == 9) {
+                    if (!canBuyCheck()) {
                         showToast("抢购时间还未到。请等待");
                         return;
                     }
@@ -220,54 +225,63 @@ public class ProductSumFragment extends BaseFragment {
 //                intent.putExtra(Constants.INTENT_KEY_URL, mList.get(position).getOutIcon());
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                 intent.putExtra(Constants.INTENT_KEY_COMM, mList.get(position).getCommision());
+                intent.putExtra("DETAILSKEYWORD", Keyword);
+                intent.putExtra("POSITION", position);
+                if (type == 8) {
+                    intent.putExtra("SEARCH", true);
+                } else {
+                    intent.putExtra("SEARCH", false);
+                }
                 startActivity(intent);
             }
         });
-        if(type == 9){
-           selectTabIndex = getCanButIndex();
+        if (type == 9) {
+            selectTabIndex = getCanButIndex();
             tablayout.getTabAt(selectTabIndex).select();
-        }else {
+        } else {
             getData();
         }
     }
-    private String getCanBuyStr(int target){
+
+    private String getCanBuyStr(int target) {
         int canBuyIndex = getCanButIndex();
-        if(canBuyIndex == target){
+        if (canBuyIndex == target) {
             return "疯抢中";
         }
-        if(canBuyIndex>target){
+        if (canBuyIndex > target) {
             return "已开始";
         }
         return "即将开始";
     }
 
-    private int getCanButIndex(){
+    private int getCanButIndex() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         //0101420
-        if(hour<10) {
+        if (hour < 10) {
             return 0;
-        }else if(hour<14){
+        } else if (hour < 14) {
             return 1;
-        }else if(hour<20){
+        } else if (hour < 20) {
             return 2;
-        }else{
+        } else {
             return 3;
         }
     }
 
-    private boolean canBuyCheck(){
+    private boolean canBuyCheck() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        if(hour<10) {
+        if (hour < 10) {
             return selectTabIndex <= 0;
-        }else if(hour<14){
+        } else if (hour < 14) {
             return selectTabIndex <= 1;
-        }else if(hour<20){
+        } else if (hour < 20) {
             return selectTabIndex <= 2;
         }
         return true;
     }
+
     private void getData() {
         // TODO: 2019/7/17 0017 获取数据
         showLoading();
@@ -294,6 +308,8 @@ public class ProductSumFragment extends BaseFragment {
                     mTwinklingRefreshLayout.finishLoadmore();
                     isLoadMore = false;
                 }
+                //TODO[搜索按钮]
+                sebsorsSearch();
             }
 
             @Override
@@ -345,7 +361,8 @@ public class ProductSumFragment extends BaseFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, GoodsEntity.CommodityBean item) {
-            helper.setText(R.id.item_home_pro_title, StringUtils.addImageLabel(mContext, item.getTmall() == 1 ? R.mipmap.icon_tmall : R.mipmap.icon_taobao1, item.getName()));
+            helper.setText(R.id.item_home_pro_title, StringUtils.addImageLabel(mContext, item.getTmall() == 1 ? R.mipmap.icon_tmall :
+                    R.mipmap.icon_taobao1, item.getName()));
             helper.setText(R.id.item_home_pro_quan, "券¥" + item.getCouponAmount());
             helper.setText(R.id.item_home_pro_yuanjia, "¥" + item.getPrice());
             helper.setText(R.id.item_home_pro_quanhoujia, "" + item.getDiscountPrice());
@@ -356,6 +373,13 @@ public class ProductSumFragment extends BaseFragment {
             helper.setText(R.id.item_home_xiaoliang, item.getSellNum() + "人已购");
             helper.setText(R.id.item_seller_name, item.getSellerName());
             helper.setImageResource(R.id.im_tmall, item.getTmall() == 1 ? R.mipmap.icon_tmall : R.mipmap.icon_taobao1);
+        }
+    }
+
+    //神策搜索按钮统计
+    public void sebsorsSearch() {
+        if (type == 8) {
+            ConstantScUtil.sensorsTrack("searchButtonClick", null);
         }
     }
 }

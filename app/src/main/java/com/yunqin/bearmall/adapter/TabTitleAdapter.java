@@ -45,7 +45,7 @@ public class TabTitleAdapter extends FragmentStatePagerAdapter {
 //        bundle.putString("category_id", mChannellist.get(position - 1).getCategory_id() + "");
 //        bundle.putBoolean("isMember", isMember);
 //        Fragment fragment = Fragment.instantiate(mContext, FragmentHomeTagList.class.getName(), bundle);
-        return ProductSumFragment.getInstance(mChannellist.get(position - 1).getCategory_id()+"",2);
+        return ProductSumFragment.getInstance(mChannellist.get(position - 1).getCategory_id()+"",2,"");
 
 
     }

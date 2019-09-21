@@ -28,6 +28,7 @@ import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZanWeiKaiFangActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DeviceUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
@@ -91,6 +92,8 @@ public class TopBarClicker {
                 }
                 //StarActivityUtil.starActivity(activity, InvitationActivity.class);
                 StarActivityUtil.starActivity(activity, InvitationActivity2.class);
+                //TODO[邀请好友]
+                ConstantScUtil.sensorsTrack("inviteClick",null);
 //                InviteFriendActivity.startActivity(activity);
 //                StarActivityUtil.starActivity(getActivity(), VipCenterActivity.class);
                 break;
@@ -158,4 +161,5 @@ public class TopBarClicker {
 
 
     }
+
 }

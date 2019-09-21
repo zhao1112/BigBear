@@ -20,6 +20,7 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.util.CommonUtils;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DeviceUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StringUtils;
@@ -85,14 +86,14 @@ public class LoginBindPhone extends BaseActivity {
         loginType = (String) bundle.get("loginType");
         openID = (String) bundle.get("open_id");
         titleTextView.setText("账号绑定");
-        bind_name.setText(Html.fromHtml(getResources().getString(R.string.bind_name,name)));
+        bind_name.setText(Html.fromHtml(getResources().getString(R.string.bind_name, name)));
         Glide.with(this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.mine_user_icon_defult)).load(icon).into(head_img);
         getImageCode();
     }
 
-    @OnClick({R.id.toolbar_back,R.id.getcode_btn,R.id.get_img_code,R.id.bind_btn})
-    void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.toolbar_back, R.id.getcode_btn, R.id.get_img_code, R.id.bind_btn})
+    void onClick(View view) {
+        switch (view.getId()) {
             case R.id.toolbar_back:
                 finish();
                 break;
@@ -109,10 +110,11 @@ public class LoginBindPhone extends BaseActivity {
         }
     }
 
-    public void  getImageCode(){
+    public void getImageCode() {
         Constans.params.clear();
         Constans.params.put("machine_id", DeviceUtils.getUniqueId(this));
-        RetrofitApi.requestImageCode(this, RetrofitApi.createApi(Api.class).getImageCode(Constans.params), new RetrofitApi.ImageCodeResponseListener() {
+        RetrofitApi.requestImageCode(this, RetrofitApi.createApi(Api.class).getImageCode(Constans.params),
+                new RetrofitApi.ImageCodeResponseListener() {
             @Override
             public void onSuccess(Bitmap bitmap) {
                 try {
@@ -148,7 +150,7 @@ public class LoginBindPhone extends BaseActivity {
         mHashMap.put("mobile", phone_number.getText().toString().trim());
         mHashMap.put("vCod", img_code.getText().toString().trim());
         mHashMap.put("loginType", loginType);
-        mHashMap.put("validType", 3+"");
+        mHashMap.put("validType", 3 + "");
         mHashMap.put("machine_id", DeviceUtils.getUniqueId(this));
         mHashMap.put("open_id", openID);
 
@@ -198,7 +200,7 @@ public class LoginBindPhone extends BaseActivity {
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("mobile", phone_number.getText().toString().trim());
         mHashMap.put("loginType", loginType);
-        mHashMap.put("validType", 3+"");
+        mHashMap.put("validType", 3 + "");
         mHashMap.put("open_id", openID);
         mHashMap.put("smsVCod", msg_Code.getText().toString());
         mHashMap.put("iconUrl", icon);
@@ -208,17 +210,20 @@ public class LoginBindPhone extends BaseActivity {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).memberLoginBind(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
-                UserInfo userInfo = new Gson().fromJson(data,UserInfo.class);
-                if(StringUtils.isEmpty(userInfo.getParentCode())){
-                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginBindPhone.this,userInfo.getData().getToken().getAccess_token());
+                UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
+                if (StringUtils.isEmpty(userInfo.getParentCode())) {
+                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginBindPhone.this,
+                            userInfo.getData().getToken().getAccess_token(), "微信");
+                    sebsorsCode();
                     finish();
-                }else {
+                } else {
                     BearMallAplication.getInstance().setUser(userInfo);
                     showToast("绑定成功");
                     if (userInfo.getData().getIsFirstLogin() == 1) {
                         SharedPreferencesHelper.put(LoginBindPhone.this, "isFirstBind", true);
                         SharedPreferencesHelper.put(LoginBindPhone.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
                     }
+                    sebsorsCode();
                     finish();
                 }
             }
@@ -234,5 +239,10 @@ public class LoginBindPhone extends BaseActivity {
                 img_code.setText("");
             }
         });
+    }
+
+    //神策验证码统计
+    public void sebsorsCode() {
+        ConstantScUtil.sensorsTrack("getCode", null);
     }
 }

@@ -10,6 +10,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
+import com.sensorsdata.analytics.android.sdk.util.SensorsDataUtils;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
@@ -23,6 +25,7 @@ import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Timer;
@@ -127,6 +130,7 @@ public class SplashActivity extends BaseActivity {
                 }
                 SharedPreferencesHelper.put(SplashActivity.this, first, true);
                 openActivity();
+                trackInstallation();
                 Log.i("checkPermission", "havePermission: ");
             }
 
@@ -186,5 +190,23 @@ public class SplashActivity extends BaseActivity {
                 finish();
             }
         }, 1000);
+    }
+
+    /**
+     * 神策
+     * 记录激活事件
+     */
+    private void trackInstallation() {
+        try {
+            String DownloadChannel = null;
+            DownloadChannel = SensorsDataUtils.getApplicationMetaData(this, "UMENG_CHANNEL");
+            JSONObject properties = new JSONObject();
+            properties.put("DownloadChannel", DownloadChannel);//这里的 DownloadChannel 负责记录下载商店的渠道。这里传入具体应用商店包的标记。
+            Log.i("trackInstallation", DownloadChannel);
+            //记录 AppInstall 激活事件
+            SensorsDataAPI.sharedInstance().trackInstallation("AppInstall", properties);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

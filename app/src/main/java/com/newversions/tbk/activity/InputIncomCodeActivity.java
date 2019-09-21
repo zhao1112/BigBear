@@ -16,6 +16,7 @@ import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.eventbus.FinishEvent;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.PhoneLoginActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StringUtils;
 
@@ -34,13 +35,14 @@ public class InputIncomCodeActivity extends BaseActivity {
     EditText edCode;
 
 
-
     private String accessToken;
+    private String mode;
     private String code;
 
-    public static void startInputIncomCodeActivity(Activity activity,String accessToken){
-        Intent intent = new Intent(activity,InputIncomCodeActivity.class);
-        intent.putExtra("accessToken",accessToken);
+    public static void startInputIncomCodeActivity(Activity activity, String accessToken, String mode) {
+        Intent intent = new Intent(activity, InputIncomCodeActivity.class);
+        intent.putExtra("accessToken", accessToken);
+        intent.putExtra("mode", mode);
         activity.startActivity(intent);
     }
 
@@ -52,6 +54,7 @@ public class InputIncomCodeActivity extends BaseActivity {
     @Override
     public void init() {
         accessToken = getIntent().getStringExtra("accessToken");
+        mode = getIntent().getStringExtra("mode");
     }
 
 
@@ -63,45 +66,54 @@ public class InputIncomCodeActivity extends BaseActivity {
                 break;
             case R.id.tv_ok:
                 code = edCode.getText().toString().trim();
-                if(StringUtils.isEmpty(code)){
+                if (StringUtils.isEmpty(code)) {
                     showToast("请填写邀请码");
                     return;
                 }
-                if(!(code.length()== 6 || code.length()==11)){
+                if (!(code.length() == 6 || code.length() == 11)) {
                     showToast("请填写正确的邀请码或手机号");
                     return;
                 }
                 // TODO: 2019/8/1 0001 提交邀请码
                 showLoading();
-                Map<String,String> map = new HashMap<>();
-                map.put("accessToken",accessToken);
-                map.put("recomment",code);
+                Map<String, String> map = new HashMap<>();
+                map.put("accessToken", accessToken);
+                map.put("recomment", code);
                 RetrofitApi.request(this, RetrofitApi.createApi(Api.class).fillCode(map), new RetrofitApi.IResponseListener() {
                     @Override
                     public void onSuccess(String data) throws JSONException {
-                        UserInfo userInfo = new Gson().fromJson(data,UserInfo.class);
+                        UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
                         userInfo.getData().setIsFirstLogin(1);
                         if (userInfo.getData().getIsFirstLogin() == 1) {
-                            SharedPreferencesHelper.put(InputIncomCodeActivity.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
+                            SharedPreferencesHelper.put(InputIncomCodeActivity.this, "firstLoginReward",
+                                    userInfo.getData().getFirstLoginReward());
                             SharedPreferencesHelper.put(InputIncomCodeActivity.this, "isFirstBind", true);
                         } else {
                             SharedPreferencesHelper.put(InputIncomCodeActivity.this, "isFirstBind", false);
                         }
-//{"msg":"成功","code":1,"data":{"member":{"member_id":12251,"isBindWxopenId":true,"nickName":"大熊用户113214308","mobile":"17175319997","isHasSpecInvite":false,"isBindWx":true,"isMember":false,"specInviteUsableCount":0,"bigBearNumber":"113214308","isEnabled":true,"isLocked":false,"iconUrl":"https://shopxxbbc.oss-cn-beijing.aliyuncs.com/upload/image/201808/20180816140417.png","isOpendMember":false,"expectSaveAmount":"1000.00"},"token":"eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxMjI1MSIsInN1YiI6IntcInVpZFwiOlwiMTIyNTFcIn0iLCJleHAiOjE1NjUyNTk5ODQsImlhdCI6MTU2NDY1NTE1NCwianRpIjoiYTc4MjczZDhlYjcwNzI2MGZiOTdiMjgxNWFjMzRkOWYifQ.4axh-oiPKN5jqH5SUTRA9wMBKMs2nQQKJ7GvZSrStAs"}}
+//{"msg":"成功","code":1,"data":{"member":{"member_id":12251,"isBindWxopenId":true,"nickName":"大熊用户113214308","mobile":"17175319997",
+// "isHasSpecInvite":false,"isBindWx":true,"isMember":false,"specInviteUsableCount":0,"bigBearNumber":"113214308","isEnabled":true,
+// "isLocked":false,"iconUrl":"https://shopxxbbc.oss-cn-beijing.aliyuncs.com/upload/image/201808/20180816140417.png",
+// "isOpendMember":false,"expectSaveAmount":"1000.00"},"token":"eyJhbGciOiJIUzI1NiJ9
+// .eyJ1aWQiOiIxMjI1MSIsInN1YiI6IntcInVpZFwiOlwiMTIyNTFcIn0iLCJleHAiOjE1NjUyNTk5ODQsImlhdCI6MTU2NDY1NTE1NCwianRpIjoiYTc4MjczZDhlYjcwNzI2MGZiOTdiMjgxNWFjMzRkOWYifQ.4axh-oiPKN5jqH5SUTRA9wMBKMs2nQQKJ7GvZSrStAs"}}
                         hiddenLoadingView();
                         BearMallAplication.getInstance().setUser(userInfo);
                         showToast("登录成功");
                         InitInvitation();
                         EventBus.getDefault().post(new FinishEvent());
                         BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
+                        sensorsLogin();
+                        sensorsInvitation();
                         finish();
                     }
-//
+
+                    //
                     @Override
                     public void onNotNetWork() {
                         hiddenLoadingView();
                     }
-//17175319997
+
+                    //17175319997
                     @Override
                     public void onFail(Throwable e) {
                         hiddenLoadingView();
@@ -115,4 +127,20 @@ public class InputIncomCodeActivity extends BaseActivity {
     private void InitInvitation() {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
     }
+
+
+    //神策邀请码统计
+    public void sensorsInvitation() {
+        Map<String, String> map = new HashMap<>();
+        map.put("login_method", mode);
+        ConstantScUtil.sensorsTrack("invitationCode", map);
+    }
+
+    //神策登录统计
+    public void sensorsLogin() {
+        Map<String, String> map = new HashMap<>();
+        map.put("login_method", "微信");
+        ConstantScUtil.sensorsTrack("wechatLoginClick", map);
+    }
+
 }

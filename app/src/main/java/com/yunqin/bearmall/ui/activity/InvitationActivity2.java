@@ -22,12 +22,15 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.Invitationinfo;
 import com.yunqin.bearmall.ui.dialog.NewInvitationDialog;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.GlideBlurformation;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
 
 import org.json.JSONException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.jzvd.Jzvd;
 
@@ -240,6 +243,10 @@ public class InvitationActivity2 extends BaseActivity implements View.OnClickLis
                             }
                         });
                         lightoff();
+                        //TODO[立即分享]
+                        Map<String,String> map = new HashMap<>();
+                        map.put("pic_name",imageUrl);
+                        ConstantScUtil.sensorsTrack("shareClick",map);
                     }
                 }
                 break;

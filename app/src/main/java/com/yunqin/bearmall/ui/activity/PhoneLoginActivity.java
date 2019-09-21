@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.newversions.tbk.activity.InputIncomCodeActivity;
+import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.R;
@@ -28,6 +29,7 @@ import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.eventbus.FinishEvent;
 import com.yunqin.bearmall.eventbus.ProductMessageEvent;
 import com.yunqin.bearmall.util.CommonUtils;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DeviceUtils;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
@@ -38,6 +40,7 @@ import com.yunqin.bearmall.widget.Highlight.HighlightButton;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -123,6 +126,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
 
     private int loginType;
     private UserInfo userInfo;
+
     public static void starActivity(Activity mContext) {
         Intent intent = new Intent(mContext, PhoneLoginActivity.class);
         mContext.startActivity(intent);
@@ -177,11 +181,17 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 break;
             case R.id.login_btn:
                 login(loginType);
-                //TODO[登录]
+                try {
+                    JSONObject properties = new JSONObject();
+                    properties.put("login_method", "手机");
+                    // 是否被添加到收藏夹
+                    SensorsDataAPI.sharedInstance().track("wechatLoginClick", properties);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.getcode_btn:
                 sendMsgCode();
-                //TODO[获取验证码]
                 break;
             case R.id.get_img_code:
                 //重新设置图片验证码
@@ -232,7 +242,8 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
     private void getVerificationCode() {
         Constans.params.clear();
         Constans.params.put("machine_id", DeviceUtils.getUniqueId(this));
-        RetrofitApi.requestImageCode(this, RetrofitApi.createApi(Api.class).getImageCode(Constans.params), new RetrofitApi.ImageCodeResponseListener() {
+        RetrofitApi.requestImageCode(this, RetrofitApi.createApi(Api.class).getImageCode(Constans.params),
+                new RetrofitApi.ImageCodeResponseListener() {
             @Override
             public void onSuccess(Bitmap bitmap) {
                 try {
@@ -285,7 +296,8 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         }
         Constans.params.put("mobile", phone_number.getText().toString());
         Constans.params.put("type", type + "");
-        Constans.params.put("cid", (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(), "clientid", ""));
+        Constans.params.put("cid", (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(),
+                "clientid", ""));
 
 
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).userLogin(Constans.params), new RetrofitApi.IResponseListener() {
@@ -307,15 +319,17 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                             }
                         });
 
-                    } else if(StringUtils.isEmpty(userInfo.getParentCode())){
+                    } else if (StringUtils.isEmpty(userInfo.getParentCode())) {
                         // TODO: 2019/8/1 0001 填写邀请码
-                        InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,userInfo.getData().getToken().getAccess_token());
+                        InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,
+                                userInfo.getData().getToken().getAccess_token(),"手机");
                         finish();
 
-                    }else {
+                    } else {
                         if (type == 2) {
                             if (userInfo.getData().getIsFirstLogin() == 1) {
-                                SharedPreferencesHelper.put(PhoneLoginActivity.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
+                                SharedPreferencesHelper.put(PhoneLoginActivity.this, "firstLoginReward",
+                                        userInfo.getData().getFirstLoginReward());
                                 SharedPreferencesHelper.put(PhoneLoginActivity.this, "isFirstBind", true);
                             } else {
                                 SharedPreferencesHelper.put(PhoneLoginActivity.this, "isFirstBind", false);
@@ -325,6 +339,9 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                         showToast("登录成功");
                         EventBus.getDefault().post(new FinishEvent());
                         BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
+                        //TODO[获取验证码]点击登录
+                        sensorsLogin("手机");
+                        sebsorsCode();
                         finish();
                     }
                 } catch (Exception e) {
@@ -352,17 +369,18 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         Map<String, String> map = new HashMap<>();
         map.put("open_id", platform.getDb().get("unionid"));
         map.put("wxopen_id", platform.getDb().get("openid"));
-        map.put("accessToken",userInfo.getData().getToken().getAccess_token());
+        map.put("accessToken", userInfo.getData().getToken().getAccess_token());
         map.put("bindType", 1 + "");
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).memberWeixinBind(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
-                if(StringUtils.isEmpty(userInfo.getParentCode())){
+                if (StringUtils.isEmpty(userInfo.getParentCode())) {
                     // TODO: 2019/8/1 0001 填写邀请码
-                    InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,userInfo.getData().getToken().getAccess_token());
+                    InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,
+                            userInfo.getData().getToken().getAccess_token(),"微信");
                     finish();
 
-                }else {
+                } else {
                     if (userInfo.getData().getIsFirstLogin() == 1) {
                         SharedPreferencesHelper.put(PhoneLoginActivity.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
                         SharedPreferencesHelper.put(PhoneLoginActivity.this, "isFirstBind", true);
@@ -373,6 +391,9 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                     showToast("登录成功");
                     EventBus.getDefault().post(new FinishEvent());
                     BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
+                    //TODO[获取验证码]点击登录
+                    sensorsLogin("微信");
+                    sebsorsCode();
                     finish();
                 }
             }
@@ -401,7 +422,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         hiddenLoadingView();
         showToast("绑定微信取消");
     }
-
 
 
     public static boolean isQQClientAvailable(Context context) {
@@ -455,6 +475,18 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 getVerificationCode();
             }
         });
+    }
+
+    //神策登录统计
+    public void sensorsLogin(String value) {
+        Map<String, String> map = new HashMap<>();
+        map.put("login_method", value);
+        ConstantScUtil.sensorsTrack("wechatLoginClick", map);
+    }
+
+    //神策验证码统计
+    public void sebsorsCode(){
+        ConstantScUtil.sensorsTrack("getCode", null);
     }
 
 }

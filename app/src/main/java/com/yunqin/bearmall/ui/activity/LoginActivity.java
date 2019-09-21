@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.newversions.tbk.activity.InputIncomCodeActivity;
+import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.Constans;
@@ -26,6 +27,7 @@ import com.yunqin.bearmall.eventbus.FinishEvent;
 import com.yunqin.bearmall.inter.loginWayCallBack;
 import com.yunqin.bearmall.ui.activity.contract.LoginActivityContract;
 import com.yunqin.bearmall.ui.activity.presenter.LoginPresenter;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.util.StringUtils;
@@ -39,6 +41,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -91,7 +94,6 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         switch (view.getId()) {
             case R.id.wx_login_btn:
                 WxLogin();
-                //TODO[微信登录]
                 break;
             case R.id.other_login_way:
 //                DialogUtils.changeLoginWay(this, this);
@@ -224,11 +226,13 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             } else if (jsonObject.getJSONObject("data").optInt("status") == 1) {
                 UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
-                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this, userInfo.getData().getToken().getAccess_token());
+                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this, userInfo.getData().getToken().getAccess_token(),"微信");
                     finish();
                 } else {
                     BearMallAplication.getInstance().setUser(userInfo);
                     InitInvitation();
+                    //TODO[登录]
+                    sensorsLogin();
                     finish();
                 }
             }
@@ -259,6 +263,13 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
 
     private void InitInvitation() {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
+    }
+
+    //神策登录统计
+    public void sensorsLogin() {
+        Map<String, String> map = new HashMap<>();
+        map.put("login_method","微信");
+        ConstantScUtil.sensorsTrack("wechatLoginClick",map);
     }
 
 }

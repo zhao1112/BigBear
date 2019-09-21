@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
 import android.util.Log;
+
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -17,6 +18,10 @@ import com.lcodecore.tkrefreshlayout.utils.LogUtil;
 import com.mob.MobApplication;
 import com.mob.MobSDK;
 import com.newversions.tbk.utils.HomeListener;
+import com.sensorsdata.analytics.android.sdk.SAConfigOptions;
+import com.sensorsdata.analytics.android.sdk.SensorsAnalyticsAutoTrackEventType;
+import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
+import com.sensorsdata.analytics.android.sdk.util.SensorsDataUtils;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.yunqin.bearmall.api.Api;
@@ -30,8 +35,12 @@ import com.yunqin.bearmall.util.DeviceInfoHelper;
 import com.yunqin.bearmall.util.DeviceInfoInit;
 import com.yunqin.bearmall.util.FilePutGetUtils;
 import com.yunqin.bearmall.util.RudenessScreenHelper;
+
+import org.json.JSONObject;
+
 import java.net.URLEncoder;
 import java.util.HashMap;
+
 import cn.example.lamor.AppContextLike;
 
 /**
@@ -49,6 +58,8 @@ BearMallAplication extends MobApplication {
     private HomeListener mHomeListen;
 
     private String _channel = "official";
+    // 数据接收的 URL
+    final String SA_SERVER_URL = "http://sci.bbearmall.com/sa?project=" + BuildConfig.SHENC_URL;
 
 
     @Override
@@ -56,7 +67,10 @@ BearMallAplication extends MobApplication {
         super.onCreate();
         instance = this;
         ContextHelper.init(this);
+        //初始化友盟
         initUM();
+        //初始化神策
+        initSensors();
         MultiDex.install(this);
         new RudenessScreenHelper(this, 750).activate();
 
@@ -150,7 +164,7 @@ BearMallAplication extends MobApplication {
         map.put("osVersion", String.valueOf(deviceInfo.getOsVersion()));
         map.put("networkType", CommonUtil.getNetworkType(this));
         map.put("mac", deviceInfo.getMac());
-        map.put("cid", _channel);
+        map.put("channel_id", _channel);
         map.put("version", "V" + toolkit.getAppVersionName() + "." + String.valueOf(toolkit.getAppVersionCode()));
         map.put("deviceModel", URLEncoder.encode(toolkit.getMobileType()));
         map.put("aid", CommonUtil.getAid());
@@ -284,4 +298,43 @@ BearMallAplication extends MobApplication {
         super.onConfigurationChanged(newConfig);
         new RudenessScreenHelper(this, 750).activate();
     }
+
+    public void initSensors() {
+
+        //设置 SAConfigOptions，传入数据接收地址 SA_SERVER_URL
+        SAConfigOptions saConfigOptions = new SAConfigOptions(SA_SERVER_URL);
+
+        //通过 SAConfigOptions 设置神策 SDK，每个条件都非必须，开发者可根据自己实际情况设置，更多设置可参考 SAConfigOptions 类中方法注释
+        saConfigOptions.setAutoTrackEventType(SensorsAnalyticsAutoTrackEventType.APP_CLICK | // 开启全埋点点击事件
+                SensorsAnalyticsAutoTrackEventType.APP_START |      //开启全埋点启动事件
+                SensorsAnalyticsAutoTrackEventType.APP_END |        //开启全埋点退出事件
+                SensorsAnalyticsAutoTrackEventType.APP_VIEW_SCREEN)     //开启全埋点浏览事件
+                .enableLog(true)        //开启神策调试日志，默认关闭
+                .enableTrackAppCrash()     //开启 crash 采集
+                .setFlushBulkSize(100)// 每缓存 100 条日志发送一次
+                .setFlushInterval(15000)// 设置每 15 秒发送一次
+                .setMaxCacheSize(20 * 1024 * 1024); //设置本地数据缓存上限值为20MB
+        //初始化神策对象，需要在主线程初始化 SDK
+        SensorsDataAPI.startWithConfiguration(this, saConfigOptions);
+
+        //网络模式选项
+        //SensorsDataAPI.NetworkType.TYPE_2G     2G网络下发送数据
+        //SensorsDataAPI.NetworkType.TYPE_3G     3G网络下发送数据
+        //SensorsDataAPI.NetworkType.TYPE_4G     4G网络下发送数据
+        //SensorsDataAPI.NetworkType.TYPE_5G     5G网络下发送数据
+        //SensorsDataAPI.NetworkType.TYPE_WIFI   WIFI网络下发送数据
+        //SensorsDataAPI.NetworkType.TYPE_ALL    2G/3G/4G/5G/WIFI网络下发送数据
+        //SensorsDataAPI.NetworkType.TYPE_NONE   所有网络下都不发送数据
+
+        //指定只在 3G/4G/WIFI 条件下发送数据。
+        SensorsDataAPI.sharedInstance().setFlushNetworkPolicy(
+                SensorsDataAPI.NetworkType.TYPE_3G |
+                        SensorsDataAPI.NetworkType.TYPE_4G |
+                        SensorsDataAPI.NetworkType.TYPE_5G |
+                        SensorsDataAPI.NetworkType.TYPE_WIFI);
+
+        //初始化 SDK 之后，开启点击图
+        SensorsDataAPI.sharedInstance().enableHeatMap();
+    }
+
 }
