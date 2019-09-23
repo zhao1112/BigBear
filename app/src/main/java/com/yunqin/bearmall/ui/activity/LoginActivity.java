@@ -191,18 +191,24 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             Constans.params.put("loginType", 2 + "");
         }
         presenter.start(Constans.params);
+        //TODO[授权]
+        sensorsAuthorized("true","Success");
     }
 
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
         hiddenLoadingView();
         showToast("第三方登录错误" + throwable.toString());
+        //TODO[授权]
+        sensorsAuthorized("false",throwable.getMessage().toString());
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
         hiddenLoadingView();
         showToast("第三方登录取消");
+        //TODO[授权]
+        sensorsAuthorized("false","第三方登录取消");
     }
 
     @Override
@@ -270,6 +276,14 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         Map<String, String> map = new HashMap<>();
         map.put("login_method","微信");
         ConstantScUtil.sensorsTrack("wechatLoginClick",map);
+    }
+
+    //神策授权统计
+    public void sensorsAuthorized (String bool,String reason) {
+        Map<String, String> map = new HashMap<>();
+        map.put("is_authorized",bool);
+        map.put("fail_reason",reason);
+        ConstantScUtil.sensorsTrack("authorized",map);
     }
 
 }

@@ -388,6 +388,8 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                     sensorsLogin("微信");
                     //TODO[获取验证码]
                     sebsorsCode();
+                    //TODO[授权]
+                    sensorsAuthorized("true","Success");
                     finish();
                 }
             }
@@ -409,12 +411,16 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
     public void onError(Platform platform, int i, Throwable throwable) {
         hiddenLoadingView();
         showToast("绑定错误" + throwable.toString());
+        //TODO[授权]
+        sensorsAuthorized("false",throwable.getMessage().toString());
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
         hiddenLoadingView();
         showToast("绑定微信取消");
+        //TODO[授权]
+        sensorsAuthorized("false","绑定微信取消");
     }
 
 
@@ -481,6 +487,14 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
     //神策验证码统计
     public void sebsorsCode(){
         ConstantScUtil.sensorsTrack("getCode", null);
+    }
+
+    //神策授权统计
+    public void sensorsAuthorized (String bool,String reason) {
+        Map<String, String> map = new HashMap<>();
+        map.put("is_authorized",bool);
+        map.put("fail_reason",reason);
+        ConstantScUtil.sensorsTrack("authorized",map);
     }
 
 }
