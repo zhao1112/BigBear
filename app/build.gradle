@@ -77,7 +77,7 @@ android {
 //            buildConfigField 'String', 'BASE_URL', '"http://47.95.115.244"'
             buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'  //正式地址
             buildConfigField 'String', 'SHENC_URL', '"default"'  //神策正式数据上传地址
-            buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbearmall.com"'  //神策正式数据上传地址
+            buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"'  //神策正式数据上传地址
             manifestPlaceholders = [
                     GETUI_APP_ID    : "P1WZUP1CCA83TQv6ROrw09",
                     GETUI_APP_KEY   : "4Q54VC50z36Dc3jFEHrdRA",
