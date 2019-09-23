@@ -210,6 +210,7 @@ public class NewInvitationDialog implements View.OnClickListener {
         shareParams.setImageUrl(mIageUrl);//图片的地址
         shareParams.setShareType(Platform.SHARE_IMAGE);//分享类型     // 设置成分享网页
         platform.share(shareParams);
+        //TODO[分享方式]
         sensorsType(name);
     }
 

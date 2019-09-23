@@ -59,7 +59,7 @@ BearMallAplication extends MobApplication {
 
     private String _channel = "official";
     // 数据接收的 URL
-    final String SA_SERVER_URL = "http://sci.bbearmall.com/sa?project=" + BuildConfig.SHENC_URL;
+    final String SA_SERVER_URL = BuildConfig.SHENC_BASE_URL + "/sa?project=" + BuildConfig.SHENC_URL;
 
 
     @Override

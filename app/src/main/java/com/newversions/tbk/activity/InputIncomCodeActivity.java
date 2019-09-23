@@ -102,7 +102,9 @@ public class InputIncomCodeActivity extends BaseActivity {
                         InitInvitation();
                         EventBus.getDefault().post(new FinishEvent());
                         BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
+                        //TODO[登录]
                         sensorsLogin();
+                        //TODO[邀请码]
                         sensorsInvitation();
                         finish();
                     }

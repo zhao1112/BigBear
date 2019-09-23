@@ -223,6 +223,7 @@ public class LoginBindPhone extends BaseActivity {
                         SharedPreferencesHelper.put(LoginBindPhone.this, "isFirstBind", true);
                         SharedPreferencesHelper.put(LoginBindPhone.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
                     }
+                    //TODO[获取验证码]
                     sebsorsCode();
                     finish();
                 }

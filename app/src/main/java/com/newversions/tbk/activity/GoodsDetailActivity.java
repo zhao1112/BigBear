@@ -371,9 +371,9 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
         //TODO[商品详情页]
-        searchDetail();
+        //searchDetail();
         //TODO[搜索结果]
-        searchResult();
+        //searchResult();
     }
 
     public void changeCollection(boolean collection) {
@@ -552,7 +552,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
                     startActivity(intent);
                     //TODO[分享]
-                    searchShare();
+                    //searchShare();
                 } else {
                     showToast("请先登录");
                     LoginActivity.starActivity(this);
@@ -624,7 +624,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     //神策搜索结果统计
     public void searchResult() {
         if (search) {
-            Log.i("searchDetail", "searchResult: ");
             if (goodDetail != null) {
                 Map<String, String> map = new HashMap<>();
                 map.put("key_word", keyword);

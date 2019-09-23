@@ -35,12 +35,15 @@ import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.DotView;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
 import com.yunqin.bearmall.widget.TopBanner;
+
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -205,7 +208,9 @@ public class MakeMoneyFragment extends BaseFragment {
                 //StarActivityUtil.starActivity(getActivity(),InvitationActivity.class);
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
                 //TODO[邀请好友]
-                ConstantScUtil.sensorsTrack("inviteClick",null);
+                Map<String, String> map = new HashMap<>();
+                map.put("entrance_type","赚钱中心：邀请好友赚糖果");
+                ConstantScUtil.sensorsTrack("inviteClick", map);
 
                 break;
             case R.id.mine_bottom_sign_in:// 签到按钮
@@ -229,7 +234,9 @@ public class MakeMoneyFragment extends BaseFragment {
                 //InviteFriendActivity.startActivity(getActivity());
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
                 //TODO[邀请好友]
-                ConstantScUtil.sensorsTrack("inviteClick",null);
+                Map<String, String> map_type = new HashMap<>();
+                map_type.put("entrance_type","赚钱中心：邀请好友");
+                ConstantScUtil.sensorsTrack("inviteClick", map_type);
                 break;
             case R.id.new_menu_4:// 领取信用卡
 
@@ -360,7 +367,9 @@ public class MakeMoneyFragment extends BaseFragment {
 
                             StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
                             //TODO[邀请好友]
-                            ConstantScUtil.sensorsTrack("inviteClick",null);
+                            Map<String,String> stringMap = new HashMap<>();
+                            stringMap.put("entrance_type","赚钱中心：banner");
+                            ConstantScUtil.sensorsTrack("inviteClick", stringMap);
 
 //                            InviteFriendActivity.startActivity(getActivity());
 
@@ -436,7 +445,8 @@ public class MakeMoneyFragment extends BaseFragment {
             timeMap.put("lastTime3", (long) SharedPreferencesHelper.get(getActivity(), "lastTime3", 0l) + "");
         }
 
-        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap),
+                new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
                 MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);

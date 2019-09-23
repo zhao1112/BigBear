@@ -93,7 +93,9 @@ public class TopBarClicker {
                 //StarActivityUtil.starActivity(activity, InvitationActivity.class);
                 StarActivityUtil.starActivity(activity, InvitationActivity2.class);
                 //TODO[邀请好友]
-                ConstantScUtil.sensorsTrack("inviteClick",null);
+                Map<String,String> map_type = new HashMap<>();
+                map_type.put("entrance_type","首页：邀请好友");
+                ConstantScUtil.sensorsTrack("inviteClick",map_type);
 //                InviteFriendActivity.startActivity(activity);
 //                StarActivityUtil.starActivity(getActivity(), VipCenterActivity.class);
                 break;

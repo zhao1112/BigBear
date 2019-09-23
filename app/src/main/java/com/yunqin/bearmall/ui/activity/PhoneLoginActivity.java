@@ -181,14 +181,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 break;
             case R.id.login_btn:
                 login(loginType);
-                try {
-                    JSONObject properties = new JSONObject();
-                    properties.put("login_method", "手机");
-                    // 是否被添加到收藏夹
-                    SensorsDataAPI.sharedInstance().track("wechatLoginClick", properties);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 break;
             case R.id.getcode_btn:
                 sendMsgCode();
@@ -339,8 +331,9 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                         showToast("登录成功");
                         EventBus.getDefault().post(new FinishEvent());
                         BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
-                        //TODO[获取验证码]点击登录
+                        //TODO[登录]
                         sensorsLogin("手机");
+                        //TODO[获取验证码]
                         sebsorsCode();
                         finish();
                     }
@@ -391,8 +384,9 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                     showToast("登录成功");
                     EventBus.getDefault().post(new FinishEvent());
                     BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
-                    //TODO[获取验证码]点击登录
+                    //TODO[登录]
                     sensorsLogin("微信");
+                    //TODO[获取验证码]
                     sebsorsCode();
                     finish();
                 }

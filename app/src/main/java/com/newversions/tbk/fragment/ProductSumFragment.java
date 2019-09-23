@@ -309,7 +309,7 @@ public class ProductSumFragment extends BaseFragment {
                     isLoadMore = false;
                 }
                 //TODO[搜索按钮]
-                sebsorsSearch();
+                //sebsorsSearch();
             }
 
             @Override
