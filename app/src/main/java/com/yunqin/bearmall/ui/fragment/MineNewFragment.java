@@ -52,6 +52,7 @@ import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.MineOrderActivity;
 import com.yunqin.bearmall.ui.activity.MyAllCommentActivity;
+import com.yunqin.bearmall.ui.activity.OpenVipActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
 import com.yunqin.bearmall.ui.activity.RefundActivity;
 import com.yunqin.bearmall.ui.activity.RenewVipActivity;
@@ -243,7 +244,8 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                     .setOnDialogItemClickListener((thisDialog, clickView) -> {
                         thisDialog.dismiss();
                         if (clickView.getId() == R.id.ad_img) {
-                            IAdvClick.click(getActivity(), popBean.getData().getPopupAd().getType(), popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id());
+                            IAdvClick.click(getActivity(), popBean.getData().getPopupAd().getType(),
+                                    popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id());
                         }
                     }).build().show();
         }
@@ -371,7 +373,7 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
             }
             userNameView.setText(userInfo.getData().getMember().getNickName());
             Glide.with(this).setDefaultRequestOptions(requestOptions).load(userInfo.getData().getMember().getIconUrl()).into(headImage);
-            tvCode.setText("邀请码："+userInfo.getRecommendCode());
+            tvCode.setText("邀请码：" + userInfo.getRecommendCode());
         }
     }
 
@@ -379,7 +381,7 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
             , R.id.container_fav, R.id.container_comment, R.id.container_address, R.id.container_help, R.id.container_im,
             R.id.mine_setting, R.id.renew, R.id.vip_button, R.id.look_all_order, R.id.login_text, R.id.layout_wait_send_out_goods,
             R.id.layout_wait_pay, R.id.layout_wait_get_goods, R.id.layout_wait_comment, R.id.layout_after_sale,
-            R.id.head_invite_now, R.id.container_xin_yong_ka, R.id.xiao_xi,R.id.tv_copy
+            R.id.head_invite_now, R.id.container_xin_yong_ka, R.id.xiao_xi, R.id.tv_copy
 
     })
     public void onViewClick(View view) {
@@ -389,7 +391,8 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
             case R.id.tv_copy:
                 if (BearMallAplication.getInstance().getUser() != null) {
                     ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, BearMallAplication.getInstance().getUser().getRecommendCode()));
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                            BearMallAplication.getInstance().getUser().getRecommendCode()));
                     showToast("复制成功");
                 }
                 break;
@@ -573,12 +576,22 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                         Intent mIntent = new Intent(getActivity(), ActivityPrivilege.class);
                         startActivity(mIntent);
                     } else {
-                        Intent intent = new Intent(getActivity(), VipCenterActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(getActivity(), VipCenterActivity.class);
+//                        startActivity(intent);
+                        if (BearMallAplication.getInstance().getUser() == null) {
+                            LoginActivity.starActivity(getActivity());
+                        } else {
+                            OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
+                        }
                     }
                 } catch (Exception e) {
-                    Intent intent = new Intent(getActivity(), VipCenterActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getActivity(), VipCenterActivity.class);
+//                    startActivity(intent);
+                    if (BearMallAplication.getInstance().getUser() == null) {
+                        LoginActivity.starActivity(getActivity());
+                    } else {
+                        OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
+                    }
                 }
 
                 break;
@@ -708,7 +721,8 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
             timeMap.put("lastTime3", (long) SharedPreferencesHelper.get(getActivity(), "lastTime3", 0l) + "");
         }
 
-        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap),
+                new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
                 MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);

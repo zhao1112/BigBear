@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.newversions.home.HomeBean;
@@ -186,12 +187,24 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 //  2019/7/15 0015 活动页
                 TBKHomeEntity.BannerTwoBean bannerTwoBean = (TBKHomeEntity.BannerTwoBean) datas.get(position);
                 ImageHolder imageHolder = (ImageHolder) holder;
-                Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small)).asBitmap().load(bannerTwoBean.getImage()).into(new SimpleTarget<Bitmap>() {
+
+//                Glide.with(context)
+//                        .load(bannerTwoBean.getImage())
+//                        .apply(new RequestOptions().placeholder(R.drawable.default_product_small))
+//                        .into(imageHolder.imageView);
+//                Log.i("imageurl", "onBindViewHolder: "+bannerTwoBean.getImage());
+
+                Glide.with(context)
+                        .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
+                        .asBitmap()
+                        .load(bannerTwoBean.getImage())
+                        .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         imageHolder.imageView.setImageBitmap(resource);
                     }
                 });
+
                 imageHolder.imageView.setOnClickListener(v ->{
                     BannerClicker.bannerClick(context,bannerTwoBean.getTargetType(),bannerTwoBean.getTarget(),bannerTwoBean.getTitle());
                 });
@@ -386,7 +399,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
 
     class ImageHolder extends RecyclerView.ViewHolder {
         //        int id = R.layout.item_home_image;
-        @BindView(R.id.image_view)
+        @BindView(R.id.image_view_6)
         ImageView imageView;
 
         public ImageHolder(View itemView) {

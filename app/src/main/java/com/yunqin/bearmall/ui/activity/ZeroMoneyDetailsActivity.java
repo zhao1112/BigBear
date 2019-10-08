@@ -314,7 +314,12 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                 // 设置回掉
                 .setOnDialogItemClickListener((thisDialog, clickView) -> {
                     if (clickView.getId() == R.id.join_member_ok) {
-                        startActivity(new Intent(this, VipCenterActivity.class));
+                        // startActivity(new Intent(this, VipCenterActivity.class));
+                        if (BearMallAplication.getInstance().getUser() == null) {
+                            LoginActivity.starActivity(ZeroMoneyDetailsActivity.this);
+                        } else {
+                            OpenVipActivity.startOpenVipActivity(ZeroMoneyDetailsActivity.this, null, null);
+                        }
                     }
                     thisDialog.dismiss();
                 })

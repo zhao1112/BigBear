@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.ChargeAdapter;
 import com.yunqin.bearmall.api.Api;
@@ -18,6 +19,8 @@ import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.Charge;
 import com.yunqin.bearmall.bean.ChargeResponse;
 import com.yunqin.bearmall.ui.activity.ChargeConfirmActivity;
+import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.ui.activity.OpenVipActivity;
 import com.yunqin.bearmall.ui.activity.VipCenterActivity;
 import com.yunqin.bearmall.widget.RecyclerItemDecoration;
 
@@ -32,7 +35,7 @@ import butterknife.OnClick;
 
 public class ChargeFragment extends BaseFragment {
 
-    public static ChargeFragment instance(){
+    public static ChargeFragment instance() {
 
         ChargeFragment fragment = new ChargeFragment();
 
@@ -60,7 +63,7 @@ public class ChargeFragment extends BaseFragment {
 
 
     private ChargeAdapter adapter;
-    private  List<Charge> charges;
+    private List<Charge> charges;
     private int ticketCount;
     private String mobile;
     private int carrierType;
@@ -81,14 +84,14 @@ public class ChargeFragment extends BaseFragment {
 
         buyButton.setEnabled(false);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         chargeRecyclerView.setLayoutManager(layoutManager);
-        chargeRecyclerView.addItemDecoration(new RecyclerItemDecoration(30,3));
+        chargeRecyclerView.addItemDecoration(new RecyclerItemDecoration(30, 3));
         chargeRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
 
-                if (e.getAction() == MotionEvent.ACTION_UP && !buyButton.isEnabled()){
+                if (e.getAction() == MotionEvent.ACTION_UP && !buyButton.isEnabled()) {
                     buyButton.setEnabled(true);
                 }
 
@@ -110,40 +113,41 @@ public class ChargeFragment extends BaseFragment {
 
     public void loadData() {
 
-        Map<String,String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
 
-        RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getVirtualRechargeInfo(params), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getVirtualRechargeInfo(params),
+                new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
 
-                ChargeResponse response = new Gson().fromJson(data,ChargeResponse.class);
+                ChargeResponse response = new Gson().fromJson(data, ChargeResponse.class);
 
-                if (response.isSuccess()){
+                if (response.isSuccess()) {
                     ChargeResponse.DataBean dataBean = response.getData();
-                    if (onGetChargeDataListener != null){
-                        onGetChargeDataListener.onGetData(dataBean.getMobile(),dataBean.getCarrierType());
+                    if (onGetChargeDataListener != null) {
+                        onGetChargeDataListener.onGetData(dataBean.getMobile(), dataBean.getCarrierType());
                     }
                     mobile = dataBean.getMobile();
                     carrierType = dataBean.getCarrierType();
 
                     ticketCount = dataBean.getUsableTicketCount();
-                    boolean isMember = dataBean.getIsMs()==1;
-                    if (isMember){
+                    boolean isMember = dataBean.getIsMs() == 1;
+                    if (isMember) {
                         String warn = getString(R.string.charge_warn);
                         warnView.setText(warn);
-                        if (ticketCount > 0){
-                            userTimeView.setText(String.format("本月可用%d次",ticketCount));
-                        }else {
+                        if (ticketCount > 0) {
+                            userTimeView.setText(String.format("本月可用%d次", ticketCount));
+                        } else {
                             userTimeView.setText("本月已用");
                         }
                         vipContainer.setVisibility(View.VISIBLE);
                         noVipContainer.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         noVipContainer.setVisibility(View.VISIBLE);
                         vipContainer.setVisibility(View.GONE);
                     }
                     charges = dataBean.getList();
-                    adapter = new ChargeAdapter(getActivity(),charges);
+                    adapter = new ChargeAdapter(getActivity(), charges);
                     chargeRecyclerView.setAdapter(adapter);
                 }
 
@@ -163,25 +167,30 @@ public class ChargeFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.charge,R.id.use_time_no})
-    public void onViewClick(View view){
-        if(view.getId() == R.id.use_time_no){
-            startActivity(new Intent(getActivity(), VipCenterActivity.class));
-        }else {
-            if (adapter != null && adapter.getLastSeletIndex() != -1){
+    @OnClick({R.id.charge, R.id.use_time_no})
+    public void onViewClick(View view) {
+        if (view.getId() == R.id.use_time_no) {
+            //startActivity(new Intent(getActivity(), VipCenterActivity.class));
+            if (BearMallAplication.getInstance().getUser() == null) {
+                LoginActivity.starActivity(getActivity());
+            } else {
+                OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
+            }
+        } else {
+            if (adapter != null && adapter.getLastSeletIndex() != -1) {
 
                 Charge charge = charges.get(adapter.getLastSeletIndex());
 
-                ChargeConfirmActivity.startChargeConfirmActivity(getActivity(),mobile,carrierType,ticketCount,charge);
+                ChargeConfirmActivity.startChargeConfirmActivity(getActivity(), mobile, carrierType, ticketCount, charge);
 
             }
         }
     }
 
 
-    public interface OnGetChargeDataListener{
+    public interface OnGetChargeDataListener {
 
-        void onGetData(String mobile,int carrierType);
+        void onGetData(String mobile, int carrierType);
 
     }
 
