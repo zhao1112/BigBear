@@ -571,7 +571,6 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                 break;
 
             case R.id.vip_button:
-
                 try {
                     int tag = (int) view.getTag();
                     if (tag == 1) {
@@ -587,7 +586,6 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
 //                    startActivity(intent);
                     jump2VipActivity();
                 }
-
                 break;
 
             case R.id.head_invite_now:

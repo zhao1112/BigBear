@@ -140,14 +140,11 @@ public class ChargeFragment extends BaseFragment {
                                 warnView.setText(warn);
                                 if (ticketCount > 0) {
                                     userTimeView.setText(String.format("本月可用%d次", ticketCount));
-                                    vipContainer.setVisibility(View.VISIBLE);
-                                    noVipContainer.setVisibility(View.GONE);
                                 } else {
                                     userTimeView.setText("本月已用");
-                                    noVipContainer.setVisibility(View.VISIBLE);
-                                    vipContainer.setVisibility(View.GONE);
                                 }
-
+                                vipContainer.setVisibility(View.VISIBLE);
+                                noVipContainer.setVisibility(View.GONE);
                             } else {
                                 noVipContainer.setVisibility(View.VISIBLE);
                                 vipContainer.setVisibility(View.GONE);
@@ -179,11 +176,8 @@ public class ChargeFragment extends BaseFragment {
             jump2VipActivity();
         } else {
             if (adapter != null && adapter.getLastSeletIndex() != -1) {
-
                 Charge charge = charges.get(adapter.getLastSeletIndex());
-
                 ChargeConfirmActivity.startChargeConfirmActivity(getActivity(), mobile, carrierType, ticketCount, charge);
-
             }
         }
     }
