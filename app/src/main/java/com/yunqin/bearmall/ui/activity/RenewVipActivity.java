@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -233,14 +234,6 @@ public class RenewVipActivity extends BaseActivity {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).openMemberOrder(params), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-
-//                PayResponse response = new Gson().fromJson(data,PayResponse.class);
-//                if (response.isSuccess()){
-//                    PayBean payBean = response.getData();
-//                    fragment = PayDialogFragment.instance(payBean,goodsName);
-//                    fragment.show(getSupportFragmentManager(),"");
-//                }
-
 
                 hiddenLoadingView();
                 JSONObject jsonObject = new JSONObject(data);

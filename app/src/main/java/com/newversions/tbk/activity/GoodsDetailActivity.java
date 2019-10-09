@@ -1,16 +1,11 @@
 package com.newversions.tbk.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,35 +19,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
 import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.android.trade.model.TradeResult;
-import com.alibaba.baichuan.android.trade.page.AlibcPage;
+import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.newversions.home.HomeBean;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.entity.GoodDetailEntity;
-import com.newversions.tbk.entity.LikeGuessEntity;
 import com.newversions.tbk.entity.TBKHomeGoodsEntity;
 import com.newversions.tbk.entity.ToTaoBaoEntity;
-import com.newversions.tbk.fragment.NewVersionTBKHomeAdapter;
 import com.newversions.tbk.utils.GlideImageLoader;
 import com.newversions.tbk.utils.StringUtils;
-import com.newversions.tbk.view.ObservableScrollView;
-import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
@@ -61,11 +45,9 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.widget.RefreshFooterView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -403,9 +385,9 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             @Override
             public void onSuccess(String data) throws JSONException {
                 ToTaoBaoEntity toTaoBaoEntity = new Gson().fromJson(data, ToTaoBaoEntity.class);
-                Log.d("TAG", "onSuccess: " + toTaoBaoEntity.getCode());
                 if (toTaoBaoEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
+                    Log.i("onSuccess", "onSuccess: "+"-------------------");
                     Intent intent = new Intent(GoodsDetailActivity.this, WebActivity.class);
                     intent.putExtra(Constants.INTENT_KEY_URL, toTaoBaoEntity.getData());
                     intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
@@ -414,27 +396,39 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     return;
                 }
                 if (checkPackage("com.taobao.taobao")) {
-                    AlibcPage alibcPage = new AlibcPage(toTaoBaoEntity.getData());
+//                    AlibcPage alibcPage = new AlibcPage(toTaoBaoEntity.getData());
+//                    AlibcShowParams alibcShowParams = new AlibcShowParams();
+//                    alibcShowParams.setTitle("   ");
+//                    alibcShowParams.setOpenType(OpenType.Native);
+//                    AlibcTrade.show(GoodsDetailActivity.this, alibcPage, alibcShowParams, null, null, new AlibcTradeCallback() {
+//
+//                        @Override
+//                        public void onTradeSuccess(TradeResult tradeResult) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onFailure(int code, String msg) {
+//                            //打开电商组件，用户操作中错误信息回调。code：错误码；msg：错误信息
+//
+//                        }
+//                    });
                     AlibcShowParams alibcShowParams = new AlibcShowParams();
                     alibcShowParams.setTitle("   ");
                     alibcShowParams.setOpenType(OpenType.Native);
-                    AlibcTrade.show(GoodsDetailActivity.this, alibcPage, alibcShowParams, null, null, new AlibcTradeCallback() {
+                    AlibcTrade.openByUrl(GoodsDetailActivity.this, "", toTaoBaoEntity.getData(), null, null,
+                            null, alibcShowParams, null, null, new AlibcTradeCallback() {
+                                @Override
+                                public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
 
-                        @Override
-                        public void onTradeSuccess(TradeResult tradeResult) {
+                                }
 
-                        }
-
-                        @Override
-                        public void onFailure(int code, String msg) {
-                            //打开电商组件，用户操作中错误信息回调。code：错误码；msg：错误信息
-
-                        }
-                    });
-
-
+                                @Override
+                                public void onFailure(int i, String s) {
+                                    Log.i("onFailure", "code: " + i + "  meg: " + s);
+                                }
+                            });
                 } else {
-
                     showToast("请先下载淘宝");
                     hiddenLoadingView();
                 }

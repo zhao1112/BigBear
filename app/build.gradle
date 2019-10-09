@@ -89,13 +89,10 @@ android {
 
         debug {
             // 测试地址192.168.0.111
-            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
-//            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.110:80"' //本地服务
+            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'
+//            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
+//            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.116:80"' //本地服务
             buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"' //本地服务
-//            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"'
-//            buildConfigField 'String', 'BASE_URL', '"http://47.95.13.29:80"'
-//            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.198:7777"'  // 测试地址
-//            buildConfigField 'String', 'BASE_URL', '"http://39.98.167.127:80"'
             buildConfigField 'String', 'SHENC_URL', '"default"'  //神策测试数据上传地址
             manifestPlaceholders = [
                     GETUI_APP_ID    : "vcUoVHlgI68fEjCXcSTWt9",
@@ -109,12 +106,6 @@ android {
 
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
-//                def outputFile = output.outputFile
-//                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-////                    def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-${releaseTime()}-${variant.productFlavors[0].name}.apk")
-//                    def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-${releaseTime()}.apk")
-//                    outputFileName = fileName
-//                }
                 if (variant.buildType.name.equals('release')) {
                     variant.getPackageApplicationProvider().get().outputDirectory = project.file('../apk/')
                     variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
@@ -238,28 +229,33 @@ dependencies {
     implementation "com.android.support:support-v4:27.1.0"
     //阿里百川
     //fastjson
-    implementation 'com.alibaba:fastjson:1.2.9'
+    implementation 'com.alibaba:fastjson:1.2.41'
     //支付
-    implementation 'com.alibaba.alipay:alipaySingle:20160825@jar'
+    implementation 'com.alipay.android.app.cashier:standardcashier-single:15.6.5@aar'
     //登陆
-    implementation 'com.ali.auth.sdk:alibabauth_core:1.1.4@jar'
-    implementation 'com.ali.auth.sdk:alibabauth_ui:1.1.4@aar'
-    implementation 'com.ali.auth.sdk:alibabauth_ext:1.1.4@jar'
+    implementation 'com.ali.auth.sdk:alibabauth_core:2.0.0.6@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ui:2.0.0.6@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ext:2.0.0.6@aar'
     //【可选】仅供特殊合作伙伴使用
     implementation 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
     //安全基础
-    implementation 'com.taobao.android:securityguardaar3:5.1.81@aar'
+    implementation 'com.taobao.android:securityguardaar3:5.4.171@aar'
+    implementation 'com.taobao.android:avmpaar3:5.4.36@aar'
+    implementation 'com.taobao.android:sgmiddletieraar3:5.4.9@aar'
     //【可选】安全高级，如使用了发放红包、优惠券高级功能，则必须引入
-    implementation 'com.taobao.android:securitybodyaar3:5.1.25@aar'
+    implementation 'com.taobao.android:securitybodyaar3:5.4.99@aar'
     //Mtop网关
-    implementation 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
+    implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
     //applink
-    implementation 'com.taobao.android:alibc_applink:2.0.0.9@jar'
+    implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.11@aar'
     //UT
-    implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
-    implementation 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
+    implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard'
+    implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
     //电商SDK
-    implementation 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
+//    implementation 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
+    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.2@aar'
+    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.2@aar'
+    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.2@aar'
     //
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
