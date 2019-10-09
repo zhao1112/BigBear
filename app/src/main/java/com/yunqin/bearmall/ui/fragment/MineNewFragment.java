@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.text.Html;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,7 @@ import com.yunqin.bearmall.ui.activity.RenewVipActivity;
 import com.yunqin.bearmall.ui.activity.SettingActivity;
 import com.yunqin.bearmall.ui.activity.VipCenterActivity;
 import com.yunqin.bearmall.ui.activity.ZanWeiKaiFangActivity;
+import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
 import com.yunqin.bearmall.ui.fragment.contract.MineContract;
 import com.yunqin.bearmall.ui.fragment.presenter.MinePresenter;
 import com.yunqin.bearmall.util.DialogUtils;
@@ -578,20 +580,12 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                     } else {
 //                        Intent intent = new Intent(getActivity(), VipCenterActivity.class);
 //                        startActivity(intent);
-                        if (BearMallAplication.getInstance().getUser() == null) {
-                            LoginActivity.starActivity(getActivity());
-                        } else {
-                            OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
-                        }
+                        jump2VipActivity();
                     }
                 } catch (Exception e) {
 //                    Intent intent = new Intent(getActivity(), VipCenterActivity.class);
 //                    startActivity(intent);
-                    if (BearMallAplication.getInstance().getUser() == null) {
-                        LoginActivity.starActivity(getActivity());
-                    } else {
-                        OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
-                    }
+                    jump2VipActivity();
                 }
 
                 break;
@@ -723,22 +717,22 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
 
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap),
                 new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) {
-                MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
-                int count = messageItemCount.getData().getUnreadMessageCount();
-                dot_view.setShowNum(count);
-            }
+                    @Override
+                    public void onSuccess(String data) {
+                        MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
+                        int count = messageItemCount.getData().getUnreadMessageCount();
+                        dot_view.setShowNum(count);
+                    }
 
-            @Override
-            public void onNotNetWork() {
+                    @Override
+                    public void onNotNetWork() {
 
-            }
+                    }
 
-            @Override
-            public void onFail(Throwable e) {
-            }
-        });
+                    @Override
+                    public void onFail(Throwable e) {
+                    }
+                });
     }
 
 
@@ -754,5 +748,22 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private void jump2VipActivity() {
+        UserInfo user = BearMallAplication.getInstance().getUser();
+        if (user == null) {
+            LoginActivity.starActivity(getActivity());
+        } else {
+            boolean member = BearMallAplication.getInstance().getUser().getData().getMember().isMember();
+            boolean opendMember = BearMallAplication.getInstance().getUser().getData().getMember().isOpendMember();
+            Log.i("jump2VipActivity", "jump2VipActivity: " + member);
+            Log.i("jump2VipActivity", "jump2VipActivity: " + opendMember);
+            if (member || opendMember) {
+                RenewVipActivity.startRenewVipActivity(getActivity(), null, null);
+            } else {
+                OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
+            }
+        }
     }
 }

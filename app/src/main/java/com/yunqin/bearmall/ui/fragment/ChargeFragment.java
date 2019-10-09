@@ -18,9 +18,12 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.Charge;
 import com.yunqin.bearmall.bean.ChargeResponse;
+import com.yunqin.bearmall.BearMallAplication;
+import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.ui.activity.ChargeConfirmActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.OpenVipActivity;
+import com.yunqin.bearmall.ui.activity.RenewVipActivity;
 import com.yunqin.bearmall.ui.activity.VipCenterActivity;
 import com.yunqin.bearmall.widget.RecyclerItemDecoration;
 
@@ -117,52 +120,55 @@ public class ChargeFragment extends BaseFragment {
 
         RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getVirtualRechargeInfo(params),
                 new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) throws JSONException {
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
 
-                ChargeResponse response = new Gson().fromJson(data, ChargeResponse.class);
+                        ChargeResponse response = new Gson().fromJson(data, ChargeResponse.class);
 
-                if (response.isSuccess()) {
-                    ChargeResponse.DataBean dataBean = response.getData();
-                    if (onGetChargeDataListener != null) {
-                        onGetChargeDataListener.onGetData(dataBean.getMobile(), dataBean.getCarrierType());
-                    }
-                    mobile = dataBean.getMobile();
-                    carrierType = dataBean.getCarrierType();
+                        if (response.isSuccess()) {
+                            ChargeResponse.DataBean dataBean = response.getData();
+                            if (onGetChargeDataListener != null) {
+                                onGetChargeDataListener.onGetData(dataBean.getMobile(), dataBean.getCarrierType());
+                            }
+                            mobile = dataBean.getMobile();
+                            carrierType = dataBean.getCarrierType();
 
-                    ticketCount = dataBean.getUsableTicketCount();
-                    boolean isMember = dataBean.getIsMs() == 1;
-                    if (isMember) {
-                        String warn = getString(R.string.charge_warn);
-                        warnView.setText(warn);
-                        if (ticketCount > 0) {
-                            userTimeView.setText(String.format("本月可用%d次", ticketCount));
-                        } else {
-                            userTimeView.setText("本月已用");
+                            ticketCount = dataBean.getUsableTicketCount();
+                            boolean isMember = dataBean.getIsMs() == 1;
+                            if (isMember) {
+                                String warn = getString(R.string.charge_warn);
+                                warnView.setText(warn);
+                                if (ticketCount > 0) {
+                                    userTimeView.setText(String.format("本月可用%d次", ticketCount));
+                                    vipContainer.setVisibility(View.VISIBLE);
+                                    noVipContainer.setVisibility(View.GONE);
+                                } else {
+                                    userTimeView.setText("本月已用");
+                                    noVipContainer.setVisibility(View.VISIBLE);
+                                    vipContainer.setVisibility(View.GONE);
+                                }
+
+                            } else {
+                                noVipContainer.setVisibility(View.VISIBLE);
+                                vipContainer.setVisibility(View.GONE);
+                            }
+                            charges = dataBean.getList();
+                            adapter = new ChargeAdapter(getActivity(), charges);
+                            chargeRecyclerView.setAdapter(adapter);
                         }
-                        vipContainer.setVisibility(View.VISIBLE);
-                        noVipContainer.setVisibility(View.GONE);
-                    } else {
-                        noVipContainer.setVisibility(View.VISIBLE);
-                        vipContainer.setVisibility(View.GONE);
+
                     }
-                    charges = dataBean.getList();
-                    adapter = new ChargeAdapter(getActivity(), charges);
-                    chargeRecyclerView.setAdapter(adapter);
-                }
 
-            }
+                    @Override
+                    public void onNotNetWork() {
 
-            @Override
-            public void onNotNetWork() {
+                    }
 
-            }
+                    @Override
+                    public void onFail(Throwable e) {
 
-            @Override
-            public void onFail(Throwable e) {
-
-            }
-        });
+                    }
+                });
 
 
     }
@@ -170,12 +176,7 @@ public class ChargeFragment extends BaseFragment {
     @OnClick({R.id.charge, R.id.use_time_no})
     public void onViewClick(View view) {
         if (view.getId() == R.id.use_time_no) {
-            //startActivity(new Intent(getActivity(), VipCenterActivity.class));
-            if (BearMallAplication.getInstance().getUser() == null) {
-                LoginActivity.starActivity(getActivity());
-            } else {
-                OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
-            }
+            jump2VipActivity();
         } else {
             if (adapter != null && adapter.getLastSeletIndex() != -1) {
 
@@ -191,6 +192,25 @@ public class ChargeFragment extends BaseFragment {
     public interface OnGetChargeDataListener {
 
         void onGetData(String mobile, int carrierType);
+
+    }
+
+    private void jump2VipActivity() {
+        UserInfo user = BearMallAplication.getInstance().getUser();
+        if (user == null) {
+            LoginActivity.starActivity(getActivity());
+        } else {
+            boolean member = BearMallAplication.getInstance().getUser().getData().getMember().isMember();
+            boolean opendMember = BearMallAplication.getInstance().getUser().getData().getMember().isOpendMember();
+            Log.i("jump2VipActivity", "jump2VipActivity: " + member);
+            Log.i("jump2VipActivity", "jump2VipActivity: " + opendMember);
+
+            if (member || opendMember) {
+                RenewVipActivity.startRenewVipActivity(getActivity(), null, null);
+            } else {
+                OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
+            }
+        }
 
     }
 

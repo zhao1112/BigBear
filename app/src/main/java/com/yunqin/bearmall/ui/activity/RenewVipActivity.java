@@ -93,7 +93,7 @@ public class RenewVipActivity extends BaseActivity {
         invitationType = getIntent().getStringExtra("invitationType");
 
         if (invitationCode == null) {
-            invitationCode = "";
+            invitationCode = "nn";
         }
         if (invitationType == null) {
             invitationType = "";

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import com.yunqin.bearmall.adapter.ProductViewPagerAdapter;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.AddressListBean;
 import com.yunqin.bearmall.bean.ShareBean;
+import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.bean.ZeroActivityBean;
 import com.yunqin.bearmall.eventbus.ChangeFragmentEvent;
 import com.yunqin.bearmall.eventbus.CountDownFinishEvent;
@@ -315,11 +317,7 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                 .setOnDialogItemClickListener((thisDialog, clickView) -> {
                     if (clickView.getId() == R.id.join_member_ok) {
                         // startActivity(new Intent(this, VipCenterActivity.class));
-                        if (BearMallAplication.getInstance().getUser() == null) {
-                            LoginActivity.starActivity(ZeroMoneyDetailsActivity.this);
-                        } else {
-                            OpenVipActivity.startOpenVipActivity(ZeroMoneyDetailsActivity.this, null, null);
-                        }
+                        jump2VipActivity();
                     }
                     thisDialog.dismiss();
                 })
@@ -598,5 +596,25 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
     @Override
     public void onIdNumber(String idNumber) {
         this.idNumber = idNumber;
+    }
+
+
+    private void jump2VipActivity() {
+        UserInfo user = BearMallAplication.getInstance().getUser();
+        if (user == null) {
+            LoginActivity.starActivity(ZeroMoneyDetailsActivity.this);
+        } else {
+            boolean member = BearMallAplication.getInstance().getUser().getData().getMember().isMember();
+            boolean opendMember = BearMallAplication.getInstance().getUser().getData().getMember().isOpendMember();
+            Log.i("jump2VipActivity", "jump2VipActivity: " + member);
+            Log.i("jump2VipActivity", "jump2VipActivity: " + opendMember);
+
+            if (member || opendMember) {
+                RenewVipActivity.startRenewVipActivity(ZeroMoneyDetailsActivity.this, null, null);
+            } else {
+                OpenVipActivity.startOpenVipActivity(ZeroMoneyDetailsActivity.this, null, null);
+            }
+        }
+
     }
 }
