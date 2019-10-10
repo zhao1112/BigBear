@@ -89,80 +89,84 @@ public abstract class BaseActivity extends AppCompatActivity {
     private SearchDialog mSearchDialog = null;
 
     private void searchDialog() {
-        Boolean bFirst = (Boolean) SharedPreferencesUtils.getParam(this, Constants.isFirstOpen, true);
-        if (BearMallAplication.getInstance().getUser() == null) {
-            return;
-        }
-        if (loadingProgress != null && loadingProgress.isShowing()) {
-            return;
-        }
-        if (BearMallAplication.isFirst) {
-            return;
-        }
-        ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        ClipData data = cm.getPrimaryClip();
-        if (data == null || data.getItemCount() == 0) {
-            return;
-        }
-        if (data.getItemAt(0) == null) {
-            return;
-        }
-        ClipData.Item item = data.getItemAt(0);
-        content = item.getText().toString();
-        Log.d("TAG", "searchDialog:get--- " + content);
-        if (!TextUtils.isEmpty(content)) {
-            if (mSearchDialog == null) {
-                mSearchDialog = new SearchDialog(this, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mSearchDialog.dismiss();
-                        cm.setPrimaryClip(ClipData.newPlainText(null, content));
-                        BearMallAplication.isFirst = true;
-                    }
-                }, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        BearMallAplication.isFirst = true;
-                        mSearchDialog.dismiss();
-                        cm.setPrimaryClip(ClipData.newPlainText(null, ""));
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("content", content);
-                        RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).findCommodityIdByTpwd(map),
-                                new RetrofitApi.IResponseListener() {
-                                    @Override
-                                    public void onSuccess(String data) throws JSONException {
-                                        JSONObject jsonObject = new JSONObject(data);
-                                        if (jsonObject.optInt("code") == 1) {
-                                            // TODO: 2019/8/22 0022 跳转详情
-                                            GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString("data"),
-                                                    Constants.GOODS_TYPE_TBK_SEARCH);
-                                        } else {
-                                            ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
+        try {
+            Boolean bFirst = (Boolean) SharedPreferencesUtils.getParam(this, Constants.isFirstOpen, true);
+            if (BearMallAplication.getInstance().getUser() == null) {
+                return;
+            }
+            if (loadingProgress != null && loadingProgress.isShowing()) {
+                return;
+            }
+            if (BearMallAplication.isFirst) {
+                return;
+            }
+            ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+            ClipData data = cm.getPrimaryClip();
+            if (data == null || data.getItemCount() == 0) {
+                return;
+            }
+            ClipData.Item item = data.getItemAt(0);
+            if (item == null || item.getText() == null) {
+                return;
+            }
+            content = item.getText().toString();
+            Log.d("TAG", "searchDialog:get--- " + content);
+            if (!TextUtils.isEmpty(content)) {
+                if (mSearchDialog == null) {
+                    mSearchDialog = new SearchDialog(this, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mSearchDialog.dismiss();
+                            cm.setPrimaryClip(ClipData.newPlainText(null, content));
+                            BearMallAplication.isFirst = true;
+                        }
+                    }, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            BearMallAplication.isFirst = true;
+                            mSearchDialog.dismiss();
+                            cm.setPrimaryClip(ClipData.newPlainText(null, ""));
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put("content", content);
+                            RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).findCommodityIdByTpwd(map),
+                                    new RetrofitApi.IResponseListener() {
+                                        @Override
+                                        public void onSuccess(String data) throws JSONException {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if (jsonObject.optInt("code") == 1) {
+                                                // TODO: 2019/8/22 0022 跳转详情
+                                                GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString("data"),
+                                                        Constants.GOODS_TYPE_TBK_SEARCH);
+                                            } else {
+                                                ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
+                                            }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onNotNetWork() {
+                                        @Override
+                                        public void onNotNetWork() {
 
-                                    }
+                                        }
 
-                                    @Override
-                                    public void onFail(Throwable e) {
+                                        @Override
+                                        public void onFail(Throwable e) {
 
-                                    }
-                                });
+                                        }
+                                    });
 
 
-                    }
-                });
+                        }
+                    });
+                }
+                if (!mSearchDialog.isShowing()) {
+                    mSearchDialog.setMessage(content);
+                    mSearchDialog.show();
+                } else {
+                    mSearchDialog.setMessage(content);
+                }
+                cm.setText(content);
             }
-            if (!mSearchDialog.isShowing()) {
-                mSearchDialog.setMessage(content);
-                mSearchDialog.show();
-            } else {
-                mSearchDialog.setMessage(content);
-            }
-            cm.setText(content);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
