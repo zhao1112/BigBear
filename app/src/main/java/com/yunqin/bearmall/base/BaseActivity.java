@@ -104,6 +104,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (data == null || data.getItemCount() == 0) {
             return;
         }
+        if (data.getItemAt(0) == null) {
+            return;
+        }
         ClipData.Item item = data.getItemAt(0);
         content = item.getText().toString();
         Log.d("TAG", "searchDialog:get--- " + content);
@@ -126,28 +129,28 @@ public abstract class BaseActivity extends AppCompatActivity {
                         map.put("content", content);
                         RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).findCommodityIdByTpwd(map),
                                 new RetrofitApi.IResponseListener() {
-                            @Override
-                            public void onSuccess(String data) throws JSONException {
-                                JSONObject jsonObject = new JSONObject(data);
-                                if (jsonObject.optInt("code") == 1) {
-                                    // TODO: 2019/8/22 0022 跳转详情
-                                    GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString("data"),
-                                            Constants.GOODS_TYPE_TBK_SEARCH);
-                                } else {
-                                    ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
-                                }
-                            }
+                                    @Override
+                                    public void onSuccess(String data) throws JSONException {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if (jsonObject.optInt("code") == 1) {
+                                            // TODO: 2019/8/22 0022 跳转详情
+                                            GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString("data"),
+                                                    Constants.GOODS_TYPE_TBK_SEARCH);
+                                        } else {
+                                            ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
+                                        }
+                                    }
 
-                            @Override
-                            public void onNotNetWork() {
+                                    @Override
+                                    public void onNotNetWork() {
 
-                            }
+                                    }
 
-                            @Override
-                            public void onFail(Throwable e) {
+                                    @Override
+                                    public void onFail(Throwable e) {
 
-                            }
-                        });
+                                    }
+                                });
 
 
                     }
