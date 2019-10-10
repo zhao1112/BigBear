@@ -171,9 +171,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
             @Override
             public void onSuccess(String data) throws JSONException {
                 SpecialRequest specialRequest = new Gson().fromJson(data, SpecialRequest.class);
-                SpecialRequest.DataBean.SpecInvitationPageInfoBean specInvitationPageInfoBean = specialRequest.getData().getSpecInvitationPageInfo();
-                String title = String.format("您已获得特价邀请好友成为会员资格，立即邀请好友，共同享受会员权益!(本次可邀请%d位好友)", specInvitationPageInfoBean.getSpecInviteUsableCount());
-                String time = String.format("活动时间为%s—%s", specInvitationPageInfoBean.getActivityStartDate(), specInvitationPageInfoBean.getActivityEndDate());
+                SpecialRequest.DataBean.SpecInvitationPageInfoBean specInvitationPageInfoBean =
+                        specialRequest.getData().getSpecInvitationPageInfo();
+                String title = String.format("您已获得特价邀请好友成为会员资格，立即邀请好友，共同享受会员权益!(本次可邀请%d位好友)",
+                        specInvitationPageInfoBean.getSpecInviteUsableCount());
+                String time = String.format("活动时间为%s—%s", specInvitationPageInfoBean.getActivityStartDate(),
+                        specInvitationPageInfoBean.getActivityEndDate());
                 new ICustomDialog.Builder(HomeActivity.this)
                         // 设置布局
                         .setLayoutResId(R.layout.join_member_layout1)
@@ -261,8 +264,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
+        try {
+            if (EventBus.getDefault().isRegistered(this)) {
+                EventBus.getDefault().unregister(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
