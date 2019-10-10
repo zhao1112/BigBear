@@ -217,8 +217,10 @@ public abstract class BaseFragment extends Fragment {
      */
     public void hiddenLoadingView() {
         if (loadingProgress != null) {
-            loadingProgress.dismiss();
-            loadingProgress = null;
+            if (!getActivity().isFinishing()) {
+                loadingProgress.dismiss();
+                loadingProgress = null;
+            }
         }
     }
 
