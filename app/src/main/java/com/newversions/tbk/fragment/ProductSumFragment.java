@@ -361,7 +361,7 @@ public class ProductSumFragment extends BaseFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, GoodsEntity.CommodityBean item) {
-            helper.setText(R.id.item_home_pro_title, StringUtils.addImageLabel(mContext, item.getTmall() == 1 ? R.mipmap.icon_tmall :
+            helper.setText(R.id.item_home_pro_title, StringUtils.addImageLabel(getActivity(), item.getTmall() == 1 ? R.mipmap.icon_tmall :
                     R.mipmap.icon_taobao1, item.getName()));
             helper.setText(R.id.item_home_pro_quan, "券¥" + item.getCouponAmount());
             helper.setText(R.id.item_home_pro_yuanjia, "¥" + item.getPrice());
@@ -369,7 +369,7 @@ public class ProductSumFragment extends BaseFragment {
             helper.setText(R.id.tv_commision, "预估返：" + item.getCommision() + "元");
             ((TextView) helper.getView(R.id.item_home_pro_yuanjia)).getPaint().setFlags(
                     Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
-            Glide.with(mContext).load(item.getOutIcon()).into((ImageView) helper.getView(R.id.item_home_pro_image));
+            Glide.with(getContext()).load(item.getOutIcon()).into((ImageView) helper.getView(R.id.item_home_pro_image));
             helper.setText(R.id.item_home_xiaoliang, item.getSellNum() + "人已购");
             helper.setText(R.id.item_seller_name, item.getSellerName());
             helper.setImageResource(R.id.im_tmall, item.getTmall() == 1 ? R.mipmap.icon_tmall : R.mipmap.icon_taobao1);
