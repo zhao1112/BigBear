@@ -1,5 +1,5 @@
-<resources tools:locale="zh-rCN" xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name" >大熊商城</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="zh-rCN">
+    <string name="app_name">大熊商城</string>
     <string-array name="adBlockDiv">
         <item>ubmcmm.baidustatic.com</item>
         <item>cpro2.baidustatic.com</item>
@@ -91,8 +91,8 @@
     <![CDATA[<font color=\'#333333\'>已连续完成任务 </font>  <big><font color=\'#23A064\'> %s</font> </big>  <font color=\'#333333\'>天</font>   <font color=\'#333333\'>距离每月任务完成大奖 </font>  <big><font color=\'#23A064\'> %s</font> </big>  <font color=\'#333333\'>天</font> ]]>
     </string>
 
-    <item name="type_group" type="integer" />
-    <item name="type_child" type="integer" />
+    <item name="type_group" type="integer"/>
+    <item name="type_child" type="integer"/>
 
     <string name="invite_now"> <u>立即邀请</u></string>
 
@@ -121,7 +121,7 @@
 
     <string name="vip_deail">1、直接购买价：是您单独购买商品的价格；\n2、大熊零售价：是您支付部分大熊糖果购买商品的价格； \n3、划线价：可能是商品的专柜价、吊牌价、零售价、指导价或该商品曾经展示过的销售价等，并非《价格法》、《禁止价格欺诈行为的规定》规定的“原价”，仅供您参考； \n4、特别提示：实际的成交价格可能因您使用糖果等发生变化，最终以订单结算页的价格为准。若商家单独对价格进行说明的，以商家的表述为准。 \n5、直接购买价：是您单独购买商品的价格； \n6、大熊零售价：是您支付部分大熊糖果购买商品的价格； \n7、划线价：可能是商品的专柜价、吊牌价、零售价、指导价或该商品曾经展示过的销售价等，并非《价格法》、《禁止价格欺诈行为的规定》规定的“原价”，仅供您参考； \n8、特别提示：实际的成交价格可能因您使用糖果等发生变化，最终以订单结算页的价格为准。若商家单独对价格进行说明的，以商家的表述为准。</string>
 
-    <item name="tag_first" type="id" />
+    <item name="tag_first" type="id"/>
 
 
 </resources>

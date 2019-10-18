@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,12 +20,24 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.alibaba.baichuan.android.trade.AlibcTrade;
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
+import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
+import com.alibaba.baichuan.android.trade.model.OpenType;
+import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
+import com.alibaba.fastjson.JSONException;
+import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.utils.MyWebViewClient;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.api.Api;
+import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.bean.Checkzero;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,15 +60,15 @@ public class WebActivity extends BaseActivity {
     LinearLayout rlBottom;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-//    private TBKShareEntity tbkShareEntity;
+    //    private TBKShareEntity tbkShareEntity;
     private int type;
     private String goodsId;
 
-    public static void startWebActivity(Activity activity,int type,String url,String title){
-        Intent intent = new Intent(activity,WebActivity.class);
-        intent.putExtra(Constants.INTENT_KEY_TITLE,title);
-        intent.putExtra(Constants.INTENT_KEY_TYPE,type);
-        intent.putExtra(Constants.INTENT_KEY_URL,url);
+    public static void startWebActivity(Activity activity, int type, String url, String title) {
+        Intent intent = new Intent(activity, WebActivity.class);
+        intent.putExtra(Constants.INTENT_KEY_TITLE, title);
+        intent.putExtra(Constants.INTENT_KEY_TYPE, type);
+        intent.putExtra(Constants.INTENT_KEY_URL, url);
         activity.startActivity(intent);
     }
 
@@ -70,6 +86,7 @@ public class WebActivity extends BaseActivity {
         String title = getIntent().getStringExtra(Constants.INTENT_KEY_TITLE);
         toolbarTitle.setText(title);
         mWebView.loadUrl(stringUrl);
+        mWebView.addJavascriptInterface(this, "android");
         setWebViewAttribute(mWebView);
         mWebView.setWebViewClient(myWebViewClient);
         mWebView.setWebChromeClient(new WebChromeClient() {
@@ -144,6 +161,7 @@ public class WebActivity extends BaseActivity {
             mWebView = null;
         }
     }
+
     /**
      * 设置WebView 属性
      */
@@ -172,23 +190,23 @@ public class WebActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_top,R.id.toolbar_back, R.id.im_search, R.id.im_share, R.id.im_buy,R.id.toolbar_close})
+    @OnClick({R.id.tv_top, R.id.toolbar_back, R.id.im_search, R.id.im_share, R.id.im_buy, R.id.toolbar_close})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_close:
                 finish();
                 break;
             case R.id.toolbar_back:
-                if(mWebView.canGoBack()){
+                if (mWebView.canGoBack()) {
                     mWebView.goBack();
-                }else{
+                } else {
                     finish();
                 }
                 break;
             case R.id.tv_top:
                 break;
             case R.id.im_search:
-                if (BearMallAplication.getInstance().getUser()!=null) {
+                if (BearMallAplication.getInstance().getUser() != null) {
                     getMsg();
                 } else {
                     Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
@@ -235,7 +253,7 @@ public class WebActivity extends BaseActivity {
 
 
                 } else {
-                    showToast( "请先下载淘宝");
+                    showToast("请先下载淘宝");
                     hiddenLoadingView();
                 }
 
@@ -294,11 +312,103 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()){
+        if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
             mWebView.goBack();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @JavascriptInterface
+    public void buy(String type, String sendurl) {
+        Log.i("setWebViewAttribute", type + "----" + sendurl);
+        if (TextUtils.isEmpty(sendurl)) {
+            return;
+        }
+        if (BearMallAplication.getInstance().getUser() == null) {
+            LoginActivity.starActivity(this);
+        } else {
+            if ("1".equals(type)) {
+                boolean frequency = (boolean) SharedPreferencesHelper.get(WebActivity.this, "frequency", false);
+                if (!frequency) {
+                    SharedPreferencesHelper.put(WebActivity.this, "frequency", true);
+                    setFrequency(sendurl);
+                } else {
+                    Toast.makeText(WebActivity.this, "限领取1次新人红包", Toast.LENGTH_LONG).show();
+                }
+            }
+            if ("0".equals(type)) {
+                //Toast.makeText(this, "正在跳转淘宝", Toast.LENGTH_SHORT).show();
+                toTaobao(sendurl);
+            }
+        }
+    }
+
+    public void setFrequency(String sendurl) {
+        RetrofitApi.request(WebActivity.this, RetrofitApi.createApi(Api.class).getCheckzero(),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        Log.i("onSuccess", data);
+                        if (data != null) {
+                            Checkzero checkzero = new Gson().fromJson(data, Checkzero.class);
+                            if (checkzero.getData().getSuccess() == 1) {
+                                toTaobao(sendurl);
+                            }
+                            if (checkzero.getData().getSuccess() == 0) {
+                                Toast.makeText(WebActivity.this, "限领取1次新人红包", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+
+                    }
+                });
+    }
+
+    public void toTaobao(String sendurl) {
+
+        if (checkPackage("com.taobao.taobao")) {
+            AlibcShowParams alibcShowParams = new AlibcShowParams();
+            alibcShowParams.setTitle("   ");
+            alibcShowParams.setOpenType(OpenType.Native);
+            AlibcTrade.openByUrl(WebActivity.this, "", sendurl, null, null,
+                    null, alibcShowParams, null, null, new AlibcTradeCallback() {
+                        @Override
+                        public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
+
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+                            Log.i("onFailure", "code: " + i + "  meg: " + s);
+                        }
+                    });
+        } else {
+            showToast("请先下载淘宝");
+            hiddenLoadingView();
+        }
+    }
+
+    //设置手机屏幕亮度变暗
+    private void lightoff() {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 0.5f;
+        getWindow().setAttributes(lp);
+    }
+
+    //设置手机屏幕亮度显示正常
+    private void lighton() {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 1f;
+        getWindow().setAttributes(lp);
     }
 
 }

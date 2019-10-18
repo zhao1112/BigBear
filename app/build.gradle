@@ -15,7 +15,7 @@ def gitVersionCode() {
 }
 //release
 def SDK_VERSION_CODE = gitVersionCode()
-def SDK_VERSION_NAME = "4.8.3"
+def SDK_VERSION_NAME = "4.8.5"
 def RELEASE_TIME = releaseTimes()
 
 android {
@@ -37,7 +37,7 @@ android {
         applicationId "com.bbearmall.app"
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 34
+        versionCode 35
         versionName SDK_VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "versionCode"

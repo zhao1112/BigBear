@@ -1135,5 +1135,12 @@ public interface Api {
      */
     @POST("api/basic/init")
     Observable<String> getInitMessage();
+
+    /***
+     * 判断是否可以0元兑
+     * */
+    @POST("api/taokeorder/checkzero")
+    Observable<String> getCheckzero();
+
 }
 

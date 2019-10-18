@@ -31,16 +31,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BannerClicker {
-    public static void bannerClick(Activity activity,int targetType,String target,String title){
-        switch (targetType){
+    public static void bannerClick(Activity activity, int targetType, String target, String title) {
+        switch (targetType) {
             case 1://外链接
-                WebActivity.startWebActivity(activity,1,target,title);
+                WebActivity.startWebActivity(activity, 1, target, title);
                 break;
             /*case 2://分类
                 ProductSumActivity.startProductSumActivity(activity,target,4,title);
                 break;*/
             case 3://单品
-                GoodsDetailActivity.startGoodsDetailActivity(activity,target);
+                GoodsDetailActivity.startGoodsDetailActivity(activity, target);
 
 
                 break;
@@ -113,7 +113,8 @@ public class BannerClicker {
                 }
                 break;
             case 19://券
-                String url = "http://tq.365taoquan.cn/seller/app/classify?machineCode=" + DeviceUtils.getUniqueId(activity) + "&agentId=292";
+                String url = "http://tq.365taoquan.cn/seller/app/classify?machineCode=" + DeviceUtils.getUniqueId(activity) + "&agentId" +
+                        "=292";
                 Log.d("TAG", "topBarClick:---- " + url);
                 Intent intent = new Intent(activity, WebActivity.class);
                 intent.putExtra(Constants.INTENT_KEY_URL, url);
