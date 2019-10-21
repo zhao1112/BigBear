@@ -53,6 +53,15 @@ public class PopBean {
             private int skipType;
             private long source_id;
             private int type;
+            private String adUrl;
+
+            public String getAdUrl() {
+                return adUrl;
+            }
+
+            public void setAdUrl(String adUrl) {
+                this.adUrl = adUrl;
+            }
 
             public long getPopupAd_id() {
                 return popupAd_id;

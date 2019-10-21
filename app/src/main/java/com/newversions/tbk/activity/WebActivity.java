@@ -1,6 +1,7 @@
 package com.newversions.tbk.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -39,6 +40,9 @@ import com.yunqin.bearmall.bean.Checkzero;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -64,7 +68,7 @@ public class WebActivity extends BaseActivity {
     private int type;
     private String goodsId;
 
-    public static void startWebActivity(Activity activity, int type, String url, String title) {
+    public static void startWebActivity(Context activity, int type, String url, String title) {
         Intent intent = new Intent(activity, WebActivity.class);
         intent.putExtra(Constants.INTENT_KEY_TITLE, title);
         intent.putExtra(Constants.INTENT_KEY_TYPE, type);
@@ -329,15 +333,8 @@ public class WebActivity extends BaseActivity {
             LoginActivity.starActivity(this);
         } else {
             if ("1".equals(type)) {
-                boolean frequency = (boolean) SharedPreferencesHelper.get(WebActivity.this, "frequency", false);
-                if (!frequency) {
-                    SharedPreferencesHelper.put(WebActivity.this, "frequency", true);
-                    setFrequency(sendurl);
-                } else {
-                    Toast.makeText(WebActivity.this, "限领取1次新人红包", Toast.LENGTH_LONG).show();
-                }
-            }
-            if ("0".equals(type)) {
+                setFrequency(sendurl);
+            } else {
                 //Toast.makeText(this, "正在跳转淘宝", Toast.LENGTH_SHORT).show();
                 toTaobao(sendurl);
             }
@@ -354,6 +351,7 @@ public class WebActivity extends BaseActivity {
                             Checkzero checkzero = new Gson().fromJson(data, Checkzero.class);
                             if (checkzero.getData().getSuccess() == 1) {
                                 toTaobao(sendurl);
+                                updateFreeInfo();
                             }
                             if (checkzero.getData().getSuccess() == 0) {
                                 Toast.makeText(WebActivity.this, "限领取1次新人红包", Toast.LENGTH_LONG).show();
@@ -371,6 +369,30 @@ public class WebActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+    private void updateFreeInfo() {
+        Map<String, String> map = new HashMap<>();
+        if (BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() == null) {
+            return;
+        }
+        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        RetrofitApi.request(WebActivity.this, RetrofitApi.createApi(Api.class).getUpdateFreeInfo(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws org.json.JSONException {
+
+            }
+
+            @Override
+            public void onNotNetWork() {
+
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+
+            }
+        });
     }
 
     public void toTaobao(String sendurl) {

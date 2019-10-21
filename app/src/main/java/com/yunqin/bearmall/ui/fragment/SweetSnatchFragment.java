@@ -222,7 +222,7 @@ public class SweetSnatchFragment extends BaseFragment implements SweetSnatchCont
             BannerBean.DataBean.AdMobileListBean bean = bannerBean.getData().getAdMobileList().get(position);
 //                    0：普通商品 1：说明广告 2：导购文章 4：会员往期活动 5：0元拼团 6：砍价免费拿 7 糖果夺宝
 
-            IAdvClick.click(getActivity(),bean.getType(),bean.getSkipType(),bean.getSource_id());
+            IAdvClick.click(getActivity(),bean.getType(),bean.getSkipType(),bean.getSource_id(),null);
 
         });
     }

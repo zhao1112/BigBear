@@ -395,7 +395,7 @@ public class MakeMoneyFragment1 extends BaseFragment {
         imageaViews.get(pos).setOnClickListener(view -> {
             DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean adEarnMoneyListBean =
                     (DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean) view.getTag(R.id.tag_first);
-            IAdvClick.click(getActivity(), adEarnMoneyListBean.getType(), adEarnMoneyListBean.getSkipType(), adEarnMoneyListBean.getSource_id());
+            IAdvClick.click(getActivity(), adEarnMoneyListBean.getType(), adEarnMoneyListBean.getSkipType(), adEarnMoneyListBean.getSource_id(),null);
         });
 
 

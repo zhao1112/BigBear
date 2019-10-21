@@ -3,10 +3,13 @@ package com.newversions;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.newversions.detail.NewProductDetailActivity;
 import com.newversions.hd.HdActivity;
+import com.newversions.tbk.activity.WebActivity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.api.Api;
@@ -31,14 +34,12 @@ import org.json.JSONException;
 import java.util.HashMap;
 
 /**
- *
  * 统一封装广告点击事件
- *
  */
 public class IAdvClick {
 
-    public static void click(Context context, int type, int skipType, long sourceId) {
-        
+    public static void click(Context context, int type, int skipType, long sourceId, String adUrl) {
+        Log.i("IAdvClick", "type: " + type + "\n" + "skipType: " + skipType + "\n" + "sourceId: " + sourceId + "\n" + adUrl);
         if (type == 0) {
             Intent intent = new Intent(context, NewProductDetailActivity.class);
             intent.putExtra("productId", "" + sourceId);
@@ -182,6 +183,10 @@ public class IAdvClick {
             }
 
             VipCenterActivity.startVipCenterActivity(context, "", "");
+        } else if (type == 13) {
+            if (!TextUtils.isEmpty(adUrl)) {
+                WebActivity.startWebActivity(context, type, adUrl, " ");
+            }
         }
 
     }

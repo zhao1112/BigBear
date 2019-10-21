@@ -239,7 +239,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
                         thisDialog.dismiss();
                         if (clickView.getId() == R.id.ad_img) {
                             IAdvClick.click(getActivity(), popBean.getData().getPopupAd().getType(),
-                                    popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id());
+                                    popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id(),
+                                    popBean.getData().getPopupAd().getAdUrl());
                         }
                     }).build().show();
         }

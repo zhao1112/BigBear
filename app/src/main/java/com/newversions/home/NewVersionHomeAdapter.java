@@ -249,7 +249,7 @@ public class NewVersionHomeAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     @Override
                     public void onItemClick(int position) {
                         NewHomeAd.DataBean.AdMobileTopListBean adBean = lists1.get(position);
-                        IAdvClick.click(context, adBean.getType(), adBean.getSkipType(), adBean.getSource_id());
+                        IAdvClick.click(context, adBean.getType(), adBean.getSkipType(), adBean.getSource_id(),null);
                     }
                 });
             }

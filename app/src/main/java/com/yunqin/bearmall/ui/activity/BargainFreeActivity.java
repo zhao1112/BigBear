@@ -517,7 +517,7 @@ public class BargainFreeActivity extends BaseActivity implements BargainFreeCont
     }
 
     public void adClick(BannerBean.DataBean.AdMobileListBean adMobileListBean) {
-        IAdvClick.click(this, adMobileListBean.getType(), adMobileListBean.getSkipType(), adMobileListBean.getSource_id());
+        IAdvClick.click(this, adMobileListBean.getType(), adMobileListBean.getSkipType(), adMobileListBean.getSource_id(),null);
     }
 
     @Override

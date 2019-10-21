@@ -241,7 +241,7 @@ public class ZeroGoodsAdapter extends RecyclerView.Adapter {
 
     public void adClick(BannerBean.DataBean.AdMobileListBean adMobileListBean) {
 
-        IAdvClick.click(mContext, adMobileListBean.getType(), adMobileListBean.getSkipType(), adMobileListBean.getSource_id());
+        IAdvClick.click(mContext, adMobileListBean.getType(), adMobileListBean.getSkipType(), adMobileListBean.getSource_id(),null);
 
 
     }

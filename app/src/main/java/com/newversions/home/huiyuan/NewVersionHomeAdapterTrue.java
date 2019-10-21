@@ -111,7 +111,7 @@ public class NewVersionHomeAdapterTrue extends RecyclerView.Adapter<RecyclerView
                         int type = adBean.getType();
                         int skipType = adBean.getSkipType();
                         long sourceId = adBean.getSource_id();
-                        IAdvClick.click(context, type, skipType, sourceId);
+                        IAdvClick.click(context, type, skipType, sourceId,null);
                     }
                 });
             }

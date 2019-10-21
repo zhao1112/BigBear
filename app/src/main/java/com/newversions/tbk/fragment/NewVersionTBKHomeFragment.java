@@ -271,7 +271,7 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
 
 
     private void advClick(int type, int skipType, long sourceId) {
-        IAdvClick.click(getActivity(), type, skipType, sourceId);
+        IAdvClick.click(getActivity(), type, skipType, sourceId,"");
     }
 
 

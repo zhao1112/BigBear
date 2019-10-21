@@ -1142,5 +1142,12 @@ public interface Api {
     @POST("api/taokeorder/checkzero")
     Observable<String> getCheckzero();
 
+    /**
+     * 会员新人0元购
+     * */
+    @FormUrlEncoded
+    @POST("api/member/updateFreeInfo")
+    Observable<String> getUpdateFreeInfo(@FieldMap() Map<String, String> params);
+
 }
 

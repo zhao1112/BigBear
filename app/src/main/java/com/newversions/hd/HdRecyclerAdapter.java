@@ -231,6 +231,6 @@ public class HdRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     private void advClick(int type, int skiptype, long sourceId) {
-        IAdvClick.click(context, type, skiptype, sourceId);
+        IAdvClick.click(context, type, skiptype, sourceId,null);
     }
 }

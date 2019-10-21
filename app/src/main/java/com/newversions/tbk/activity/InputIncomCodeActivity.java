@@ -55,6 +55,7 @@ public class InputIncomCodeActivity extends BaseActivity {
     public void init() {
         accessToken = getIntent().getStringExtra("accessToken");
         mode = getIntent().getStringExtra("mode");
+        edCode.setSelection(edCode.getText().toString().length());
     }
 
 

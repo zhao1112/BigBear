@@ -370,7 +370,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
                     // TODO: 2019/8/1 0001 填写邀请码
                     InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,
-                            userInfo.getData().getToken().getAccess_token(),"微信");
+                            userInfo.getData().getToken().getAccess_token(),"手机");
                     finish();
 
                 } else {
