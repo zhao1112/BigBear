@@ -22,13 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.baichuan.android.trade.AlibcTrade;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
-import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
-import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
+
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
@@ -40,7 +34,7 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.Checkzero;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
-import com.yunqin.bearmall.util.SharedPreferencesHelper;
+import com.yunqin.bearmall.util.ArouseTaoBao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -398,31 +392,9 @@ public class WebActivity extends BaseActivity {
     }
 
     public void toTaobao(String sendurl) {
-
-        if (checkPackage("com.taobao.taobao")) {
-            AlibcShowParams alibcShowParams = new AlibcShowParams();
-            alibcShowParams.setOpenType(OpenType.Native);
-            alibcShowParams.setClientType("taobao");
-            alibcShowParams.setBackUrl(sendurl);
-            alibcShowParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
-
-            AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
-            taokeParams.setPid("mm_446530152_629950029_109291250388");
-
-            Map<String, String> trackParams = new HashMap<>();
-
-            AlibcTrade.openByUrl(WebActivity.this, "", sendurl, null, new WebViewClient(),
-                    new WebChromeClient(), alibcShowParams, taokeParams, trackParams, new AlibcTradeCallback() {
-                        @Override
-                        public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
-
-                        }
-
-                        @Override
-                        public void onFailure(int i, String s) {
-                            Log.i("onFailure", "code: " + i + "  meg: " + s);
-                        }
-                    });
+        ArouseTaoBao arouseTaoBao = new ArouseTaoBao(WebActivity.this);
+        if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+            arouseTaoBao.openTaoBao(sendurl);
         } else {
             showToast("请先下载淘宝");
             hiddenLoadingView();

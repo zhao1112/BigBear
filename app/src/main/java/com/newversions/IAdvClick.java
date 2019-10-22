@@ -5,10 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.WebChromeClient;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
+import com.alibaba.baichuan.android.trade.AlibcTrade;
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
+import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
+import com.alibaba.baichuan.android.trade.model.OpenType;
+import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
+import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
+import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
+import com.alibaba.baichuan.trade.biz.login.AlibcLogin;
+import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
 import com.google.gson.Gson;
 import com.newversions.detail.NewProductDetailActivity;
 import com.newversions.hd.HdActivity;
+import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.WebActivity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
@@ -26,12 +39,14 @@ import com.yunqin.bearmall.ui.activity.VanguardListPageActivity;
 import com.yunqin.bearmall.ui.activity.VipCenterActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
+import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.DeviceUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 统一封装广告点击事件
@@ -185,10 +200,25 @@ public class IAdvClick {
             VipCenterActivity.startVipCenterActivity(context, "", "");
         } else if (type == 13) {
             if (!TextUtils.isEmpty(adUrl)) {
-                WebActivity.startWebActivity(context, type, adUrl, " ");
+                AlibcLogin alibcLogin = AlibcLogin.getInstance();
+                alibcLogin.showLogin(new AlibcLoginCallback() {
+                    @Override
+                    public void onSuccess(int result, String userId, String nick) {
+                        Log.i("onFailure", "userId: " + userId + "nick: " + nick);
+                        ArouseTaoBao arouseTaoBao = new ArouseTaoBao(context);
+                        if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+                            arouseTaoBao.openTaoBao(adUrl);
+                        } else {
+                            Toast.makeText(context, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Log.i("onFailure", "onFailure: " + s.toString() + "Code: " + i);
+                    }
+                });
             }
         }
-
     }
-
 }

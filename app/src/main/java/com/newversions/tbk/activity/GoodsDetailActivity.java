@@ -46,6 +46,7 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
@@ -398,30 +399,9 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     finish();
                     return;
                 }
-                if (checkPackage("com.taobao.taobao")) {
-                    AlibcShowParams alibcShowParams = new AlibcShowParams();
-                    alibcShowParams.setOpenType(OpenType.Native);
-                    alibcShowParams.setClientType("taobao");
-                    alibcShowParams.setBackUrl(toTaoBaoEntity.getData());
-                    alibcShowParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
-
-                    AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
-                    taokeParams.setPid("mm_446530152_629950029_109291250388");
-
-                    Map<String, String> trackParams = new HashMap<>();
-
-                    AlibcTrade.openByUrl(GoodsDetailActivity.this, "", toTaoBaoEntity.getData(), null, new WebViewClient(),
-                            new WebChromeClient(), alibcShowParams, taokeParams, trackParams, new AlibcTradeCallback() {
-                        @Override
-                        public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
-
-                        }
-
-                        @Override
-                        public void onFailure(int i, String s) {
-                            Log.i("onFailure", "code: " + i + "  meg: " + s);
-                        }
-                    });
+                ArouseTaoBao arouseTaoBao = new ArouseTaoBao(GoodsDetailActivity.this);
+                if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+                    arouseTaoBao.openTaoBao(toTaoBaoEntity.getData());
                 } else {
                     showToast("请先下载淘宝");
                     hiddenLoadingView();
