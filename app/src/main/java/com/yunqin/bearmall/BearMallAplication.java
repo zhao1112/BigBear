@@ -85,10 +85,12 @@ BearMallAplication extends MobApplication {
         AlibcTradeSDK.asyncInit(this, new AlibcTradeInitCallback() {
             @Override
             public void onSuccess() {
+                Log.i("AlibcTradeSDK", "成功");
             }
 
             @Override
             public void onFailure(int code, String msg) {
+                Log.i("AlibcTradeSDK", "失败");
             }
         });
 
