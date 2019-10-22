@@ -24,7 +24,9 @@ import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
 import com.alibaba.baichuan.android.trade.model.OpenType;
+import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
+import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -385,9 +387,10 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             @Override
             public void onSuccess(String data) throws JSONException {
                 ToTaoBaoEntity toTaoBaoEntity = new Gson().fromJson(data, ToTaoBaoEntity.class);
+                Log.i("onSuccess", data);
                 if (toTaoBaoEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
-                    Log.i("onSuccess", "onSuccess: "+"-------------------");
+                    Log.i("onSuccess", "onSuccess: " + "-------------------");
                     Intent intent = new Intent(GoodsDetailActivity.this, WebActivity.class);
                     intent.putExtra(Constants.INTENT_KEY_URL, toTaoBaoEntity.getData());
                     intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
@@ -396,38 +399,29 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     return;
                 }
                 if (checkPackage("com.taobao.taobao")) {
-//                    AlibcPage alibcPage = new AlibcPage(toTaoBaoEntity.getData());
-//                    AlibcShowParams alibcShowParams = new AlibcShowParams();
-//                    alibcShowParams.setTitle("   ");
-//                    alibcShowParams.setOpenType(OpenType.Native);
-//                    AlibcTrade.show(GoodsDetailActivity.this, alibcPage, alibcShowParams, null, null, new AlibcTradeCallback() {
-//
-//                        @Override
-//                        public void onTradeSuccess(TradeResult tradeResult) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(int code, String msg) {
-//                            //打开电商组件，用户操作中错误信息回调。code：错误码；msg：错误信息
-//
-//                        }
-//                    });
                     AlibcShowParams alibcShowParams = new AlibcShowParams();
-                    alibcShowParams.setTitle("   ");
                     alibcShowParams.setOpenType(OpenType.Native);
-                    AlibcTrade.openByUrl(GoodsDetailActivity.this, "", toTaoBaoEntity.getData(), null, null,
-                            null, alibcShowParams, null, null, new AlibcTradeCallback() {
-                                @Override
-                                public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
+                    alibcShowParams.setClientType("taobao");
+                    alibcShowParams.setBackUrl(toTaoBaoEntity.getData());
+                    alibcShowParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
 
-                                }
+                    AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
+                    taokeParams.setPid("mm_446530152_629950029_109291250388");
 
-                                @Override
-                                public void onFailure(int i, String s) {
-                                    Log.i("onFailure", "code: " + i + "  meg: " + s);
-                                }
-                            });
+                    Map<String, String> trackParams = new HashMap<>();
+
+                    AlibcTrade.openByUrl(GoodsDetailActivity.this, "", toTaoBaoEntity.getData(), null, new WebViewClient(),
+                            new WebChromeClient(), alibcShowParams, taokeParams, trackParams, new AlibcTradeCallback() {
+                        @Override
+                        public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
+
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+                            Log.i("onFailure", "code: " + i + "  meg: " + s);
+                        }
+                    });
                 } else {
                     showToast("请先下载淘宝");
                     hiddenLoadingView();

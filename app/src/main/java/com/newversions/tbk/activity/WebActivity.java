@@ -26,7 +26,9 @@ import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
 import com.alibaba.baichuan.android.trade.model.OpenType;
+import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
+import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
@@ -399,10 +401,18 @@ public class WebActivity extends BaseActivity {
 
         if (checkPackage("com.taobao.taobao")) {
             AlibcShowParams alibcShowParams = new AlibcShowParams();
-            alibcShowParams.setTitle("   ");
             alibcShowParams.setOpenType(OpenType.Native);
-            AlibcTrade.openByUrl(WebActivity.this, "", sendurl, null, null,
-                    null, alibcShowParams, null, null, new AlibcTradeCallback() {
+            alibcShowParams.setClientType("taobao");
+            alibcShowParams.setBackUrl(sendurl);
+            alibcShowParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
+
+            AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
+            taokeParams.setPid("mm_446530152_629950029_109291250388");
+
+            Map<String, String> trackParams = new HashMap<>();
+
+            AlibcTrade.openByUrl(WebActivity.this, "", sendurl, null, new WebViewClient(),
+                    new WebChromeClient(), alibcShowParams, taokeParams, trackParams, new AlibcTradeCallback() {
                         @Override
                         public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
 
