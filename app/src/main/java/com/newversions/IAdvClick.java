@@ -200,24 +200,25 @@ public class IAdvClick {
             VipCenterActivity.startVipCenterActivity(context, "", "");
         } else if (type == 13) {
             if (!TextUtils.isEmpty(adUrl)) {
-                AlibcLogin alibcLogin = AlibcLogin.getInstance();
-                alibcLogin.showLogin(new AlibcLoginCallback() {
-                    @Override
-                    public void onSuccess(int result, String userId, String nick) {
-                        Log.i("onFailure", "userId: " + userId + "nick: " + nick);
-                        ArouseTaoBao arouseTaoBao = new ArouseTaoBao(context);
-                        if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
-                            arouseTaoBao.openTaoBao(adUrl);
-                        } else {
-                            Toast.makeText(context, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
-                        }
-                    }
+//                AlibcLogin alibcLogin = AlibcLogin.getInstance();
+//                alibcLogin.showLogin(new AlibcLoginCallback() {
+//                    @Override
+//                    public void onSuccess(int result, String userId, String nick) {
+//                        Log.i("onFailure", "userId: " + userId + "nick: " + nick);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int i, String s) {
+//                        Log.i("onFailure", "onFailure: " + s.toString() + "Code: " + i);
+//                    }
+//                });
 
-                    @Override
-                    public void onFailure(int i, String s) {
-                        Log.i("onFailure", "onFailure: " + s.toString() + "Code: " + i);
-                    }
-                });
+                ArouseTaoBao arouseTaoBao = new ArouseTaoBao(context);
+                if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+                    arouseTaoBao.openTaoBao(adUrl);
+                } else {
+                    Toast.makeText(context, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
+                }
             }
         }
     }
