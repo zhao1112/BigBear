@@ -26,9 +26,6 @@ import com.yunqin.bearmall.util.DeviceUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +33,7 @@ public class BannerClicker {
     public static void bannerClick(Activity activity, int targetType, String target, String title) {
         Log.i("bannerClick", "targetType: " + targetType + "--- target" + target);
         switch (targetType) {
-            case 1://外链接
+            case 1://外部淘宝链接
 //                WebActivity.startWebActivity(activity, 1, target, title);
                 ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
                 if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
@@ -129,6 +126,9 @@ public class BannerClicker {
                 intent.putExtra(Constants.INTENT_KEY_URL, url);
                 intent.putExtra(Constants.INTENT_KEY_TITLE, "名品抵扣券");
                 activity.startActivity(intent);
+                break;
+            case 30://0元兑
+                WebActivity.startWebActivity(activity, 1, target, title);
                 break;
         }
     }
