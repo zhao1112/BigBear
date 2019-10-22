@@ -3,6 +3,7 @@ package com.newversions.tbk.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.iBookStar.views.YmConfig;
 import com.newversions.CardListWebActivity;
@@ -19,6 +20,7 @@ import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.DeviceUtils;
 
 import org.json.JSONException;
@@ -32,9 +34,16 @@ import java.util.Map;
 
 public class BannerClicker {
     public static void bannerClick(Activity activity, int targetType, String target, String title) {
+        Log.i("bannerClick", "targetType: " + targetType + "--- target" + target);
         switch (targetType) {
             case 1://外链接
-                WebActivity.startWebActivity(activity, 1, target, title);
+//                WebActivity.startWebActivity(activity, 1, target, title);
+                ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
+                if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+                    arouseTaoBao.openTaoBao(target);
+                } else {
+                    Toast.makeText(activity, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
+                }
                 break;
             /*case 2://分类
                 ProductSumActivity.startProductSumActivity(activity,target,4,title);
