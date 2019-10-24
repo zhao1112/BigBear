@@ -11,13 +11,21 @@ public interface NewVersionTBKHomeContract {
 
 
     interface View {//填充界面
+
         void showLoad();
+
         void hideLoad();
+
         void onNotNetWork();
+
         void onRefreshFinish();
+
         void onLoadMoreFinish();
+
         void onHasMore(boolean hasMore);
+
         void attachData(TBKHomeEntity TBKHomeEntity);
+
         void attachAddData(TBKHomeGoodsEntity TBKGoodsEntity);
 //        void attachBannerData(NewHomeAd homeAd);
 
@@ -28,8 +36,11 @@ public interface NewVersionTBKHomeContract {
     }
 
     interface Presenter {//获取数据
+
         void init();
+
         void onRefresh();
+
         void onLoadMore();
         //贷款
 //        void getLoanData();

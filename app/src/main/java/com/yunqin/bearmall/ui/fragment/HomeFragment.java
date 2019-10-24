@@ -50,32 +50,23 @@ import permison.listener.PermissionListener;
  */
 public class HomeFragment extends BaseFragment implements HomeContract.UI {
 
-
     HomeContract.Presenter mPresenter;
-
     @BindView(R.id.xtablelayout)
     XTabLayout xtablelayout;
-
     @BindView(R.id.viewpager)
     ViewPager viewpager;
-
     @BindView(R.id.menu)
     RelativeLayout menu;
 
-
     private HighlightButton mHighlightButton;
 
-
     private TabTitleAdapter adapter;
-
 
     @BindView(R.id.not_net)
     View view;
 
-
     @BindView(R.id.dot_view)
     DotView dot_view;
-
 
     @Override
     public int layoutId() {
@@ -85,8 +76,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
     @Override
     public void init() {
         EventBus.getDefault().register(this);
-
-
         showLoading();
         mPresenter = new HomePresenter(this);
         mPresenter.start(getActivity());
@@ -160,7 +149,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
             }
         });
 
-
     }
 
     @Override
@@ -170,7 +158,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
         xtablelayout.setVisibility(View.GONE);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -178,19 +165,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
         if (isVisibility) {
             mPresenter.initAdData(getActivity());
         }
-
-
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-
         isVisibility = !hidden;
         super.onHiddenChanged(hidden);
         if (!hidden) {
-
             requestData();
-
             setDarkStatusIcon(true);
             int vvv = xtablelayout.getSelectedTabPosition();
             if (vvv == 0) {
@@ -210,7 +192,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
             }
         }
     }
-
 
     @Override
     public void resultAdData(String key, String value, String data) {
@@ -246,7 +227,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
         }
     }
 
-
     public void requestData() {
         Map timeMap = new HashMap();
         if ((long) SharedPreferencesHelper.get(getActivity(), "lastTime0", 0l) != 0l) {
@@ -264,23 +244,22 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
 
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap),
                 new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) {
-                MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
-                int count = messageItemCount.getData().getUnreadMessageCount();
-                dot_view.setShowNum(count);
-            }
+                    @Override
+                    public void onSuccess(String data) {
+                        MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
+                        int count = messageItemCount.getData().getUnreadMessageCount();
+                        dot_view.setShowNum(count);
+                    }
 
-            @Override
-            public void onNotNetWork() {
+                    @Override
+                    public void onNotNetWork() {
 
-            }
+                    }
 
-            @Override
-            public void onFail(Throwable e) {
-            }
-        });
+                    @Override
+                    public void onFail(Throwable e) {
+                    }
+                });
     }
-
 
 }

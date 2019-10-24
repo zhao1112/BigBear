@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <include
         android:id="@+id/not_net"
         layout="@layout/network_error_layout"
         android:visibility="gone" />
-
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -68,7 +66,6 @@
                         android:textSize="@dimen/ds24" />
                 </LinearLayout>
 
-
                 <RelativeLayout
                     android:layout_width="44pt"
                     android:layout_height="48pt"
@@ -92,7 +89,6 @@
 
 
                 </RelativeLayout>
-
 
             </LinearLayout>
 
@@ -118,12 +114,10 @@
             app:xTabTextSize="@dimen/ds28" />
     </android.support.design.widget.AppBarLayout>
 
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
 </android.support.design.widget.CoordinatorLayout>

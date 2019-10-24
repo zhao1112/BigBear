@@ -38,12 +38,11 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
     @Override
     public void init() {
         if (view != null) {
-            view.showLoad();
             getHomeDate();
         }
     }
 
-    private void getHomeDate(){
+    private void getHomeDate() {
         Map<String, String> mHashMap = new HashMap<>();
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeListData(mHashMap), new RetrofitApi.IResponseListener() {
 
@@ -75,48 +74,45 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
         });
     }
 
-    private void getHomeGoods(){
-
-
-//        view.showLoad();
+    private void getHomeGoods() {
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("page", String.valueOf(PAGE_NUMBER));
         mHashMap.put("deviceNumber", DeviceUtils.getUniqueId(context));
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap),
+                new RetrofitApi.IResponseListener() {
 
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                view.hideLoad();
-                try {
-                    Log.e("TCP", data);
-                    TBKHomeGoodsEntity homeBean = new Gson().fromJson(data, TBKHomeGoodsEntity.class);
-                    Log.e("TCP", "homeBean.getRecommend().size()"+homeBean.getRecommend().size()+"");
-                    view.attachAddData(homeBean);
-                    // TODO: 2019/7/13 0013 判断是否有更多
-                    hasMore = PAGE_NUMBER<homeBean.getPages();
-                    view.onHasMore(hasMore);
-                    view.onRefreshFinish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        Log.e("getHomeGoods", data);
+                        try {
+                            Log.e("TCP", data);
+                            TBKHomeGoodsEntity homeBean = new Gson().fromJson(data, TBKHomeGoodsEntity.class);
+                            Log.e("TCP", "homeBean.getRecommend().size()" + homeBean.getRecommend().size() + "");
+                            view.attachAddData(homeBean);
+                            // TODO: 2019/7/13 0013 判断是否有更多
+                            hasMore = PAGE_NUMBER < homeBean.getPages();
+                            view.onHasMore(hasMore);
+                            view.onRefreshFinish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-            @Override
-            public void onNotNetWork() {
-                view.hideLoad();
-                view.onNotNetWork();
-                view.onLoadMoreFinish();
-                view.onRefreshFinish();
-            }
+                    @Override
+                    public void onNotNetWork() {
+                        view.onNotNetWork();
+                        view.onLoadMoreFinish();
+                        view.onRefreshFinish();
+                    }
 
-            @Override
-            public void onFail(Throwable e) {
-                view.hideLoad();
-                view.onNotNetWork();
-                view.onLoadMoreFinish();
-                view.onRefreshFinish();
-            }
-        });
+                    @Override
+                    public void onFail(Throwable e) {
+                        Log.i("getHomeGoods", e.getMessage());
+                        view.onNotNetWork();
+                        view.onLoadMoreFinish();
+                        view.onRefreshFinish();
+                    }
+                });
     }
 
 
@@ -131,13 +127,9 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
     @Override
     public void onLoadMore() {
         if (view != null && hasMore) {
-            view.showLoad();
             PAGE_NUMBER++;
             getHomeGoods();
-
         }
     }
-
-
 
 }

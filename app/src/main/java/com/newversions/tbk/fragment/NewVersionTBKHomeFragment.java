@@ -34,14 +34,15 @@ import butterknife.BindView;
  * Create By Master
  * On 2019/1/3 16:13
  */
-public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersionTBKHomeContract.View, NewVersionTBKHomeAdapter.OnItemClickListener {
+public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersionTBKHomeContract.View,
+        NewVersionTBKHomeAdapter.OnItemClickListener {
 
     @BindView(R.id.n_v_recycler_view)
     public RecyclerView mRecyclerView;
-    @BindView(R.id.n_v_refreshLayout)
-    TwinklingRefreshLayout mTwinklingRefreshLayout;
     @BindView(R.id.n_v_not_net)
     View mNoNetView;
+    @BindView(R.id.home_refreshLayout)
+    public TwinklingRefreshLayout mTwinklingRefreshLayout;
 
     private boolean hasNext = false;
     private NewVersionTBKHomeAdapter mNewVersionHomeAdapter;
@@ -57,8 +58,6 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
 
         mPresenter = new NewVersionTBKHomePresenter(getActivity(), this);
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(getActivity()));
-//        mTwinklingRefreshLayout.setBottomView(new RefreshBottomView(getActivity()));
-        mTwinklingRefreshLayout.setBottomView(new RefreshFooterView(getActivity()));
         mTwinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -127,7 +126,7 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
 
     @Override
     public void onNotNetWork() {
-//        mNoNetView.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -143,10 +142,8 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
     @Override
     public void onHasMore(boolean hasMore) {
         this.hasNext = hasMore;
-        if (hasMore) {
-            mTwinklingRefreshLayout.setEnableLoadmore(false);
-        } else {
-            mTwinklingRefreshLayout.setEnableLoadmore(true);
+        if (!hasMore) {
+            mTwinklingRefreshLayout.setBottomView(new RefreshFooterView(getActivity()));
         }
     }
 
@@ -161,21 +158,10 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
         mNewVersionHomeAdapter.addData(homeBean);
     }
 
-//    @Override
-//    public void attachBannerData(NewHomeAd homeAd) {
-//        mNewVersionHomeAdapter.setBannerData(homeAd);
-//    }
-
-//    @Override
-//    public void loanData(String json) {
-//        // TODO: 2019/4/18 我要借钱
-//        LoanBean loanBean = new Gson().fromJson(json,LoanBean.class);
-//        LoanActivity.startLoanActivity(getActivity(),loanBean.getData().getLinkSite(),"我要借钱");
-//    }
 
     @Override
     public void loanError() {
-        ToastUtils.showToast(getActivity(),"加载失败");
+        ToastUtils.showToast(getActivity(), "加载失败");
     }
 
 
@@ -209,9 +195,7 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
                     LoginActivity.starActivity(getActivity());
                     return;
                 }
-
                 InviteFriendActivity.startActivity(getActivity());
-//                StarActivityUtil.starActivity(getActivity(), VipCenterActivity.class);
                 break;
             case R.id.n_v_home_5:
                 // TODO 砍价随意拿
@@ -223,22 +207,14 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
                     LoginActivity.starActivity(getActivity());
                     return;
                 }
-
                 DailyTasksActivity.starActivity(getActivity());
                 break;
             case R.id.n_v_home_7:
                 // TODO 我要借钱
-//                if (BearMallAplication.getInstance().getUser() == null) {
-//                    LoginActivity.starActivity(getActivity());
-//                    return;
-//                }
-//                mPresenter.getLoanData();
                 break;
-//                Toast.makeText(getActivity(), "暂未开放", Toast.LENGTH_SHORT).show();
             case R.id.n_v_home_8:
                 // TODO 游戏中心
                 startActivity(new Intent(getActivity(), ZanWeiKaiFangActivity.class));
-//                Toast.makeText(getActivity(), "暂未开放", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.n_v_home_image_1:
                 NewHomeAd.DataBean.AdMobileCrossList1Bean abc = (NewHomeAd.DataBean.AdMobileCrossList1Bean) ((IImageView) view).getITag();
@@ -271,8 +247,7 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
 
 
     private void advClick(int type, int skipType, long sourceId) {
-        IAdvClick.click(getActivity(), type, skipType, sourceId,"");
+        IAdvClick.click(getActivity(), type, skipType, sourceId, "");
     }
-
 
 }
