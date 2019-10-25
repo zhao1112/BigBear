@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/ds250"
-    android:background="#F7F7F7"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/ds250"
+              android:background="#F7F7F7"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,16 +32,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/ds30"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxEms="8"
+                    android:singleLine="true"
                     android:textColor="#484848"
-                    android:textSize="@dimen/ds28" />
+                    android:textSize="@dimen/ds28"/>
 
                 <TextView
                     android:id="@+id/address_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/ds48"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:textColor="#333333"
-                    android:textSize="@dimen/ds28" />
+                    android:textSize="@dimen/ds28"/>
 
 
             </LinearLayout>
@@ -49,15 +54,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/address_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/ds30"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="#666666"
-                    android:textSize="@dimen/ds24" />
+                    android:textSize="@dimen/ds24"/>
 
 
             </LinearLayout>
@@ -72,13 +81,13 @@
             android:layout_height="@dimen/ds52"
             android:layout_marginRight="@dimen/ds30"
             android:background="@drawable/address_bg_green"
-            android:paddingBottom="@dimen/ds4"
             android:paddingLeft="@dimen/ds46"
-            android:paddingRight="@dimen/ds46"
             android:paddingTop="@dimen/ds4"
+            android:paddingRight="@dimen/ds46"
+            android:paddingBottom="@dimen/ds4"
             android:text="编辑"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/ds24" />
+            android:textSize="@dimen/ds24"/>
 
 
     </LinearLayout>
@@ -107,7 +116,7 @@
                 android:layout_marginLeft="@dimen/ds30"
                 android:checked="true"
                 android:enabled="false"
-                android:gravity="center" />
+                android:gravity="center"/>
 
         </RelativeLayout>
 
@@ -118,7 +127,7 @@
             android:layout_weight="1"
             android:text="设置为默认"
             android:textColor="#666666"
-            android:textSize="@dimen/ds24" />
+            android:textSize="@dimen/ds24"/>
 
 
         <Button
@@ -127,13 +136,13 @@
             android:layout_height="@dimen/ds52"
             android:layout_marginRight="@dimen/ds30"
             android:background="@drawable/address_bg"
-            android:paddingBottom="@dimen/ds4"
             android:paddingLeft="@dimen/ds46"
-            android:paddingRight="@dimen/ds46"
             android:paddingTop="@dimen/ds4"
+            android:paddingRight="@dimen/ds46"
+            android:paddingBottom="@dimen/ds4"
             android:text="删除"
             android:textColor="#666666"
-            android:textSize="@dimen/ds24" />
+            android:textSize="@dimen/ds24"/>
 
     </LinearLayout>
 

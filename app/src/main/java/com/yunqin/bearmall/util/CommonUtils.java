@@ -19,6 +19,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
@@ -36,6 +37,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.matches;
 
 public class CommonUtils {
 
@@ -103,8 +106,6 @@ public class CommonUtils {
             context.startActivity(intent);
         }
     }
-
-
 
 
     /**
@@ -329,8 +330,8 @@ public class CommonUtils {
 
 
     /*
-      * 将时间戳转换为时间
-      */
+     * 将时间戳转换为时间
+     */
     public static String stampToDate(String s) {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -339,7 +340,6 @@ public class CommonUtils {
         res = simpleDateFormat.format(date);
         return res;
     }
-
 
 
     /**
@@ -397,10 +397,10 @@ public class CommonUtils {
         //        判断密码是否包含特殊符号(~!@#$%^&*()_+|<>,.?/:;'[]{}\)：包含返回1，不包含返回0
         int k = pwd.matches(".*[~!@#$%^&*()_+|<>,.?/:;'\\[\\]{}\"]+.*") ? 1 : 0;
 
-        if(i+j+k <2){
+        if (i + j + k < 2) {
             return false;
         }
-        return  true;
+        return true;
     }
 
 
@@ -417,14 +417,14 @@ public class CommonUtils {
         }
         String[] version1Array = version1.split("\\.");
         String[] version2Array = version2.split("\\.");
-        Log.d("HomePageActivity", "version1Array=="+version1Array.length);
-        Log.d("HomePageActivity", "version2Array=="+version2Array.length);
+        Log.d("HomePageActivity", "version1Array==" + version1Array.length);
+        Log.d("HomePageActivity", "version2Array==" + version2Array.length);
         int index = 0;
         // 获取最小长度值
         int minLen = Math.min(version1Array.length, version2Array.length);
         int diff = 0;
         // 循环判断每位的大小
-        Log.d("HomePageActivity", "verTag2=2222="+version1Array[index]);
+        Log.d("HomePageActivity", "verTag2=2222=" + version1Array[index]);
         while (index < minLen
                 && (diff = Integer.parseInt(version1Array[index])
                 - Integer.parseInt(version2Array[index])) == 0) {
@@ -446,6 +446,18 @@ public class CommonUtils {
             return 0;
         } else {
             return diff > 0 ? 1 : -1;
+        }
+    }
+
+    /**
+     * 判断字符串中是否包含字母
+     **/
+    public static boolean isContainsLetter(String input) {
+        if (!TextUtils.isEmpty(input)) {
+            Matcher matcher = Pattern.compile(".*[a-zA-Z]+.*").matcher(input);
+            return matcher.matches();
+        } else {
+            return false;
         }
     }
 

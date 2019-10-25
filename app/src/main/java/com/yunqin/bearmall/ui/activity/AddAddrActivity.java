@@ -2,6 +2,7 @@ package com.yunqin.bearmall.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.Address;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.CustomAddressProvider;
 import com.yunqin.bearmall.widget.SwitchButton;
 
@@ -88,6 +90,8 @@ public class AddAddrActivity extends BaseActivity {
             ADD_OR_UPDATE = false;
             titleTextView.setText("新建收货地址");
         }
+
+        ed_consignee_name.setSelection(ed_consignee_name.getText().toString().length());
     }
 
     CountDownLatch countDownLatch;
@@ -161,9 +165,14 @@ public class AddAddrActivity extends BaseActivity {
                     showToast("请填写联系人姓名");
                     break;
                 }
-                if (ed_consignee_number.getText().toString().length() <= 0) {
-                    showToast("请填写手机号码");
-                    break;
+
+                if (TextUtils.isEmpty(ed_consignee_number.getText().toString())) {
+                    showToast("请先输入手机号");
+                    return;
+                }
+                if (!CommonUtils.isPhoneNumber(ed_consignee_number.getText().toString())) {
+                    showToast("请输入正确的手机号");
+                    return;
                 }
                 if (AddAddressTextView.getText().toString().equals(getResources().getString(R.string.addr_select))) {
                     showToast("请选择地址");

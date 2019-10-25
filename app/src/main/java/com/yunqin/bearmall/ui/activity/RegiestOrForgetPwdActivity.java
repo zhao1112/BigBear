@@ -76,7 +76,7 @@ public class RegiestOrForgetPwdActivity extends BaseActivity implements Register
 
     RegisterOrResetContract.Presenter presenter;
 
-    private String id ;
+    private String id;
 
     public static void starActivity(Activity mContext, int formWhere) {
         Intent intent = new Intent(mContext, RegiestOrForgetPwdActivity.class);
@@ -85,7 +85,7 @@ public class RegiestOrForgetPwdActivity extends BaseActivity implements Register
         mContext.overridePendingTransition(R.anim.activity_in, R.anim.activity_stay);
     }
 
-    public static void starActivity(Activity mContext, int formWhere,String phoneNumber) {
+    public static void starActivity(Activity mContext, int formWhere, String phoneNumber) {
         Intent intent = new Intent(mContext, RegiestOrForgetPwdActivity.class);
         intent.putExtra("formWhere", formWhere);
         intent.putExtra("phoneNumber", phoneNumber);
@@ -103,8 +103,8 @@ public class RegiestOrForgetPwdActivity extends BaseActivity implements Register
         id = DeviceUtils.getUniqueId(this);
         fromWhere = (int) getIntent().getExtras().get("formWhere");
 
-        if(getIntent().getExtras().get("phoneNumber") != null){
-            phone_number.setText((String)getIntent().getExtras().get("phoneNumber"));
+        if (getIntent().getExtras().get("phoneNumber") != null) {
+            phone_number.setText((String) getIntent().getExtras().get("phoneNumber"));
             phone_number.cliearX();
             phone_number.setFocusable(false);
             phone_number.setClickable(false);
@@ -121,41 +121,32 @@ public class RegiestOrForgetPwdActivity extends BaseActivity implements Register
             titleTextView.setText("重置密码");
         }
         presenter = new RegisterOrResetPersenter(this);
-        presenter.perfromVerificationCode(this,id);
+        presenter.perfromVerificationCode(this, id);
     }
 
     @OnClick({R.id.getcode_btn, R.id.get_img_code, R.id.toolbar_back, R.id.login_btn})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.getcode_btn:
-//                if(phone_number.getText()== null || phone_number.getText().toString().equals("")){
-//                    showToast("请先输入手机号");
-//                    return;
-//                }
-//                if(phone_number.getText()== null || !CommonUtils.isPhoneNumber(phone_number.getText().toString())){
-//                    showToast("请输入正确的手机号");
-//                    return;
-//                }
-
-                if(img_code.getText()== null || img_code.getText().toString().equals("")){
+                if (img_code.getText() == null || img_code.getText().toString().equals("")) {
                     showToast("请输入图形验证码");
                     return;
                 }
 
                 Constans.params.clear();
                 if (fromWhere == FORMREGIEST) {
-                    Constans.params.put("validType",2+"");
-                }else {
-                    Constans.params.put("validType",4+"");
+                    Constans.params.put("validType", 2 + "");
+                } else {
+                    Constans.params.put("validType", 4 + "");
                 }
                 Constans.params.put("machine_id", id);
-                Constans.params.put("mobile",BearMallAplication.getInstance().getUser().getData().getMember().getMobile());
-                Constans.params.put("vCod",img_code.getText().toString());
-                presenter.sendMsgCode(this,Constans.params);
+                Constans.params.put("mobile", BearMallAplication.getInstance().getUser().getData().getMember().getMobile());
+                Constans.params.put("vCod", img_code.getText().toString());
+                presenter.sendMsgCode(this, Constans.params);
                 CommonUtils.showCountDown(getcodeBtn, CommonUtils.waittime, 1000);
                 break;
             case R.id.get_img_code:
-                presenter.perfromVerificationCode(this,id);
+                presenter.perfromVerificationCode(this, id);
                 break;
             case R.id.toolbar_back:
                 finish();
@@ -171,41 +162,37 @@ public class RegiestOrForgetPwdActivity extends BaseActivity implements Register
      * 用户注册和重新设置密码
      */
     private void regiestOrReset() {
-//        if(phone_number.getText() == null || phone_number.getText().toString().equals("")){
-//            showToast("请先输入手机号");
-//            return;
-//        }
-//        if(phone_number.getText()== null || !CommonUtils.isPhoneNumber(phone_number.getText().toString())){
-//            showToast("请输入正确的手机号");
-//            return;
-//        }
-        if(psw.getText().toString().equals("")){
+        if (psw.getText().toString().equals("")) {
             showToast("请输入密码");
             return;
         }
-        if(psw.getText().toString().length() < 6 || psw.getText().toString().length() > 20){
+        if (psw.getText().toString().length() < 6 || psw.getText().toString().length() > 20) {
             showToast("请输入6-20的密码");
             return;
         }
-        if(img_code.getText().toString().equals("")){
+        if (!CommonUtils.isContainsLetter(psw.getText().toString())) {
+            showToast("密码至少包含一个字母");
+            return;
+        }
+        if (img_code.getText().toString().equals("")) {
             showToast("请输入图片码");
             return;
         }
-        if(msg_Code.getText().toString().equals("")){
+        if (msg_Code.getText().toString().equals("")) {
             showToast("请输入随机码");
             return;
         }
 
         Map<String, String> mHashMap = new HashMap<>();
-        mHashMap.put("mobile",BearMallAplication.getInstance().getUser().getData().getMember().getMobile());
-        mHashMap.put("vCod",img_code.getText().toString().trim());
-        mHashMap.put("smsVCod",msg_Code.getText().toString().trim());
+        mHashMap.put("mobile", BearMallAplication.getInstance().getUser().getData().getMember().getMobile());
+        mHashMap.put("vCod", img_code.getText().toString().trim());
+        mHashMap.put("smsVCod", msg_Code.getText().toString().trim());
         mHashMap.put("machine_id", DeviceUtils.getUniqueId(this));
         if (fromWhere == FORMREGIEST) {
-            mHashMap.put("password",psw.getText().toString().trim());
+            mHashMap.put("password", psw.getText().toString().trim());
             presenter.performRegister(this, mHashMap);
         } else {
-            mHashMap.put("newPassword",psw.getText().toString().trim());
+            mHashMap.put("newPassword", psw.getText().toString().trim());
             presenter.perfromReset(this, mHashMap);
         }
     }
@@ -239,8 +226,8 @@ public class RegiestOrForgetPwdActivity extends BaseActivity implements Register
         // TODO 注册成功
         BearMallAplication.getInstance().setUser(userInfo);
         showToast("注册成功");
-        SharedPreferencesHelper.put(RegiestOrForgetPwdActivity.this,"isFirstBind",true);
-        SharedPreferencesHelper.put(RegiestOrForgetPwdActivity.this,"firstLoginReward",userInfo.getData().getFirstLoginReward());
+        SharedPreferencesHelper.put(RegiestOrForgetPwdActivity.this, "isFirstBind", true);
+        SharedPreferencesHelper.put(RegiestOrForgetPwdActivity.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
         EventBus.getDefault().post(new FinishEvent());
         finish();
     }
@@ -249,7 +236,7 @@ public class RegiestOrForgetPwdActivity extends BaseActivity implements Register
     public void registerFail(String msg) {
         // TODO 注册失败
         showToast("注册失败：" + msg);
-        presenter.perfromVerificationCode(this,id);
+        presenter.perfromVerificationCode(this, id);
     }
 
     @Override
@@ -263,7 +250,7 @@ public class RegiestOrForgetPwdActivity extends BaseActivity implements Register
     public void resetFail(String msg) {
         // TODO 重置失败
         showToast("密码重置失败：" + msg);
-        presenter.perfromVerificationCode(this,id);
+        presenter.perfromVerificationCode(this, id);
     }
 
 
