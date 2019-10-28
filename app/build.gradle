@@ -36,8 +36,8 @@ android {
     defaultConfig {
         applicationId "com.bbearmall.app"
         minSdkVersion 17
-        targetSdkVersion 28
-        versionCode 37
+        targetSdkVersion 27
+        versionCode 38
         versionName SDK_VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "versionCode"
