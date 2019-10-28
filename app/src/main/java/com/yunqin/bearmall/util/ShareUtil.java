@@ -58,18 +58,17 @@ public class ShareUtil {
 
     private static boolean isSharePyq = false;
 
-    public static void Share(Context context, ShareBean.DataBean shareBeanN,boolean isSharePyqN){
+    public static void Share(Context context, ShareBean.DataBean shareBeanN, boolean isSharePyqN) {
         mContext = context;
         shareBean = shareBeanN;
-        isSharePyq =isSharePyqN;
+        isSharePyq = isSharePyqN;
         final Dialog shareDialog = new Dialog(context, R.style.ProductDialog);
         shareDialog.setCanceledOnTouchOutside(true);
         creatShowDialog(context, shareDialog);
     }
 
 
-
-    public static  void creatShowDialog(final Context context, final Dialog shareDialog){
+    public static void creatShowDialog(final Context context, final Dialog shareDialog) {
         View view = LayoutInflater.from(context).inflate(R.layout.share_dialog_layout, null);
         shareDialog.setContentView(view);
         Window window = shareDialog.getWindow();
@@ -80,7 +79,7 @@ public class ShareUtil {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
-        if(isSharePyq){
+        if (isSharePyq) {
             view.findViewById(R.id.pyq_share).setVisibility(View.VISIBLE);
         }
 
@@ -114,10 +113,10 @@ public class ShareUtil {
         view.findViewById(R.id.qq_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isQQClientAvailable(mContext)){
+                if (isQQClientAvailable(mContext)) {
                     shareNormal(QQ.NAME, context);
                     shareDialog.dismiss();
-                }else {
+                } else {
                     Toast.makeText(context, "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -132,7 +131,7 @@ public class ShareUtil {
 
 
     //普通的分享
-    public static void shareNormal(String platform,Context context) {
+    public static void shareNormal(String platform, Context context) {
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();
         oks.setTitle(shareBean.getTitle());
@@ -146,18 +145,18 @@ public class ShareUtil {
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                Log.e("Share","普通分享成功");
+                Log.e("Share", "普通分享成功");
                 shareCallback(shareBean);
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-                Log.e("Share","普通分享失败");
+                Log.e("Share", "普通分享失败");
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
-                Log.e("Share","普通分享取消");
+                Log.e("Share", "普通分享取消");
             }
         });
         if (platform != null) {
@@ -167,9 +166,9 @@ public class ShareUtil {
     }
 
     //分享小程序
-    public static void shareMiniProgram(){
+    public static void shareMiniProgram() {
         Platform platform = ShareSDK.getPlatform(Wechat.NAME);
-        Platform.ShareParams shareParams = new  Platform.ShareParams();
+        Platform.ShareParams shareParams = new Platform.ShareParams();
         shareParams.setText(shareBean.getSpeciality());
         shareParams.setTitle(shareBean.getTitle());
         shareParams.setUrl(shareBean.getShareUrl());
@@ -182,18 +181,18 @@ public class ShareUtil {
         platform.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                Log.e("Share","分享小程序成功");
+                Log.e("Share", "分享小程序成功");
                 shareCallback(shareBean);
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-                Log.e("Share","分享小程序失败");
+                Log.e("Share", "分享小程序失败");
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
-                Log.e("Share","分享小程序取消");
+                Log.e("Share", "分享小程序取消");
             }
         });
         platform.share(shareParams);
@@ -220,19 +219,20 @@ public class ShareUtil {
     }
 
 
-    public static void  shareCallback(ShareBean.DataBean shareBean){
+    public static void shareCallback(ShareBean.DataBean shareBean) {
         Map map = new HashMap();
-        map.put("source_id",shareBean.getSource_id()+"");
-        map.put("type",shareBean.getType()+"");
-        map.put("isShared",1+"");
+        map.put("source_id", shareBean.getSource_id() + "");
+        map.put("type", shareBean.getType() + "");
+        map.put("isShared", 1 + "");
         RetrofitApi.request(mContext, RetrofitApi.createApi(Api.class).callBackForShare(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
                 //todo 熊波，分享结果回调
                 try {
-                    ShareCallBackBean shareCallBackBean = new Gson().fromJson(data,ShareCallBackBean.class);
-                    if(shareCallBackBean.getData().getIsReward() == 1){
-                        ToastGetBC.getInstence().show(mContext, "+" + shareCallBackBean.getData().getValue()+"BC");
+                    ShareCallBackBean shareCallBackBean = new Gson().fromJson(data, ShareCallBackBean.class);
+                    Log.i("shareCallBackBean", "isReward = " + shareCallBackBean.getData().getIsReward());
+                    if (shareCallBackBean.getData().getIsReward() == 1) {
+                        ToastGetBC.getInstence().show(mContext, "+" + shareCallBackBean.getData().getValue() + "BC");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -251,8 +251,6 @@ public class ShareUtil {
             }
         });
     }
-
-
 
 
 }

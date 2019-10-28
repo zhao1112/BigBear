@@ -1,6 +1,7 @@
 package com.yunqin.bearmall;
 
 
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -57,7 +58,7 @@ BearMallAplication extends MobApplication {
     private ActivityStack mActivityStack = new ActivityStack();
     private HomeListener mHomeListen;
 
-    private String _channel = "official";
+    public static String _channel = "official";
     // 数据接收的 URL
     final String SA_SERVER_URL = BuildConfig.SHENC_BASE_URL + "/sa?project=" + BuildConfig.SHENC_URL;
 
@@ -67,8 +68,6 @@ BearMallAplication extends MobApplication {
         super.onCreate();
         instance = this;
         ContextHelper.init(this);
-        //初始化友盟
-        initUM();
         //初始化神策
         initSensors();
         MultiDex.install(this);
@@ -198,7 +197,7 @@ BearMallAplication extends MobApplication {
         return instance;
     }
 
-    private void initUM() {
+    public static void initUM(Context context) {
         /**
          * 初始化common库
          * 参数1:上下文，必须的参数，不能为空
@@ -211,12 +210,12 @@ BearMallAplication extends MobApplication {
         //UMConfigure.init(this, "58edcfeb310c93091c000be2", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
         //"1fe6a20054bcef865eeb0991ee84525b");
         try {
-            UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
+            UMConfigure.init(context, UMConfigure.DEVICE_TYPE_PHONE, "");
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             _channel = appInfo.metaData.getString("UMENG_CHANNEL");
             LogUtil.i(" channel: " + _channel);
         } catch (Exception e) {
@@ -230,6 +229,20 @@ BearMallAplication extends MobApplication {
              */
             UMConfigure.setLogEnabled(true);
         }
+
+        getTestDeviceInfo(context);
+    }
+
+    public static void getTestDeviceInfo(Context context) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            if (context != null) {
+                sb.append(DeviceConfig.getDeviceIdForGeneral(context));
+                sb.append("&" + DeviceConfig.getMac(context));
+            }
+            Log.i("umeng", "DeviceInfo:" + sb.toString());
+        } catch (Exception e) {
+        };
     }
 
     @Override
