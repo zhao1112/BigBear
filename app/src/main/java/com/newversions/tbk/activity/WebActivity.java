@@ -394,11 +394,33 @@ public class WebActivity extends BaseActivity {
     public void toTaobao(String sendurl) {
         ArouseTaoBao arouseTaoBao = new ArouseTaoBao(WebActivity.this);
         if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+            setclickzero(sendurl);
             arouseTaoBao.openTaoBao(sendurl);
         } else {
             showToast("请先下载淘宝");
             hiddenLoadingView();
         }
+    }
+
+    public void setclickzero(String sendurl) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sendUrl", sendurl);
+        RetrofitApi.request(WebActivity.this, RetrofitApi.createApi(Api.class).clickzero(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws org.json.JSONException {
+
+            }
+
+            @Override
+            public void onNotNetWork() {
+
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+
+            }
+        });
     }
 
     //设置手机屏幕亮度变暗
