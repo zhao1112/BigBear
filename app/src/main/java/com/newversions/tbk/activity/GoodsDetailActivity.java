@@ -279,6 +279,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     @Override
     public void hideLoad() {
+        Log.i("hideLoad", "hideLoad: ");
         hiddenLoadingView();
     }
 
@@ -302,7 +303,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     @Override
     public void attachData(GoodDetailEntity goodDetailEntity) {
-        hideLoad();
+        mPresenter.getTBKHomeGoodsListData(goodsId);
         goodDetail = goodDetailEntity.getGoodDetail();
         tvGoodsTitle.setText(goodDetail.getName());
         banGoodsImage.setImages(goodDetail.getImages());
@@ -423,7 +424,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     @Override
     protected void onResume() {
         super.onResume();
-        hideLoad();
     }
 
 

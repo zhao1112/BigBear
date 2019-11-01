@@ -64,45 +64,6 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
                 view.onNotNetWork();
             }
         });
-        Map<String, String> mHashMap1 = new HashMap<>();
-        mHashMap1.put("pageSize", "10");
-        mHashMap1.put("page", String.valueOf(page));
-        mHashMap1.put("deviceNumber", DeviceUtils.getUniqueId(context));
-        mHashMap1.put("itemId",goodsId);
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap1), new RetrofitApi.IResponseListener() {
-
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                view.hideLoad();
-                try {
-                    Log.e("TCP", data);
-                    TBKHomeGoodsEntity homeBean = new Gson().fromJson(data, TBKHomeGoodsEntity.class);
-                    view.attachAddData(homeBean);
-                    // TODO: 2019/7/13 0013 判断是否有更多
-                    hasMore = page<homeBean.getPages();
-                    page++;
-                    view.haseMore(hasMore);
-                    view.onRefreshFinish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onNotNetWork() {
-                view.hideLoad();
-                view.onNotNetWork();
-                view.onRefreshFinish();
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                view.hideLoad();
-                view.onNotNetWork();
-                view.onRefreshFinish();
-            }
-        });
-
     }
 
 
@@ -147,6 +108,49 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
                 view.hideLoad();
                 view.onNotNetWork();
                 view.onLoadMoreFinish();
+                view.onRefreshFinish();
+            }
+        });
+    }
+
+    @Override
+    public void getTBKHomeGoodsListData(String goodsId) {
+        view.showLoad();
+        Map<String, String> mHashMap1 = new HashMap<>();
+        mHashMap1.put("pageSize", "10");
+        mHashMap1.put("page", String.valueOf(page));
+        mHashMap1.put("deviceNumber", DeviceUtils.getUniqueId(context));
+        mHashMap1.put("itemId",goodsId);
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap1), new RetrofitApi.IResponseListener() {
+
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                view.hideLoad();
+                try {
+                    Log.e("TCP", data);
+                    TBKHomeGoodsEntity homeBean = new Gson().fromJson(data, TBKHomeGoodsEntity.class);
+                    view.attachAddData(homeBean);
+                    // TODO: 2019/7/13 0013 判断是否有更多
+                    hasMore = page<homeBean.getPages();
+                    page++;
+                    view.haseMore(hasMore);
+                    view.onRefreshFinish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                view.hideLoad();
+                view.onNotNetWork();
+                view.onRefreshFinish();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                view.hideLoad();
+                view.onNotNetWork();
                 view.onRefreshFinish();
             }
         });

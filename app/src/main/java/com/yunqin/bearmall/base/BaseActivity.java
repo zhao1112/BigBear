@@ -1,11 +1,14 @@
 package com.yunqin.bearmall.base;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,9 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -24,6 +29,7 @@ import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.ProductSumActivity;
 import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.tbk.view.SearchDialog;
+import com.newversions.view.ICustomDialog;
 import com.umeng.analytics.MobclickAgent;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
@@ -137,6 +143,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(String data) throws JSONException {
                                             JSONObject jsonObject = new JSONObject(data);
+                                            Log.i("jsonObject", data);
                                             if (jsonObject.optInt("code") == 1) {
                                                 // TODO: 2019/8/22 0022 跳转详情
                                                 GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString(
@@ -145,10 +152,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                                                 SuperSearch superSearch = new Gson().fromJson(jsonObject.toString(), SuperSearch.class);
                                                 if (superSearch.getData().size() > 0 && superSearch != null) {
                                                     if (superSearch.getData().size() == 1) {
-                                                        GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, superSearch.getData().get(0).getTao_id(), Constants.GOODS_TYPE_TBK_SEARCH);
+                                                        GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
+                                                                superSearch.getData().get(0).getTao_id(), Constants.GOODS_TYPE_TBK_SEARCH);
                                                     } else {
-                                                        SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch, content);
+                                                        SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch,
+                                                                content);
                                                     }
+                                                } else {
+                                                    showDialog();
                                                 }
                                             } else {
                                                 ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
@@ -328,6 +339,50 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void showKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(view, InputMethodManager.RESULT_UNCHANGED_SHOWN);
+    }
+
+    private void showDialog() {
+        lightoff();
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_first_search, null);
+        PopupWindow mPopupWindow = new PopupWindow();
+        mPopupWindow.setContentView(view);
+        mPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        // 设置背景图片， 必须设置，不然动画没作用
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopupWindow.setFocusable(true);
+        // 设置点击popupwindow外屏幕其它地方消失
+        mPopupWindow.setOutsideTouchable(true);
+        // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
+        mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        view.findViewById(R.id.sc_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lighton();
+                mPopupWindow.dismiss();
+            }
+        });
+        view.findViewById(R.id.se_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lighton();
+                mPopupWindow.dismiss();
+            }
+        });
+    }
+
+    //设置手机屏幕亮度变暗
+    private void lightoff() {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 0.2f;
+        getWindow().setAttributes(lp);
+    }
+
+    //设置手机屏幕亮度显示正常
+    private void lighton() {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 1f;
+        getWindow().setAttributes(lp);
     }
 
 
