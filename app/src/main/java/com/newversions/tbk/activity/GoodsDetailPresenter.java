@@ -120,7 +120,7 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
 
     @Override
     public void getTBKHomeGoodsListData(String goodsId) {
-        view.showLoad();
+ //       view.showLoad();
         Map<String, String> mHashMap1 = new HashMap<>();
         mHashMap1.put("pageSize", "10");
         mHashMap1.put("page", String.valueOf(page));
