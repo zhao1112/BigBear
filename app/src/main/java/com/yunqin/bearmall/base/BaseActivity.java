@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.ProductSumActivity;
@@ -28,6 +29,8 @@ import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.bean.SuperSearch;
+import com.yunqin.bearmall.ui.activity.SuperSearchActivity;
 import com.yunqin.bearmall.util.StatusBarUtil;
 import com.yunqin.bearmall.widget.LoadingView;
 
@@ -128,6 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             cm.setPrimaryClip(ClipData.newPlainText(null, ""));
                             HashMap<String, String> map = new HashMap<>();
                             map.put("content", content);
+                            Log.i("jsonObject", content);
                             RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).findCommodityIdByTpwd(map),
                                     new RetrofitApi.IResponseListener() {
                                         @Override
@@ -135,8 +139,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.optInt("code") == 1) {
                                                 // TODO: 2019/8/22 0022 跳转详情
-                                                GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString("data"),
-                                                        Constants.GOODS_TYPE_TBK_SEARCH);
+                                                GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString(
+                                                        "data"), Constants.GOODS_TYPE_TBK_SEARCH);
+                                            } else if (jsonObject.optInt("code") == 2) {
+                                                SuperSearch superSearch = new Gson().fromJson(jsonObject.toString(), SuperSearch.class);
+                                                if (superSearch.getData().size() > 0 && superSearch != null) {
+                                                    if (superSearch.getData().size() == 1) {
+                                                        GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, superSearch.getData().get(0).getTao_id(), Constants.GOODS_TYPE_TBK_SEARCH);
+                                                    } else {
+                                                        SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch, content);
+                                                    }
+                                                }
                                             } else {
                                                 ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
                                             }
@@ -144,12 +157,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onNotNetWork() {
-
+                                            Log.i("jsonObject", "---------");
                                         }
 
                                         @Override
                                         public void onFail(Throwable e) {
-
+                                            Log.i("jsonObject", "---------");
                                         }
                                     });
 

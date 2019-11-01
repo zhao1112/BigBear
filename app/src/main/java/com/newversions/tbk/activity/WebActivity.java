@@ -320,7 +320,9 @@ public class WebActivity extends BaseActivity {
     }
 
     @JavascriptInterface
-    public void buy(String type, String sendurl) {
+    public void buy(String type, String sendurl)
+
+    {
         Log.i("setWebViewAttribute", type + "----" + sendurl);
         if (TextUtils.isEmpty(sendurl)) {
             return;
@@ -329,10 +331,13 @@ public class WebActivity extends BaseActivity {
             LoginActivity.starActivity(this);
         } else {
             if ("1".equals(type)) {
-                setFrequency(sendurl);
+                if (sendurl != null) {
+                    setFrequency(sendurl);
+                }
             } else {
-                //Toast.makeText(this, "正在跳转淘宝", Toast.LENGTH_SHORT).show();
-                toTaobao(sendurl);
+                if (sendurl != null) {
+                    toTaobao(sendurl);
+                }
             }
         }
     }

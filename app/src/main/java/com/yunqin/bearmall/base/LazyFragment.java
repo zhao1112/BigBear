@@ -60,23 +60,6 @@ public abstract class LazyFragment extends android.support.v4.app.Fragment {
         Faceplate.getDefault().performInjectLayoutLayers(this);
         init();
 
-
-
-
-//        if (null != rootView) {
-//            ViewGroup parent = (ViewGroup) rootView.getParent();
-//            if (null != parent) {
-//                parent.removeView(rootView);
-//            }
-//        } else {
-//            rootView = inflater.inflate(layoutId(), container,false);
-//            Faceplate.getDefault().performInjectLayoutLayers(this);
-//            resetDensity(getActivity(),750);
-//            ButterKnife.bind(this,rootView);
-//            init();
-//        }
-
-
         return rootView;
     }
 

@@ -36,6 +36,7 @@ import com.newversions.tbk.utils.TopBarClicker;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
+import com.youth.banner.loader.ImageLoader;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.eventbus.ChangeFragment;
@@ -365,7 +366,6 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         public BannerHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            banner.setImageLoader(new GlideImageLoader());
             //设置自动轮播，默认为true
             banner.isAutoPlay(true);
             //设置轮播时间
@@ -376,6 +376,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void setDatas(List<String> imgUrls) {
             banner.setImages(imgUrls);
+            banner.setImageLoader(new NewVersionTBKHomeAdapter.GlideImageLoader());
             banner.start();
         }
 
@@ -407,7 +408,6 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
             ButterKnife.bind(this, itemView);
         }
     }
-
 
     class HotListHolder extends RecyclerView.ViewHolder {
 
@@ -469,7 +469,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
             holder.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
             holder.tvQuan.setText("券￥" + data.get(position).getCouponAmount());
             holder.itemView.setOnClickListener(v -> {
-                GoodsDetailActivity.startGoodsDetailActivity(context,data.get(position).getItemId());
+                GoodsDetailActivity.startGoodsDetailActivity(context, data.get(position).getItemId());
             });
 
         }
@@ -604,7 +604,6 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -651,6 +650,17 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         BannersBean(List<TBKHomeEntity.BannerBean> banners, int bannerType) {
             this.bannerType = bannerType;
             this.banners = banners;
+        }
+    }
+
+    private class GlideImageLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            //Glide 加载图片简单用法
+            Glide.with(context)
+                    .load(path)
+                    .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                    .into(imageView);
         }
     }
 
