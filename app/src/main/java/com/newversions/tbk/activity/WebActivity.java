@@ -167,7 +167,7 @@ public class WebActivity extends BaseActivity {
      */
     public static void setWebViewAttribute(WebView view) {
         WebSettings webSettings = view.getSettings();
-
+        webSettings.setUserAgentString(webSettings.getUserAgentString()+" WebView");
         webSettings.setJavaScriptEnabled(true);  //支持js
 
         webSettings.setUseWideViewPort(false);  //将图片调整到适合webview的大小
