@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
@@ -285,7 +286,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     @Override
     public void onNotNetWork() {
-
+        Toast.makeText(GoodsDetailActivity.this, "服务器繁忙,请重新加载", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -411,7 +412,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
             @Override
             public void onNotNetWork() {
-
+                Log.i("onNotNetWork", "onNotNetWork: ");
             }
 
             @Override
