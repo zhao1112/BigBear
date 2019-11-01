@@ -402,7 +402,7 @@ public interface Api {
      * @return
      */
     @FormUrlEncoded
-    @POST("/api/commodity/findCommodityIdByTpwd")
+    @POST("/api/commodity/findCommodityIdByTpwd1")
     Observable<String> findCommodityIdByTpwd(@FieldMap() Map<String, String> params);
 
     @POST("/api/pointLog/getMemberIncomeAllType")

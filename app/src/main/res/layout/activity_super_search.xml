@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/su_title"
-            android:layout_width="@dimen/dp_250"
+            android:layout_width="@dimen/dp_150"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:ellipsize="end"

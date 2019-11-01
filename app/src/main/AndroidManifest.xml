@@ -53,7 +53,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
-        <activity android:name=".ui.activity.SuperSearchActivity">
+        <activity
+            android:name=".ui.activity.SuperSearchActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan">
         </activity>
         <activity android:name="com.newversions.InviteFriendActivity"/>
         <activity android:name=".ADGiveCandyActivity"/>

@@ -81,6 +81,7 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
     @Override
     protected void lazyLoad() {
         if (!isPrepared || !isVisible) {
+            Log.e("CHENGPAN", "停止数据加载");
             return;
         }
 
@@ -98,7 +99,7 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
 
     @Override
     public void attachAdapter(AllFragmentAdapter adapter) {
-
+        Log.i("AllFragment","item count = "+adapter.getItemCount());
         if (adapter.getItemCount() == 0) {
             view.setVisibility(View.GONE);
             mCustomRecommendView.setVisibility(View.VISIBLE);
@@ -114,7 +115,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
             mCustomRecommendView.setVisibility(View.GONE);
             twinklingRefreshLayout.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(adapter);
-
             twinklingRefreshLayout.setHeaderView(new RefreshHeadView(getActivity()));
             twinklingRefreshLayout.setBottomView(new RefreshBottomView(getActivity()));
             twinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {

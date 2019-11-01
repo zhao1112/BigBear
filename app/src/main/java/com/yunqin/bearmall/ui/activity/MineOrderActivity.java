@@ -134,7 +134,7 @@ public class MineOrderActivity extends BaseActivity {
             if (nowFragment == null) {
                 getSupportFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
             } else {
-                getSupportFragmentManager().beginTransaction().hide(nowFragment).add(R.id.content, fragment).commit();
+                getSupportFragmentManager().beginTransaction().hide(nowFragment).replace(R.id.content, fragment).commit();
             }
             nowFragment = fragment;
         }
