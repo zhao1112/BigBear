@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:gravity="center"
-                android:text="未找到您要的宝贝"
+                android:text="未找到您想要的宝贝"
                 android:textSize="@dimen/dp_18"/>
 
 
