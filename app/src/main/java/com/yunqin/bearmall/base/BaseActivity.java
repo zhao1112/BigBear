@@ -39,6 +39,7 @@ import com.yunqin.bearmall.bean.SuperSearch;
 import com.yunqin.bearmall.ui.activity.SuperSearchActivity;
 import com.yunqin.bearmall.util.StatusBarUtil;
 import com.yunqin.bearmall.widget.LoadingView;
+import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -106,9 +107,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (loadingProgress != null && loadingProgress.isShowing()) {
                 return;
             }
-            if (BearMallAplication.isFirst) {
-                return;
-            }
+//            if (BearMallAplication.isFirst) {
+//                return;
+//            }
             ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             ClipData data = cm.getPrimaryClip();
             if (data == null || data.getItemCount() == 0) {
@@ -142,25 +143,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                                     new RetrofitApi.IResponseListener() {
                                         @Override
                                         public void onSuccess(String data) throws JSONException {
-                                            JSONObject jsonObject = new JSONObject(data);
-                                            Log.i("jsonObject", data);
-                                            if (jsonObject.optInt("code") == 1) {
-                                                // TODO: 2019/8/22 0022 跳转详情
-                                                GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, jsonObject.getString(
-                                                        "data"), Constants.GOODS_TYPE_TBK_SEARCH);
-                                            } else if (jsonObject.optInt("code") == 2) {
-                                                SuperSearch superSearch = new Gson().fromJson(jsonObject.toString(), SuperSearch.class);
-                                                if (superSearch.getData().size() > 0 && superSearch != null) {
-                                                    if (superSearch.getData().size() == 1) {
-                                                        GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
-                                                                superSearch.getData().get(0).getTao_id(), Constants.GOODS_TYPE_TBK_SEARCH);
-                                                    } else {
-                                                        SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch,
-                                                                content);
-                                                    }
+                                            SuperSearch superSearch = new Gson().fromJson(data, SuperSearch.class);
+                                            Log.i("onSuccess", data);
+                                            if (superSearch.getCode() == 1) {
+                                                if (superSearch.getData().size() == 1) {
+                                                    GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
+                                                            superSearch.getData().get(0).getTao_id(), Constants.GOODS_TYPE_TBK_SEARCH);
                                                 } else {
-                                                    showDialog();
+                                                    SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch, content);
                                                 }
+                                            } else if (superSearch.getCode() == 2) {
+                                                OpenGoodsDetail.showDialog(BaseActivity.this);
                                             } else {
                                                 ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
                                             }
@@ -176,8 +169,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                                             Log.i("jsonObject", "---------");
                                         }
                                     });
-
-
                         }
                     });
                 }
@@ -340,50 +331,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(view, InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
-
-    private void showDialog() {
-        lightoff();
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_first_search, null);
-        PopupWindow mPopupWindow = new PopupWindow();
-        mPopupWindow.setContentView(view);
-        mPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-        mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        // 设置背景图片， 必须设置，不然动画没作用
-        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-        mPopupWindow.setFocusable(true);
-        // 设置点击popupwindow外屏幕其它地方消失
-        mPopupWindow.setOutsideTouchable(true);
-        // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
-        mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
-        view.findViewById(R.id.sc_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lighton();
-                mPopupWindow.dismiss();
-            }
-        });
-        view.findViewById(R.id.se_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lighton();
-                mPopupWindow.dismiss();
-            }
-        });
-    }
-
-    //设置手机屏幕亮度变暗
-    private void lightoff() {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = 0.2f;
-        getWindow().setAttributes(lp);
-    }
-
-    //设置手机屏幕亮度显示正常
-    private void lighton() {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = 1f;
-        getWindow().setAttributes(lp);
-    }
-
 
 }

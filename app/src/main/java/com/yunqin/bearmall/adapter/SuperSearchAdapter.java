@@ -15,6 +15,7 @@ import com.newversions.tbk.utils.StringUtils;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.SuperSearch;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -50,7 +51,9 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 R.mipmap.icon_tmall : R.mipmap.icon_taobao1, list.get(position).getTao_title()));
         searchHolder.mSeller_name.setText(list.get(position).getShop_title());
         searchHolder.mPro_quan.setText("券¥" + list.get(position).getCoupon_info_money());
-        searchHolder.mTv_commision.setText("预估返：" + list.get(position).getTkfee3() + "元");
+        double kefees =
+                new BigDecimal(Double.valueOf(list.get(position).getTkfee3()) * 0.63).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        searchHolder.mTv_commision.setText("预估返：" + kefees + "元");
         searchHolder.mPro_yuanjia.setText("¥" + list.get(position).getSize());
         searchHolder.mXiaoliang.setText(list.get(position).getVolume() + "人已购");
         searchHolder.mQuanhoujia.setText(list.get(position).getQuanhou_jiage());

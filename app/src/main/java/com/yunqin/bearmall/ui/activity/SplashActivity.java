@@ -85,38 +85,9 @@ public class SplashActivity extends BaseActivity {
                 }
             });
 
-
-//            UserInfo user = BearMallAplication.getInstance().getUser();
-//
-//            Map<String, String> map = new HashMap<>();
-//            map.put("refresh_token", user.getData().getToken().getRefresh_token());
-//
-//            RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).refreshToken(map), new RetrofitApi
-//            .IResponseListener() {
-//                @Override
-//                public void onSuccess(String data) throws JSONException {
-//                    JSONObject jsonObject = new JSONObject(data);
-//                    if (jsonObject.optInt("code") == 1) {
-//                        String content = jsonObject.optJSONObject("data").getJSONObject("token").toString();
-//                        UserInfo.DataBean.TokenBean tokenBean = new Gson().fromJson(content, UserInfo.DataBean.TokenBean.class);
-//                        user.getData().setToken(tokenBean);
-//                        BearMallAplication.getInstance().setUser(user);
-//                    }
-//                }
-//
-//                @Override
-//                public void onNotNetWork() {
-//                }
-//
-//                @Override
-//                public void onFail(Throwable e) {
-//                }
-//            });
         }
         immerseStatusBar();
         getInitMessages();
-//        Timer timer = new Timer();
-//        timer.schedule(new SplashTask(), 2500);
     }
 
     private void getInitMessages() {
@@ -125,7 +96,7 @@ public class SplashActivity extends BaseActivity {
             public void havePermission() {
                 boolean isFirst = (boolean) SharedPreferencesHelper.get(SplashActivity.this, first, false);
                 if (!isFirst) {
-                    getInits();
+                    RetrofitApi.request(SplashActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(), null);
                     Log.i("havePermission", "one1: ");
                 }
                 SharedPreferencesHelper.put(SplashActivity.this, first, true);
@@ -138,7 +109,7 @@ public class SplashActivity extends BaseActivity {
             public void requestPermissionFail() {
                 boolean isFirst = (boolean) SharedPreferencesHelper.get(SplashActivity.this, first, false);
                 if (!isFirst) {
-                    getInits();
+                    RetrofitApi.request(SplashActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(), null);
                     Log.i("havePermission", "one2: ");
                 }
                 SharedPreferencesHelper.put(SplashActivity.this, first, true);
@@ -149,38 +120,6 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-
-    private void getInits() {
-        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getInitMessage(), new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                Log.i("onFail", "onSuccess: ");
-            }
-
-            @Override
-            public void onNotNetWork() {
-
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                Log.i("onFail", "onFail: " + e.getMessage());
-            }
-        });
-    }
-
-    private void InitInvitation() {
-        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
-    }
-
-    class SplashTask extends TimerTask {
-
-        @Override
-        public void run() {
-            StarActivityUtil.starActivity(SplashActivity.this, HomeActivity.class);
-            finish();
-        }
-    }
 
     public void openActivity() {
         mHandler.postDelayed(new Runnable() {
@@ -208,5 +147,11 @@ public class SplashActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
     }
 }

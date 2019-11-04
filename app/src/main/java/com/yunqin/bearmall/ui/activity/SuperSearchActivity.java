@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,11 +47,12 @@ public class SuperSearchActivity extends BaseActivity implements View.OnClickLis
         TextView su_title = findViewById(R.id.su_title);
         su_title.setText(search_title);
 
-        if (search.getCode() != 2) {
+        if (search.getCode() != 1) {
             showdata.setVisibility(View.VISIBLE);
             hiddenLoadingView();
             return;
         }
+
         mSu_rcl.setVisibility(View.VISIBLE);
         mSu_rcl.setLayoutManager(new GridLayoutManager(SuperSearchActivity.this, 2));
         List<SuperSearch.DataBean> data = search.getData();
