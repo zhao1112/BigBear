@@ -129,8 +129,6 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
             }
         });
         toolbarBack.setOnClickListener(v -> finish());
-
-        platform.setPlatformActionListener(this);
     }
 
     @Override
@@ -222,6 +220,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
                         }
                         if (platform != null)
                             platform.share(sp);
+                        platform.setPlatformActionListener(ShareComissionActivity.this);
                     }
 
                     @Override
@@ -326,7 +325,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
         if (goodDetailBean != null) {
             ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
                     goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
-                    goodDetailBean.getDiscountPrice() + "",platform.getName(),"true");
+                    goodDetailBean.getDiscountPrice() + "", platform.getName(), "true");
         }
     }
 
@@ -335,7 +334,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
         if (goodDetailBean != null) {
             ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
                     goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
-                    goodDetailBean.getDiscountPrice() + "",platform.getName(),"false");
+                    goodDetailBean.getDiscountPrice() + "", platform.getName(), "false");
         }
     }
 
@@ -344,7 +343,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
         if (goodDetailBean != null) {
             ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
                     goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
-                    goodDetailBean.getDiscountPrice() + "",platform.getName(),"false");
+                    goodDetailBean.getDiscountPrice() + "", platform.getName(), "false");
         }
     }
 }
