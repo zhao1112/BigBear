@@ -18,11 +18,9 @@ import com.iBookStar.views.YmConfig;
 import com.lcodecore.tkrefreshlayout.utils.LogUtil;
 import com.mob.MobApplication;
 import com.mob.MobSDK;
-import com.newversions.tbk.utils.HomeListener;
 import com.sensorsdata.analytics.android.sdk.SAConfigOptions;
 import com.sensorsdata.analytics.android.sdk.SensorsAnalyticsAutoTrackEventType;
 import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
-import com.sensorsdata.analytics.android.sdk.util.SensorsDataUtils;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.yunqin.bearmall.api.Api;
@@ -37,8 +35,6 @@ import com.yunqin.bearmall.util.DeviceInfoInit;
 import com.yunqin.bearmall.util.FilePutGetUtils;
 import com.yunqin.bearmall.util.RudenessScreenHelper;
 
-import org.json.JSONObject;
-
 import java.net.URLEncoder;
 import java.util.HashMap;
 
@@ -52,16 +48,12 @@ BearMallAplication extends MobApplication {
 
     private static BearMallAplication instance;
     private static RequestOptions options;
-    public static boolean isFirst = true;
-
     public static Address mAddress;
     private ActivityStack mActivityStack = new ActivityStack();
-    private HomeListener mHomeListen;
 
     public static String _channel = "official";
     // 数据接收的 URL
     final String SA_SERVER_URL = BuildConfig.SHENC_BASE_URL + "/sa?project=" + BuildConfig.SHENC_URL;
-
 
     @Override
     public void onCreate() {
@@ -130,27 +122,6 @@ BearMallAplication extends MobApplication {
         });
 
         MobSDK.init(this);
-        mHomeListen = new HomeListener(this);
-        mHomeListen.setInterface(new HomeListener.KeyFun() {
-            @Override
-            public void recent() {
-                Log.d("app", "recent");
-                isFirst = false;
-            }
-
-            @Override
-            public void longHome() {
-                Log.d("app", "longHome");
-                isFirst = false;
-            }
-
-            @Override
-            public void home() {
-                Log.d("app", "home");
-                isFirst = false;
-            }
-        });
-        mHomeListen.startListen();
     }
 
     public HashMap<String, String> getDevParams() {
@@ -215,7 +186,8 @@ BearMallAplication extends MobApplication {
             e.printStackTrace();
         }
         try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(),
+                    PackageManager.GET_META_DATA);
             _channel = appInfo.metaData.getString("UMENG_CHANNEL");
             LogUtil.i(" channel: " + _channel);
         } catch (Exception e) {
@@ -242,19 +214,12 @@ BearMallAplication extends MobApplication {
             }
             Log.i("umeng", "DeviceInfo:" + sb.toString());
         } catch (Exception e) {
-        };
-    }
-
-    @Override
-    public void onTerminate() {
-        mHomeListen.stopListen();
-        super.onTerminate();
+        }
     }
 
     public static BearMallAplication getInstance() {
         return instance;
     }
-
 
     public static RequestOptions getOptions(int resouseID) {
         if (options == null) {
@@ -302,7 +267,6 @@ BearMallAplication extends MobApplication {
     public static Address getAddress() {
         return mAddress;
     }
-
 
     public ActivityStack getActivityStack() {
         return mActivityStack;

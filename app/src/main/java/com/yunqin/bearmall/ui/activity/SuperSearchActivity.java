@@ -47,7 +47,7 @@ public class SuperSearchActivity extends BaseActivity implements View.OnClickLis
         TextView su_title = findViewById(R.id.su_title);
         su_title.setText(search_title);
 
-        if (search.getCode() != 1) {
+        if (search.getCode() != 1 || search.getData() == null) {
             showdata.setVisibility(View.VISIBLE);
             hiddenLoadingView();
             return;

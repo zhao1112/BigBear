@@ -1,14 +1,10 @@
 package com.yunqin.bearmall.base;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,11 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -29,7 +23,6 @@ import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.ProductSumActivity;
 import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.tbk.view.SearchDialog;
-import com.newversions.view.ICustomDialog;
 import com.umeng.analytics.MobclickAgent;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
@@ -42,7 +35,6 @@ import com.yunqin.bearmall.widget.LoadingView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -50,7 +42,6 @@ import butterknife.ButterKnife;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
-
 
     public boolean isDestroyed = false;
     //普通Dialog的Loading
@@ -67,20 +58,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         Log.i("BaseActivity", "BaseActivity : " + getClass().getSimpleName());
         setContentView(layoutId());
 
-
-//        displayMetrics(this);
         ButterKnife.bind(this);
         StatusBarUtil.setImmersiveStatusBar(this, true);
 
         init();
     }
-
-//    private void displayMetrics(Context context){
-//        Point size = new Point();
-//        ((Activity)context).getWindowManager().getDefaultDisplay().getSize(size);
-//        context.getResources().getDisplayMetrics().xdpi = size.x / 750 * 72f;
-//    }
-
 
     @Override
     protected void onResume() {
@@ -107,9 +89,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (loadingProgress != null && loadingProgress.isShowing()) {
                 return;
             }
-//            if (BearMallAplication.isFirst) {
-//                return;
-//            }
             ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             ClipData data = cm.getPrimaryClip();
             if (data == null || data.getItemCount() == 0) {
@@ -126,16 +105,24 @@ public abstract class BaseActivity extends AppCompatActivity {
                     mSearchDialog = new SearchDialog(this, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            try {
+                                cm.setPrimaryClip(cm.getPrimaryClip());
+                                cm.setText(null);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             mSearchDialog.dismiss();
-                            cm.setPrimaryClip(ClipData.newPlainText(null, content));
-                            BearMallAplication.isFirst = true;
                         }
                     }, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            BearMallAplication.isFirst = true;
+                            try {
+                                cm.setPrimaryClip(cm.getPrimaryClip());
+                                cm.setText(null);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             mSearchDialog.dismiss();
-                            cm.setPrimaryClip(ClipData.newPlainText(null, ""));
                             HashMap<String, String> map = new HashMap<>();
                             map.put("content", content);
                             Log.i("jsonObject", content);
@@ -225,7 +212,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * 显示加载中对话框
      *
@@ -284,7 +270,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * 显示Toast消息
      *
@@ -325,7 +310,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                         .getApplicationWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
-
 
     public void showKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

@@ -54,7 +54,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void init() {
-
         new CheckForUpdateHelper().checkForUpdate(this, 0);
         if (BearMallAplication.getInstance().getUser() != null) {
 
@@ -97,12 +96,10 @@ public class SplashActivity extends BaseActivity {
                 boolean isFirst = (boolean) SharedPreferencesHelper.get(SplashActivity.this, first, false);
                 if (!isFirst) {
                     RetrofitApi.request(SplashActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(), null);
-                    Log.i("havePermission", "one1: ");
                 }
                 SharedPreferencesHelper.put(SplashActivity.this, first, true);
                 openActivity();
                 trackInstallation();
-                Log.i("checkPermission", "havePermission: ");
             }
 
             @Override
@@ -110,16 +107,12 @@ public class SplashActivity extends BaseActivity {
                 boolean isFirst = (boolean) SharedPreferencesHelper.get(SplashActivity.this, first, false);
                 if (!isFirst) {
                     RetrofitApi.request(SplashActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(), null);
-                    Log.i("havePermission", "one2: ");
                 }
                 SharedPreferencesHelper.put(SplashActivity.this, first, true);
                 openActivity();
-                Log.i("checkPermission", "havePermission:2 ");
             }
         }, new String[]{Manifest.permission.READ_PHONE_STATE});
-
     }
-
 
     public void openActivity() {
         mHandler.postDelayed(new Runnable() {

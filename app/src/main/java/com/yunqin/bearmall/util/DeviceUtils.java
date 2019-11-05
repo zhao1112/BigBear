@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
  * https://blog.csdn.net/sunsteam/article/details/73189268
  */
 public class DeviceUtils {
+
     public static String getUniqueId(Context context){
         String androidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         String id = androidID + Build.SERIAL;
@@ -24,7 +25,6 @@ public class DeviceUtils {
             return id;
         }
     }
-
 
     private static String toMD5(String text) throws NoSuchAlgorithmException {
         //获取摘要器 MessageDigest

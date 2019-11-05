@@ -113,7 +113,6 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
         mPresenter.init();
     }
 
-
     @Override
     public void showLoad() {
         showLoading();
@@ -158,12 +157,10 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
         mNewVersionHomeAdapter.addData(homeBean);
     }
 
-
     @Override
     public void loanError() {
         ToastUtils.showToast(getActivity(), "加载失败");
     }
-
 
     @Override
     public void onItemClick(View view) {
@@ -244,7 +241,6 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
                 break;
         }
     }
-
 
     private void advClick(int type, int skipType, long sourceId) {
         IAdvClick.click(getActivity(), type, skipType, sourceId, "");

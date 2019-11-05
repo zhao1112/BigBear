@@ -24,11 +24,8 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
 
     private Context context;
     private NewVersionTBKHomeContract.View view;
-
     private int PAGE_NUMBER = 1;
-
     private boolean hasMore = false;
-
 
     public NewVersionTBKHomePresenter(Context context, NewVersionTBKHomeContract.View view) {
         this.context = context;
@@ -114,7 +111,6 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
                     }
                 });
     }
-
 
     @Override
     public void onRefresh() {

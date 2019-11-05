@@ -1,9 +1,7 @@
 package com.yunqin.bearmall.ui.fragment;
 
-import android.Manifest;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -42,8 +40,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import permison.PermissonUtil;
-import permison.listener.PermissionListener;
 
 /**
  * @author Master
@@ -57,16 +53,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
     ViewPager viewpager;
     @BindView(R.id.menu)
     RelativeLayout menu;
+    @BindView(R.id.not_net)
+    View view;
+    @BindView(R.id.dot_view)
+    DotView dot_view;
 
     private HighlightButton mHighlightButton;
 
     private TabTitleAdapter adapter;
-
-    @BindView(R.id.not_net)
-    View view;
-
-    @BindView(R.id.dot_view)
-    DotView dot_view;
 
     @Override
     public int layoutId() {
@@ -108,7 +102,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
     @Override
     public void attachChannel(Channel channel) {
         hiddenLoadingView();
-
         if (channel == null) {
             return;
         }

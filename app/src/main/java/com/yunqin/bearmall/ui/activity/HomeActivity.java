@@ -54,11 +54,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
     @BindView(R.id.bbl)
     BottomBarLayout bottomBar;
-
-
     @BindView(R.id.shopcar_bar_item)
     BottomBarItem shopcar_bar_item;
-
     @BindView(R.id.content)
     FrameLayout content;
 
@@ -74,25 +71,20 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
         return R.layout.activity_main;
     }
 
-
     private boolean isInit = false;
-
 
     @Override
     protected void onResume() {
         super.onResume();
         presenter.getCartItemCount(this, new HashMap<>());
         requestData();
-
     }
-
 
     @Override
     protected void onRestart() {
         super.onRestart();
         Log.e("FENGGOU", "onRestart");
     }
-
 
     @Override
     public void init() {
@@ -120,27 +112,20 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
             }
         } else {
             switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_HOME);
-//            bottomBar.setCurrentItem(1);
         }
 
-
         bottomBar.setOnItemSelectedListener((bottomBarItem, previousPosition, currentPosition) -> {
-
 
             if (currentPosition == 1) {
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(HomeActivity.this);
-
-
                     new Handler().postDelayed(() -> {
                         bottomBar.setCurrentItem(previousPosition);
                     }, 800);
 
-
                     return;
                 }
             }
-
 
             // previousPosition 如果等于  currentPosition  就相当于 在目前选中的图标上进行点击，  可进行刷新操作什么的
             if (switchFragment != null) {
@@ -158,11 +143,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
         new CheckForUpdateHelper().checkForUpdate(this, 1);
 
-
         if (BearMallAplication.getInstance().getUser() == null) {
             LoginActivity.starActivity(HomeActivity.this);
         }
-
 
     }
 
@@ -216,7 +199,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
     }
 
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -234,9 +216,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
     }
 
     public void switch2Fragment(int postion) {
-
         switch (postion) {
-
             case 0:
                 bottomBar.setCurrentItem(0);
                 switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_HOME);
@@ -259,7 +239,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
                 break;
 
         }
-
     }
 
     @Override
@@ -331,12 +310,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void gETReceive(GetMessageEvent getMessageEvent) {
         requestData();
     }
-
 
     public void requestData() {
         Map timeMap = new HashMap();

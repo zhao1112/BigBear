@@ -28,33 +28,17 @@ public class SwitchFragment {
 
     }
 
-
     private  HomeFragment mHomeFragment;
     private  GuideWithVideoFragment mRecommendFragment;
-//    private static InformationFragment mInformationFragment;
-
     private  MakeMoneyFragment mMakeMoneyFragment;
-
     // TODO: 2019/7/15 0015 替换成0元兑
     private  ZeroGoodsFragment mTrolleyFragment;
-//    private static TrolleyFragment mTrolleyFragment;
     private  MineNewFragment mMineFragment;
-//    private static MineFragment mMineFragment;
-
     private FragmentManager manager;
 
     public SwitchFragment(FragmentManager manager) {
         this.manager = manager;
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        if (mHomeFragment == null) {
-//            mHomeFragment = new HomeFragment();
-//            transaction.add(R.id.content, mHomeFragment);
-//        }
-//        hiderFragment(transaction);
-//        transaction.show(mHomeFragment);
-//        transaction.commit();
     }
-
 
     private void hiderFragment(FragmentTransaction transaction) {
         if (mHomeFragment != null) {
@@ -75,7 +59,6 @@ public class SwitchFragment {
     }
 
     public void chooseFragment(@FRAGMENT_TYPE int type) {
-
         if (LAST_POSITION == type) {
             return;
         }
@@ -126,7 +109,6 @@ public class SwitchFragment {
             case FRAGMENT_TYPE.APP_MINE:
                 if (mMineFragment == null) {
                     mMineFragment = new MineNewFragment();
-//                    mMineFragment = new MineFragment();
                     transaction.add(R.id.content, mMineFragment);
                 }
                 hiderFragment(transaction);

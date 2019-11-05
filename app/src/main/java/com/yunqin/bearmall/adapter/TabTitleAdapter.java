@@ -34,17 +34,11 @@ public class TabTitleAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-//            return new BearRecommendFragment();
             if(isMember){
                 return new NewVersionHomeFragmentTrue();
             }
-//            return new NewVersionHomeFragment();
             return new NewVersionTBKHomeFragment();
         }
-//        Bundle bundle = new Bundle();
-//        bundle.putString("category_id", mChannellist.get(position - 1).getCategory_id() + "");
-//        bundle.putBoolean("isMember", isMember);
-//        Fragment fragment = Fragment.instantiate(mContext, FragmentHomeTagList.class.getName(), bundle);
         return ProductSumFragment.getInstance(mChannellist.get(position - 1).getCategory_id()+"",2,"");
 
 
