@@ -189,12 +189,6 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 TBKHomeEntity.BannerTwoBean bannerTwoBean = (TBKHomeEntity.BannerTwoBean) datas.get(position);
                 ImageHolder imageHolder = (ImageHolder) holder;
 
-//                Glide.with(context)
-//                        .load(bannerTwoBean.getImage())
-//                        .apply(new RequestOptions().placeholder(R.drawable.default_product_small))
-//                        .into(imageHolder.imageView);
-//                Log.i("imageurl", "onBindViewHolder: "+bannerTwoBean.getImage());
-
                 Glide.with(context)
                         .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
                         .asBitmap()

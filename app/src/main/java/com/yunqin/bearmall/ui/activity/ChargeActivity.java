@@ -31,13 +31,6 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
     View leftLine;
     @BindView(R.id.right_line)
     View rightLine;
-
-
-//    @BindView(R.id.telephone_flow)
-//    TextView flowTextView;
-//    @BindView(R.id.telephone_charge)
-//    TextView chargeTextView;
-
     private ChargeFragment chargeFragment;
 
     private LiuliangFragment liuliangFragment;
@@ -65,12 +58,7 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
             String mobile = dataBean.getMember().getMobile();
             phoneNumView.setText(mobile);
         }
-
-
         showAnimation();
-
-
-
     }
 
     @Override
@@ -81,13 +69,10 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
         }
     }
 
-
     @BindView(R.id.red_package_layout)
     ConstraintLayout constraintLayout;
-
     @BindView(R.id.red_package_img)
     ImageView imageView;
-
 
     /**
      * 设置动画
@@ -105,23 +90,12 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
         imageView.startAnimation(rotateAnim);
     }
 
-
-
-
-
-
-
-
-
-
     @OnClick({R.id.toolbar_back, R.id.telephone_charge, R.id.telephone_flow,
             R.id.red_package_close,
             R.id.red_package_img
     })
     public void onViewClick(View view) {
-
         switch (view.getId()) {
-
             case R.id.red_package_close:
                 constraintLayout.setVisibility(View.GONE);
                 break;
@@ -129,8 +103,6 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
                 // TODO 待定 URL
                 CardListWebActivity.startActivity(ChargeActivity.this, AdConstants.STRING_CHARGE_ACTIVITY, "");
                 break;
-
-
             case R.id.toolbar_back:
                 finish();
                 break;

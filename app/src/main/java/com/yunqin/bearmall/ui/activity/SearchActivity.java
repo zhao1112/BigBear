@@ -42,64 +42,47 @@ import butterknife.OnClick;
 /**
  * @author Master
  */
-public class SearchActivity extends BaseActivity implements TextWatcher, SearchAdapter.OnItemCallBack, SearchActivityContract.UI, TextView.OnEditorActionListener {
+public class SearchActivity extends BaseActivity implements TextWatcher, SearchAdapter.OnItemCallBack, SearchActivityContract.UI,
+        TextView.OnEditorActionListener {
 
     private static final String KEY = "k";
     private static final String SPLIT = ",";
 
     @BindView(R.id.goods_check)
     RadioButton radioButtonone;
-
     @BindView(R.id.shop_check)
     RadioButton radioButtontwo;
-
     @BindView(R.id.radiogroup)
     RadioGroup radioGroup;
-
-
     @BindView(R.id.flow_layout)
     FlowLayout mFlowLayout;
-
     @BindView(R.id.search_list_view)
     ListView mListView;
-
     @BindView(R.id.input_content_text)
     DelEditText mEditText;
-
     @BindView(R.id.fragment_view_group)
     LinearLayout mFrameLayout;
-
     @BindView(R.id.linear_layout_content)
     LinearLayout mLinearLayout;
-
     @BindView(R.id.child_1)
     LinearLayout childLinearLayout;
-
     @BindView(R.id.back)
     RelativeLayout backRelativeLayout;
-
     @BindView(R.id.cancel)
     TextView cancelTextView;
 
-//    @BindView(R.id.filter)
-//    RelativeLayout filterRelativeLayout;
 
     List<String> mSearchList;
     SearchAdapter searchAdapter;
 
     SearchActivityContract.Presenter presenter = new SearchPresenter(this);
 
-
     private String lastMenuGoodsData = null;
     private String lastMenuShopData = null;
-
-
     private Fragment iL, iR;
-
 
     @BindView(R.id.not_net_view)
     LinearLayout not_net_view;
-
 
     @Override
     public int layoutId() {
@@ -113,7 +96,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             memberType = "0";
         }
 
-
         mEditText.addTextChangedListener(this);
         mEditText.setOnEditorActionListener(this);
         mSearchList = getSearchData();
@@ -121,12 +103,10 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         searchAdapter.setOnItemCallBack(this);
         mListView.setAdapter(searchAdapter);
 
-
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (radioButtonone.isChecked()) {
                 // TODO 添加Fragment
                 startFragment(lastMenuGoodsData);
-
                 radioButtonone.setTextColor(Color.parseColor("#FFFFFF"));
                 radioButtontwo.setTextColor(Color.parseColor("#23A064"));
             } else {
@@ -152,10 +132,8 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             }
         });
 
-
         presenter.start(this);
     }
-
 
     @OnClick({R.id.cancel, R.id.clear_all, R.id.back, R.id.filter, R.id.reset_load_data})
     public void onChecked(View view) {
@@ -177,41 +155,10 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             case R.id.reset_load_data:
                 // TODO 重试...
                 if (mEditText.getText().toString().length() > 0) {
-
-//                    presenter.searchData(this, mEditText.getText().toString());
-                    ProductSumActivity.startProductSumActivity(this,mEditText.getText().toString(),8,mEditText.getText().toString());
-//                    presenter.onTextChangedSearch(this, mEditText.getText().toString() + "", new RetrofitApi.IResponseListener() {
-//                        @Override
-//                        public void onSuccess(String data) {
-//                            List<String> list = new ArrayList<>();
-//                            SearchMatch searchMatch = new Gson().fromJson(data, SearchMatch.class);
-//                            if (searchMatch.getData() != null) {
-//                                for (SearchMatch.DataBean dataBean : searchMatch.getData()) {
-//                                    list.add(dataBean.getSearchValue());
-//                                }
-//                            }
-//                            mSearchList = list;
-//                            searchAdapter.setData(mEditText.getText().toString().length() == 0 ? mSearchList = getSearchData() : mSearchList, mEditText.getText().toString().length() == 0 ? true : false);
-//                            onNotNet(false);
-//                        }
-//
-//                        @Override
-//                        public void onNotNetWork() {
-//                            onNotNet(true);
-//                        }
-//
-//                        @Override
-//                        public void onFail(Throwable e) {
-//                            mSearchList = new ArrayList<>();
-//                            searchAdapter.setData(mEditText.getText().toString().length() == 0 ? mSearchList = getSearchData() : mSearchList, mEditText.getText().toString().length() == 0 ? true : false);
-//                            onNotNet(true);
-//                        }
-//                    });
+                    ProductSumActivity.startProductSumActivity(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
                 } else {
                     presenter.start(this);
                 }
-
-
                 break;
             default:
                 break;
@@ -225,30 +172,20 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         if (mFrameLayout.getVisibility() == View.VISIBLE) {
             mFrameLayout.setVisibility(View.GONE);
         }
-
         if (mListView.getVisibility() == View.GONE) {
             mListView.setVisibility(View.VISIBLE);
         }
-
-
         if (backRelativeLayout.getVisibility() == View.VISIBLE) {
             backRelativeLayout.setVisibility(View.GONE);
         }
-
-
         if (cancelTextView.getVisibility() == View.GONE) {
             cancelTextView.setVisibility(View.VISIBLE);
         }
-//        if (filterRelativeLayout.getVisibility() == View.VISIBLE) {
-//            filterRelativeLayout.setVisibility(View.GONE);
-//        }
 
         mLinearLayout.setVisibility(s.length() == 0 ? View.VISIBLE : View.GONE);
-
         presenter.onTextChangedSearch(this, s + "", new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
@@ -282,7 +219,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     public void afterTextChanged(Editable s) {
 
     }
-
 
     private List<String> getSearchData() {
         List<String> list = new ArrayList<>();
@@ -324,16 +260,13 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         return currData;
     }
 
-
     @Override
     public void itemText(String index) {
         // TODO 点击Item
         mEditText.setText(index);
         mEditText.setSelection(index.length());
-//        mListView.setVisibility(View.GONE);
         assemblyData(index);
-//        presenter.searchData(this, index);
-        ProductSumActivity.startProductSumActivity(this,index,8,index);
+        ProductSumActivity.startProductSumActivity(this, index, 8, index);
     }
 
     @Override
@@ -352,11 +285,9 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             mEditText.setSelection(text.length());
             mListView.setVisibility(View.GONE);
             assemblyData(text);
-//            presenter.searchData(SearchActivity.this, text);
-            ProductSumActivity.startProductSumActivity(this,text,8,text);
+            ProductSumActivity.startProductSumActivity(this, text, 8, text);
         });
     }
-
 
     private String valueType = "";
 
@@ -368,7 +299,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     @Override
     public void startEmptyFragment() {
         //TODO 空布局
-
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         SearchEmptyFragment searchEmptyFragment = new SearchEmptyFragment();
         fragmentTransaction.replace(R.id.frame_layout_content, searchEmptyFragment);
@@ -379,15 +309,12 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
 
         backRelativeLayout.setVisibility(View.VISIBLE);
         cancelTextView.setVisibility(View.GONE);
-//        filterRelativeLayout.setVisibility(View.VISIBLE);
-
 
     }
 
     @Override
     public void startFragment(String mMenuGoods) {
         // TODO 内容布局
-
         lastMenuGoodsData = mMenuGoods;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
@@ -403,9 +330,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
 
         backRelativeLayout.setVisibility(View.VISIBLE);
         cancelTextView.setVisibility(View.GONE);
-//        filterRelativeLayout.setVisibility(View.VISIBLE);
-
-
     }
 
     @Override
@@ -434,8 +358,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                 case KeyEvent.ACTION_UP:
                     // TODO 发送请求
                     if (mEditText.getText().toString().length() > 0) {
-//                        presenter.searchData(SearchActivity.this, mEditText.getText().toString());
-                        ProductSumActivity.startProductSumActivity(this,mEditText.getText().toString(),8,mEditText.getText().toString());
+                        ProductSumActivity.startProductSumActivity(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
                         assemblyData(mEditText.getText().toString());
                     }
                     hiddenKeyboard();
@@ -461,7 +384,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         return super.dispatchTouchEvent(ev);
     }
 
-
     @Override
     public void onNotNet(boolean show) {
         hiddenLoadingView();
@@ -470,6 +392,5 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         } else {
             not_net_view.setVisibility(View.GONE);
         }
-
     }
 }

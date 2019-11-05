@@ -34,7 +34,6 @@ public class InputIncomCodeActivity extends BaseActivity {
     @BindView(R.id.ed_code)
     EditText edCode;
 
-
     private String accessToken;
     private String mode;
     private String code;
@@ -57,7 +56,6 @@ public class InputIncomCodeActivity extends BaseActivity {
         mode = getIntent().getStringExtra("mode");
         edCode.setSelection(edCode.getText().toString().length());
     }
-
 
     @OnClick({R.id.im_back, R.id.tv_ok})
     public void onViewClicked(View view) {
@@ -92,11 +90,6 @@ public class InputIncomCodeActivity extends BaseActivity {
                         } else {
                             SharedPreferencesHelper.put(InputIncomCodeActivity.this, "isFirstBind", false);
                         }
-//{"msg":"成功","code":1,"data":{"member":{"member_id":12251,"isBindWxopenId":true,"nickName":"大熊用户113214308","mobile":"17175319997",
-// "isHasSpecInvite":false,"isBindWx":true,"isMember":false,"specInviteUsableCount":0,"bigBearNumber":"113214308","isEnabled":true,
-// "isLocked":false,"iconUrl":"https://shopxxbbc.oss-cn-beijing.aliyuncs.com/upload/image/201808/20180816140417.png",
-// "isOpendMember":false,"expectSaveAmount":"1000.00"},"token":"eyJhbGciOiJIUzI1NiJ9
-// .eyJ1aWQiOiIxMjI1MSIsInN1YiI6IntcInVpZFwiOlwiMTIyNTFcIn0iLCJleHAiOjE1NjUyNTk5ODQsImlhdCI6MTU2NDY1NTE1NCwianRpIjoiYTc4MjczZDhlYjcwNzI2MGZiOTdiMjgxNWFjMzRkOWYifQ.4axh-oiPKN5jqH5SUTRA9wMBKMs2nQQKJ7GvZSrStAs"}}
                         hiddenLoadingView();
                         BearMallAplication.getInstance().setUser(userInfo);
                         showToast("登录成功");
@@ -104,13 +97,12 @@ public class InputIncomCodeActivity extends BaseActivity {
                         EventBus.getDefault().post(new FinishEvent());
                         BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
                         //TODO[登录]
-                        sensorsLogin();
+                        ConstantScUtil.sensorsLogin("微信");
                         //TODO[邀请码]
-                        sensorsInvitation();
+                        ConstantScUtil.sensorsInvitation(mode);
                         finish();
                     }
 
-                    //
                     @Override
                     public void onNotNetWork() {
                         hiddenLoadingView();
@@ -122,7 +114,6 @@ public class InputIncomCodeActivity extends BaseActivity {
                         hiddenLoadingView();
                     }
                 });
-
                 break;
         }
     }
@@ -130,20 +121,4 @@ public class InputIncomCodeActivity extends BaseActivity {
     private void InitInvitation() {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
     }
-
-
-    //神策邀请码统计
-    public void sensorsInvitation() {
-        Map<String, String> map = new HashMap<>();
-        map.put("login_method", mode);
-        ConstantScUtil.sensorsTrack("invitationCode", map);
-    }
-
-    //神策登录统计
-    public void sensorsLogin() {
-        Map<String, String> map = new HashMap<>();
-        map.put("login_method", "微信");
-        ConstantScUtil.sensorsTrack("wechatLoginClick", map);
-    }
-
 }

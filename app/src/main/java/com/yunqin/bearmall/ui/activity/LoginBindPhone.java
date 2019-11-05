@@ -43,28 +43,20 @@ public class LoginBindPhone extends BaseActivity {
 
     @BindView(R.id.toolbar_title)
     TextView titleTextView;
-
     @BindView(R.id.bind_name)
     TextView bind_name;
-
     @BindView(R.id.head_img)
     CircleImageView head_img;
-
     @BindView(R.id.get_img_code)
     ImageView get_img_code;
-
     @BindView(R.id.img_code)
     DelEditText img_code;
-
     @BindView(R.id.getcode_btn)
     Button getcode_btn;
-
     @BindView(R.id.msg_Code)
     DelEditText msg_Code;
-
     @BindView(R.id.phone_number)
     DelEditText phone_number;
-
     @BindView(R.id.bind_btn)
     HighlightButton bind_btn;
 
@@ -115,23 +107,22 @@ public class LoginBindPhone extends BaseActivity {
         Constans.params.put("machine_id", DeviceUtils.getUniqueId(this));
         RetrofitApi.requestImageCode(this, RetrofitApi.createApi(Api.class).getImageCode(Constans.params),
                 new RetrofitApi.ImageCodeResponseListener() {
-            @Override
-            public void onSuccess(Bitmap bitmap) {
-                try {
-                    get_img_code.setImageBitmap(bitmap);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+                    @Override
+                    public void onSuccess(Bitmap bitmap) {
+                        try {
+                            get_img_code.setImageBitmap(bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-            @Override
-            public void onFail(Throwable e) {
-            }
-        });
+                    @Override
+                    public void onFail(Throwable e) {
+                    }
+                });
     }
 
     public void sendMsgCode() {
-
         if (phone_number.getText() == null || phone_number.getText().toString().equals("")) {
             showToast("请先输入手机号");
             return;
@@ -177,7 +168,6 @@ public class LoginBindPhone extends BaseActivity {
     }
 
     public void bindPhone() {
-
         if (phone_number.getText() == null || phone_number.getText().toString().equals("")) {
             showToast("请先输入手机号");
             return;
@@ -214,7 +204,8 @@ public class LoginBindPhone extends BaseActivity {
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
                     InputIncomCodeActivity.startInputIncomCodeActivity(LoginBindPhone.this,
                             userInfo.getData().getToken().getAccess_token(), "微信");
-                    sebsorsCode();
+                    //TODO[获取验证码]
+                    ConstantScUtil.sebsorsCode();
                     finish();
                 } else {
                     BearMallAplication.getInstance().setUser(userInfo);
@@ -224,7 +215,7 @@ public class LoginBindPhone extends BaseActivity {
                         SharedPreferencesHelper.put(LoginBindPhone.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
                     }
                     //TODO[获取验证码]
-                    sebsorsCode();
+                    ConstantScUtil.sebsorsCode();
                     finish();
                 }
             }
@@ -242,8 +233,4 @@ public class LoginBindPhone extends BaseActivity {
         });
     }
 
-    //神策验证码统计
-    public void sebsorsCode() {
-        ConstantScUtil.sensorsTrack("getCode", null);
-    }
 }

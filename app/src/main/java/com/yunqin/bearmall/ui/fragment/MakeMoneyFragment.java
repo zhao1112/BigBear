@@ -54,30 +54,20 @@ import butterknife.OnClick;
  */
 public class MakeMoneyFragment extends BaseFragment {
 
-
     @BindView(R.id.new_menu_1)
     LinearLayout menu1;
-
     @BindView(R.id.mine_today_bt_number)
     TextView today_tang_guo_shu;
-
     @BindView(R.id.shangjin_number)
     TextView today_shang_jin_shu;
-
     @BindView(R.id.mine_bt_number)
     TextView tang_guo_shu;
-
     @BindView(R.id.shangjin_qianbao)
     TextView shang_jin_shu;
-
     @BindView(R.id.tishi)
     TextView tishi;
-
-
     @BindView(R.id.banner_top)
     TopBanner banner;
-
-
     @BindView(R.id.sign_get_info)
     TextView tip1;
     @BindView(R.id.request_friends_reward_info)
@@ -86,50 +76,33 @@ public class MakeMoneyFragment extends BaseFragment {
     TextView tip3;
     @BindView(R.id.share_zixun_get)
     TextView tip4;
-
-
     @BindView(R.id.textview_1)
     TextView textview_1;
-
     @BindView(R.id.image_1)
     ImageView image_1;
-
     @BindView(R.id.textview_2)
     TextView textview_2;
-
     @BindView(R.id.image_2)
     ImageView image_2;
-
     @BindView(R.id.textview_3)
     TextView textview_3;
-
     @BindView(R.id.image_3)
     ImageView image_3;
-
     @BindView(R.id.textview_4)
     TextView textview_4;
-
     @BindView(R.id.image_4)
     ImageView image_4;
-
     @BindView(R.id.textview_5)
     TextView textview_5;
-
     @BindView(R.id.image_5)
     ImageView image_5;
-
-
     @BindView(R.id.dot_view)
     DotView dot_view;
 
-
     private List<TextView> textViews;
     private List<ImageView> imageaViews;
-
-
     private String todaySum;
     private String total;
-
 
     @Override
     public int layoutId() {
@@ -152,7 +125,6 @@ public class MakeMoneyFragment extends BaseFragment {
         imageaViews.add(image_5);
     }
 
-
     @OnClick({
             R.id.today_bt,
             R.id.bt_wallet,
@@ -172,28 +144,21 @@ public class MakeMoneyFragment extends BaseFragment {
     })
     public void selectView(View view) {
 
-
         if (BearMallAplication.getInstance().getUser() == null) {
             LoginActivity.starActivity(getActivity());
             return;
         }
 
-
         switch (view.getId()) {
             case R.id.top_xiao_xi:
                 InformationFragmentActivity.start(getActivity());
                 break;
-
             case R.id.da_chou_jiang:// 幸运大抽奖--> h5 广告页
-
                 CardListWebActivity.startActivity(getActivity(), AdConstants.STRING_XING_YUN_DA_ZHUAN_PAN, "幸运大抽奖");
-
                 break;
-
             case R.id.dadachoujiang:// 幸运大抽奖--> h5 广告页
                 // TODO
                 CardListWebActivity.startActivity(getActivity(), AdConstants.STRING_XING_YUN_DA_ZHUAN_PAN, "幸运大抽奖");
-
                 break;
             case R.id.share_zixun:// 转发商品按钮
                 EventBus.getDefault().post(new ChangeFragment(0));
@@ -202,54 +167,44 @@ public class MakeMoneyFragment extends BaseFragment {
                 EventBus.getDefault().post(new ChangeFragment(1));
                 break;
             case R.id.request_friends:// 邀请好友
-//                VipCenterActivity.startVipCenterActivity(getActivity(), "", "");
-
-
-                //StarActivityUtil.starActivity(getActivity(),InvitationActivity.class);
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
                 //TODO[邀请好友]
                 Map<String, String> map = new HashMap<>();
-                map.put("entrance_type","赚钱中心：邀请好友赚糖果");
+                map.put("entrance_type", "赚钱中心：邀请好友赚糖果");
                 ConstantScUtil.sensorsTrack("inviteClick", map);
-
                 break;
             case R.id.mine_bottom_sign_in:// 签到按钮
                 DialogUtils.signInDialog(getActivity());
                 break;
             case R.id.new_menu_1:// 糖果0元兑换
                 startActivity(new Intent(getActivity(), ZeroMoneyActivity.class));
+                //TODO[点击0元兑]
+                ConstantScUtil.exchangeClick();
                 break;
             case R.id.new_menu_2:// 赏金提现
-
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(getActivity());
                     return;
                 }
-
                 PropertyActivity.startPropertyActivity(getActivity(), 1, null, null, null, null);
-
                 break;
             case R.id.new_menu_3:// 邀请好友
-//                VipCenterActivity.startVipCenterActivity(getActivity(), "", "");
-                //InviteFriendActivity.startActivity(getActivity());
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
                 //TODO[邀请好友]
                 Map<String, String> map_type = new HashMap<>();
-                map_type.put("entrance_type","赚钱中心：邀请好友");
+                map_type.put("entrance_type", "赚钱中心：邀请好友");
                 ConstantScUtil.sensorsTrack("inviteClick", map_type);
                 break;
             case R.id.new_menu_4:// 领取信用卡
-
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(getActivity());
                     return;
                 }
-
                 String token = BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token();
                 String url = BuildConfig.BASE_URL + "/view/getCreditCardBankPage?access_token=" + token;
-
                 CardListWebActivity.startActivity(getActivity(), url, "信用卡申请");
-
+                //TODO[信用卡申请]
+                ConstantScUtil.cardApply();
                 break;
             case R.id.shangjin_right:// 赏金钱包
                 PropertyActivity.startPropertyActivity(getActivity(), 3, total, todaySum, null, null);
@@ -266,10 +221,7 @@ public class MakeMoneyFragment extends BaseFragment {
             default:
                 break;
         }
-
-
     }
-
 
     @Override
     public void onResume() {
@@ -280,10 +232,8 @@ public class MakeMoneyFragment extends BaseFragment {
         }
     }
 
-
     @BindView(R.id.mine_bottom_sign_in)
     HighlightButton mine_bottom_sign_in;
-
 
     private void initDatas() {
 
@@ -349,7 +299,6 @@ public class MakeMoneyFragment extends BaseFragment {
             }
         });
 
-
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getAdMobileList(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
@@ -364,22 +313,15 @@ public class MakeMoneyFragment extends BaseFragment {
                         }
                         banner.setImagesUrl(adList);
                         banner.setOnItemClickListener(position -> {
-
                             StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
                             //TODO[邀请好友]
-                            Map<String,String> stringMap = new HashMap<>();
-                            stringMap.put("entrance_type","赚钱中心：banner");
-                            ConstantScUtil.sensorsTrack("inviteClick", stringMap);
+                            ConstantScUtil.sensorsInviteFriends("赚钱中心：banner");
+                            //TODO[banner点击]
+                            ConstantScUtil.bannerClick("赚钱中心", "轮播图", lists1.get(position).getType() + "",
+                                    lists1.get(position).getType() + "",
+                                    lists1.get(position).getSource_id() + "", lists1.get(position).getImg(),
+                                    lists1.get(position).getSkipType() + "");
 
-//                            InviteFriendActivity.startActivity(getActivity());
-
-//                            VipCenterActivity.startVipCenterActivity(getActivity(), "", "");
-
-//                            BannerBean.DataBean.AdMobileListBean adBean = lists1.get(position);
-//                            int type = adBean.getType();
-//                            int skipType = adBean.getSkipType();
-//                            long sourceId = adBean.getSource_id();
-//                            IAdvClick.click(getActivity(), type, skipType, sourceId);
                         });
                     }
                 }
@@ -396,9 +338,7 @@ public class MakeMoneyFragment extends BaseFragment {
             }
         });
 
-
     }
-
 
     private void setAdData(DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean adData, int pos) {
 
@@ -412,23 +352,18 @@ public class MakeMoneyFragment extends BaseFragment {
             DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean adEarnMoneyListBean =
                     (DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean) view.getTag(R.id.tag_first);
             IAdvClick.click(getActivity(), adEarnMoneyListBean.getType(), adEarnMoneyListBean.getSkipType(),
-                    adEarnMoneyListBean.getSource_id(),null);
+                    adEarnMoneyListBean.getSource_id(), null);
         });
 
-
     }
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-
         if (!hidden) {
             requestData();
         }
-
     }
-
 
     public void requestData() {
         Map timeMap = new HashMap();
@@ -447,23 +382,22 @@ public class MakeMoneyFragment extends BaseFragment {
 
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap),
                 new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) {
-                MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
-                int count = messageItemCount.getData().getUnreadMessageCount();
-                dot_view.setShowNum(count);
-            }
+                    @Override
+                    public void onSuccess(String data) {
+                        MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
+                        int count = messageItemCount.getData().getUnreadMessageCount();
+                        dot_view.setShowNum(count);
+                    }
 
-            @Override
-            public void onNotNetWork() {
+                    @Override
+                    public void onNotNetWork() {
 
-            }
+                    }
 
-            @Override
-            public void onFail(Throwable e) {
-            }
-        });
+                    @Override
+                    public void onFail(Throwable e) {
+                    }
+                });
     }
-
 
 }

@@ -27,18 +27,6 @@ public class ProductViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-//        if (position == 0) {
-//            return new ProductFragment();
-//        }
-
-
-//        String title = mDatas_my.get(position).Title;
-//        String titleCode = title.substring(title.indexOf("-") + 1, title.length());
-//        Bundle bundle = new Bundle();
-//        bundle.putString("titleCode", titleCode);
-//        bundle.putString("title", title);
-//        bundle.putString("advTitle", title.substring(0, title.indexOf("-")));
-//        Fragment fragment = Fragment.instantiate(mContext, TrolleyFragment.class.getName(), bundle);
         return mListFragment.get(position);
     }
 
@@ -49,7 +37,6 @@ public class ProductViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-
         return mTitleList.get(position);
     }
 

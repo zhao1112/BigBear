@@ -32,8 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.jzvd.Jzvd;
-
 
 /**
  * @author LWP
@@ -244,9 +242,9 @@ public class InvitationActivity2 extends BaseActivity implements View.OnClickLis
                         });
                         lightoff();
                         //TODO[立即分享]
-                        Map<String,String> map = new HashMap<>();
-                        map.put("pic_name",imageUrl);
-                        ConstantScUtil.sensorsTrack("shareClick",map);
+                        Map<String, String> map = new HashMap<>();
+                        map.put("pic_name", imageUrl);
+                        ConstantScUtil.sensorsTrack("shareClick", map);
                     }
                 }
                 break;
@@ -269,12 +267,10 @@ public class InvitationActivity2 extends BaseActivity implements View.OnClickLis
         mInvitation_image.setBannerCurrentItem(position);
     }
 
-
     @Override
     public void onPageScrollStateChanged(int state) {
 
     }
-
 
     //设置手机屏幕亮度变暗
     private void lightoff() {
@@ -295,8 +291,8 @@ public class InvitationActivity2 extends BaseActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         if (mInvitation_botton_banner.getVisibility() == View.GONE) {
-         finish();
-        }else {
+            finish();
+        } else {
             int bannerCurrentItem = mInvitation_botton_banner.getBannerCurrentItem();
             mInvitation_banner.setBannerCurrentItem(bannerCurrentItem);
             mInvitation_image.setBannerCurrentItem(bannerCurrentItem);

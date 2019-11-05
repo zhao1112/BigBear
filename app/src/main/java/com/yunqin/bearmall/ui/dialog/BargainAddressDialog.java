@@ -97,15 +97,6 @@ public class BargainAddressDialog extends BaseDialog implements View.OnClickList
         show();
     }
 
-//    private List<CartItem.CartBrand> orderCartBrands;
-//    private List<List<CartItem.ItemList>> orderItemLists;
-//    private String type;
-//    public void setData(List<CartItem.CartBrand> orderCartBrands, List<List<CartItem.ItemList>> orderItemLists, String type){
-//        this.orderCartBrands = orderCartBrands;
-//        this.orderItemLists = orderItemLists;
-//        this.type = type;
-//        start();
-//    }
 
     @Override
     public void onClick(View v) {
@@ -186,17 +177,9 @@ public class BargainAddressDialog extends BaseDialog implements View.OnClickList
             }
             listView.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.VISIBLE);
-
-//            if(onBargainFreePart != null){
-//                onBargainFreePart.onBargainFreePart(null);
-//            }
         } else {
             listView.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.VISIBLE);
-
-//            if(onBargainFreePart != null){
-//                onBargainFreePart.onBargainFreePart(null);
-//            }
         }
     }
 

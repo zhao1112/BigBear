@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 return;
             }
             ClipData.Item item = data.getItemAt(0);
-            if (item == null || item.getText() == null) {
+            if (item == null || item.getText() == null || "null".equals(item.getText().toString())) {
                 return;
             }
             content = item.getText().toString();

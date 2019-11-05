@@ -167,19 +167,13 @@ public class WebActivity extends BaseActivity {
      */
     public static void setWebViewAttribute(WebView view) {
         WebSettings webSettings = view.getSettings();
-        webSettings.setUserAgentString(webSettings.getUserAgentString()+" WebView");
+        webSettings.setUserAgentString(webSettings.getUserAgentString() + " WebView");
         webSettings.setJavaScriptEnabled(true);  //支持js
-
         webSettings.setUseWideViewPort(false);  //将图片调整到适合webview的大小
-
         webSettings.setSupportZoom(true);  //支持缩放
-
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
-
         webSettings.supportMultipleWindows();  //多窗口
-
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //关闭webview中缓存
-
         webSettings.setAllowFileAccess(true);  //设置可以访问文件
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);// 打开本地缓存提供JS调用,至关重要
@@ -187,7 +181,6 @@ public class WebActivity extends BaseActivity {
         webSettings.setAllowFileAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setDatabaseEnabled(true);
-
     }
 
     @OnClick({R.id.tv_top, R.id.toolbar_back, R.id.im_search, R.id.im_share, R.id.im_buy, R.id.toolbar_close})
@@ -212,46 +205,11 @@ public class WebActivity extends BaseActivity {
                     Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
                     LoginActivity.starActivity(this);
                 }
-
-
                 break;
             case R.id.im_share:
-//                if (tbkShareEntity == null) {
-//                    return;
-//                }
-
-//                Intent intent = new Intent(this, ShareComissionActivity.class);
-//                intent.putExtra(Constants.INTENT_KEY_URL, tbkShareEntity.getItemUrl());
-//                intent.putExtra(Constants.INTENT_KEY_TYPE, 4);
-//                intent.putExtra(Constants.INTENT_KEY_ID, tbkShareEntity.getNumIid() + "");
-//                startActivity(intent);
                 break;
             case R.id.im_buy:
-//                if (tbkShareEntity == null) {
-//                    return;
-//                }
-//                showLoading();
-//                Toast.makeText(this, "正在跳转淘宝", Toast.LENGTH_LONG).show();
                 if (checkPackage("com.taobao.taobao")) {
-//                    AlibcPage alibcPage = new AlibcPage(tbkShareEntity.getCouponStartFee());
-//                    AlibcShowParams alibcShowParams = new AlibcShowParams();
-//                    alibcShowParams.setTitle("   ");
-//                    alibcShowParams.setOpenType(OpenType.Native);
-//                    AlibcTrade.show(this, alibcPage, alibcShowParams, null, null, new AlibcTradeCallback() {
-//
-//                        @Override
-//                        public void onTradeSuccess(TradeResult tradeResult) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(int code, String msg) {
-//                            //打开电商组件，用户操作中错误信息回调。code：错误码；msg：错误信息
-//
-//                        }
-//                    });
-
-
                 } else {
                     showToast("请先下载淘宝");
                     hiddenLoadingView();
@@ -269,45 +227,18 @@ public class WebActivity extends BaseActivity {
 
     private void getMsg() {
         showLoading();
-//        RetrofitFactory.getInstence().API()
-//                .getTmailGoodDetail(CacheInfo.getUserID(this), goodsId)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new BaseObserver<TBKShareEntity>() {
-//                    @Override
-//                    protected void onSuccees(BaseEntity<TBKShareEntity> t) throws Exception {
-//                        discussProgressDialog();
-//                        tbkShareEntity = t.getData();
-//                        tvTop.setText("预估收益  ¥" + tbkShareEntity.getCommissionRate() + "元");
-//                        imSearch.setVisibility(View.GONE);
-//                    }
-//
-//                    @Override
-//                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-//                        discussProgressDialog();
-//                    }
-//                });
     }
 
     public boolean checkPackage(String packageName) {
-
         if (packageName == null || "".equals(packageName))
-
             return false;
-
         try {
-
             this.getPackageManager().getApplicationInfo(packageName, PackageManager
                     .GET_UNINSTALLED_PACKAGES);
-
             return true;
-
         } catch (PackageManager.NameNotFoundException e) {
-
             return false;
-
         }
-
     }
 
     @Override
@@ -320,9 +251,7 @@ public class WebActivity extends BaseActivity {
     }
 
     @JavascriptInterface
-    public void buy(String type, String sendurl)
-
-    {
+    public void buy(String type, String sendurl) {
         Log.i("setWebViewAttribute", type + "----" + sendurl);
         if (TextUtils.isEmpty(sendurl)) {
             return;

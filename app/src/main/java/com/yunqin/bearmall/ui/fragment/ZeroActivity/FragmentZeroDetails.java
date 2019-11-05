@@ -23,6 +23,7 @@ import com.yunqin.bearmall.inter.ProductInstructionCallBack;
 import com.yunqin.bearmall.inter.ScrollViewForActivityListener;
 import com.yunqin.bearmall.inter.ScrollViewListener;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.widget.CustomRecommendView;
 import com.yunqin.bearmall.widget.DeficitScrollView;
 import com.yunqin.bearmall.widget.ScrollListView;
@@ -174,7 +175,8 @@ public class FragmentZeroDetails extends BaseFragment implements ScrollViewListe
     public void onScrollChanged(DeficitScrollView scrollView, int x, int y, int oldx, int oldy) {
         headLayout.scrollTo(x, -y / 2);
         if (mScrollViewForActivityListener != null) {
-            mScrollViewForActivityListener.onScrollChanged(scrollView, x, y, oldx, oldy);//把frament中scrollview的滚动监听的数据返回给activity，来处理头部区域的透明度
+            mScrollViewForActivityListener.onScrollChanged(scrollView, x, y, oldx, oldy);//把frament中scrollview的滚动监听的数据返回给activity
+            // ，来处理头部区域的透明度
         }
     }
 
@@ -232,7 +234,8 @@ public class FragmentZeroDetails extends BaseFragment implements ScrollViewListe
 
     //设置商品数据
     private void setProductData() {
-        ZeroDetailsImgViewPagerAdapter zeroDetailsImgViewPagerAdapter = new ZeroDetailsImgViewPagerAdapter(getActivity(), itemBean.getProductImages());
+        ZeroDetailsImgViewPagerAdapter zeroDetailsImgViewPagerAdapter = new ZeroDetailsImgViewPagerAdapter(getActivity(),
+                itemBean.getProductImages());
         productImgTop.setAdapter(zeroDetailsImgViewPagerAdapter);
         productImgSelectorTv.setText("1/" + itemBean.getProductImages().size());
         productImgTop.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -259,6 +262,9 @@ public class FragmentZeroDetails extends BaseFragment implements ScrollViewListe
 
         jionNeedNumner.setText("返糖果数：最高可返实付价的" + itemBean.getBtInstruction().getV0() + "%");
 
+        //TODO[0元兑浏览商品详情页]
+        ConstantScUtil.commodityDetail(itemBean.getProduct_id() + "", itemBean.getProductName(), "", itemBean.getTotalCount() + "",
+                itemBean.getProductName(), "0");
     }
 
     //设置评论数据

@@ -217,9 +217,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                 intent1.putExtra("isBack", true);
                 startActivity(intent1);
 
-//                Intent intent1 = new Intent(ZeroMoneyDetailsActivity.this,HomeActivity.class);
-//                intent1.putExtra("switchFragment","TrolleyFragment");
-//                startActivity(intent1);
                 break;
             case R.id.product_layout_collect:
                 Map map = new HashMap();
@@ -253,17 +250,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                 } catch (Exception e) {
 
                 }
-
-
-//                if (zeroActivityBean.getData().isMember()) {
-//                    goBuy();
-//                } else {
-//                    if (groupPurchasingItemBean.isLimitMs()) {
-//                        joinMember();
-//                    } else {
-//                        goBuy();
-//                    }
-//                }
 
                 break;
 
@@ -541,10 +527,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
             bargainAddressDialog.setOnIdNumber(this);
             bargainAddressDialog.show();
             presenter.getReceiverList(Constans.params);
-//            } else {
-//                bargainAddressDialog.show();
-//                presenter.getReceiverList(Constans.params);
-//            }
         }
     }
 

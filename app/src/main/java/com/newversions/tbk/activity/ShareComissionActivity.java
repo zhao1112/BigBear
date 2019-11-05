@@ -1,6 +1,5 @@
 package com.newversions.tbk.activity;
 
-import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -25,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.ImageUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -38,6 +35,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 
 import org.json.JSONException;
 
@@ -49,10 +47,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
@@ -64,8 +62,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 /**
  * 分享赚佣金
  */
-public class ShareComissionActivity extends BaseActivity {
-
+public class ShareComissionActivity extends BaseActivity implements PlatformActionListener {
 
     @BindView(R.id.toolbar_back)
     ImageView toolbarBack;
@@ -76,6 +73,7 @@ public class ShareComissionActivity extends BaseActivity {
     private String taoToken;
     private String qCodeUrl;
     private GoodDetailEntity.GoodDetailBean goodDetailBean;
+    Platform platform = null;
 
     @Override
     public int layoutId() {
@@ -84,16 +82,14 @@ public class ShareComissionActivity extends BaseActivity {
 
     @Override
     public void init() {
-//        showLoading();
-
         goodDetailBean = (GoodDetailEntity.GoodDetailBean) getIntent().getSerializableExtra(Constants.INTENT_KEY_DATA);
-        Map<String,String> map = new HashMap<>();
-        map.put("goodsId",goodDetailBean.getItemId());
+        Map<String, String> map = new HashMap<>();
+        map.put("goodsId", goodDetailBean.getItemId());
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getShareMsg(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
                 ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
-                if(shareGoodsEntity.getCode() == 2){
+                if (shareGoodsEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
                     Intent intent = new Intent(ShareComissionActivity.this, WebActivity.class);
                     intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
@@ -121,7 +117,6 @@ public class ShareComissionActivity extends BaseActivity {
             @Override
             public void onFail(Throwable e) {
                 hiddenLoadingView();
-
             }
         });
 
@@ -135,9 +130,8 @@ public class ShareComissionActivity extends BaseActivity {
         });
         toolbarBack.setOnClickListener(v -> finish());
 
+        platform.setPlatformActionListener(this);
     }
-
-
 
     @Override
     protected void onDestroy() {
@@ -192,9 +186,9 @@ public class ShareComissionActivity extends BaseActivity {
         TextView tv_quanhoujia = view.findViewById(R.id.tv_quanhoujia);
         ImageView im_erweima = view.findViewById(R.id.tv_erweima);
         tv_title.setText(goodDetailBean.getName());
-        tv_yuanjia.setText("原价￥："+goodDetailBean.getPrice());
-        tv_quanhoujia.setText("￥："+goodDetailBean.getDiscountPrice());
-        tv_quan.setText(goodDetailBean.getCouponAmount()+"元券");
+        tv_yuanjia.setText("原价￥：" + goodDetailBean.getPrice());
+        tv_quanhoujia.setText("￥：" + goodDetailBean.getDiscountPrice());
+        tv_quan.setText(goodDetailBean.getCouponAmount() + "元券");
         Glide.with(this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(goodDetailBean.getOutIcon()).into(new SimpleTarget<Drawable>() {
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -205,29 +199,28 @@ public class ShareComissionActivity extends BaseActivity {
                         hiddenLoadingView();
                         im_erweima.setImageDrawable(resource);
                         Bitmap bitmap = createBitmap3(view);
-                        saveBmp2Gallery(bitmap,System.currentTimeMillis()+"",ShareComissionActivity.this);
+                        saveBmp2Gallery(bitmap, System.currentTimeMillis() + "", ShareComissionActivity.this);
                         Platform.ShareParams sp = new Platform.ShareParams();
                         sp.setImageData(bitmap);
                         sp.setShareType(Platform.SHARE_IMAGE);
-                        Platform platform = null;
                         switch (btn.getId()) {
                             case R.id.lin_share_weixin:
-                                platform = ShareSDK.getPlatform (Wechat.NAME);
+                                platform = ShareSDK.getPlatform(Wechat.NAME);
                                 break;
                             case R.id.lin_share_pengyouquan:
-                                platform = ShareSDK.getPlatform (WechatMoments.NAME);
+                                platform = ShareSDK.getPlatform(WechatMoments.NAME);
                                 break;
                             case R.id.lin_share_qq:
-                                platform = ShareSDK.getPlatform (QQ.NAME);
+                                platform = ShareSDK.getPlatform(QQ.NAME);
                                 break;
                             case R.id.lin_share_qq_qzone:
-                                platform = ShareSDK.getPlatform (QZone.NAME);
+                                platform = ShareSDK.getPlatform(QZone.NAME);
                                 break;
                             case R.id.lin_share_weibo:
-                                platform = ShareSDK.getPlatform (SinaWeibo.NAME);
+                                platform = ShareSDK.getPlatform(SinaWeibo.NAME);
                                 break;
                         }
-                        if(platform!= null)
+                        if (platform != null)
                             platform.share(sp);
                     }
 
@@ -246,21 +239,15 @@ public class ShareComissionActivity extends BaseActivity {
                 hiddenLoadingView();
             }
         });
-
-
-
     }
 
     private void createView() {
-
-
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        ImageUtils.save()
     }
 
     public Bitmap createBitmap3(View v) {
@@ -282,7 +269,7 @@ public class ShareComissionActivity extends BaseActivity {
 
         int w = v.getWidth();
         int h = v.getHeight();
-       Bitmap bitMap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Bitmap bitMap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bitMap);
 
         c.drawColor(Color.WHITE);
@@ -294,19 +281,15 @@ public class ShareComissionActivity extends BaseActivity {
     }
 
     public static void saveBmp2Gallery(Bitmap bmp, String picName, Context mContext) {
-
         String fileName = null;
         //系统相册目录
         String galleryPath = Environment.getExternalStorageDirectory()
                 + File.separator + Environment.DIRECTORY_DCIM
                 + File.separator + "Camera" + File.separator;
-
-
         // 声明文件对象
         File file = null;
         // 声明输出流
         FileOutputStream outStream = null;
-
         try {
             // 如果有目标文件，直接获得文件对象，否则创建一个以filename为名称的文件
             file = new File(galleryPath, picName + ".jpg");
@@ -318,7 +301,6 @@ public class ShareComissionActivity extends BaseActivity {
             if (null != outStream) {
                 bmp.compress(Bitmap.CompressFormat.JPEG, 90, outStream);
             }
-
         } catch (Exception e) {
             e.getStackTrace();
         } finally {
@@ -337,9 +319,32 @@ public class ShareComissionActivity extends BaseActivity {
         Uri uri = Uri.fromFile(file);
         intent.setData(uri);
         mContext.sendBroadcast(intent);
-
-
     }
 
+    @Override
+    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+        if (goodDetailBean != null) {
+            ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
+                    goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
+                    goodDetailBean.getDiscountPrice() + "",platform.getName(),"true");
+        }
+    }
 
+    @Override
+    public void onError(Platform platform, int i, Throwable throwable) {
+        if (goodDetailBean != null) {
+            ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
+                    goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
+                    goodDetailBean.getDiscountPrice() + "",platform.getName(),"false");
+        }
+    }
+
+    @Override
+    public void onCancel(Platform platform, int i) {
+        if (goodDetailBean != null) {
+            ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
+                    goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
+                    goodDetailBean.getDiscountPrice() + "",platform.getName(),"false");
+        }
+    }
 }

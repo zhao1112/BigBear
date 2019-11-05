@@ -60,18 +60,14 @@ public class NewInvitationDialog implements View.OnClickListener {
 
     public Context mContext;
     public static String mIageUrl;
-
     private static final int SAVE_SUCCESS = 0;//保存图片成功
     private static final int SAVE_FAILURE = 1;//保存图片失败
     private static final int SAVE_BEGIN = 2;//开始保存图片
-
     static final String[] PERMISSIONS = new String[]{WRITE_EXTERNAL_STORAGE};
-
     private PermissionsChecker permissionsChecker;
     private static final long ALPHA_DURATION = 2000;
     public static final int APPLY_PERMISSION = 1;
     private PopupWindow mPopupWindow;
-
 
     public NewInvitationDialog(Context context, String imageUrl) {
         this.mContext = context;
@@ -181,7 +177,6 @@ public class NewInvitationDialog implements View.OnClickListener {
         void lightoff();
     }
 
-
     /**
      * 判断qq是否可用
      *
@@ -211,7 +206,7 @@ public class NewInvitationDialog implements View.OnClickListener {
         shareParams.setShareType(Platform.SHARE_IMAGE);//分享类型     // 设置成分享网页
         platform.share(shareParams);
         //TODO[分享方式]
-        sensorsType(name);
+        ConstantScUtil.sensorsType(name);
     }
 
     //保存
@@ -323,7 +318,6 @@ public class NewInvitationDialog implements View.OnClickListener {
         });
     }
 
-
     // 显示缺失权限提示
     private void showMissingPermissionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -346,14 +340,6 @@ public class NewInvitationDialog implements View.OnClickListener {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + mContext.getPackageName()));
         mContext.startActivity(intent);
-    }
-
-
-    //神策分享统计
-    public static void sensorsType(String value) {
-        Map<String, String> map = new HashMap<>();
-        map.put("type_name", value);
-        ConstantScUtil.sensorsTrack("shareType", map);
     }
 
 }

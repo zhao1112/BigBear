@@ -35,7 +35,6 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         if (viewType == 0){
             View view = LayoutInflater.from(context).inflate(R.layout.item_charge_phone,parent,false);
             return new ChargeViewHolder(view);
@@ -46,17 +45,11 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
         if (holder instanceof ChargeViewHolder){
-
             handlePhoneCharge((ChargeViewHolder)holder,position);
-
         }else if (holder instanceof FlowViewHolder){
-
             handleFlowCharge((FlowViewHolder)holder,position);
-
         }
-
     }
 
     private void  handlePhoneCharge(ChargeViewHolder holder,int position){
@@ -77,7 +70,6 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private void  handleFlowCharge(FlowViewHolder holder,int position){
-
         Charge charge = datas.get(position);
         boolean isSelect = charge.isSelect();
         holder.itemView.setSelected(isSelect);

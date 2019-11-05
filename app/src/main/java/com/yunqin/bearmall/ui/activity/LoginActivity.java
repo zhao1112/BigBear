@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.newversions.tbk.activity.InputIncomCodeActivity;
-import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.Constans;
@@ -28,7 +27,6 @@ import com.yunqin.bearmall.inter.loginWayCallBack;
 import com.yunqin.bearmall.ui.activity.contract.LoginActivityContract;
 import com.yunqin.bearmall.ui.activity.presenter.LoginPresenter;
 import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.util.StringUtils;
 import com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout;
@@ -56,21 +54,18 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
     //微信登陆按钮
     @BindView(R.id.wx_login_btn)
     HighlightLinearLayout wxLoginBtn;
-
     //其他登陆方式
     @BindView(R.id.other_login_way)
     Button otherLoginWay;
     //用户协议
     @BindView(R.id.user_protocol)
     TextView userProtocol;
-
     @BindView(R.id.close)
     RelativeLayout close;
 
     private LoginActivityContract.presenter presenter;
     private int LoginWay;//1 QQ  2 微信
     private Platform platform;
-
 
     public static void starActivity(Activity mContext) {
         Intent intent = new Intent(mContext, LoginActivity.class);
@@ -96,15 +91,12 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                 WxLogin();
                 break;
             case R.id.other_login_way:
-//                DialogUtils.changeLoginWay(this, this);
                 PhoneLoginActivity.starActivity(this);
                 finish();
                 break;
             case R.id.user_protocol:
-
                 String guidelUrl = BuildConfig.BASE_URL + "/view/getPrivacyPolicy";
                 VanguardListPageActivity.startH5Activity(this, guidelUrl, "用户协议");
-
                 break;
             case R.id.close:
                 this.finish();
@@ -119,10 +111,8 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             PhoneLoginActivity.starActivity(this);
         } else {
             QLogin();
-//            showToast("QQ登录被点击");
         }
     }
-
 
     @Override
     protected void onStart() {
@@ -144,7 +134,6 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
     public void Event(FinishEvent finishEvent) {
         this.finish();
     }
-
 
     public void QLogin() {
         showLoading();
@@ -175,7 +164,6 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
      * @param i
      * @param hashMap
      */
-
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         this.platform = platform;
@@ -192,7 +180,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         }
         presenter.start(Constans.params);
         //TODO[授权]
-        sensorsAuthorized("true","Success");
+        ConstantScUtil.sensorsAuthorized("true", "Success");
     }
 
     @Override
@@ -200,7 +188,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         hiddenLoadingView();
         showToast("第三方登录错误" + throwable.toString());
         //TODO[授权]
-        sensorsAuthorized("false",throwable.getMessage().toString());
+        ConstantScUtil.sensorsAuthorized("false", throwable.getMessage().toString());
     }
 
     @Override
@@ -208,7 +196,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         hiddenLoadingView();
         showToast("第三方登录取消");
         //TODO[授权]
-        sensorsAuthorized("false","第三方登录取消");
+        ConstantScUtil.sensorsAuthorized("false", "第三方登录取消");
     }
 
     @Override
@@ -232,13 +220,14 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             } else if (jsonObject.getJSONObject("data").optInt("status") == 1) {
                 UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
-                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this, userInfo.getData().getToken().getAccess_token(),"微信");
+                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this,
+                            userInfo.getData().getToken().getAccess_token(), "微信");
                     finish();
                 } else {
                     BearMallAplication.getInstance().setUser(userInfo);
                     InitInvitation();
                     //TODO[登录]
-                    sensorsLogin();
+                    ConstantScUtil.sensorsLogin("微信");
                     finish();
                 }
             }
@@ -251,7 +240,6 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
     public void onerror() {
         hiddenLoadingView();
     }
-
 
     public static boolean isQQClientAvailable(Context context) {
         final PackageManager packageManager = context.getPackageManager();
@@ -269,21 +257,6 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
 
     private void InitInvitation() {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
-    }
-
-    //神策登录统计
-    public void sensorsLogin() {
-        Map<String, String> map = new HashMap<>();
-        map.put("login_method","微信");
-        ConstantScUtil.sensorsTrack("wechatLoginClick",map);
-    }
-
-    //神策授权统计
-    public void sensorsAuthorized (String bool,String reason) {
-        Map<String, String> map = new HashMap<>();
-        map.put("is_authorized",bool);
-        map.put("fail_reason",reason);
-        ConstantScUtil.sensorsTrack("authorized",map);
     }
 
 }

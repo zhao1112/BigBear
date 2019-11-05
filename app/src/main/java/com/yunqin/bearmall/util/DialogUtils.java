@@ -222,8 +222,8 @@ public class DialogUtils {
 
         dialog.setContentView(view);
         dialog.show();
-
-
+        //TODO[选择收货地址]
+        ConstantScUtil.addrChoose(dataBean.getConsignee() + " " + dataBean.getAreaName() + " " + dataBean.getAddress() + " " + dataBean.getPhone());
         Window window = dialog.getWindow();
         window.getDecorView().setPadding(30, 0, 30, 0);
 
@@ -233,6 +233,8 @@ public class DialogUtils {
             public void onClick(View v) {
                 sureAddressCallBack.sureAddressBtn();
                 dialog.dismiss();
+                //TODO[conformAddr]
+                ConstantScUtil.conformAddr();
             }
         });
 

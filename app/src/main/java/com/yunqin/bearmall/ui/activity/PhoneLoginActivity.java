@@ -61,66 +61,44 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
 
     @BindView(R.id.emsg_login_layout)
     RelativeLayout emsgLoginLayout;
-
     @BindView(R.id.acount_login_layout)
     RelativeLayout acountLoginLayout;
-
     @BindView(R.id.emsg_login)
     TextView emsgLogin;
-
     @BindView(R.id.acount_login)
     TextView acountLogin;
-
     @BindView(R.id.emsg_login_line)
     View emsgLoginLine;
-
     @BindView(R.id.acount_login_line)
     View acountLoginLine;
-
-
     @BindView(R.id.pwd_layout)
     LinearLayout pwdLayout;
-
     @BindView(R.id.input_pwd_layout)
     LinearLayout inputPwdLayout;
-
     @BindView(R.id.code_layout)
     LinearLayout codeLayout;
-
     @BindView(R.id.regiedt_forgetpwd_layout)
     LinearLayout bottomLayout;
-
     @BindView(R.id.img_code_layout)
     LinearLayout imgCodeLayout;
-
     @BindView(R.id.login_btn)
     HighlightButton loginBtn;
-
     @BindView(R.id.getcode_btn)
     Button getcodeBtn;
-
     @BindView(R.id.get_img_code)
     ImageView getImgCode;
-
     @BindView(R.id.regirst)
     TextView regirst;
-
     @BindView(R.id.reset_pwd)
     TextView resetPwd;
-
     @BindView(R.id.toolbar_title)
     TextView titleTextView;
-
-
     @BindView(R.id.phone_number)
     DelEditText phone_number;
-
     @BindView(R.id.psw_login)
     DelEditText psw_login;
-
     @BindView(R.id.msg_Code)
     DelEditText msg_Code;
-
     @BindView(R.id.img_code)
     DelEditText img_code;
 
@@ -132,7 +110,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         mContext.startActivity(intent);
         mContext.overridePendingTransition(R.anim.activity_in, R.anim.activity_stay);
     }
-
 
     @Override
     protected void onStart() {
@@ -154,7 +131,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
     public void Event(FinishEvent finishEvent) {
         this.finish();
     }
-
 
     @Override
     public int layoutId() {
@@ -202,7 +178,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         }
     }
 
-
     //简单逻辑实现 tablelayout效果
     private void changeLoginWayLayout(int whichWay) {
         if (whichWay == EMSGLOGIN) {
@@ -230,25 +205,24 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         }
     }
 
-
     private void getVerificationCode() {
         Constans.params.clear();
         Constans.params.put("machine_id", DeviceUtils.getUniqueId(this));
         RetrofitApi.requestImageCode(this, RetrofitApi.createApi(Api.class).getImageCode(Constans.params),
                 new RetrofitApi.ImageCodeResponseListener() {
-            @Override
-            public void onSuccess(Bitmap bitmap) {
-                try {
-                    getImgCode.setImageBitmap(bitmap);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+                    @Override
+                    public void onSuccess(Bitmap bitmap) {
+                        try {
+                            getImgCode.setImageBitmap(bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-            @Override
-            public void onFail(Throwable e) {
-            }
-        });
+                    @Override
+                    public void onFail(Throwable e) {
+                    }
+                });
     }
 
     /**
@@ -291,7 +265,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         Constans.params.put("cid", (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(),
                 "clientid", ""));
 
-
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).userLogin(Constans.params), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
@@ -314,7 +287,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                     } else if (StringUtils.isEmpty(userInfo.getParentCode())) {
                         // TODO: 2019/8/1 0001 填写邀请码
                         InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,
-                                userInfo.getData().getToken().getAccess_token(),"手机");
+                                userInfo.getData().getToken().getAccess_token(), "手机");
                         finish();
 
                     } else {
@@ -332,9 +305,9 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                         EventBus.getDefault().post(new FinishEvent());
                         BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
                         //TODO[登录]
-                        sensorsLogin("手机");
+                        ConstantScUtil.sensorsLogin("手机");
                         //TODO[获取验证码]
-                        sebsorsCode();
+                        ConstantScUtil.sebsorsCode();
                         finish();
                     }
                 } catch (Exception e) {
@@ -344,7 +317,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
 
             @Override
             public void onNotNetWork() {
-//                getVerificationCode();
+
             }
 
             @Override
@@ -370,7 +343,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
                     // TODO: 2019/8/1 0001 填写邀请码
                     InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,
-                            userInfo.getData().getToken().getAccess_token(),"手机");
+                            userInfo.getData().getToken().getAccess_token(), "手机");
                     finish();
 
                 } else {
@@ -385,11 +358,11 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                     EventBus.getDefault().post(new FinishEvent());
                     BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
                     //TODO[登录]
-                    sensorsLogin("微信");
+                    ConstantScUtil.sensorsLogin("微信");
                     //TODO[获取验证码]
-                    sebsorsCode();
+                    ConstantScUtil.sebsorsCode();
                     //TODO[授权]
-                    sensorsAuthorized("true","Success");
+                    ConstantScUtil.sensorsAuthorized("true", "Success");
                     finish();
                 }
             }
@@ -412,7 +385,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         hiddenLoadingView();
         showToast("绑定错误" + throwable.toString());
         //TODO[授权]
-        sensorsAuthorized("false",throwable.getMessage().toString());
+        ConstantScUtil.sensorsAuthorized("false", throwable.getMessage().toString());
     }
 
     @Override
@@ -420,9 +393,8 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         hiddenLoadingView();
         showToast("绑定微信取消");
         //TODO[授权]
-        sensorsAuthorized("false","绑定微信取消");
+        ConstantScUtil.sensorsAuthorized("false", "绑定微信取消");
     }
-
 
     public static boolean isQQClientAvailable(Context context) {
         final PackageManager packageManager = context.getPackageManager();
@@ -452,6 +424,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
             showToast("请输入图形验证码");
             return;
         }
+
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("mobile", phone_number.getText().toString().trim());
         mHashMap.put("validType", 1 + "");
@@ -475,26 +448,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 getVerificationCode();
             }
         });
-    }
-
-    //神策登录统计
-    public void sensorsLogin(String value) {
-        Map<String, String> map = new HashMap<>();
-        map.put("login_method", value);
-        ConstantScUtil.sensorsTrack("wechatLoginClick", map);
-    }
-
-    //神策验证码统计
-    public void sebsorsCode(){
-        ConstantScUtil.sensorsTrack("getCode", null);
-    }
-
-    //神策授权统计
-    public void sensorsAuthorized (String bool,String reason) {
-        Map<String, String> map = new HashMap<>();
-        map.put("is_authorized",bool);
-        map.put("fail_reason",reason);
-        ConstantScUtil.sensorsTrack("authorized",map);
     }
 
 }

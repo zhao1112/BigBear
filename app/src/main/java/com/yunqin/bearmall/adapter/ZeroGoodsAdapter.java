@@ -22,6 +22,7 @@ import com.yunqin.bearmall.bean.ZeroGoodsBean;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.TopBanner;
 
@@ -108,6 +109,8 @@ public class ZeroGoodsAdapter extends RecyclerView.Adapter {
                             @Override
                             public void onItemClick(int position) {
                                 BannerBean.DataBean.AdMobileListBean bean = bannerData.getData().getAdMobileList().get(position);
+                                //TODO[banner点击]
+                                ConstantScUtil.bannerClick("0元兑", "轮播图", "活动", "", "", list.get(position), "");
                                 adClick(bean);
                             }
                         });
@@ -133,7 +136,8 @@ public class ZeroGoodsAdapter extends RecyclerView.Adapter {
                 try {
                     //item数据
                     ((MyContentViewHolder) holder).goods_name.setText(mlist.get(position - 1).getProductName());
-                    ((MyContentViewHolder) holder).pintuan_number.setText(String.format("累计兑换%s份", mlist.get(position - 1).getTotalCount()));
+                    ((MyContentViewHolder) holder).pintuan_number.setText(String.format("累计兑换%s份",
+                            mlist.get(position - 1).getTotalCount()));
 
                     ((MyContentViewHolder) holder).tv_rmb.setText("¥" + mlist.get(position - 1).getMembershipPrice());
                     ((MyContentViewHolder) holder).tv_bt.setText("¥0+BC" + mlist.get(position - 1).getCost());
@@ -154,7 +158,6 @@ public class ZeroGoodsAdapter extends RecyclerView.Adapter {
             e.printStackTrace();
         }
     }
-
 
     public void changePintuanGuimo(TextView view, int number) {
         if (number == 10) {
@@ -186,18 +189,14 @@ public class ZeroGoodsAdapter extends RecyclerView.Adapter {
         return mlist.size() + 1;
     }
 
-
     class MyTopViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.top_ad_img)
         TopBanner top_ad_img;
-
         @BindView(R.id.center_ad_img)
         ImageView center_ad_img;
-
         @BindView(R.id.do_task)
         LinearLayout do_task;
-
 
         public MyTopViewHolder(View itemView) {
             super(itemView);
@@ -207,28 +206,20 @@ public class ZeroGoodsAdapter extends RecyclerView.Adapter {
     }
 
     class MyContentViewHolder extends RecyclerView.ViewHolder {
-
         @BindView(R.id.goods_name)
         TextView goods_name;
-
         @BindView(R.id.pintuan_number)
         TextView pintuan_number;
-
         @BindView(R.id.tv_rmb)
         TextView tv_rmb;
-
         @BindView(R.id.tv_bt)
         TextView tv_bt;
-
         @BindView(R.id.people_number)
         TextView people_number;
-
         @BindView(R.id.image_goods)
         ImageView image_goods;
-
         @BindView(R.id.item_layout)
         LinearLayout item_layout;
-
         @BindView(R.id.pintuan_guimo)
         TextView pintuan_guimo;
 
@@ -238,12 +229,8 @@ public class ZeroGoodsAdapter extends RecyclerView.Adapter {
         }
     }
 
-
     public void adClick(BannerBean.DataBean.AdMobileListBean adMobileListBean) {
-
-        IAdvClick.click(mContext, adMobileListBean.getType(), adMobileListBean.getSkipType(), adMobileListBean.getSource_id(),null);
-
-
+        IAdvClick.click(mContext, adMobileListBean.getType(), adMobileListBean.getSkipType(), adMobileListBean.getSource_id(), null);
     }
 
 }

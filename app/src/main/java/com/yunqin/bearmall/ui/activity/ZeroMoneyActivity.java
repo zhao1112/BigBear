@@ -104,7 +104,6 @@ public class ZeroMoneyActivity extends BaseActivity {
             case R.id.toolbar_back:
                 this.finish();
                 break;
-
             case R.id.left_layout:
                 switchFragment(1);
                 setBackground(true);

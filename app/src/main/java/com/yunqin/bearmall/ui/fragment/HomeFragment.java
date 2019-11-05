@@ -26,6 +26,7 @@ import com.yunqin.bearmall.ui.activity.MenuActicity;
 import com.yunqin.bearmall.ui.activity.SearchActivity;
 import com.yunqin.bearmall.ui.fragment.contract.HomeContract;
 import com.yunqin.bearmall.ui.fragment.presenter.HomePresenter;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.DotView;
@@ -215,6 +216,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
                             IAdvClick.click(getActivity(), popBean.getData().getPopupAd().getType(),
                                     popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id(),
                                     popBean.getData().getPopupAd().getAdUrl());
+                            //TODO[点击广告]
+                            ConstantScUtil.showAd();
                         }
                     }).build().show();
         }

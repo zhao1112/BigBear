@@ -25,6 +25,7 @@ import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.OpenVipActivity;
 import com.yunqin.bearmall.ui.activity.RenewVipActivity;
 import com.yunqin.bearmall.ui.activity.VipCenterActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.widget.RecyclerItemDecoration;
 
 import org.json.JSONException;
@@ -93,17 +94,14 @@ public class ChargeFragment extends BaseFragment {
         chargeRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-
                 if (e.getAction() == MotionEvent.ACTION_UP && !buyButton.isEnabled()) {
                     buyButton.setEnabled(true);
                 }
-
                 return false;
             }
 
             @Override
             public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
 
             }
 
@@ -178,10 +176,13 @@ public class ChargeFragment extends BaseFragment {
             if (adapter != null && adapter.getLastSeletIndex() != -1) {
                 Charge charge = charges.get(adapter.getLastSeletIndex());
                 ChargeConfirmActivity.startChargeConfirmActivity(getActivity(), mobile, carrierType, ticketCount, charge);
+                //TODO[话费面额选择]
+                ConstantScUtil.phoneFeeAmountChoose(mobile+"",charge.getTitle(),charge.getPayPrice());
+                //TODO[点击立即充值]
+                ConstantScUtil.phoneFeeSubmit(mobile+"",charge.getTitle(),charge.getPayPrice(),null,null);
             }
         }
     }
-
 
     public interface OnGetChargeDataListener {
 

@@ -30,7 +30,6 @@ public class TabTitleAdapter extends FragmentStatePagerAdapter {
         this.isMember = isMember;
     }
 
-
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
@@ -40,8 +39,6 @@ public class TabTitleAdapter extends FragmentStatePagerAdapter {
             return new NewVersionTBKHomeFragment();
         }
         return ProductSumFragment.getInstance(mChannellist.get(position - 1).getCategory_id()+"",2,"");
-
-
     }
 
     @Override

@@ -21,13 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.baichuan.android.trade.AlibcTrade;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
-import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
-import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -106,8 +99,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     LinearLayout linBuy;
     @BindView(R.id.rlv)
     RecyclerView rlv;
-    //    @BindView(R.id.scrollView)
-//    ObservableScrollView scrollView;
     @BindView(R.id.refreshlayout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
     @BindView(R.id.rl_seller_name)
@@ -159,7 +150,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         return R.layout.activity_goods_detail;
     }
 
-
     @Override
     public void init() {
         mPresenter = new GoodsDetailPresenter(this, this);
@@ -169,8 +159,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         positin = getIntent().getIntExtra("POSITION", 0);
         search = getIntent().getBooleanExtra("SEARCH", false);
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(this));
-//        mTwinklingRefreshLayout.setBottomView(new RefreshBottomView(getActivity()));
-//        mTwinklingRefreshLayout.setBottomView(new RefreshFooterView(this));
         mTwinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -311,7 +299,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         banGoodsImage.start();
         tvGoodsQixian.setText("使用期限：" + goodDetail.getCouponStartDate() + "-" + goodDetail.getCouponEndDate());
         tvStampsValue.setText(goodDetail.getCouponAmount() + "元优惠券");
-//                        tvQuanhoujiaBottom.setText("领券¥" + likeGuessEntity.getCouponAmount());
         if (getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_DEFAULT) == Constants.GOODS_TYPE_TBK) {
             tv_yongjin_num.setText("预估返：" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
             commission = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
@@ -337,12 +324,10 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         wvGoodsDetail.getSettings().setDisplayZoomControls(false);
         wvGoodsDetail.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
         wvGoodsDetail.setWebChromeClient(new WebChromeClient());
-
         wvGoodsDetail.getSettings().setDefaultTextEncodingName("UTF-8");
         wvGoodsDetail.getSettings().setBlockNetworkImage(false);
         WebSettings settings = wvGoodsDetail.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
         // 是否支持js  说了用js，这句是必须加上的
         settings.setJavaScriptEnabled(true);
         //  重写 WebViewClient
@@ -352,15 +337,19 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     .MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
         }
         wvGoodsDetail.loadDataWithBaseURL(null, goodDetail.getContent(), "text/html", " charset=UTF-8", null);
-//        wvGoodsDetail.loadUrl("https://h5.m.taobao.com/app/detail/desc.html?_isH5Des=true#!id=" + goodsId +
-//        "&type=0&f=TB15f4sbbj1gK0jSZFu8qwrHpla&sellerType=B");
         tvGoodsXiaoliang.setText(goodDetail.getSellNum() + "人已购");
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
         //TODO[商品详情页]
-        //searchDetail();
+        ConstantScUtil.searchDetail(goodDetail.getId() + "", goodDetail.getName(), goodDetail.getCategoryId() + "",
+                goodDetail.getSubCategoryId() + "", goodDetail.getSellerName(), goodDetail.getSellNum() + "",
+                goodDetail.getCouponAmount() + "", commission + "", goodDetail.getPrice() + "",
+                goodDetail.getDiscountPrice() + "");
         //TODO[搜索结果]
-        //searchResult();
+        ConstantScUtil.searchResult(search, keyword, positin, goodDetail.getId() + "", goodDetail.getName(),
+                goodDetail.getCategoryId() + "", goodDetail.getSubCategoryId() + "", goodDetail.getSellerName(),
+                goodDetail.getSellNum() + "", goodDetail.getCouponAmount() + "", commission + "",
+                goodDetail.getPrice() + "", goodDetail.getDiscountPrice() + "");
     }
 
     public void changeCollection(boolean collection) {
@@ -381,9 +370,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     }
 
-
     public void toTaobao() {
-//        showLoad();
         Map<String, String> map = new HashMap<>();
         map.put("itemId", goodsId);
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getHighCommission(map), new RetrofitApi.IResponseListener() {
@@ -427,38 +414,25 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         super.onResume();
     }
 
-
     /**
      * 检测该包名所对应的应用是否存在
      *
      * @param packageName
      * @return
      */
-
-
     public boolean checkPackage(String packageName) {
-
         if (packageName == null || "".equals(packageName))
-
             return false;
-
         try {
-
             getPackageManager().getApplicationInfo(packageName, PackageManager
                     .GET_UNINSTALLED_PACKAGES);
-
             return true;
-
         } catch (PackageManager.NameNotFoundException e) {
-
             return false;
-
         }
-
     }
 
-// todo 点击监听
-
+    // todo 点击监听
     @OnClick({R.id.iv_btn_back, R.id.lin_collect, R.id.lin_collect2, R.id.lin_share, R.id.lin_get_stamps, R.id.lin_quanhoujia,
             R.id.lin_buy, R.id.ll_more_comm})
     public void onViewClicked(View view) {
@@ -468,8 +442,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 break;
             case R.id.lin_buy:
             case R.id.lin_get_stamps:
-                // TODO: 2019/7/16 0016 购买 
-
+                // TODO: 2019/7/16 0016 购买
             case R.id.lin_quanhoujia:
                 // TODO: 2019/7/16 0016 购买
                 if (BearMallAplication.getInstance().getUser() == null) {
@@ -506,7 +479,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                         }
                     });
                 }
-
                 break;
             case R.id.lin_collect2:
                 // TODO: 2019/7/16 0016 首页 
@@ -521,7 +493,11 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
                     startActivity(intent);
                     //TODO[分享]
-                    //searchShare();
+                    if (goodDetail != null) {
+                        ConstantScUtil.searchShare(goodDetail.getId() + "", goodDetail.getName(), goodDetail.getSellerName(),
+                                goodDetail.getCouponAmount() + "", commission + "", goodDetail.getPrice() + "",
+                                goodDetail.getDiscountPrice() + "");
+                    }
                 } else {
                     showToast("请先登录");
                     LoginActivity.starActivity(this);
@@ -529,7 +505,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 break;
         }
     }
-
 
     class MyWebViewClient extends WebViewClient {
 
@@ -539,16 +514,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             if (wvGoodsDetail == null) return;
             //  html加载完成之后，调用js的方法
             imgReset();
-//            // hide element by class name
-//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp rmsp-bl rmsp-bl')[0]
-//            .style.display='none'; })()");
-//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp rmsp-bl')[0].style
-//            .display='none'; })()");
-//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementsByClassName('rmsp-hr')[0].style
-//            .display='none'; })()");
-////            // hide element by id
-//            wvGoodsDetail.loadUrl("javascript:(window.onload=function() { document.getElementById('J_fullBtn').style.display='none';})
-//            ()");
         }
 
         private void imgReset() {
@@ -561,80 +526,10 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     + "}" + "})()");
         }
 
-
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
     }
-
-    public void searchDetail() {
-        Log.i("searchDetail", "searchDetail ");
-        if (goodDetail != null) {
-            Map<String, String> map = new HashMap<>();
-            map.put("commodity_id", goodDetail.getId() + "");
-            map.put("commodity_name", goodDetail.getName());
-            map.put("first_commodity", goodDetail.getCategoryId() + "");
-            map.put("second_commodity", goodDetail.getSubCategoryId() + "");
-            //map.put("commodity_classification", "");
-            map.put("store_name", goodDetail.getSellerName());
-            map.put("commodity_bought_count", goodDetail.getSellNum() + "");
-            //map.put("coupon_name", "");
-            //map.put("coupont_type", "");
-            map.put("coupon_amount", goodDetail.getCouponAmount() + "");
-            map.put("predictive_commission", commission + "");
-            map.put("present_price", goodDetail.getPrice() + "");
-            map.put("coupon_price", goodDetail.getDiscountPrice() + "");
-            ConstantScUtil.sensorsTrack("commodityDetail", map);
-        }
-    }
-
-    //神策搜索结果统计
-    public void searchResult() {
-        if (search) {
-            if (goodDetail != null) {
-                Map<String, String> map = new HashMap<>();
-                map.put("key_word", keyword);
-                //map.put("key_word_classify", positin + "");
-                positin = positin + 1;
-                map.put("position_number", positin + "");
-                map.put("commodity_id", goodDetail.getId() + "");
-                map.put("commodity_name", goodDetail.getName());
-                map.put("first_commodity", goodDetail.getCategoryId() + "");
-                map.put("second_commodity", goodDetail.getSubCategoryId() + "");
-                //map.put("commodity_classification", "");
-                map.put("store_name", goodDetail.getSellerName());
-                map.put("commodity_bought_count", goodDetail.getSellNum() + "");
-                //map.put("coupon_name", "");
-                //map.put("coupont_type", "");
-                //map.put("没有", goodDetail.getCouponStartDate() + "");
-                map.put("coupon_amount", goodDetail.getCouponAmount() + "");
-                map.put("predictive_commission", commission + "");
-                map.put("present_price", goodDetail.getPrice() + "");
-                map.put("coupon_price", goodDetail.getDiscountPrice() + "");
-                ConstantScUtil.sensorsTrack("searchResultClick", map);
-            }
-        }
-    }
-
-    //神策分享统计
-    public void searchShare() {
-        Log.i("searchDetail", "searchShare: ");
-        Map<String, String> map = new HashMap<>();
-        if (goodDetail != null) {
-            map.put("commodity_id", goodDetail.getId() + "");
-            map.put("commodity_name", goodDetail.getName());
-            //map.put("commodity_classification", );
-            map.put("store_name", goodDetail.getSellerName());
-            //map.put("coupon_name", );
-            //map.put("coupont_type", );
-            map.put("coupon_amount", goodDetail.getCouponAmount() + "");
-            map.put("predictive_commission", commission + "");
-            map.put("present_price", goodDetail.getPrice() + "");
-            map.put("coupon_price", goodDetail.getDiscountPrice() + "");
-            ConstantScUtil.sensorsTrack("shareClick", map);
-        }
-    }
-
 }

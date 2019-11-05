@@ -63,6 +63,7 @@ import com.yunqin.bearmall.ui.activity.ZanWeiKaiFangActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
 import com.yunqin.bearmall.ui.fragment.contract.MineContract;
 import com.yunqin.bearmall.ui.fragment.presenter.MinePresenter;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -249,6 +250,8 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                             IAdvClick.click(getActivity(), popBean.getData().getPopupAd().getType(),
                                     popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id(),
                                     popBean.getData().getPopupAd().getAdUrl());
+                            //TODO[点击广告]
+                            ConstantScUtil.showAd();
                         }
                     }).build().show();
         }

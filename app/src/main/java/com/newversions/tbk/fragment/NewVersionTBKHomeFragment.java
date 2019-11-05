@@ -97,7 +97,6 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
                 int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
                 int totalItemCount = layoutManager.getItemCount();
 
-
                 if (isSlidingToLast && lastVisibleItem == (totalItemCount - 1)) {
                     mPresenter.onLoadMore();
                 }

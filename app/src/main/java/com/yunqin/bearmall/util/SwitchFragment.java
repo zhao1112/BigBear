@@ -18,7 +18,8 @@ public class SwitchFragment {
 
     private int LAST_POSITION = -1;
 
-    @IntDef({FRAGMENT_TYPE.APP_HOME, FRAGMENT_TYPE.APP_RECOMMEND, FRAGMENT_TYPE.APP_INFORMATION, FRAGMENT_TYPE.APP_TROLLEY, FRAGMENT_TYPE.APP_MINE})
+    @IntDef({FRAGMENT_TYPE.APP_HOME, FRAGMENT_TYPE.APP_RECOMMEND, FRAGMENT_TYPE.APP_INFORMATION, FRAGMENT_TYPE.APP_TROLLEY,
+            FRAGMENT_TYPE.APP_MINE})
     public @interface FRAGMENT_TYPE {
         int APP_HOME = 0;
         int APP_INFORMATION = 1;
@@ -28,12 +29,12 @@ public class SwitchFragment {
 
     }
 
-    private  HomeFragment mHomeFragment;
-    private  GuideWithVideoFragment mRecommendFragment;
-    private  MakeMoneyFragment mMakeMoneyFragment;
+    private HomeFragment mHomeFragment;
+    private GuideWithVideoFragment mRecommendFragment;
+    private MakeMoneyFragment mMakeMoneyFragment;
     // TODO: 2019/7/15 0015 替换成0元兑
-    private  ZeroGoodsFragment mTrolleyFragment;
-    private  MineNewFragment mMineFragment;
+    private ZeroGoodsFragment mTrolleyFragment;
+    private MineNewFragment mMineFragment;
     private FragmentManager manager;
 
     public SwitchFragment(FragmentManager manager) {
@@ -105,6 +106,8 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mTrolleyFragment);
                 transaction.commit();
+                //TODO[点击0元兑]
+                ConstantScUtil.exchangeClick();
                 break;
             case FRAGMENT_TYPE.APP_MINE:
                 if (mMineFragment == null) {

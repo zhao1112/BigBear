@@ -37,5 +37,4 @@ public class StarActivityUtil {
         context.overridePendingTransition(0, R.anim.activity_stay);
     }
 
-
 }

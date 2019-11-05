@@ -21,6 +21,7 @@ import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DeviceUtils;
 
 import org.json.JSONException;
@@ -34,21 +35,17 @@ public class BannerClicker {
         Log.i("bannerClick", "targetType: " + targetType + "--- target" + target);
         switch (targetType) {
             case 1://外部淘宝链接
-//                WebActivity.startWebActivity(activity, 1, target, title);
                 ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
                 if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
                     arouseTaoBao.openTaoBao(target);
                 } else {
                     Toast.makeText(activity, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
                 }
+                //TODO[banner点击]
+                ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;
-            /*case 2://分类
-                ProductSumActivity.startProductSumActivity(activity,target,4,title);
-                break;*/
             case 3://单品
                 GoodsDetailActivity.startGoodsDetailActivity(activity, target);
-
-
                 break;
             case 10://99
             case 11://抢购
@@ -67,11 +64,11 @@ public class BannerClicker {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-
                 String token = BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token();
                 String url1 = BuildConfig.BASE_URL + "/view/getCreditCardBankPage?access_token=" + token;
-
                 CardListWebActivity.startActivity(activity, url1, "信用卡申请");
+                //TODO[信用卡申请]
+                ConstantScUtil.cardApply();
                 break;
             case 15://赚钱
                 if (BearMallAplication.getInstance().getUser() == null) {
@@ -88,7 +85,6 @@ public class BannerClicker {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-
                 InviteFriendActivity.startActivity(activity);
                 break;
             case 18://小说
@@ -102,6 +98,8 @@ public class BannerClicker {
                             Log.d("@YY", "topBarClick: getAccess_token-->" + uId);
                             YmConfig.setOutUserId(uId);
                             YmConfig.openReader();
+                            //TODO[阅读小说]
+                            ConstantScUtil.novelRead();
                         }
 
                         @Override
@@ -126,9 +124,13 @@ public class BannerClicker {
                 intent.putExtra(Constants.INTENT_KEY_URL, url);
                 intent.putExtra(Constants.INTENT_KEY_TITLE, "名品抵扣券");
                 activity.startActivity(intent);
+                //TODO[购买名品折扣券]
+                ConstantScUtil.BrandCoupon();
                 break;
             case 30://0元兑
                 WebActivity.startWebActivity(activity, 1, target, title);
+                //TODO[banner点击]
+                ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;
         }
     }
