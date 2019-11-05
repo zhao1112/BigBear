@@ -133,6 +133,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                                             SuperSearch superSearch = new Gson().fromJson(data, SuperSearch.class);
                                             Log.i("onSuccess", data);
                                             if (superSearch.getCode() == 1) {
+                                                if (superSearch.getData() == null) {
+                                                    OpenGoodsDetail.showDialog(BaseActivity.this);
+                                                    return;
+                                                }
                                                 if (superSearch.getData().size() == 1) {
                                                     GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
                                                             superSearch.getData().get(0).getTao_id(), Constants.GOODS_TYPE_TBK_SEARCH);
