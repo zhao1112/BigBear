@@ -341,7 +341,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
         //TODO[商品详情页]
-        ConstantScUtil.searchDetail(goodDetail.getId() + "", goodDetail.getName(), goodDetail.getCategoryId() + "",
+        ConstantScUtil.searchDetail(goodsId + "", goodDetail.getName(), goodDetail.getCategoryId() + "",
                 goodDetail.getSubCategoryId() + "", goodDetail.getSellerName(), goodDetail.getSellNum() + "",
                 goodDetail.getCouponAmount() + "", commission + "", goodDetail.getPrice() + "",
                 goodDetail.getDiscountPrice() + "");

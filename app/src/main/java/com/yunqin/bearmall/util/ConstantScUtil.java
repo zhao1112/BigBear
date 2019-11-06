@@ -115,6 +115,7 @@ public class ConstantScUtil {
     public static void searchDetail(String commodity_id, String commodity_name, String first_commodity, String second_commodity,
                                     String store_name, String commodity_bought_count, String coupon_amount, String predictive_commission,
                                     String present_price, String coupon_price) {
+        Log.i("searchDetail", commodity_id);
         Map<String, String> map = new HashMap<>();
         map.put("commodity_id", commodity_id);
         map.put("commodity_name", commodity_name);
