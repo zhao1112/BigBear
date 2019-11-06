@@ -73,8 +73,7 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
 
     @Override
     public void getMoreLikeGoods(String goodsId) {
-
-        view.showLoad();
+//        view.showLoad();
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("pageSize", "10");
         mHashMap.put("page", String.valueOf(page));

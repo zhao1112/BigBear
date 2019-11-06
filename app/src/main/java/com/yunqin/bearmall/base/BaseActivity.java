@@ -35,6 +35,7 @@ import com.yunqin.bearmall.widget.LoadingView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -130,23 +131,32 @@ public abstract class BaseActivity extends AppCompatActivity {
                                     new RetrofitApi.IResponseListener() {
                                         @Override
                                         public void onSuccess(String data) throws JSONException {
-                                            SuperSearch superSearch = new Gson().fromJson(data, SuperSearch.class);
-                                            Log.i("onSuccess", data);
-                                            if (superSearch.getCode() == 1) {
-                                                if (superSearch.getData().size() <= 0) {
-                                                    OpenGoodsDetail.showDialog(BaseActivity.this);
-                                                    return;
-                                                }
-                                                if (superSearch.getData().size() == 1) {
-                                                    GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
-                                                            superSearch.getData().get(0).getTao_id(), Constants.GOODS_TYPE_TBK_SEARCH);
+                                            JSONObject object = new JSONObject(data);
+                                            if (object != null) {
+                                                if (object.optInt("code") == 1) {
+                                                    SuperSearch superSearch = new Gson().fromJson(data, SuperSearch.class);
+                                                    if (superSearch != null && superSearch.getData().size() > 0) {
+                                                        if (superSearch.getData().size() == 1) {
+                                                            GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
+                                                                    superSearch.getData().get(0).getTao_id(),
+                                                                    Constants.GOODS_TYPE_TBK_SEARCH);
+                                                        } else {
+                                                            SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch,
+                                                                    content);
+                                                        }
+                                                    } else {
+                                                        OpenGoodsDetail.showDialog(BaseActivity.this);
+                                                    }
+                                                } else if (object.optInt("code") == 2) {
+                                                    if (TextUtils.isEmpty(object.optString("data"))) {
+                                                        OpenGoodsDetail.showDialog(BaseActivity.this);
+                                                    } else {
+                                                        GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, object.optString(
+                                                                "data"), Constants.GOODS_TYPE_TBK_SEARCH);
+                                                    }
                                                 } else {
-                                                    SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch, content);
+                                                    OpenGoodsDetail.showDialog(BaseActivity.this);
                                                 }
-                                            } else if (superSearch.getCode() == 2) {
-                                                OpenGoodsDetail.showDialog(BaseActivity.this);
-                                            } else {
-                                                ProductSumActivity.startProductSumActivity(BaseActivity.this, content, 8, content);
                                             }
                                         }
 

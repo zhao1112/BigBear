@@ -336,7 +336,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             wvGoodsDetail.getSettings().setMixedContentMode(wvGoodsDetail.getSettings()
                     .MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
         }
-        wvGoodsDetail.loadDataWithBaseURL(null, goodDetail.getContent(), "text/html", " charset=UTF-8", null);
+        String content = goodDetail.getContent().substring(goodDetail.getContent().indexOf("<p>"));
+        wvGoodsDetail.loadDataWithBaseURL(null,content , "text/html", " charset=UTF-8", null);
         tvGoodsXiaoliang.setText(goodDetail.getSellNum() + "人已购");
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
