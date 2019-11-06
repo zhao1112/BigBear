@@ -384,35 +384,40 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
      * @param ip        ip 获取，ip 必须是客户端的外网 ip
      */
     public void initsTuia(String advertKey, String subType, String ua, String device, String ip) {
-        mMap = new HashMap<>();
-        OkHttpClient okHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url(ConstUtils.TUIA_URL + "?device=" + device + "&advertKey=" + advertKey + "&subType=" + subType + "&ip=" + ip + "&ua=" + ua)
-                .build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                mMap.put("tuia_id", "000");
-                RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    if (jsonObject.optString("a_oId") != null && !TextUtils.isEmpty(jsonObject.optString("a_oId"))) {
-                        mMap.put("tuia_id", jsonObject.optString("a_oId"));
-                        RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
-                    } else {
-                        mMap.put("tuia_id", "000");
-                        RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        try {
+            mMap = new HashMap<>();
+            OkHttpClient okHttpClient = new OkHttpClient();
+            final Request request = new Request.Builder()
+                    .url(ConstUtils.TUIA_URL + "?device=" + device + "&advertKey=" + advertKey + "&subType=" + subType + "&ip=" + ip +
+                            "&ua=" + ua)
+                    .build();
+            Call call = okHttpClient.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    mMap.put("tuia_id", "000");
+                    RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        if (jsonObject.optString("a_oId") != null && !TextUtils.isEmpty(jsonObject.optString("a_oId"))) {
+                            mMap.put("tuia_id", jsonObject.optString("a_oId"));
+                            RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
+                        } else {
+                            mMap.put("tuia_id", "000");
+                            RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
