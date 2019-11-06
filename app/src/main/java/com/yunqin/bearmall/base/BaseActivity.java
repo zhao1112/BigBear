@@ -84,9 +84,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void searchDialog() {
         try {
             Boolean bFirst = (Boolean) SharedPreferencesUtils.getParam(this, Constants.isFirstOpen, true);
-            if (BearMallAplication.getInstance().getUser() == null) {
-                return;
-            }
+//            if (BearMallAplication.getInstance().getUser() == null) {
+//                return;
+//            }
             if (loadingProgress != null && loadingProgress.isShowing()) {
                 return;
             }
