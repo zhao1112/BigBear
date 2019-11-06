@@ -90,8 +90,8 @@ android {
         debug {
             // 测试地址192.168.0.111
 //            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'
-            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
-//            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.116:80"' //本地服务
+//            buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
+            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.116:80"' //本地服务
             buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"' //本地服务
             buildConfigField 'String', 'SHENC_URL', '"default"'  //神策测试数据上传地址
             manifestPlaceholders = [

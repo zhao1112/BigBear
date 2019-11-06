@@ -218,9 +218,10 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
                                 platform = ShareSDK.getPlatform(SinaWeibo.NAME);
                                 break;
                         }
-                        if (platform != null)
+                        if (platform != null) {
                             platform.share(sp);
-                        platform.setPlatformActionListener(ShareComissionActivity.this);
+                            platform.setPlatformActionListener(ShareComissionActivity.this);
+                        }
                     }
 
                     @Override

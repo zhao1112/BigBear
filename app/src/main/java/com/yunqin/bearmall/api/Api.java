@@ -1133,8 +1133,9 @@ public interface Api {
     /**
      * 收集初始化信息
      */
+    @FormUrlEncoded
     @POST("api/basic/init")
-    Observable<String> getInitMessage();
+    Observable<String> getInitMessage(@FieldMap() Map<String, String> params);
 
     /***
      * 判断是否可以0元兑

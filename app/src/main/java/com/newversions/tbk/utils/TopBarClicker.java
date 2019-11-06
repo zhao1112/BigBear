@@ -88,6 +88,8 @@ public class TopBarClicker {
                 ConstantScUtil.sensorsInviteFriends("首页：邀请好友");
                 break;
             case 9:
+                //TODO[阅读小说]
+                ConstantScUtil.novelRead();
                 // TODO: 2019/7/17 0017 小说
                 if (BearMallAplication.getInstance().getUser() != null) {
                     Map<String, String> map = new HashMap<>();
@@ -99,8 +101,6 @@ public class TopBarClicker {
                             Log.d("@YY", "topBarClick: getAccess_token-->" + uId);
                             YmConfig.setOutUserId(uId);
                             YmConfig.openReader();
-                            //TODO[阅读小说]
-                            ConstantScUtil.novelRead();
                         }
 
                         @Override

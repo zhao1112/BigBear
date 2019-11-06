@@ -121,4 +121,14 @@ public class ConstUtils {
      * 正则：IP地址
      */
     public static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
+
+    /**
+     * 推啊advertKey
+     */
+    public static final String TUIA_ADVERTKEY = "EBD84197FAF646A354B3251A0C48B682";
+
+    /**
+     * 推啊url
+     */
+    public static final String TUIA_URL = "https://activity.tuia.cn/log/effect/v2";
 }

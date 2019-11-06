@@ -1,9 +1,11 @@
 package com.yunqin.bearmall.util;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
+import com.sensorsdata.analytics.android.sdk.util.SensorsDataUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -279,5 +281,23 @@ public class ConstantScUtil {
         map.put("bearmall_price", bearmall_price);
         map.put("candy_price", candy_price);
         ConstantScUtil.sensorsTrack("commodityDetail2", map);
+    }
+
+    /**
+     * 神策
+     * 记录激活事件
+     */
+    public static void trackInstallation(Context context) {
+        try {
+            String DownloadChannel = null;
+            DownloadChannel = SensorsDataUtils.getApplicationMetaData(context, "UMENG_CHANNEL");
+            JSONObject properties = new JSONObject();
+            properties.put("DownloadChannel", DownloadChannel);//这里的 DownloadChannel 负责记录下载商店的渠道。这里传入具体应用商店包的标记。
+            Log.i("trackInstallation", DownloadChannel);
+            //记录 AppInstall 激活事件
+            SensorsDataAPI.sharedInstance().trackInstallation("AppInstall", properties);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

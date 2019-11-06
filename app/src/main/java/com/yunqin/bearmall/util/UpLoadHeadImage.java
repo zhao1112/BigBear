@@ -2,6 +2,10 @@ package com.yunqin.bearmall.util;
 
 import android.content.Context;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.webkit.WebSettings;
 
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
@@ -108,5 +112,80 @@ public class UpLoadHeadImage {
         return "";
     }
 
+    /**
+     * 推啊device加密
+     * device 使用 md5 小写 32 位的加密方式
+     */
+    public static String getMd5Value(String sSecret) {
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            byte[] bytes = md5.digest(sSecret.getBytes());
+            String result = "";
+            for (byte b : bytes) {
+                String temp = Integer.toHexString(b & 0xff);
+                if (temp.length() == 1) {
+                    temp = "0" + temp;
+                }
+                result += temp;
+            }
+            return result;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获取用户ip
+     */
+    public static String getInNetIp(Context context) {
+        //获取wifi服务
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        //判断wifi是否开启
+        if (!wifiManager.isWifiEnabled()) {
+            wifiManager.setWifiEnabled(true);
+        }
+
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        int ipAddress = wifiInfo.getIpAddress();
+        String ip = intToIp(ipAddress);
+        return ip;
+    }
+
+    //这段是转换成点分式IP的码
+    private static String intToIp(int ip) {
+        return (ip & 0xFF) + "." + ((ip >> 8) & 0xFF) + "." + ((ip >> 16) & 0xFF) + "." + (ip >> 24 & 0xFF);
+    }
+
+    /**
+     * 获取推啊ua
+     */
+    public static String getUserAgent(Context context) {
+        String userAgent = "";
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                try {
+                    userAgent = WebSettings.getDefaultUserAgent(context);
+                } catch (Exception e) {
+                    userAgent = System.getProperty("http.agent");
+                }
+            } else {
+                userAgent = System.getProperty("http.agent");
+            }
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0, length = userAgent.length(); i < length; i++) {
+                char c = userAgent.charAt(i);
+                if (c <= '\u001f' || c >= '\u007f') {
+                    sb.append(String.format("\\u%04x", (int) c));
+                } else {
+                    sb.append(c);
+                }
+            }
+            return sb.toString();
+        } catch (Exception e) {
+        }
+        return userAgent;
+    }
 
 }

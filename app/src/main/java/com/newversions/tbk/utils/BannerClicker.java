@@ -88,6 +88,8 @@ public class BannerClicker {
                 InviteFriendActivity.startActivity(activity);
                 break;
             case 18://小说
+                //TODO[阅读小说]
+                ConstantScUtil.novelRead();
                 if (BearMallAplication.getInstance().getUser() != null) {
                     Map<String, String> map = new HashMap<>();
                     RetrofitApi.request(activity, RetrofitApi.createApi(Api.class).getUserId(map), new RetrofitApi.IResponseListener() {
@@ -98,8 +100,6 @@ public class BannerClicker {
                             Log.d("@YY", "topBarClick: getAccess_token-->" + uId);
                             YmConfig.setOutUserId(uId);
                             YmConfig.openReader();
-                            //TODO[阅读小说]
-                            ConstantScUtil.novelRead();
                         }
 
                         @Override
@@ -113,7 +113,6 @@ public class BannerClicker {
                     });
                 } else {
                     YmConfig.openReader();
-
                 }
                 break;
             case 19://券

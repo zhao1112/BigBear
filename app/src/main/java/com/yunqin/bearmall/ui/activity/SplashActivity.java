@@ -1,17 +1,10 @@
 package com.yunqin.bearmall.ui.activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
-import android.provider.Settings;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.sensorsdata.analytics.android.sdk.SensorsDataAPI;
-import com.sensorsdata.analytics.android.sdk.util.SensorsDataUtils;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
@@ -20,22 +13,13 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.MemberBeanResponse;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.update.CheckForUpdateHelper;
-import com.yunqin.bearmall.util.PermissionsChecker;
-import com.yunqin.bearmall.util.SharedPreferencesHelper;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import permison.PermissonUtil;
 import permison.listener.PermissionListener;
-
-import static android.Manifest.permission.READ_PHONE_STATE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
  * @author AYWang
@@ -44,7 +28,6 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
  */
 public class SplashActivity extends BaseActivity {
 
-    private static final String first = "INITIALIZATION";
     private Handler mHandler = new Handler();
 
     @Override
@@ -93,23 +76,14 @@ public class SplashActivity extends BaseActivity {
         PermissonUtil.checkPermission(this, new PermissionListener() {
             @Override
             public void havePermission() {
-                boolean isFirst = (boolean) SharedPreferencesHelper.get(SplashActivity.this, first, false);
-                if (!isFirst) {
-                    RetrofitApi.request(SplashActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(), null);
-                }
-                SharedPreferencesHelper.put(SplashActivity.this, first, true);
                 openActivity();
-                trackInstallation();
+                ConstantScUtil.trackInstallation(SplashActivity.this);
             }
 
             @Override
             public void requestPermissionFail() {
-                boolean isFirst = (boolean) SharedPreferencesHelper.get(SplashActivity.this, first, false);
-                if (!isFirst) {
-                    RetrofitApi.request(SplashActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(), null);
-                }
-                SharedPreferencesHelper.put(SplashActivity.this, first, true);
                 openActivity();
+                ConstantScUtil.trackInstallation(SplashActivity.this);
             }
         }, new String[]{Manifest.permission.READ_PHONE_STATE});
     }
@@ -124,23 +98,6 @@ public class SplashActivity extends BaseActivity {
         }, 1000);
     }
 
-    /**
-     * 神策
-     * 记录激活事件
-     */
-    private void trackInstallation() {
-        try {
-            String DownloadChannel = null;
-            DownloadChannel = SensorsDataUtils.getApplicationMetaData(this, "UMENG_CHANNEL");
-            JSONObject properties = new JSONObject();
-            properties.put("DownloadChannel", DownloadChannel);//这里的 DownloadChannel 负责记录下载商店的渠道。这里传入具体应用商店包的标记。
-            Log.i("trackInstallation", DownloadChannel);
-            //记录 AppInstall 激活事件
-            SensorsDataAPI.sharedInstance().trackInstallation("AppInstall", properties);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onDestroy() {
