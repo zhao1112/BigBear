@@ -378,16 +378,20 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     @Override
     public void contenGoods(ContenGoods conten) {
         if (conten != null && conten.getData().getPcDescContent() != null) {
-            String replace = conten.getData().getPcDescContent().replace("//", "https://");
-            Log.i("ContenGoods", replace);
-            String substring = replace.substring(0,replace.indexOf("<p>"));
-            if (!TextUtils.isEmpty(substring)){
-                Log.e("ContenGoods -->", substring);
+            try {
+                String replace = conten.getData().getPcDescContent().replace("//", "https://");
+                Log.i("ContenGoods", replace);
+                String substring = replace.substring(0, replace.indexOf("<p"));
+                if (!TextUtils.isEmpty(substring)) {
+                    Log.e("ContenGoods -->", substring);
+                }
+                String replace1 = replace.replace(substring, "");
+                wvGoodsDetail.loadDataWithBaseURL(null, replace1, "text/html", " charset=UTF-8", null);
+                wvGoodsDetail.setVisibility(View.VISIBLE);
+                Log.i("ContenGoods", replace1);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            String replace1 = replace.replace(substring, "");
-            wvGoodsDetail.loadDataWithBaseURL(null, replace1, "text/html", " charset=UTF-8", null);
-            wvGoodsDetail.setVisibility(View.VISIBLE);
-            Log.i("ContenGoods", replace1);
         }
     }
 
