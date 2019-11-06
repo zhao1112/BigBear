@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.bean.ContenGoods;
 import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
@@ -117,6 +119,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     TextView tvArg2;
     @BindView(R.id.tv_arg_3)
     TextView tvArg3;
+    private String Image = "<img class=\"desc_anchor\" id=\"desc-module-1\" src=\"https://assets.alicdn.com/kissy/1.0" + ".0/build" +
+            "/imglazyload/spaceball.gif\">";
 
     private List<TBKHomeGoodsEntity.RecommendBean> mList = new ArrayList<>();
     private int page;
@@ -178,6 +182,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         rlv.setLayoutManager(new GridLayoutManager(this, 2));
         rlv.setAdapter(homeAdapter);
         mPresenter.init(goodsId);
+        mPresenter.getContenGoods(goodsId);
         banGoodsImage.setImageLoader(new GlideImageLoader());
         //设置自动轮播，默认为true
         banGoodsImage.isAutoPlay(true);
@@ -336,8 +341,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             wvGoodsDetail.getSettings().setMixedContentMode(wvGoodsDetail.getSettings()
                     .MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
         }
-        String content = goodDetail.getContent().substring(goodDetail.getContent().indexOf("<p>"));
-        wvGoodsDetail.loadDataWithBaseURL(null,content , "text/html", " charset=UTF-8", null);
         tvGoodsXiaoliang.setText(goodDetail.getSellNum() + "人已购");
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
@@ -369,6 +372,23 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     public void haseMore(boolean haseMore) {
         this.hasNext = haseMore;
 
+    }
+
+    //商品详情
+    @Override
+    public void contenGoods(ContenGoods conten) {
+        if (conten != null && conten.getData().getPcDescContent() != null) {
+            String replace = conten.getData().getPcDescContent().replace("//", "https://");
+            Log.i("ContenGoods", replace);
+            String substring = replace.substring(0,replace.indexOf("<p>"));
+            if (!TextUtils.isEmpty(substring)){
+                Log.e("ContenGoods -->", substring);
+            }
+            String replace1 = replace.replace(substring, "");
+            wvGoodsDetail.loadDataWithBaseURL(null, replace1, "text/html", " charset=UTF-8", null);
+            wvGoodsDetail.setVisibility(View.VISIBLE);
+            Log.i("ContenGoods", replace1);
+        }
     }
 
     public void toTaobao() {

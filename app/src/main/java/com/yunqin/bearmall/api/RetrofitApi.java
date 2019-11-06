@@ -134,6 +134,17 @@ public class RetrofitApi {
     }
 
 
+    // 创建网络接口请求实例
+    public static <T> T contenApi(Class<T> service) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://h5api.m.taobao.com/h5/")
+                .client(getOkHttpClient())
+                .addConverterFactory(StringConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        return retrofit.create(service);
+    }
+
     public static void request(Context mContext, Observable<String> observable, final IResponseListener listener) {
 
         if (!NetUtils.isConnected(mContext)) {
@@ -370,6 +381,49 @@ public class RetrofitApi {
                                                listener.onFail(new Exception(data));
                                            }
                                        }
+                                   } catch (JSONException e) {
+                                       listener.onNotNetWork();
+                                   }
+
+                               }
+                           }
+                );
+    }
+
+    public static void request5(Context mContext, Observable<String> observable, final IResponseListener listener) {
+
+        if (!NetUtils.isConnected(mContext)) {
+            listener.onNotNetWork();
+            Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+
+                               @Override
+                               public void onError(Throwable e) {
+                                   listener.onNotNetWork();
+                                   if (listener != null) {
+                                       listener.onFail(e);
+                                   }
+                               }
+
+                               @Override
+                               public void onComplete() {
+
+                               }
+
+
+                               @Override
+                               public void onSubscribe(Disposable disposable) {
+
+                               }
+
+                               @Override
+                               public void onNext(String data) {
+                                   try {
+                                       listener.onSuccess(data);
                                    } catch (JSONException e) {
                                        listener.onNotNetWork();
                                    }

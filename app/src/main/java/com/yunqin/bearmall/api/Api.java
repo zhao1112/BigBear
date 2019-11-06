@@ -1155,5 +1155,10 @@ public interface Api {
     Observable<String> clickzero(@FieldMap() Map<String, String> params);
 
 
+    @FormUrlEncoded
+    @POST("mtop.taobao.detail.getdesc/6.0")
+    Observable<String> contenGoods(@FieldMap() Map<String, String> params);
+
+
 }
 

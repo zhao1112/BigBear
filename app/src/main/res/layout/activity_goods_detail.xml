@@ -305,6 +305,7 @@
                     </RelativeLayout>
 
                     <WebView
+                        android:visibility="gone"
                         android:id="@+id/wv_goods_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

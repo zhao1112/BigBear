@@ -11,9 +11,11 @@ import com.newversions.tbk.entity.TBKHomeGoodsEntity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.bean.ContenGoods;
 import com.yunqin.bearmall.util.DeviceUtils;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,44 +84,44 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap),
                 new RetrofitApi.IResponseListener() {
 
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                view.hideLoad();
-                try {
-                    Log.e("TCP", data);
-                    TBKHomeGoodsEntity homeBean = new Gson().fromJson(data, TBKHomeGoodsEntity.class);
-                    view.attachAddData(homeBean);
-                    // TODO: 2019/7/13 0013 判断是否有更多
-                    hasMore = page < homeBean.getPages();
-                    page++;
-                    view.haseMore(hasMore);
-                    view.onLoadMoreFinish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        view.hideLoad();
+                        try {
+                            Log.e("TCP", data);
+                            TBKHomeGoodsEntity homeBean = new Gson().fromJson(data, TBKHomeGoodsEntity.class);
+                            view.attachAddData(homeBean);
+                            // TODO: 2019/7/13 0013 判断是否有更多
+                            hasMore = page < homeBean.getPages();
+                            page++;
+                            view.haseMore(hasMore);
+                            view.onLoadMoreFinish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-            @Override
-            public void onNotNetWork() {
-                view.hideLoad();
-                view.onNotNetWork();
-                view.onLoadMoreFinish();
-                view.onRefreshFinish();
-            }
+                    @Override
+                    public void onNotNetWork() {
+                        view.hideLoad();
+                        view.onNotNetWork();
+                        view.onLoadMoreFinish();
+                        view.onRefreshFinish();
+                    }
 
-            @Override
-            public void onFail(Throwable e) {
-                view.hideLoad();
-                view.onNotNetWork();
-                view.onLoadMoreFinish();
-                view.onRefreshFinish();
-            }
-        });
+                    @Override
+                    public void onFail(Throwable e) {
+                        view.hideLoad();
+                        view.onNotNetWork();
+                        view.onLoadMoreFinish();
+                        view.onRefreshFinish();
+                    }
+                });
     }
 
     @Override
     public void getTBKHomeGoodsListData(String goodsId) {
- //       view.showLoad();
+        //       view.showLoad();
         Map<String, String> mHashMap1 = new HashMap<>();
         mHashMap1.put("pageSize", "10");
         mHashMap1.put("page", String.valueOf(page));
@@ -128,35 +130,64 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap1),
                 new RetrofitApi.IResponseListener() {
 
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        view.hideLoad();
+                        try {
+                            Log.e("TCP", data);
+                            TBKHomeGoodsEntity homeBean = new Gson().fromJson(data, TBKHomeGoodsEntity.class);
+                            view.attachAddData(homeBean);
+                            // TODO: 2019/7/13 0013 判断是否有更多
+                            hasMore = page < homeBean.getPages();
+                            page++;
+                            view.haseMore(hasMore);
+                            view.onRefreshFinish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        view.hideLoad();
+                        view.onNotNetWork();
+                        view.onRefreshFinish();
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        view.hideLoad();
+                        view.onNotNetWork();
+                        view.onRefreshFinish();
+                    }
+                });
+    }
+
+
+    @Override
+    public void getContenGoods(String goodsID) {
+        Map<String, String> mHashMap1 = new HashMap<>();
+        mHashMap1.put("id", goodsID);
+        mHashMap1.put("type", "1");
+        mHashMap1.put("appKey", "02b0ee88e1c24bfcb5556640f34f16dc");
+        RetrofitApi.request5(context, RetrofitApi.contenApi(Api.class).contenGoods(mHashMap1), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                view.hideLoad();
-                try {
-                    Log.e("TCP", data);
-                    TBKHomeGoodsEntity homeBean = new Gson().fromJson(data, TBKHomeGoodsEntity.class);
-                    view.attachAddData(homeBean);
-                    // TODO: 2019/7/13 0013 判断是否有更多
-                    hasMore = page < homeBean.getPages();
-                    page++;
-                    view.haseMore(hasMore);
-                    view.onRefreshFinish();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                JSONObject object = new JSONObject(data);
+                if (object != null) {
+                    ContenGoods contenGoods = new Gson().fromJson(data, ContenGoods.class);
+                    view.contenGoods(contenGoods);
                 }
             }
 
             @Override
             public void onNotNetWork() {
-                view.hideLoad();
-                view.onNotNetWork();
-                view.onRefreshFinish();
+                Log.i("getContenGoods", "000");
             }
 
             @Override
             public void onFail(Throwable e) {
-                view.hideLoad();
-                view.onNotNetWork();
-                view.onRefreshFinish();
+                Log.i("getContenGoods", e.getMessage());
             }
         });
     }

@@ -3,6 +3,7 @@ package com.newversions.tbk.activity;
 import com.newversions.tbk.entity.GoodDetailEntity;
 import com.newversions.tbk.entity.LikeGuessEntity;
 import com.newversions.tbk.entity.TBKHomeGoodsEntity;
+import com.yunqin.bearmall.bean.ContenGoods;
 
 public interface GoodsDetailContract {
     public interface View {
@@ -21,7 +22,8 @@ public interface GoodsDetailContract {
         void attachAddData(TBKHomeGoodsEntity tbkHomeGoodsEntity);
 
         void haseMore(boolean haseMore);
-//        void to
+
+        void contenGoods(ContenGoods conten);
     }
 
     public interface Presenter {
@@ -30,6 +32,8 @@ public interface GoodsDetailContract {
         void getMoreLikeGoods(String goodsId);
 
         void getTBKHomeGoodsListData(String goodsId);
+
+        void getContenGoods(String goodsID);
 //        void getCommissionUrl(String goodsId);
     }
 }

@@ -131,4 +131,8 @@ public class ConstUtils {
      * 推啊url
      */
     public static final String TUIA_URL = "https://activity.tuia.cn/log/effect/v2";
+
+
+
+    public static final String CONTENT_URL = "https://h5api.m.taobao.com/h5/mtop.taobao.detail.getdesc/6.0";
 }
