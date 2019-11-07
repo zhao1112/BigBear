@@ -66,8 +66,6 @@ public class ArouseTaoBao {
      * @param packageName
      * @return
      */
-
-
     public  boolean checkPackage(String packageName) {
         if (packageName == null || "".equals(packageName))
             return false;

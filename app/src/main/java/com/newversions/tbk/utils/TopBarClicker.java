@@ -19,6 +19,7 @@ import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DeviceUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -31,7 +32,7 @@ import java.util.Map;
 
 public class TopBarClicker {
     public static void topBarClick(Activity activity, TBKHomeEntity.ClassificationBean bean) {
-        Log.i("topBarClick", bean.getType()+"");
+        Log.i("topBarClick", bean.getType() + "");
         // TODO: 2019/7/15 0015 根据类型执行操作，快速导航
         switch (bean.getType()) {
             case 1:
@@ -52,16 +53,21 @@ public class TopBarClicker {
                 ConstantScUtil.phoneFeeRecharge();
                 break;
             case 5:
-                // TODO: 2019/7/17 0017 信用卡
+//                // TODO: 2019/7/17 0017 信用卡
+//                if (BearMallAplication.getInstance().getUser() == null) {
+//                    LoginActivity.starActivity(activity);
+//                    return;
+//                }
+//                String token = BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token();
+//                String url1 = BuildConfig.BASE_URL + "/view/getCreditCardBankPage?access_token=" + token;
+//                CardListWebActivity.startActivity(activity, url1, "信用卡申请");
+//                //TODO[信用卡申请]
+//                ConstantScUtil.cardApply();
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-                String token = BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token();
-                String url1 = BuildConfig.BASE_URL + "/view/getCreditCardBankPage?access_token=" + token;
-                CardListWebActivity.startActivity(activity, url1, "信用卡申请");
-                //TODO[信用卡申请]
-                ConstantScUtil.cardApply();
+                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, bean.getUrl(), bean.getName());
                 break;
             case 6:
                 // TODO 每日任务
@@ -114,7 +120,6 @@ public class TopBarClicker {
                     });
                 } else {
                     YmConfig.openReader();
-
                 }
                 break;
             case 10:
@@ -135,7 +140,6 @@ public class TopBarClicker {
             // TODO 我要借钱
 
             // TODO 游戏中心
-
         }
     }
 }

@@ -21,6 +21,7 @@ import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
+import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DeviceUtils;
 
@@ -127,7 +128,11 @@ public class BannerClicker {
                 ConstantScUtil.BrandCoupon();
                 break;
             case 30://0元兑
-                WebActivity.startWebActivity(activity, 1, target, title);
+                if (BearMallAplication.getInstance().getUser() == null) {
+                    LoginActivity.starActivity(activity);
+                    return;
+                }
+                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, target, title);
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;

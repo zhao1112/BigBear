@@ -80,6 +80,7 @@ public class ProductSumFragment extends BaseFragment {
 
     @Override
     public void init() {
+        showLoading();
         groupId = getArguments().getString(Constants.INTENT_KEY_ID);
         type = getArguments().getInt(Constants.INTENT_KEY_TYPE, 1);
         Keyword = getArguments().getString("KEYWORD");
@@ -272,7 +273,7 @@ public class ProductSumFragment extends BaseFragment {
         //TODO[搜索按钮]
         ConstantScUtil.sebsorsSearch(type);
         // TODO: 2019/7/17 0017 获取数据
-        showLoading();
+//        showLoading();
         HashMap<String, String> map = new HashMap<>();
         map.put("id", groupId);//分组ID
         map.put("type", String.valueOf(type));//入口类型

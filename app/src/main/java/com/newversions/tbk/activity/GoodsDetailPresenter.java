@@ -33,7 +33,7 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
 
     @Override
     public void init(String goodsId) {
-        view.showLoad();
+//        view.showLoad();
         page = 1;
         Log.e("TCP_goods_detail", goodsId);
         Map<String, String> mHashMap = new HashMap<>();

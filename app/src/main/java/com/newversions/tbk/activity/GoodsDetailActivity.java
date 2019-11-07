@@ -119,8 +119,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     TextView tvArg2;
     @BindView(R.id.tv_arg_3)
     TextView tvArg3;
-    private String Image = "<img class=\"desc_anchor\" id=\"desc-module-1\" src=\"https://assets.alicdn.com/kissy/1.0" + ".0/build" +
-            "/imglazyload/spaceball.gif\">";
 
     private List<TBKHomeGoodsEntity.RecommendBean> mList = new ArrayList<>();
     private int page;
@@ -323,24 +321,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             tvArg2.setText("买家服务: " + goodDetail.getDse());
             tvArg3.setText("物流服务: " + goodDetail.getDss());
         }
-        wvGoodsDetail.getSettings().setUseWideViewPort(true);
-        wvGoodsDetail.getSettings().setLoadWithOverviewMode(true);
-        wvGoodsDetail.getSettings().setBuiltInZoomControls(true);
-        wvGoodsDetail.getSettings().setDisplayZoomControls(false);
-        wvGoodsDetail.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
-        wvGoodsDetail.setWebChromeClient(new WebChromeClient());
-        wvGoodsDetail.getSettings().setDefaultTextEncodingName("UTF-8");
-        wvGoodsDetail.getSettings().setBlockNetworkImage(false);
-        WebSettings settings = wvGoodsDetail.getSettings();
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        // 是否支持js  说了用js，这句是必须加上的
-        settings.setJavaScriptEnabled(true);
-        //  重写 WebViewClient
-        wvGoodsDetail.setWebViewClient(new MyWebViewClient());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            wvGoodsDetail.getSettings().setMixedContentMode(wvGoodsDetail.getSettings()
-                    .MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
-        }
+        wvGoodsDetail.setVisibility(View.VISIBLE);
         tvGoodsXiaoliang.setText(goodDetail.getSellNum() + "人已购");
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
@@ -379,16 +360,28 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     public void contenGoods(ContenGoods conten) {
         if (conten != null && conten.getData().getPcDescContent() != null) {
             try {
-                String replace = conten.getData().getPcDescContent().replace("//", "https://");
-                Log.i("ContenGoods", replace);
-                String substring = replace.substring(0, replace.indexOf("<p"));
-                if (!TextUtils.isEmpty(substring)) {
-                    Log.e("ContenGoods -->", substring);
+                wvGoodsDetail.getSettings().setUseWideViewPort(true);
+                wvGoodsDetail.getSettings().setLoadWithOverviewMode(true);
+                wvGoodsDetail.getSettings().setBuiltInZoomControls(true);
+                wvGoodsDetail.getSettings().setDisplayZoomControls(false);
+                wvGoodsDetail.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
+                wvGoodsDetail.setWebChromeClient(new WebChromeClient());
+                wvGoodsDetail.getSettings().setDefaultTextEncodingName("UTF-8");
+                wvGoodsDetail.getSettings().setBlockNetworkImage(false);
+                WebSettings settings = wvGoodsDetail.getSettings();
+                settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+                // 是否支持js  说了用js，这句是必须加上的
+                settings.setJavaScriptEnabled(true);
+                //  重写 WebViewClient
+                wvGoodsDetail.setWebViewClient(new MyWebViewClient());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    wvGoodsDetail.getSettings().setMixedContentMode(wvGoodsDetail.getSettings()
+                            .MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
                 }
+                String replace = conten.getData().getPcDescContent().replace("//", "https://");
+                String substring = replace.substring(0, replace.indexOf("<p"));
                 String replace1 = replace.replace(substring, "");
                 wvGoodsDetail.loadDataWithBaseURL(null, replace1, "text/html", " charset=UTF-8", null);
-                wvGoodsDetail.setVisibility(View.VISIBLE);
-                Log.i("ContenGoods", replace1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -439,23 +432,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         super.onResume();
     }
 
-    /**
-     * 检测该包名所对应的应用是否存在
-     *
-     * @param packageName
-     * @return
-     */
-    public boolean checkPackage(String packageName) {
-        if (packageName == null || "".equals(packageName))
-            return false;
-        try {
-            getPackageManager().getApplicationInfo(packageName, PackageManager
-                    .GET_UNINSTALLED_PACKAGES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
 
     // todo 点击监听
     @OnClick({R.id.iv_btn_back, R.id.lin_collect, R.id.lin_collect2, R.id.lin_share, R.id.lin_get_stamps, R.id.lin_quanhoujia,
