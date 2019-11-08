@@ -242,9 +242,7 @@ public class InvitationActivity2 extends BaseActivity implements View.OnClickLis
                         });
                         lightoff();
                         //TODO[立即分享]
-                        Map<String, String> map = new HashMap<>();
-                        map.put("pic_name", imageUrl);
-                        ConstantScUtil.sensorsTrack("shareClick", map);
+                        ConstantScUtil.invitationShare(imageUrl);
                     }
                 }
                 break;

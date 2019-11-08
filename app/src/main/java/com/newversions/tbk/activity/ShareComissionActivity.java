@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.text.Html;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;

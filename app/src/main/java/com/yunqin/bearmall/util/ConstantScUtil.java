@@ -86,7 +86,9 @@ public class ConstantScUtil {
     //神策搜索按钮统计
     public static void sebsorsSearch(int type) {
         if (type == 8) {
-            ConstantScUtil.sensorsTrack("searchButtonClick", null);
+            Map<String, String> map = new HashMap<>();
+            map.put("click", "用户点击");
+            ConstantScUtil.sensorsTrack("searchButtonClick", map);
         }
     }
 
@@ -148,7 +150,9 @@ public class ConstantScUtil {
 
     //点击会员充值
     public static void VIPRechargeClick() {
-        ConstantScUtil.sensorsTrack("VIPRechargeClick", null);
+        Map<String, String> map = new HashMap<>();
+        map.put("click", "用户点击");
+        ConstantScUtil.sensorsTrack("VIPRechargeClick", map);
     }
 
     //会员类型选择
@@ -209,7 +213,9 @@ public class ConstantScUtil {
 
     //点击充值icon
     public static void phoneFeeRecharge() {
-        ConstantScUtil.sensorsTrack("phoneFeeRecharge", null);
+        Map<String, String> map = new HashMap<>();
+        map.put("click", "用户点击");
+        ConstantScUtil.sensorsTrack("phoneFeeRecharge", map);
     }
 
     //话费面额选择
@@ -235,12 +241,16 @@ public class ConstantScUtil {
 
     //阅读小说
     public static void novelRead() {
-        ConstantScUtil.sensorsTrack("novelRead", null);
+        Map<String, String> map = new HashMap<>();
+        map.put("click", "用户点击");
+        ConstantScUtil.sensorsTrack("novelRead", map);
     }
 
     //购买名品折扣券
     public static void BrandCoupon() {
-        ConstantScUtil.sensorsTrack("BrandCoupon", null);
+        Map<String, String> map = new HashMap<>();
+        map.put("click", "用户点击");
+        ConstantScUtil.sensorsTrack("BrandCoupon", map);
     }
 
     //信用卡申请
@@ -250,12 +260,16 @@ public class ConstantScUtil {
 
     //广告
     public static void showAd() {
-        ConstantScUtil.sensorsTrack("AD", null);
+        Map<String, String> map = new HashMap<>();
+        map.put("click", "用户点击");
+        ConstantScUtil.sensorsTrack("AD", map);
     }
 
     //点击0元兑
     public static void exchangeClick() {
-        ConstantScUtil.sensorsTrack("exchangeClick", null);
+        Map<String, String> map = new HashMap<>();
+        map.put("click", "用户点击");
+        ConstantScUtil.sensorsTrack("exchangeClick", map);
     }
 
     //选择地址
@@ -267,7 +281,9 @@ public class ConstantScUtil {
 
     //确认地址
     public static void conformAddr() {
-        ConstantScUtil.sensorsTrack("conformAddr", null);
+        Map<String, String> map = new HashMap<>();
+        map.put("click", "用户点击");
+        ConstantScUtil.sensorsTrack("conformAddr", map);
     }
 
     //commodityDetail
@@ -299,5 +315,11 @@ public class ConstantScUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void invitationShare(String pic_name) {
+        Map<String, String> map = new HashMap<>();
+        map.put("pic_name", pic_name);
+        ConstantScUtil.sensorsTrack("invitationShare", map);
     }
 }
