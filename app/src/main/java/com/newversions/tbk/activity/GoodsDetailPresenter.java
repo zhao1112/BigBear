@@ -170,7 +170,7 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         mHashMap1.put("id", goodsID);
         mHashMap1.put("type", "1");
         mHashMap1.put("appKey", "02b0ee88e1c24bfcb5556640f34f16dc");
-        RetrofitApi.request5(context, RetrofitApi.contenApi(Api.class).contenGoods(mHashMap1), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request5(context, RetrofitApi.contenApi(Api.class,"https://h5api.m.taobao.com/h5/").contenGoods(mHashMap1), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
                 JSONObject object = new JSONObject(data);

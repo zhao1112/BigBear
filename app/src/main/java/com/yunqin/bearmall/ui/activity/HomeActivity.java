@@ -165,7 +165,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
          * */
         boolean isFirst = (boolean) SharedPreferencesHelper.get(HomeActivity.this, first, false);
         if (!isFirst) {
-            initTuia();
+            initTuias();
             SharedPreferencesHelper.put(HomeActivity.this, first, true);
         }
     }
@@ -366,12 +366,48 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
     /**
      * 推啊上报
      */
-    private void initTuia() {
-        String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
-        String imei = DeviceConfig.getImei(this);
-        String md5Value = UpLoadHeadImage.getMd5Value(imei);
-        String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
-        initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
+    private void initTuias() {
+        RetrofitApi.request5(HomeActivity.this, RetrofitApi.contenApi(Api.class, "http://pv.sohu.com/").getip(),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+
+                        String ip = null;
+                        try {
+                            int satrtIndex = data.indexOf("{");
+                            int endIndex = data.indexOf("}");
+                            String json = data.substring(satrtIndex, endIndex + 1);
+                            JSONObject jo = new JSONObject(json);
+                            ip = jo.getString("cip");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
+                        String imei = DeviceConfig.getImei(HomeActivity.this);
+                        String md5Value = UpLoadHeadImage.getMd5Value(imei);
+                        initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, ip);
+
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
+                        String imei = DeviceConfig.getImei(HomeActivity.this);
+                        String md5Value = UpLoadHeadImage.getMd5Value(imei);
+                        String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
+                        initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
+                        String imei = DeviceConfig.getImei(HomeActivity.this);
+                        String md5Value = UpLoadHeadImage.getMd5Value(imei);
+                        String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
+                        initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
+                    }
+                });
     }
 
     /**
@@ -384,6 +420,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
      * @param ip        ip 获取，ip 必须是客户端的外网 ip
      */
     public void initsTuia(String advertKey, String subType, String ua, String device, String ip) {
+        Log.i("tuiaip", "ip --> " + ip);
         try {
             mMap = new HashMap<>();
             OkHttpClient okHttpClient = new OkHttpClient();

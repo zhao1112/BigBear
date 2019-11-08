@@ -135,9 +135,9 @@ public class RetrofitApi {
 
 
     // 创建网络接口请求实例
-    public static <T> T contenApi(Class<T> service) {
+    public static <T> T contenApi(Class<T> service,String url) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://h5api.m.taobao.com/h5/")
+                .baseUrl(url)
                 .client(getOkHttpClient())
                 .addConverterFactory(StringConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

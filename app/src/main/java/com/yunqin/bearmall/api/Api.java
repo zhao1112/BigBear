@@ -1159,6 +1159,11 @@ public interface Api {
     @POST("mtop.taobao.detail.getdesc/6.0")
     Observable<String> contenGoods(@FieldMap() Map<String, String> params);
 
+    /**
+     * 获取外网ip
+     * */
+    @POST("cityjson")
+    Observable<String> getip();
 
 }
 
