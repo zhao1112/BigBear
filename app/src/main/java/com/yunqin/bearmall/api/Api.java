@@ -1151,8 +1151,8 @@ public interface Api {
     Observable<String> getUpdateFreeInfo(@FieldMap() Map<String, String> params);
 
     @FormUrlEncoded
-    @POST("api/taokeorder/clickzero")
-    Observable<String> clickzero(@FieldMap() Map<String, String> params);
+    @POST("api/taokeorder/clickurl")
+    Observable<String> clickurl(@FieldMap() Map<String, String> params);
 
 
     @FormUrlEncoded

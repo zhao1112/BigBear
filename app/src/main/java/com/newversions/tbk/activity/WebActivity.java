@@ -44,6 +44,8 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.Checkzero;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.ui.activity.contract.WebContract;
+import com.yunqin.bearmall.ui.activity.presenter.WebPresenter;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.ConstUtils;
 
@@ -61,7 +63,7 @@ import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 
-public class WebActivity extends BaseActivity implements View.OnClickListener {
+public class WebActivity extends BaseActivity implements View.OnClickListener, WebContract.UI {
 
     @BindView(R.id.webview)
     WebView mWebView;
@@ -86,6 +88,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
     private String goodsId;
     private PopupWindow mMPopupWindow;
     private String mStringUrl;
+    private WebPresenter mWebPresenter;
+    private String itemId;
 
     public static void startWebActivity(Context activity, int type, String url, String title) {
         Intent intent = new Intent(activity, WebActivity.class);
@@ -109,6 +113,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         String title = getIntent().getStringExtra(Constants.INTENT_KEY_TITLE);
         toolbarTitle.setText(title);
         mWebView.loadUrl(mStringUrl);
+        Log.i("mStringUrl", mStringUrl);
         mWebView.addJavascriptInterface(this, "android");
         setWebViewAttribute(mWebView);
         mWebView.setWebViewClient(myWebViewClient);
@@ -163,6 +168,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
 
 
         });
+
+        mWebPresenter = new WebPresenter(this, this);
     }
 
     @Override
@@ -282,70 +289,28 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         } else {
             if ("1".equals(type)) {
                 if (sendurl != null) {
-                    setFrequency(sendurl);
+                    showLoading();
+                    itemId = sendurl;
+                    mWebPresenter.Checkzero();
                 }
             } else {
                 if (sendurl != null) {
-                    toTaobao(sendurl);
+                    showLoading();
+                    Log.i("mWebPresenter", "sendurl = " + sendurl);
+                    mWebPresenter.Clickurl(BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token(), sendurl);
                 }
             }
         }
     }
 
-    public void setFrequency(String sendurl) {
-        RetrofitApi.request(WebActivity.this, RetrofitApi.createApi(Api.class).getCheckzero(),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) throws JSONException {
-                        Log.i("onSuccess", data);
-                        if (data != null) {
-                            Checkzero checkzero = new Gson().fromJson(data, Checkzero.class);
-                            if (checkzero.getData().getSuccess() == 1) {
-                                toTaobao(sendurl);
-                                updateFreeInfo();
-                            }
-                            if (checkzero.getData().getSuccess() == 0) {
-                                Toast.makeText(WebActivity.this, "限领取1次新人红包", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onNotNetWork() {
-
-                    }
-
-                    @Override
-                    public void onFail(Throwable e) {
-
-                    }
-                });
-    }
-
-    private void updateFreeInfo() {
-        Map<String, String> map = new HashMap<>();
-        if (BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() == null) {
-            return;
-        }
-        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
-        RetrofitApi.request(WebActivity.this, RetrofitApi.createApi(Api.class).getUpdateFreeInfo(map), null);
-    }
-
     public void toTaobao(String sendurl) {
         ArouseTaoBao arouseTaoBao = new ArouseTaoBao(WebActivity.this);
         if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
-            setclickzero(sendurl);
             arouseTaoBao.openTaoBao(sendurl);
         } else {
             showToast("请先下载淘宝");
             hiddenLoadingView();
         }
-    }
-
-    public void setclickzero(String sendurl) {
-        Map<String, String> map = new HashMap<>();
-        map.put("sendUrl", sendurl);
-        RetrofitApi.request(WebActivity.this, RetrofitApi.createApi(Api.class).clickzero(map), null);
     }
 
     //设置手机屏幕亮度变暗
@@ -457,5 +422,35 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onNotNetWork() {
+        hiddenLoadingView();
+        Toast.makeText(WebActivity.this, "网络不给力呀！", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFail(Throwable e) {
+        hiddenLoadingView();
+        Toast.makeText(WebActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCheckzero() {
+        hiddenLoadingView();
+        mWebPresenter.Clickurl(BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token(), itemId);
+    }
+
+    @Override
+    public void onOneTipe() {
+        hiddenLoadingView();
+        Toast.makeText(WebActivity.this, "分享好友赚取更多0元福利", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onClickurl(String url) {
+        hiddenLoadingView();
+        toTaobao(url);
     }
 }
