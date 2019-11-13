@@ -69,7 +69,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        searchDialog();
+        if (!"SplashActivity".equals(getClass().getSimpleName())) {
+            searchDialog();
+        }
     }
 
     @Override

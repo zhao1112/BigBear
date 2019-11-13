@@ -281,6 +281,9 @@ public class ProductSumFragment extends BaseFragment {
         map.put("sortType", String.valueOf(sortType));//排序规则
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
+        Log.i("ConstantScUtil", "type ->" + String.valueOf(type));
+        Log.i("ConstantScUtil", "orderType ->" + String.valueOf(orderType));
+        Log.i("ConstantScUtil", "sortType ->" + String.valueOf(sortType));
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getGoodsList(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {

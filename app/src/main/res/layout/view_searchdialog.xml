@@ -4,16 +4,16 @@
     android:layout_width="290dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:gravity="center"
     android:background="@drawable/bg_corner_search_dialog"
+    android:gravity="center"
     android:orientation="vertical">
 
-   <ImageView
-       android:layout_width="290dp"
-       android:layout_height="90dp"
-       android:src="@mipmap/search_dialog_top_icon"
-       android:scaleType="centerCrop"
-       />
+    <ImageView
+        android:layout_width="290dp"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/search_dialog_top_icon"
+        />
 
     <TextView
         android:id="@+id/tv_text"
@@ -21,45 +21,52 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="3"
         android:padding="10dp"
         android:text="加载中..."
         android:textColor="#666666"
-        android:gravity="left"
         android:textSize="16sp"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#7d7d7d"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         >
+
         <TextView
             android:id="@+id/tv_cancel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="取消"
             android:textColor="#666666"
             android:textSize="16sp"
-            android:gravity="center"
             />
+
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
             android:background="#7d7d7d"
             />
+
         <TextView
             android:id="@+id/tv_ok"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="确定"
             android:textColor="#44BAA5"
             android:textSize="16sp"
-            android:gravity="center"
             />
     </LinearLayout>
 </LinearLayout>
