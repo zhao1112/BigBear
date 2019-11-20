@@ -50,14 +50,14 @@ public class OpenGoodsDetail {
     }
 
     //设置手机屏幕亮度变暗
-    private static void lightoff(Activity activity) {
+    public static void lightoff(Activity activity) {
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         lp.alpha = 0.2f;
         activity.getWindow().setAttributes(lp);
     }
 
     //设置手机屏幕亮度显示正常
-    private static void lighton(Activity activity) {
+    public static void lighton(Activity activity) {
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         lp.alpha = 1f;
         activity.getWindow().setAttributes(lp);

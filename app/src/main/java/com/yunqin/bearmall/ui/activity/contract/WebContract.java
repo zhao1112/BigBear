@@ -23,10 +23,15 @@ public interface WebContract {
         void onOneTipe();
 
         void onClickurl(String url);
+
+        void onCheckinvitation();
     }
 
     interface presenter {
         void Checkzero();
-        void Clickurl(String access_token,String itemId);
+
+        void Clickurl(String access_token, String itemId);
+
+        void Checkinvitation();
     }
 }

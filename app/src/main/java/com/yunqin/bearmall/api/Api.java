@@ -1165,5 +1165,11 @@ public interface Api {
     @POST("cityjson")
     Observable<String> getip();
 
+    /**
+     * 0元购邀请福利
+     * */
+    @POST("api/taokeorder/checkinvitation")
+    Observable<String> getCheckinvitation();
+
 }
 

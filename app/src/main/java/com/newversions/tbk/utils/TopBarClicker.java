@@ -67,7 +67,8 @@ public class TopBarClicker {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, bean.getUrl(), bean.getName());
+                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE,
+                        bean.getUrl() + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode(),bean.getName());
                 break;
             case 6:
                 // TODO 每日任务

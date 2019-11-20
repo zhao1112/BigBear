@@ -68,6 +68,7 @@ public class WebPresenter implements WebContract.presenter {
         RetrofitApi.request(mContext, RetrofitApi.createApi(Api.class).clickurl(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws org.json.JSONException {
+                Log.i("onSuccess", data);
                 try {
                     JSONObject jsonObject = new JSONObject(data);
                     if (jsonObject.optInt("code") == 1) {
@@ -81,6 +82,31 @@ public class WebPresenter implements WebContract.presenter {
                 }
             }
 
+            @Override
+            public void onNotNetWork() {
+                view.onNotNetWork();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                view.onFail(e);
+            }
+        });
+    }
+
+    @Override
+    public void Checkinvitation() {
+        RetrofitApi.request(mContext, RetrofitApi.createApi(Api.class).getCheckinvitation(), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws org.json.JSONException {
+                JSONObject object = new JSONObject(data);
+                Log.i("onSuccess", data);
+                if (object.optInt("code") == 1) {
+                    view.onCheckinvitation();
+                }else {
+                    view.onFail(new Exception(object.optString("msg")));
+                }
+            }
             @Override
             public void onNotNetWork() {
                 view.onNotNetWork();

@@ -132,7 +132,8 @@ public class BannerClicker {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, target, title);
+                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE,
+                        target + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode(), title);
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;

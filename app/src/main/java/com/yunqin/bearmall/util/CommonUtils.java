@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -459,6 +460,20 @@ public class CommonUtils {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 判断是否开启通知权限
+     */
+    public static boolean isNotificationEnabled(Context context) {
+        boolean isOpened = false;
+        try {
+            isOpened = NotificationManagerCompat.from(context).areNotificationsEnabled();
+        } catch (Exception e) {
+            e.printStackTrace();
+            isOpened = false;
+        }
+        return isOpened;
     }
 
 }

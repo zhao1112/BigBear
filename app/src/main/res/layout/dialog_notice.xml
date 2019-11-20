@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_corner_search_dialog"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_270"
+        android:layout_height="@dimen/dp_322">
+
+
+        <ImageView
+            android:id="@+id/no_close"
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_12"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@drawable/icon_close_28"/>
+
+        <ImageView
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="@dimen/dp_134"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_35"
+            android:src="@mipmap/icon_notice"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_189"
+            android:text="开启推送通知"
+            android:textColor="#ff262626"
+            android:textSize="@dimen/sp_18"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_226"
+            android:text="第一时间获取订单和收益明细"
+            android:textColor="#ff262626"
+            android:textSize="@dimen/sp_12"/>
+
+        <TextView
+            android:id="@+id/no_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:background="@drawable/address_bg_green1"
+            android:paddingLeft="@dimen/dp_55"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_55"
+            android:paddingBottom="@dimen/dp_12"
+            android:text="去开启"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/sp_17"/>
+    </RelativeLayout>
+</LinearLayout>

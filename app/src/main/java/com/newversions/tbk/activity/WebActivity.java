@@ -293,6 +293,11 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                     itemId = sendurl;
                     mWebPresenter.Checkzero();
                 }
+            } else if ("2".equals(type)) {
+                if (sendurl != null) {
+                    itemId = sendurl;
+                    mWebPresenter.Checkinvitation();
+                }
             } else {
                 if (sendurl != null) {
                     showLoading();
@@ -396,11 +401,11 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         Platform.ShareParams shareParams = new Platform.ShareParams();//分享的参数
         shareParams.setTitle("每天都送免单商品！快跟我一起来领吧！");
         Log.i("showShare", BearMallAplication.getInstance().getUser().getRecommendCode());
-        shareParams.setTitleUrl(mStringUrl + "?invitation=" + BearMallAplication.getInstance().getUser().getRecommendCode());
+        shareParams.setTitleUrl(mStringUrl);
         shareParams.setImageData(bitmap);//图片的地址
         shareParams.setText("天天抢免单！手慢无！");
         shareParams.setShareType(Platform.SHARE_WEBPAGE);
-        shareParams.setUrl(mStringUrl + "?invitation=" + BearMallAplication.getInstance().getUser().getRecommendCode());
+        shareParams.setUrl(mStringUrl);
         platform.share(shareParams);
     }
 
@@ -433,12 +438,12 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     @Override
     public void onFail(Throwable e) {
         hiddenLoadingView();
+        Log.i("onFail", "onFail: " + e.getMessage());
         Toast.makeText(WebActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onCheckzero() {
-        hiddenLoadingView();
         mWebPresenter.Clickurl(BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token(), itemId);
     }
 
@@ -452,5 +457,10 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     public void onClickurl(String url) {
         hiddenLoadingView();
         toTaobao(url);
+    }
+
+    @Override
+    public void onCheckinvitation() {
+        mWebPresenter.Clickurl(BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token(), itemId);
     }
 }

@@ -1,19 +1,26 @@
 package com.yunqin.bearmall.ui.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.PopupWindow;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.google.gson.Gson;
 import com.igexin.sdk.PushManager;
+import com.newversions.IAdvClick;
+import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
 import com.newreward.SpecialRequestUI.SpecialRequestActivity;
 import com.newreward.bean.SpecialRequest;
@@ -34,11 +41,15 @@ import com.yunqin.bearmall.service.BearMallPushService;
 import com.yunqin.bearmall.ui.activity.contract.HomeContract;
 import com.yunqin.bearmall.ui.activity.presenter.HomePresenter;
 import com.yunqin.bearmall.update.CheckForUpdateHelper;
+import com.yunqin.bearmall.util.CommonUtil;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.RudenessScreenHelper;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.SwitchFragment;
 import com.yunqin.bearmall.util.UpLoadHeadImage;
+import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,6 +58,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,6 +89,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
     private SwitchFragment switchFragment;
     private Map<String, String> mMap;
     private static final String first = "INITIALIZATION";
+    private boolean isStart = true;
 
     @Override
     public int layoutId() {
@@ -88,8 +101,74 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
     @Override
     protected void onResume() {
         super.onResume();
+        showNotice();
         presenter.getCartItemCount(this, new HashMap<>());
         requestData();
+    }
+
+    private void showNotice() {
+        //检查通知权限
+        if (!CommonUtils.isNotificationEnabled(this)) {
+
+            if (!isStart) {
+                isStart = false;
+                return;
+            }
+
+            if (BearMallAplication.getInstance().getUser() == null) {
+                // 未登录不展示
+                isStart = true;
+                return;
+            }
+
+            String mobile = BearMallAplication.getInstance().getUser().getData().getMember().getMobile();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String value = simpleDateFormat.format(System.currentTimeMillis());
+            String param = (String) SharedPreferencesManager.getParam(this, mobile + "notice", "notice");
+
+            if (value.equals(param)) {
+                isStart = true;
+                return;
+            }
+
+            SharedPreferencesManager.setParam(this, mobile + "notice", value);
+
+            OpenGoodsDetail.lightoff(HomeActivity.this);
+            View view = LayoutInflater.from(this).inflate(R.layout.dialog_notice, null);
+            PopupWindow mPopupWindow = new PopupWindow();
+            mPopupWindow.setContentView(view);
+            mPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+            mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+            // 设置背景图片， 必须设置，不然动画没作用
+            mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+            mPopupWindow.setAnimationStyle(R.style.CenterAnimation);
+            mPopupWindow.setFocusable(true);
+            // 设置点击popupwindow外屏幕其它地方消失
+            mPopupWindow.setOutsideTouchable(true);
+            // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
+            mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+            view.findViewById(R.id.no_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPopupWindow.dismiss();
+                    OpenGoodsDetail.lighton(HomeActivity.this);
+                }
+            });
+            view.findViewById(R.id.no_img).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPopupWindow.dismiss();
+                    CommonUtil.toSelfSetting(HomeActivity.this);
+                    OpenGoodsDetail.lighton(HomeActivity.this);
+                }
+            });
+            mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    OpenGoodsDetail.lighton(HomeActivity.this);
+                }
+            });
+        }
     }
 
     @Override
@@ -169,6 +248,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
             SharedPreferencesHelper.put(HomeActivity.this, first, true);
         }
     }
+
 
     private void getSpecInvitationPageInfo() {
 
