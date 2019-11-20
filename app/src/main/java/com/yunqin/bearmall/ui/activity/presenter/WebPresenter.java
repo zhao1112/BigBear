@@ -43,7 +43,7 @@ public class WebPresenter implements WebContract.presenter {
                             if (checkzero.getData().getSuccess() == 1) {
                                 view.onCheckzero();
                             } else if (checkzero.getData().getSuccess() == 0) {
-                                view.onOneTipe();
+                                view.onOneTipe("新人限领1次");
                             }
                         }
                     }

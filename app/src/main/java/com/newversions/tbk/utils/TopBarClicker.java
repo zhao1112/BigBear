@@ -124,13 +124,11 @@ public class TopBarClicker {
                 }
                 break;
             case 10:
-                String url = "http://tq.365taoquan.cn/seller/app/classify?machineCode=" + DeviceUtils.getUniqueId(activity) + "&agentId" +
-                        "=292";
-                Log.d("TAG", "topBarClick:---- " + url);
                 Intent intent = new Intent(activity, WebActivity.class);
-                intent.putExtra(Constants.INTENT_KEY_URL, url);
+                intent.putExtra(Constants.INTENT_KEY_URL, bean.getUrl());
                 intent.putExtra(Constants.INTENT_KEY_TITLE, "名品抵扣券");
                 activity.startActivity(intent);
+                Log.i("topBarClick", "topBarClick: "+bean.getUrl());
                 //TODO[购买名品折扣券]
                 ConstantScUtil.BrandCoupon();
                 break;

@@ -90,6 +90,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     private String mStringUrl;
     private WebPresenter mWebPresenter;
     private String itemId;
+    private String mTitle;
 
     public static void startWebActivity(Context activity, int type, String url, String title) {
         Intent intent = new Intent(activity, WebActivity.class);
@@ -110,8 +111,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         type = getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, 1);
         //打开
         mStringUrl = getIntent().getStringExtra(Constants.INTENT_KEY_URL);
-        String title = getIntent().getStringExtra(Constants.INTENT_KEY_TITLE);
-        toolbarTitle.setText(title);
+        mTitle = getIntent().getStringExtra(Constants.INTENT_KEY_TITLE);
+        toolbarTitle.setText(mTitle);
         mWebView.loadUrl(mStringUrl);
         Log.i("mStringUrl", mStringUrl);
         mWebView.addJavascriptInterface(this, "android");
@@ -448,9 +449,9 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     }
 
     @Override
-    public void onOneTipe() {
+    public void onOneTipe(String tipe) {
         hiddenLoadingView();
-        Toast.makeText(WebActivity.this, "分享好友赚取更多0元福利", Toast.LENGTH_LONG).show();
+        Toast.makeText(WebActivity.this, tipe, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -462,5 +463,11 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     @Override
     public void onCheckinvitation() {
         mWebPresenter.Clickurl(BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token(), itemId);
+        RefreshActivity();
+    }
+
+    public void RefreshActivity(){
+        WebActivity.startWebActivity(WebActivity.this, type, mStringUrl, mTitle);
+        finish();
     }
 }

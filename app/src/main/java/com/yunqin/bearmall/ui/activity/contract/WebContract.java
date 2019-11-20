@@ -20,7 +20,7 @@ public interface WebContract {
 
         void onCheckzero();
 
-        void onOneTipe();
+        void onOneTipe(String tipe);
 
         void onClickurl(String url);
 

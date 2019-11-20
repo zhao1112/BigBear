@@ -117,11 +117,8 @@ public class BannerClicker {
                 }
                 break;
             case 19://券
-                String url = "http://tq.365taoquan.cn/seller/app/classify?machineCode=" + DeviceUtils.getUniqueId(activity) + "&agentId" +
-                        "=292";
-                Log.d("TAG", "topBarClick:---- " + url);
                 Intent intent = new Intent(activity, WebActivity.class);
-                intent.putExtra(Constants.INTENT_KEY_URL, url);
+                intent.putExtra(Constants.INTENT_KEY_URL, target);
                 intent.putExtra(Constants.INTENT_KEY_TITLE, "名品抵扣券");
                 activity.startActivity(intent);
                 //TODO[购买名品折扣券]
