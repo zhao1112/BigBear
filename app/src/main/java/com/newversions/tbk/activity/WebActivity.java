@@ -129,7 +129,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("scheme:") || url.startsWith("scheme:")) {
+                if (url.startsWith("scheme:") || url.startsWith("scheme:") ||url.startsWith("alipays:")) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(intent);
                 }

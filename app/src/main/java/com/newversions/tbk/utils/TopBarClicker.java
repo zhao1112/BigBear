@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.iBookStar.views.YmConfig;
-import com.newversions.CardListWebActivity;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.ProductSumActivity;
 import com.newversions.tbk.activity.WebActivity;
 import com.newversions.tbk.entity.TBKHomeEntity;
 import com.yunqin.bearmall.BearMallAplication;
-import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
@@ -19,9 +17,9 @@ import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.util.DeviceUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
 import org.json.JSONException;
@@ -128,10 +126,11 @@ public class TopBarClicker {
                 break;
             case 10:
                 Intent intent = new Intent(activity, WebActivity.class);
-                intent.putExtra(Constants.INTENT_KEY_URL, bean.getUrl());
+                String tempUrl = CommonUtils.getParam365(bean.getUrl());
+                intent.putExtra(Constants.INTENT_KEY_URL, tempUrl);
                 intent.putExtra(Constants.INTENT_KEY_TITLE, "名品抵扣券");
                 activity.startActivity(intent);
-                Log.i("topBarClick", "topBarClick: "+bean.getUrl());
+                Log.i("topBarClick", "topBarClick: "+tempUrl);
                 //TODO[购买名品折扣券]
                 ConstantScUtil.BrandCoupon();
                 break;

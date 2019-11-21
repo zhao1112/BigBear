@@ -17,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -25,7 +24,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 
-
+import com.newversions.passwd.IMD5;
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 
 import java.io.ByteArrayOutputStream;
@@ -36,10 +36,11 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static java.util.regex.Pattern.matches;
 
 public class CommonUtils {
 
@@ -475,5 +476,34 @@ public class CommonUtils {
         }
         return isOpened;
     }
+
+    /**
+     * 返回名品有券365加密参数串.
+     * @return
+     */
+    public static String getParam365(String url){
+        String machineCode = DeviceUtils.getUniqueId(BearMallAplication.getInstance().getApplicationContext());
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        ConcurrentHashMap map = new ConcurrentHashMap();
+        Map<String, String> secretKeyMap = new LinkedHashMap<>();
+        map.put("machineCode", machineCode);
+        map.put("agentId", "292");
+        map.put("timestamp", timestamp);
+        //校验数据
+        secretKeyMap.put("secretKey", "RsHfWNYyWMJxhezZQ8QarrNbnYWH7SQh");
+        String sign = IMD5.getSign(map, secretKeyMap);
+        String result = url;
+        if (!StringUtils.isEmpty(result)) {
+            if (!result.contains("?")) {
+                result += "?1=1";
+            }
+            if (!result.contains("&") && result.contains("=")) {
+                result += "&";
+            }
+            result += "machineCode=" + machineCode + "&agentId=292&timestamp=" + timestamp + "&sign=" + sign;
+        }
+        return result;
+    }
+
 
 }

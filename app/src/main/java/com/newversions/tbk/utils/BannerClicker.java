@@ -21,9 +21,9 @@ import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.util.DeviceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,7 +118,7 @@ public class BannerClicker {
                 break;
             case 19://券
                 Intent intent = new Intent(activity, WebActivity.class);
-                intent.putExtra(Constants.INTENT_KEY_URL, target);
+                intent.putExtra(Constants.INTENT_KEY_URL, CommonUtils.getParam365(target));
                 intent.putExtra(Constants.INTENT_KEY_TITLE, "名品抵扣券");
                 activity.startActivity(intent);
                 //TODO[购买名品折扣券]
