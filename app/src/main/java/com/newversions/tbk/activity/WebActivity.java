@@ -433,14 +433,14 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     @Override
     public void onNotNetWork() {
         hiddenLoadingView();
-        Toast.makeText(WebActivity.this, "网络不给力呀！", Toast.LENGTH_LONG).show();
+        showToast("网络不给力呀！");
     }
 
     @Override
     public void onFail(Throwable e) {
         hiddenLoadingView();
         Log.i("onFail", "onFail: " + e.getMessage());
-        Toast.makeText(WebActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        showToast(e.getMessage());
     }
 
     @Override
@@ -451,7 +451,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     @Override
     public void onOneTipe(String tipe) {
         hiddenLoadingView();
-        Toast.makeText(WebActivity.this, tipe, Toast.LENGTH_LONG).show();
+        showToast(tipe);
     }
 
     @Override
