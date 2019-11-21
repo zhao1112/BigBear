@@ -116,13 +116,18 @@ public class ProductSumFragment extends BaseFragment {
             tabs.add("10:00\n" + getCanBuyStr(1));
             tabs.add("14:00\n" + getCanBuyStr(2));
             tabs.add("20:00\n" + getCanBuyStr(3));
+        } else if (type == 3 || type == 5) {
+            tabs.add("综合");
+            tabs.add("销量");
+            tabs.add("券额");
+            tabs.add("券后价");
         } else {
-
             tabs.add("销量");
             tabs.add("最新");
             tabs.add("券额");
             tabs.add("券后价");
         }
+
         for (int i = 0; i < tabs.size(); i++) {
             View v = getLayoutInflater().inflate(R.layout.item_tab_view, null);
             TabViewHolder holder = new TabViewHolder(v);

@@ -42,6 +42,9 @@ public class TopBarClicker {
             case 2:
                 ProductSumActivity.startProductSumActivity(activity, bean.getId() + "", 9, bean.getName());
                 break;
+            case 3:
+                ProductSumActivity.startProductSumActivity(activity, bean.getId() + "", 5, bean.getName());
+                break;
             case 4:
                 // TODO 充值中心
                 if (BearMallAplication.getInstance().getUser() == null) {
