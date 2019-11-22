@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class TopBarClicker {
     public static void topBarClick(Activity activity, TBKHomeEntity.ClassificationBean bean) {
-        Log.i("topBarClick", bean.getType() + "");
+        Log.i("topBarClick", bean.getType() + "---" + bean.getUrl());
         // TODO: 2019/7/15 0015 根据类型执行操作，快速导航
         switch (bean.getType()) {
             case 1:
@@ -68,8 +68,7 @@ public class TopBarClicker {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE,
-                        bean.getUrl() + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode(),bean.getName());
+                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, bean.getUrl(), bean.getName());
                 break;
             case 6:
                 // TODO 每日任务
@@ -130,7 +129,7 @@ public class TopBarClicker {
                 intent.putExtra(Constants.INTENT_KEY_URL, tempUrl);
                 intent.putExtra(Constants.INTENT_KEY_TITLE, "名品抵扣券");
                 activity.startActivity(intent);
-                Log.i("topBarClick", "topBarClick: "+tempUrl);
+                Log.i("topBarClick", "topBarClick: " + tempUrl);
                 //TODO[购买名品折扣券]
                 ConstantScUtil.BrandCoupon();
                 break;

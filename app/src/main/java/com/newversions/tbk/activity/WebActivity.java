@@ -96,7 +96,13 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         Intent intent = new Intent(activity, WebActivity.class);
         intent.putExtra(Constants.INTENT_KEY_TITLE, title);
         intent.putExtra(Constants.INTENT_KEY_TYPE, type);
-        intent.putExtra(Constants.INTENT_KEY_URL, url);
+        String newUrl = null;
+        if (url.contains("hd/list")) {
+            newUrl = url + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode();
+            intent.putExtra(Constants.INTENT_KEY_URL, newUrl);
+        } else {
+            intent.putExtra(Constants.INTENT_KEY_URL, url);
+        }
         activity.startActivity(intent);
     }
 
@@ -129,7 +135,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("scheme:") || url.startsWith("scheme:") ||url.startsWith("alipays:")) {
+                if (url.startsWith("scheme:") || url.startsWith("scheme:") || url.startsWith("alipays:")) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(intent);
                 }
@@ -466,7 +472,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         RefreshActivity();
     }
 
-    public void RefreshActivity(){
+    public void RefreshActivity() {
         WebActivity.startWebActivity(WebActivity.this, type, mStringUrl, mTitle);
         finish();
     }
