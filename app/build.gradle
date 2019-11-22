@@ -60,6 +60,7 @@ android {
         tiktok { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tiktok"] }
         //快手
         kuaishou { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuaishou"] }
+        vivo { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"] }
     }
 
     repositories {

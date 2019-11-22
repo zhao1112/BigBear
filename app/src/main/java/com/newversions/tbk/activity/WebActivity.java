@@ -91,18 +91,13 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     private WebPresenter mWebPresenter;
     private String itemId;
     private String mTitle;
+    String newUrl = null;
 
     public static void startWebActivity(Context activity, int type, String url, String title) {
         Intent intent = new Intent(activity, WebActivity.class);
         intent.putExtra(Constants.INTENT_KEY_TITLE, title);
         intent.putExtra(Constants.INTENT_KEY_TYPE, type);
-        String newUrl = null;
-        if (url.contains("hd/list")) {
-            newUrl = url + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode();
-            intent.putExtra(Constants.INTENT_KEY_URL, newUrl);
-        } else {
-            intent.putExtra(Constants.INTENT_KEY_URL, url);
-        }
+        intent.putExtra(Constants.INTENT_KEY_URL, url);
         activity.startActivity(intent);
     }
 
@@ -119,8 +114,12 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         mStringUrl = getIntent().getStringExtra(Constants.INTENT_KEY_URL);
         mTitle = getIntent().getStringExtra(Constants.INTENT_KEY_TITLE);
         toolbarTitle.setText(mTitle);
-        mWebView.loadUrl(mStringUrl);
-        Log.i("mStringUrl", mStringUrl);
+        if (mStringUrl.contains("hd/list")) {
+            newUrl = mStringUrl + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode();
+        }else{
+            newUrl = mStringUrl;
+        }
+        mWebView.loadUrl(newUrl);
         mWebView.addJavascriptInterface(this, "android");
         setWebViewAttribute(mWebView);
         mWebView.setWebViewClient(myWebViewClient);
