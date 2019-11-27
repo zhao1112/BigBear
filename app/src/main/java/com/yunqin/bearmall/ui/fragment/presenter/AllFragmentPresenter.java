@@ -55,13 +55,11 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
         mHashMap.put("orderStatus", orderStatus);
         mHashMap.put("queryContent", "");
 
-
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getOrdersList(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
                 try {
                     OrderBean orderBean = new Gson().fromJson(data, OrderBean.class);
-
                     isMore = orderBean.getData().getHas_more() == 1;
                     if (orderBean.getCode() == 1) {
                         allFragmentAdapter = new AllFragmentAdapter(context, orderBean.getData().getOrdersList());
@@ -69,14 +67,12 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
                         allFragmentAdapter = new AllFragmentAdapter(context, null);
                     }
                     mUI.attachAdapter(allFragmentAdapter);
-
                 } catch (Exception e) {
                     Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
                 } finally {
                     mUI.onHasMore(isMore);
                     mUI.hideLoad();
                 }
-
             }
 
             @Override
@@ -133,7 +129,8 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
                 mUI.hideLoad();
             }
         });
-//        Toast.makeText(BearMallAplication.getInstance().getApplicationContext(), String.format("取消**%d", index), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(BearMallAplication.getInstance().getApplicationContext(), String.format("取消**%d", index), Toast.LENGTH_SHORT)
+//        .show();
     }
 
     @Override
@@ -212,7 +209,6 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
         mHashMap.put("orders_id", String.valueOf(list.get(index).getOrders_id()));
         mHashMap.put("orderProductType", String.valueOf(allFragmentAdapter.getData().get(index).getOrderProductType()));
 
-
         request(RetrofitApi.createApi(Api.class).confirmOrders(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
@@ -246,9 +242,7 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
 
     @Override
     public void shaiDanPingJia(int index) {
-
         List<OrderBean.DataBean.OrdersListBean> list = allFragmentAdapter.getData();
-
         Bundle bundle = new Bundle();
         bundle.putInt("orders_id", list.get(index).getOrders_id());
         int orders_count = list.get(index).getItem().size();
@@ -269,7 +263,6 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
 
     @Override
     public void shanChuDingDan(int index) {
-
         mUI.showLoad();
         Map<String, String> mHashMap = new HashMap<>();
         List<OrderBean.DataBean.OrdersListBean> list = allFragmentAdapter.getData();
@@ -316,11 +309,8 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
 
         Intent intent = new Intent(mContext, AfterSaleActivity.class);
         intent.putExtras(bundle);
-        intent.putExtra("source_id",MineOrderActivity.FragmentType.ALL_ORDER);
+        intent.putExtra("source_id", MineOrderActivity.FragmentType.ALL_ORDER);
         mContext.startActivity(intent);
-
-
-
     }
 
     @Override
@@ -335,8 +325,6 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
         } else {
             VirtualOrdersActivity.start(mContext, list.get(index).getOrders_id(), MineOrderActivity.FragmentType.ALL_ORDER);
         }
-
-
     }
 
     @Override
@@ -347,13 +335,10 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
         mHashMap.put("orderStatus", "");
         mHashMap.put("queryContent", "");
 
-
         RetrofitApi.request(mContext, RetrofitApi.createApi(Api.class).getOrdersList(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
-
                 page_number = 2;
-
                 OrderBean orderBean = new Gson().fromJson(data, OrderBean.class);
                 isMore = orderBean.getData().getHas_more() == 1 ? true : false;
                 if (allFragmentAdapter == null) {
@@ -398,7 +383,6 @@ public class AllFragmentPresenter implements TabFragmentContract.Presenter {
         mHashMap.put("page_number", "" + page_number++);
         mHashMap.put("orderStatus", "");
         mHashMap.put("queryContent", "");
-
 
         RetrofitApi.request(mContext, RetrofitApi.createApi(Api.class).getOrdersList(mHashMap), new RetrofitApi.IResponseListener() {
             @Override

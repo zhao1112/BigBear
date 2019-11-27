@@ -35,8 +35,34 @@ import butterknife.OnClick;
 
 public class PropertyActivity extends BaseActivity implements View.OnClickListener {
 
-    public static void startPropertyActivity(Activity context, int type, String total, String today, String coupon, String rest) {
+    @BindView(R.id.total_sweet)
+    TextView totalSweetTextView;
+    @BindView(R.id.today_sweet)
+    TextView todaySweetTextView;
+    @BindView(R.id.text_view)
+    TextView text_view;
+    @BindView(R.id.toolbar_title)
+    TextView titleTextView;
+    @BindView(R.id.not_net_group)
+    LinearLayout not_net_group;
+    @BindView(R.id.toolbar_right_text)
+    TextView rightTextView;
+    @BindView(R.id.money_rest)
+    TextView restMoneyTextView;
+    @BindView(R.id.coupon_text)
+    TextView couponTextView;
+    @BindView(R.id.rest_money_layout)
+    ShadowLayout rest_money_layout;
+    @BindView(R.id.coupon_layout)
+    ShadowLayout coupon_layout;
+    @BindView(R.id.property_layout)
+    ShadowLayout property_layout;
+    @BindView(R.id.img_kai_)
+    ImageView img_k;
 
+    private String withdrawFrom;
+
+    public static void startPropertyActivity(Activity context, int type, String total, String today, String coupon, String rest) {
         Bundle bundle = new Bundle();
         bundle.putInt("TYPE", type);
         bundle.putString("TOTAL", total);
@@ -47,39 +73,6 @@ public class PropertyActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    @BindView(R.id.total_sweet)
-    TextView totalSweetTextView;
-
-    @BindView(R.id.today_sweet)
-    TextView todaySweetTextView;
-
-    @BindView(R.id.text_view)
-    TextView text_view;
-
-    @BindView(R.id.toolbar_title)
-    TextView titleTextView;
-
-    @BindView(R.id.not_net_group)
-    LinearLayout not_net_group;
-
-    @BindView(R.id.toolbar_right_text)
-    TextView rightTextView;
-
-    @BindView(R.id.money_rest)
-    TextView restMoneyTextView;
-
-    @BindView(R.id.coupon_text)
-    TextView couponTextView;
-
-    @BindView(R.id.rest_money_layout)
-    ShadowLayout rest_money_layout;
-
-    @BindView(R.id.coupon_layout)
-    ShadowLayout coupon_layout;
-
-    @BindView(R.id.property_layout)
-    ShadowLayout property_layout;
-
     @Override
     public int layoutId() {
         return R.layout.activity_property;
@@ -87,20 +80,11 @@ public class PropertyActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void init() {
-
         initView();
         setupData();
         getBCData();
-
         showAnim();
-
-
     }
-
-
-    @BindView(R.id.img_kai_)
-    ImageView img_k;
-
 
     private void showAnim() {
         Animation mAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_big_small);
@@ -108,19 +92,11 @@ public class PropertyActivity extends BaseActivity implements View.OnClickListen
         mAnimation.start();
     }
 
-
-
-
-
-
-
-
     private void initView() {
         titleTextView.setText("全部资产");
     }
 
     private void setupData() {
-
         int type = getIntent().getIntExtra("TYPE", 1);
         String total = getIntent().getStringExtra("TOTAL");
         String today = getIntent().getStringExtra("TODAY");
@@ -146,7 +122,6 @@ public class PropertyActivity extends BaseActivity implements View.OnClickListen
         }
 
         setText(today, total, coupon, restMoney);
-
     }
 
 
@@ -154,49 +129,32 @@ public class PropertyActivity extends BaseActivity implements View.OnClickListen
             R.id.img_kai_})
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
-
             case R.id.img_kai_:
                 CardListWebActivity.startActivity(this, AdConstants.STRING_WO_DE_QIAN_BAO, "");
                 break;
-                
             case R.id.toolbar_back:
-
                 finish();
-
                 break;
-
             case R.id.property_layout:
-
 //                StarActivityUtil.starActivity(this,SweetRecordWithTypeActivity.class);
-                SweetRecordWithTypeActivity.startSweetRecordWithTypeActivity(this, totalSweetTextView.getText().toString(), todaySweetTextView.getText().toString());
-
+                SweetRecordWithTypeActivity.startSweetRecordWithTypeActivity(this, totalSweetTextView.getText().toString(),
+                        todaySweetTextView.getText().toString());
                 break;
-
             case R.id.toolbar_right_text:
-
                 SweetRecordActivity.startIncomeActivity(2, null, this);
-
                 break;
-
             case R.id.coupon_layout:
-
                 Intent intent = new Intent(this, CouponActivity.class);
                 startActivity(intent);
-
                 break;
-
             case R.id.rest_money_layout:
                 BalanceActivity.startBalanceActivity(this, restMoneyTextView.getText().toString().trim(), withdrawFrom);
                 break;
-
         }
-
     }
 
     private void setText(String todaySum, String total, String coupon, String rest) {
-
         if (TextUtils.isEmpty(coupon)) {
             coupon = "0";
         }
@@ -218,38 +176,34 @@ public class PropertyActivity extends BaseActivity implements View.OnClickListen
         restMoneyTextView.setText(rest);
     }
 
-    private String withdrawFrom;
-
     public void getBCData() {
+        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getUserBTData(new HashMap<String, String>()),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        hiddenLoadingView();
+                        UserBTInfo userBTInfo = new Gson().fromJson(data, UserBTInfo.class);
+                        withdrawFrom = userBTInfo.getData().getWithdrawFrom();
+                        String todaySum = userBTInfo.getData().getTodayCreditSum();
+                        String total = userBTInfo.getData().getBCbanlance();
+                        String coupon = String.valueOf(userBTInfo.getData().getTicketCount());
+                        String rest = userBTInfo.getData().getBanlance();
+                        setText(todaySum, total, coupon, rest);
+                    }
 
-        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getUserBTData(new HashMap<String, String>()), new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) {
+                    @Override
+                    public void onNotNetWork() {
+                        hiddenLoadingView();
+                    }
 
-                hiddenLoadingView();
-                UserBTInfo userBTInfo = new Gson().fromJson(data, UserBTInfo.class);
-                withdrawFrom = userBTInfo.getData().getWithdrawFrom();
-                String todaySum = userBTInfo.getData().getTodayCreditSum();
-                String total = userBTInfo.getData().getBCbanlance();
-                String coupon = String.valueOf(userBTInfo.getData().getTicketCount());
-                String rest = userBTInfo.getData().getBanlance();
-                setText(todaySum, total, coupon, rest);
+                    @Override
+                    public void onFail(Throwable e) {
+                        hiddenLoadingView();
+                    }
 
-            }
-
-            @Override
-            public void onNotNetWork() {
-                hiddenLoadingView();
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                hiddenLoadingView();
-            }
-        });
+                });
 
     }
-
 
     @Override
     protected void onResume() {

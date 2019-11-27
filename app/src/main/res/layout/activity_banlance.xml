@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <include
         android:id="@+id/topBar"
-        layout="@layout/layout_topbar" />
-
+        layout="@layout/layout_topbar"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintVertical_bias="1.0">
 
         <ImageView
             android:id="@+id/image_view"
@@ -26,7 +29,7 @@
             android:src="@drawable/icon_money"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/text_view"
@@ -39,7 +42,7 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_view" />
+            app:layout_constraintTop_toBottomOf="@id/image_view"/>
 
         <TextView
             android:id="@+id/banlance_text"
@@ -51,9 +54,7 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view"
-
-            />
+            app:layout_constraintTop_toBottomOf="@id/text_view"/>
 
         <com.yunqin.bearmall.widget.Highlight.HighlightButton
             android:id="@+id/withdraw_deposit"
@@ -68,7 +69,7 @@
             android:textSize="28pt"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/banlance_text" />
+            app:layout_constraintTop_toBottomOf="@id/banlance_text"/>
 
 
         <LinearLayout
@@ -95,7 +96,8 @@
                     android:textSize="26pt"
                     app:layout_constraintHorizontal_bias="0.9"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:ignore="MissingConstraints"/>
 
                 <View
                     android:layout_width="0dp"
@@ -103,7 +105,7 @@
                     android:background="#23A064"
                     app:layout_constraintEnd_toEndOf="@+id/ti_xian_ji_lu"
                     app:layout_constraintStart_toStartOf="@+id/ti_xian_ji_lu"
-                    app:layout_constraintTop_toBottomOf="@id/ti_xian_ji_lu" />
+                    app:layout_constraintTop_toBottomOf="@id/ti_xian_ji_lu"/>
 
             </android.support.constraint.ConstraintLayout>
 
@@ -123,7 +125,8 @@
                     android:textSize="26pt"
                     app:layout_constraintHorizontal_bias="0.1"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:ignore="MissingConstraints"/>
 
                 <View
                     android:layout_width="0dp"
@@ -131,13 +134,11 @@
                     android:background="#23A064"
                     app:layout_constraintEnd_toEndOf="@+id/ti_xian_gui_ze"
                     app:layout_constraintStart_toStartOf="@+id/ti_xian_gui_ze"
-                    app:layout_constraintTop_toBottomOf="@id/ti_xian_gui_ze" />
+                    app:layout_constraintTop_toBottomOf="@id/ti_xian_gui_ze"/>
 
             </android.support.constraint.ConstraintLayout>
 
-
         </LinearLayout>
-
 
         <TextView
             android:id="@+id/ti_xian_ti_shi"
@@ -149,11 +150,10 @@
             android:textSize="26pt"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view" />
+            app:layout_constraintTop_toBottomOf="@id/view"/>
 
 
     </android.support.constraint.ConstraintLayout>
-
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/red_package_layout"
@@ -168,9 +168,9 @@
             android:id="@+id/red_package_close"
             android:layout_width="@dimen/ds30"
             android:layout_height="@dimen/ds30"
-            app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ad_close"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
         <ImageView
@@ -181,10 +181,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/red_package_close" />
+            app:layout_constraintTop_toBottomOf="@id/red_package_close"/>
 
 
     </android.support.constraint.ConstraintLayout>
-
 
 </android.support.constraint.ConstraintLayout>

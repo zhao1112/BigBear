@@ -40,17 +40,17 @@ public interface TabFragmentContract {
 
 
         void shuaXin();
+
         void jiaZaiGengDuo();
 
         AllFragmentAdapter getAdapter();
-
-
 
 
     }
 
     interface UI {
         void attachAdapter(AllFragmentAdapter adapter);
+
         void updateView(AllFragmentAdapter adapter);
 
         void showLoad();
@@ -58,6 +58,7 @@ public interface TabFragmentContract {
         void hideLoad();
 
         void shuaXinFinish();
+
         void jiaZaiGengDuoFinish(boolean isMore);
 
         void onNotNetWork();

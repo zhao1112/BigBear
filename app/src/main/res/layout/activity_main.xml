@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F7F7F7"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#F7F7F7"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-
-        ></FrameLayout>
+        android:layout_weight="1"/>
 
 
     <!--app:shadowColor="#66000000" 控制阴影的颜色，注意：颜色必须带有透明度的值-->
@@ -52,7 +50,7 @@
                 app:openTouchBg="true"
                 app:textColorNormal="@color/home_text_unselect"
                 app:textColorSelected="@color/main_color"
-                app:touchDrawable="@drawable/selector_bg" />
+                app:touchDrawable="@drawable/selector_bg"/>
 
             <com.chaychan.library.BottomBarItem
                 android:layout_width="0dp"
@@ -70,7 +68,7 @@
                 app:openTouchBg="true"
                 app:textColorNormal="@color/home_text_unselect"
                 app:textColorSelected="@color/main_color"
-                app:touchDrawable="@drawable/selector_bg" />
+                app:touchDrawable="@drawable/selector_bg"/>
 
 
             <com.chaychan.library.BottomBarItem
@@ -92,7 +90,7 @@
                 app:textColorSelected="@color/main_color"
                 app:touchDrawable="@drawable/selector_bg"
                 app:unreadTextSize="@dimen/ds16"
-                app:unreadThreshold="99" />
+                app:unreadThreshold="99"/>
 
             <com.chaychan.library.BottomBarItem
                 android:id="@+id/shopcar_bar_item"
@@ -111,15 +109,15 @@
                 app:textColorSelected="@color/main_color"
                 app:touchDrawable="@drawable/selector_bg"
                 app:unreadTextSize="@dimen/ds16"
-                app:unreadThreshold="99" />
+                app:unreadThreshold="99"/>
 
             <com.chaychan.library.BottomBarItem
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:iconHeight="@dimen/ds44"
-                app:iconNormal="@drawable/icon_tab_mine_normal"
-                app:iconSelected="@drawable/icon_tab_mine_selected"
+                app:iconNormal="@mipmap/img_me_gray"
+                app:iconSelected="@mipmap/img_me"
                 app:iconWidth="@dimen/ds44"
                 app:itemMarginTop="@dimen/ds14"
                 app:itemText="我的"
@@ -127,7 +125,7 @@
                 app:openTouchBg="true"
                 app:textColorNormal="@color/home_text_unselect"
                 app:textColorSelected="@color/main_color"
-                app:touchDrawable="@drawable/selector_bg" />
+                app:touchDrawable="@drawable/selector_bg"/>
 
         </com.chaychan.library.BottomBarLayout>
     </com.yunqin.bearmall.widget.ShadowLayout>

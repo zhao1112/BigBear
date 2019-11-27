@@ -1171,5 +1171,17 @@ public interface Api {
     @POST("api/taokeorder/checkinvitation")
     Observable<String> getCheckinvitation();
 
+    /**
+     * 我的页面收益
+     * */
+    @POST("api/commodity/getProfit")
+    Observable<String> getProfit();
+
+    /**
+     * 我的页面  轮播图
+     * */
+    @POST(" api/commodity/getLunboTu")
+    Observable<String> getLunboTu();
+
 }
 

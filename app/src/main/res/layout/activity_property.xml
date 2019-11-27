@@ -49,7 +49,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="30pt"
             android:layout_toRightOf="@id/money_left_image"
-            android:text="余额"
+            android:text="现金收益"
             android:textColor="#333333"
             android:textSize="32pt" />
 
@@ -157,7 +157,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="30pt"
             android:layout_toRightOf="@id/left_image"
-            android:text="BC糖果"
+            android:text="糖果收益"
             android:textColor="#333333"
             android:textSize="32pt" />
 

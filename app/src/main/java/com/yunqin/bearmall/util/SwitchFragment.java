@@ -8,6 +8,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.ui.fragment.GuideWithVideoFragment;
 import com.yunqin.bearmall.ui.fragment.HomeFragment;
 import com.yunqin.bearmall.ui.fragment.MakeMoneyFragment;
+import com.yunqin.bearmall.ui.fragment.MineFragment;
 import com.yunqin.bearmall.ui.fragment.MineNewFragment;
 import com.yunqin.bearmall.ui.fragment.ZeroGoodsFragment;
 
@@ -34,7 +35,7 @@ public class SwitchFragment {
     private MakeMoneyFragment mMakeMoneyFragment;
     // TODO: 2019/7/15 0015 替换成0元兑
     private ZeroGoodsFragment mTrolleyFragment;
-    private MineNewFragment mMineFragment;
+    private MineFragment mMineFragment;
     private FragmentManager manager;
 
     public SwitchFragment(FragmentManager manager) {
@@ -111,7 +112,7 @@ public class SwitchFragment {
                 break;
             case FRAGMENT_TYPE.APP_MINE:
                 if (mMineFragment == null) {
-                    mMineFragment = new MineNewFragment();
+                    mMineFragment = new MineFragment();
                     transaction.add(R.id.content, mMineFragment);
                 }
                 hiderFragment(transaction);

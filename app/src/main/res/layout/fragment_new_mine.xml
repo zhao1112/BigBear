@@ -17,11 +17,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/item_mine_center" />
+            <include layout="@layout/item_mine_center"/>
 
-            <include layout="@layout/item_mine_layout_order" />
+            <include layout="@layout/item_mine_layout_order"/>
 
-            <include layout="@layout/item_vip_bottom" />
+            <include layout="@layout/item_vip_bottom"/>
 
         </LinearLayout>
     </com.yunqin.bearmall.widget.BounceScrollView>

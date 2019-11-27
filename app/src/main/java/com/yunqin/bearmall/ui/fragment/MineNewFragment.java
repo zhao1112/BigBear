@@ -42,6 +42,7 @@ import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.BannerBean;
 import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.MessageItemCount;
+import com.yunqin.bearmall.bean.MineBannerBean;
 import com.yunqin.bearmall.bean.OrderNumberBean;
 import com.yunqin.bearmall.bean.PopBean;
 import com.yunqin.bearmall.bean.UserBTInfo;
@@ -687,6 +688,16 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
     public void onUpdateUserInfo(UserInfo userInfo) {
         lastupdateTime = System.currentTimeMillis();
         setUserInfo(userInfo);
+    }
+
+    @Override
+    public void onProfit(Double todayprofit, Double cashAmount, Double thismonthprofit) {
+
+    }
+
+    @Override
+    public void onLunboTu(MineBannerBean mineBannerBean) {
+
     }
 
 

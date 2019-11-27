@@ -60,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(layoutId());
 
         ButterKnife.bind(this);
-        StatusBarUtil.setImmersiveStatusBar(this, true);
+       // StatusBarUtil.setImmersiveStatusBar(this, true);
 
         init();
     }

@@ -318,8 +318,6 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     ((IViewHolder) holder).order_appraise.setVisibility(View.GONE);
 
 
-
-
                 } else {
                     ((IViewHolder) holder).order_appraise.setVisibility(View.VISIBLE);
                 }
@@ -420,9 +418,7 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            if (((IViewHolder) holder).contentLayout.getChildCount() > 0) {
-//                ((IViewHolder) holder).contentLayout.removeAllViews();
-//            }
+
             ((IViewHolder) holder).contentLayout.removeAllViews();
             List<OrderBean.DataBean.OrdersListBean.ItemBean> items = bean.getItem();
             for (int i = 0; i < items.size(); i++) {
@@ -464,8 +460,7 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }
 
                     goods_count.setText(String.format("X%d", itemBean.getQuantity()));
-//                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                layoutParams.setMargins(0, 5, 0, 5);
+
                     view.setTag(String.format("%d#%d,%d", position, i, CHAKANXIANGQING));
                     view.setOnClickListener(this);
                     ((IViewHolder) holder).contentLayout.addView(view);
@@ -574,14 +569,10 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
                 break;
         }
-
-//        StarActivityUtil.starActivity((Activity) mContext, OrderDetailsActivity.class);
-
     }
 
 
     class VirtualHolder extends RecyclerView.ViewHolder {
-
 
         @BindView(R.id.goods_pic)
         ImageView imgview;

@@ -3,6 +3,7 @@ package com.yunqin.bearmall.ui.fragment.contract;
 import android.content.Context;
 
 import com.yunqin.bearmall.bean.BannerBean;
+import com.yunqin.bearmall.bean.MineBannerBean;
 import com.yunqin.bearmall.bean.UserBTInfo;
 import com.yunqin.bearmall.bean.UserInfo;
 
@@ -23,6 +24,10 @@ public interface MineContract {
 
         void initAdData(Context context);
 
+        void onProfit(Context context);
+
+        void onLunboTu(Context context);
+
     }
 
     interface UI extends BaseContract.BaseView {
@@ -38,6 +43,10 @@ public interface MineContract {
         void initOrderNumberInfo(String orderNumberInfo);
 
         void onUpdateUserInfo(UserInfo userInfo);
+
+        void onProfit(Double todayprofit,Double cashAmount,Double thismonthprofit);
+
+        void onLunboTu(MineBannerBean mineBannerBean);
     }
 
 }

@@ -5,26 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.androidkun.xtablayout.XTabLayout;
 import com.newversions.tbk.fragment.MyOrderFragment;
 import com.newversions.tbk.fragment.TBKOrderFragment;
 import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.adapter.MineOrderTabAdapter;
-import com.yunqin.bearmall.adapter.TaoBaoOrderTabAdapter;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.yunqin.bearmall.ui.activity.MineOrderActivity.FragmentType.ALL_ORDER;
@@ -99,26 +92,17 @@ public class MineOrderActivity extends BaseActivity {
         tbkOrderFragment = new TBKOrderFragment();
         myOrderFragment = new MyOrderFragment();
 
-        Intent intent = getIntent();
-        if (intent != null && intent.getExtras() != null) {
-            Bundle bundle = intent.getExtras();
-            index = bundle.getInt("index", 0);
-        }
-        Bundle bundle = new Bundle();
-        bundle.putInt("index", index);
-        myOrderFragment.setArguments(bundle);
-
         rgOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_my_order:
                         orderType = TYPE_MY_ORDER;
-                        switchFragment(myOrderFragment);
+                        switchFragment(tbkOrderFragment);
                         break;
                     case R.id.rb_tb_order:
                         orderType = TYPE_TAOBAO_ORDER;
-                        switchFragment(tbkOrderFragment);
+                        switchFragment(myOrderFragment);
                         break;
                 }
             }
@@ -134,7 +118,7 @@ public class MineOrderActivity extends BaseActivity {
             if (nowFragment == null) {
                 getSupportFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
             } else {
-                getSupportFragmentManager().beginTransaction().hide(nowFragment).replace(R.id.content, fragment).commit();
+                getSupportFragmentManager().beginTransaction().hide(nowFragment).add(R.id.content, fragment).commit();
             }
             nowFragment = fragment;
         }
@@ -148,6 +132,5 @@ public class MineOrderActivity extends BaseActivity {
                 break;
         }
     }
-
 
 }

@@ -48,11 +48,12 @@
                 android:layout_marginEnd="@dimen/ds30"
                 android:background="@drawable/rbt_selector"
                 android:button="@null"
-                android:text="我的订单"
+                android:text="淘宝订单"
                 android:paddingStart="@dimen/ds20"
                 android:paddingEnd="@dimen/ds20"
                 android:paddingTop="@dimen/ds5"
                 android:paddingBottom="@dimen/ds5"
+                android:checked="true"
                 android:textSize="32pt"
                 android:textColor="@drawable/checkrbtn"/>
 
@@ -60,7 +61,6 @@
                 android:id="@+id/rb_tb_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:layout_marginStart="@dimen/ds30"
                 android:paddingStart="@dimen/ds20"
                 android:paddingEnd="@dimen/ds20"
@@ -68,7 +68,7 @@
                 android:paddingBottom="@dimen/ds5"
                 android:background="@drawable/rbt_selector"
                 android:button="@null"
-                android:text="淘宝订单"
+                android:text="我的订单"
                 android:textSize="32pt"
                 android:textColor="@drawable/checkrbtn"/>
         </RadioGroup>

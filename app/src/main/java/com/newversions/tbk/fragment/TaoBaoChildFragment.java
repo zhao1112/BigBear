@@ -49,6 +49,8 @@ public class TaoBaoChildFragment extends BaseFragment {
     private int pageSize=10;
     private int type = 1;
     private boolean hasMore = true;
+    String TAG= "@@yy";
+
     @Override
     public int layoutId() {
         return R.layout.fragment_tao_bao_child;
@@ -64,12 +66,9 @@ public class TaoBaoChildFragment extends BaseFragment {
     public void init() {
         Log.d("TAG", "init: ------");
         refreshLayout.setHeaderView(new RefreshHeadView(getActivity()));
-//        mTwinklingRefreshLayout.setBottomView(new RefreshBottomView(getActivity()));
-//        refreshLayout.setBottomView(new RefreshFooterView(getActivity()));
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-//                mPresenter.onRefresh();
                 page = 1;
                 mList.clear();
                 getOrder();
@@ -86,25 +85,10 @@ public class TaoBaoChildFragment extends BaseFragment {
                 }
             }
         });
+
         rlv.setLayoutManager(new GridLayoutManager(getContext(), 1));
         homeAdapter = new HomeAdapter(R.layout.orderitem_layout, mList);
-//        homeAdapter.openLoadAnimation();
-//        homeAdapter.setUpFetchEnable(true);
-//        homeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-//            @Override
-//            public void onLoadMoreRequested() {
-//                if (title.equals("全部")) {
-//                    type = 0;
-//                } else if (title.equals("已付款")) {
-//                    type=1;
-//                } else if (title.equals("已结算")) {
-//                    type = 3;
-//                } else if (title.equals("已失效")) {
-//                    type = 4;
-//                }
-//                getOrder();
-//            }
-//        }, rlv);
+
         homeAdapter.bindToRecyclerView(rlv);
         homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -112,9 +96,11 @@ public class TaoBaoChildFragment extends BaseFragment {
 
             }
         });
+
         homeAdapter.setEmptyView(R.layout.no_video_layout);
         Bundle arguments = getArguments();
         title = arguments.getString("title");
+
         if (title.equals("全部")) {
             type = 0;
         } else if (title.equals("已付款")) {
@@ -126,7 +112,7 @@ public class TaoBaoChildFragment extends BaseFragment {
         }
         getOrder();
     }
-    String TAG= "@@yy";
+
     private void getOrder() {
         Log.i("@@yy", "getOrder: "+title);
         showLoading();
@@ -135,7 +121,6 @@ public class TaoBaoChildFragment extends BaseFragment {
         map.put("page",String.valueOf(page));
         map.put("pageSize",String.valueOf(pageSize));
         map.put("userId","12241");
-        //page,pageSize,userId/12241
         RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getTBKOrderList(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
@@ -171,30 +156,6 @@ public class TaoBaoChildFragment extends BaseFragment {
                 hiddenLoadingView();
             }
         });
-//        RetrofitFactory.getInstence().API()
-//                .GetOrder(CacheInfo.getUserID(getContext()), page, 10, 1, type)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new BaseObserver<OrderModel>(getContext()) {
-//                    @Override
-//                    protected void onSuccees(BaseEntity<OrderModel> t) throws Exception {
-////                        Log.e("公告", "onSuccees: "+t.getCode() +t.getData().getDatas().get(0).getTitle());
-//                        if (mList.size() >= t.getData().getTotal()) {
-//                            //数据全部加载完毕
-//                            homeAdapter.loadMoreEnd();
-//                        } else {
-//                            homeAdapter.addData(t.getData().getDatas());
-//                            //   mCurrentCounter = mQuickAdapter.getData().size();
-//                            homeAdapter.loadMoreComplete();
-//                            page++;
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-//                    }
-//                });
     }
 
     class HomeAdapter extends BaseQuickAdapter<TBKOrder.TaokeOrderBean, BaseViewHolder> {

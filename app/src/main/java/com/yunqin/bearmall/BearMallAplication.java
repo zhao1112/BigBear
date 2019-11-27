@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
@@ -43,8 +44,7 @@ import cn.example.lamor.AppContextLike;
 /**
  * @author Master
  */
-public class
-BearMallAplication extends MobApplication {
+public class BearMallAplication extends MultiDexApplication {
 
     private static BearMallAplication instance;
     private static RequestOptions options;

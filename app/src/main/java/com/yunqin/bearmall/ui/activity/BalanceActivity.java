@@ -40,25 +40,28 @@ import cn.sharesdk.wechat.friends.Wechat;
 
 public class BalanceActivity extends BaseActivity implements PlatformActionListener {
 
-    public static void startBalanceActivity(Context context, String money, String withdrawFrom) {
-        Intent intent = new Intent(context, BalanceActivity.class);
-        intent.putExtra("MONEY", money);
-        intent.putExtra("withdrawFrom", withdrawFrom);
-        context.startActivity(intent);
-    }
-
     @BindView(R.id.banlance_text)
     TextView mongeyView;
     @BindView(R.id.toolbar_right_text)
     TextView rightText;
     @BindView(R.id.toolbar_title)
     TextView titleView;
-
     @BindView(R.id.ti_xian_ti_shi)
     TextView ti_xian_ti_shi;
+    @BindView(R.id.red_package_img)
+    ImageView imageView;
+    @BindView(R.id.red_package_layout)
+    ConstraintLayout constraintLayout;
 
     private String money;
     private String withdrawFrom;
+
+    public static void startBalanceActivity(Context context, String money, String withdrawFrom) {
+        Intent intent = new Intent(context, BalanceActivity.class);
+        intent.putExtra("MONEY", money);
+        intent.putExtra("withdrawFrom", withdrawFrom);
+        context.startActivity(intent);
+    }
 
     @Override
     public int layoutId() {
@@ -67,26 +70,15 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
 
     @Override
     public void init() {
-
         money = getIntent().getStringExtra("MONEY");
         withdrawFrom = getIntent().getStringExtra("withdrawFrom");
-
         rightText.setVisibility(View.VISIBLE);
-
         mongeyView.setText("¥" + money);
         rightText.setText("余额明细");
         titleView.setText("余额");
         ti_xian_ti_shi.setText("最小提现金额：¥" + withdrawFrom);
-
         showAnimation();
-
     }
-
-
-
-    @BindView(R.id.red_package_img)
-    ImageView imageView;
-
 
     /**
      * 设置动画
@@ -105,22 +97,12 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     }
 
 
-
-
-
-
-    @BindView(R.id.red_package_layout)
-    ConstraintLayout constraintLayout;
-
-
     @OnClick({R.id.toolbar_back, R.id.toolbar_right_text, R.id.withdraw_deposit,
             R.id.ti_xian_ji_lu, R.id.ti_xian_gui_ze,
             R.id.red_package_close,
             R.id.red_package_img})
     public void viewClick(View view) {
-
         switch (view.getId()) {
-
             case R.id.red_package_close:
                 constraintLayout.setVisibility(View.GONE);
                 break;
@@ -128,8 +110,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 // TODO 待定 URL
                 CardListWebActivity.startActivity(BalanceActivity.this, AdConstants.STRING_BALANCE_ACTIVITY, "");
                 break;
-
-
             case R.id.toolbar_back:
                 finish();
                 break;
@@ -137,7 +117,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 BalanceDetailActivity.startBalanceDetailActivity(this, money);
                 break;
             case R.id.withdraw_deposit:
-
                 new ICustomDialog.Builder(this)
                         // 设置布局
                         .setLayoutResId(R.layout.dialog_item_tx)
@@ -173,9 +152,7 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 break;
             default:
                 break;
-
         }
-
     }
 
     /**
@@ -184,12 +161,7 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
 
     private boolean isBind = false;
 
-
-
-
     private void checkWx() {
-
-
         if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
             if (BearMallAplication.getInstance().getUser().getData().getMember().isBindWxopenId() || isBind) {
                 BalanceWithdrawalWxActivity.startActivity(this, money);
@@ -207,7 +179,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                         .setAnimationResId(0)
                         // 设置监听ID
                         .setListenedItems(new int[]{R.id.join_member_no, R.id.join_member_ok})
-
                         .setCustomTextIds(new int[]{R.id.tip, R.id.join_member_no, R.id.join_member_ok})
                         .setCustomTextContents(new String[]{"您还未绑定微信,请先绑定微信再进行提现", "我再想想", "立即绑定"})
                         // 设置回掉
@@ -233,7 +204,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
      * 提现到银行卡
      */
     private void checkBank() {
-
         showLoading();
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).isBindBankCard(), new RetrofitApi.IResponseListener() {
             @Override
@@ -268,7 +238,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
         }
     }
 
-
     private void notBoundBankCard_() {
         new ICustomDialog.Builder(this)
                 // 设置布局
@@ -285,7 +254,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 .setListenedItems(new int[]{R.id.join_member_no, R.id.join_member_ok})
                 .setCustomTextIds(new int[]{R.id.tip, R.id.join_member_no, R.id.join_member_ok})
                 .setCustomTextContents(new String[]{"您还未绑定银行卡", "取消", "去设置"})
-
                 // 设置回掉
                 .setOnDialogItemClickListener((thisDialog, clickView) -> {
                     thisDialog.dismiss();
@@ -327,7 +295,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         // 绑定微信成功
-
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("open_id", platform.getDb().get("unionid"));
         mHashMap.put("wxopen_id", platform.getDb().get("openid"));
@@ -335,16 +302,13 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).memberThirdPartyBind(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
-
                 isBind = true;
                 Toast.makeText(BalanceActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
-
-                RetrofitApi.request(BalanceActivity.this, RetrofitApi.createApi(Api.class).getMemberInfo(new HashMap<>()), new RetrofitApi.IResponseListener() {
+                RetrofitApi.request(BalanceActivity.this, RetrofitApi.createApi(Api.class).getMemberInfo(new HashMap<>()),
+                        new RetrofitApi.IResponseListener() {
                     @Override
                     public void onSuccess(String data) {
-
                         hiddenLoadingView();
-
                         try {
                             UserInfo userInfo = BearMallAplication.getInstance().getUser();
                             UserInfo.DataBean dataBean = userInfo.getData();
@@ -368,8 +332,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                         hiddenLoadingView();
                     }
                 });
-
-
             }
 
             @Override
@@ -383,7 +345,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
             }
         });
 
-
     }
 
     @Override
@@ -396,6 +357,5 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     public void onCancel(Platform platform, int i) {
         hiddenLoadingView();
         Toast.makeText(this, "绑定微信取消", Toast.LENGTH_SHORT).show();
-
     }
 }
