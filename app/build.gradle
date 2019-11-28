@@ -86,10 +86,10 @@ android {
                     GETUI_APP_KEY   : "4Q54VC50z36Dc3jFEHrdRA",
                     GETUI_APP_SECRET: "AA8dehMQ8b5VMQfhE4zAC2",
 
-                    XIAOMI_APP_ID : "2882303761517857544",
-                    XIAOMI_APP_KEY : "5851785796544",
+                    XIAOMI_APP_ID   : "2882303761517857544",
+                    XIAOMI_APP_KEY  : "5851785796544",
 
-                    OPPO_APP_KEY : "30011344",
+                    OPPO_APP_KEY    : "30011344",
                     OPPO_APP_SECRET : "8afead5845c7436b97e1dfe41e2d32bb"
             ]
             minifyEnabled false
@@ -108,10 +108,10 @@ android {
                     GETUI_APP_KEY   : "tHJQEhhpFi78oh6YEjTev8",
                     GETUI_APP_SECRET: "4CK2Ed3lDE8sry9owj5nGA",
 
-                    XIAOMI_APP_ID : "2882303761517857544",
-                    XIAOMI_APP_KEY : "5851785796544",
+                    XIAOMI_APP_ID   : "2882303761517857544",
+                    XIAOMI_APP_KEY  : "5851785796544",
 
-                    OPPO_APP_KEY : "30011344",
+                    OPPO_APP_KEY    : "30011344",
                     OPPO_APP_SECRET : "8afead5845c7436b97e1dfe41e2d32bb"
 
             ]
@@ -300,4 +300,3 @@ dependencies {
     implementation 'com.getui:xmp:1.0.5'
     implementation 'com.assist:oppo:1.0.3'
 }
-

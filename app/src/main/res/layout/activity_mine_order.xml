@@ -68,7 +68,7 @@
                 android:paddingBottom="@dimen/ds5"
                 android:background="@drawable/rbt_selector"
                 android:button="@null"
-                android:text="我的订单"
+                android:text="自营订单"
                 android:textSize="32pt"
                 android:textColor="@drawable/checkrbtn"/>
         </RadioGroup>

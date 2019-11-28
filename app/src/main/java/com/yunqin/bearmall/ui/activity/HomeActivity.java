@@ -320,12 +320,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
                 bottomBar.setCurrentItem(0);
                 switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_HOME);
                 break;
-
             case 1:
                 bottomBar.setCurrentItem(2);
                 switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_RECOMMEND);
                 break;
-
             case 2:
                 bottomBar.setCurrentItem(1);
                 switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_INFORMATION);
@@ -336,7 +334,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
                 break;
             default:
                 break;
-
         }
     }
 

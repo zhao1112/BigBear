@@ -691,9 +691,10 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
     }
 
     @Override
-    public void onProfit(Double todayprofit, Double cashAmount, Double thismonthprofit) {
+    public void onProfit(String todayprofit, String cashAmount, String thismonthprofit) {
 
     }
+
 
     @Override
     public void onLunboTu(MineBannerBean mineBannerBean) {

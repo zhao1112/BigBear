@@ -408,6 +408,9 @@ public interface Api {
     @POST("/api/pointLog/getMemberIncomeAllType")
     Observable<String> getMemberIncomeAllType();
 
+    /**
+     * 接口弃用
+     */
     @FormUrlEncoded
     @POST("api/taokeorder/getTaokeOrder")
     Observable<String> getTBKOrderList(@FieldMap() Map<String, String> params);
@@ -1145,7 +1148,7 @@ public interface Api {
 
     /**
      * 会员新人0元购
-     * */
+     */
     @FormUrlEncoded
     @POST("api/member/updateFreeInfo")
     Observable<String> getUpdateFreeInfo(@FieldMap() Map<String, String> params);
@@ -1161,27 +1164,42 @@ public interface Api {
 
     /**
      * 获取外网ip
-     * */
+     */
     @POST("cityjson")
     Observable<String> getip();
 
     /**
      * 0元购邀请福利
-     * */
+     */
     @POST("api/taokeorder/checkinvitation")
     Observable<String> getCheckinvitation();
 
     /**
      * 我的页面收益
-     * */
+     */
     @POST("api/commodity/getProfit")
     Observable<String> getProfit();
 
     /**
      * 我的页面  轮播图
-     * */
+     */
     @POST(" api/commodity/getLunboTu")
     Observable<String> getLunboTu();
+
+    /**
+     * 淘宝订单列表
+     */
+    @FormUrlEncoded
+    @POST("api/taokeorder/getTaoOrderList")
+    Observable<String> TaoOrderList(@FieldMap() Map<String, String> params);
+
+    /**
+     * 粉丝
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getUserAllFans")
+    Observable<String> StairFans(@FieldMap() Map<String, String> params);
+
 
 }
 

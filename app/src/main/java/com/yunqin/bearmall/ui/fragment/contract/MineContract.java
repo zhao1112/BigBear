@@ -44,7 +44,7 @@ public interface MineContract {
 
         void onUpdateUserInfo(UserInfo userInfo);
 
-        void onProfit(Double todayprofit,Double cashAmount,Double thismonthprofit);
+        void onProfit(String todayprofit,String cashAmount,String thismonthprofit);
 
         void onLunboTu(MineBannerBean mineBannerBean);
     }

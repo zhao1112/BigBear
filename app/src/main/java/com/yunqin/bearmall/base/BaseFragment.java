@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.util.StatuBarUtils;
 import com.yunqin.bearmall.widget.LoadingView;
 
 import java.lang.reflect.Field;
@@ -244,4 +245,18 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
+    /**
+     * @param color
+     * @param dark  true:标题栏字体黑色 false：标题栏字体白色
+     */
+    public void setStatusBarColor(int color, boolean dark) {
+        StatuBarUtils.setStatusBarDarkTheme(getActivity(), dark);
+        StatuBarUtils.setStatusBarColor(getActivity(), getResources().getColor(color));
+    }
+
+
+    public void setTranslucentStatus() {
+        //设置状态栏透明
+        StatuBarUtils.setTranslucentStatus(getActivity());
+    }
 }

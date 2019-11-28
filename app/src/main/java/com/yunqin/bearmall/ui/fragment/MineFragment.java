@@ -47,10 +47,13 @@ import com.yunqin.bearmall.bean.UserBTInfo;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
 import com.yunqin.bearmall.ui.activity.AddressActivity;
+import com.yunqin.bearmall.ui.activity.FansActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
+import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.MineOrderActivity;
 import com.yunqin.bearmall.ui.activity.MyAllCommentActivity;
+import com.yunqin.bearmall.ui.activity.OpenVipActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
 import com.yunqin.bearmall.ui.activity.RenewVipActivity;
 import com.yunqin.bearmall.ui.activity.SettingActivity;
@@ -159,6 +162,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     DotView mDotView;
     @BindView(R.id.daifukuan_number)
     TextView mDaifukuanNumber;
+    @BindView(R.id.openvip)
+    TextView openvip;
 
 
     private RequestOptions requestOptions = new RequestOptions()
@@ -179,7 +184,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @Override
     public void init() {
         EventBus.getDefault().register(this);
-        immerseStatusBar();
         mPresenter = new MinePresenter(this);
         initUserView();
         mBanner.isAutoPlay(true);
@@ -193,6 +197,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 }
             }
         });
+        mPresenter.onLunboTu(getActivity());
     }
 
     private void initUserView() {
@@ -223,11 +228,13 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             if (dataBean.isMember()) {
                 mMineVip.setVisibility(View.VISIBLE);
                 mMineVipData.setVisibility(View.VISIBLE);
+                openvip.setVisibility(View.GONE);
                 String renew = "立即续费<font color=\"#FFE534\">";
                 mMineVipData.setText(String.format("剩余%d天，" + Html.fromHtml(renew), dataBean.getRestDays()));
             } else {
                 mMineVip.setVisibility(View.GONE);
                 mMineVipData.setVisibility(View.GONE);
+                openvip.setVisibility(View.VISIBLE);
             }
         }
         mMineNickname.setText(userInfo.getData().getMember().getNickName());
@@ -322,7 +329,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
 
     @OnClick({R.id.mine_vip_data, R.id.mine_copy, R.id.mine_news, R.id.mine_set, R.id.mine_withdrawal, R.id.mine_today, R.id.mine_month,
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
-            R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login})
+            R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
@@ -366,9 +373,13 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                     LoginActivity.starActivity(getActivity());
                 }
                 break;
-            case R.id.mine_fraction:
+            case R.id.mine_fraction://粉丝
+                FansActivity.openFansActivity(getActivity(), FansActivity.class);
                 break;
-            case R.id.mine_share:
+            case R.id.mine_share://分享
+                StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
+                //TODO[邀请好友]
+                ConstantScUtil.sensorsInviteFriends("我的页面：邀请好友");
                 break;
             case R.id.mine_save://我收藏
                 if (BearMallAplication.getInstance().getUser() != null) {
@@ -392,10 +403,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 }
                 break;
             case R.id.mine_materiel://地推物料
-
+                showToast("暂未开放");
                 break;
             case R.id.mine_send://发圈文案
-                showToast("抱歉！该工能暂未开放");
+                showToast("暂未开放");
                 break;
             case R.id.mine_course:
                 break;
@@ -407,6 +418,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.mine_login:
                 LoginActivity.starActivity(getActivity());
+                break;
+            case R.id.openvip://开通会员
+                jump2VipActivity();
                 break;
         }
     }
@@ -493,10 +507,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     }
 
     @Override
-    public void onProfit(Double todayprofit, Double cashAmount, Double thismonthprofit) {
-        mMineWithdrawalPrice.setText(cashAmount + "");
-        mMineTodayPrice.setText(todayprofit + "");
-        mMineMonthPrice.setText(thismonthprofit + "");
+    public void onProfit(String todayprofit, String cashAmount, String thismonthprofit) {
+        mMineWithdrawalPrice.setText(cashAmount);
+        mMineTodayPrice.setText(todayprofit);
+        mMineMonthPrice.setText(thismonthprofit);
         Log.i("onProfit", "onProfit: " + todayprofit);
     }
 
@@ -523,6 +537,23 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                     .load(path)
                     .apply(new RequestOptions().placeholder(R.drawable.default_product))
                     .into(imageView);
+        }
+    }
+
+    private void jump2VipActivity() {
+        UserInfo user = BearMallAplication.getInstance().getUser();
+        if (user == null) {
+            LoginActivity.starActivity(getActivity());
+        } else {
+            boolean member = BearMallAplication.getInstance().getUser().getData().getMember().isMember();
+            boolean opendMember = BearMallAplication.getInstance().getUser().getData().getMember().isOpendMember();
+            Log.i("jump2VipActivity", "jump2VipActivity: " + member);
+            Log.i("jump2VipActivity", "jump2VipActivity: " + opendMember);
+            if (member || opendMember) {
+                RenewVipActivity.startRenewVipActivity(getActivity(), null, null);
+            } else {
+                OpenVipActivity.startOpenVipActivity(getActivity(), null, null);
+            }
         }
     }
 

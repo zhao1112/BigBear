@@ -195,9 +195,9 @@ public class MinePresenter implements MineContract.Presenter {
                 if (object.optInt("code") == 1) {
                     JSONObject profitdata = object.optJSONObject("data");
                     if (profitdata != null) {
-                        double todayprofit = profitdata.optDouble("todayprofit");
-                        double cashAmount = profitdata.optDouble("cashAmount");
-                        double thismonthprofit = profitdata.optDouble("thismonthprofit");
+                        String todayprofit = profitdata.optString("todayprofit");
+                        String cashAmount = profitdata.optString("balance");
+                        String thismonthprofit = profitdata.optString("thismonthprofit");
                         view.onProfit(todayprofit, cashAmount, thismonthprofit);
                     }
                 }
@@ -215,6 +215,9 @@ public class MinePresenter implements MineContract.Presenter {
         });
     }
 
+    /**
+     * 轮播图
+     * */
     @Override
     public void onLunboTu(Context context) {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getLunboTu(), new RetrofitApi.IResponseListener() {

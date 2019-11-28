@@ -30,6 +30,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.SuperSearch;
 import com.yunqin.bearmall.ui.activity.SuperSearchActivity;
+import com.yunqin.bearmall.util.StatuBarUtils;
 import com.yunqin.bearmall.util.StatusBarUtil;
 import com.yunqin.bearmall.widget.LoadingView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
@@ -60,7 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(layoutId());
 
         ButterKnife.bind(this);
-       // StatusBarUtil.setImmersiveStatusBar(this, true);
+        // StatusBarUtil.setImmersiveStatusBar(this, true);
 
         init();
     }
@@ -330,6 +331,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void showKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(view, InputMethodManager.RESULT_UNCHANGED_SHOWN);
+    }
+
+
+    /**
+     * @param color
+     * @param dark  true:标题栏字体黑色 false：标题栏字体白色
+     */
+    public void setStatusBarColor(int color, boolean dark) {
+        StatuBarUtils.setStatusBarDarkTheme(this, dark);
+        StatuBarUtils.setStatusBarColor(this, getResources().getColor(color));
+    }
+
+
+    public void setTranslucentStatus() {
+        //设置状态栏透明
+        StatuBarUtils.setTranslucentStatus(this);
     }
 
 }
