@@ -190,7 +190,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
         EventBus.getDefault().register(this);
         homeActivity = this;
 
-        switchFragment = new SwitchFragment(getSupportFragmentManager());
+        switchFragment = new SwitchFragment(getSupportFragmentManager(),this);
 
         Intent intent = getIntent();
         if (intent != null) {

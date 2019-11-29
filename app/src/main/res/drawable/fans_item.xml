@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 边 -->
     <item>
         <shape android:shape="rectangle">
-            <gradient
-                android:endColor="#0F000000"
-                android:startColor="#0F000000"/>
+            <padding
+                android:bottom="1dp"
+                android:right="1dp"/>
+            <solid android:color="#4D333333"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
 
-            <solid android:color="#ffffffff"/>
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="1dp"
+                android:right="1dp"/>
+            <solid android:color="#33333333"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="2dp"
+                android:right="2dp"/>
+            <solid android:color="#1A333333"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+
+    <!-- 中心背景 -->
+    <item>
+        <shape
+            android:shape="rectangle"
+            android:useLevel="false">
+            <!-- 实心 -->
+            <solid android:color="#ffffff"/>
             <corners android:radius="@dimen/dp_5"/>
         </shape>
     </item>
-</selector>
+
+</layer-list>

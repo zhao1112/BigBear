@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,15 +26,14 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.StairFans;
 import com.yunqin.bearmall.bean.UserInfo;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 
 import org.json.JSONException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FansActivity extends BaseActivity {
@@ -75,17 +75,18 @@ public class FansActivity extends BaseActivity {
 
     @Override
     public void init() {
-
+        setStatusBarColor(R.color.blue, false);
         if (BearMallAplication.getInstance().getUser() != null) {
-            getFans();
             UserInfo user = BearMallAplication.getInstance().getUser();
             Glide.with(FansActivity.this).load(user.getData().getMember().getIconUrl()).apply(requestOptions).into(mImage);
-            mWxName.setText("大团长：" + user.getData().getMember().getNickName());
+            mWxName.setText("昵称：" + user.getData().getMember().getNickName());
             mWxId.setText("邀请码：" + user.getRecommendCode());
             mCopy.setVisibility(View.VISIBLE);
+            getFans();
         } else {
             mCopy.setVisibility(View.GONE);
         }
+
 
         for (int i = 0; i < xTitle.length; i++) {
             mXtable.addTab(mXtable.newTab().setText(xTitle[i]));
@@ -96,8 +97,6 @@ public class FansActivity extends BaseActivity {
         mViewpager.setOffscreenPageLimit(1);
         mXtable.setupWithViewPager(mViewpager);
         mViewpager.setCurrentItem(0);
-
-
     }
 
 
@@ -111,7 +110,7 @@ public class FansActivity extends BaseActivity {
             public void onSuccess(String data) throws JSONException {
                 Log.i("SecondFans", data);
                 StairFans stairFans = new Gson().fromJson(data, StairFans.class);
-                mFansSize.setText(stairFans.getData().getOneSize() + "");
+                mFansSize.setText(stairFans.getData().getOneSize() + stairFans.getData().getTwoSize() + "");
             }
 
             @Override

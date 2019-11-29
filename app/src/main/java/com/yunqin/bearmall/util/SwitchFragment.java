@@ -1,5 +1,6 @@
 package com.yunqin.bearmall.util;
 
+import android.app.Activity;
 import android.support.annotation.IntDef;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -37,9 +38,11 @@ public class SwitchFragment {
     private ZeroGoodsFragment mTrolleyFragment;
     private MineFragment mMineFragment;
     private FragmentManager manager;
+    private Activity activity;
 
-    public SwitchFragment(FragmentManager manager) {
+    public SwitchFragment(FragmentManager manager, Activity activity) {
         this.manager = manager;
+        this.activity = activity;
     }
 
     private void hiderFragment(FragmentTransaction transaction) {
@@ -76,6 +79,7 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mHomeFragment);
                 transaction.commit();
+                setStatusBarColor(R.color.white,true);
                 break;
             case FRAGMENT_TYPE.APP_RECOMMEND:
                 if (mRecommendFragment == null) {
@@ -86,6 +90,7 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mRecommendFragment);
                 transaction.commit();
+                setStatusBarColor(R.color.white,true);
                 break;
             case FRAGMENT_TYPE.APP_INFORMATION:
 
@@ -97,6 +102,7 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mMakeMoneyFragment);
                 transaction.commit();
+                setStatusBarColor(R.color.white,true);
                 break;
             case FRAGMENT_TYPE.APP_TROLLEY:
                 if (mTrolleyFragment == null) {
@@ -109,6 +115,7 @@ public class SwitchFragment {
                 transaction.commit();
                 //TODO[点击0元兑]
                 ConstantScUtil.exchangeClick();
+                setStatusBarColor(R.color.white,true);
                 break;
             case FRAGMENT_TYPE.APP_MINE:
                 if (mMineFragment == null) {
@@ -119,8 +126,14 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mMineFragment);
                 transaction.commit();
+                setStatusBarColor(R.color.blue,false);
                 break;
         }
+    }
+
+    public void setStatusBarColor(int color, boolean dark) {
+        StatuBarUtils.setStatusBarDarkTheme(activity, dark);
+        StatuBarUtils.setStatusBarColor(activity, activity.getResources().getColor(color));
     }
 
 }

@@ -137,11 +137,13 @@ public class TaoBaoChildFragment extends BaseFragment {
                         hasMore = false;
                         refreshLayout.setBottomView(new RefreshFooterView(getActivity()));
                     }
+                    mNulldata.setVisibility(View.GONE);
+                } else {
+                    mNulldata.setVisibility(View.VISIBLE);
                 }
                 refreshLayout.onFinishRefresh();
                 refreshLayout.onFinishLoadMore();
                 hiddenLoadingView();
-                mNulldata.setVisibility(View.GONE);
             }
 
             @Override

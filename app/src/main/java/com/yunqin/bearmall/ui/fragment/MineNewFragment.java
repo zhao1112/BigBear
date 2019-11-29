@@ -524,7 +524,6 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                 if (isUnLogin()) {
                     LoginActivity.starActivity(getActivity());
                 } else {
-                    MineOrderActivity.start(getActivity(), MineOrderActivity.FragmentType.AWAIT_ZHIFU);
                 }
 
                 break;
@@ -534,7 +533,7 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                 if (isUnLogin()) {
                     LoginActivity.starActivity(getActivity());
                 } else {
-                    MineOrderActivity.start(getActivity(), MineOrderActivity.FragmentType.AWAIT_FAHUO);
+
                 }
 
                 break;
@@ -544,7 +543,6 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                 if (isUnLogin()) {
                     LoginActivity.starActivity(getActivity());
                 } else {
-                    MineOrderActivity.start(getActivity(), MineOrderActivity.FragmentType.AWAIT_SHOUHUO);
                 }
 
                 break;
@@ -554,7 +552,6 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
                 if (isUnLogin()) {
                     LoginActivity.starActivity(getActivity());
                 } else {
-                    MineOrderActivity.start(getActivity(), MineOrderActivity.FragmentType.AWAIT_PINGJIA);
                 }
 
                 break;
@@ -750,13 +747,6 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
     @Override
     public void onDestroyView() {

@@ -23,15 +23,16 @@ import com.google.gson.JsonSyntaxException;
 import com.newversions.IAdvClick;
 import com.newversions.ServiceActivity;
 import com.newversions.help.HelpActivity;
-import com.newversions.push.MyPushActivity;
 import com.newversions.tbk.activity.MyTBKCollectionActivity;
+import com.newversions.tbk.activity.WebActivity;
+import com.newversions.tbk.utils.BannerClicker;
 import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
+import com.xiaomi.push.E;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
-import com.youth.banner.loader.ImageLoaderInterface;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
@@ -59,13 +60,13 @@ import com.yunqin.bearmall.ui.activity.RenewVipActivity;
 import com.yunqin.bearmall.ui.activity.SettingActivity;
 import com.yunqin.bearmall.ui.fragment.contract.MineContract;
 import com.yunqin.bearmall.ui.fragment.presenter.MinePresenter;
+import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.CircleImageView;
 import com.yunqin.bearmall.widget.DotView;
-import com.yunqin.bearmall.widget.TopBanner;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -77,7 +78,9 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @author Master
@@ -116,8 +119,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     TextView mMineTodayPrice;
     @BindView(R.id.mine_month_price)
     TextView mMineMonthPrice;
-    @BindView(R.id.banner)
-    Banner mBanner;
+    @BindView(R.id.mine_banner)
+    com.youth.banner.Banner mBanner;
     @BindView(R.id.mine_vip_data)
     TextView mMineVipData;
     @BindView(R.id.code)
@@ -164,6 +167,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     TextView mDaifukuanNumber;
     @BindView(R.id.openvip)
     TextView openvip;
+    @BindView(R.id.four)
+    LinearLayout mFour;
+    @BindView(R.id.xis)
+    RelativeLayout mXis;
 
 
     private RequestOptions requestOptions = new RequestOptions()
@@ -175,6 +182,13 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     private MinePresenter mPresenter;
     private boolean isVisibility = false;
     private List<MineBannerBean.DataBean.PlatformBannerBean> mPlatformBanner;
+    private static final String url = "https://cloud.video.taobao.com//play/u/1101907235/p/1/e/6/t/1/243540803180.mp4";
+    private static final float RATIO = 1.725f;
+    private static final float ONE = 2.02f;
+    private static final float THREE = 4.10f;
+    private static final float BANNER = 4.31f;
+    private static final float FOUR = 2.24f;
+    private static final float XIS = 2.33f;
 
     @Override
     public int layoutId() {
@@ -184,6 +198,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @Override
     public void init() {
         EventBus.getDefault().register(this);
+        setshowUI();
         mPresenter = new MinePresenter(this);
         initUserView();
         mBanner.isAutoPlay(true);
@@ -194,10 +209,78 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             public void OnBannerClick(int position) {
                 if (mPlatformBanner != null && position >= 0 && position < mPlatformBanner.size()) {
                     //bannner点击处理
+                    if (position >= 0 && position < mPlatformBanner.size()) {
+                        BannerClicker.bannerClick(getActivity(), mPlatformBanner.get(position).getTargetType(),
+                                mPlatformBanner.get(position).getTarget(), mPlatformBanner.get(position).getTitle());
+                    }
                 }
             }
         });
         mPresenter.onLunboTu(getActivity());
+    }
+
+    private void setshowUI() {
+
+        mMineOne.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = mMineOne.getWidth();
+                float mHeight = width / ONE;
+                ViewGroup.LayoutParams layoutParams = mMineOne.getLayoutParams();
+                layoutParams.width = width;
+                layoutParams.height = (int) mHeight;
+                mMineOne.setLayoutParams(layoutParams);
+            }
+        });
+
+        mTwo.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = mTwo.getWidth();
+                float mHeight = width / RATIO;
+                ViewGroup.LayoutParams layoutParams = mTwo.getLayoutParams();
+                layoutParams.width = width;
+                layoutParams.height = (int) mHeight;
+                mTwo.setLayoutParams(layoutParams);
+            }
+        });
+
+//        mXis.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                int width = mXis.getWidth();
+//                float mHeight = width / XIS;
+//                ViewGroup.LayoutParams layoutParams = mXis.getLayoutParams();
+//                layoutParams.width = width;
+//                layoutParams.height = (int) mHeight;
+//                mXis.setLayoutParams(layoutParams);
+//            }
+//        });
+
+        mThree.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = mThree.getWidth();
+                float mHeight = width / THREE;
+                ViewGroup.LayoutParams layoutParams = mThree.getLayoutParams();
+                layoutParams.width = width;
+                layoutParams.height = (int) mHeight;
+                mThree.setLayoutParams(layoutParams);
+            }
+        });
+
+
+        mFour.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = mFour.getWidth();
+                float mHeight = width / FOUR;
+                ViewGroup.LayoutParams layoutParams = mFour.getLayoutParams();
+                layoutParams.width = width;
+                layoutParams.height = (int) mHeight;
+                mFour.setLayoutParams(layoutParams);
+            }
+        });
     }
 
     private void initUserView() {
@@ -215,6 +298,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mCode.setVisibility(View.GONE);
             mMineNickname.setVisibility(View.GONE);
             mMineVipData.setVisibility(View.GONE);
+            openvip.setVisibility(View.GONE);
+            mMineWithdrawalPrice.setText("0.00");
+            mMineTodayPrice.setText("0.00");
+            mMineMonthPrice.setText("0.00");
             Glide.with(this).setDefaultRequestOptions(requestOptions).load("error").into(mMineHead);
         }
     }
@@ -229,8 +316,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 mMineVip.setVisibility(View.VISIBLE);
                 mMineVipData.setVisibility(View.VISIBLE);
                 openvip.setVisibility(View.GONE);
-                String renew = "立即续费<font color=\"#FFE534\">";
-                mMineVipData.setText(String.format("剩余%d天，" + Html.fromHtml(renew), dataBean.getRestDays()));
+                String renew = "<font color='#FFFFFF'><small>剩余" + dataBean.getRestDays()
+                        + "天，</small></font><font color='#FFE534'><small>立即续费</small></font>";
+                mMineVipData.setText(Html.fromHtml(renew));
             } else {
                 mMineVip.setVisibility(View.GONE);
                 mMineVipData.setVisibility(View.GONE);
@@ -239,7 +327,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         }
         mMineNickname.setText(userInfo.getData().getMember().getNickName());
         Glide.with(this).setDefaultRequestOptions(requestOptions).load(userInfo.getData().getMember().getIconUrl()).into(mMineHead);
-        mMineCode.setText("邀请码：" + userInfo.getRecommendCode());
+        mMineCode.setText(userInfo.getRecommendCode());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -282,7 +370,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
 
     public void setOrderNumber(TextView textView, int number) {
         if (number > 0) {
-            textView.setVisibility(View.VISIBLE);
             if (number < 100) {
                 textView.setText(number + "");
             } else {
@@ -329,7 +416,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
 
     @OnClick({R.id.mine_vip_data, R.id.mine_copy, R.id.mine_news, R.id.mine_set, R.id.mine_withdrawal, R.id.mine_today, R.id.mine_month,
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
-            R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip})
+            R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip,
+            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
@@ -360,6 +448,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             case R.id.mine_month:
                 break;
             case R.id.mine_wallet://我的钱包
+            case R.id.wallet_image:
                 if (BearMallAplication.getInstance().getUser() != null) {
                     PropertyActivity.startPropertyActivity(getActivity(), 1, null, null, null, null);
                 } else {
@@ -367,6 +456,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 }
                 break;
             case R.id.mine_order://订单
+            case R.id.order_image:
                 if (BearMallAplication.getInstance().getUser() != null) {
                     StarActivityUtil.starActivity(getActivity(), MineOrderActivity.class);
                 } else {
@@ -374,12 +464,22 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 }
                 break;
             case R.id.mine_fraction://粉丝
-                FansActivity.openFansActivity(getActivity(), FansActivity.class);
+            case R.id.fans_image:
+                if (BearMallAplication.getInstance().getUser() != null) {
+                    FansActivity.openFansActivity(getActivity(), FansActivity.class);
+                } else {
+                    LoginActivity.starActivity(getActivity());
+                }
                 break;
             case R.id.mine_share://分享
-                StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
-                //TODO[邀请好友]
-                ConstantScUtil.sensorsInviteFriends("我的页面：邀请好友");
+            case R.id.share_image:
+                if (BearMallAplication.getInstance().getUser() != null) {
+                    StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
+                    //TODO[邀请好友]
+                    ConstantScUtil.sensorsInviteFriends("我的页面：邀请好友");
+                } else {
+                    LoginActivity.starActivity(getActivity());
+                }
                 break;
             case R.id.mine_save://我收藏
                 if (BearMallAplication.getInstance().getUser() != null) {
@@ -408,7 +508,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             case R.id.mine_send://发圈文案
                 showToast("暂未开放");
                 break;
-            case R.id.mine_course:
+            case R.id.mine_course://新手教程
+                WebActivity.startWebActivity(getActivity(), 200, url, "新手教程");
                 break;
             case R.id.mine_problem://常见问题
                 startActivity(new Intent(getActivity(), HelpActivity.class));
@@ -479,6 +580,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     public void initTaskInfo(String taskInfo) {
         DayliTaskBCInfo dayliTaskBCInfo = new Gson().fromJson(taskInfo, DayliTaskBCInfo.class);
         if (dayliTaskBCInfo.getData().getIsSignToday() == 1) {
+
         } else {
             if (BearMallAplication.getInstance().getUser() != null) {
                 DialogUtils.signInDialog(getActivity());
@@ -516,8 +618,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
 
     @Override
     public void onLunboTu(MineBannerBean mineBannerBean) {
-        if (mineBannerBean.getData() != null && mineBannerBean.getData().getPlatformBanner().size() > 0 &&
-                mineBannerBean.getData().getPlatformBanner() != null) {
+        if (mineBannerBean.getData() != null && mineBannerBean.getData().getPlatformBanner().size() > 0 && mineBannerBean.getData().getPlatformBanner() != null) {
             mPlatformBanner = mineBannerBean.getData().getPlatformBanner();
             List<String> bannerList = new ArrayList<>();
             for (int i = 0; i < mPlatformBanner.size(); i++) {
@@ -526,6 +627,21 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mBanner.setImages(bannerList);
             mBanner.setImageLoader(new GlideImageLoader());
             mBanner.start();
+            mBanner.setVisibility(View.VISIBLE);
+            Log.i("GlideImageLoader", "onLunboTu: ");
+            mBanner.post(new Runnable() {
+                @Override
+                public void run() {
+                    int width = mBanner.getWidth();
+                    float mHeight = width / BANNER;
+                    ViewGroup.LayoutParams layoutParams = mBanner.getLayoutParams();
+                    layoutParams.width = width;
+                    layoutParams.height = (int) mHeight;
+                    mBanner.setLayoutParams(layoutParams);
+                }
+            });
+        } else {
+            mBanner.setVisibility(View.GONE);
         }
     }
 

@@ -319,8 +319,7 @@ public class AwaitEvaluatePresenter implements TabFragmentContract.Presenter {
         List<OrderBean.DataBean.OrdersListBean> list = allFragmentAdapter.getData();
 
         if (list.get(index).getOrderProductType() == 0) {
-            OrderDetailsActivity.start(mContext, list.get(index).getOrders_id(), MineOrderActivity.FragmentType.AWAIT_PINGJIA,
-                    list.get(index).getOrderProductType());
+            OrderDetailsActivity.start(mContext, list.get(index).getOrders_id(), MineOrderActivity.FragmentType.AWAIT_PINGJIA, list.get(index).getOrderProductType());
         } else {
             VirtualOrdersActivity.start(mContext, list.get(index).getOrders_id(),MineOrderActivity.FragmentType.AWAIT_PINGJIA);
         }

@@ -108,7 +108,8 @@
             android:layout_toRightOf="@id/image"
             android:text="邀请码："
             android:textColor="#ff313330"
-            android:textSize="@dimen/sp_12"/>
+            android:textSize="@dimen/sp_12"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/copy"
@@ -163,10 +164,23 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/commander"
         android:layout_below="@id/min"
         android:layout_alignParentStart="true">
 
     </android.support.v4.view.ViewPager>
+
+    <TextView
+        android:id="@+id/commander"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="#B3D9C6"
+        android:gravity="center"
+        android:text="金熊大团长10人"
+        android:textColor="#ff20905a"
+        android:textSize="@dimen/sp_12"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

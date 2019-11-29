@@ -35,32 +35,21 @@ public class MineOrderActivity extends BaseActivity {
 
     @BindView(R.id.toolbar_title)
     TextView mToolBatTitle;
-
     @BindView(R.id.toolbar_search_img)
     ImageView mImageView;
-
-
-    private static Activity mActivity = null;
     @BindView(R.id.rb_my_order)
     RadioButton rbMyOrder;
     @BindView(R.id.rb_tb_order)
     RadioButton rbTbOrder;
     @BindView(R.id.rg_order)
     RadioGroup rgOrder;
+
     private Fragment nowFragment;
     private MyOrderFragment myOrderFragment;
     private TBKOrderFragment tbkOrderFragment;
-    private int orderType = TYPE_MY_ORDER;
 
     public static final int TYPE_MY_ORDER = 1;
     public static final int TYPE_TAOBAO_ORDER = 2;
-
-    public static void finishThis() {
-        if (mActivity != null) {
-            mActivity.finish();
-            mActivity = null;
-        }
-    }
 
 
     @IntDef({ALL_ORDER, AWAIT_ZHIFU, AWAIT_FAHUO, AWAIT_SHOUHUO, AWAIT_PINGJIA})
@@ -81,6 +70,12 @@ public class MineOrderActivity extends BaseActivity {
 
     private int index = 0;
 
+    public static void openMineOrderActivity(Activity activity, boolean type) {
+        Intent intent = new Intent(activity, MineOrderActivity.class);
+        intent.putExtra("TYPE", type);
+        activity.startActivity(intent);
+    }
+
 
     @Override
     public int layoutId() {
@@ -89,6 +84,8 @@ public class MineOrderActivity extends BaseActivity {
 
     @Override
     public void init() {
+        boolean type = getIntent().getBooleanExtra("TYPE", false);
+
         tbkOrderFragment = new TBKOrderFragment();
         myOrderFragment = new MyOrderFragment();
 
@@ -97,17 +94,23 @@ public class MineOrderActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_my_order:
-                        orderType = TYPE_MY_ORDER;
                         switchFragment(tbkOrderFragment);
                         break;
                     case R.id.rb_tb_order:
-                        orderType = TYPE_TAOBAO_ORDER;
                         switchFragment(myOrderFragment);
                         break;
                 }
             }
         });
-        switchFragment(tbkOrderFragment);
+
+        if (type) {
+            rbTbOrder.setChecked(true);
+//            switchFragment(myOrderFragment);
+        } else {
+            rbMyOrder.setChecked(true);
+//            switchFragment(tbkOrderFragment);
+        }
+
     }
 
     private void switchFragment(Fragment fragment) {

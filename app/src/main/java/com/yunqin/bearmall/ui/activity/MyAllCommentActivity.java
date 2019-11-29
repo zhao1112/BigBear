@@ -55,13 +55,10 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
 
     @BindView(R.id.head_image)
     CircleImageView head_image;
-
     @BindView(R.id.user_name)
     TextView user_name;
-
     @BindView(R.id.write_comment)
     Button write_comment;
-
     @BindView(R.id.content_left)
     TextView content_left;
     @BindView(R.id.view_left)
@@ -70,15 +67,12 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
     TextView content_right;
     @BindView(R.id.view_right)
     View view_right;
-
     @BindView(R.id.toolbar_title)
     TextView toolbar_title;
-
     @BindView(R.id.images_layout)
     LinearLayout images_layout;
 
     private AllCommentContract.Present present;
-
     FragmentManager mFragmentManager;
     FragmentAllComment fragmentAllComment;
     FragmentTextComment fragmentTextComment;
@@ -128,8 +122,7 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
                 setBackground(false);
                 break;
             case R.id.write_comment:
-//                showToast("跳转待评价列表");
-                MineOrderActivity.start(this, MineOrderActivity.FragmentType.AWAIT_PINGJIA);
+                MineOrderActivity.openMineOrderActivity(this,true);
                 this.finish();
                 break;
         }

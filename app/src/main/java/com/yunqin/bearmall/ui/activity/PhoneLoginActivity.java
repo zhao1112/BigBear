@@ -378,6 +378,8 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                 e.printStackTrace();
             }
         });
+        SharedPreferencesHelper.put(PhoneLoginActivity.this,"WX_NAME",platform.getDb().getUserName());
+        SharedPreferencesHelper.put(PhoneLoginActivity.this,"WX_ICON",platform.getDb().getUserIcon());
     }
 
     @Override

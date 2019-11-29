@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.TaoBaoBeanNew;
@@ -34,7 +35,8 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private RequestOptions mOptions = new RequestOptions()
             .placeholder(R.drawable.default_product)//图片加载出来前，显示的图片
             .fallback(R.drawable.default_product) //url为空的时候,显示的图片
-            .error(R.drawable.default_product);//图片加载失败后，显示的图片
+            .error(R.drawable.default_product)//图片加载失败后，显示的图片
+            .bitmapTransform(new RoundedCorners(3));
 
 
     public TaoBaoAdapter(Context context) {
@@ -70,13 +72,13 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case TYPE_INVALID:
                 InvalidOrderHolder invalidOrderHolder = (InvalidOrderHolder) holder;
                 invalidOrderHolder.mCreat_time.setText(list.get(position).getCreateTime());
-                invalidOrderHolder.state.setText(list.get(position).getOrderStatus().equals("1") ? "已付款" : "已结算");
+                invalidOrderHolder.state.setText("已失效");
                 Glide.with(mContext).load(list.get(position).getImageUrl()).apply(mOptions).into(invalidOrderHolder.image);
                 invalidOrderHolder.price.setText("￥" + list.get(position).getPayAmount());
                 invalidOrderHolder.commission.setText("预估返佣" + list.get(position).getEffectEstimate() + "元");
                 invalidOrderHolder.commission.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);//中划线
                 invalidOrderHolder.commission.getPaint().setAntiAlias(true); //去掉锯齿
-                Log.i("onBindViewHolder", "onBindViewHolder: "+list.get(position).getTaoOrders_id());
+                Log.i("onBindViewHolder", "onBindViewHolder: " + list.get(position).getTaoOrders_id());
                 invalidOrderHolder.order.setText("订单编号：" + list.get(position).getTaoOrders_id());
                 invalidOrderHolder.title.setText(list.get(position).getItemInfo());
                 invalidOrderHolder.copy.setOnClickListener(new View.OnClickListener() {

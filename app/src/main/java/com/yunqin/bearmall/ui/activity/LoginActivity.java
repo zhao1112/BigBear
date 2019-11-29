@@ -27,6 +27,7 @@ import com.yunqin.bearmall.inter.loginWayCallBack;
 import com.yunqin.bearmall.ui.activity.contract.LoginActivityContract;
 import com.yunqin.bearmall.ui.activity.presenter.LoginPresenter;
 import com.yunqin.bearmall.util.ConstantScUtil;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.util.StringUtils;
 import com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout;
@@ -177,6 +178,9 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             Constans.params.put("open_id", platform.getDb().get("unionid"));
             Constans.params.put("wxopen_id", platform.getDb().get("openid"));
             Constans.params.put("loginType", 2 + "");
+
+            SharedPreferencesHelper.put(LoginActivity.this,"WX_NAME",platform.getDb().getUserName());
+            SharedPreferencesHelper.put(LoginActivity.this,"WX_ICON",platform.getDb().getUserIcon());
         }
         presenter.start(Constans.params);
         //TODO[授权]
