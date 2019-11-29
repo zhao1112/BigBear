@@ -163,7 +163,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @BindView(R.id.daifukuan_number)
     TextView mDaifukuanNumber;
     @BindView(R.id.openvip)
-    TextView openvip;
+    RelativeLayout openvip;
     @BindView(R.id.four)
     LinearLayout mFour;
     @BindView(R.id.xis)

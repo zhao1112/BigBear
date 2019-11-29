@@ -58,5 +58,7 @@
 
     <color name="text_gray">#999999</color>
 
+    <color name="right">#239B61</color>
+
 
 </resources>

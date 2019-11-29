@@ -73,7 +73,7 @@
 
         </RelativeLayout>
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/openvip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,15 +82,22 @@
             android:layout_marginTop="@dimen/dp_9"
             android:layout_toRightOf="@id/mine_head"
             android:background="@drawable/mine_vip"
-            android:gravity="center"
-            android:paddingLeft="@dimen/dp_11"
-            android:paddingTop="@dimen/dp_3"
-            android:paddingRight="@dimen/dp_11"
-            android:paddingBottom="@dimen/dp_3"
-            android:text="立即开通会员"
-            android:textColor="#FFE534"
-            android:textSize="@dimen/sp_11"
-            android:visibility="gone"/>
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_11"
+                android:paddingTop="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_11"
+                android:paddingBottom="@dimen/dp_3"
+                android:text="立即开通会员"
+                android:textColor="#FFE534"
+                android:textSize="@dimen/sp_11"/>
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/mine_vip_data"
@@ -140,7 +147,7 @@
         android:layout_below="@id/mine_top"
         android:layout_marginLeft="@dimen/dp_88"
         android:layout_marginTop="@dimen/dp_3"
-        android:background="@mipmap/mine_yaoqingma"
+        android:background="@drawable/app_yaoqinma"
         android:gravity="center_vertical">
 
         <LinearLayout
@@ -182,6 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_3"
                 android:background="@drawable/address_bg"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_8"
