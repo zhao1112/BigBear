@@ -52,10 +52,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_20"
             android:text="0"
             android:textColor="#ffffffff"
-            android:textSize="@dimen/ds30"/>
+            android:textSize="@dimen/sp_30"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -5,7 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,7 +27,6 @@ import com.newversions.tbk.activity.WebActivity;
 import com.newversions.tbk.utils.BannerClicker;
 import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
-import com.xiaomi.push.E;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -60,7 +58,6 @@ import com.yunqin.bearmall.ui.activity.RenewVipActivity;
 import com.yunqin.bearmall.ui.activity.SettingActivity;
 import com.yunqin.bearmall.ui.fragment.contract.MineContract;
 import com.yunqin.bearmall.ui.fragment.presenter.MinePresenter;
-import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
@@ -120,7 +117,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @BindView(R.id.mine_month_price)
     TextView mMineMonthPrice;
     @BindView(R.id.mine_banner)
-    com.youth.banner.Banner mBanner;
+    Banner mBanner;
     @BindView(R.id.mine_vip_data)
     TextView mMineVipData;
     @BindView(R.id.code)
@@ -171,6 +168,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     LinearLayout mFour;
     @BindView(R.id.xis)
     RelativeLayout mXis;
+    @BindView(R.id.open_vip_one)
+    TextView mOpenVipOne;
 
 
     private RequestOptions requestOptions = new RequestOptions()
@@ -298,6 +297,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mCode.setVisibility(View.GONE);
             mMineNickname.setVisibility(View.GONE);
             mMineVipData.setVisibility(View.GONE);
+            mOpenVipOne.setVisibility(View.GONE);
             openvip.setVisibility(View.GONE);
             mMineWithdrawalPrice.setText("0.00");
             mMineTodayPrice.setText("0.00");
@@ -316,12 +316,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 mMineVip.setVisibility(View.VISIBLE);
                 mMineVipData.setVisibility(View.VISIBLE);
                 openvip.setVisibility(View.GONE);
-                String renew = "<font color='#FFFFFF'><small>剩余" + dataBean.getRestDays()
-                        + "天，</small></font><font color='#FFE534'><small>立即续费</small></font>";
-                mMineVipData.setText(Html.fromHtml(renew));
+                mMineVipData.setText("剩余" + dataBean.getRestDays() + "天，");
+                mOpenVipOne.setVisibility(View.VISIBLE);
             } else {
                 mMineVip.setVisibility(View.GONE);
                 mMineVipData.setVisibility(View.GONE);
+                mOpenVipOne.setVisibility(View.GONE);
                 openvip.setVisibility(View.VISIBLE);
             }
         }
@@ -417,10 +417,11 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @OnClick({R.id.mine_vip_data, R.id.mine_copy, R.id.mine_news, R.id.mine_set, R.id.mine_withdrawal, R.id.mine_today, R.id.mine_month,
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
             R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip,
-            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image})
+            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
+            case R.id.open_vip_one:
                 RenewVipActivity.startRenewVipActivity(getActivity(), null, null);
                 break;
             case R.id.mine_copy://复制

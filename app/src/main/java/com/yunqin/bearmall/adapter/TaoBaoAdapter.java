@@ -71,7 +71,7 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         switch (getItemViewType(position)) {
             case TYPE_INVALID:
                 InvalidOrderHolder invalidOrderHolder = (InvalidOrderHolder) holder;
-                invalidOrderHolder.mCreat_time.setText(list.get(position).getCreateTime());
+                invalidOrderHolder.mCreat_time.setText("创建时间：" + list.get(position).getCreateTime());
                 invalidOrderHolder.state.setText("已失效");
                 Glide.with(mContext).load(list.get(position).getImageUrl()).apply(mOptions).into(invalidOrderHolder.image);
                 invalidOrderHolder.price.setText("￥" + list.get(position).getPayAmount());
@@ -93,7 +93,7 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
             case TYPE_NORMAL:
                 OrderHolder orderHolder = (OrderHolder) holder;
-                orderHolder.mCreat_time.setText(list.get(position).getCreateTime());
+                orderHolder.mCreat_time.setText("创建时间：" + list.get(position).getCreateTime());
                 orderHolder.state.setText(list.get(position).getOrderStatus().equals("1") ? "已付款" : "已结算");
                 Glide.with(mContext).load(list.get(position).getImageUrl()).apply(mOptions).into(orderHolder.image);
                 orderHolder.price.setText("￥" + list.get(position).getPayAmount());
