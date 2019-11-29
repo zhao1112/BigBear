@@ -466,11 +466,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.mine_fraction://粉丝
             case R.id.fans_image:
-                if (BearMallAplication.getInstance().getUser() != null) {
-                    FansActivity.openFansActivity(getActivity(), FansActivity.class);
-                } else {
-                    LoginActivity.starActivity(getActivity());
-                }
+//                if (BearMallAplication.getInstance().getUser() != null) {
+//                    FansActivity.openFansActivity(getActivity(), FansActivity.class);
+//                } else {
+//                    LoginActivity.starActivity(getActivity());
+//                }
+                showToast("暂未开放");
                 break;
             case R.id.mine_share://分享
             case R.id.share_image:

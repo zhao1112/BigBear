@@ -82,6 +82,7 @@
             android:layout_marginTop="@dimen/dp_9"
             android:layout_toRightOf="@id/mine_head"
             android:background="@drawable/mine_vip"
+            android:gravity="center"
             android:paddingLeft="@dimen/dp_11"
             android:paddingTop="@dimen/dp_3"
             android:paddingRight="@dimen/dp_11"
