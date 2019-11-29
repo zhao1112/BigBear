@@ -69,6 +69,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -611,11 +612,16 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     }
 
     @Override
-    public void onProfit(String todayprofit, String cashAmount, String thismonthprofit) {
-        mMineWithdrawalPrice.setText(cashAmount);
-        mMineTodayPrice.setText(todayprofit);
-        mMineMonthPrice.setText(thismonthprofit);
-        Log.i("onProfit", "onProfit: " + todayprofit);
+    public void onProfit(double todayprofit, double cashAmount, double thismonthprofit) {
+        mMineWithdrawalPrice.setText(doubleToString(cashAmount));
+        mMineTodayPrice.setText(doubleToString(todayprofit));
+        mMineMonthPrice.setText(doubleToString(thismonthprofit));
+        Log.i("onProfit", "onProfit: " + todayprofit + "cashAmount" + cashAmount + "thismonthprofit" + thismonthprofit);
+    }
+
+    public static String doubleToString(double num){
+        //使用0.00不足位补0，#.##仅保留有效位
+        return new DecimalFormat("0.00").format(num);
     }
 
     @Override

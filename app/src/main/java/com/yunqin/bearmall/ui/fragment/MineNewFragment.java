@@ -688,7 +688,7 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
     }
 
     @Override
-    public void onProfit(String todayprofit, String cashAmount, String thismonthprofit) {
+    public void onProfit(double todayprofit, double cashAmount, double thismonthprofit) {
 
     }
 

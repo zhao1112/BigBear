@@ -195,9 +195,9 @@ public class MinePresenter implements MineContract.Presenter {
                 if (object.optInt("code") == 1) {
                     JSONObject profitdata = object.optJSONObject("data");
                     if (profitdata != null) {
-                        String todayprofit = profitdata.optString("todayprofit");
-                        String cashAmount = profitdata.optString("balance");
-                        String thismonthprofit = profitdata.optString("thismonthprofit");
+                        double todayprofit = profitdata.optDouble("todayprofit");
+                        double cashAmount = profitdata.optDouble("balance");
+                        double thismonthprofit = profitdata.optDouble("thismonthprofit");
                         view.onProfit(todayprofit, cashAmount, thismonthprofit);
                     }
                 }
