@@ -178,10 +178,9 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             Constans.params.put("open_id", platform.getDb().get("unionid"));
             Constans.params.put("wxopen_id", platform.getDb().get("openid"));
             Constans.params.put("loginType", 2 + "");
-
-            SharedPreferencesHelper.put(LoginActivity.this,"WX_NAME",platform.getDb().getUserName());
-            SharedPreferencesHelper.put(LoginActivity.this,"WX_ICON",platform.getDb().getUserIcon());
         }
+        String openuser = platform.getDb().exportData();
+        Log.i("openuser", "onComplete: --->" + openuser.toString());
         presenter.start(Constans.params);
         //TODO[授权]
         ConstantScUtil.sensorsAuthorized("true", "Success");

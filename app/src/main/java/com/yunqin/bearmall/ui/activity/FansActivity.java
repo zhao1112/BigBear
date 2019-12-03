@@ -53,6 +53,8 @@ public class FansActivity extends BaseActivity {
     @BindView(R.id.copy)
     TextView mCopy;
 
+    private int page = 1;
+    private int pageSize = 10;
 
     private static final String[] xTitle = new String[]{"全部", "直邀粉丝", "推荐粉丝"};
 
@@ -75,7 +77,7 @@ public class FansActivity extends BaseActivity {
 
     @Override
     public void init() {
-        setStatusBarColor(R.color.blue, false);
+        setTranslucentStatus();
         if (BearMallAplication.getInstance().getUser() != null) {
             UserInfo user = BearMallAplication.getInstance().getUser();
             Glide.with(FansActivity.this).load(user.getData().getMember().getIconUrl()).apply(requestOptions).into(mImage);
@@ -102,15 +104,16 @@ public class FansActivity extends BaseActivity {
 
     private void getFans() {
         Map<String, String> map = new HashMap<>();
-        map.put("customerId", "");
         map.put("openTime", "0");
         map.put("openCount", "0");
+        map.put("page", page + "");
+        map.put("pageSize", pageSize + "");
         RetrofitApi.request(FansActivity.this, RetrofitApi.createApi(Api.class).StairFans(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
                 Log.i("SecondFans", data);
                 StairFans stairFans = new Gson().fromJson(data, StairFans.class);
-                mFansSize.setText(stairFans.getData().getOneSize() + stairFans.getData().getTwoSize() + "");
+//                mFansSize.setText(stairFans.getData());
             }
 
             @Override

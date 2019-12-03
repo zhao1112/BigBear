@@ -51,6 +51,7 @@ import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.MineOrderActivity;
+import com.yunqin.bearmall.ui.activity.MineProfitActivity;
 import com.yunqin.bearmall.ui.activity.MyAllCommentActivity;
 import com.yunqin.bearmall.ui.activity.OpenVipActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
@@ -62,6 +63,7 @@ import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
+import com.yunqin.bearmall.util.StatuBarUtils;
 import com.yunqin.bearmall.widget.CircleImageView;
 import com.yunqin.bearmall.widget.DotView;
 
@@ -76,9 +78,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * @author Master
@@ -244,18 +244,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 mTwo.setLayoutParams(layoutParams);
             }
         });
-
-//        mXis.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                int width = mXis.getWidth();
-//                float mHeight = width / XIS;
-//                ViewGroup.LayoutParams layoutParams = mXis.getLayoutParams();
-//                layoutParams.width = width;
-//                layoutParams.height = (int) mHeight;
-//                mXis.setLayoutParams(layoutParams);
-//            }
-//        });
 
         mThree.post(new Runnable() {
             @Override
@@ -444,10 +432,13 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 }
                 break;
             case R.id.mine_withdrawal:
-                break;
             case R.id.mine_today:
-                break;
             case R.id.mine_month:
+                if (BearMallAplication.getInstance().getUser() != null) {
+                    MineProfitActivity.openMineProfitActivity(getActivity(), MineProfitActivity.class);
+                } else {
+                    LoginActivity.starActivity(getActivity());
+                }
                 break;
             case R.id.mine_wallet://我的钱包
             case R.id.wallet_image:
@@ -467,12 +458,11 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.mine_fraction://粉丝
             case R.id.fans_image:
-//                if (BearMallAplication.getInstance().getUser() != null) {
-//                    FansActivity.openFansActivity(getActivity(), FansActivity.class);
-//                } else {
-//                    LoginActivity.starActivity(getActivity());
-//                }
-                showToast("暂未开放");
+                if (BearMallAplication.getInstance().getUser() != null) {
+                    FansActivity.openFansActivity(getActivity(), FansActivity.class);
+                } else {
+                    LoginActivity.starActivity(getActivity());
+                }
                 break;
             case R.id.mine_share://分享
             case R.id.share_image:
@@ -619,7 +609,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         Log.i("onProfit", "onProfit: " + todayprofit + "cashAmount" + cashAmount + "thismonthprofit" + thismonthprofit);
     }
 
-    public static String doubleToString(double num){
+    public static String doubleToString(double num) {
         //使用0.00不足位补0，#.##仅保留有效位
         return new DecimalFormat("0.00").format(num);
     }

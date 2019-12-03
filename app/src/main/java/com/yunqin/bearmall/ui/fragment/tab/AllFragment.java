@@ -119,7 +119,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
             twinklingRefreshLayout.setBottomView(new RefreshBottomView(getActivity()));
             twinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
-
                 @Override
                 public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                     presenter.shuaXin();

@@ -154,6 +154,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     @Override
     public void init() {
+        setTranslucentStatus();
         mPresenter = new GoodsDetailPresenter(this, this);
         homeAdapter = new MyAdapter();
         goodsId = getIntent().getStringExtra(Constants.INTENT_KEY_ID);

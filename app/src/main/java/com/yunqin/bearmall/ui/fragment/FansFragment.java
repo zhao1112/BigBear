@@ -78,31 +78,31 @@ public class FansFragment extends BaseFragment {
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).StairFans(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                StairFans stairFans = new Gson().fromJson(data, StairFans.class);
-                if (type == 0) {
-                    if (stairFans.getData().getOneList().size() > 0 && stairFans.getData().getOneList() != null
-                            || stairFans.getData().getTwoList().size() > 0 && stairFans.getData().getTwoList() != null) {
-                        mNulldata.setVisibility(View.GONE);
-                        mFansItemAdapter.addFansOne(stairFans.getData().getOneList());
-                        mFansItemAdapter.addFansTwo(stairFans.getData().getTwoList());
-                    } else {
-                        mNulldata.setVisibility(View.VISIBLE);
-                    }
-                } else if (type == 1) {
-                    if (stairFans.getData().getOneList().size() > 0 && stairFans.getData().getOneList() != null) {
-                        mNulldata.setVisibility(View.GONE);
-                        mFansItemAdapter.addFansOne(stairFans.getData().getOneList());
-                    } else {
-                        mNulldata.setVisibility(View.VISIBLE);
-                    }
-                } else if (type == 2) {
-                    if (stairFans.getData().getTwoList().size() > 0 && stairFans.getData().getTwoList() != null) {
-                        mNulldata.setVisibility(View.GONE);
-                        mFansItemAdapter.addFansTwo(stairFans.getData().getTwoList());
-                    } else {
-                        mNulldata.setVisibility(View.VISIBLE);
-                    }
-                }
+//                StairFans stairFans = new Gson().fromJson(data, StairFans.class);
+//                if (type == 0) {
+//                    if (stairFans.getData().getOneList().size() > 0 && stairFans.getData().getOneList() != null
+//                            || stairFans.getData().getTwoList().size() > 0 && stairFans.getData().getTwoList() != null) {
+//                        mNulldata.setVisibility(View.GONE);
+//                        mFansItemAdapter.addFansOne(stairFans.getData().getOneList());
+//                        mFansItemAdapter.addFansTwo(stairFans.getData().getTwoList());
+//                    } else {
+//                        mNulldata.setVisibility(View.VISIBLE);
+//                    }
+//                } else if (type == 1) {
+//                    if (stairFans.getData().getOneList().size() > 0 && stairFans.getData().getOneList() != null) {
+//                        mNulldata.setVisibility(View.GONE);
+//                        mFansItemAdapter.addFansOne(stairFans.getData().getOneList());
+//                    } else {
+//                        mNulldata.setVisibility(View.VISIBLE);
+//                    }
+//                } else if (type == 2) {
+//                    if (stairFans.getData().getTwoList().size() > 0 && stairFans.getData().getTwoList() != null) {
+//                        mNulldata.setVisibility(View.GONE);
+//                        mFansItemAdapter.addFansTwo(stairFans.getData().getTwoList());
+//                    } else {
+//                        mNulldata.setVisibility(View.VISIBLE);
+//                    }
+//                }
                 hiddenLoadingView();
             }
 

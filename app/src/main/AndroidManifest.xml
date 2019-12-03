@@ -53,6 +53,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".ui.activity.MineProfitActivity">
+        </activity>
         <activity android:name=".ui.activity.FansActivity">
         </activity>
         <activity

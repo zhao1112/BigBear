@@ -1,9 +1,12 @@
 package com.yunqin.bearmall.util;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.IntDef;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.ui.fragment.GuideWithVideoFragment;
@@ -79,7 +82,7 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mHomeFragment);
                 transaction.commit();
-                setStatusBarColor(R.color.white,true);
+                setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_RECOMMEND:
                 if (mRecommendFragment == null) {
@@ -90,7 +93,7 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mRecommendFragment);
                 transaction.commit();
-                setStatusBarColor(R.color.white,true);
+                setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_INFORMATION:
 
@@ -102,7 +105,7 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mMakeMoneyFragment);
                 transaction.commit();
-                setStatusBarColor(R.color.white,true);
+                setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_TROLLEY:
                 if (mTrolleyFragment == null) {
@@ -115,7 +118,7 @@ public class SwitchFragment {
                 transaction.commit();
                 //TODO[点击0元兑]
                 ConstantScUtil.exchangeClick();
-                setStatusBarColor(R.color.white,true);
+                setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_MINE:
                 if (mMineFragment == null) {

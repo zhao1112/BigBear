@@ -1194,11 +1194,30 @@ public interface Api {
     Observable<String> TaoOrderList(@FieldMap() Map<String, String> params);
 
     /**
-     * 粉丝
+     * 一级粉丝
      */
     @FormUrlEncoded
-    @POST("api/userinfo/getUserAllFans")
+    @POST("api/userinfo/getUserStairFans")
     Observable<String> StairFans(@FieldMap() Map<String, String> params);
+
+    /**
+     * 收益记录
+     */
+    @POST("api/commodity/getIncomeRecord")
+    Observable<String> IncomeRecord();
+
+
+    /**
+     * 月预估收入
+     */
+    @POST("api/commodity/getMonthProfiteDetailed")
+    Observable<String> MonthProfiteDetailed();
+
+    /**
+     * 日预估收入
+     */
+    @POST("api/commodity/getDayProfiteDetailed")
+    Observable<String> DayProfiteDetailed();
 
 
 }

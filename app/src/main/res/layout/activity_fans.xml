@@ -5,78 +5,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.yunqin.bearmall.ui.activity.FansActivity">
 
     <RelativeLayout
-        android:id="@+id/top"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_168"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="@dimen/dp_192"
         android:background="@mipmap/image_fan_bg">
 
-        <RelativeLayout
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_13"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginRight="@dimen/dp_13">
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/image_back"/>
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_27"
+        android:layout_marginRight="@dimen/dp_13">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="我的粉丝"
-                android:textColor="#ffffffff"
-                android:textSize="@dimen/sp_16"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/image_search"
-                android:visibility="gone"/>
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/fans_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_20"
-            android:text="0"
-            android:textColor="#ffffffff"
-            android:textSize="@dimen/sp_30"/>
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_27"
+            android:layout_height="@dimen/dp_27"
+            android:padding="@dimen/dp_5"
+            android:src="@mipmap/image_back"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fans_size"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_9"
+            android:layout_centerInParent="true"
             android:text="我的粉丝"
             android:textColor="#ffffffff"
-            android:textSize="@dimen/sp_12"/>
+            android:textSize="@dimen/sp_16"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/image_search"
+            android:visibility="gone"/>
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/fans_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="0"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/sp_30"/>
+
+    <TextView
+        android:id="@+id/fans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fans_size"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_9"
+        android:text="我的粉丝"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/sp_12"/>
 
     <RelativeLayout
         android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_74"
-        android:layout_below="@id/top"
+        android:layout_below="@id/fans"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginTop="-37dp"
+        android:layout_marginTop="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_15"
         android:background="@drawable/fans_item">
 
@@ -134,16 +134,17 @@
     <RelativeLayout
         android:id="@+id/min"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
+        android:layout_height="@dimen/dp_55"
         android:layout_below="@id/info"
-        android:layout_marginTop="@dimen/dp_5">
+        android:background="@color/white">
 
         <com.androidkun.xtablayout.XTabLayout
             android:id="@+id/xtable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_23"
+            android:layout_marginBottom="@dimen/dp_8"
             android:background="@color/md_white"
             android:overScrollMode="never"
             app:xTabDisplayNum="3"
@@ -157,6 +158,12 @@
             app:xTabTextSelectedBold="true"
             app:xTabTextSize="@dimen/sp_14"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="#ffe1e1e1"/>
+
     </RelativeLayout>
 
 
@@ -166,7 +173,8 @@
         android:layout_height="match_parent"
         android:layout_above="@id/commander"
         android:layout_below="@id/min"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="@color/white">
 
     </android.support.v4.view.ViewPager>
 

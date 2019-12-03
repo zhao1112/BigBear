@@ -1,9 +1,13 @@
 package com.yunqin.bearmall.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.androidkun.xtablayout.XTabLayout;
@@ -21,16 +25,19 @@ import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.bean.PopBean;
 import com.yunqin.bearmall.eventbus.GetMessageEvent;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
+import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.MenuActicity;
 import com.yunqin.bearmall.ui.activity.SearchActivity;
 import com.yunqin.bearmall.ui.fragment.contract.HomeContract;
 import com.yunqin.bearmall.ui.fragment.presenter.HomePresenter;
+import com.yunqin.bearmall.util.CommonUtil;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.DotView;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
+import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -219,8 +226,47 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
                             //TODO[点击广告]
                             ConstantScUtil.showAd();
                         }
+                        showNotice();
                     }).build().show();
         }
+    }
+
+    private void showNotice() {
+        OpenGoodsDetail.lightoff(getActivity());
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_notice, null);
+        PopupWindow mPopupWindow = new PopupWindow();
+        mPopupWindow.setContentView(view);
+        mPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        // 设置背景图片， 必须设置，不然动画没作用
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopupWindow.setAnimationStyle(R.style.CenterAnimation);
+        mPopupWindow.setFocusable(true);
+        // 设置点击popupwindow外屏幕其它地方消失
+        mPopupWindow.setOutsideTouchable(true);
+        // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
+        mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        view.findViewById(R.id.no_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPopupWindow.dismiss();
+                OpenGoodsDetail.lighton(getActivity());
+            }
+        });
+        view.findViewById(R.id.no_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPopupWindow.dismiss();
+                CommonUtil.toSelfSetting(getActivity());
+                OpenGoodsDetail.lighton(getActivity());
+            }
+        });
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                OpenGoodsDetail.lighton(getActivity());
+            }
+        });
     }
 
     public void requestData() {

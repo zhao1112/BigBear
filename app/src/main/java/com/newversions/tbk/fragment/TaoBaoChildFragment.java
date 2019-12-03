@@ -99,8 +99,8 @@ public class TaoBaoChildFragment extends BaseFragment {
                     page++;
                     getTBOrder();
                 } else {
-                    refreshLayout.onFinishRefresh();
-                    refreshLayout.onFinishLoadMore();
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
                 }
             }
         });
@@ -141,23 +141,23 @@ public class TaoBaoChildFragment extends BaseFragment {
                 } else {
                     mNulldata.setVisibility(View.VISIBLE);
                 }
-                refreshLayout.onFinishRefresh();
-                refreshLayout.onFinishLoadMore();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
                 hiddenLoadingView();
             }
 
             @Override
             public void onNotNetWork() {
-                refreshLayout.onFinishRefresh();
-                refreshLayout.onFinishLoadMore();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
                 hiddenLoadingView();
                 mNulldata.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFail(Throwable e) {
-                refreshLayout.onFinishRefresh();
-                refreshLayout.onFinishLoadMore();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
                 hiddenLoadingView();
                 mNulldata.setVisibility(View.VISIBLE);
             }
