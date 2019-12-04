@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F7F7"
@@ -10,6 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/ds88"
+        android:layout_marginTop="@dimen/dp_24"
         android:background="#ffffff">
 
         <TextView
@@ -18,8 +20,7 @@
             android:layout_centerInParent="true"
             android:text="赚钱中心"
             android:textColor="#333333"
-            android:textSize="32pt" />
-
+            android:textSize="32pt"/>
 
         <RelativeLayout
             android:layout_width="44pt"
@@ -33,8 +34,7 @@
                 android:layout_width="44pt"
                 android:layout_height="44pt"
                 android:layout_marginTop="4pt"
-                android:src="@drawable/icon_tab_message_normal" />
-
+                android:src="@drawable/icon_tab_message_normal"/>
 
             <com.yunqin.bearmall.widget.DotView
                 android:id="@+id/dot_view"
@@ -44,12 +44,9 @@
 
             </com.yunqin.bearmall.widget.DotView>
 
-
         </RelativeLayout>
 
-
     </RelativeLayout>
-
 
     <com.yunqin.bearmall.widget.BounceScrollView
         android:layout_width="match_parent"
@@ -61,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,7 +87,7 @@
                             android:layout_height="wrap_content"
                             android:text="00.00"
                             android:textColor="@color/main_color"
-                            android:textSize="@dimen/ds40" />
+                            android:textSize="@dimen/ds40"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -99,21 +95,21 @@
                             android:layout_marginTop="@dimen/ds10"
                             android:text="今日获得糖果数"
                             android:textColor="#999999"
-                            android:textSize="@dimen/ds24" />
+                            android:textSize="@dimen/ds24"/>
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="@dimen/ds12"
                         android:layout_height="@dimen/ds24"
                         android:layout_marginRight="@dimen/ds32"
-                        android:src="@drawable/icon_arrow_right" />
+                        android:src="@drawable/icon_arrow_right"/>
                 </LinearLayout>
 
                 <View
                     android:layout_width="@dimen/ds1"
                     android:layout_height="@dimen/ds88"
                     android:layout_gravity="center"
-                    android:background="#E7E7E7" />
+                    android:background="#E7E7E7"/>
 
                 <LinearLayout
                     android:id="@+id/bt_wallet"
@@ -137,7 +133,7 @@
                             android:layout_height="wrap_content"
                             android:text="00.00"
                             android:textColor="@color/main_color"
-                            android:textSize="@dimen/ds40" />
+                            android:textSize="@dimen/ds40"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -145,21 +141,24 @@
                             android:layout_marginTop="@dimen/ds10"
                             android:text="我的糖果钱包"
                             android:textColor="#999999"
-                            android:textSize="@dimen/ds24" />
+                            android:textSize="@dimen/ds24"/>
+
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="@dimen/ds12"
                         android:layout_height="@dimen/ds24"
                         android:layout_marginRight="@dimen/ds32"
-                        android:src="@drawable/icon_arrow_right" />
+                        android:src="@drawable/icon_arrow_right"/>
+
                 </LinearLayout>
+
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ds2"
-                android:background="#19999999" />
+                android:background="#19999999"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,7 +188,7 @@
                             android:layout_height="wrap_content"
                             android:text="00.00"
                             android:textColor="@color/main_color"
-                            android:textSize="@dimen/ds40" />
+                            android:textSize="@dimen/ds40"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -197,21 +196,23 @@
                             android:layout_marginTop="@dimen/ds10"
                             android:text="今日获得赏金数"
                             android:textColor="#999999"
-                            android:textSize="@dimen/ds24" />
+                            android:textSize="@dimen/ds24"/>
+
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="@dimen/ds12"
                         android:layout_height="@dimen/ds24"
                         android:layout_marginRight="@dimen/ds32"
-                        android:src="@drawable/icon_arrow_right" />
+                        android:src="@drawable/icon_arrow_right"/>
+
                 </LinearLayout>
 
                 <View
                     android:layout_width="@dimen/ds1"
                     android:layout_height="@dimen/ds88"
                     android:layout_gravity="center"
-                    android:background="#E7E7E7" />
+                    android:background="#E7E7E7"/>
 
                 <LinearLayout
                     android:id="@+id/shangjin_right"
@@ -235,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:text="00.00"
                             android:textColor="@color/main_color"
-                            android:textSize="@dimen/ds40" />
+                            android:textSize="@dimen/ds40"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -243,14 +244,16 @@
                             android:layout_marginTop="@dimen/ds10"
                             android:text="我的赏金钱包"
                             android:textColor="#999999"
-                            android:textSize="@dimen/ds24" />
+                            android:textSize="@dimen/ds24"/>
+
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="@dimen/ds12"
                         android:layout_height="@dimen/ds24"
                         android:layout_marginRight="@dimen/ds32"
-                        android:src="@drawable/icon_arrow_right" />
+                        android:src="@drawable/icon_arrow_right"/>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -258,7 +261,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ds2"
-                android:background="#19999999" />
+                android:background="#19999999"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -276,7 +279,7 @@
                     <ImageView
                         android:layout_width="100pt"
                         android:layout_height="100pt"
-                        android:src="@drawable/make_money_tangguo" />
+                        android:src="@drawable/make_money_tangguo"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -284,7 +287,7 @@
                         android:layout_marginTop="@dimen/ds8"
                         android:text="糖果0元兑"
                         android:textColor="#666666"
-                        android:textSize="@dimen/ds22" />
+                        android:textSize="@dimen/ds22"/>
 
 
                 </LinearLayout>
@@ -300,7 +303,7 @@
                     <ImageView
                         android:layout_width="100pt"
                         android:layout_height="100pt"
-                        android:src="@drawable/make_money_tixian" />
+                        android:src="@drawable/make_money_tixian"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -308,7 +311,7 @@
                         android:layout_marginTop="@dimen/ds8"
                         android:text="赏金提现"
                         android:textColor="#666666"
-                        android:textSize="@dimen/ds22" />
+                        android:textSize="@dimen/ds22"/>
 
 
                 </LinearLayout>
@@ -324,7 +327,7 @@
                     <ImageView
                         android:layout_width="100pt"
                         android:layout_height="100pt"
-                        android:src="@drawable/make_money_yaoqing" />
+                        android:src="@drawable/make_money_yaoqing"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -332,7 +335,7 @@
                         android:layout_marginTop="@dimen/ds8"
                         android:text="邀请好友"
                         android:textColor="#666666"
-                        android:textSize="@dimen/ds22" />
+                        android:textSize="@dimen/ds22"/>
 
 
                 </LinearLayout>
@@ -348,7 +351,7 @@
                     <ImageView
                         android:layout_width="100pt"
                         android:layout_height="100pt"
-                        android:src="@drawable/make_money_xinyongka" />
+                        android:src="@drawable/make_money_xinyongka"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -356,7 +359,7 @@
                         android:layout_marginTop="@dimen/ds8"
                         android:text="领取信用卡"
                         android:textColor="#666666"
-                        android:textSize="@dimen/ds22" />
+                        android:textSize="@dimen/ds22"/>
 
 
                 </LinearLayout>
@@ -366,7 +369,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ds2"
-                android:background="#19999999" />
+                android:background="#19999999"/>
 
             <com.yunqin.bearmall.widget.TopBanner
                 android:id="@+id/banner_top"
@@ -388,11 +391,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textColor="#666666"
-                    android:textSize="@dimen/ds28" />
-
+                    android:textSize="@dimen/ds28"/>
 
             </RelativeLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -410,7 +411,7 @@
                         android:layout_width="@dimen/ds72"
                         android:layout_height="@dimen/ds72"
                         android:layout_marginLeft="@dimen/ds20"
-                        android:src="@drawable/icon_mine_qiandao" />
+                        android:src="@drawable/icon_mine_qiandao"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -424,7 +425,7 @@
                             android:layout_height="wrap_content"
                             android:text="每日签到领糖果"
                             android:textColor="#000000"
-                            android:textSize="@dimen/ds28" />
+                            android:textSize="@dimen/ds28"/>
 
                         <TextView
                             android:id="@+id/sign_get_info"
@@ -432,7 +433,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/ds4"
                             android:textColor="#FF999999"
-                            android:textSize="@dimen/ds19" />
+                            android:textSize="@dimen/ds19"/>
                     </LinearLayout>
 
                     <com.yunqin.bearmall.widget.Highlight.HighlightButton
@@ -443,13 +444,13 @@
                         android:background="@drawable/btn_other_way_login_bg"
                         android:text="签到"
                         android:textColor="@color/main_color"
-                        android:textSize="@dimen/ds24" />
+                        android:textSize="@dimen/ds24"/>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1pt"
-                    android:background="#4b999999" />
+                    android:background="#4b999999"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -462,7 +463,7 @@
                         android:layout_width="@dimen/ds72"
                         android:layout_height="@dimen/ds72"
                         android:layout_marginLeft="@dimen/ds20"
-                        android:src="@drawable/icon_mine_yaoqing" />
+                        android:src="@drawable/icon_mine_yaoqing"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -476,7 +477,7 @@
                             android:layout_height="wrap_content"
                             android:text="邀请好友赚糖果"
                             android:textColor="#000000"
-                            android:textSize="@dimen/ds28" />
+                            android:textSize="@dimen/ds28"/>
 
                         <TextView
                             android:id="@+id/request_friends_reward_info"
@@ -484,7 +485,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/ds4"
                             android:textColor="#FF999999"
-                            android:textSize="@dimen/ds19" />
+                            android:textSize="@dimen/ds19"/>
                     </LinearLayout>
 
                     <com.yunqin.bearmall.widget.Highlight.HighlightButton
@@ -495,13 +496,13 @@
                         android:background="@drawable/btn_other_way_login_bg"
                         android:text="立即邀请"
                         android:textColor="@color/main_color"
-                        android:textSize="@dimen/ds24" />
+                        android:textSize="@dimen/ds24"/>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1pt"
-                    android:background="#4b999999" />
+                    android:background="#4b999999"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -514,7 +515,7 @@
                         android:layout_width="@dimen/ds72"
                         android:layout_height="@dimen/ds72"
                         android:layout_marginLeft="@dimen/ds20"
-                        android:src="@drawable/icon_mine_zixun" />
+                        android:src="@drawable/icon_mine_zixun"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -528,7 +529,7 @@
                             android:layout_height="wrap_content"
                             android:text="转发文章领糖果"
                             android:textColor="#000000"
-                            android:textSize="@dimen/ds28" />
+                            android:textSize="@dimen/ds28"/>
 
                         <TextView
                             android:id="@+id/zhuan_fa_de_tg"
@@ -536,7 +537,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/ds4"
                             android:textColor="#FF999999"
-                            android:textSize="@dimen/ds19" />
+                            android:textSize="@dimen/ds19"/>
+
                     </LinearLayout>
 
                     <com.yunqin.bearmall.widget.Highlight.HighlightButton
@@ -547,13 +549,14 @@
                         android:background="@drawable/btn_other_way_login_bg"
                         android:text="立即领取"
                         android:textColor="@color/main_color"
-                        android:textSize="@dimen/ds24" />
+                        android:textSize="@dimen/ds24"/>
+
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1pt"
-                    android:background="#4b999999" />
+                    android:background="#4b999999"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -566,7 +569,7 @@
                         android:layout_width="@dimen/ds72"
                         android:layout_height="@dimen/ds72"
                         android:layout_marginLeft="@dimen/ds20"
-                        android:src="@drawable/icon_mine_gwdai" />
+                        android:src="@drawable/icon_mine_gwdai"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -580,7 +583,7 @@
                             android:layout_height="wrap_content"
                             android:text="转发商品领糖果"
                             android:textColor="#000000"
-                            android:textSize="@dimen/ds28" />
+                            android:textSize="@dimen/ds28"/>
 
                         <TextView
                             android:id="@+id/share_zixun_get"
@@ -588,7 +591,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/ds4"
                             android:textColor="#FF999999"
-                            android:textSize="@dimen/ds19" />
+                            android:textSize="@dimen/ds19"/>
+
                     </LinearLayout>
 
                     <com.yunqin.bearmall.widget.Highlight.HighlightButton
@@ -599,13 +603,14 @@
                         android:background="@drawable/btn_other_way_login_bg"
                         android:text="立即领取"
                         android:textColor="@color/main_color"
-                        android:textSize="@dimen/ds24" />
+                        android:textSize="@dimen/ds24"/>
+
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1pt"
-                    android:background="#4b999999" />
+                    android:background="#4b999999"/>
 
 
                 <LinearLayout
@@ -620,7 +625,7 @@
                         android:layout_width="@dimen/ds72"
                         android:layout_height="@dimen/ds72"
                         android:layout_marginLeft="@dimen/ds20"
-                        android:src="@drawable/icon_mine_liwu" />
+                        android:src="@drawable/icon_mine_liwu"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -634,7 +639,7 @@
                             android:layout_height="wrap_content"
                             android:text="幸运大抽奖"
                             android:textColor="#000000"
-                            android:textSize="@dimen/ds28" />
+                            android:textSize="@dimen/ds28"/>
 
                         <TextView
 
@@ -643,7 +648,8 @@
                             android:layout_marginTop="@dimen/ds4"
                             android:text="点开领取更多糖果"
                             android:textColor="#FF999999"
-                            android:textSize="@dimen/ds19" />
+                            android:textSize="@dimen/ds19"/>
+
                     </LinearLayout>
 
                     <com.yunqin.bearmall.widget.Highlight.HighlightButton
@@ -654,7 +660,8 @@
                         android:background="@drawable/btn_other_way_login_bg"
                         android:text="立即领取"
                         android:textColor="@color/main_color"
-                        android:textSize="@dimen/ds24" />
+                        android:textSize="@dimen/ds24"/>
+
                 </LinearLayout>
 
 
@@ -664,7 +671,7 @@
                     android:gravity="center"
                     android:text="更多赚钱任务，持续更新中"
                     android:textColor="#4b4b4b"
-                    android:textSize="@dimen/ds28" />
+                    android:textSize="@dimen/ds28"/>
 
                 <TextView
                     android:id="@+id/textview_1"
@@ -674,7 +681,7 @@
                     android:layout_marginTop="@dimen/ds20"
                     android:textColor="#000000"
                     android:textSize="@dimen/ds32"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
 
                 <ImageView
@@ -686,7 +693,7 @@
                     android:layout_marginRight="@dimen/ds20"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_product_details_top"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/textview_2"
@@ -696,7 +703,7 @@
                     android:layout_marginTop="@dimen/ds20"
                     android:textColor="#000000"
                     android:textSize="@dimen/ds32"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/image_2"
@@ -707,7 +714,7 @@
                     android:layout_marginRight="@dimen/ds20"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_product_details_top"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/textview_3"
@@ -717,7 +724,7 @@
                     android:layout_marginTop="@dimen/ds20"
                     android:textColor="#000000"
                     android:textSize="@dimen/ds32"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
 
                 <ImageView
@@ -729,7 +736,7 @@
                     android:layout_marginRight="@dimen/ds20"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_product_details_top"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
 
                 <TextView
@@ -740,7 +747,7 @@
                     android:layout_marginTop="@dimen/ds20"
                     android:textColor="#000000"
                     android:textSize="@dimen/ds32"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/image_4"
@@ -751,7 +758,7 @@
                     android:layout_marginRight="@dimen/ds20"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_product_details_top"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/textview_5"
@@ -761,7 +768,7 @@
                     android:layout_marginTop="@dimen/ds20"
                     android:textColor="#000000"
                     android:textSize="@dimen/ds32"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/image_5"
@@ -772,12 +779,16 @@
                     android:layout_marginRight="@dimen/ds20"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_product_details_top"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="30pt" />
+                    android:layout_height="30pt"/>
+
             </LinearLayout>
+
         </LinearLayout>
+
     </com.yunqin.bearmall.widget.BounceScrollView>
+
 </LinearLayout>

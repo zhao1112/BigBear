@@ -17,7 +17,6 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 import java.text.DecimalFormat;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MineProfitActivity extends BaseActivity implements ProfitContract.UI {

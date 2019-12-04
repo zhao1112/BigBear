@@ -1,29 +1,23 @@
 package com.yunqin.bearmall.ui.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.PopupWindow;
+import android.widget.LinearLayout;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.google.gson.Gson;
 import com.igexin.sdk.PushManager;
-import com.newversions.IAdvClick;
-import com.newversions.util.SharedPreferencesManager;
-import com.newversions.view.ICustomDialog;
 import com.newreward.SpecialRequestUI.SpecialRequestActivity;
 import com.newreward.bean.SpecialRequest;
+import com.newversions.view.ICustomDialog;
 import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
@@ -41,15 +35,11 @@ import com.yunqin.bearmall.service.BearMallPushService;
 import com.yunqin.bearmall.ui.activity.contract.HomeContract;
 import com.yunqin.bearmall.ui.activity.presenter.HomePresenter;
 import com.yunqin.bearmall.update.CheckForUpdateHelper;
-import com.yunqin.bearmall.util.CommonUtil;
-import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
-import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.RudenessScreenHelper;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.SwitchFragment;
 import com.yunqin.bearmall.util.UpLoadHeadImage;
-import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,11 +48,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.jzvd.Jzvd;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -113,6 +103,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
     @Override
     public void init() {
+        setTranslucentStatus();
+
         //初始化友盟
         BearMallAplication.initUM(HomeActivity.this);
 

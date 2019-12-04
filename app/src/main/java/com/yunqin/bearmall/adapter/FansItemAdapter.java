@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.bean.SecondFans;
 import com.yunqin.bearmall.bean.StairFans;
 
 import java.util.LinkedList;
@@ -42,11 +43,11 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-//        if (list.get(position) instanceof StairFans.DataBean.OneListBean) {
-//            return TYPE_ONE;
-//        } else if (list.get(position) instanceof StairFans.DataBean.TwoListBean) {
-//            return TYPE_TWO;
-//        }
+        if (list.get(position) instanceof StairFans.DataBean.ListBean) {
+            return TYPE_ONE;
+        } else if (list.get(position) instanceof SecondFans.DataBean.ListBean) {
+            return TYPE_TWO;
+        }
         return TYPE_ONE;
     }
 
@@ -62,20 +63,38 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         FansHoler fansHoler = (FansHoler) holder;
         switch (getItemViewType(position)) {
             case TYPE_ONE:
-//                StairFans.DataBean.OneListBean fansone = (StairFans.DataBean.OneListBean) list.get(position);
-//                String fansonephoe = phoe(fansone.getMobile());
-//                fansHoler.phone.setText(fansonephoe);
-//                fansHoler.time.setText(fansone.getCreatedDate());
-//                fansHoler.fansnumber.setText("粉丝" + fansone.getFans_count() + "人");
-//                Glide.with(context).load(fansone.getIconUrl()).apply(mOptions).into(fansHoler.image);
+                StairFans.DataBean.ListBean fansone = (StairFans.DataBean.ListBean) list.get(position);
+                String fansonephoe = phoe(fansone.getMobile());
+                fansHoler.phone.setText(fansonephoe);
+                fansHoler.time.setText(fansone.getCreatedDate());
+                fansHoler.fansnumber.setText("粉丝" + fansone.getFans_count() + "人");
+                Glide.with(context).load(fansone.getIconUrl()).apply(mOptions).into(fansHoler.image);
+                fansHoler.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (onClickItem != null) {
+                            onClickItem.onFanshInfo(fansone.getCustomerId() + "", fansone.getIconUrl(), fansonephoe,
+                                    fansone.getCreatedDate());
+                        }
+                    }
+                });
                 break;
             case TYPE_TWO:
-//                StairFans.DataBean.TwoListBean fanstwo = (StairFans.DataBean.TwoListBean) list.get(position);
-//                String fanstwophoe = phoe(fanstwo.getMobile());
-//                fansHoler.phone.setText(fanstwophoe);
-//                fansHoler.time.setText(fanstwo.getCreatedDate());
-//                fansHoler.fansnumber.setText("粉丝" + fanstwo.getFans_count() + "人");
-//                Glide.with(context).load(fanstwo.getIconUrl()).apply(mOptions).into(fansHoler.image);
+                SecondFans.DataBean.ListBean fanstwo = (SecondFans.DataBean.ListBean) list.get(position);
+                String fanstwophoe = phoe(fanstwo.getMobile());
+                fansHoler.phone.setText(fanstwophoe);
+                fansHoler.time.setText(fanstwo.getCreatedDate());
+                fansHoler.fansnumber.setText("粉丝" + fanstwo.getFans_count() + "人");
+                Glide.with(context).load(fanstwo.getIconUrl()).apply(mOptions).into(fansHoler.image);
+                fansHoler.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (onClickItem != null) {
+                            onClickItem.onFanshInfo(fanstwo.getCustomerId() + "", fanstwo.getIconUrl(), fanstwophoe,
+                                    fanstwo.getCreatedDate());
+                        }
+                    }
+                });
                 break;
         }
     }
@@ -85,15 +104,19 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return list.size();
     }
 
-//    public void addFansOne(List<StairFans.DataBean.OneListBean> list) {
-//        this.list.addAll(list);
-//        notifyDataSetChanged();
-//    }
-//
-//    public void addFansTwo(List<StairFans.DataBean.TwoListBean> list) {
-//        this.list.addAll(list);
-//        notifyDataSetChanged();
-//    }
+    public void addFansOne(List<StairFans.DataBean.ListBean> list) {
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void addFansTwo(List<SecondFans.DataBean.ListBean> list) {
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void clearFansData() {
+        this.list.clear();
+    }
 
     private class FansHoler extends RecyclerView.ViewHolder {
 
@@ -112,6 +135,16 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public String phoe(String args) {
         String phoneNumber = args.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
         return phoneNumber;
+    }
+
+    public interface OnClickItem {
+        void onFanshInfo(String customerId, String imageUrl, String phone, String creatTime);
+    }
+
+    public OnClickItem onClickItem;
+
+    public void setClickItem(OnClickItem onClickItem) {
+        this.onClickItem = onClickItem;
     }
 
 }

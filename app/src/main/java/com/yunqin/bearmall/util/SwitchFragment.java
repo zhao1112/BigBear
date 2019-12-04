@@ -7,6 +7,7 @@ import android.support.annotation.IntDef;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.ui.fragment.GuideWithVideoFragment;
@@ -96,7 +97,6 @@ public class SwitchFragment {
                 setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_INFORMATION:
-
                 if (mMakeMoneyFragment == null) {
                     mMakeMoneyFragment = new MakeMoneyFragment();
                     transaction.add(R.id.content, mMakeMoneyFragment);
@@ -116,9 +116,9 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mTrolleyFragment);
                 transaction.commit();
+                StatuBarUtils.setTranslucentStatus(activity);
                 //TODO[点击0元兑]
                 ConstantScUtil.exchangeClick();
-                setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_MINE:
                 if (mMineFragment == null) {
@@ -129,7 +129,7 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mMineFragment);
                 transaction.commit();
-                setStatusBarColor(R.color.blue,false);
+                StatuBarUtils.setTranslucentStatus(activity);
                 break;
         }
     }

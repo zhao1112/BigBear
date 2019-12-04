@@ -84,7 +84,7 @@ public class FansActivity extends BaseActivity {
             mWxName.setText("昵称：" + user.getData().getMember().getNickName());
             mWxId.setText("邀请码：" + user.getRecommendCode());
             mCopy.setVisibility(View.VISIBLE);
-            getFans();
+            getStairFans();
         } else {
             mCopy.setVisibility(View.GONE);
         }
@@ -102,7 +102,7 @@ public class FansActivity extends BaseActivity {
     }
 
 
-    private void getFans() {
+    private void getStairFans() {
         Map<String, String> map = new HashMap<>();
         map.put("openTime", "0");
         map.put("openCount", "0");
@@ -111,9 +111,9 @@ public class FansActivity extends BaseActivity {
         RetrofitApi.request(FansActivity.this, RetrofitApi.createApi(Api.class).StairFans(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                Log.i("SecondFans", data);
+                Log.d("data", data);
                 StairFans stairFans = new Gson().fromJson(data, StairFans.class);
-//                mFansSize.setText(stairFans.getData());
+                mFansSize.setText(stairFans.getData().getOneSize() + stairFans.getData().getTwoSize() + "");
             }
 
             @Override

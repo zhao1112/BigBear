@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F7F7F7">
 
     <LinearLayout
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
 
         <ImageView
             android:layout_width="@dimen/ds216"
@@ -21,32 +22,32 @@
             android:src="@drawable/net_error_img"/>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ds50"
             android:text="网络请求失败"
-            android:textSize="@dimen/ds28"
             android:textColor="#999999"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/ds28"/>
 
         <TextView
-            android:layout_marginTop="@dimen/ds20"
-            android:textColor="#B8B8B8"
-            android:textSize="@dimen/ds24"
-            android:text="网络请求失败\n重新加载吧"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds20"
+            android:text="网络请求失败\n重新加载吧"
+            android:textColor="#B8B8B8"
+            android:textSize="@dimen/ds24"/>
 
-        
+
         <com.yunqin.bearmall.widget.Highlight.HighlightButton
             android:id="@+id/reset_load_data"
-            android:text="重新加载"
+            android:layout_width="200pt"
+            android:layout_height="@dimen/ds72"
             android:layout_marginTop="@dimen/ds90"
             android:background="@drawable/bg_normal"
-            android:textSize="@dimen/ds28"
+            android:text="重新加载"
             android:textColor="#666666"
-            android:layout_width="200pt"
-            android:layout_height="@dimen/ds72" />
-        
+            android:textSize="@dimen/ds28"/>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

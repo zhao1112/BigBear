@@ -14,11 +14,12 @@
 
         <ImageView
             android:id="@+id/no_close"
-            android:layout_width="@dimen/dp_12"
-            android:layout_height="@dimen/dp_12"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
             android:src="@drawable/icon_close_28"/>
 
         <ImageView

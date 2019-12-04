@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.IAdvClick;
 import com.newversions.ServiceActivity;
 import com.newversions.help.HelpActivity;
@@ -63,9 +65,9 @@ import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
-import com.yunqin.bearmall.util.StatuBarUtils;
 import com.yunqin.bearmall.widget.CircleImageView;
 import com.yunqin.bearmall.widget.DotView;
+import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,7 +80,9 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @author Master
@@ -123,8 +127,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     TextView mMineVipData;
     @BindView(R.id.code)
     RelativeLayout mCode;
-    @BindView(R.id.mine_one)
-    RelativeLayout mMineOne;
     @BindView(R.id.mine_regimental)
     RelativeLayout mMineRegimental;
     @BindView(R.id.mine_withdrawal)
@@ -171,6 +173,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     RelativeLayout mXis;
     @BindView(R.id.open_vip_one)
     TextView mOpenVipOne;
+    @BindView(R.id.twinking_ref)
+    TwinklingRefreshLayout mTwinkingRef;
 
 
     private RequestOptions requestOptions = new RequestOptions()
@@ -217,22 +221,19 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             }
         });
         mPresenter.onLunboTu(getActivity());
-    }
 
-    private void setshowUI() {
-
-        mMineOne.post(new Runnable() {
+        mTwinkingRef.setEnableLoadmore(false);
+        mTwinkingRef.setHeaderView(new RefreshHeadView(getActivity()));
+        mTwinkingRef.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
-            public void run() {
-                int width = mMineOne.getWidth();
-                float mHeight = width / ONE;
-                ViewGroup.LayoutParams layoutParams = mMineOne.getLayoutParams();
-                layoutParams.width = width;
-                layoutParams.height = (int) mHeight;
-                mMineOne.setLayoutParams(layoutParams);
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                initUserView();
             }
         });
 
+    }
+
+    private void setshowUI() {
         mTwo.post(new Runnable() {
             @Override
             public void run() {
@@ -292,6 +293,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mMineTodayPrice.setText("0.00");
             mMineMonthPrice.setText("0.00");
             Glide.with(this).setDefaultRequestOptions(requestOptions).load("error").into(mMineHead);
+            mTwinkingRef.finishRefreshing();
         }
     }
 
@@ -431,7 +433,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                     LoginActivity.starActivity(getActivity());
                 }
                 break;
-            case R.id.mine_withdrawal:
+            case R.id.mine_withdrawal://收益详情
             case R.id.mine_today:
             case R.id.mine_month:
                 if (BearMallAplication.getInstance().getUser() != null) {
@@ -571,6 +573,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
 
     @Override
     public void initTaskInfo(String taskInfo) {
+        mTwinkingRef.finishRefreshing();
         DayliTaskBCInfo dayliTaskBCInfo = new Gson().fromJson(taskInfo, DayliTaskBCInfo.class);
         if (dayliTaskBCInfo.getData().getIsSignToday() == 1) {
 
@@ -583,6 +586,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
 
     @Override
     public void initOrderNumberInfo(String orderNumberInfo) {
+        mTwinkingRef.finishRefreshing();
         try {
             OrderNumberBean orderNumberBean = new Gson().fromJson(orderNumberInfo, OrderNumberBean.class);
             OrderNumberBean.DataBean.OrdersNumRecordBean ordersNumRecordBean = orderNumberBean.getData().getOrdersNumRecord();//
@@ -597,12 +601,14 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
 
     @Override
     public void onUpdateUserInfo(UserInfo userInfo) {
+        mTwinkingRef.finishRefreshing();
         lastupdateTime = System.currentTimeMillis();
         setVipData(userInfo);
     }
 
     @Override
     public void onProfit(double todayprofit, double cashAmount, double thismonthprofit) {
+        mTwinkingRef.finishRefreshing();
         mMineWithdrawalPrice.setText(doubleToString(cashAmount));
         mMineTodayPrice.setText(doubleToString(todayprofit));
         mMineMonthPrice.setText(doubleToString(thismonthprofit));

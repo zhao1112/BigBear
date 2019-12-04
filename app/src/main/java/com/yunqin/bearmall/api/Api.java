@@ -1219,6 +1219,20 @@ public interface Api {
     @POST("api/commodity/getDayProfiteDetailed")
     Observable<String> DayProfiteDetailed();
 
+    /**
+     * 二级粉丝
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getUserSecondFans")
+    Observable<String> SecondFans(@FieldMap() Map<String, String> params);
+
+    /**
+     * 粉丝详情
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getFansInfo")
+    Observable<String> FansInfo(@FieldMap() Map<String, String> params);
+
 
 }
 
