@@ -138,6 +138,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
                 finish();
                 break;
             case R.id.p_detailed:
+                BalanceDetailActivity.startBalanceDetailActivity(this, balance);
                 break;
             case R.id.withdrawal:
                 BalanceActivity.startBalanceActivity(this, balance, withdrawFrom);

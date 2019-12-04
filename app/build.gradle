@@ -72,12 +72,8 @@ android {
 
     buildTypes {
 
-//        beta {
-//            matchingFallbacks = ['release', 'debug']
-//        }
         release {
             // 正式地址
-//            buildConfigField 'String', 'BASE_URL', '"http://47.95.115.244"'
             buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'  //正式地址
             buildConfigField 'String', 'SHENC_URL', '"production"'  //神策正式数据上传地址
             buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"'  //神策正式数据上传地址
@@ -89,8 +85,8 @@ android {
                     XIAOMI_APP_ID   : "2882303761517857544",
                     XIAOMI_APP_KEY  : "5851785796544",
 
-                    OPPO_APP_KEY    : "30011344",
-                    OPPO_APP_SECRET : "8afead5845c7436b97e1dfe41e2d32bb"
+                    OPPO_APP_KEY    : "8afead5845c7436b97e1dfe41e2d32bb",
+                    OPPO_APP_SECRET : "ea17cedc36d440f88435a181786c8246"
 
             ]
             minifyEnabled false
@@ -99,7 +95,6 @@ android {
 
         debug {
             // 测试地址192.168.0.111
-//            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'
             buildConfigField 'String', 'BASE_URL', '"http://testapi.bbbearmall.com"' //国内服务
 //            buildConfigField 'String', 'BASE_URL', '"http://192.168.0.112:80"' //本地服务
             buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"' //本地服务
@@ -112,13 +107,12 @@ android {
                     XIAOMI_APP_ID   : "2882303761517857544",
                     XIAOMI_APP_KEY  : "5851785796544",
 
-                    OPPO_APP_KEY    : "30011344",
-                    OPPO_APP_SECRET : "8afead5845c7436b97e1dfe41e2d32bb"
+                    OPPO_APP_KEY    : "8afead5845c7436b97e1dfe41e2d32bb",
+                    OPPO_APP_SECRET : "ea17cedc36d440f88435a181786c8246"
 
             ]
             signingConfig signingConfigs.config
         }
-
 
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
@@ -133,172 +127,169 @@ android {
                 }
             }
         }
-
-
     }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+
+        buildToolsVersion = '28.0.3'
     }
-    buildToolsVersion = '28.0.3'
 
+    MobSDK {
+        appKey "26e36c1c06eb4"
+        appSecret "31f598c49d45a001c83954b333e81980"
 
-}
+        ShareSDK {
+            //平台配置信息
+            devInfo {
+                SinaWeibo {
+                    appKey "443385335"
+                    appSecret "31a7c6684470f8279b50d2840c04a3d1"
+                    callbackUri "http://www.sharesdk.cn"
+                    shareByAppClient true
+                }
+                Wechat {
+                    appId "wx10529911212690c7"
+                    appSecret "312cf793d8a38713aef231661d5739b8"
+                    shareByAppClient true
+                    BypassApproval false
+                }
 
-MobSDK {
-    appKey "26e36c1c06eb4"
-    appSecret "31f598c49d45a001c83954b333e81980"
+                WechatMoments {
+                    appId "wx10529911212690c7"
+                    appSecret "312cf793d8a38713aef231661d5739b8"
+                    shareByAppClient true
+                    BypassApproval false
+                }
 
-    ShareSDK {
-        //平台配置信息
-        devInfo {
-            SinaWeibo {
-                appKey "443385335"
-                appSecret "31a7c6684470f8279b50d2840c04a3d1"
-                callbackUri "http://www.sharesdk.cn"
-                shareByAppClient true
-            }
-            Wechat {
-                appId "wx10529911212690c7"
-                appSecret "312cf793d8a38713aef231661d5739b8"
-                shareByAppClient true
-                BypassApproval false
-            }
+                QQ {
+                    appId "1106958459"
+                    appKey "5m1o4t91rt6rOQ9M"
+                }
 
-            WechatMoments {
-                appId "wx10529911212690c7"
-                appSecret "312cf793d8a38713aef231661d5739b8"
-                shareByAppClient true
-                BypassApproval false
-            }
-
-            QQ {
-                appId "1106958459"
-                appKey "5m1o4t91rt6rOQ9M"
-            }
-
-            QZone {
-                appId "1106958459"
-                appKey "5m1o4t91rt6rOQ9M"
+                QZone {
+                    appId "1106958459"
+                    appKey "5m1o4t91rt6rOQ9M"
+                }
             }
         }
+
+
     }
 
+    dependencies {
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        //implementation files('libs/alipaySdk-20180601.jar')
+        implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+        implementation deps.support.app_compat
+        implementation deps.lifecycle.runtime
+        implementation deps.lifecycle.extensions
+        annotationProcessor deps.lifecycle.compiler
+        implementation deps.room.runtime
+        annotationProcessor deps.room.compiler
+        implementation deps.room.rxjava2
+        androidTestImplementation deps.room.testing
+        // RxJava
+        implementation deps.rx_android
+        implementation deps.rxjava2
+        implementation deps.support.design
+        implementation deps.support.recyclerview
+        implementation deps.glide.runtime
+        //Retrofit
+        implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+        //Gson converter
+        implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+        //Okhttp
+        implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+        //RxJava　adapter
+        implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+        implementation 'com.jakewharton:butterknife:8.8.1'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+        implementation 'com.androidkun:XTabLayout:1.1.4'
+        implementation project(':library')
+        implementation 'com.yanyusong.y_divideritemdecoration:y_divideritemdecoration:2.0'
+        // 刷新
+        implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
+        implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 
-}
-
-
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //implementation files('libs/alipaySdk-20180601.jar')
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation deps.support.app_compat
-    implementation deps.lifecycle.runtime
-    implementation deps.lifecycle.extensions
-    annotationProcessor deps.lifecycle.compiler
-    implementation deps.room.runtime
-    annotationProcessor deps.room.compiler
-    implementation deps.room.rxjava2
-    androidTestImplementation deps.room.testing
-    // RxJava
-    implementation deps.rx_android
-    implementation deps.rxjava2
-    implementation deps.support.design
-    implementation deps.support.recyclerview
-    implementation deps.glide.runtime
-    //Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
-    //Gson converter
-    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
-    //Okhttp
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
-    //RxJava　adapter
-    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.androidkun:XTabLayout:1.1.4'
-    implementation project(':library')
-    implementation 'com.yanyusong.y_divideritemdecoration:y_divideritemdecoration:2.0'
-    // 刷新
-    implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
-    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-
-    implementation 'com.github.chihane:JDAddressSelector:1.1.4'
-    implementation 'org.greenrobot:eventbus:3.0.0'
-    implementation 'com.google.android:flexbox:0.3.0-alpha2'
-    implementation 'com.github.donkingliang:ImageSelector:1.6.0'
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    //倒计时组件
-    implementation 'com.github.iwgang:countdownview:2.1.6'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation(name: 'lamorlibrary-release', ext: 'aar')
+        implementation 'com.github.chihane:JDAddressSelector:1.1.4'
+        implementation 'org.greenrobot:eventbus:3.0.0'
+        implementation 'com.google.android:flexbox:0.3.0-alpha2'
+        implementation 'com.github.donkingliang:ImageSelector:1.6.0'
+        implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+        //倒计时组件
+        implementation 'com.github.iwgang:countdownview:2.1.6'
+        implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+        implementation(name: 'lamorlibrary-release', ext: 'aar')
 //    implementation(name: 'tuia-2.4.3', ext: 'aar')
 //    implementation files('libs/GetuiSDK2.12.4.0.jar')
-    //视频
-    //implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation project(':jiaozivideoplayer')
+        //视频
+        //implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
+        implementation 'com.android.support:multidex:1.0.3'
+        implementation project(':jiaozivideoplayer')
 
-    implementation "com.android.support:support-v4:27.1.0"
-    //阿里百川
-    //fastjson
-    implementation 'com.alibaba:fastjson:1.2.41'
-    //支付
-    implementation 'com.alipay.android.app.cashier:standardcashier-single:15.6.5@aar'
-    //登陆
-    implementation 'com.ali.auth.sdk:alibabauth_core:2.0.0.6@aar'
-    implementation 'com.ali.auth.sdk:alibabauth_ui:2.0.0.6@aar'
-    implementation 'com.ali.auth.sdk:alibabauth_ext:2.0.0.6@aar'
-    //【可选】仅供特殊合作伙伴使用
-    implementation 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
-    //安全基础
-    implementation 'com.taobao.android:securityguardaar3:5.4.171@aar'
-    implementation 'com.taobao.android:avmpaar3:5.4.36@aar'
-    implementation 'com.taobao.android:sgmiddletieraar3:5.4.9@aar'
-    //【可选】安全高级，如使用了发放红包、优惠券高级功能，则必须引入
-    implementation 'com.taobao.android:securitybodyaar3:5.4.99@aar'
-    //Mtop网关
-    implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
-    //applink
-    implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.11@aar'
-    //UT
-    implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard'
-    implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
-    //电商SDK
+        implementation "com.android.support:support-v4:27.1.0"
+        //阿里百川
+        //fastjson
+        implementation 'com.alibaba:fastjson:1.2.41'
+        //支付
+        implementation 'com.alipay.android.app.cashier:standardcashier-single:15.6.5@aar'
+        //登陆
+        implementation 'com.ali.auth.sdk:alibabauth_core:2.0.0.6@aar'
+        implementation 'com.ali.auth.sdk:alibabauth_ui:2.0.0.6@aar'
+        implementation 'com.ali.auth.sdk:alibabauth_ext:2.0.0.6@aar'
+        //【可选】仅供特殊合作伙伴使用
+        implementation 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
+        //安全基础
+        implementation 'com.taobao.android:securityguardaar3:5.4.171@aar'
+        implementation 'com.taobao.android:avmpaar3:5.4.36@aar'
+        implementation 'com.taobao.android:sgmiddletieraar3:5.4.9@aar'
+        //【可选】安全高级，如使用了发放红包、优惠券高级功能，则必须引入
+        implementation 'com.taobao.android:securitybodyaar3:5.4.99@aar'
+        //Mtop网关
+        implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
+        //applink
+        implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.11@aar'
+        //UT
+        implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard'
+        implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
+        //电商SDK
 //    implementation 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
-    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.2@aar'
-    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.2@aar'
-    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.2@aar'
-    //
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+        implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.2@aar'
+        implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.2@aar'
+        implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.2@aar'
+        //
+        implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
-    implementation 'com.youth.banner:banner:1.4.9'
+        implementation 'com.youth.banner:banner:1.4.9'
 //    https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.blankj:utilcode:1.25.0'
-    //阅读
-    api(name: 'YmSdk20190725', ext: 'aar')
-    api "com.android.support:support-compat:27.0.0"
-    api "com.android.support:support-core-utils:27.0.0"
-    api "com.android.support:support-fragment:27.0.0"
-    //XBanner
-    implementation 'com.github.xiaohaibin:XBanner:1.7.0'
-    //高斯模糊
-    implementation 'jp.wasabeef:glide-transformations:2.0.1'
-    //友盟
-    implementation 'com.umeng.umsdk:analytics:8.0.0'
-    implementation 'com.umeng.umsdk:common:2.0.0'
-    //权限工具
-    implementation 'com.github.tyhjh:PermissionUtil:v1.0.7'
-    //添加 Sensors Analytics SDK 依赖
-    implementation 'com.sensorsdata.analytics.android:SensorsAnalyticsSDK:3.2.5'
-    //个推
-    implementation 'com.getui:sdk:2.13.3.0'
-    implementation 'com.getui:xmp:1.0.5'
-    implementation 'com.assist:oppo:1.0.3'
+        implementation 'com.google.code.gson:gson:2.8.5'
+        implementation 'com.blankj:utilcode:1.25.0'
+        //阅读
+        api(name: 'YmSdk20190725', ext: 'aar')
+        api "com.android.support:support-compat:27.0.0"
+        api "com.android.support:support-core-utils:27.0.0"
+        api "com.android.support:support-fragment:27.0.0"
+        //XBanner
+        implementation 'com.github.xiaohaibin:XBanner:1.7.0'
+        //高斯模糊
+        implementation 'jp.wasabeef:glide-transformations:2.0.1'
+        //友盟
+        implementation 'com.umeng.umsdk:analytics:8.0.0'
+        implementation 'com.umeng.umsdk:common:2.0.0'
+        //权限工具
+        implementation 'com.github.tyhjh:PermissionUtil:v1.0.7'
+        //添加 Sensors Analytics SDK 依赖
+        implementation 'com.sensorsdata.analytics.android:SensorsAnalyticsSDK:3.2.5'
+        //个推
+        implementation 'com.getui:sdk:2.13.3.0'
+        implementation 'com.getui:xmp:1.0.5'
+        implementation 'com.assist:oppo:1.0.3'
 //    implementation 'com.assist:vivo:1.0.3'
 //    implementation 'com.getui:hwp:1.0.6'
+    }
 }

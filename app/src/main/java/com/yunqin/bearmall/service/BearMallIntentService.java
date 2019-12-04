@@ -95,6 +95,7 @@ public class BearMallIntentService extends GTIntentService {
 
     @Override
     public void onReceiveClientId(Context context, String clientid) {
+        //Assist_
         Log.e(TAG, "onReceiveClientId -> " + "clientid = " + clientid);
         SharedPreferencesHelper.put(context, "clientid", clientid);
         upGeTuiCid(clientid);

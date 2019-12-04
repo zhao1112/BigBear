@@ -79,13 +79,12 @@
             <!-- 在主 Activity 中配置 scheme -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
-
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-
                 <data
-                    android:host="heatmap"
-                    android:scheme="sabf0a3a2b"/>
+                    android:host="bearmall"
+                    android:path="/loadtooldetail"
+                    android:scheme="http"/>
             </intent-filter>
         </activity>
         <activity
