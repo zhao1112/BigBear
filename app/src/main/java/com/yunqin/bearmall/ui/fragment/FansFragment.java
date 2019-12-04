@@ -333,9 +333,11 @@ public class FansFragment extends BaseFragment {
         // 设置背景图片， 必须设置，不然动画没作用
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.setAnimationStyle(R.style.CenterAnimation);
-        mPopupWindow.setFocusable(false);
+        mPopupWindow.setFocusable(true);
         // 设置点击popupwindow外屏幕其它地方消失
-        mPopupWindow.setOutsideTouchable(false);
+        mPopupWindow.setOutsideTouchable(true
+
+        );
         // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
         mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         Glide.with(getActivity()).load(imageUrl).apply(mOptions).into(toiamge);

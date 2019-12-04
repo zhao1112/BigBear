@@ -108,7 +108,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @BindView(R.id.mine_copy)
     TextView mMineCopy;
     @BindView(R.id.mine_news)
-    LinearLayout mMineNews;
+    RelativeLayout mMineNews;
     @BindView(R.id.mine_set)
     ImageView mMineSet;
     @BindView(R.id.tuanz)
@@ -161,7 +161,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     LinearLayout mMineProblem;
     @BindView(R.id.mine_secvice)
     LinearLayout mMineSecvice;
-    @BindView(R.id.dot_view)
+    @BindView(R.id.dot_view_mine)
     DotView mDotView;
     @BindView(R.id.daifukuan_number)
     TextView mDaifukuanNumber;

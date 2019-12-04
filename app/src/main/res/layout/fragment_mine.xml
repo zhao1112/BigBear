@@ -217,7 +217,7 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/mine_news"
                     android:layout_width="@dimen/dp_22"
                     android:layout_height="@dimen/dp_22"
@@ -234,12 +234,12 @@
                         android:src="@mipmap/mine_notice"/>
 
                     <com.yunqin.bearmall.widget.DotView
-                        android:id="@+id/dot_view"
+                        android:id="@+id/dot_view_mine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <ImageView
                     android:id="@+id/mine_set"
