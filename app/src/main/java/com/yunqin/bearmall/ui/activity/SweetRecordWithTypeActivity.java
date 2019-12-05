@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,23 +35,17 @@ import cn.example.lamor.utils.MultiStateLayout;
  * Created by chenchen on 2018/7/23.
  */
 
-public class SweetRecordWithTypeActivity extends BaseActivity implements SweetRecordWithTypeContract.IUI,
-        View.OnClickListener, MultiStateContainer, MultiStateConfigurator {
+public class SweetRecordWithTypeActivity extends BaseActivity implements SweetRecordWithTypeContract.IUI, View.OnClickListener,
+        MultiStateContainer, MultiStateConfigurator {
 
     private static final String TOTAL = "total";
-
     private static final String TODAY = "today";
 
     public static void startSweetRecordWithTypeActivity(Activity context, String total, String today) {
-
         Bundle bundle = new Bundle();
-
         bundle.putString(TODAY, today);
-
         bundle.putString(TOTAL, total);
-
         StarActivityUtil.starActivity(context, SweetRecordWithTypeActivity.class, bundle);
-
     }
 
     @BindView(R.id.toolbar_title)
@@ -73,21 +68,14 @@ public class SweetRecordWithTypeActivity extends BaseActivity implements SweetRe
 
     @Override
     public void init() {
-
         Faceplate.getDefault().performInjectLayoutLayers(this);
-
         immerseStatusBar();
-
         initView();
-
         presenter = new SweetRecordAllTypePresenter(this);
-
         showLoading();
-
         presenter.start(this);
 
     }
-
 
     private void initView() {
 
@@ -113,49 +101,34 @@ public class SweetRecordWithTypeActivity extends BaseActivity implements SweetRe
                 presenter.start(SweetRecordWithTypeActivity.this);
             }
         });
-
     }
 
 
     @OnClick({R.id.toolbar_back})
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
-
             case R.id.toolbar_back:
-
                 finish();
-
                 break;
         }
-
     }
 
     @Override
     public void onGetData(SweetRecordAllType data) {
-
 //        mStateController.showContent(false);
         hiddenLoadingView();
-
         if (adapter != null) {
-
             List<SweetRecordAllType.DataBean> beans = data.getData();
-
             dataBeans.addAll(beans);
-
             adapter.notifyDataSetChanged();
-
         }
-
     }
-
 
     @Override
     public void onNotNetWork() {
 //        mStateController.showError(false);
         hiddenLoadingView();
-
     }
 
     @Override

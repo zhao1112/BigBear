@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.igexin.sdk.PushManager;
 import com.newreward.SpecialRequestUI.SpecialRequestActivity;
 import com.newreward.bean.SpecialRequest;
+import com.newversions.tbk.activity.WebActivity;
 import com.newversions.view.ICustomDialog;
 import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.yunqin.bearmall.BearMallAplication;
@@ -116,7 +117,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
         EventBus.getDefault().register(this);
         homeActivity = this;
 
-        switchFragment = new SwitchFragment(getSupportFragmentManager(),this);
+        switchFragment = new SwitchFragment(getSupportFragmentManager(), this);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -172,6 +173,21 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
         if (!isFirst) {
             initTuias();
             SharedPreferencesHelper.put(HomeActivity.this, first, true);
+        }
+
+        /**
+         *
+         * */
+        String bearmall_url = intent.getStringExtra("bearmall_url");
+        String type = intent.getStringExtra("type");
+        String title = intent.getStringExtra("title");
+
+        if (!TextUtils.isEmpty(bearmall_url) && !TextUtils.isEmpty(type)) {
+            if ("1".equals(type)) {
+                if (BearMallAplication.getInstance().getUser() != null) {
+                    WebActivity.startWebActivity(HomeActivity.this, ConstUtils.WEB_TYPE, bearmall_url, title);
+                }
+            }
         }
     }
 

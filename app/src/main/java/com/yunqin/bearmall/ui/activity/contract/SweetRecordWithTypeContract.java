@@ -14,9 +14,7 @@ import io.reactivex.Observable;
 public interface SweetRecordWithTypeContract {
 
     interface IModel{
-
         Observable<String> getMemberIncomeAllType();
-
     }
 
     interface IUI extends BaseContract.BaseView {

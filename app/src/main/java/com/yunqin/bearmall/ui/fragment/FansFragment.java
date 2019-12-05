@@ -343,8 +343,8 @@ public class FansFragment extends BaseFragment {
         Glide.with(getActivity()).load(imageUrl).apply(mOptions).into(toiamge);
         code.setText(recommendCode);
         phone2.setText(phone);
-        lastMonth.setText(doubleToString(lastMonthIncome));
-        cumulative.setText(doubleToString(cumulativeIncome));
+        lastMonth.setText("￥" + doubleToString(lastMonthIncome));
+        cumulative.setText("￥" + doubleToString(cumulativeIncome));
         creattime.setText("注册时间 " + creatTime);
         view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override

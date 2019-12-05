@@ -53,10 +53,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
-        <activity android:name=".ui.activity.MineProfitActivity">
-        </activity>
-        <activity android:name=".ui.activity.FansActivity">
-        </activity>
+        <activity
+            android:name=".ui.activity.MineProfitActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activity.FansActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.activity.SuperSearchActivity"
             android:configChanges="locale|layoutDirection"
@@ -79,12 +83,14 @@
             <!-- 在主 Activity 中配置 scheme -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
+
                 <data
-                    android:host="bearmall"
+                    android:host="ph"
                     android:path="/loadtooldetail"
-                    android:scheme="http"/>
+                    android:scheme="bearmall"/>
             </intent-filter>
         </activity>
         <activity

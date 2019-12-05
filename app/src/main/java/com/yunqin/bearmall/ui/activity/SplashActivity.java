@@ -1,10 +1,15 @@
 package com.yunqin.bearmall.ui.activity;
 
 import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.webkit.WebView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.newversions.tbk.activity.WebActivity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
@@ -13,6 +18,7 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.MemberBeanResponse;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.update.CheckForUpdateHelper;
+import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
@@ -29,6 +35,12 @@ import permison.listener.PermissionListener;
 public class SplashActivity extends BaseActivity {
 
     private Handler mHandler = new Handler();
+    private String mBearmall_url;
+    private String mType;
+    private String mTitle;
+    private String mBearmall_url1;
+    private String mType1;
+    private String mTitle1;
 
     @Override
     public int layoutId() {
@@ -37,6 +49,8 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void init() {
+        immerseStatusBar();
+
         new CheckForUpdateHelper().checkForUpdate(this, 0);
         if (BearMallAplication.getInstance().getUser() != null) {
 
@@ -68,7 +82,15 @@ public class SplashActivity extends BaseActivity {
             });
 
         }
-        immerseStatusBar();
+
+        Uri data = getIntent().getData();
+        if (data != null) {
+            mBearmall_url1 = data.getQueryParameter("bearmall_url");
+            mType1 = data.getQueryParameter("type");
+            mTitle1 = data.getQueryParameter("title");
+        }
+
+
         getInitMessages();
     }
 
@@ -89,10 +111,15 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void openActivity() {
+
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                StarActivityUtil.starActivity(SplashActivity.this, HomeActivity.class);
+                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                intent.putExtra("bearmall_url", mBearmall_url1);
+                intent.putExtra("type", mType1);
+                intent.putExtra("title", mTitle1);
+                startActivity(intent);
                 finish();
             }
         }, 1000);

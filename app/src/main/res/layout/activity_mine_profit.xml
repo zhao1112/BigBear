@@ -101,7 +101,7 @@
                         android:paddingRight="@dimen/dp_28"
                         android:paddingBottom="@dimen/dp_8"
                         android:text="提现"
-                        android:textColor="#ffffffff"
+                        android:textColor="#4C413B"
                         android:textSize="@dimen/sp_12"/>
 
                 </RelativeLayout>
@@ -217,7 +217,7 @@
                         android:layout_marginLeft="@dimen/dp_15"
                         android:layout_toRightOf="@id/tip"
                         android:text="每月25日结算上月确认收货的收益"
-                        android:textColor="#ffcfe5d8"
+                        android:textColor="#FFFCCA"
                         android:textSize="@dimen/sp_11"/>
 
                 </RelativeLayout>

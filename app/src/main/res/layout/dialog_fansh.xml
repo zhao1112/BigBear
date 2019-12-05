@@ -197,13 +197,21 @@
 
             </LinearLayout>
 
+            <View
+                android:id="@+id/mine_min"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_below="@id/min"
+                android:layout_marginTop="@dimen/dp_19"
+                android:background="#fff1f1f1"/>
+
             <TextView
                 android:id="@+id/creattime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/min"
+                android:layout_below="@id/mine_min"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_36"
+                android:layout_marginTop="@dimen/dp_19"
                 android:layout_marginBottom="@dimen/dp_20"
                 android:text="注册时间 2019.08.17 18:42:12"
                 android:textColor="#ff4f4f4f"
