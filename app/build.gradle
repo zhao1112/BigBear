@@ -86,7 +86,10 @@ android {
                     XIAOMI_APP_KEY  : "5851785796544",
 
                     OPPO_APP_KEY    : "8afead5845c7436b97e1dfe41e2d32bb",
-                    OPPO_APP_SECRET : "ea17cedc36d440f88435a181786c8246"
+                    OPPO_APP_SECRET : "ea17cedc36d440f88435a181786c8246",
+
+                    VIVO_APP_ID     : "17481",
+                    VIVO_APP_KEY    : "b545474e-6786-4b8e-b310-d779ad29eb55"
 
             ]
             minifyEnabled false
@@ -108,7 +111,10 @@ android {
                     XIAOMI_APP_KEY  : "5851785796544",
 
                     OPPO_APP_KEY    : "8afead5845c7436b97e1dfe41e2d32bb",
-                    OPPO_APP_SECRET : "ea17cedc36d440f88435a181786c8246"
+                    OPPO_APP_SECRET : "ea17cedc36d440f88435a181786c8246",
+
+                    VIVO_APP_ID     : "17481",
+                    VIVO_APP_KEY    : "b545474e-6786-4b8e-b310-d779ad29eb55"
 
             ]
             signingConfig signingConfigs.config
@@ -289,7 +295,7 @@ android {
         implementation 'com.getui:sdk:2.13.3.0'
         implementation 'com.getui:xmp:1.0.5'
         implementation 'com.assist:oppo:1.0.3'
-//    implementation 'com.assist:vivo:1.0.3'
+        implementation 'com.assist:vivo:1.0.3'
 //    implementation 'com.getui:hwp:1.0.6'
     }
 }
