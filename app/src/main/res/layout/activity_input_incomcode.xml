@@ -52,7 +52,6 @@
         android:layout_marginStart="@dimen/ds50"
         android:layout_marginBottom="@dimen/ds10"
         android:textSize="@dimen/ds100"
-        android:text="AZS667"
         android:background="@color/white"
         android:textColor="#868686"
         android:gravity="center" />

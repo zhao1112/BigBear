@@ -64,22 +64,16 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
     TwinklingRefreshLayout refreshLayout;
     @BindView(R.id.record_recycler)
     RecyclerView recyclerView;
-
     @BindView(R.id.top_right_text)
     TextView topRighTextView;
-
     @BindView(R.id.top_left_text)
     TextView topLeftTextView;
-
     @BindView(R.id.top_left_times)
     TextView leftTimesTextView;
-
     @BindView(R.id.toolbar_title)
     TextView titleTextView;
-
     @BindView(R.id.toolbar_right_text)
     TextView rightTextView;
-
     @BindView(R.id.empty)
     LinearLayout empty;
 
@@ -95,7 +89,6 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
     private String id;
 
     private RecordFilterFragment fragment;
-
 
     @Override
     public int layoutId() {

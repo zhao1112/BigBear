@@ -147,6 +147,11 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 //                        mHolder.recordContentView.setText(OTHER);
 //                        mHolder.imageView.setImageResource(R.drawable.icon_bt_other);
 //                        break;
+                    case 7:
+                        //幸运大抽奖
+                        mHolder.recordContentView.setText("支出记录");
+                        mHolder.imageView.setImageResource(R.mipmap.app_xiaofei);
+                        break;
                 }
 
             } else {

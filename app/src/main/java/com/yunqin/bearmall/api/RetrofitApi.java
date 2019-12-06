@@ -135,7 +135,7 @@ public class RetrofitApi {
 
 
     // 创建网络接口请求实例
-    public static <T> T contenApi(Class<T> service,String url) {
+    public static <T> T contenApi(Class<T> service, String url) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .client(getOkHttpClient())
@@ -296,7 +296,6 @@ public class RetrofitApi {
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
-
                                @Override
                                public void onError(Throwable e) {
                                    if (listener != null) {
@@ -368,9 +367,7 @@ public class RetrofitApi {
                                            }
                                        } else if (jsonObject.optInt("code") == -3) {
                                            // TODO 刷新 token
-
                                            Log.e("TGG", "Token过期...");
-
                                            RefreshToken.init(mContext, observable, listener);
                                        } else if (jsonObject.optInt("code") == -2) {
                                            LoginActivity.starActivity((Activity) mContext);
@@ -384,7 +381,6 @@ public class RetrofitApi {
                                    } catch (JSONException e) {
                                        listener.onNotNetWork();
                                    }
-
                                }
                            }
                 );
@@ -434,7 +430,6 @@ public class RetrofitApi {
     }
 
     public static void requestImageCode(Context mContext, Observable<ResponseBody> observable, final ImageCodeResponseListener listener) {
-
         if (!NetUtils.isConnected(mContext)) {
             // TODO 无网络链接
             Toast.makeText(mContext, "网络错误", Toast.LENGTH_SHORT).show();
@@ -443,8 +438,6 @@ public class RetrofitApi {
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseBody>() {
-
-
                                @Override
                                public void onSubscribe(Disposable d) {
 

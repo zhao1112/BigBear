@@ -283,7 +283,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                                 platform.authorize();
                             }
                         });
-
                     } else if (StringUtils.isEmpty(userInfo.getParentCode())) {
                         // TODO: 2019/8/1 0001 填写邀请码
                         InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,

@@ -28,6 +28,7 @@
             android:text="收益记录"
             android:textColor="#333333"
             android:textSize="20sp" />
+
     </RelativeLayout>
 
     <LinearLayout

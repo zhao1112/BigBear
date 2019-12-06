@@ -4,12 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
-import android.text.TextUtils;
-import android.webkit.WebView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.newversions.tbk.activity.WebActivity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
@@ -18,10 +15,7 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.MemberBeanResponse;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.update.CheckForUpdateHelper;
-import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.util.StarActivityUtil;
-
 import java.util.HashMap;
 
 import permison.PermissonUtil;
