@@ -128,16 +128,13 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-
                 isloadMore = false;
                 index = 1;
                 presenter.refresh(type, id, queryIdentify, SweetRecordActivity.this, index);
-
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-
                 if (hasMore) {
                     isloadMore = true;
                     index++;
@@ -145,7 +142,6 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
                 } else {
                     refreshLayout.finishLoadmore();
                 }
-
             }
         });
 //        refreshLayout.setEnableLoadmore(false);
@@ -160,74 +156,43 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
     }
 
     private void initFragment() {
-
         rightTextView.setText("收起");
-
         fragment = new RecordFilterFragment();
-
         fragment.setListener(this);
-
         FragmentManager fragmentManager = getSupportFragmentManager();
-
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
         transaction.add(R.id.filter_container, fragment);
-
 //        transaction.addToBackStack(null);
-
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-
         transaction.commit();
-
     }
 
     private void hide() {
-
         rightTextView.setText("过滤");
-
         FragmentManager fragmentManager = getSupportFragmentManager();
-
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
         transaction.hide(fragment);
-
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-
         transaction.commit();
-
     }
 
     private void show() {
-
         rightTextView.setText("收起");
-
         FragmentManager fragmentManager = getSupportFragmentManager();
-
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
         transaction.show(fragment);
-
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-
         transaction.commit();
-
     }
 
     private void remove() {
-
         if (fragment == null) {
-
             return;
         }
-
         FragmentManager fragmentManager = getSupportFragmentManager();
-
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
         transaction.remove(fragment);
-
         transaction.commit();
-
     }
 
 
@@ -237,22 +202,16 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
         } else {
             refreshLayout.finishRefreshing();
         }
-
     }
-
 
     private boolean hasMore = true;
 
-
     @Override
     public void finishLoadedData(SweetRecord record) {
-
         not_net_group.setVisibility(View.GONE);
-
         finishRefrsh();
         if (record.isSuccese()) {
             SweetRecord.DataBean dataBean = record.getData();
-
             if (dataBean.hasMore()) {
                 hasMore = true;
                 refreshLayout.setBottomView(new RefreshBottomView(this));
@@ -260,19 +219,14 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
                 hasMore = false;
                 refreshLayout.setBottomView(new RefreshFooterView(this));
             }
-
             if (isloadMore) {
-
                 if (type == 2) {
-
                 } else {
                     datas.addAll(dataBean.getIncomeDetail());
                 }
-
             } else {
                 datas.clear();
                 if (type == 0 || type == 1) {
-
                     if (record.getData().getIncomeDetail().size() <= 0) {
                         empty.setVisibility(View.VISIBLE);
                         recyclerView.setVisibility(View.GONE);
@@ -280,15 +234,12 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
                         empty.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
                     }
-
                     int count = dataBean.getIncomeCount();
                     leftTimesTextView.setTextColor(Color.parseColor("#23A064"));
                     topLeftTextView.setText("累计挖矿获利次数：");
                     leftTimesTextView.setText("" + count);
                     datas.addAll(dataBean.getIncomeDetail());
-
                 } else {
-
                     if (record.getData().getPurchaseDetail().size() <= 0) {
                         empty.setVisibility(View.VISIBLE);
                         recyclerView.setVisibility(View.GONE);
@@ -296,7 +247,6 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
                         empty.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
                     }
-
                     int count = dataBean.getPurchaseCount();
                     leftTimesTextView.setText("" + count);
                     leftTimesTextView.setTextColor(Color.parseColor("#666666"));
@@ -305,20 +255,15 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
                         rightTextView.setVisibility(View.VISIBLE);
                     }
                     datas.addAll(dataBean.getPurchaseDetail());
-
                 }
-
             }
             adapter.notifyDataSetChanged();
         }
-
     }
 
     @Override
     public void failedLoadedData() {
-
         finishRefrsh();
-
     }
 
 
@@ -329,7 +274,6 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
 
     @Override
     public void onBackPressed() {
-
         if (type == 2) {
             if (fragment == null) {
                 super.onBackPressed();
@@ -338,27 +282,19 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
             } else {
                 super.onBackPressed();
             }
-
         } else {
             super.onBackPressed();
         }
-
     }
 
     @OnClick({R.id.toolbar_back, R.id.toolbar_right_text, R.id.reset_load_data})
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
-
             case R.id.toolbar_back:
-
                 finish();
-
                 break;
-
             case R.id.toolbar_right_text:
-
                 if (fragment == null) {
                     initFragment();
                 } else if (!fragment.isHidden()) {
@@ -366,7 +302,6 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
                 } else {
                     show();
                 }
-
                 break;
             case R.id.reset_load_data:
                 isloadMore = false;
@@ -376,21 +311,13 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
             default:
                 break;
         }
-
     }
 
     @Override
     public void onChanged(String condition) {
-
         if (!TextUtils.isEmpty(condition)) {
-
             queryIdentify = Integer.parseInt(condition);
-
             refreshLayout.startRefresh();
-
         }
-
     }
-
-
 }

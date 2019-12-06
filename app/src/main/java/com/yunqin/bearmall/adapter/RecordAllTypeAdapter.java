@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,10 +191,12 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onClick(View v) {
         int position = (int) v.getTag();
+        Log.i("position", "position -->" + position);
         if (position == 4) {
             context.startActivity(new Intent(context, IncomeRecordActivity.class));
         } else {
             SweetRecordAllType.DataBean bean = dataBeans.get(position);
+            Log.i("position", "Type -->" + bean.getType());
             SweetRecordActivity.startIncomeActivity(1, bean.getType() + "", context);
         }
     }
@@ -240,6 +243,7 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView recordContentView;
         @BindView(R.id.record_count)
         TextView recordCountView;
+
         public RecordAllTypeHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
