@@ -3,6 +3,7 @@ package com.yunqin.bearmall.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,7 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
                     }
                 });
+                Log.d("ImageUrl", fansone.getIconUrl());
                 break;
             case TYPE_TWO:
                 SecondFans.DataBean.ListBean fanstwo = (SecondFans.DataBean.ListBean) list.get(position);

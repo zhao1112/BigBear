@@ -208,6 +208,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
     private void getVerificationCode() {
         Constans.params.clear();
         Constans.params.put("machine_id", DeviceUtils.getUniqueId(this));
+        Log.i("ficationCode", DeviceUtils.getUniqueId(this));
         RetrofitApi.requestImageCode(this, RetrofitApi.createApi(Api.class).getImageCode(Constans.params),
                 new RetrofitApi.ImageCodeResponseListener() {
                     @Override
@@ -262,8 +263,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         }
         Constans.params.put("mobile", phone_number.getText().toString());
         Constans.params.put("type", type + "");
-        Constans.params.put("cid", (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(),
-                "clientid", ""));
+        Constans.params.put("cid", (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(), "clientid", ""));
 
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).userLogin(Constans.params), new RetrofitApi.IResponseListener() {
             @Override

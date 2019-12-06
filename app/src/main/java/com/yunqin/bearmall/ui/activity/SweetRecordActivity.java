@@ -43,7 +43,6 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
         RecordFilterFragment.OnFilterConditionChangedListener {
 
     private static final String TYPE = "type";
-
     private static final String ID = "id";
 
     /**
@@ -52,24 +51,17 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
      * @param type
      */
     public static void startIncomeActivity(int type, String id, Activity context) {
-
         Bundle bundle = new Bundle();
-
         bundle.putInt(TYPE, type);
-
         bundle.putString(ID, id);
-
         StarActivityUtil.starActivity(context, SweetRecordActivity.class, bundle);
-
     }
 
 
     @BindView(R.id.not_net_group)
     LinearLayout not_net_group;
-
     @BindView(R.id.record_refresh_layout)
     TwinklingRefreshLayout refreshLayout;
-
     @BindView(R.id.record_recycler)
     RecyclerView recyclerView;
 

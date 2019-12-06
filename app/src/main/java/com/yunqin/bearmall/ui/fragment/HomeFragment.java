@@ -32,6 +32,7 @@ import com.yunqin.bearmall.ui.activity.SearchActivity;
 import com.yunqin.bearmall.ui.fragment.contract.HomeContract;
 import com.yunqin.bearmall.ui.fragment.presenter.HomePresenter;
 import com.yunqin.bearmall.util.CommonUtil;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -232,41 +233,44 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
     }
 
     private void showNotice() {
-        OpenGoodsDetail.lightoff(getActivity());
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_notice, null);
-        PopupWindow mPopupWindow = new PopupWindow();
-        mPopupWindow.setContentView(view);
-        mPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-        mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        // 设置背景图片， 必须设置，不然动画没作用
-        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-        mPopupWindow.setAnimationStyle(R.style.CenterAnimation);
-        mPopupWindow.setFocusable(true);
-        // 设置点击popupwindow外屏幕其它地方消失
-        mPopupWindow.setOutsideTouchable(true);
-        // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
-        mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
-        view.findViewById(R.id.no_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPopupWindow.dismiss();
-                OpenGoodsDetail.lighton(getActivity());
-            }
-        });
-        view.findViewById(R.id.no_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPopupWindow.dismiss();
-                CommonUtil.toSelfSetting(getActivity());
-                OpenGoodsDetail.lighton(getActivity());
-            }
-        });
-        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                OpenGoodsDetail.lighton(getActivity());
-            }
-        });
+        //检查通知权限
+        if (!CommonUtils.isNotificationEnabled(getActivity())) {
+            OpenGoodsDetail.lightoff(getActivity());
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_notice, null);
+            PopupWindow mPopupWindow = new PopupWindow();
+            mPopupWindow.setContentView(view);
+            mPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+            mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+            // 设置背景图片， 必须设置，不然动画没作用
+            mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+            mPopupWindow.setAnimationStyle(R.style.CenterAnimation);
+            mPopupWindow.setFocusable(true);
+            // 设置点击popupwindow外屏幕其它地方消失
+            mPopupWindow.setOutsideTouchable(true);
+            // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
+            mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+            view.findViewById(R.id.no_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPopupWindow.dismiss();
+                    OpenGoodsDetail.lighton(getActivity());
+                }
+            });
+            view.findViewById(R.id.no_img).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPopupWindow.dismiss();
+                    CommonUtil.toSelfSetting(getActivity());
+                    OpenGoodsDetail.lighton(getActivity());
+                }
+            });
+            mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    OpenGoodsDetail.lighton(getActivity());
+                }
+            });
+        }
     }
 
     public void requestData() {

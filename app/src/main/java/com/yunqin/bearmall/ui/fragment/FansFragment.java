@@ -188,9 +188,10 @@ public class FansFragment extends BaseFragment {
                                 SecondFans();
                             }
                         } else {
-                            isMoer = false;
-                            isCMoer = false;
-                            SecondFans();
+                            hiddenLoadingView();
+                            mFansTwinkling.finishRefreshing();
+                            mFansTwinkling.finishLoadmore();
+                            mNulldata.setVisibility(View.VISIBLE);
                         }
                     } else if (type == 1) {
                         if (stairFans.getData().getList() != null && stairFans.getData().getList().size() > 0) {
@@ -198,12 +199,18 @@ public class FansFragment extends BaseFragment {
                             if (stairFans.getData().getList().size() < 10) {
                                 mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
                             }
+                            hiddenLoadingView();
+                            mFansTwinkling.finishRefreshing();
+                            mFansTwinkling.finishLoadmore();
+                            mNulldata.setVisibility(View.GONE);
+                        } else {
+                            hiddenLoadingView();
+                            mFansTwinkling.finishRefreshing();
+                            mFansTwinkling.finishLoadmore();
+                            mNulldata.setVisibility(View.VISIBLE);
                         }
                     }
                     hiddenLoadingView();
-                    mFansTwinkling.finishRefreshing();
-                    mFansTwinkling.finishLoadmore();
-                    mNulldata.setVisibility(View.GONE);
                 } else {
                     hiddenLoadingView();
                     mFansTwinkling.finishRefreshing();
@@ -248,18 +255,23 @@ public class FansFragment extends BaseFragment {
                         if (secondFans.getData().getList().size() < 10) {
                             mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
                         }
-                    }
-                    hiddenLoadingView();
-                    mFansTwinkling.finishRefreshing();
-                    mFansTwinkling.finishLoadmore();
-                    mNulldata.setVisibility(View.GONE);
-                } else {
-                    if (type == 2) {
                         hiddenLoadingView();
                         mFansTwinkling.finishRefreshing();
                         mFansTwinkling.finishLoadmore();
-                        mNulldata.setVisibility(View.VISIBLE);
+                        mNulldata.setVisibility(View.GONE);
+                    } else {
+                        if (type == 2) {
+                            hiddenLoadingView();
+                            mFansTwinkling.finishRefreshing();
+                            mFansTwinkling.finishLoadmore();
+                            mNulldata.setVisibility(View.VISIBLE);
+                        }
                     }
+                } else {
+                    hiddenLoadingView();
+                    mFansTwinkling.finishRefreshing();
+                    mFansTwinkling.finishLoadmore();
+                    mNulldata.setVisibility(View.VISIBLE);
                 }
             }
 

@@ -197,17 +197,14 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @BindView(R.id.text_total)
         TextView totalView;
-
         @BindView(R.id.text_today)
         TextView todayView;
-
         @BindView(R.id.red_package_layout)
         ConstraintLayout constraintLayout;
         @BindView(R.id.red_package_close)
         ImageView red_package_close;
         @BindView(R.id.red_package_img)
         ImageView red_package_img;
-
 
         public RecordAllHeaderHolder(View itemView) {
             super(itemView);
@@ -234,18 +231,14 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @BindView(R.id.record_image)
         ImageView imageView;
-
         @BindView(R.id.record_content)
         TextView recordContentView;
-
         @BindView(R.id.record_count)
         TextView recordCountView;
-
         public RecordAllTypeHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
     }
 
 
@@ -263,9 +256,7 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
     public interface OnRefreshClickListener {
-
         void onRefreshClicked();
-
     }
 
 

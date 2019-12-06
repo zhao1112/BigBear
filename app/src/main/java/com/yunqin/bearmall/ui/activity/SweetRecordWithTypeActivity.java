@@ -80,12 +80,10 @@ public class SweetRecordWithTypeActivity extends BaseActivity implements SweetRe
     private void initView() {
 
         titleView.setText("收益记录");
-
         backImage.setImageResource(R.drawable.icon_nav_arrow_white);
         titleView.setTextColor(getResources().getColor(R.color.white));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         dataBeans = new ArrayList<>();
         //占位
         dataBeans.add(0, new SweetRecordAllType.DataBean());
