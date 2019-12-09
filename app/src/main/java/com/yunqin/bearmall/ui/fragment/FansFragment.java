@@ -72,6 +72,7 @@ public class FansFragment extends BaseFragment {
     private int pageSize = 10;
     private boolean isMoer = true;
     private boolean isCMoer = true;
+    private boolean isMoerLoad = true;
     private RequestOptions mOptions = new RequestOptions()
             .placeholder(R.drawable.default_product)//图片加载出来前，显示的图片
             .fallback(R.drawable.default_product) //url为空的时候,显示的图片
@@ -149,8 +150,12 @@ public class FansFragment extends BaseFragment {
                         }
                     }
                 } else if (type == 1) {
-                    Stairpage++;
-                    StairFans();
+                    if (isMoerLoad) {
+                        Stairpage++;
+                        StairFans();
+                    } else {
+                        mFansTwinkling.finishLoadmore();
+                    }
                 } else if (type == 2) {
                     Secondpage++;
                     SecondFans();
@@ -197,6 +202,7 @@ public class FansFragment extends BaseFragment {
                         if (stairFans.getData().getList() != null && stairFans.getData().getList().size() > 0) {
                             mFansItemAdapter.addFansOne(stairFans.getData().getList());
                             if (stairFans.getData().getList().size() < 10) {
+                                isMoerLoad = false;
                                 mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
                             }
                             hiddenLoadingView();
@@ -265,6 +271,10 @@ public class FansFragment extends BaseFragment {
                             mFansTwinkling.finishRefreshing();
                             mFansTwinkling.finishLoadmore();
                             mNulldata.setVisibility(View.VISIBLE);
+                        } else if (type == 0) {
+                            hiddenLoadingView();
+                            mFansTwinkling.finishRefreshing();
+                            mFansTwinkling.finishLoadmore();
                         }
                     }
                 } else {
