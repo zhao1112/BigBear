@@ -154,7 +154,6 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
                         mHolder.imageView.setImageResource(R.mipmap.app_xiaofei);
                         break;
                 }
-
             } else {
                 NoNetTypeHolder mHolder = (NoNetTypeHolder) holder;
                 mHolder.refreshBtn.setOnClickListener(new View.OnClickListener() {
@@ -169,18 +168,15 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public int getItemCount() {
-
         if (NetUtils.isConnected(context)) {
             return dataBeans == null ? 1 : dataBeans.size();
         } else {
             return 2;
         }
-
     }
 
     @Override

@@ -44,7 +44,7 @@ import cn.example.lamor.AppContextLike;
 /**
  * @author Master
  */
-public class BearMallAplication extends MultiDexApplication {
+public class BearMallAplication extends MobApplication {
 
     private static BearMallAplication instance;
     private static RequestOptions options;

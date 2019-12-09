@@ -104,7 +104,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         toolbarTitle.setText(mTitle);
         if (mStringUrl.contains("hd/list")) {
             newUrl = mStringUrl + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode();
-        }else{
+        } else {
             newUrl = mStringUrl;
         }
         mWebView.loadUrl(newUrl);
@@ -159,7 +159,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                 showToast("加载失败");
                 super.onReceivedError(view, errorCode, description, failingUrl);
             }
-
 
         });
 

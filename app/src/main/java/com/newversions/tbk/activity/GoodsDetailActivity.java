@@ -340,7 +340,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     public void changeCollection(boolean collection) {
         ivCollect.setImageResource(collection ? R.mipmap.icon_collect : R.mipmap.icon_like_details);
-
     }
 
     @Override

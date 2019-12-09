@@ -39,7 +39,6 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("id", goodsId + "");
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getGoodsDetails(mHashMap), new RetrofitApi.IResponseListener() {
-
             @Override
             public void onSuccess(String data) {
                 view.hideLoad();
@@ -55,7 +54,6 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override

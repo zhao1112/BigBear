@@ -61,16 +61,13 @@ public class SweetRecordPresenter implements SwweetRecordContract.Present {
         Observable<String> observable ;
 
         switch (type){
-
             case 0:
             default:
                 observable = model.getRecordList(params);
                 break;
-
             case 1:
                 observable = model.getRecordListWithID(params);
                 break;
-
             case 2:
                 observable = model.getOutcomRecord(params);
                 break;
@@ -79,7 +76,6 @@ public class SweetRecordPresenter implements SwweetRecordContract.Present {
         RetrofitApi.request(context,observable , new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
-
                 try{
                     SweetRecord record = new Gson().fromJson(data, SweetRecord.class);
                     view.finishLoadedData(record);
@@ -87,7 +83,6 @@ public class SweetRecordPresenter implements SwweetRecordContract.Present {
                     e.printStackTrace();
                     view.failedLoadedData();
                 }
-
             }
 
             @Override
@@ -101,7 +96,5 @@ public class SweetRecordPresenter implements SwweetRecordContract.Present {
                 view.failedLoadedData();
             }
         });
-
     }
-
 }

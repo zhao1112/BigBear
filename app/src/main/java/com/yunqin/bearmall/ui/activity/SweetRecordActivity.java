@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -130,6 +131,7 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
                 isloadMore = false;
                 index = 1;
+                Log.i("queryIdentify", "queryIdentify: -->" + queryIdentify);
                 presenter.refresh(type, id, queryIdentify, SweetRecordActivity.this, index);
             }
 
@@ -152,7 +154,6 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
         adapter = new RecordAdapter(datas, this, type == 2 ? 1 : 0);
         recyclerView.setAdapter(adapter);
         refreshLayout.startRefresh();
-
     }
 
     private void initFragment() {

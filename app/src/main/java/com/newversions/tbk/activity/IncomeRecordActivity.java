@@ -114,7 +114,6 @@ public class IncomeRecordActivity extends BaseActivity {
                 }else{
                     adapter.addData(recordEntity.getData().getIncomeDetail());
                 }
-
             }
 
             @Override
