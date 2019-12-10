@@ -27,7 +27,8 @@ import static java.lang.String.valueOf;
 
 public class UpLoadImage {
 
-    public static void okHttpUpLoadImage(Context context, List<List<Uri>> lists, List<Integer> itemIds, Map<String, Object> map, OnUpLoadCallBack callBack) {
+    public static void okHttpUpLoadImage(Context context, List<List<Uri>> lists, List<Integer> itemIds, Map<String, Object> map,
+                                         OnUpLoadCallBack callBack) {
         OkHttpClient client = new OkHttpClient();
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
         for (int i = 0; i < lists.size(); i++) {
@@ -38,6 +39,7 @@ public class UpLoadImage {
                     if (file != null) {
                         RequestBody body = RequestBody.create(MediaType.parse("image/png"), file);
                         String filename = String.format("file_%d_%d", itemIds.get(i), j);
+                        Log.e("okHttpUpLoadImage", "okHttpUpLoadImage: -->" + filename);
                         requestBody.addFormDataPart("file", filename, body);
                     }
 

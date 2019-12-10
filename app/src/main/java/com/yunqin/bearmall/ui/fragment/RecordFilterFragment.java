@@ -41,21 +41,16 @@ public class RecordFilterFragment extends BaseFragment {
 
     @OnClick({R.id.bg_click})
     void backGroundClick(View view){
-
         if (getActivity()!=null){
             getActivity().onBackPressed();
         }
-
     }
 
 
     @OnClick({R.id.button1,R.id.button2,R.id.button3,R.id.button4,R.id.button5})
     public void chooseFilter(View view){
-
         for (Button button : buttons){
-
             if ( TextUtils.equals(String.valueOf(button.getTag()),String.valueOf(view.getTag()))){
-
                 button.setSelected(true);
                 String tag = String.valueOf(view.getTag());
                 if (!TextUtils.equals(lastSelectID,tag)){
@@ -70,17 +65,12 @@ public class RecordFilterFragment extends BaseFragment {
             }else {
                 button.setSelected(false);
             }
-
         }
-
     }
 
 
-
     public interface OnFilterConditionChangedListener{
-
         void onChanged(String condition);
-
     }
 
 

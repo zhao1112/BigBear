@@ -24,11 +24,10 @@ public class SweetRecordPresenter implements SwweetRecordContract.Present {
 
     private SwweetRecordContract.UI view;
 
-    public SweetRecordPresenter( SwweetRecordContract.UI view) {
+    public SweetRecordPresenter(SwweetRecordContract.UI view) {
         this.view = view;
         model = new RecordModel();
     }
-
 
 
     @Override
@@ -38,29 +37,28 @@ public class SweetRecordPresenter implements SwweetRecordContract.Present {
     }
 
     /**
-     *
-     * @param type  0 全部收入 1 收入withType 2 消费记录
-     * @param id     收入type
-     * @param queryIdentify  消费查询id
+     * @param type          0 全部收入 1 收入withType 2 消费记录
+     * @param id            收入type
+     * @param queryIdentify 消费查询id
      * @param context
      * @param index
      */
     @Override
-    public void refresh( int type,String id,int queryIdentify,Context context,int index) {
+    public void refresh(int type, String id, int queryIdentify, Context context, int index) {
 
-        Map<String,String> params = new HashMap<>();
-        params.put("page_number",index+"");
-        params.put("page_size","10");
+        Map<String, String> params = new HashMap<>();
+        params.put("page_number", index + "");
+        params.put("page_size", "10");
 
-        if (type == 1){
-            params.put("type",id);
-        }else if (type == 2 && queryIdentify != 0){
-            params.put("queryIdentify",queryIdentify+"");
+        if (type == 1) {
+            params.put("type", id);
+        } else if (type == 2 && queryIdentify != 0) {
+            params.put("queryIdentify", queryIdentify + "");
         }
 
-        Observable<String> observable ;
+        Observable<String> observable;
 
-        switch (type){
+        switch (type) {
             case 0:
             default:
                 observable = model.getRecordList(params);
@@ -73,13 +71,13 @@ public class SweetRecordPresenter implements SwweetRecordContract.Present {
                 break;
         }
 
-        RetrofitApi.request(context,observable , new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(context, observable, new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
-                try{
+                try {
                     SweetRecord record = new Gson().fromJson(data, SweetRecord.class);
                     view.finishLoadedData(record);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     view.failedLoadedData();
                 }

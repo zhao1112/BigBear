@@ -46,7 +46,6 @@ public class BearMallIntentService extends GTIntentService {
 
     @Override
     public void onReceiveMessageData(Context context, GTTransmitMessage msg) {
-
         try {
             String contentData = new String(msg.getPayload());
             JSONObject jsonObject = new JSONObject(contentData);
@@ -55,37 +54,30 @@ public class BearMallIntentService extends GTIntentService {
                 String title = jsonObject.optString("title");
                 String productId = jsonObject.optString("productId");
                 String content = jsonObject.optString("content");
-
                 Intent intent = new Intent(context, NewProductDetailActivity.class);
                 intent.putExtra("productId", "" + productId);
                 intent.putExtra("sku_id", "");
-
-
                 // TODO 处理透传消息
                 INotificationUtil.showNotification(context, intent, title, content);
             } else if ("102".equals(model)) {
                 try {
                     if (BearMallAplication.getInstance().getUser() != null) {
                         String mobile = BearMallAplication.getInstance().getUser().getData().getMember().getMobile();
-
                         boolean isHomePageShow = jsonObject.optInt("isHomePageShow") == 1;
                         boolean isMePageShow = jsonObject.optInt("isMePageShow") == 1;
-
                         if (isHomePageShow) {
                             SharedPreferencesManager.clearWhichOne(context, mobile + "home");
                         }
-
                         if (isMePageShow) {
                             SharedPreferencesManager.clearWhichOne(context, mobile + "mine");
                         }
-
                         // TODO 发送EventBus 通知Activity显示弹框
                         EventBus.getDefault().post(new PopWindowEvent());
-
                     } else {
                         SharedPreferencesManager.clearAll(context);
                     }
                 } catch (Exception e) {
+                    Log.e(TAG, "GTTransmitMessage" + e.getMessage());
                 }
             }
         } catch (Exception e) {

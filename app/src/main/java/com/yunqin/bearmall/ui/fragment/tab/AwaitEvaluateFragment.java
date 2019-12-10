@@ -37,18 +37,13 @@ public class AwaitEvaluateFragment extends LazyFragment implements TabFragmentCo
 
     @BindView(R.id.custom_empty_recommend_view)
     CustomRecommendView mCustomRecommendView;
-
     @BindView(R.id.fragment_all_recycle_view)
     RecyclerView recyclerView;
-
-    private boolean isFirst = true;
-    TabFragmentContract.Presenter presenter;
-
-
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout twinklingRefreshLayout;
 
-
+    private boolean isFirst = true;
+    TabFragmentContract.Presenter presenter;
     // 标志位，标志已经初始化完成。
     private boolean isPrepared;
 

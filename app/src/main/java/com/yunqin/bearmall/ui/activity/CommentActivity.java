@@ -64,10 +64,8 @@ public class CommentActivity extends BaseActivity implements PingJiaImgAdapter.O
 
     @BindView(R.id.toolbar_title)
     TextView mTextView;
-
     @BindView(R.id.comment_goods_list)
     LinearLayout comment_goods_list;
-
     @BindView(R.id.send_comment)
     TextView send_comment;
     @BindView(R.id.check_box)
@@ -171,7 +169,6 @@ public class CommentActivity extends BaseActivity implements PingJiaImgAdapter.O
                     }
                 }
 
-
                 mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
                 mHashMap.put("orders_id", orders_id);
                 mHashMap.put("reviews", jsonArray.toString());
@@ -188,24 +185,20 @@ public class CommentActivity extends BaseActivity implements PingJiaImgAdapter.O
             View view = viewsList.get(i);
             RecyclerView recycle_view = view.findViewById(R.id.recycle_view);
             recycle_view.setLayoutManager(new GridLayoutManager(this, 4));
-
             List<Bitmap> list = new ArrayList<>();
             PingJiaImgAdapter pingJiaImgAdapter = new PingJiaImgAdapter(this, list);
             pingJiaImgAdapter.setOnItemClickListener(this);
             recycle_view.setAdapter(pingJiaImgAdapter);
-
             recycle_view.addItemDecoration(new GridSpacingItemDecoration(4, 20));
-
             pingJiaImgAdapterList.add(pingJiaImgAdapter);
-
             StarBar ratingBar = view.findViewById(R.id.ratingBar);
             ratingBar.setOnStarChangeListener(new StarBar.OnStarChangeListener() {
                 @Override
                 public void onStarChange(float mark) {
                 }
             });
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
             if (i != 0) {
                 params.setMargins(0, 20, 0, 0);
             }
@@ -232,9 +225,7 @@ public class CommentActivity extends BaseActivity implements PingJiaImgAdapter.O
     @Override
     public void onItemClickAdd(PingJiaImgAdapter pingJiaImgAdapter, int index) {
         lastAdapter = pingJiaImgAdapter;
-
         final int dataSize = lastAdapter.getData().size();
-
         for (int i = 0; i < pingJiaImgAdapterList.size(); i++) {
             if (lastAdapter == pingJiaImgAdapterList.get(i)) {
                 lastIndex = i;
@@ -244,30 +235,23 @@ public class CommentActivity extends BaseActivity implements PingJiaImgAdapter.O
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择")
                 .setPositiveButton("照相机", new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         autoObtainCameraPermission();
                     }
                 })
                 .setNegativeButton("图库", new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
 
                         ImageSelector.builder()
                                 .useCamera(false) // 设置是否使用拍照
                                 .setSingle(false)  //设置是否单选
                                 .setMaxSelectCount(9 - dataSize) // 图片的最大选择数量，小于等于0时，不限数量。
                                 .start(CommentActivity.this, CODE_GALLERY_REQUEST); // 打开相册
-
-
                     }
                 });
         builder.create().show();
-
-
     }
 
 
@@ -279,30 +263,23 @@ public class CommentActivity extends BaseActivity implements PingJiaImgAdapter.O
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (hasSdcard()) {
                         File file = new File(SAVED_IMAGE_DIR_PATH + "/" + System.currentTimeMillis() + ".png");
-
                         imageUri = Uri.fromFile(file);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             imageUri = FileProvider.getUriForFile(CommentActivity.this, "com.bearmall.app", file);
                         }
-
                         Intent intentCamera = new Intent();
                         intentCamera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                         //将拍照结果保存至photo_file的Uri中，不保留在相册中
                         intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         startActivityForResult(intentCamera, CODE_CAMERA_REQUEST);
-
-
                     } else {
                         Log.e("TAG", "设备没有SD卡");
                     }
                 } else {
                     Log.e("TAG", "请允许打开相机！！");
                 }
-
                 break;
         }
-
-
     }
 
 
@@ -321,10 +298,9 @@ public class CommentActivity extends BaseActivity implements PingJiaImgAdapter.O
                 }
             } else if (requestCode == CODE_GALLERY_REQUEST) {
                 if (data != null) {
-
                     List<Bitmap> map = new ArrayList<>();
                     ArrayList<String> backPics = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
-
+                    Log.i("onActivityResult", "onActivityResult: " + backPics.get(0));
                     for (int i = 0; i < backPics.size(); i++) {
                         try {
                             File file = new File(backPics.get(i));
@@ -360,7 +336,8 @@ public class CommentActivity extends BaseActivity implements PingJiaImgAdapter.O
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
                 Toast.makeText(this, "您已经拒绝过一次,请到设置中打开权限", Toast.LENGTH_SHORT).show();
             }
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSIONS_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE},
+                    CAMERA_PERMISSIONS_REQUEST_CODE);
         } else {//有权限直接调用系统相机拍照
             if (hasSdcard()) {
                 File file = new File(SAVED_IMAGE_DIR_PATH + "/" + System.currentTimeMillis() + ".png");

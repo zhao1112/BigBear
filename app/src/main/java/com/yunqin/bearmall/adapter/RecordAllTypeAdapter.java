@@ -190,6 +190,10 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
         Log.i("position", "position -->" + position);
         if (position == 4) {
             context.startActivity(new Intent(context, IncomeRecordActivity.class));
+        } else if (position == dataBeans.size() - 1) {
+            SweetRecordAllType.DataBean bean = dataBeans.get(position);
+            Log.i("position", "Type -->" + bean.getType());
+            SweetRecordActivity.startIncomeActivity(2, bean.getType() + "", context);
         } else {
             SweetRecordAllType.DataBean bean = dataBeans.get(position);
             Log.i("position", "Type -->" + bean.getType());

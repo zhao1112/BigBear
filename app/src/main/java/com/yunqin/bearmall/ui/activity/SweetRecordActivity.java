@@ -131,8 +131,8 @@ public class SweetRecordActivity extends BaseActivity implements SwweetRecordCon
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
                 isloadMore = false;
                 index = 1;
-                Log.i("queryIdentify", "queryIdentify: -->" + queryIdentify);
                 presenter.refresh(type, id, queryIdentify, SweetRecordActivity.this, index);
+                Log.i("queryIdentify", "type-->" + type + " id-->" + id + " queryIdentify: -->" + queryIdentify);
             }
 
             @Override
