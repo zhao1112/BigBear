@@ -194,7 +194,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         webSettings.supportMultipleWindows();  //多窗口
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //关闭webview中缓存
         webSettings.setAllowFileAccess(true);  //设置可以访问文件
-        webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);// 打开本地缓存提供JS调用,至关重要
         webSettings.setAppCacheMaxSize(1024 * 1024 * 8);// 实现8倍缓存
         webSettings.setAllowFileAccess(true);

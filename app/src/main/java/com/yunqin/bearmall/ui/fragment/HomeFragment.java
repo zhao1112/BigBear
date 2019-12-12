@@ -25,7 +25,6 @@ import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.bean.PopBean;
 import com.yunqin.bearmall.eventbus.GetMessageEvent;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
-import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.MenuActicity;
 import com.yunqin.bearmall.ui.activity.SearchActivity;
