@@ -340,13 +340,13 @@
                     <ImageView
                         android:layout_width="100pt"
                         android:layout_height="100pt"
-                        android:src="@drawable/make_money_xinyongka" />
+                        android:src="@mipmap/app_gift_box" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/ds8"
-                        android:text="领取信用卡"
+                        android:text="幸运大抽奖"
                         android:textColor="#666666"
                         android:textSize="@dimen/ds22" />
 

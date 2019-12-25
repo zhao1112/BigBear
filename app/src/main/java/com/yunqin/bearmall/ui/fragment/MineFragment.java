@@ -132,9 +132,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @BindView(R.id.mine_withdrawal)
     LinearLayout mMineWithdrawal;
     @BindView(R.id.mine_today)
-    LinearLayout mMineToday;
-    @BindView(R.id.mine_month)
-    LinearLayout mMineMonth;
+//    LinearLayout mMineToday;
+//    @BindView(R.id.mine_month)
+            LinearLayout mMineMonth;
     @BindView(R.id.two)
     RelativeLayout mTwo;
     @BindView(R.id.mine_wallet)
@@ -405,7 +405,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 });
     }
 
-    @OnClick({R.id.mine_vip_data, R.id.mine_copy, R.id.mine_news, R.id.mine_set, R.id.mine_withdrawal, R.id.mine_today, R.id.mine_month,
+    @OnClick({R.id.mine_vip_data, R.id.mine_copy, R.id.mine_news, R.id.mine_set, R.id.mine_withdrawal, R.id.mine_today,
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
             R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip,
             R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one})
@@ -435,7 +435,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.mine_withdrawal://收益详情
             case R.id.mine_today:
-            case R.id.mine_month:
+//            case R.id.mine_month:
                 if (BearMallAplication.getInstance().getUser() != null) {
                     MineProfitActivity.openMineProfitActivity(getActivity(), MineProfitActivity.class);
                 } else {

@@ -196,15 +196,16 @@ public class MakeMoneyFragment extends BaseFragment {
                 ConstantScUtil.sensorsTrack("inviteClick", map_type);
                 break;
             case R.id.new_menu_4:// 领取信用卡
-                if (BearMallAplication.getInstance().getUser() == null) {
-                    LoginActivity.starActivity(getActivity());
-                    return;
-                }
-                String token = BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token();
-                String url = BuildConfig.BASE_URL + "/view/getCreditCardBankPage?access_token=" + token;
-                CardListWebActivity.startActivity(getActivity(), url, "信用卡申请");
-                //TODO[信用卡申请]
-                ConstantScUtil.cardApply();
+//                if (BearMallAplication.getInstance().getUser() == null) {
+//                    LoginActivity.starActivity(getActivity());
+//                    return;
+//                }
+//                String token = BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token();
+//                String url = BuildConfig.BASE_URL + "/view/getCreditCardBankPage?access_token=" + token;
+//                CardListWebActivity.startActivity(getActivity(), url, "信用卡申请");
+//                //TODO[信用卡申请]
+//                ConstantScUtil.cardApply();
+                CardListWebActivity.startActivity(getActivity(), AdConstants.STRING_XING_YUN_DA_ZHUAN_PAN, "幸运大抽奖");
                 break;
             case R.id.shangjin_right:// 赏金钱包
                 PropertyActivity.startPropertyActivity(getActivity(), 3, total, todaySum, null, null);

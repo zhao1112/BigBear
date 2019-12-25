@@ -56,7 +56,7 @@
                     <RelativeLayout
                         android:id="@+id/mine_vip"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_18"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/mine_nickname"
                         android:layout_marginLeft="@dimen/dp_11"
                         android:layout_marginTop="@dimen/dp_9"
@@ -68,8 +68,8 @@
                             android:id="@+id/image_vip"
                             android:layout_width="@dimen/dp_13"
                             android:layout_height="@dimen/dp_10"
+                            android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp_6"
-                            android:layout_marginTop="@dimen/dp_4"
                             android:src="@mipmap/mine_vip"/>
 
                         <TextView
@@ -115,7 +115,7 @@
                     <TextView
                         android:id="@+id/mine_vip_data"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_18"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/mine_nickname"
                         android:layout_marginLeft="@dimen/dp_7"
                         android:layout_marginTop="@dimen/dp_9"
@@ -129,7 +129,7 @@
                     <TextView
                         android:id="@+id/open_vip_one"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_18"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/mine_nickname"
                         android:layout_marginTop="@dimen/dp_9"
                         android:layout_toRightOf="@+id/mine_vip_data"
@@ -156,7 +156,7 @@
                 <RelativeLayout
                     android:id="@+id/code"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_23"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/mine_top"
                     android:layout_marginLeft="@dimen/dp_88"
                     android:layout_marginTop="@dimen/dp_3"
@@ -168,7 +168,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/dp_2"
+                        android:paddingBottom="@dimen/dp_2">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -315,25 +317,33 @@
                         android:background="@drawable/bg_corner_search_dialog">
 
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_above="@id/shang"
-                            android:background="@drawable/bg_corner_search_dialog">
+                            android:background="@drawable/bg_corner_search_dialog"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:id="@+id/mine_withdrawal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="@dimen/dp_35"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
+
+                                <!--<LinearLayout-->
+                                <!--android:id="@+id/mine_withdrawal"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_centerVertical="true"-->
+                                <!--android:gravity="center"-->
+                                <!--android:orientation="vertical">-->
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="可提现收益（元）"
+                                    android:text="可提现收益(元)"
                                     android:textColor="#ff777777"
                                     android:textSize="@dimen/sp_11"/>
 
@@ -344,79 +354,88 @@
                                     android:layout_marginTop="@dimen/dp_3"
                                     android:text="0.00"
                                     android:textColor="#ffd62b2b"
-                                    android:textSize="@dimen/dp_24"/>
+                                    android:textSize="@dimen/sp_24"/>
+
+                                <!--</LinearLayout>-->
 
                             </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginTop="@dimen/dp_16"
-                                android:layout_marginRight="@dimen/dp_35"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:id="@+id/mine_today"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="今日预估收益（元）"
-                                        android:textColor="#ff777777"
-                                        android:textSize="@dimen/sp_11"/>
-
-                                    <TextView
-                                        android:id="@+id/mine_today_price"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/dp_3"
-                                        android:text="0.00"
-                                        android:textColor="#ff272727"
-                                        android:textSize="@dimen/sp_16"/>
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/mine_month"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/dp_10"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="本月预估收益（元）"
-                                        android:textColor="#ff777777"
-                                        android:textSize="@dimen/sp_11"/>
-
-                                    <TextView
-                                        android:id="@+id/mine_month_price"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/dp_3"
-                                        android:text="0.00"
-                                        android:textColor="#ff272727"
-                                        android:textSize="@dimen/sp_16"/>
-
-                                </LinearLayout>
-                            </LinearLayout>
-
 
                             <View
                                 android:layout_width="@dimen/dp_0_5"
                                 android:layout_height="@dimen/dp_100"
-                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
                                 android:background="#F1F1F1"/>
 
-                        </RelativeLayout>
+                            <LinearLayout
+                                android:id="@+id/mine_today"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <!--<LinearLayout-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<LinearLayout-->
+                                <!--android:id="@+id/mine_today"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:orientation="vertical">-->
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="今日预估收益(元)"
+                                    android:textColor="#ff777777"
+                                    android:textSize="@dimen/sp_11"/>
+
+                                <TextView
+                                    android:id="@+id/mine_today_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_3"
+                                    android:text="0.00"
+                                    android:textColor="#ff272727"
+                                    android:textSize="@dimen/sp_16"/>
+
+                                <!--</LinearLayout>-->
+
+                                <!--<LinearLayout-->
+                                <!--android:id="@+id/mine_month"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="@dimen/dp_10"-->
+                                <!--android:gravity="center"-->
+                                <!--android:orientation="vertical">-->
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:text="本月预估收益(元)"
+                                    android:textColor="#ff777777"
+                                    android:textSize="@dimen/sp_11"/>
+
+                                <TextView
+                                    android:id="@+id/mine_month_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_3"
+                                    android:text="0.00"
+                                    android:textColor="#ff272727"
+                                    android:textSize="@dimen/sp_16"/>
+
+                                <!--</LinearLayout>-->
+
+                                <!--</LinearLayout>-->
+
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/shang"
@@ -437,7 +456,7 @@
                                 android:layout_marginLeft="@dimen/dp_7"
                                 android:text="每月25日结算上月预估收入，建议26日再进行提现！"
                                 android:textColor="#ff272727"
-                                android:textSize="@dimen/sp_11"/>
+                                android:textSize="@dimen/sp_10"/>
 
                         </LinearLayout>
 
