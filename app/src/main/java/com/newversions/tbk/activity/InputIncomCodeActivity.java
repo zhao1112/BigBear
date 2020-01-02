@@ -93,7 +93,6 @@ public class InputIncomCodeActivity extends BaseActivity {
                         hiddenLoadingView();
                         BearMallAplication.getInstance().setUser(userInfo);
                         showToast("登录成功");
-                        InitInvitation();
                         EventBus.getDefault().post(new FinishEvent());
                         BearMallAplication.getInstance().getActivityStack().finishActivity(LoginActivity.class);
                         //TODO[登录]
@@ -116,9 +115,5 @@ public class InputIncomCodeActivity extends BaseActivity {
                 });
                 break;
         }
-    }
-
-    private void InitInvitation() {
-        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
     }
 }

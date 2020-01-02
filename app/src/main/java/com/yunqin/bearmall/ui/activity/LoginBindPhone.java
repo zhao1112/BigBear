@@ -187,6 +187,9 @@ public class LoginBindPhone extends BaseActivity {
             return;
         }
 
+        //TODO[获取验证码]
+        ConstantScUtil.sebsorsCode();
+
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("mobile", phone_number.getText().toString().trim());
         mHashMap.put("loginType", loginType);
@@ -204,8 +207,6 @@ public class LoginBindPhone extends BaseActivity {
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
                     InputIncomCodeActivity.startInputIncomCodeActivity(LoginBindPhone.this,
                             userInfo.getData().getToken().getAccess_token(), "微信");
-                    //TODO[获取验证码]
-                    ConstantScUtil.sebsorsCode();
                     finish();
                 } else {
                     BearMallAplication.getInstance().setUser(userInfo);
@@ -214,8 +215,6 @@ public class LoginBindPhone extends BaseActivity {
                         SharedPreferencesHelper.put(LoginBindPhone.this, "isFirstBind", true);
                         SharedPreferencesHelper.put(LoginBindPhone.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
                     }
-                    //TODO[获取验证码]
-                    ConstantScUtil.sebsorsCode();
                     finish();
                 }
             }

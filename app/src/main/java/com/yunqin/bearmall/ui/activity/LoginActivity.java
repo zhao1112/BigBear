@@ -30,6 +30,7 @@ import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.util.StringUtils;
+import com.yunqin.bearmall.util.ToastUtils;
 import com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -180,7 +181,6 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             Constans.params.put("loginType", 2 + "");
         }
         String openuser = platform.getDb().exportData();
-        Log.i("openuser", "onComplete: --->" + openuser.toString());
         presenter.start(Constans.params);
         //TODO[授权]
         ConstantScUtil.sensorsAuthorized("true", "Success");
@@ -228,11 +228,13 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                     finish();
                 } else {
                     BearMallAplication.getInstance().setUser(userInfo);
-                    InitInvitation();
                     //TODO[登录]
                     ConstantScUtil.sensorsLogin("微信");
                     finish();
                 }
+            }else {
+                showToast("登录失败");
+                finish();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -256,10 +258,6 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             }
         }
         return false;
-    }
-
-    private void InitInvitation() {
-        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).createManyInviteImage(), null);
     }
 
 }
