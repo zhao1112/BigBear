@@ -47,7 +47,7 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
             public void onSuccess(String data) throws JSONException {
                 view.hideLoad();
                 try {
-                    Log.e("TCP", data);
+                    Log.e("TCP_DATA", data);
                     TBKHomeEntity tbkHomeEntity = new Gson().fromJson(data, TBKHomeEntity.class);
                     view.attachData(tbkHomeEntity);
                     view.onHasMore(true);

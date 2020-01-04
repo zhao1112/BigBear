@@ -67,6 +67,7 @@ import static com.yunqin.bearmall.ui.fragment.TrolleyFragment.ORDER_TYPE;
 public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCallBack, ScrollViewForActivityListener,
         ZeroDetailsContract.UI, ProductInstructionCallBack, BargainAddressDialog.OnBargainFreePartListener,
         sureAddressCallBack, BargainAddressDialog.IdNumber {
+
     @BindView(R.id.viewpager)
     ViewPager viewpager;
     @BindView(R.id.transparent_status_back_img)
@@ -109,34 +110,20 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
     LinearLayout productDetailJoinAct;
 
     private ProductViewPagerAdapter adapter;
-
     private float mScreenWidth;
-
     private float mAppBarAlptha = 0f;
-
     private ZeroDetailsContract.Presenter presenter;
-
     private String groupPurchasing_id;
-
-
     private ZeroActivityBean zeroActivityBean;
     private ZeroActivityBean.DataBean.GroupPurchasingItemBean groupPurchasingItemBean;
     private int isFavorite;
-
-
     private String product_id;
-
     private ServiceInstructionDialog serviceInstructionDialog;
     private PriceInstructionDialog priceInstructionDialog;
     private ActivityTextTipDialog activityTextTipDialog;
-
     private String receiver_id = "";
-
     private static final int REFUND_CODE = 66;
-
     private BargainAddressDialog bargainAddressDialog;
-
-
     private ShareBean shareBean = null;
 
     @Override
@@ -146,9 +133,7 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(CountDownFinishEvent countDownFinishEvent) {
-
         int whichRefresh = countDownFinishEvent.getWhichRefresh();
-
         if (whichRefresh == 0) {
             finish();
         }
@@ -173,9 +158,7 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
         mScreenWidth = (float) ScreenUtils.getScreenWidth(ZeroMoneyDetailsActivity.this);//获取屏幕宽度，用来计算appbar透明度
         viewpagerPageChange();//处理viewpager页面选中事件
 
-
         groupPurchasing_id = getIntent().getExtras().getString("groupPurchasing_id", "0");
-
 
         Map map = new HashMap();
         map.put("groupPurchasing_id", groupPurchasing_id);
@@ -209,14 +192,11 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                 } else {
                     ShareUtil.Share(this, shareBean.getData(), false);
                 }
-
                 break;
             case R.id.show_status_go_cart_img:
-
                 Intent intent1 = new Intent(ZeroMoneyDetailsActivity.this, TrolleyActivity.class);
                 intent1.putExtra("isBack", true);
                 startActivity(intent1);
-
                 break;
             case R.id.product_layout_collect:
                 Map map = new HashMap();
@@ -233,37 +213,32 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                 hiddenLoadingView();
                 presenter.setFavorite(map);
                 break;
-
             case R.id.zero_detail_add_cart:
                 if (groupPurchasingItemBean == null) {
                     showToast("请稍后再试");
                     return;
                 }
 
-
                 try {
-                    if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
-                        goBuy();
-                    } else {
-                        joinMember("您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！");
-                    }
+//                    if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
+                    goBuy();
+//                    } else {
+//                        joinMember("您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！");
+//                    }
                 } catch (Exception e) {
 
                 }
-
                 break;
-
             case R.id.product_detail_join_act:
                 if (groupPurchasingItemBean == null) {
                     showToast("请稍后再试");
                     return;
                 }
 
-                if (!BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
-                    joinMember("您还不是会员，无法兑换。马上开通会员享受更多权益！");
-                    return;
-                }
-
+//                if (!BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
+//                    joinMember("您还不是会员，无法兑换。马上开通会员享受更多权益！");
+//                    return;
+//                }
 
                 Constans.params.clear();
                 showLoading();
@@ -297,8 +272,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                 .setListenedItems(new int[]{R.id.join_member_no, R.id.join_member_ok})
                 .setCustomTextIds(new int[]{R.id.join_member_no, R.id.tip})
                 .setCustomTextContents(new String[]{"我再想想", tip})
-
-
                 // 设置回掉
                 .setOnDialogItemClickListener((thisDialog, clickView) -> {
                     if (clickView.getId() == R.id.join_member_ok) {
@@ -326,7 +299,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
 
             String guiGe = stringBuffer.toString();
 
-
             NewOrderChildBean newOrderChildBean = new NewOrderChildBean(name, imgUrl, price, guiGe, "1", productId, SkuId, 1);
 
             String storeName = groupPurchasingItemBean.getStoreName();
@@ -352,7 +324,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
 
     @Override
     public void onScrollChanged(DeficitScrollView scrollView, int x, int y, int oldx, int oldy) {
-
         mAppBarAlptha = ((float) y) / mScreenWidth;
         if (mAppBarAlptha >= 1) {
             mAppBarAlptha = 1;
@@ -360,7 +331,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
             appbar.setAlpha(mAppBarAlptha);
             transparentStatusHeadLayout.setAlpha(1 - mAppBarAlptha);
         }
-
     }
 
     private void viewpagerPageChange() {
@@ -369,7 +339,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 if (position == 1 || position == 2) {
@@ -380,7 +349,6 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                     transparentStatusHeadLayout.setAlpha(1 - mAppBarAlptha);
                 }
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 
@@ -426,7 +394,7 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
         joinMoney.setText("¥0+BC" + zeroActivityBean.getData().getGroupPurchasingItem().getCost());
 
 
-        needPeopleNumber.setText("兑换价");
+        needPeopleNumber.setText("直购价");
     }
 
     @Override
@@ -572,14 +540,12 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
         this.receiver_id = "";
     }
 
-
     private String idNumber;
 
     @Override
     public void onIdNumber(String idNumber) {
         this.idNumber = idNumber;
     }
-
 
     private void jump2VipActivity() {
         UserInfo user = BearMallAplication.getInstance().getUser();

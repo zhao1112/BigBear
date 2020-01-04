@@ -3,6 +3,7 @@ package com.newversions.tbk.fragment;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;

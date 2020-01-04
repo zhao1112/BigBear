@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +64,7 @@ import static com.newversions.tbk.fragment.NewVersionTBKHomeAdapter.FRAGMENT_TYP
 import static com.newversions.tbk.fragment.NewVersionTBKHomeAdapter.FRAGMENT_TYPE.VIEW_TYPE_IMAGE;
 import static com.newversions.tbk.fragment.NewVersionTBKHomeAdapter.FRAGMENT_TYPE.VIEW_TYPE_TOP_BAR;
 import static com.newversions.tbk.fragment.NewVersionTBKHomeAdapter.FRAGMENT_TYPE.VIEW_TYPE_ZONE_LIST;
+import static com.newversions.tbk.fragment.NewVersionTBKHomeAdapter.FRAGMENT_TYPE.VIEW_TYPE_IMAGE_FOUR;
 
 /**
  * Create By Master
@@ -69,14 +72,10 @@ import static com.newversions.tbk.fragment.NewVersionTBKHomeAdapter.FRAGMENT_TYP
  */
 public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
-    private final int HEADER_COUNT = 3;
-    private int DYNAMICALLY_ADD_COUNT = 0;
-
     private Activity context;
     private HomeBean homeBeanList;
-
     private List<Object> datas;
-
+    private String center_bg;
 
     public NewVersionTBKHomeAdapter(Activity context) {
         this.context = context;
@@ -86,10 +85,11 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
     public void setData(TBKHomeEntity homeBeanList) {
         datas.clear();
         //  2019/7/13 0013 初始化首页数据
+        center_bg = homeBeanList.getCenter_bg();
         List<TBKHomeEntity.BannerBean> bannerOne = homeBeanList.getBannerOne();
         List<TBKHomeEntity.BannerBean> bannerTwo = homeBeanList.getBannerTwo();
         List<TBKHomeEntity.BannerTwoBean> bannerThree = homeBeanList.getBannerThree();
-        List<TBKHomeEntity.BannerTwoBean> bannerFour = homeBeanList.getBannerFour();
+        List<TBKHomeEntity.BannerFourBean> bannerFour = homeBeanList.getBannerFour();
         List<TBKHomeEntity.CommodityBean> commodity = homeBeanList.getCommodity();//热门榜单
         List<TBKHomeEntity.ClassificationBean> classification = homeBeanList.getClassification();//banner下的导航
         List<TBKHomeEntity.GroupPurchasingListBean> groupPurchasingList = homeBeanList.getGroupPurchasingList();//0元兑
@@ -98,7 +98,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         datas.add(new BannersBean(bannerTwo, BannersBean.BANNER_TYPE_2));//添加导航下的Banner数据
         datas.addAll(bannerThree);//添加第一个四位活动图
         datas.add(new CommodityBean(commodity));//添加热卖榜单为一个item
-        datas.add(homeBeanList.getActiveTitle()+"");//添加活动标题
+        datas.add(homeBeanList.getActiveTitle() + "");//添加活动标题
         datas.addAll(bannerFour);//添加第二个四位活动图
         datas.add(new GroupPurchasing(groupPurchasingList));//添加0元兑，为一个item
         datas.add(VIEW_TYPE_GOODS_TITLE);//添加为你推荐的占位item
@@ -112,7 +112,6 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         datas.addAll(homeBeanList.getRecommend());//添加商品列表数据
         notifyDataSetChanged();
     }
-
 
 
     @NonNull
@@ -146,8 +145,11 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 view = LayoutInflater.from(context).inflate(R.layout.item_home_banner_mid, parent, false);
                 return new BannerHolder(view);
             case VIEW_TYPE_ACTIVE_TITLE:
-                view = LayoutInflater.from(context).inflate(R.layout.item_home_active_title,parent,false);
+                view = LayoutInflater.from(context).inflate(R.layout.item_home_active_title, parent, false);
                 return new ActiveTitleHolder(view);
+            case VIEW_TYPE_IMAGE_FOUR:
+                view = LayoutInflater.from(context).inflate(R.layout.item_home_image, parent, false);
+                return new ImageHolder(view);
         }
         return null;
     }
@@ -165,11 +167,15 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                     urls.add(bannersBean.banners.get(i).getImage());
                 }
                 BannerHolder bannerHolder = (BannerHolder) holder;
+                if (!TextUtils.isEmpty(center_bg)) {
+                    bannerHolder.banner_color.setBackgroundColor(Color.parseColor(center_bg));
+                }
                 bannerHolder.setDatas(urls);
                 bannerHolder.setBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
-                        BannerClicker.bannerClick(context,bannersBean.banners.get(position).getTargetType(),bannersBean.banners.get(position).getTarget(),bannersBean.banners.get(position).getTitle());
+                        BannerClicker.bannerClick(context, bannersBean.banners.get(position).getTargetType(),
+                                bannersBean.banners.get(position).getTarget(), bannersBean.banners.get(position).getTitle());
                     }
                 });
                 break;
@@ -180,7 +186,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(classificationBean.getImg()).into(topBarHolder.imTopBar);
                 topBarHolder.tvTopBar.setText(classificationBean.getName());
                 topBarHolder.itemView.setOnClickListener(v -> {
-                    TopBarClicker.topBarClick(context,classificationBean);
+                    TopBarClicker.topBarClick(context, classificationBean);
                 });
                 topBarHolder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
                 break;
@@ -188,20 +194,43 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 //  2019/7/15 0015 活动页
                 TBKHomeEntity.BannerTwoBean bannerTwoBean = (TBKHomeEntity.BannerTwoBean) datas.get(position);
                 ImageHolder imageHolder = (ImageHolder) holder;
-
+                if (!TextUtils.isEmpty(center_bg)) {
+                    imageHolder.view_color.setBackgroundColor(Color.parseColor(center_bg));
+                }
                 Glide.with(context)
                         .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
                         .asBitmap()
                         .load(bannerTwoBean.getImage())
                         .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        imageHolder.imageView.setImageBitmap(resource);
-                    }
-                });
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                imageHolder.imageView.setImageBitmap(resource);
+                            }
+                        });
 
-                imageHolder.imageView.setOnClickListener(v ->{
-                    BannerClicker.bannerClick(context,bannerTwoBean.getTargetType(),bannerTwoBean.getTarget(),bannerTwoBean.getTitle());
+                imageHolder.imageView.setOnClickListener(v -> {
+                    BannerClicker.bannerClick(context, bannerTwoBean.getTargetType(), bannerTwoBean.getTarget(), bannerTwoBean.getTitle());
+                });
+                break;
+            case VIEW_TYPE_IMAGE_FOUR:
+                //  2019/7/15 0015 活动页
+                TBKHomeEntity.BannerFourBean bannerFourBean = (TBKHomeEntity.BannerFourBean) datas.get(position);
+                ImageHolder imageHolderFour = (ImageHolder) holder;
+
+                Glide.with(context)
+                        .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
+                        .asBitmap()
+                        .load(bannerFourBean.getImage())
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                imageHolderFour.imageView.setImageBitmap(resource);
+                            }
+                        });
+
+                imageHolderFour.imageView.setOnClickListener(v -> {
+                    BannerClicker.bannerClick(context, bannerFourBean.getTargetType(), bannerFourBean.getTarget(),
+                            bannerFourBean.getTitle());
                 });
                 break;
             case VIEW_TYPE_HOT_LIST:
@@ -234,10 +263,11 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 goodsViewHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 goodsViewHolder.tvCommision.setText("预估佣金：" + recommendBean.getCommision());
                 Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(recommendBean.getOutIcon()).into(goodsViewHolder.itemHomeProImage);
-                goodsViewHolder.itemSellerName.setText(StringUtils.addImageLabel(context, recommendBean.getTmall() == 1 ? R.mipmap.icon_tmall : R.mipmap.icon_taobao1, recommendBean.getSellerName()));
+                goodsViewHolder.itemSellerName.setText(StringUtils.addImageLabel(context, recommendBean.getTmall() == 1 ?
+                        R.mipmap.icon_tmall : R.mipmap.icon_taobao1, recommendBean.getSellerName()));
                 goodsViewHolder.itemView.setOnClickListener(v -> {
                     Intent intent = new Intent(context, GoodsDetailActivity.class);
-                    intent.putExtra(Constants.INTENT_KEY_ID, recommendBean.getItemId()+"");
+                    intent.putExtra(Constants.INTENT_KEY_ID, recommendBean.getItemId() + "");
                     intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                     intent.putExtra(Constants.INTENT_KEY_COMM, recommendBean.getCommision());
                     context.startActivity(intent);
@@ -266,7 +296,8 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         }*/
     }
 
-    @IntDef({VIEW_TYPE_DEFAULT, VIEWT_TYPE_BANNER, VIEW_TYPE_TOP_BAR, VIEW_TYPE_IMAGE, VIEW_TYPE_HOT_LIST, VIEW_TYPE_ZONE_LIST, VIEW_TYPE_GOODS_TITLE, VIEW_TYPE_GOODS,VIEW_TYPE_BANNER_MID,VIEW_TYPE_ACTIVE_TITLE})
+    @IntDef({VIEW_TYPE_DEFAULT, VIEWT_TYPE_BANNER, VIEW_TYPE_TOP_BAR, VIEW_TYPE_IMAGE, VIEW_TYPE_HOT_LIST, VIEW_TYPE_ZONE_LIST,
+            VIEW_TYPE_GOODS_TITLE, VIEW_TYPE_GOODS, VIEW_TYPE_BANNER_MID, VIEW_TYPE_ACTIVE_TITLE, VIEW_TYPE_IMAGE_FOUR})
     public @interface FRAGMENT_TYPE {
         int VIEW_TYPE_DEFAULT = 0;
         int VIEWT_TYPE_BANNER = 1;
@@ -278,19 +309,23 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         int VIEW_TYPE_GOODS = 7;
         int VIEW_TYPE_BANNER_MID = 8;
         int VIEW_TYPE_ACTIVE_TITLE = 9;
+        int VIEW_TYPE_IMAGE_FOUR = 10;
     }
 
     @Override
     public int getItemViewType(int position) {
         //  2019/7/13 0013 根据数据类型返回ViewType
         if (datas.get(position) instanceof BannersBean) {
-            return ((BannersBean)datas.get(position)).bannerType == BannersBean.BANNER_TYPE_TOP?VIEWT_TYPE_BANNER:VIEW_TYPE_BANNER_MID;
+            return ((BannersBean) datas.get(position)).bannerType == BannersBean.BANNER_TYPE_TOP ? VIEWT_TYPE_BANNER : VIEW_TYPE_BANNER_MID;
         }
         if (datas.get(position) instanceof TBKHomeEntity.ClassificationBean) {
             return VIEW_TYPE_TOP_BAR;
         }
         if (datas.get(position) instanceof TBKHomeEntity.BannerTwoBean) {
             return VIEW_TYPE_IMAGE;
+        }
+        if (datas.get(position) instanceof TBKHomeEntity.BannerFourBean) {
+            return VIEW_TYPE_IMAGE_FOUR;
         }
         if (datas.get(position) instanceof CommodityBean) {
             return VIEW_TYPE_HOT_LIST;
@@ -304,7 +339,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         if (datas.get(position) instanceof Integer) {
             return VIEW_TYPE_GOODS_TITLE;
         }
-        if (datas.get(position) instanceof String){
+        if (datas.get(position) instanceof String) {
             return VIEW_TYPE_ACTIVE_TITLE;
         }
 
@@ -332,19 +367,22 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 return 5;
             case VIEW_TYPE_ACTIVE_TITLE:
                 return 10;
+            case VIEW_TYPE_IMAGE_FOUR:
+                return 5;
             default:
                 return 10;
         }
     }
 
 
-    class ActiveTitleHolder extends RecyclerView.ViewHolder{
+    class ActiveTitleHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_title)
         TextView tvTitle;
+
         public ActiveTitleHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -356,6 +394,8 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         //        int id = R.layout.item_home_banner_top;
         @BindView(R.id.banner)
         Banner banner;
+        @BindView(R.id.banner_color)
+        LinearLayout banner_color;
 
         public BannerHolder(View itemView) {
             super(itemView);
@@ -396,6 +436,8 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         //        int id = R.layout.item_home_image;
         @BindView(R.id.image_view_6)
         ImageView imageView;
+        @BindView(R.id.image_view_color)
+        LinearLayout view_color;
 
         public ImageHolder(View itemView) {
             super(itemView);
@@ -636,6 +678,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
      * banner
      */
     private class BannersBean {
+
         static final int BANNER_TYPE_TOP = 1;
         static final int BANNER_TYPE_2 = 2;
         int bannerType;

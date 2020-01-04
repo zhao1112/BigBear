@@ -22,11 +22,20 @@ public class TBKHomeEntity {
     private List<BannerBean> bannerOne;
     private List<CommodityBean> commodity;
     private List<BannerTwoBean> bannerThree;
-    private List<BannerTwoBean> bannerFour;
+    private List<BannerFourBean> bannerFour;
     private List<BannerBean> bannerTwo;
     private List<GroupPurchasingListBean> groupPurchasingList;
     private List<ClassificationBean> classification;
     private String activeTitle;
+    private String center_bg;
+
+    public String getCenter_bg() {
+        return center_bg;
+    }
+
+    public void setCenter_bg(String center_bg) {
+        this.center_bg = center_bg;
+    }
 
     public String getActiveTitle() {
         return activeTitle;
@@ -76,11 +85,11 @@ public class TBKHomeEntity {
         this.bannerThree = bannerThree;
     }
 
-    public List<BannerTwoBean> getBannerFour() {
+    public List<BannerFourBean> getBannerFour() {
         return bannerFour;
     }
 
-    public void setBannerFour(List<BannerTwoBean> bannerFour) {
+    public void setBannerFour(List<BannerFourBean> bannerFour) {
         this.bannerFour = bannerFour;
     }
 
@@ -107,6 +116,7 @@ public class TBKHomeEntity {
     public void setClassification(List<ClassificationBean> classification) {
         this.classification = classification;
     }
+
     public static class BannerTwoBean {
         /**
          * image : 372
@@ -181,6 +191,82 @@ public class TBKHomeEntity {
             this.target = target;
         }
     }
+
+    public static class BannerFourBean {
+        /**
+         * image : 372
+         * urlType : true
+         * id : 17
+         * title : 首页顶部
+         * type : true
+         * target : 0
+         */
+
+        private String image;
+        private boolean urlType;
+        private int id;
+        private String title;
+        private boolean type;
+        private String target;
+        private int targetType;
+
+        public int getTargetType() {
+            return targetType;
+        }
+
+        public void setTargetType(int targetType) {
+            this.targetType = targetType;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public boolean isUrlType() {
+            return urlType;
+        }
+
+        public void setUrlType(boolean urlType) {
+            this.urlType = urlType;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public boolean isType() {
+            return type;
+        }
+
+        public void setType(boolean type) {
+            this.type = type;
+        }
+
+        public String getTarget() {
+            return target;
+        }
+
+        public void setTarget(String target) {
+            this.target = target;
+        }
+    }
+
     public static class BannerBean {
         /**
          * image : 372
@@ -298,14 +384,14 @@ public class TBKHomeEntity {
          * sellerName : 超级宝宝母婴馆
          * moduleCategoryId : null
          * content : <p>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-06-30/183f9e77-97cc-4e73-b694-c35798efa081.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/21e4794a-3147-4601-b5d2-609c13e4a808.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/bf9811ce-ff78-492a-ac5d-ff8968b535b1.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/deb50eec-aceb-457a-9735-377471496862.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/cf4d1fbb-4c8e-4113-8890-c044680db105.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/2cd835f9-af5c-45d7-9bc1-22429db29468.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/0efa9143-9b07-446e-b0ae-1271327d8c73.jpg"></img>
-         </p>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-06-30/183f9e77-97cc-4e73-b694-c35798efa081.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/21e4794a-3147-4601-b5d2-609c13e4a808.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/bf9811ce-ff78-492a-ac5d-ff8968b535b1.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/deb50eec-aceb-457a-9735-377471496862.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/cf4d1fbb-4c8e-4113-8890-c044680db105.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/2cd835f9-af5c-45d7-9bc1-22429db29468.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/0efa9143-9b07-446e-b0ae-1271327d8c73.jpg"></img>
+         * </p>
          * enabled : true
          * virtualSales : null
          * brandSellerId : null
@@ -795,7 +881,10 @@ public class TBKHomeEntity {
          * groupNumber : 1
          * specifications : ["银色","55英寸"]
          * productName : 三星(SAMSUNG) UA55KS7300JXXZ电视
-         * productImages : {"source":"http://image.demo.b2b2c.shopxx.net/6.0/218c5c93-8ade-4040-ad4c-31dd12c8ddd0_source.jpg","large":"http://image.demo.b2b2c.shopxx.net/6.0/218c5c93-8ade-4040-ad4c-31dd12c8ddd0_large.jpg","medium":"http://image.demo.b2b2c.shopxx.net/6.0/218c5c93-8ade-4040-ad4c-31dd12c8ddd0_medium.jpg","thumbnail":"http://image.demo.b2b2c.shopxx.net/6.0/218c5c93-8ade-4040-ad4c-31dd12c8ddd0_thumbnail.jpg","order":0}
+         * productImages : {"source":"http://image.demo.b2b2c.shopxx.net/6.0/218c5c93-8ade-4040-ad4c-31dd12c8ddd0_source.jpg",
+         * "large":"http://image.demo.b2b2c.shopxx.net/6.0/218c5c93-8ade-4040-ad4c-31dd12c8ddd0_large.jpg","medium":"http://image.demo
+         * .b2b2c.shopxx.net/6.0/218c5c93-8ade-4040-ad4c-31dd12c8ddd0_medium.jpg","thumbnail":"http://image.demo.b2b2c.shopxx.net/6
+         * .0/218c5c93-8ade-4040-ad4c-31dd12c8ddd0_thumbnail.jpg","order":0}
          * price : 8490.00
          * productVideo : null
          * membershipPrice : 6000.00

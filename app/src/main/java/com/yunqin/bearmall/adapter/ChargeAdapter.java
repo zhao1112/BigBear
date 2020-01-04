@@ -18,9 +18,8 @@ import butterknife.ButterKnife;
 
 public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    Context context;
-    List<Charge> datas;
-
+    private Context context;
+    private List<Charge> datas;
     private int lastSeletIndex = -1;
 
     public ChargeAdapter(Context context, List<Charge> datas) {
@@ -35,28 +34,28 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == 0){
-            View view = LayoutInflater.from(context).inflate(R.layout.item_charge_phone,parent,false);
+        if (viewType == 0) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_charge_phone, parent, false);
             return new ChargeViewHolder(view);
         }
-        View view = LayoutInflater.from(context).inflate(R.layout.item_charge_flow,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_charge_flow, parent, false);
         return new FlowViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ChargeViewHolder){
-            handlePhoneCharge((ChargeViewHolder)holder,position);
-        }else if (holder instanceof FlowViewHolder){
-            handleFlowCharge((FlowViewHolder)holder,position);
+        if (holder instanceof ChargeViewHolder) {
+            handlePhoneCharge((ChargeViewHolder) holder, position);
+        } else if (holder instanceof FlowViewHolder) {
+            handleFlowCharge((FlowViewHolder) holder, position);
         }
     }
 
-    private void  handlePhoneCharge(ChargeViewHolder holder,int position){
+    private void handlePhoneCharge(ChargeViewHolder holder, int position) {
 
-       holder.itemView.setTag(position);
-       Charge charge = datas.get(position);
-       boolean isSelect = charge.isSelect();
+        holder.itemView.setTag(position);
+        Charge charge = datas.get(position);
+        boolean isSelect = charge.isSelect();
         holder.itemView.setSelected(isSelect);
         holder.chargeNameView.setSelected(isSelect);
         holder.chargePriceView.setSelected(isSelect);
@@ -64,12 +63,12 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.itemView.setOnClickListener(onClickListener);
 
         holder.chargeNameView.setText(charge.getTitle());
-        holder.chargePriceView.setText(String.format("售价 %s元",charge.getPayPrice()));
-        holder.chargeBearView.setText(String.format("金熊价 %s元",charge.getMembershipPrice()));
+        holder.chargePriceView.setText(String.format("售价 %s元", charge.getPayPrice()));
+        holder.chargeBearView.setText(String.format("售价 %s元", charge.getMembershipPrice()));
 
     }
 
-    private void  handleFlowCharge(FlowViewHolder holder,int position){
+    private void handleFlowCharge(FlowViewHolder holder, int position) {
         Charge charge = datas.get(position);
         boolean isSelect = charge.isSelect();
         holder.itemView.setSelected(isSelect);
@@ -82,12 +81,12 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-           int position = (int) view.getTag();
-            if (lastSeletIndex != position){
+            int position = (int) view.getTag();
+            if (lastSeletIndex != position) {
                 Charge charge = datas.get(position);
                 charge.setSelect(!charge.isSelect());
                 notifyItemChanged(position);
-                if (lastSeletIndex != -1){
+                if (lastSeletIndex != -1) {
                     Charge last = datas.get(lastSeletIndex);
                     last.setSelect(!last.isSelect());
                     notifyItemChanged(lastSeletIndex);
@@ -110,7 +109,7 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return charge.getType();
     }
 
-    class ChargeViewHolder extends RecyclerView.ViewHolder{
+    class ChargeViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.charge_name)
         TextView chargeNameView;
@@ -121,12 +120,12 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public ChargeViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
     }
 
-    class FlowViewHolder extends RecyclerView.ViewHolder{
+    class FlowViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.charge_name)
         TextView chargeFlowNameView;
@@ -135,10 +134,9 @@ public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public FlowViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
-
 
 
 }

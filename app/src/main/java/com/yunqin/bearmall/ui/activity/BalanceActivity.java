@@ -162,41 +162,41 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     private boolean isBind = false;
 
     private void checkWx() {
-        if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
-            if (BearMallAplication.getInstance().getUser().getData().getMember().isBindWxopenId() || isBind) {
-                BalanceWithdrawalWxActivity.startActivity(this, money);
-            } else {
-                new ICustomDialog.Builder(this)
-                        // 设置布局
-                        .setLayoutResId(R.layout.join_member_layout)
-                        // 点击空白是否消失
-                        .setCanceledOnTouchOutside(true)
-                        // 点击返回键是否消失
-                        .setCancelable(true)
-                        // 设置Dialog的绝对位置
-                        .setDialogPosition(Gravity.CENTER)
-                        // 设置自定义动画
-                        .setAnimationResId(0)
-                        // 设置监听ID
-                        .setListenedItems(new int[]{R.id.join_member_no, R.id.join_member_ok})
-                        .setCustomTextIds(new int[]{R.id.tip, R.id.join_member_no, R.id.join_member_ok})
-                        .setCustomTextContents(new String[]{"您还未绑定微信,请先绑定微信再进行提现", "我再想想", "立即绑定"})
-                        // 设置回掉
-                        .setOnDialogItemClickListener((thisDialog, clickView) -> {
-                            thisDialog.dismiss();
-                            if (clickView.getId() == R.id.join_member_ok) {
-                                showLoading();
-                                Platform platform = ShareSDK.getPlatform(Wechat.NAME);
-                                platform.SSOSetting(false);
-                                platform.setPlatformActionListener(this);
-                                platform.authorize();
-                            }
-                        })
-                        .build().show();
-            }
+//        if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
+        if (BearMallAplication.getInstance().getUser().getData().getMember().isBindWxopenId() || isBind) {
+            BalanceWithdrawalWxActivity.startActivity(this, money);
         } else {
-            joinMember_();
+            new ICustomDialog.Builder(this)
+                    // 设置布局
+                    .setLayoutResId(R.layout.join_member_layout)
+                    // 点击空白是否消失
+                    .setCanceledOnTouchOutside(true)
+                    // 点击返回键是否消失
+                    .setCancelable(true)
+                    // 设置Dialog的绝对位置
+                    .setDialogPosition(Gravity.CENTER)
+                    // 设置自定义动画
+                    .setAnimationResId(0)
+                    // 设置监听ID
+                    .setListenedItems(new int[]{R.id.join_member_no, R.id.join_member_ok})
+                    .setCustomTextIds(new int[]{R.id.tip, R.id.join_member_no, R.id.join_member_ok})
+                    .setCustomTextContents(new String[]{"您还未绑定微信,请先绑定微信再进行提现", "我再想想", "立即绑定"})
+                    // 设置回掉
+                    .setOnDialogItemClickListener((thisDialog, clickView) -> {
+                        thisDialog.dismiss();
+                        if (clickView.getId() == R.id.join_member_ok) {
+                            showLoading();
+                            Platform platform = ShareSDK.getPlatform(Wechat.NAME);
+                            platform.SSOSetting(false);
+                            platform.setPlatformActionListener(this);
+                            platform.authorize();
+                        }
+                    })
+                    .build().show();
         }
+//        } else {
+//            joinMember_();
+//        }
     }
 
 
@@ -231,11 +231,11 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     }
 
     private void boundBankCard_() {
-        if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
-            BalanceWithdrawalActivity.startActivity(this, money);
-        } else {
-            joinMember_();
-        }
+//        if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
+        BalanceWithdrawalActivity.startActivity(this, money);
+//        } else {
+//            joinMember_();
+//        }
     }
 
     private void notBoundBankCard_() {
@@ -306,32 +306,32 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 Toast.makeText(BalanceActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
                 RetrofitApi.request(BalanceActivity.this, RetrofitApi.createApi(Api.class).getMemberInfo(new HashMap<>()),
                         new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        hiddenLoadingView();
-                        try {
-                            UserInfo userInfo = BearMallAplication.getInstance().getUser();
-                            UserInfo.DataBean dataBean = userInfo.getData();
-                            MemberBeanResponse response = new Gson().fromJson(data, MemberBeanResponse.class);
-                            UserInfo.DataBean.MemberBean memberBean = response.getData();
-                            dataBean.setMember(memberBean);
-                            userInfo.setData(dataBean);
-                            BearMallAplication.getInstance().setUser(userInfo);
-                        } catch (JsonSyntaxException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                            @Override
+                            public void onSuccess(String data) {
+                                hiddenLoadingView();
+                                try {
+                                    UserInfo userInfo = BearMallAplication.getInstance().getUser();
+                                    UserInfo.DataBean dataBean = userInfo.getData();
+                                    MemberBeanResponse response = new Gson().fromJson(data, MemberBeanResponse.class);
+                                    UserInfo.DataBean.MemberBean memberBean = response.getData();
+                                    dataBean.setMember(memberBean);
+                                    userInfo.setData(dataBean);
+                                    BearMallAplication.getInstance().setUser(userInfo);
+                                } catch (JsonSyntaxException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        hiddenLoadingView();
-                    }
+                            @Override
+                            public void onNotNetWork() {
+                                hiddenLoadingView();
+                            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        hiddenLoadingView();
-                    }
-                });
+                            @Override
+                            public void onFail(Throwable e) {
+                                hiddenLoadingView();
+                            }
+                        });
             }
 
             @Override

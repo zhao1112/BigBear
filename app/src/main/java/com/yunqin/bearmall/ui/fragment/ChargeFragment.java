@@ -39,40 +39,32 @@ import butterknife.OnClick;
 
 public class ChargeFragment extends BaseFragment {
 
-    public static ChargeFragment instance() {
-
-        ChargeFragment fragment = new ChargeFragment();
-
-        return fragment;
-    }
-
-
     @BindView(R.id.charge)
     Button buyButton;
     @BindView(R.id.layout_vip)
     View vipContainer;
-
     @BindView(R.id.layout_no_vip)
     View noVipContainer;
-
     @BindView(R.id.charge_warn)
     TextView warnView;
     @BindView(R.id.use_time)
     TextView userTimeView;
     @BindView(R.id.recycler_view_charge)
     RecyclerView chargeRecyclerView;
-
     @BindView(R.id.use_time_no)
     TextView userTimeViewNo;
-
 
     private ChargeAdapter adapter;
     private List<Charge> charges;
     private int ticketCount;
     private String mobile;
     private int carrierType;
-
     private OnGetChargeDataListener onGetChargeDataListener;
+
+    public static ChargeFragment instance() {
+        ChargeFragment fragment = new ChargeFragment();
+        return fragment;
+    }
 
     public void setOnGetChargeDataListener(OnGetChargeDataListener onGetChargeDataListener) {
         this.onGetChargeDataListener = onGetChargeDataListener;
@@ -90,7 +82,7 @@ public class ChargeFragment extends BaseFragment {
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         chargeRecyclerView.setLayoutManager(layoutManager);
-        chargeRecyclerView.addItemDecoration(new RecyclerItemDecoration(30, 3));
+        chargeRecyclerView.addItemDecoration(new RecyclerItemDecoration(10, 3));
         chargeRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
@@ -113,16 +105,12 @@ public class ChargeFragment extends BaseFragment {
     }
 
     public void loadData() {
-
         Map<String, String> params = new HashMap<>();
-
         RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getVirtualRechargeInfo(params),
                 new RetrofitApi.IResponseListener() {
                     @Override
                     public void onSuccess(String data) throws JSONException {
-
                         ChargeResponse response = new Gson().fromJson(data, ChargeResponse.class);
-
                         if (response.isSuccess()) {
                             ChargeResponse.DataBean dataBean = response.getData();
                             if (onGetChargeDataListener != null) {
@@ -130,7 +118,6 @@ public class ChargeFragment extends BaseFragment {
                             }
                             mobile = dataBean.getMobile();
                             carrierType = dataBean.getCarrierType();
-
                             ticketCount = dataBean.getUsableTicketCount();
                             boolean isMember = dataBean.getIsMs() == 1;
                             if (isMember) {
@@ -164,8 +151,6 @@ public class ChargeFragment extends BaseFragment {
 
                     }
                 });
-
-
     }
 
     @OnClick({R.id.charge, R.id.use_time_no})
@@ -185,9 +170,7 @@ public class ChargeFragment extends BaseFragment {
     }
 
     public interface OnGetChargeDataListener {
-
         void onGetData(String mobile, int carrierType);
-
     }
 
     private void jump2VipActivity() {

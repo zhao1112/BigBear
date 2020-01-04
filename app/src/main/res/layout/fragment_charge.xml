@@ -1,104 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
 
     <Button
         android:id="@+id/charge"
         android:layout_width="0dp"
         android:layout_height="72pt"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="66pt"
         android:layout_marginRight="66pt"
         android:layout_marginBottom="80pt"
         android:background="@drawable/new_version_pwd_button_selector"
         android:text="立即充值"
-        android:textSize="28pt"
         android:textColor="@color/white"
-        />
+        android:textSize="28pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/vip_charge_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="50pt"
+        app:layout_constraintBottom_toTopOf="@id/charge"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/charge"
-        android:layout_marginBottom="50pt"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/top_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/layout_vip"
                 android:layout_width="match_parent"
                 android:layout_height="166pt"
-                android:visibility="gone"
                 android:background="@drawable/icon_charge_vip"
-                >
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/image_view"
                     android:layout_width="54pt"
                     android:layout_height="36pt"
-                    android:src="@drawable/icon_main_vip"
-                    android:scaleType="centerCrop"
                     android:layout_marginLeft="26pt"
                     android:layout_marginTop="16pt"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_main_vip"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/image_view"
+                    android:layout_marginLeft="18pt"
+                    android:text="尊贵的大熊会员:"
+                    android:textColor="#666666"
+                    android:textSize="24pt"
                     app:layout_constraintBottom_toBottomOf="@id/image_view"
                     app:layout_constraintLeft_toRightOf="@id/image_view"
-                    android:textColor="#666666"
-                    android:text="尊贵的大熊会员:"
-                    android:textSize="24pt"
-                    android:layout_marginLeft="18pt"
-                    />
+                    app:layout_constraintTop_toTopOf="@id/image_view"/>
 
                 <TextView
                     android:id="@+id/use_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#614919"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginRight="10pt"
-                    android:textSize="24pt"
-                    android:paddingLeft="18pt"
-                    android:paddingRight="18pt"
-                    android:paddingTop="12pt"
-                    android:paddingBottom="12pt"
                     android:background="@drawable/shape_charge_use"
-                    />
+                    android:paddingLeft="18pt"
+                    android:paddingTop="12pt"
+                    android:paddingRight="18pt"
+                    android:paddingBottom="12pt"
+                    android:textColor="#614919"
+                    android:textSize="24pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/charge_warn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="32pt"
-                    android:textColor="#333333"
-                    app:layout_constraintLeft_toLeftOf="@id/text_view"
-                    app:layout_constraintTop_toBottomOf="@id/text_view"
-                    app:layout_constraintRight_toLeftOf="@id/use_time"
                     android:layout_marginTop="12pt"
                     android:layout_marginRight="30pt"
                     android:lineSpacingMultiplier="1.2"
-                    />
+                    android:textColor="#333333"
+                    android:textSize="32pt"
+                    app:layout_constraintLeft_toLeftOf="@id/text_view"
+                    app:layout_constraintRight_toLeftOf="@id/use_time"
+                    app:layout_constraintTop_toBottomOf="@id/text_view"/>
 
             </android.support.constraint.ConstraintLayout>
 
@@ -106,68 +100,64 @@
                 android:id="@+id/layout_no_vip"
                 android:layout_width="match_parent"
                 android:layout_height="166pt"
-                android:visibility="gone"
                 android:background="@drawable/icon_charge_vip"
-                >
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/image_view_no"
                     android:layout_width="54pt"
                     android:layout_height="36pt"
-                    android:src="@drawable/icon_main_vip"
-                    android:scaleType="centerCrop"
                     android:layout_marginLeft="26pt"
                     android:layout_marginTop="36pt"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_main_vip"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/text_view_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/image_view_no"
+                    android:layout_marginLeft="18pt"
+                    android:text="金熊会员每月可享一次 ( 本人号码 ) :"
+                    android:textColor="#666666"
+                    android:textSize="24pt"
                     app:layout_constraintBottom_toBottomOf="@id/image_view_no"
                     app:layout_constraintLeft_toRightOf="@id/image_view_no"
-                    android:textColor="#666666"
-                    android:text="金熊会员每月可享一次 ( 本人号码 ) :"
-                    android:textSize="24pt"
-                    android:layout_marginLeft="18pt"
-                    />
+                    app:layout_constraintTop_toTopOf="@id/image_view_no"/>
 
                 <TextView
                     android:id="@+id/use_time_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#614919"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginRight="10pt"
-                    android:textSize="24pt"
+                    android:background="@drawable/shape_charge_use"
                     android:paddingLeft="38pt"
-                    android:paddingRight="38pt"
                     android:paddingTop="12pt"
+                    android:paddingRight="38pt"
                     android:paddingBottom="12pt"
                     android:text="开通"
-                    android:background="@drawable/shape_charge_use"
-                    />
+                    android:textColor="#614919"
+                    android:textSize="24pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/charge_warn_no"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="32pt"
-                    android:textColor="#333333"
-                    app:layout_constraintLeft_toLeftOf="@id/text_view_no"
-                    app:layout_constraintTop_toBottomOf="@id/text_view_no"
                     android:layout_marginTop="12pt"
                     android:layout_marginRight="30pt"
                     android:lineSpacingMultiplier="1.2"
                     android:text="话费优惠券 充值更省钱"
-                    />
+                    android:textColor="#333333"
+                    android:textSize="32pt"
+                    app:layout_constraintLeft_toLeftOf="@id/text_view_no"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_no"/>
 
             </android.support.constraint.ConstraintLayout>
+
         </RelativeLayout>
 
 
@@ -175,12 +165,11 @@
             android:id="@+id/recycler_view_charge"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:paddingTop="40pt"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_layout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingTop="40pt"
-            />
+            app:layout_constraintTop_toBottomOf="@id/top_layout"/>
 
     </android.support.constraint.ConstraintLayout>
 

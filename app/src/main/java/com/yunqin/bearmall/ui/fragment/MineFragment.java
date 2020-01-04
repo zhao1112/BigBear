@@ -283,12 +283,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mPresenter.onProfit(getActivity());
         } else {
             mMineLogin.setVisibility(View.VISIBLE);
-            mMineVip.setVisibility(View.GONE);
+//            mMineVip.setVisibility(View.GONE);
             mCode.setVisibility(View.GONE);
             mMineNickname.setVisibility(View.GONE);
-            mMineVipData.setVisibility(View.GONE);
-            mOpenVipOne.setVisibility(View.GONE);
-            openvip.setVisibility(View.GONE);
+//            mMineVipData.setVisibility(View.GONE);
+//            mOpenVipOne.setVisibility(View.GONE);
+//            openvip.setVisibility(View.GONE);
             mMineWithdrawalPrice.setText("0.00");
             mMineTodayPrice.setText("0.00");
             mMineMonthPrice.setText("0.00");
@@ -304,16 +304,16 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         } else {
             UserInfo.DataBean.MemberBean dataBean = userInfo.getData().getMember();
             if (dataBean.isMember()) {
-                mMineVip.setVisibility(View.VISIBLE);
-                mMineVipData.setVisibility(View.VISIBLE);
-                openvip.setVisibility(View.GONE);
-                mMineVipData.setText("剩余" + dataBean.getRestDays() + "天，");
-                mOpenVipOne.setVisibility(View.VISIBLE);
+//                mMineVip.setVisibility(View.VISIBLE);
+//                mMineVipData.setVisibility(View.VISIBLE);
+//                openvip.setVisibility(View.GONE);
+//                mMineVipData.setText("剩余" + dataBean.getRestDays() + "天，");
+//                mOpenVipOne.setVisibility(View.VISIBLE);
             } else {
-                mMineVip.setVisibility(View.GONE);
-                mMineVipData.setVisibility(View.GONE);
-                mOpenVipOne.setVisibility(View.GONE);
-                openvip.setVisibility(View.VISIBLE);
+//                mMineVip.setVisibility(View.GONE);
+//                mMineVipData.setVisibility(View.GONE);
+//                mOpenVipOne.setVisibility(View.GONE);
+//                openvip.setVisibility(View.VISIBLE);
             }
         }
         mMineNickname.setText(userInfo.getData().getMember().getNickName());

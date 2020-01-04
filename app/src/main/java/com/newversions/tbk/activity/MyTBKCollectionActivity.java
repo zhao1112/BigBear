@@ -42,7 +42,8 @@ public class MyTBKCollectionActivity extends BaseActivity {
     private List<TBKHomeEntity.CommodityBean> mList = new ArrayList();
     private HomeAdapter homeAdapter;
     private int page = 1;
-    private boolean hasMore= true;
+    private boolean hasMore = true;
+
     @Override
     public int layoutId() {
         return R.layout.activity_tbk_collection;
@@ -71,7 +72,7 @@ public class MyTBKCollectionActivity extends BaseActivity {
 //                intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getId());
 //                intent.putExtra(Constants.INTENT_KEY_URL, mList.get(position).getIconUrl());
 //                startActivity(intent);
-                GoodsDetailActivity.startGoodsDetailActivity(MyTBKCollectionActivity.this,mList.get(position).getItemId());
+                GoodsDetailActivity.startGoodsDetailActivity(MyTBKCollectionActivity.this, mList.get(position).getItemId());
             }
         });
         homeAdapter.setEmptyView(R.layout.empty_layout);
@@ -80,14 +81,14 @@ public class MyTBKCollectionActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        page =1;
+        page = 1;
         mList.clear();
         getData();
     }
 
-    @OnClick({R.id.reset_load_data,R.id.toolbar_back})
+    @OnClick({R.id.reset_load_data, R.id.toolbar_back})
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.reset_load_data:
                 getData();
                 break;
@@ -107,7 +108,8 @@ public class MyTBKCollectionActivity extends BaseActivity {
             if (StringUtils.isEmpty(item.getSellerName())) {
                 helper.setGone(R.id.tv_goods_shop, false);
             }
-            helper.setText(R.id.tv_goods_shop, StringUtils.addImageLabel(mContext, item.getTmall() == 1 ? R.mipmap.icon_tmall : R.mipmap.icon_taobao1, item.getSellerName()));
+            helper.setText(R.id.tv_goods_shop, StringUtils.addImageLabel(mContext, item.getTmall() == 1 ? R.mipmap.icon_tmall :
+                    R.mipmap.icon_taobao1, item.getSellerName()));
             helper.setText(R.id.item_home_pro_title, item.getName());
             helper.setText(R.id.item_home_pro_quan, "券￥" + (int) item.getCouponAmount() + "");
             helper.setText(R.id.item_home_pro_yuanjia, "￥" + item.getPrice());
@@ -125,7 +127,7 @@ public class MyTBKCollectionActivity extends BaseActivity {
     private void getData() {
         showLoading();
         Map<String, String> map = new HashMap<>();
-        map.put("page",String.valueOf(page));
+        map.put("page", String.valueOf(page));
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getTBKCollection(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
@@ -133,15 +135,15 @@ public class MyTBKCollectionActivity extends BaseActivity {
                 notNetGroup.setVisibility(View.GONE);
                 TBKCollectionEntity tbkCollectionEntity = new Gson().fromJson(data, TBKCollectionEntity.class);
                 mList.addAll(tbkCollectionEntity.getCommodity());
-                if(page == 1){
+                if (page == 1) {
                     homeAdapter.setNewData(mList);
-                }else{
+                } else {
                     homeAdapter.addData(tbkCollectionEntity.getCommodity());
                 }
-                if(page<tbkCollectionEntity.getPages()){
+                if (page < tbkCollectionEntity.getPages()) {
                     hasMore = true;
                     homeAdapter.loadMoreComplete();
-                }else{
+                } else {
                     hasMore = false;
                     homeAdapter.loadMoreEnd();
                 }

@@ -95,7 +95,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="金熊价"
+                        android:text="直购价"
                         android:textColor="@color/main_color"
                         android:textSize="@dimen/ds20" />
 
