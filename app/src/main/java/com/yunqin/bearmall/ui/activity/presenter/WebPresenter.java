@@ -1,11 +1,11 @@
 package com.yunqin.bearmall.ui.activity.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.Gson;
-import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.Checkzero;
@@ -61,7 +61,7 @@ public class WebPresenter implements WebContract.presenter {
     }
 
     @Override
-    public void Clickurl(String access_token,String itemId) {
+    public void Clickurl(String access_token, String itemId) {
         Map<String, String> map = new HashMap<>();
         map.put("access_token", access_token);
         map.put("itemId", itemId);
@@ -72,8 +72,15 @@ public class WebPresenter implements WebContract.presenter {
                 try {
                     JSONObject jsonObject = new JSONObject(data);
                     if (jsonObject.optInt("code") == 1) {
-                        view.onClickurl(jsonObject.optString("sendUrl"));
-                    }else {
+                        String sendUrl = jsonObject.optString("sendUrl");
+                        if (!TextUtils.isEmpty(sendUrl)) {
+                            StringBuffer stringBuffer = new StringBuffer(sendUrl);
+                            view.onClickurl(stringBuffer);
+                            Log.i("onSuccess_sendUrl", sendUrl);
+                        } else {
+                            view.onFail(new Exception("网络不佳"));
+                        }
+                    } else {
                         view.onFail(new Exception(jsonObject.optString("msg")));
                     }
                 } catch (org.json.JSONException e) {
@@ -103,10 +110,11 @@ public class WebPresenter implements WebContract.presenter {
                 Log.i("onSuccess", data);
                 if (object.optInt("code") == 1) {
                     view.onCheckinvitation();
-                }else {
+                } else {
                     view.onFail(new Exception(object.optString("msg")));
                 }
             }
+
             @Override
             public void onNotNetWork() {
                 view.onNotNetWork();

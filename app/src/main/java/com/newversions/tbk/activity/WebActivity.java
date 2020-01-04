@@ -40,6 +40,7 @@ import com.yunqin.bearmall.ui.activity.contract.WebContract;
 import com.yunqin.bearmall.ui.activity.presenter.WebPresenter;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.ConstUtils;
+import com.yunqin.bearmall.util.RSAUtil;
 
 import java.util.List;
 
@@ -446,9 +447,18 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     }
 
     @Override
-    public void onClickurl(String url) {
+    public void onClickurl(StringBuffer url) {
+        try {
+            String decrypt = RSAUtil.decrypt(url.toString(), RSAUtil.getPrivateKey(RSAUtil.privateKeyStr));
+            Log.e("BANSE_64:::::", decrypt);
+            if (decrypt != null) {
+                toTaobao(decrypt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("BANSE_64", e.getMessage());
+        }
         hiddenLoadingView();
-        toTaobao(url);
     }
 
     @Override

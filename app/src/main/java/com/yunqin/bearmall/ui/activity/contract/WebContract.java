@@ -22,7 +22,7 @@ public interface WebContract {
 
         void onOneTipe(String tipe);
 
-        void onClickurl(String url);
+        void onClickurl(StringBuffer url);
 
         void onCheckinvitation();
     }
