@@ -165,6 +165,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 List<String> urls = new ArrayList<>();
                 for (int i = 0; i < bannersBean.banners.size(); i++) {
                     urls.add(bannersBean.banners.get(i).getImage());
+                    Log.e("onBindViewHolder", bannersBean.banners.get(i).getImage());
                 }
                 BannerHolder bannerHolder = (BannerHolder) holder;
                 if (!TextUtils.isEmpty(center_bg)) {

@@ -64,7 +64,7 @@
                 android:id="@+id/kan_jia_gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="金熊价"
+                android:text="直购价"
                 android:textColor="#23A064"
                 android:textSize="@dimen/ds20" />
 

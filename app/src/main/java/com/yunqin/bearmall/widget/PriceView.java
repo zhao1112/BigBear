@@ -69,7 +69,7 @@ public class PriceView extends FrameLayout {
                     n_v_yuanjia.setText(String.format("¥%s", sourcePrice));
                     n_v_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
-                    n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", membershipPrice));
+                    n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", membershipPrice));
                     n_v_bear_yuanjia.setVisibility(View.GONE);
 
                 } else if (model == 1) {
@@ -77,7 +77,7 @@ public class PriceView extends FrameLayout {
                     n_v_dangqianjia.setText(String.format("¥%s", price));
                     n_v_yuanjia.setVisibility(View.GONE);
 
-                    n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", membershipPrice));
+                    n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", membershipPrice));
                     n_v_bear_yuanjia.setVisibility(View.VISIBLE);
                     n_v_bear_yuanjia.setText(String.format("¥%s", sourceMembershipPrice));
                     n_v_bear_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
@@ -89,7 +89,7 @@ public class PriceView extends FrameLayout {
                     n_v_yuanjia.setText(String.format("¥%s", sourcePrice));
                     n_v_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
-                    n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", membershipPrice));
+                    n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", membershipPrice));
                     n_v_bear_yuanjia.setVisibility(View.VISIBLE);
                     n_v_bear_yuanjia.setText(String.format("¥%s", sourceMembershipPrice));
                     n_v_bear_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
@@ -99,7 +99,7 @@ public class PriceView extends FrameLayout {
                 n_v_dangqianjia.setText(String.format("¥%s", price));
                 n_v_yuanjia.setVisibility(View.GONE);
 
-                n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", membershipPrice));
+                n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", membershipPrice));
                 n_v_bear_yuanjia.setVisibility(View.GONE);
             }
         } else {

@@ -56,6 +56,7 @@ import butterknife.OnClick;
  * @author Master
  */
 public class TrolleyFragment extends BaseFragment implements TrolleyContract.UI, ProductAllSelectorCallBack, CartProductPlusMinusCallBack {
+
     public static final String ORDER_BRAND = "order_brand";
     public static final String ORDER_ITEM = "order_item";
     public static final String ORDER_TYPE = "order_type";
@@ -65,49 +66,33 @@ public class TrolleyFragment extends BaseFragment implements TrolleyContract.UI,
 
     @BindView(R.id.fillStatusBarView)
     View fillStatusBarView;
-
     @BindView(R.id.fragment_trolley_empty_layout)
     LinearLayout cartEmptyLayout;
-
     @BindView(R.id.fragment_trolley_has_product_layout)
     RelativeLayout cartHasProductLayout;
-
     @BindView(R.id.cart_expandable_listView)
     ExpandableListView expandableListView;
-
     @BindView(R.id.item_cart_all_check)
     ImageView allCheckImageView;
-
     @BindView(R.id.cart_all_product_price)
     TextView allProductPrice;
-
     @BindView(R.id.tip)
     TextView tip;
-
     @BindView(R.id.cart_selector_product_count)
     TextView selectorProductCount;
-
     @BindView(R.id.cart_back_edit)
     TextView edit;
-
     @BindView(R.id.cart_buy_layout)
     LinearLayout buyLayout;
-
     @BindView(R.id.cart_edit_layout)
     LinearLayout editLayout;
-
     @BindView(R.id.empty)
     CustomRecommendView empty;
-
     @BindView(R.id.login_text_layout)
     TextView login_text_layout;
-
-
     // 无网络连接View
     @BindView(R.id.not_net_view)
     LinearLayout not_net_view;
-
-
     @BindView(R.id.cart_back_img)
     ImageView cart_back_img;
 
@@ -117,11 +102,9 @@ public class TrolleyFragment extends BaseFragment implements TrolleyContract.UI,
             R.id.xiao_xi})
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.xiao_xi:
                 InformationFragmentActivity.start(getActivity());
                 break;
-
             case R.id.login_text_layout:
                 LoginActivity.starActivity(getActivity());
                 break;

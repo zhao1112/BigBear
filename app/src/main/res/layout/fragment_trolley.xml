@@ -122,7 +122,6 @@
 
             <include layout="@layout/fragment_trolley_empty"></include>
 
-
         </RelativeLayout>
 
 

@@ -44,6 +44,7 @@ import cn.iwgang.countdownview.CountdownView;
  * @Describe
  */
 public class FragmentZeroDetails extends BaseFragment implements ScrollViewListener {
+
     @BindView(R.id.fillStatusBarView)
     View fillStatusBarView;
     @BindView(R.id.product_img_top)
@@ -80,29 +81,20 @@ public class FragmentZeroDetails extends BaseFragment implements ScrollViewListe
     CustomRecommendView customRecommendView;
     @BindView(R.id.scrollView)
     DeficitScrollView deficitScrollView;
-
     @BindView(R.id.get_bc_number)
     TextView get_bc_number;
-
     @BindView(R.id.comment_empty_layout)
     LinearLayout comment_empty_layout;
-
-
     @BindView(R.id.product_fragment_head)
     RelativeLayout headLayout;
-
     @BindView(R.id.tip_no_comment)
     TextView tip_no_comment;
 
     private ScrollViewForActivityListener mScrollViewForActivityListener;
     private ProductInstructionCallBack productInstructionCallBack;
-
     private ZeroActivityBean.DataBean.GroupPurchasingItemBean itemBean;
     private List<ProductDetail.ReviewList> reviewList;
-
-
     private ProductCommentAdapter productCommentAdapter;
-
 
     @OnClick({R.id.product_service_instruction, R.id.product_price_instruction, R.id.check_all_comment, R.id.zero_rule_instruction})
     public void OnClick(View view) {

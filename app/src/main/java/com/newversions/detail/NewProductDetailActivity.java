@@ -19,9 +19,7 @@ public class NewProductDetailActivity extends BaseActivity implements FragmentTo
     private NewCommentFragment newCommentFragment;
     private NewProductFragment newProductFragment;
     private FragmentManager fragmentManager;
-
     private Fragment lastFragment;
-
     private String productId = "";
     private String sku_id = "";
 

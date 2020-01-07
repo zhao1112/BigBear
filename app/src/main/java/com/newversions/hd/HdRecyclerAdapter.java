@@ -105,7 +105,7 @@ public class HdRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (discountProduct.isIsSurportMsp()) {
                 ((GoodsHolder) holder).n_v_bear_dangqianjia.setVisibility(View.VISIBLE);
-                ((GoodsHolder) holder).n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", discountProduct.getMembershipPrice()));
+                ((GoodsHolder) holder).n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", discountProduct.getMembershipPrice()));
             } else {
                 if (discountProduct.getIsDiscount() == 1) {
                     if (discountProduct.getModel() == 1) {
@@ -129,7 +129,7 @@ public class HdRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     ((GoodsHolder) holder).n_v_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 } else if (discountProduct.getModel() == 1) {
                     ((GoodsHolder) holder).n_v_bear_yuanjia.setVisibility(View.VISIBLE);
-                    ((GoodsHolder) holder).n_v_bear_yuanjia.setText(String.format("金熊价 ¥%s", discountProduct.getSourceMembershipPrice()));
+                    ((GoodsHolder) holder).n_v_bear_yuanjia.setText(String.format("直购价 ¥%s", discountProduct.getSourceMembershipPrice()));
                     ((GoodsHolder) holder).n_v_bear_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 } else if (discountProduct.getModel() == 2) {
                     ((GoodsHolder) holder).n_v_yuanjia.setVisibility(View.VISIBLE);
@@ -137,7 +137,7 @@ public class HdRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     ((GoodsHolder) holder).n_v_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
                     ((GoodsHolder) holder).n_v_bear_yuanjia.setVisibility(View.VISIBLE);
-                    ((GoodsHolder) holder).n_v_bear_yuanjia.setText(String.format("金熊价 ¥%s", discountProduct.getSourceMembershipPrice()));
+                    ((GoodsHolder) holder).n_v_bear_yuanjia.setText(String.format("直购价 ¥%s", discountProduct.getSourceMembershipPrice()));
                     ((GoodsHolder) holder).n_v_bear_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 } else {
                     ((GoodsHolder) holder).n_v_yuanjia.setVisibility(View.GONE);

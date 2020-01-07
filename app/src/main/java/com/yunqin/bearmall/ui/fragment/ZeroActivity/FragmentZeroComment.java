@@ -32,24 +32,19 @@ import java.util.List;
 import butterknife.BindView;
 
 public class FragmentZeroComment extends BaseFragment implements ProductCommentFragmentContact.UI {
+
     @BindView(R.id.list_view)
     ListView list_view;
-
 //    @BindView(R.id.empty_text)
 //    TextView empty_text;
-
     @BindView(R.id.empty_view)
     View view;
-
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
 
     ProductCommentFragmentContact.presenter presenter;
-
     ProductCommentAdapter productCommentAdapter;
-
     private int page_numer = 1;
-
     private int isLoadMoreOrRefresh = 1;
     private long product_id;
     private ZeroActivityBean.DataBean.GroupPurchasingItemBean itemBean;

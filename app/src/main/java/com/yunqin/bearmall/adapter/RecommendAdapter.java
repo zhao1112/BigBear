@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -56,30 +57,28 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((NormalGoodsHolder) holder).n_v_t_name.setText(productListBean.getProductName());
 
                 try {
-
-
-                    ((NormalGoodsHolder) holder).price_view.setPrice(productListBean.getMembershipPrice(), productListBean.getPrice(), productListBean.isSurportMsp(), productListBean.getIsDiscount(),
+                    ((NormalGoodsHolder) holder).price_view.setPrice(productListBean.getMembershipPrice(), productListBean.getPrice(),
+                            productListBean.isSurportMsp(), productListBean.getIsDiscount(),
                             productListBean.getModel(), productListBean.getSourceMembershipPrice(), productListBean.getSourcePrice());
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
                 ((NormalGoodsHolder) holder).n_v_t_linear.setTag(productListBean);
                 ((NormalGoodsHolder) holder).n_v_t_linear.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         Intent iIntent = new Intent(mContext, NewProductDetailActivity.class);
                         iIntent.putExtra("productId", "" + productListBean.getProduct_id());
                         iIntent.putExtra("sku_id", "");
+                        Log.e("NormalGoodsHolder", "onClick: " + productListBean.getProduct_id());
                         mContext.startActivity(iIntent);
                     }
                 });
                 try {
                     Glide.with(mContext).load(productListBean.getProductImages().getSource()).into(((NormalGoodsHolder) holder).n_v_t_img);
                 } catch (Exception e) {
+
                 }
             }
         } catch (Exception e) {
@@ -98,30 +97,24 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onClick(View v) {
-
         Intent iIntent = new Intent(mContext, NewProductDetailActivity.class);
         iIntent.putExtra("productId", "" + mSearchBean.getData().getProductList().get(((int) v.getTag())).getProduct_id());
         iIntent.putExtra("sku_id", "");
         mContext.startActivity(iIntent);
-
-
     }
 
     class NormalGoodsHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.price_view)
         PriceView price_view;
-
         @BindView(R.id.n_v_t_name)
         TextView n_v_t_name;
-
         @BindView(R.id.n_v_t_img_t)
         ImageView n_v_t_img_t;
         @BindView(R.id.n_v_t_img)
         ImageView n_v_t_img;
         @BindView(R.id.n_v_t_linear)
         LinearLayout n_v_t_linear;
-
 
         public NormalGoodsHolder(View itemView) {
             super(itemView);

@@ -74,142 +74,22 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
     MyWebView webView;
     @BindView(R.id.nested_scroll_view)
     NestedScrollView nestedScrollView;
-
-    private float mScreenWidth;
-
     @BindView(R.id.new_version_top1)
     LinearLayout mBarTop1;
     @BindView(R.id.new_version_top2)
     LinearLayout mBarTop2;
-
-
     @BindView(R.id.scroll_view_type_video_pause_1)
     View scroll_view_type_video_pause_1;
-
     @BindView(R.id.scroll_view_type_2)
     View scroll_view_type_2;
     @BindView(R.id.scroll_view_type_3)
     View scroll_view_type_3;
     @BindView(R.id.head_layout)
     View head_layout;
-
-
     @BindView(R.id.overlay_video_pic_layout)
     LinearLayout overlay_video_pic_layout;
-
-
     @BindView(R.id.product_detail_price)
     TextView product_detail_price;
-
-
-    private String product_id = "";
-    private String sku_id = "";
-
-    private FragmentToActivityInter fragmentToActivityInter;
-    private static final String PRODUCT_DETAIL = "/view/findProductDetailPage?product_id=";
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof FragmentToActivityInter) {
-            fragmentToActivityInter = (FragmentToActivityInter) context;
-        }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public int layoutId() {
-        return R.layout.new_version_product_fragment;
-    }
-
-
-    private boolean isLogin = false;
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (isLogin) {
-            init();
-            isLogin = false;
-        }
-
-
-    }
-
-    @Override
-    public void init() {
-        product_id = getArguments().getString("productId");
-
-
-        sku_id = getArguments().getString("sku_id");
-        mScreenWidth = (float) ScreenUtils.getScreenWidth(getActivity());//获取屏幕宽度，用来计算appbar透明度
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-//                Log.e("TAG-CP", "商品推荐距离顶部距离:" + (newVersionChoicenessView.getTop() - scrollY));
-
-                float mAppBarAlpha = ((float) scrollY) / mScreenWidth;
-                if (mAppBarAlpha >= 1) {
-                    mAppBarAlpha = 1;
-                }
-                mBarTop2.setAlpha(mAppBarAlpha);
-                mBarTop1.setAlpha(1 - mAppBarAlpha);
-
-
-                if (newVersionChoicenessView.getTop() - scrollY < 500) {
-                    changeTabBackground(4);
-                    return;
-                }
-
-
-                if (scroll_view_type_3.getTop() - scrollY < 500) {
-                    changeTabBackground(3);
-                    return;
-                }
-
-                if (scroll_view_type_2.getTop() - scrollY < 500 && scroll_view_type_2.getTop() - scrollY > 150) {
-                    changeTabBackground(2);
-                } else if (scroll_view_type_2.getTop() - scrollY > 500) {
-                    changeTabBackground(1);
-                }
-
-
-                if (scroll_view_type_video_pause_1.getTop() - scrollY < 100) {
-                    Jzvd.goOnPlayOnPause();
-                }
-
-
-            }
-        });
-        initWebView();
-
-
-        Map<String, String> map = new HashMap<>();
-        map.put("product_id", product_id);
-        map.put("sku_id", sku_id);
-
-        RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getProductData(map), new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                NewProductBean newProductBean = new Gson().fromJson(data, NewProductBean.class);
-                initProduct(newProductBean);
-            }
-
-            @Override
-            public void onNotNetWork() {
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-            }
-        });
-    }
-
     @BindView(R.id.n_v_ttt_name)
     TextView n_v_ttt_name;
     @BindView(R.id.n_v_xiaoshou_)
@@ -230,52 +110,171 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
     TextView no_no_dangqianjia;
     @BindView(R.id.tangguo_shuoming)
     TextView tangguo_shuoming;
-
     @BindView(R.id.comment_container)
     LinearLayout comment_container;
     @BindView(R.id.comment_empty_layout)
     LinearLayout comment_empty_layout;
     @BindView(R.id.new_version_comment_count)
     TextView new_version_comment_count;
-
     @BindView(R.id.product_img_top)
     ViewPager productImgViewPager;
     @BindView(R.id.product_detail_bt_price)
     TextView product_detail_bt_price;
-
     @BindView(R.id.shi_pin_button)
     Button shi_pin_button;
     @BindView(R.id.tu_pian_button)
     Button tu_pian_button;
+    @BindView(R.id.product_detail_bt_buy)
+    LinearLayout product_detail_bt_buy;
+    @BindView(R.id.shop_container)
+    LinearLayout shop_container;
+    @BindView(R.id.choiceness_view)
+    NewVersionChoicenessView newVersionChoicenessView;
+    @BindView(R.id.product_collect)
+    ImageView productCollect;
+    @BindView(R.id.product_detail_collect_tv)
+    TextView collectTv;
+    @BindView(R.id.new_version_top_shangpin_tv)
+    TextView new_version_top_shangpin_tv;
+    @BindView(R.id.new_version_top_shangpin_line)
+    View new_version_top_shangpin_line;
+    @BindView(R.id.new_version_top_pinglun_tv)
+    TextView new_version_top_pinglun_tv;
+    @BindView(R.id.new_version_top_pinglun_line)
+    View new_version_top_pinglun_line;
+    @BindView(R.id.new_version_top_xiangqing_tv)
+    TextView new_version_top_xiangqing_tv;
+    @BindView(R.id.new_version_top_xiangqing_line)
+    View new_version_top_xiangqing_line;
+    @BindView(R.id.new_version_top_tuijian_tv)
+    TextView new_version_top_tuijian_tv;
+    @BindView(R.id.new_version_top_tuijian_line)
+    View new_version_top_tuijian_line;
 
 
+
+    private String product_id = "";
+    private String sku_id = "";
+    private float mScreenWidth;
+    private FragmentToActivityInter fragmentToActivityInter;
+    private static final String PRODUCT_DETAIL = "/view/findProductDetailPage?product_id=";
     private NewProductBean newProductBean;
+    private CustomerServiceDialog customerServiceDialog;
+    private List<NewProductBean.DataBean.InstantmessageListBean> instantmessageLists;//im弹框数据
+    private int isFavorite;
+    private ServiceInstructionDialog serviceInstructionDialog;
+    private PriceInstructionDialog priceInstructionDialog;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentToActivityInter) {
+            fragmentToActivityInter = (FragmentToActivityInter) context;
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public int layoutId() {
+        return R.layout.new_version_product_fragment;
+    }
+
+    private boolean isLogin = false;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isLogin) {
+            init();
+            isLogin = false;
+        }
+    }
+
+    @Override
+    public void init() {
+        product_id = getArguments().getString("productId");
+
+        sku_id = getArguments().getString("sku_id");
+        mScreenWidth = (float) ScreenUtils.getScreenWidth(getActivity());//获取屏幕宽度，用来计算appbar透明度
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                Log.e("TAG-CP", "商品推荐距离顶部距离:" + (newVersionChoicenessView.getTop() - scrollY));
+                float mAppBarAlpha = ((float) scrollY) / mScreenWidth;
+                if (mAppBarAlpha >= 1) {
+                    mAppBarAlpha = 1;
+                }
+                mBarTop2.setAlpha(mAppBarAlpha);
+                mBarTop1.setAlpha(1 - mAppBarAlpha);
+
+                if (newVersionChoicenessView.getTop() - scrollY < 500) {
+                    changeTabBackground(4);
+                    return;
+                }
+
+                if (scroll_view_type_3.getTop() - scrollY < 500) {
+                    changeTabBackground(3);
+                    return;
+                }
+
+                if (scroll_view_type_2.getTop() - scrollY < 500 && scroll_view_type_2.getTop() - scrollY > 150) {
+                    changeTabBackground(2);
+                } else if (scroll_view_type_2.getTop() - scrollY > 500) {
+                    changeTabBackground(1);
+                }
+
+                if (scroll_view_type_video_pause_1.getTop() - scrollY < 100) {
+                    Jzvd.goOnPlayOnPause();
+                }
+            }
+        });
+
+        initWebView();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("product_id", product_id);
+        map.put("sku_id", sku_id);
+
+        RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getProductData(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                Log.e("JSONException", data);
+                NewProductBean newProductBean = new Gson().fromJson(data, NewProductBean.class);
+                initProduct(newProductBean);
+            }
+
+            @Override
+            public void onNotNetWork() {
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+            }
+        });
+    }
 
     private void initProduct(NewProductBean newProductBean) {
-
         this.newProductBean = newProductBean;
-
-
         // 商品展示
         NewVersionProductImgViewPagerAdapter productImgViewPagerAdapter;
 
         if (newProductBean.getData().getProduct().isIsHasVideo()) {
-
             overlay_video_pic_layout.setVisibility(View.VISIBLE);
-
             productImgViewPagerAdapter = new NewVersionProductImgViewPagerAdapter(getActivity(),
                     newProductBean.getData().getProduct().isIsHasVideo(),
                     newProductBean.getData().getProduct().getProductVideo(),
                     newProductBean.getData().getProduct().getProductVideoImage().getSource(),
                     newProductBean.getData().getProduct().getProductImages());
         } else {
-
             overlay_video_pic_layout.setVisibility(View.GONE);
-
-            productImgViewPagerAdapter = new NewVersionProductImgViewPagerAdapter(getActivity(), newProductBean.getData().getProduct().getProductImages());
+            productImgViewPagerAdapter = new NewVersionProductImgViewPagerAdapter(getActivity(),
+                    newProductBean.getData().getProduct().getProductImages());
         }
         productImgViewPager.setAdapter(productImgViewPagerAdapter);
-
         productImgViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -308,86 +307,62 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
 
         // 价格名称展示
         instantmessageLists = newProductBean.getData().getInstantmessageList();
-
         NewProductBean.DataBean.ProductBean productBean = newProductBean.getData().getProduct();
         n_v_ttt_name.setText(productBean.getProductName());
         n_v_xiaoshou_.setText(String.format("已销%d笔", productBean.getSales()));
 
         product_detail_price.setText(String.format("¥%s", productBean.getPrice()));
-
-
         if (productBean.isIsSurportMsp()) {
             // 是否支持会员价
-
-            product_detail_bt_price.setText(String.format("金熊价 ¥%s", productBean.getMembershipPrice()));
-
-
+            product_detail_bt_price.setText(String.format("直购价 ¥%s", productBean.getMembershipPrice()));
             if (productBean.getIsDiscount() == 1) {// 是折扣商品
                 if (productBean.getModel() == 0) {
                     n_v_dangqianjia.setText(String.format("¥%s", productBean.getPrice()));
                     n_v_yuanjia.setVisibility(View.VISIBLE);
                     n_v_yuanjia.setText(String.format("¥%s", productBean.getSourcePrice()));
                     n_v_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-
-                    n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", productBean.getMembershipPrice()));
+                    n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", productBean.getMembershipPrice()));
                     n_v_bear_yuanjia.setVisibility(View.GONE);
-
                 } else if (productBean.getModel() == 1) {
-
                     n_v_dangqianjia.setText(String.format("¥%s", productBean.getPrice()));
                     n_v_yuanjia.setVisibility(View.GONE);
-
-                    n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", productBean.getMembershipPrice()));
+                    n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", productBean.getMembershipPrice()));
                     n_v_bear_yuanjia.setVisibility(View.VISIBLE);
                     n_v_bear_yuanjia.setText(String.format("¥%s", productBean.getSourceMembershipPrice()));
                     n_v_bear_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-
                 } else if (productBean.getModel() == 2) {
-
                     n_v_dangqianjia.setText(String.format("¥%s", productBean.getPrice()));
                     n_v_yuanjia.setVisibility(View.VISIBLE);
                     n_v_yuanjia.setText(String.format("¥%s", productBean.getSourcePrice()));
                     n_v_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-
-                    n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", productBean.getMembershipPrice()));
+                    n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", productBean.getMembershipPrice()));
                     n_v_bear_yuanjia.setVisibility(View.VISIBLE);
                     n_v_bear_yuanjia.setText(String.format("¥%s", productBean.getSourceMembershipPrice()));
                     n_v_bear_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-
                 }
             } else {
-
                 n_v_dangqianjia.setText(String.format("¥%s", productBean.getPrice()));
                 n_v_yuanjia.setVisibility(View.GONE);
-
-                n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", productBean.getMembershipPrice()));
+                n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", productBean.getMembershipPrice()));
                 n_v_bear_yuanjia.setVisibility(View.GONE);
             }
         } else {
             if (productBean.getIsDiscount() == 1) {
                 // 是折扣商品
-
                 if (productBean.getModel() == 0) {
                     n_v_dangqianjia.setText(String.format("¥%s", productBean.getPrice()));
                     n_v_yuanjia.setVisibility(View.GONE);
-
-
-                    product_detail_bt_price.setText(String.format("金熊价 ¥%s", productBean.getSourcePrice()));
+                    product_detail_bt_price.setText(String.format("直购价 ¥%s", productBean.getSourcePrice()));
                     product_detail_bt_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                     product_detail_bt_buy.setClickable(false);
-
-                    n_v_bear_dangqianjia.setText(String.format("金熊价 ¥%s", productBean.getSourcePrice()));
+                    n_v_bear_dangqianjia.setText(String.format("直购价 ¥%s", productBean.getSourcePrice()));
                     n_v_bear_dangqianjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                     n_v_bear_yuanjia.setVisibility(View.GONE);
-
                 }
             } else {
-
-                product_detail_bt_price.setText(String.format("金熊价 ¥%s", productBean.getPrice()));
+                product_detail_bt_price.setText(String.format("直购价 ¥%s", productBean.getPrice()));
                 product_detail_bt_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 product_detail_bt_buy.setClickable(false);
-
-
                 jaige_layout.setVisibility(View.GONE);
                 dandu_jiage_layout.setVisibility(View.VISIBLE);
                 no_no_dangqianjia.setText(String.format("¥%s", productBean.getPrice()));
@@ -399,17 +374,15 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
 
         // 评论
         try {
-
             new_version_comment_count.setText(String.format("评论 (%d)", newProductBean.getData().getReviewTotalCount()));
-            for (int i = 0; i < (newProductBean.getData().getReviewList().size() > 3 ? 3 : newProductBean.getData().getReviewList().size()); i++) {
+            for (int i = 0; i < (newProductBean.getData().getReviewList().size() > 3 ? 3 :
+                    newProductBean.getData().getReviewList().size()); i++) {
                 CommentImgView commentImgView = new CommentImgView(getActivity());
                 commentImgView.setData(newProductBean.getData().getReviewList().get(i));
                 comment_container.addView(commentImgView);
-
                 comment_container.setVisibility(View.VISIBLE);
                 comment_empty_layout.setVisibility(View.GONE);
             }
-
         } catch (Exception e) {
             comment_container.setVisibility(View.GONE);
             comment_empty_layout.setVisibility(View.VISIBLE);
@@ -432,17 +405,6 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
         newVersionChoicenessView.init();
     }
 
-
-    @BindView(R.id.product_detail_bt_buy)
-    LinearLayout product_detail_bt_buy;
-
-
-    @BindView(R.id.shop_container)
-    LinearLayout shop_container;
-    @BindView(R.id.choiceness_view)
-    NewVersionChoicenessView newVersionChoicenessView;
-
-
     private void changeCollectBackground(boolean change) {
         if (change) {
             isFavorite = isFavorite == 0 ? 1 : 0;
@@ -455,12 +417,6 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
             productCollect.setImageResource(R.drawable.icon_like_selected);
         }
     }
-
-    private int isFavorite;
-    @BindView(R.id.product_collect)
-    ImageView productCollect;
-    @BindView(R.id.product_detail_collect_tv)
-    TextView collectTv;
 
     private void initWebView() {
         WebSettings webSettings = webView.getSettings();
@@ -542,11 +498,6 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
 
 
     }
-
-
-    private ServiceInstructionDialog serviceInstructionDialog;
-    private PriceInstructionDialog priceInstructionDialog;
-
 
     @OnClick({R.id.switch_ping_lun, R.id.new_version_top1_back, R.id.new_version_top2_back,
             R.id.baozhang_shuoming, R.id.jiage_shuoming,
@@ -636,12 +587,12 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
                     if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
                         goBuy();
                     } else {
-                        if (newProductBean.getData().getProduct().getIsLimitMs()) {
-                            // 是否是会员专属
-                            joinMember(R.id.tip, "该商品是会员专属商品，您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！", "我再想想");
-                        } else {
-                            goBuy();
-                        }
+//                        if (newProductBean.getData().getProduct().getIsLimitMs()) {
+//                            // 是否是会员专属
+//                            joinMember(R.id.tip, "该商品是会员专属商品，您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！", "我再想想");
+//                        } else {
+                        goBuy();
+//                        }
                     }
                 } else {
                     goToLogin();
@@ -652,11 +603,11 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
             case R.id.product_detail_bt_buy:
                 // 会员价购买
                 if (BearMallAplication.getInstance().getUser() != null) {
-                    if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
-                        gohyBuy();
-                    } else {
-                        joinMember(R.id.tip, "您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！", "直接购买");
-                    }
+//                    if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
+                    gohyBuy();
+//                    } else {
+//                        joinMember(R.id.tip, "您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！", "直接购买");
+//                    }
                 } else {
                     goToLogin();
                 }
@@ -664,27 +615,6 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
                 break;
         }
     }
-
-
-    @BindView(R.id.new_version_top_shangpin_tv)
-    TextView new_version_top_shangpin_tv;
-    @BindView(R.id.new_version_top_shangpin_line)
-    View new_version_top_shangpin_line;
-
-    @BindView(R.id.new_version_top_pinglun_tv)
-    TextView new_version_top_pinglun_tv;
-    @BindView(R.id.new_version_top_pinglun_line)
-    View new_version_top_pinglun_line;
-
-    @BindView(R.id.new_version_top_xiangqing_tv)
-    TextView new_version_top_xiangqing_tv;
-    @BindView(R.id.new_version_top_xiangqing_line)
-    View new_version_top_xiangqing_line;
-
-    @BindView(R.id.new_version_top_tuijian_tv)
-    TextView new_version_top_tuijian_tv;
-    @BindView(R.id.new_version_top_tuijian_line)
-    View new_version_top_tuijian_line;
 
     private void changeTabBackground(int position) {
         hideTabBackground();
@@ -708,7 +638,6 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
         new_version_top_pinglun_line.setVisibility(View.INVISIBLE);
         new_version_top_xiangqing_line.setVisibility(View.INVISIBLE);
         new_version_top_tuijian_line.setVisibility(View.INVISIBLE);
-
         new_version_top_shangpin_tv.setTextColor(Color.parseColor("#666666"));
         new_version_top_pinglun_tv.setTextColor(Color.parseColor("#666666"));
         new_version_top_xiangqing_tv.setTextColor(Color.parseColor("#666666"));
@@ -731,35 +660,33 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
             mHashMap.put("source_id", product_id);
             mHashMap.put("type", "1");
 
-            RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getShareParams(mHashMap), new RetrofitApi.IResponseListener() {
-                @Override
-                public void onSuccess(String data) {
-                    try {
-                        hiddenLoadingView();
-                        shareBean = new Gson().fromJson(data, ShareBean.class);
-                        IShareUtil.Share(getActivity(), shareBean.getData());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+            RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getShareParams(mHashMap),
+                    new RetrofitApi.IResponseListener() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                hiddenLoadingView();
+                                shareBean = new Gson().fromJson(data, ShareBean.class);
+                                IShareUtil.Share(getActivity(), shareBean.getData());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
 
-                @Override
-                public void onNotNetWork() {
-                    hiddenLoadingView();
-                }
+                        @Override
+                        public void onNotNetWork() {
+                            hiddenLoadingView();
+                        }
 
-                @Override
-                public void onFail(Throwable e) {
-                    hiddenLoadingView();
-                }
-            });
+                        @Override
+                        public void onFail(Throwable e) {
+                            hiddenLoadingView();
+                        }
+                    });
         } else {
             IShareUtil.Share(getActivity(), shareBean.getData());
         }
     }
-
-    private CustomerServiceDialog customerServiceDialog;
-    private List<NewProductBean.DataBean.InstantmessageListBean> instantmessageLists;//im弹框数据
 
     private void showKeFuDialog() {
         String phone = "";
@@ -820,41 +747,43 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
 
     private void addShopCar() {
         if (BearMallAplication.getInstance().getUser() != null) {
-            ISpecificationDialog iSpecificationDialog = new ISpecificationDialog(getActivity(), false, new ISpecificationDialog.OnDialogClickListener() {
-                @Override
-                public void onDialogClick(int sku_id, int quantity) {
-
-                    Map<String, String> mHashMap = new HashMap<>();
-
-                    mHashMap.put("product_id", product_id);
-                    mHashMap.put("sku_id", sku_id + "");
-                    mHashMap.put("quantity", quantity + "");
-
-                    showLoading();
-                    RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).joinCart(mHashMap), new RetrofitApi.IResponseListener() {
+            ISpecificationDialog iSpecificationDialog = new ISpecificationDialog(getActivity(), false,
+                    new ISpecificationDialog.OnDialogClickListener() {
                         @Override
-                        public void onSuccess(String data) throws JSONException {
+                        public void onDialogClick(int sku_id, int quantity) {
 
-                            ToastUtils.showToast(getActivity(), "加入购物车成功");
+                            Map<String, String> mHashMap = new HashMap<>();
 
-                            hiddenLoadingView();
+                            mHashMap.put("product_id", product_id);
+                            mHashMap.put("sku_id", sku_id + "");
+                            mHashMap.put("quantity", quantity + "");
 
-                        }
+                            showLoading();
+                            RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).joinCart(mHashMap),
+                                    new RetrofitApi.IResponseListener() {
+                                        @Override
+                                        public void onSuccess(String data) throws JSONException {
 
-                        @Override
-                        public void onNotNetWork() {
-                            hiddenLoadingView();
-                        }
+                                            ToastUtils.showToast(getActivity(), "加入购物车成功");
 
-                        @Override
-                        public void onFail(Throwable e) {
-                            hiddenLoadingView();
+                                            hiddenLoadingView();
+
+                                        }
+
+                                        @Override
+                                        public void onNotNetWork() {
+                                            hiddenLoadingView();
+                                        }
+
+                                        @Override
+                                        public void onFail(Throwable e) {
+                                            hiddenLoadingView();
+                                        }
+                                    });
+
+
                         }
                     });
-
-
-                }
-            });
             iSpecificationDialog.show();
             iSpecificationDialog.setData(newProductBean.getData().getProduct().getProductImages().get(0).getSource(),
                     newProductBean.getData().getProduct().getSpecificationItems(), newProductBean.getData().getSkuList());
@@ -866,99 +795,97 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
 
 
     private void goBuy() {
-        ISpecificationDialog iSpecificationDialog = new ISpecificationDialog(getActivity(), false, new ISpecificationDialog.OnDialogClickListener() {
-            @Override
-            public void onDialogClick(int sku_id, int quantity) {
-                // TODO 直接购买
-                String name = newProductBean.getData().getProduct().getProductName();
-                String imgUrl = newProductBean.getData().getProduct().getProductImages().get(0).getSource();
-                int productId = newProductBean.getData().getProduct().getProduct_id();
-                String price = "";
-                StringBuffer stringBuffer = new StringBuffer();
+        ISpecificationDialog iSpecificationDialog = new ISpecificationDialog(getActivity(), false,
+                new ISpecificationDialog.OnDialogClickListener() {
+                    @Override
+                    public void onDialogClick(int sku_id, int quantity) {
+                        // TODO 直接购买
+                        String name = newProductBean.getData().getProduct().getProductName();
+                        String imgUrl = newProductBean.getData().getProduct().getProductImages().get(0).getSource();
+                        int productId = newProductBean.getData().getProduct().getProduct_id();
+                        String price = "";
+                        StringBuffer stringBuffer = new StringBuffer();
 
-                for (int i = 0; i < newProductBean.getData().getSkuList().size(); i++) {
-                    if (newProductBean.getData().getSkuList().get(i).getSku_id() == sku_id) {
-                        price = newProductBean.getData().getSkuList().get(i).getPrice();
-                        for (int j = 0; j < newProductBean.getData().getSkuList().get(i).getSpecificationValues().size(); j++) {
-                            stringBuffer.append(newProductBean.getData().getSkuList().get(i).getSpecificationValues().get(j).getValue() + " ");
+                        for (int i = 0; i < newProductBean.getData().getSkuList().size(); i++) {
+                            if (newProductBean.getData().getSkuList().get(i).getSku_id() == sku_id) {
+                                price = newProductBean.getData().getSkuList().get(i).getPrice();
+                                for (int j = 0; j < newProductBean.getData().getSkuList().get(i).getSpecificationValues().size(); j++) {
+                                    stringBuffer.append(newProductBean.getData().getSkuList().get(i).getSpecificationValues().get(j).getValue() + " ");
 
+                                }
+                                break;
+                            }
                         }
-                        break;
+                        String guiGe = stringBuffer.toString();
+                        NewOrderChildBean newOrderChildBean = new NewOrderChildBean(name, imgUrl, price, guiGe, String.valueOf(quantity),
+                                productId, sku_id, 0);
+
+                        String storeName = newProductBean.getData().getStore().getStore_name();
+                        String storeImg = newProductBean.getData().getStore().getLogo();
+
+                        List<NewOrderChildBean> list = new ArrayList();
+                        list.add(newOrderChildBean);
+                        NewOrderBean newOrderBean = new NewOrderBean(storeName, storeImg, list);
+                        List<NewOrderBean> newOrderBeans = new ArrayList<>();
+                        newOrderBeans.add(newOrderBean);
+
+                        Intent intent = new Intent(getActivity(), ConfirmActivity.class);
+                        intent.putExtra(ConfirmActivity.INTENT_DATA, (ArrayList) newOrderBeans);
+                        intent.putExtra("type_order", "0");
+                        startActivity(intent);
+
                     }
-                }
-                String guiGe = stringBuffer.toString();
-                NewOrderChildBean newOrderChildBean = new NewOrderChildBean(name, imgUrl, price, guiGe, String.valueOf(quantity), productId, sku_id, 0);
-
-                String storeName = newProductBean.getData().getStore().getStore_name();
-                String storeImg = newProductBean.getData().getStore().getLogo();
-
-                List<NewOrderChildBean> list = new ArrayList();
-                list.add(newOrderChildBean);
-                NewOrderBean newOrderBean = new NewOrderBean(storeName, storeImg, list);
-                List<NewOrderBean> newOrderBeans = new ArrayList<>();
-                newOrderBeans.add(newOrderBean);
-
-                Intent intent = new Intent(getActivity(), ConfirmActivity.class);
-                intent.putExtra(ConfirmActivity.INTENT_DATA, (ArrayList) newOrderBeans);
-                intent.putExtra("type_order", "0");
-                startActivity(intent);
-
-            }
-        });
+                });
         iSpecificationDialog.show();
         iSpecificationDialog.setData(newProductBean.getData().getProduct().getProductImages().get(0).getSource(),
                 newProductBean.getData().getProduct().getSpecificationItems(), newProductBean.getData().getSkuList());
-
-
     }
 
 
     private void gohyBuy() {
+        ISpecificationDialog iSpecificationDialog = new ISpecificationDialog(getActivity(), true,
+                new ISpecificationDialog.OnDialogClickListener() {
+                    @Override
+                    public void onDialogClick(int sku_id, int quantity) {
+                        String name = newProductBean.getData().getProduct().getProductName();
+                        String imgUrl = newProductBean.getData().getProduct().getProductImages().get(0).getSource();
+                        int productId = newProductBean.getData().getProduct().getProduct_id();
+                        String price = "";
+                        StringBuffer stringBuffer = new StringBuffer();
 
+                        for (int i = 0; i < newProductBean.getData().getSkuList().size(); i++) {
+                            if (newProductBean.getData().getSkuList().get(i).getSku_id() == sku_id) {
+                                price = newProductBean.getData().getSkuList().get(i).getMembershipPrice();
+                                for (int j = 0; j < newProductBean.getData().getSkuList().get(i).getSpecificationValues().size(); j++) {
+                                    stringBuffer.append(newProductBean.getData().getSkuList().get(i).getSpecificationValues().get(j).getValue() + " ");
 
-        ISpecificationDialog iSpecificationDialog = new ISpecificationDialog(getActivity(), true, new ISpecificationDialog.OnDialogClickListener() {
-            @Override
-            public void onDialogClick(int sku_id, int quantity) {
-                String name = newProductBean.getData().getProduct().getProductName();
-                String imgUrl = newProductBean.getData().getProduct().getProductImages().get(0).getSource();
-                int productId = newProductBean.getData().getProduct().getProduct_id();
-                String price = "";
-                StringBuffer stringBuffer = new StringBuffer();
-
-                for (int i = 0; i < newProductBean.getData().getSkuList().size(); i++) {
-                    if (newProductBean.getData().getSkuList().get(i).getSku_id() == sku_id) {
-                        price = newProductBean.getData().getSkuList().get(i).getMembershipPrice();
-                        for (int j = 0; j < newProductBean.getData().getSkuList().get(i).getSpecificationValues().size(); j++) {
-                            stringBuffer.append(newProductBean.getData().getSkuList().get(i).getSpecificationValues().get(j).getValue() + " ");
-
+                                }
+                                break;
+                            }
                         }
-                        break;
+                        String guiGe = stringBuffer.toString();
+                        NewOrderChildBean newOrderChildBean = new NewOrderChildBean(name, imgUrl, price, guiGe, String.valueOf(quantity),
+                                productId, sku_id, 1);
+
+                        String storeName = newProductBean.getData().getStore().getStore_name();
+                        String storeImg = newProductBean.getData().getStore().getLogo();
+
+                        List<NewOrderChildBean> list = new ArrayList();
+                        list.add(newOrderChildBean);
+                        NewOrderBean newOrderBean = new NewOrderBean(storeName, storeImg, list);
+                        List<NewOrderBean> newOrderBeans = new ArrayList<>();
+                        newOrderBeans.add(newOrderBean);
+
+                        Intent intent = new Intent(getActivity(), ConfirmActivity.class);
+                        intent.putExtra(ConfirmActivity.INTENT_DATA, (ArrayList) newOrderBeans);
+                        intent.putExtra("type_order", "0");
+                        startActivity(intent);
+
                     }
-                }
-                String guiGe = stringBuffer.toString();
-                NewOrderChildBean newOrderChildBean = new NewOrderChildBean(name, imgUrl, price, guiGe, String.valueOf(quantity), productId, sku_id, 1);
-
-                String storeName = newProductBean.getData().getStore().getStore_name();
-                String storeImg = newProductBean.getData().getStore().getLogo();
-
-                List<NewOrderChildBean> list = new ArrayList();
-                list.add(newOrderChildBean);
-                NewOrderBean newOrderBean = new NewOrderBean(storeName, storeImg, list);
-                List<NewOrderBean> newOrderBeans = new ArrayList<>();
-                newOrderBeans.add(newOrderBean);
-
-                Intent intent = new Intent(getActivity(), ConfirmActivity.class);
-                intent.putExtra(ConfirmActivity.INTENT_DATA, (ArrayList) newOrderBeans);
-                intent.putExtra("type_order", "0");
-                startActivity(intent);
-
-            }
-        });
+                });
         iSpecificationDialog.show();
         iSpecificationDialog.setData(newProductBean.getData().getProduct().getProductImages().get(0).getSource(),
                 newProductBean.getData().getProduct().getSpecificationItems(), newProductBean.getData().getSkuList());
-
-
     }
 
 
@@ -986,15 +913,15 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
                         if (clickView.getId() == R.id.join_member_ok) {
                             startActivity(new Intent(getActivity(), VipCenterActivity.class));
                         } else {
-                            if (newProductBean.getData().getProduct().getIsLimitMs()) {
-                                // 是否是会员专属
-                                if (button.equals("我再想想")) {
-                                } else {
-                                    joinMember(R.id.tip, "该商品是会员专属商品，您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！", "我再想想");
-                                }
-                            } else {
-                                goBuy();
-                            }
+//                            if (newProductBean.getData().getProduct().getIsLimitMs()) {
+//                                // 是否是会员专属
+//                                if (button.equals("我再想想")) {
+//                                } else {
+//                                    joinMember(R.id.tip, "该商品是会员专属商品，您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！", "我再想想");
+//                                }
+//                            } else {
+                            goBuy();
+//                            }
                         }
                         thisDialog.dismiss();
                     }
@@ -1011,7 +938,6 @@ public class NewProductFragment extends BaseFragment implements HtmlFoundation {
 
     @Override
     public void onResultHeight(int height) {
-
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

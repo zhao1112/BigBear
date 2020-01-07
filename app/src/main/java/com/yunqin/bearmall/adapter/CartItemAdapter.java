@@ -233,9 +233,9 @@ public class CartItemAdapter extends BaseExpandableListAdapter {
 
 
             if (itemList.isSurportMsp()) {
-                childViewHolder.btPrice.setText("金熊价 ¥" + itemList.getMembershipPrice());
+                childViewHolder.btPrice.setText("直购价 ¥" + itemList.getMembershipPrice());
             } else {
-                childViewHolder.btPrice.setText("金熊价 ¥" + itemList.getPrice());
+                childViewHolder.btPrice.setText("直购价 ¥" + itemList.getPrice());
                 childViewHolder.btPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
             }
 
@@ -471,9 +471,9 @@ public class CartItemAdapter extends BaseExpandableListAdapter {
 
         allProductPrice.setText("¥" + price + "+BC" + btPrice);
         if(BearMallAplication.getInstance().getUser().getData().getMember().isMember()){
-            tip.setText("金熊价已经省"+youhuiPrice+"元");
+            tip.setText("直购价已经省"+youhuiPrice+"元");
         }else {
-            tip.setText("立即成为金熊会员，此单可省"+youhuiPrice+"元");
+//            tip.setText("立即成为金熊会员，此单可省"+youhuiPrice+"元");
         }
 
     }

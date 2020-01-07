@@ -29,6 +29,7 @@ import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
 import com.yunqin.bearmall.ui.activity.SweetRecordActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
@@ -54,27 +55,18 @@ public class MakeMoneyFragment1 extends BaseFragment {
 
     @BindView(R.id.new_menu_1)
     LinearLayout menu1;
-
     @BindView(R.id.mine_today_bt_number)
     TextView today_tang_guo_shu;
-
     @BindView(R.id.shangjin_number)
     TextView today_shang_jin_shu;
-
     @BindView(R.id.mine_bt_number)
     TextView tang_guo_shu;
-
     @BindView(R.id.shangjin_qianbao)
     TextView shang_jin_shu;
-
     @BindView(R.id.tishi)
     TextView tishi;
-
-
     @BindView(R.id.banner_top)
     TopBanner banner;
-
-
     @BindView(R.id.sign_get_info)
     TextView tip1;
     @BindView(R.id.request_friends_reward_info)
@@ -83,43 +75,29 @@ public class MakeMoneyFragment1 extends BaseFragment {
     TextView tip3;
     @BindView(R.id.share_zixun_get)
     TextView tip4;
-
-
     @BindView(R.id.textview_1)
     TextView textview_1;
-
     @BindView(R.id.image_1)
     ImageView image_1;
-
     @BindView(R.id.textview_2)
     TextView textview_2;
-
     @BindView(R.id.image_2)
     ImageView image_2;
-
     @BindView(R.id.textview_3)
     TextView textview_3;
-
     @BindView(R.id.image_3)
     ImageView image_3;
-
     @BindView(R.id.textview_4)
     TextView textview_4;
-
     @BindView(R.id.image_4)
     ImageView image_4;
-
     @BindView(R.id.textview_5)
     TextView textview_5;
-
     @BindView(R.id.image_5)
     ImageView image_5;
 
-
     private List<TextView> textViews;
     private List<ImageView> imageaViews;
-
-
     private String todaySum;
     private String total;
 
@@ -224,9 +202,14 @@ public class MakeMoneyFragment1 extends BaseFragment {
                 break;
             case R.id.new_menu_3:// 邀请好友
 //                VipCenterActivity.startVipCenterActivity(getActivity(), "", "");
-
-                InviteFriendActivity.startActivity(getActivity());
-
+//                InviteFriendActivity.startActivity(getActivity());
+                if (BearMallAplication.getInstance().getUser() != null) {
+                    StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
+                    //TODO[邀请好友]
+                    ConstantScUtil.sensorsInviteFriends("赚钱中心：邀请好友");
+                } else {
+                    LoginActivity.starActivity(getActivity());
+                }
                 break;
             case R.id.new_menu_4:// 领取信用卡
 
@@ -396,7 +379,8 @@ public class MakeMoneyFragment1 extends BaseFragment {
         imageaViews.get(pos).setOnClickListener(view -> {
             DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean adEarnMoneyListBean =
                     (DayliTaskBCInfo.DataBean.AdRecordBean.AdEarnMoneyListBean) view.getTag(R.id.tag_first);
-            IAdvClick.click(getActivity(), adEarnMoneyListBean.getType(), adEarnMoneyListBean.getSkipType(), adEarnMoneyListBean.getSource_id(),null);
+            IAdvClick.click(getActivity(), adEarnMoneyListBean.getType(), adEarnMoneyListBean.getSkipType(),
+                    adEarnMoneyListBean.getSource_id(), null);
         });
 
 

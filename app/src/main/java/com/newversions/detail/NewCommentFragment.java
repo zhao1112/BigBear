@@ -31,19 +31,19 @@ import butterknife.OnClick;
 public class NewCommentFragment extends BaseFragment {
 
 
-    private FragmentToActivityInter fragmentToActivityInter;
-    private NewVersionProductCommentAdapter productCommentAdapter;
-    private String product_id;
-
     @BindView(R.id.empty_view)
     View view;
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout twinklingRefreshLayout;
     @BindView(R.id.list_view)
     ListView list_view;
+
     private List<NewReviewListBean.DataBean.ReviewListBean> mReviewList = new ArrayList<>();
     private int page_numer = 1;
     private boolean onHasMore = false;
+    private FragmentToActivityInter fragmentToActivityInter;
+    private NewVersionProductCommentAdapter productCommentAdapter;
+    private String product_id;
 
     @Override
     public void onAttach(Context context) {

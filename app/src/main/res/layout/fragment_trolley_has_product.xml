@@ -104,7 +104,7 @@
                         android:id="@+id/tip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="立即成为金熊会员，此单可省X元。"
+                        android:text=""
                         android:textColor="@color/main_color"
                         android:textSize="@dimen/ds18"
                         android:visibility="invisible" />

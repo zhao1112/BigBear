@@ -29,7 +29,6 @@ public class RefreshToken {
 
         Log.e("TGG", "开始刷新Token : ----->");
 
-
         if (count++ == 3) {
             listener.onNotNetWork();
             Toast.makeText(mContext, "网络异常，请稍后重试!", Toast.LENGTH_SHORT).show();
@@ -59,16 +58,12 @@ public class RefreshToken {
 
             @Override
             public void onNotNetWork() {
-
                 listener.onNotNetWork();
-
             }
 
             @Override
             public void onFail(Throwable e) {
-
                 listener.onFail(e);
-
             }
         });
     }
