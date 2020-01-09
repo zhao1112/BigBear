@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -47,7 +48,6 @@ public class SplashActivity extends BaseActivity {
 
         new CheckForUpdateHelper().checkForUpdate(this, 0);
         if (BearMallAplication.getInstance().getUser() != null) {
-
             RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getMemberInfo(new HashMap<>()), new RetrofitApi.IResponseListener() {
                 @Override
                 public void onSuccess(String data) {
@@ -56,10 +56,11 @@ public class SplashActivity extends BaseActivity {
                         UserInfo.DataBean dataBean = userInfo.getData();
                         MemberBeanResponse response = new Gson().fromJson(data, MemberBeanResponse.class);
                         UserInfo.DataBean.MemberBean memberBean = response.getData();
+                        UserInfo.Identity identity = response.getIdentity();
                         dataBean.setMember(memberBean);
                         userInfo.setData(dataBean);
+                        userInfo.setIdentity(identity);
                         BearMallAplication.getInstance().setUser(userInfo);
-                        //InitInvitation();
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                     }

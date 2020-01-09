@@ -2,7 +2,6 @@ package com.yunqin.bearmall.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,8 +20,8 @@ import butterknife.OnClick;
 
 public class MineProfitActivity extends BaseActivity implements ProfitContract.UI {
 
-    @BindView(R.id.twinkling)
-    TwinklingRefreshLayout mTwinkling;
+//    @BindView(R.id.twinkling)
+//    TwinklingRefreshLayout mTwinkling;
     @BindView(R.id.cash_price)
     TextView mCashPrice;
     @BindView(R.id.withdrawal_price)
@@ -71,27 +70,27 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mProfitPresenter.getMonthProfiteDetailed(this);
         mProfitPresenter.getDayProfiteDetailed(this);
 
-        mTwinkling.setHeaderView(new RefreshHeadView(this));
-        mTwinkling.setEnableLoadmore(false);
-        mTwinkling.setOnRefreshListener(new RefreshListenerAdapter() {
-            @Override
-            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mProfitPresenter.getIncomeRecord(MineProfitActivity.this);
-                mProfitPresenter.getMonthProfiteDetailed(MineProfitActivity.this);
-                mProfitPresenter.getDayProfiteDetailed(MineProfitActivity.this);
-            }
-        });
+//        mTwinkling.setHeaderView(new RefreshHeadView(this));
+//        mTwinkling.setEnableLoadmore(false);
+//        mTwinkling.setOnRefreshListener(new RefreshListenerAdapter() {
+//            @Override
+//            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+//                mProfitPresenter.getIncomeRecord(MineProfitActivity.this);
+//                mProfitPresenter.getMonthProfiteDetailed(MineProfitActivity.this);
+//                mProfitPresenter.getDayProfiteDetailed(MineProfitActivity.this);
+//            }
+//        });
     }
 
 
     @Override
     public void onFail(Throwable e) {
-        mTwinkling.finishRefreshing();
+//        mTwinkling.finishRefreshing();
     }
 
     @Override
     public void onNotNetWork() {
-        mTwinkling.finishRefreshing();
+//        mTwinkling.finishRefreshing();
     }
 
     @Override
@@ -102,7 +101,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mCumulativePrice.setText(doubleToString(thisMonth));
         this.withdrawFrom = withdrawFrom;
         this.balance = doubleToString(balance);
-        mTwinkling.finishRefreshing();
+//        mTwinkling.finishRefreshing();
     }
 
     @Override
@@ -112,7 +111,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mThisMonthConsumption.setText("￥" + doubleToString(thisMonthConsumption));
         mLastMonthPaymentPens.setText(lastMonthPaymentPens + "");
         mLastMonthConsumption.setText("￥" + doubleToString(lastMonthConsumption));
-        mTwinkling.finishRefreshing();
+//        mTwinkling.finishRefreshing();
     }
 
     @Override
@@ -122,7 +121,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mTodayTransactionRevenue.setText("￥" + doubleToString(todayTransactionRevenue));
         mYesterdayPaymentPens.setText(yesterdayPaymentPens + "");
         mYesterdayTransactionRevenue.setText("￥" + doubleToString(yesterdayTransactionRevenue));
-        mTwinkling.finishRefreshing();
+//        mTwinkling.finishRefreshing();
     }
 
     public static String doubleToString(double num) {

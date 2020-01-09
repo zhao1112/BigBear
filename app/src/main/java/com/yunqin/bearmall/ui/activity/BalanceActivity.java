@@ -314,8 +314,10 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                                     UserInfo.DataBean dataBean = userInfo.getData();
                                     MemberBeanResponse response = new Gson().fromJson(data, MemberBeanResponse.class);
                                     UserInfo.DataBean.MemberBean memberBean = response.getData();
+                                    UserInfo.Identity identity = response.getIdentity();
                                     dataBean.setMember(memberBean);
                                     userInfo.setData(dataBean);
+                                    userInfo.setIdentity(identity);
                                     BearMallAplication.getInstance().setUser(userInfo);
                                 } catch (JsonSyntaxException e) {
                                     e.printStackTrace();

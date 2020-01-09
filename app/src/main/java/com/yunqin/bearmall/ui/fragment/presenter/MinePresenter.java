@@ -109,9 +109,11 @@ public class MinePresenter implements MineContract.Presenter {
                             if (response.isSuccess()) {
                                 if (response.isSuccess()) {
                                     UserInfo.DataBean.MemberBean memberBean = response.getData();
-                                    if (memberBean != null) {
+                                    UserInfo.Identity identity = response.getIdentity();
+                                    if (memberBean != null && identity != null) {
                                         UserInfo userInfo = BearMallAplication.getInstance().getUser();
                                         userInfo.getData().setMember(memberBean);
+                                        userInfo.setIdentity(identity);
                                         BearMallAplication.getInstance().setUser(userInfo);
                                         view.onUpdateUserInfo(userInfo);
                                     }
@@ -217,7 +219,7 @@ public class MinePresenter implements MineContract.Presenter {
 
     /**
      * 轮播图
-     * */
+     */
     @Override
     public void onLunboTu(Context context) {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getLunboTu(), new RetrofitApi.IResponseListener() {

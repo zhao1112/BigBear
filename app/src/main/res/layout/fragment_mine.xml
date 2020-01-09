@@ -70,18 +70,20 @@
                             android:layout_height="@dimen/dp_10"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp_6"
-                            android:src="@mipmap/mine_vip"/>
+                            android:src="@mipmap/vip_gray"/>
 
                         <TextView
                             android:id="@+id/vip_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginLeft="@dimen/dp_4"
+                            android:layout_marginTop="@dimen/dp_3"
                             android:layout_marginRight="@dimen/dp_9"
+                            android:layout_marginBottom="@dimen/dp_3"
                             android:layout_toRightOf="@id/image_vip"
-                            android:text="金熊会员"
-                            android:textColor="#ffffc755"
+                            android:text="注册会员"
+                            android:textColor="#ffffffff"
                             android:textSize="@dimen/sp_11"/>
 
                     </RelativeLayout>
@@ -110,7 +112,6 @@
                             android:textSize="@dimen/sp_11"/>
 
                     </RelativeLayout>
-
 
                     <TextView
                         android:id="@+id/mine_vip_data"
@@ -271,8 +272,7 @@
                         android:layout_height="@dimen/dp_24"
                         android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_13"
-                        android:layout_marginRight="@dimen/dp_10"
-                        android:visibility="gone">
+                        android:layout_marginRight="@dimen/dp_10">
 
                         <ImageView
                             android:id="@+id/tuanz"
@@ -282,10 +282,11 @@
                             android:src="@mipmap/mine_tuanzhang"/>
 
                         <TextView
+                            android:id="@+id/mine_vip_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_9"
+                            android:layout_marginLeft="@dimen/dp_7"
                             android:layout_toRightOf="@id/tuanz"
                             android:text="成为金熊大团长"
                             android:textColor="#ff999999"
@@ -300,8 +301,7 @@
                             android:gravity="center"
                             android:text="立即参与"
                             android:textColor="#ff303030"
-                            android:textSize="@dimen/sp_12"
-                            android:visibility="gone"/>
+                            android:textSize="@dimen/sp_12"/>
 
                     </RelativeLayout>
 
@@ -309,6 +309,7 @@
                         android:id="@+id/xis"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_below="@id/mine_regimental"
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="@dimen/dp_8"
                         android:layout_marginTop="@dimen/dp_8"
@@ -332,14 +333,6 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
 
-                                <!--<LinearLayout-->
-                                <!--android:id="@+id/mine_withdrawal"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_centerVertical="true"-->
-                                <!--android:gravity="center"-->
-                                <!--android:orientation="vertical">-->
-
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -355,8 +348,6 @@
                                     android:text="0.00"
                                     android:textColor="#ffd62b2b"
                                     android:textSize="@dimen/sp_24"/>
-
-                                <!--</LinearLayout>-->
 
                             </LinearLayout>
 
@@ -374,18 +365,6 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
 
-                                <!--<LinearLayout-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:orientation="vertical">-->
-
-                                <!--<LinearLayout-->
-                                <!--android:id="@+id/mine_today"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:gravity="center"-->
-                                <!--android:orientation="vertical">-->
-
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -401,16 +380,6 @@
                                     android:text="0.00"
                                     android:textColor="#ff272727"
                                     android:textSize="@dimen/sp_16"/>
-
-                                <!--</LinearLayout>-->
-
-                                <!--<LinearLayout-->
-                                <!--android:id="@+id/mine_month"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_marginTop="@dimen/dp_10"-->
-                                <!--android:gravity="center"-->
-                                <!--android:orientation="vertical">-->
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -428,10 +397,6 @@
                                     android:text="0.00"
                                     android:textColor="#ff272727"
                                     android:textSize="@dimen/sp_16"/>
-
-                                <!--</LinearLayout>-->
-
-                                <!--</LinearLayout>-->
 
                             </LinearLayout>
 
@@ -469,18 +434,6 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/two"
                     android:background="#F1F1F1">
-
-                    <!--<android.support.v4.widget.NestedScrollView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentStart="true"-->
-                    <!--android:layout_alignParentTop="true"-->
-                    <!--android:background="#F1F1F1">-->
-
-                    <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="#F1F1F1">-->
 
                     <LinearLayout
                         android:id="@+id/three"
@@ -630,10 +583,9 @@
                     <LinearLayout
                         android:id="@+id/four"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_154"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/mine_banner"
                         android:layout_marginLeft="@dimen/dp_15"
-
                         android:layout_marginTop="@dimen/dp_12"
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/bg_corner_search_dialog"
@@ -641,8 +593,8 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_0"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_17"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -741,8 +693,9 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_0"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_24"
+                            android:layout_marginBottom="@dimen/dp_17"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -839,11 +792,70 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/mine_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_7"
+                            android:layout_marginBottom="@dimen/dp_17"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:id="@+id/mine_backstage"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/img_admin"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_6"
+                                    android:text="合伙人管理后台"
+                                    android:textColor="#ff303030"
+                                    android:textSize="@dimen/sp_12"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
                     </LinearLayout>
-
-                    <!--</RelativeLayout>-->
-
-                    <!--</android.support.v4.widget.NestedScrollView>-->
 
                 </RelativeLayout>
 

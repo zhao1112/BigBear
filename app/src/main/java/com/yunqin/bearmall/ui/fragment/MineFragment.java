@@ -132,9 +132,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @BindView(R.id.mine_withdrawal)
     LinearLayout mMineWithdrawal;
     @BindView(R.id.mine_today)
-//    LinearLayout mMineToday;
-//    @BindView(R.id.mine_month)
-            LinearLayout mMineMonth;
+    LinearLayout mMineMonth;
+    @BindView(R.id.mine_month)
+    LinearLayout mMineToday;
     @BindView(R.id.two)
     RelativeLayout mTwo;
     @BindView(R.id.mine_wallet)
@@ -175,6 +175,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     TextView mOpenVipOne;
     @BindView(R.id.twinking_ref)
     TwinklingRefreshLayout mTwinkingRef;
+    @BindView(R.id.mine_vip_text)
+    TextView vip_text;
 
 
     private RequestOptions requestOptions = new RequestOptions()
@@ -188,11 +190,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     private List<MineBannerBean.DataBean.PlatformBannerBean> mPlatformBanner;
     private static final String url = "https://cloud.video.taobao.com//play/u/1101907235/p/1/e/6/t/1/243540803180.mp4";
     private static final float RATIO = 1.725f;
-    private static final float ONE = 2.02f;
     private static final float THREE = 4.10f;
     private static final float BANNER = 4.31f;
-    private static final float FOUR = 2.24f;
-    private static final float XIS = 2.33f;
 
     @Override
     public int layoutId() {
@@ -258,18 +257,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             }
         });
 
-
-        mFour.post(new Runnable() {
-            @Override
-            public void run() {
-                int width = mFour.getWidth();
-                float mHeight = width / FOUR;
-                ViewGroup.LayoutParams layoutParams = mFour.getLayoutParams();
-                layoutParams.width = width;
-                layoutParams.height = (int) mHeight;
-                mFour.setLayoutParams(layoutParams);
-            }
-        });
     }
 
     private void initUserView() {
@@ -283,7 +270,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mPresenter.onProfit(getActivity());
         } else {
             mMineLogin.setVisibility(View.VISIBLE);
-//            mMineVip.setVisibility(View.GONE);
+            mMineVip.setVisibility(View.GONE);
             mCode.setVisibility(View.GONE);
             mMineNickname.setVisibility(View.GONE);
 //            mMineVipData.setVisibility(View.GONE);
@@ -292,6 +279,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mMineWithdrawalPrice.setText("0.00");
             mMineTodayPrice.setText("0.00");
             mMineMonthPrice.setText("0.00");
+            mMineToday.setVisibility(View.GONE);
             Glide.with(this).setDefaultRequestOptions(requestOptions).load("error").into(mMineHead);
             mTwinkingRef.finishRefreshing();
         }
@@ -303,18 +291,50 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mPresenter.updateUserInfo(getActivity());
         } else {
             UserInfo.DataBean.MemberBean dataBean = userInfo.getData().getMember();
-            if (dataBean.isMember()) {
+            UserInfo.Identity identity = userInfo.getIdentity();
+            //判断是否是合伙人
+            if (identity.isPartner()) {
+                mMineToday.setVisibility(View.VISIBLE);
+            } else {
+                mMineToday.setVisibility(View.GONE);
+            }
+            //这里判断是哪个vip
+            vip_text.setText(identity.getUpgradeTips());
+            mMineVip.setVisibility(View.VISIBLE);
+            switch (identity.getUpgradeType()){
+                case 1:
+                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.vip_gray));
+                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.vip));
+
+                    break;
+                case 2:
+                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.mine_vip));
+                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang_));
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang));
+                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.up));
+                    break;
+                case 6:
+                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang));
+                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.up));
+                    break;
+            }
+
+//            if (dataBean.isMember()) {
 //                mMineVip.setVisibility(View.VISIBLE);
 //                mMineVipData.setVisibility(View.VISIBLE);
 //                openvip.setVisibility(View.GONE);
 //                mMineVipData.setText("剩余" + dataBean.getRestDays() + "天，");
 //                mOpenVipOne.setVisibility(View.VISIBLE);
-            } else {
+//            } else {
 //                mMineVip.setVisibility(View.GONE);
 //                mMineVipData.setVisibility(View.GONE);
 //                mOpenVipOne.setVisibility(View.GONE);
 //                openvip.setVisibility(View.VISIBLE);
-            }
+//            }
         }
         mMineNickname.setText(userInfo.getData().getMember().getNickName());
         Glide.with(this).setDefaultRequestOptions(requestOptions).load(userInfo.getData().getMember().getIconUrl()).into(mMineHead);
@@ -435,7 +455,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.mine_withdrawal://收益详情
             case R.id.mine_today:
-//            case R.id.mine_month:
                 if (BearMallAplication.getInstance().getUser() != null) {
                     MineProfitActivity.openMineProfitActivity(getActivity(), MineProfitActivity.class);
                 } else {

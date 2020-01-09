@@ -9,7 +9,8 @@ package com.yunqin.bearmall.bean;
 public class UserInfo {
 
     /**
-     * data : {"member":{"bigBearNumber":"532711651","nickName":"大熊用户532711651","iconUrl":"","rankTitle":"大熊先锋"},"access_token":"4f69216bd28f8b0cb04f9ebaafc9d7cd"}
+     * data : {"member":{"bigBearNumber":"532711651","nickName":"大熊用户532711651","iconUrl":"","rankTitle":"大熊先锋"},"access_token
+     * ":"4f69216bd28f8b0cb04f9ebaafc9d7cd"}
      * code : 1
      * msg : 登录成功
      */
@@ -19,6 +20,15 @@ public class UserInfo {
     private String msg;
     private String recommendCode;//自己的邀请码
     private String parentCode;//上级的邀请码，自己填的邀请码
+    private Identity identity;
+
+    public Identity getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(Identity identity) {
+        this.identity = identity;
+    }
 
     public String getRecommendCode() {
         return recommendCode;
@@ -122,13 +132,11 @@ public class UserInfo {
             private int restPrivilegeCount;
             private int restDays;
             private String endDate;
-            private boolean  isHasSpecInvite;
+            private boolean isHasSpecInvite;
             private int specInviteUsableCount;
 
             private boolean isBindWxopenId;
             private boolean isBindWx;
-
-
 
             public boolean isBindWxopenId() {
                 return isBindWxopenId;
@@ -243,10 +251,11 @@ public class UserInfo {
             }
         }
 
-        public static class TokenBean{
+        public static class TokenBean {
 
             /**
-             * access_token : eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxMTg3NyIsImV4cCI6MTU0NTk3MzczMSwic3ViIjoie1widWlkXCI6XCIxMTg3N1wifSIsImp0aSI6ImM4N2IyMmFkYzY4OGUyMTFmNzQ2YmVlYjUwZDA3NTI3IiwiaWF0IjoxNTQ1OTY2NTMxfQ.j9Sc_Z4P63nAW0aZx5iG3k08WgGpd0BRFIbH3R8Rgf4
+             * access_token : eyJhbGciOiJIUzI1NiJ9
+             * .eyJ1aWQiOiIxMTg3NyIsImV4cCI6MTU0NTk3MzczMSwic3ViIjoie1widWlkXCI6XCIxMTg3N1wifSIsImp0aSI6ImM4N2IyMmFkYzY4OGUyMTFmNzQ2YmVlYjUwZDA3NTI3IiwiaWF0IjoxNTQ1OTY2NTMxfQ.j9Sc_Z4P63nAW0aZx5iG3k08WgGpd0BRFIbH3R8Rgf4
              * timestamp : 1545966531852
              * expire : 7200
              * refresh_token : c87b22adc688e211f746beeb50d07527
@@ -290,5 +299,53 @@ public class UserInfo {
             }
         }
 
+    }
+
+    public static class Identity {
+        private boolean isPartner;
+        private String identity;
+        private int isAudit;
+        private int upgradeType;
+        private String upgradeTips;
+
+        public boolean isPartner() {
+            return isPartner;
+        }
+
+        public void setPartner(boolean partner) {
+            isPartner = partner;
+        }
+
+        public String getIdentity() {
+            return identity;
+        }
+
+        public void setIdentity(String identity) {
+            this.identity = identity;
+        }
+
+        public int getIsAudit() {
+            return isAudit;
+        }
+
+        public void setIsAudit(int isAudit) {
+            this.isAudit = isAudit;
+        }
+
+        public int getUpgradeType() {
+            return upgradeType;
+        }
+
+        public void setUpgradeType(int upgradeType) {
+            this.upgradeType = upgradeType;
+        }
+
+        public String getUpgradeTips() {
+            return upgradeTips;
+        }
+
+        public void setUpgradeTips(String upgradeTips) {
+            this.upgradeTips = upgradeTips;
+        }
     }
 }

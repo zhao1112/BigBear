@@ -84,8 +84,7 @@ public class InputIncomCodeActivity extends BaseActivity {
                         UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
                         userInfo.getData().setIsFirstLogin(1);
                         if (userInfo.getData().getIsFirstLogin() == 1) {
-                            SharedPreferencesHelper.put(InputIncomCodeActivity.this, "firstLoginReward",
-                                    userInfo.getData().getFirstLoginReward());
+                            SharedPreferencesHelper.put(InputIncomCodeActivity.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
                             SharedPreferencesHelper.put(InputIncomCodeActivity.this, "isFirstBind", true);
                         } else {
                             SharedPreferencesHelper.put(InputIncomCodeActivity.this, "isFirstBind", false);

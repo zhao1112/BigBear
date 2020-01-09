@@ -45,12 +45,6 @@ public class PayOverMemberActivity extends BaseActivity {
     CustomRecommendView mCustomRecommendView;
 
 
-
-
-
-
-
-
     @BindView(R.id.t1)
     TextView t1;
 
@@ -114,8 +108,10 @@ public class PayOverMemberActivity extends BaseActivity {
                         UserInfo.DataBean dataBean = userInfo.getData();
                         MemberBeanResponse response = new Gson().fromJson(data, MemberBeanResponse.class);
                         UserInfo.DataBean.MemberBean memberBean = response.getData();
+                        UserInfo.Identity identity = response.getIdentity();
                         dataBean.setMember(memberBean);
                         userInfo.setData(dataBean);
+                        userInfo.setIdentity(identity);
                         BearMallAplication.getInstance().setUser(userInfo);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
@@ -134,7 +130,7 @@ public class PayOverMemberActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.toolbar_back, R.id.go_to_order,R.id.type_0,R.id.type_1,R.id.type_2})
+    @OnClick({R.id.toolbar_back, R.id.go_to_order, R.id.type_0, R.id.type_1, R.id.type_2})
     public void onSelect(View view) {
         switch (view.getId()) {
             case R.id.toolbar_back:
@@ -145,27 +141,24 @@ public class PayOverMemberActivity extends BaseActivity {
                 break;
 
 
-
             case R.id.type_0:
             case R.id.type_1:
             case R.id.type_2:
 
                 try {
                     int tag = (int) view.getTag();
-                    if (tag == 0){
-                        startActivity(new Intent(this,MemberMallActivity.class));
-                    }else if (tag == 1){
-                        startActivity(new Intent(this,ChargeActivity.class));
-                    }else {
+                    if (tag == 0) {
+                        startActivity(new Intent(this, MemberMallActivity.class));
+                    } else if (tag == 1) {
+                        startActivity(new Intent(this, ChargeActivity.class));
+                    } else {
                         startActivity(new Intent(this, ZeroMoneyActivity.class));
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
 
                 break;
-
-
 
 
             default:
@@ -174,24 +167,12 @@ public class PayOverMemberActivity extends BaseActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     //获取页面数据
-    public void getData(){
+    public void getData() {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getMemberUnusedPrivilege(), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                PrivilegeBean privilegeBean = new Gson().fromJson(data,PrivilegeBean.class);
+                PrivilegeBean privilegeBean = new Gson().fromJson(data, PrivilegeBean.class);
                 changePageInfo(privilegeBean);
             }
 
@@ -210,90 +191,62 @@ public class PayOverMemberActivity extends BaseActivity {
 
     private void changePageInfo(PrivilegeBean privilegeBean) {
 
-        try{
+        try {
             PrivilegeBean.DataBean.GroupRecordBean groupRecordBean = privilegeBean.getData().get(0).getGroupRecord();
             PrivilegeBean.DataBean.PhoneTicketRecordBean phoneTicketRecord = privilegeBean.getData().get(1).getPhoneTicketRecord();
             PrivilegeBean.DataBean.CashTicketRecordBean cashTicketRecordBean = privilegeBean.getData().get(2).getCashTicketRecord();
 
-            if(phoneTicketRecord.getRestCount() == 0){
+            if (phoneTicketRecord.getRestCount() == 0) {
                 t3.setVisibility(View.GONE);
                 type_1.setClickable(false);
                 type_1.setBackgroundResource(R.drawable.privilege_shape_1);
-            }else {
+            } else {
                 t3.setVisibility(View.GONE);
                 type_1.setClickable(true);
                 type_1.setBackgroundResource(R.drawable.privilege_shape);
                 type_1.setTag(phoneTicketRecord.getType());
             }
 
-            if(groupRecordBean.getRestCount() == 0){
+            if (groupRecordBean.getRestCount() == 0) {
                 t6.setVisibility(View.GONE);
                 type_2.setClickable(false);
                 type_2.setBackgroundResource(R.drawable.privilege_shape_1);
-            }else {
+            } else {
                 type_2.setClickable(true);
                 t6.setVisibility(View.GONE);
                 type_2.setBackgroundResource(R.drawable.privilege_shape);
                 type_2.setTag(groupRecordBean.getType());
             }
 
-            if(cashTicketRecordBean.getRestCount() == 0){
+            if (cashTicketRecordBean.getRestCount() == 0) {
                 type_0.setClickable(false);
                 type_0.setBackgroundResource(R.drawable.privilege_shape_1);
                 t5.setVisibility(View.GONE);
-            }else {
+            } else {
                 type_0.setClickable(true);
                 type_0.setBackgroundResource(R.drawable.privilege_shape);
                 t5.setVisibility(View.GONE);
                 type_0.setTag(cashTicketRecordBean.getType());
             }
 
-            String t1Text = String.format("1、%s本月还可参与 <font color=#E75B56>%d</font> "+"次",groupRecordBean.getName(),groupRecordBean.getRestCount());
+            String t1Text = String.format("1、%s本月还可参与 <font color=#E75B56>%d</font> " + "次", groupRecordBean.getName(),
+                    groupRecordBean.getRestCount());
             t1.setText(Html.fromHtml(t1Text));
-            t6.setText("剩余"+groupRecordBean.getExpireDays()+"天过期");
-            String t2Text = String.format("2、%s剩余 <font color=#E75B56>%d</font> "+"张",phoneTicketRecord.getName(),phoneTicketRecord.getRestCount());
+            t6.setText("剩余" + groupRecordBean.getExpireDays() + "天过期");
+            String t2Text = String.format("2、%s剩余 <font color=#E75B56>%d</font> " + "张", phoneTicketRecord.getName(),
+                    phoneTicketRecord.getRestCount());
             t2.setText(Html.fromHtml(t2Text));
-            t3.setText("剩余"+phoneTicketRecord.getExpireDays()+"天过期");
-            String t4Text = String.format("2、%s剩余 <font color=#E75B56>%d</font> "+"张",cashTicketRecordBean.getName(),cashTicketRecordBean.getRestCount());
-            t4.setText( Html.fromHtml(t4Text));
-            t5.setText("剩余"+cashTicketRecordBean.getExpireDays()+"天过期");
+            t3.setText("剩余" + phoneTicketRecord.getExpireDays() + "天过期");
+            String t4Text = String.format("2、%s剩余 <font color=#E75B56>%d</font> " + "张", cashTicketRecordBean.getName(),
+                    cashTicketRecordBean.getRestCount());
+            t4.setText(Html.fromHtml(t4Text));
+            t5.setText("剩余" + cashTicketRecordBean.getExpireDays() + "天过期");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

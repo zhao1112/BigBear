@@ -292,8 +292,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                     } else {
                         if (type == 2) {
                             if (userInfo.getData().getIsFirstLogin() == 1) {
-                                SharedPreferencesHelper.put(PhoneLoginActivity.this, "firstLoginReward",
-                                        userInfo.getData().getFirstLoginReward());
+                                SharedPreferencesHelper.put(PhoneLoginActivity.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
                                 SharedPreferencesHelper.put(PhoneLoginActivity.this, "isFirstBind", true);
                             } else {
                                 SharedPreferencesHelper.put(PhoneLoginActivity.this, "isFirstBind", false);

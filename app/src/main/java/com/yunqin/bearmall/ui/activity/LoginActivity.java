@@ -221,10 +221,10 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                 StarActivityUtil.starActivity(this, LoginBindPhone.class, bundle);
                 finish();
             } else if (jsonObject.getJSONObject("data").optInt("status") == 1) {
+                Log.e("isBindPhone", data);
                 UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
-                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this,
-                            userInfo.getData().getToken().getAccess_token(), "微信");
+                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this, userInfo.getData().getToken().getAccess_token(), "微信");
                     finish();
                 } else {
                     BearMallAplication.getInstance().setUser(userInfo);
