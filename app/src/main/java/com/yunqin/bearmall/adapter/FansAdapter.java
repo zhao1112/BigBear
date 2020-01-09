@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.yunqin.bearmall.ui.fragment.FansFragment;
+import com.yunqin.bearmall.ui.fragment.FansOneFragment;
+import com.yunqin.bearmall.ui.fragment.FansTwoFragment;
 
 
 /**
@@ -25,11 +27,16 @@ public class FansAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        FansFragment fansFragment = new FansFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("title", mTabs[position]);
-        fansFragment.setArguments(bundle);
-        return fansFragment;
+        if (position == 0) {
+            return new FansFragment();
+        }
+        if (position == 1) {
+            return new FansOneFragment();
+        }
+        if (position == 2) {
+         return new FansTwoFragment();
+        }
+        return null;
     }
 
     @Override

@@ -4,16 +4,12 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -24,15 +20,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.FansItemAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.SecondFans;
-import com.yunqin.bearmall.bean.StairFans;
-import com.yunqin.bearmall.util.CommonUtil;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshFooterView;
@@ -43,19 +36,16 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @author LWP
  * @PACKAGE com.yunqin.bearmall.ui.fragment
- * @DATE 2019/11/28
+ * @DATE 2020/1/9
  */
-public class FansFragment extends BaseFragment {
+public class FansTwoFragment extends BaseFragment {
 
     @BindView(R.id.recycler)
     RecyclerView mRecycler;
@@ -66,9 +56,7 @@ public class FansFragment extends BaseFragment {
 
     private FansItemAdapter mFansItemAdapter;
     private int Secondpage = 1;
-    private int Stairpage = 1;
     private int pageSize = 10;
-    private boolean isMoer = true;
     private RequestOptions mOptions = new RequestOptions()
             .placeholder(R.drawable.default_product)//图片加载出来前，显示的图片
             .fallback(R.drawable.default_product) //url为空的时候,显示的图片
@@ -83,10 +71,9 @@ public class FansFragment extends BaseFragment {
 
     @Override
     public void init() {
-
         showLoading();
 
-        StairFans();
+        SecondFans();
 
         mFansItemAdapter = new FansItemAdapter(getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -98,21 +85,14 @@ public class FansFragment extends BaseFragment {
         mFansTwinkling.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                isMoer = true;
                 Secondpage = 1;
-                Stairpage = 1;
-                StairFans();
+                SecondFans();
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                if (isMoer) {
-                    Stairpage++;
-                    StairFans();
-                } else {
-                    Secondpage++;
-                    SecondFans();
-                }
+                Secondpage++;
+                SecondFans();
             }
         });
 
@@ -122,50 +102,6 @@ public class FansFragment extends BaseFragment {
                 FansInfo(customerId, imageUrl, phone, creatTime);
             }
         });
-    }
-
-    //一级粉丝
-    private void StairFans() {
-        Map<String, String> map = new HashMap<>();
-        map.put("openTime", "0");
-        map.put("openCount", "0");
-        map.put("page", Stairpage + "");
-        map.put("pageSize", pageSize + "");
-        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).StairFans(map), new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                StairFans stairFans = new Gson().fromJson(data, StairFans.class);
-                if (stairFans.getData() != null) {
-                    if (stairFans.getData().getList() != null && stairFans.getData().getList().size() > 0) {
-                        mFansItemAdapter.addFansOne(stairFans.getData().getList());
-                        if (stairFans.getData().getList().size() < 10) {
-                            isMoer = false;
-                        }
-                    }
-                }
-                hiddenLoadingView();
-                mFansTwinkling.finishRefreshing();
-                mFansTwinkling.finishLoadmore();
-                mNulldata.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onNotNetWork() {
-                hiddenLoadingView();
-                mFansTwinkling.finishRefreshing();
-                mFansTwinkling.finishLoadmore();
-                mNulldata.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                hiddenLoadingView();
-                mFansTwinkling.finishRefreshing();
-                mFansTwinkling.finishLoadmore();
-                mNulldata.setVisibility(View.VISIBLE);
-            }
-        });
-
     }
 
     //二级粉丝
@@ -182,9 +118,8 @@ public class FansFragment extends BaseFragment {
                 if (secondFans.getData() != null) {
                     if (secondFans.getData().getList() != null && secondFans.getData().getList().size() > 0) {
                         mFansItemAdapter.addFansTwo(secondFans.getData().getList());
-                        if (secondFans.getData().getList().size() < 10) {
-                            mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
-                        }
+                    } else {
+                        mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
                     }
                 }
                 hiddenLoadingView();
@@ -209,11 +144,6 @@ public class FansFragment extends BaseFragment {
                 mNulldata.setVisibility(View.VISIBLE);
             }
         });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 
     //粉丝详情
@@ -308,5 +238,4 @@ public class FansFragment extends BaseFragment {
         //使用0.00不足位补0，#.##仅保留有效位
         return new DecimalFormat("0.00").format(num);
     }
-
 }

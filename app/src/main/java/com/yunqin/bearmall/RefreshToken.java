@@ -51,7 +51,6 @@ public class RefreshToken {
                     user.getData().setToken(tokenBean);
                     BearMallAplication.getInstance().setUser(user);
                     Log.e("TGG", "新Token : ----->" + tokenBean.getAccess_token());
-
                     RetrofitApi.request(mContext, observable, listener);
                 }
             }
