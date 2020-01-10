@@ -1233,6 +1233,11 @@ public interface Api {
     @POST("api/userinfo/getFansInfo")
     Observable<String> FansInfo(@FieldMap() Map<String, String> params);
 
+    /**
+     * vip升级条件
+     * */
+    @POST("api/userinfo/userPromotion")
+    Observable<String> getUserPromotion();
 
 }
 

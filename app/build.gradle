@@ -91,8 +91,8 @@ android {
                     VIVO_APP_ID     : "17481",
                     VIVO_APP_KEY    : "b545474e-6786-4b8e-b310-d779ad29eb55",
 
-                    MEIZU_APP_ID : "126453",
-                    MEIZU_APP_KEY : "938c41209a284229b83997d1867bbe8d"
+                    MEIZU_APP_ID    : "126453",
+                    MEIZU_APP_KEY   : "938c41209a284229b83997d1867bbe8d"
 
             ]
             minifyEnabled false
@@ -119,8 +119,8 @@ android {
                     VIVO_APP_ID     : "17481",
                     VIVO_APP_KEY    : "b545474e-6786-4b8e-b310-d779ad29eb55",
 
-                    MEIZU_APP_ID : "126453",
-                    MEIZU_APP_KEY : "938c41209a284229b83997d1867bbe8d"
+                    MEIZU_APP_ID    : "126453",
+                    MEIZU_APP_KEY   : "938c41209a284229b83997d1867bbe8d"
 
             ]
             signingConfig signingConfigs.config

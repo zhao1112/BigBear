@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yunqin.bearmall.ui.activity.VipExplainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_198"
+        android:background="@mipmap/vip_bg"/>
+
+    <ImageView
+        android:id="@+id/vip_back"
+        android:layout_width="@dimen/dp_27"
+        android:layout_height="@dimen/dp_27"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_32"
+        android:padding="@dimen/dp_5"
+        android:src="@mipmap/image_back"/>
+
+    <com.yunqin.bearmall.widget.CircleImageView
+        android:id="@+id/vip_head"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_54"/>
+
+    <TextView
+        android:id="@+id/vip_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vip_head"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="大熊昵称"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/sp_16"/>
+
+    <RelativeLayout
+        android:id="@+id/top_equity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vip_name"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:background="@drawable/bg_corner_search_dialog">
+
+        <LinearLayout
+            android:id="@+id/top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_15"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/dp_69"
+                android:layout_height="@dimen/dp_5"
+                android:background="@mipmap/vip_left"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:text="升级权益"
+                android:textColor="#ff303030"
+                android:textSize="@dimen/sp_14"/>
+
+            <ImageView
+                android:layout_width="@dimen/dp_69"
+                android:layout_height="@dimen/dp_5"
+                android:background="@mipmap/vip_right"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_title"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginBottom="@dimen/dp_13"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/vip_equity1"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/vip_equity_image1"
+                    android:layout_width="@dimen/dp_44"
+                    android:layout_height="@dimen/dp_44"/>
+
+                <TextView
+                    android:id="@+id/vip_equity_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="#ff555555"
+                    android:textSize="@dimen/sp_11"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/vip_equity2"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/vip_equity_iamge2"
+                    android:layout_width="@dimen/dp_44"
+                    android:layout_height="@dimen/dp_44"/>
+
+                <TextView
+                    android:id="@+id/vip_equity_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="#ff555555"
+                    android:textSize="@dimen/sp_11"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/vip_equity3"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/vip_equity_image3"
+                    android:layout_width="@dimen/dp_44"
+                    android:layout_height="@dimen/dp_44"/>
+
+                <TextView
+                    android:id="@+id/vip_equity_text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="#ff555555"
+                    android:textSize="@dimen/sp_11"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_equity"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/vip_logn"
+                layout="@layout/item_condition_logon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <include
+                android:id="@+id/vip_v1"
+                layout="@layout/item_commander_v1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vip_logn"/>
+
+            <include
+                android:id="@+id/vip_v2"
+                layout="@layout/item_commander_v2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vip_v1"/>
+
+            <include
+                android:id="@+id/vip_partner"
+                layout="@layout/item_partner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vip_v2"/>
+
+            <RelativeLayout
+                android:id="@+id/vip_sercice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vip_partner"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_31"
+                android:background="@drawable/bg_corner_search_dialog"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="专属客服"
+                    android:textColor="#ff303030"
+                    android:textSize="@dimen/sp_14"/>
+
+                <View
+                    android:id="@+id/condition_vie"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_below="@id/service"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:background="#ffe1e1e1"/>
+
+                <RelativeLayout
+                    android:id="@+id/service_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/condition_vie"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/sp_14">
+
+                    <com.yunqin.bearmall.widget.CircleImageView
+                        android:id="@+id/vip_service_head"
+                        android:layout_width="@dimen/dp_34"
+                        android:layout_height="@dimen/dp_34"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/vip_service_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_toRightOf="@id/vip_service_head"
+                        android:text="昵称昵称"
+                        android:textColor="#ff272727"
+                        android:textSize="@dimen/sp_14"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/vip_service_name"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_toRightOf="@id/vip_service_head">
+
+
+                        <TextView
+                            android:id="@+id/vip_service_jue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/address_bg"
+                            android:paddingLeft="@dimen/dp_5"
+                            android:paddingTop="@dimen/dp_2"
+                            android:paddingRight="@dimen/dp_5"
+                            android:paddingBottom="@dimen/dp_2"
+                            android:text="上级角色"
+                            android:textColor="#ff303030"
+                            android:textSize="@dimen/sp_10"/>
+
+                        <TextView
+                            android:id="@+id/vip_service_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp_13"
+                            android:layout_toRightOf="@id/vip_service_jue"
+                            android:text="邀请码：7890"
+                            android:textColor="#ff303030"
+                            android:textSize="@dimen/sp_12"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/vip_service_image"
+                    android:layout_width="@dimen/dp_134"
+                    android:layout_height="@dimen/dp_134"
+                    android:layout_below="@id/service_top"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_17"/>
+
+                <TextView
+                    android:id="@+id/service_wx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/vip_service_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="微信二维码"
+                    android:textColor="#ff999999"
+                    android:textSize="@dimen/sp_12"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_below="@id/service_wx"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_9"
+                    android:layout_marginRight="@dimen/dp_40"
+                    android:layout_marginBottom="@dimen/dp_15">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/vip_service_lift"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:id="@+id/vip_service_wx"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_12"
+                            android:text="微信号：1234566"
+                            android:textColor="#ff303030"
+                            android:textSize="@dimen/sp_12"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/vip_service_copy"
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/vip_service_right"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="复制"
+                            android:textColor="#ffffffff"
+                            android:textSize="@dimen/sp_12"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

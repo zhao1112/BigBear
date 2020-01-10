@@ -59,6 +59,7 @@ import com.yunqin.bearmall.ui.activity.OpenVipActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
 import com.yunqin.bearmall.ui.activity.RenewVipActivity;
 import com.yunqin.bearmall.ui.activity.SettingActivity;
+import com.yunqin.bearmall.ui.activity.VipExplainActivity;
 import com.yunqin.bearmall.ui.fragment.contract.MineContract;
 import com.yunqin.bearmall.ui.fragment.presenter.MinePresenter;
 import com.yunqin.bearmall.util.ConstantScUtil;
@@ -298,10 +299,18 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             } else {
                 mMineToday.setVisibility(View.GONE);
             }
+            //判断升级状态
+            if (identity.getIsAudit() == 0) {
+                mMineCommander.setText("去升级");
+            } else if (identity.getIsAudit() == 1) {
+                mMineCommander.setText("审核中");
+            } else if (identity.getIsAudit() == 2) {
+                mMineCommander.setText("审核失败");
+            }
             //这里判断是哪个vip
             vip_text.setText(identity.getUpgradeTips());
             mMineVip.setVisibility(View.VISIBLE);
-            switch (identity.getUpgradeType()){
+            switch (identity.getUpgradeType()) {
                 case 1:
                     mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.vip_gray));
                     mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.vip));
@@ -428,7 +437,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @OnClick({R.id.mine_vip_data, R.id.mine_copy, R.id.mine_news, R.id.mine_set, R.id.mine_withdrawal, R.id.mine_today,
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
             R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip,
-            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one})
+            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one, R.id.mine_commander})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
@@ -536,6 +545,20 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.openvip://开通会员
                 jump2VipActivity();
+                break;
+            case R.id.mine_commander://升级
+                UserInfo user = BearMallAplication.getInstance().getUser();
+                if (user != null) {
+                    if (user.getIdentity().getIsAudit() != 1) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("vip_type",user.getIdentity().getUpgradeType());
+                        VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class,bundle);
+                    } else {
+                        showToast("审核中");
+                    }
+                } else {
+                    LoginActivity.starActivity(getActivity());
+                }
                 break;
         }
     }

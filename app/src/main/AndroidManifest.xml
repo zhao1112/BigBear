@@ -53,14 +53,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".ui.activity.VipExplainActivity">
+        </activity>
         <activity
             android:name=".ui.activity.MineProfitActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".ui.activity.FansActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".ui.activity.SuperSearchActivity"
             android:configChanges="locale|layoutDirection"
