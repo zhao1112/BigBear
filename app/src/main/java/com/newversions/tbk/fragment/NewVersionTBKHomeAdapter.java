@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -32,7 +32,6 @@ import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.entity.TBKHomeEntity;
 import com.newversions.tbk.entity.TBKHomeGoodsEntity;
 import com.newversions.tbk.utils.BannerClicker;
-import com.newversions.tbk.utils.GlideImageLoader;
 import com.newversions.tbk.utils.StringUtils;
 import com.newversions.tbk.utils.TopBarClicker;
 import com.youth.banner.Banner;
@@ -42,8 +41,9 @@ import com.youth.banner.loader.ImageLoader;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.eventbus.ChangeFragment;
+import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
-import com.yunqin.bearmall.util.ToastUtils;
+import com.yunqin.bearmall.util.GlideBlurformation;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -184,7 +184,10 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 //  2019/7/15 0015 快速导航
                 TopBarHolder topBarHolder = (TopBarHolder) holder;
                 TBKHomeEntity.ClassificationBean classificationBean = (TBKHomeEntity.ClassificationBean) datas.get(position);
-                Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(classificationBean.getImg()).into(topBarHolder.imTopBar);
+                Glide.with(context)
+                        .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product))
+                        .load(classificationBean.getImg())
+                        .into(topBarHolder.imTopBar);
                 topBarHolder.tvTopBar.setText(classificationBean.getName());
                 topBarHolder.itemView.setOnClickListener(v -> {
                     TopBarClicker.topBarClick(context, classificationBean);
@@ -256,6 +259,13 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 //  2019/7/15 0015 商品
                 TBKHomeGoodsEntity.RecommendBean recommendBean = (TBKHomeGoodsEntity.RecommendBean) datas.get(position);
                 GoodsViewHolder goodsViewHolder = (GoodsViewHolder) holder;
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(goodsViewHolder.home_bg.getLayoutParams());
+                if (position % 2 == 0) {
+                    params.setMargins(10,0,5,10);
+                }else {
+                    params.setMargins(5,0,10,10);
+                }
+                goodsViewHolder.home_bg.setLayoutParams(params);
                 goodsViewHolder.itemHomeProTitle.setText(recommendBean.getName());
                 goodsViewHolder.itemHomeProQuan.setText(recommendBean.getCouponAmount() + "元券");
                 goodsViewHolder.itemHomeXiaoliang.setText("月销" + recommendBean.getSellNum());
@@ -263,7 +273,10 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 goodsViewHolder.itemHomeProYuanjia.setText("￥" + recommendBean.getPrice());
                 goodsViewHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 goodsViewHolder.tvCommision.setText("预估佣金：" + recommendBean.getCommision());
-                Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(recommendBean.getOutIcon()).into(goodsViewHolder.itemHomeProImage);
+                Glide.with(context)
+                        .load(recommendBean.getOutIcon())
+                        .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                        .into(goodsViewHolder.itemHomeProImage);
                 goodsViewHolder.itemSellerName.setText(StringUtils.addImageLabel(context, recommendBean.getTmall() == 1 ?
                         R.mipmap.icon_tmall : R.mipmap.icon_taobao1, recommendBean.getSellerName()));
                 goodsViewHolder.itemView.setOnClickListener(v -> {
@@ -627,6 +640,8 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         TextView itemSellerName;
         @BindView(R.id.rl)
         RelativeLayout rl;
+        @BindView(R.id.home_bg)
+        RelativeLayout home_bg;
 
         public GoodsViewHolder(View itemView) {
             super(itemView);

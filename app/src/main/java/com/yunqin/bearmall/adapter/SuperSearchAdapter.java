@@ -49,16 +49,14 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 .into(searchHolder.mPro_image);
         searchHolder.mPro_title.setText(StringUtils.addImageLabel(mContext, list.get(position).getUser_type().equals("1") ?
                 R.mipmap.icon_tmall : R.mipmap.icon_taobao1, list.get(position).getTao_title()));
-        searchHolder.mSeller_name.setText(list.get(position).getShop_title());
+        searchHolder.mSeller_name.setText(StringUtils.addImageLabel(mContext, list.get(position).getUser_type().equals("1") ? R.mipmap.icon_tmall :
+                R.mipmap.icon_taobao1, list.get(position).getShop_title()));
         searchHolder.mPro_quan.setText("券¥" + list.get(position).getCoupon_info_money());
-        double kefees =
-                new BigDecimal(Double.valueOf(list.get(position).getTkfee3()) * 0.63).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        double kefees = new BigDecimal(Double.valueOf(list.get(position).getTkfee3()) * 0.63).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         searchHolder.mTv_commision.setText("预估返：" + kefees + "元");
         searchHolder.mPro_yuanjia.setText("¥" + list.get(position).getSize());
         searchHolder.mXiaoliang.setText(list.get(position).getVolume() + "人已购");
         searchHolder.mQuanhoujia.setText(list.get(position).getQuanhou_jiage());
-        searchHolder.mIm_tmall.setImageResource(list.get(position).getUser_type().equals("1") ? R.mipmap.icon_tmall :
-                R.mipmap.icon_taobao1);
 
         searchHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +76,7 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private class SuperSearchHolder extends RecyclerView.ViewHolder {
 
         private final ImageView mPro_image;
-        private final ImageView mIm_tmall;
+//        private final ImageView mIm_tmall;
         private final TextView mPro_title;
         private final TextView mSeller_name;
         private final TextView mPro_quan;
@@ -90,7 +88,7 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public SuperSearchHolder(View itemView) {
             super(itemView);
             mPro_image = itemView.findViewById(R.id.item_home_pro_image);
-            mIm_tmall = itemView.findViewById(R.id.im_tmall);
+//            mIm_tmall = itemView.findViewById(R.id.im_tmall);
             mPro_title = itemView.findViewById(R.id.item_home_pro_title);
             mSeller_name = itemView.findViewById(R.id.item_seller_name);
             mPro_quan = itemView.findViewById(R.id.item_home_pro_quan);

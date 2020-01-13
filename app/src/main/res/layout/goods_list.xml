@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
+    <include layout="@layout/no_video_layout"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:color/white"
-        app:tabGravity="fill"
-        app:tabIndicatorHeight="0dp"
-        app:tabMaxWidth="0dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabTextAppearance="@style/MyTabLayoutTextAppearance" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        android:id="@+id/n_v_refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:visibility="gone"
-            android:id="@+id/rcl"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
-</LinearLayout>
+            android:layout_height="48dp"
+            android:background="@android:color/white"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"/>
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/n_v_refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,8 +1,8 @@
 package com.newversions.tbk.fragment;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,19 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.entity.GoodsEntity;
-import com.newversions.tbk.utils.StringUtils;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.adapter.ProductSumAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
@@ -39,12 +35,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.Unbinder;
 
 public class ProductSumFragment extends BaseFragment {
     @BindView(R.id.tablayout)
     TabLayout tablayout;
     @BindView(R.id.rcl)
     RecyclerView rcl;
+    @BindView(R.id.nulldata)
+    ConstraintLayout mNulldata;
+    Unbinder unbinder;
     private List<String> tabs = new ArrayList<>();
 
     private int orderType = 2;
@@ -52,8 +52,6 @@ public class ProductSumFragment extends BaseFragment {
     private int page = 1;
     private int pageSize = 10;
     private boolean hasNext = true;
-    private HomeAdapter homeAdapter;
-    private List<GoodsEntity.CommodityBean> mList = new ArrayList<>();
     @BindView(R.id.n_v_refreshLayout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
     private boolean isLoadMore = false;
@@ -62,6 +60,7 @@ public class ProductSumFragment extends BaseFragment {
     private String Keyword;
     private int selectTabIndex;
     private int type;//1:最上面的分类列表，2：导航栏的分类列表，3：快速导航的分类列表，8：搜索，9：限时抢购
+    private ProductSumAdapter mSumAdapter;
 
     public static ProductSumFragment getInstance(String goodsId, int type, String Keyword) {
         Bundle bundle = new Bundle();
@@ -95,7 +94,7 @@ public class ProductSumFragment extends BaseFragment {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 isFlash = true;
                 page = 1;
-                mList.clear();
+                mSumAdapter.cleanList();
                 getData();
             }
 
@@ -154,8 +153,7 @@ public class ProductSumFragment extends BaseFragment {
                 sortType = tab.getPosition() + 1;//最新。。。。。。
                 page = 1;
                 orderType = 2;//1升2降
-                mList.clear();
-                homeAdapter.notifyItemRangeRemoved(0, mList.size());
+                mSumAdapter.cleanList();
                 getData();
                 TabViewHolder holder = (TabViewHolder) tab.getCustomView().getTag();
                 holder.tv.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -179,8 +177,7 @@ public class ProductSumFragment extends BaseFragment {
             public void onTabReselected(TabLayout.Tab tab) {
                 if (type == 9) return;
                 page = 1;
-                mList.clear();
-                homeAdapter.notifyItemRangeRemoved(0, mList.size());
+                mSumAdapter.cleanList();
                 TabViewHolder holder = (TabViewHolder) tab.getCustomView().getTag();
                 holder.tv.setTextColor(getResources().getColor(R.color.colorAccent));
                 if ((boolean) holder.im.getTag()) {
@@ -197,16 +194,12 @@ public class ProductSumFragment extends BaseFragment {
         });
 
         rcl.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        homeAdapter = new HomeAdapter(R.layout.item_priduct_sum, mList);
-        homeAdapter.openLoadAnimation();
-        homeAdapter.setUpFetchEnable(true);
-        homeAdapter.bindToRecyclerView(rcl);
-        rcl.setAdapter(homeAdapter);
-        homeAdapter.setEmptyView(R.layout.no_video_layout);
-
-        homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mSumAdapter = new ProductSumAdapter(getActivity());
+        rcl.setAdapter(mSumAdapter);
+        mNulldata.setVisibility(View.VISIBLE);
+        mSumAdapter.setOnClickProductSumItem(new ProductSumAdapter.onClickProductSumItem() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItem(int position, GoodsEntity.CommodityBean bean) {
                 if (type == 9) {
                     if (!canBuyCheck()) {
                         showToast("抢购时间还未到。请等待");
@@ -214,9 +207,9 @@ public class ProductSumFragment extends BaseFragment {
                     }
                 }
                 Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
-                intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getItemId() + "");
+                intent.putExtra(Constants.INTENT_KEY_ID, bean.getItemId() + "");
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
-                intent.putExtra(Constants.INTENT_KEY_COMM, mList.get(position).getCommision());
+                intent.putExtra(Constants.INTENT_KEY_COMM, bean.getCommision());
                 intent.putExtra("DETAILSKEYWORD", Keyword);
                 intent.putExtra("POSITION", position);
                 if (type == 8) {
@@ -227,6 +220,7 @@ public class ProductSumFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
         if (type == 9) {
             selectTabIndex = getCanButIndex();
             tablayout.getTabAt(selectTabIndex).select();
@@ -278,7 +272,7 @@ public class ProductSumFragment extends BaseFragment {
         //TODO[搜索按钮]
         ConstantScUtil.sebsorsSearch(type);
         // TODO: 2019/7/17 0017 获取数据
-//        showLoading();
+        showLoading();
         HashMap<String, String> map = new HashMap<>();
         map.put("id", groupId);//分组ID
         map.put("type", String.valueOf(type));//入口类型
@@ -293,10 +287,11 @@ public class ProductSumFragment extends BaseFragment {
             @Override
             public void onSuccess(String data) throws JSONException {
                 GoodsEntity goodsEntity = new Gson().fromJson(data, GoodsEntity.class);
-                mList.addAll(goodsEntity.getCommodity() == null ? new ArrayList<GoodsEntity.CommodityBean>() : goodsEntity.getCommodity());
-                homeAdapter.notifyDataSetChanged();
-                hiddenLoadingView();
-                rcl.setVisibility(View.VISIBLE);
+                if (goodsEntity != null && goodsEntity.getCommodity() != null && goodsEntity.getCommodity().size() > 0) {
+                    mSumAdapter.addList(goodsEntity.getCommodity());
+                    mNulldata.setVisibility(View.GONE);
+                }
+
                 if (isFlash) {
                     mTwinklingRefreshLayout.finishRefreshing();
                     isFlash = false;
@@ -305,6 +300,9 @@ public class ProductSumFragment extends BaseFragment {
                     mTwinklingRefreshLayout.finishLoadmore();
                     isLoadMore = false;
                 }
+
+                hiddenLoadingView();
+                rcl.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -318,7 +316,6 @@ public class ProductSumFragment extends BaseFragment {
                     mTwinklingRefreshLayout.finishLoadmore();
                     isLoadMore = false;
                 }
-                rcl.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -332,7 +329,6 @@ public class ProductSumFragment extends BaseFragment {
                     mTwinklingRefreshLayout.finishLoadmore();
                     isLoadMore = false;
                 }
-                rcl.setVisibility(View.VISIBLE);
             }
         });
 
@@ -340,33 +336,13 @@ public class ProductSumFragment extends BaseFragment {
     }
 
     private class TabViewHolder {
+
         TextView tv;
         ImageView im;
 
         TabViewHolder(View v) {
             tv = v.findViewById(R.id.textView);
             im = v.findViewById(R.id.imageView);
-        }
-    }
-
-    class HomeAdapter extends BaseQuickAdapter<GoodsEntity.CommodityBean, BaseViewHolder> {
-        public HomeAdapter(int layoutResId, List data) {
-            super(layoutResId, data);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, GoodsEntity.CommodityBean item) {
-            helper.setText(R.id.item_home_pro_title, StringUtils.addImageLabel(getActivity(), item.getTmall() == 1 ? R.mipmap.icon_tmall
-                    : R.mipmap.icon_taobao1, item.getName()));
-            helper.setText(R.id.item_home_pro_quan, "券¥" + item.getCouponAmount());
-            helper.setText(R.id.item_home_pro_yuanjia, "¥" + item.getPrice());
-            helper.setText(R.id.item_home_pro_quanhoujia, "" + item.getDiscountPrice());
-            helper.setText(R.id.tv_commision, "预估返：" + item.getCommision() + "元");
-            ((TextView) helper.getView(R.id.item_home_pro_yuanjia)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
-            Glide.with(getContext()).load(item.getOutIcon()).into((ImageView) helper.getView(R.id.item_home_pro_image));
-            helper.setText(R.id.item_home_xiaoliang, item.getSellNum() + "人已购");
-            helper.setText(R.id.item_seller_name, item.getSellerName());
-            helper.setImageResource(R.id.im_tmall, item.getTmall() == 1 ? R.mipmap.icon_tmall : R.mipmap.icon_taobao1);
         }
     }
 

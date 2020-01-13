@@ -102,6 +102,45 @@ public class DialogUtils {
     }
 
 
+    public static void changeVipImage(final Context activity, ChangeHeadImageCallBack changeHeadImageCallBack) {
+        //创建对话框创建器
+        final HighlightRelativeLayout vip_cancel, vip_photos;
+        final Dialog dialog = new Dialog(activity, R.style.ProductDialog);
+        dialog.setCanceledOnTouchOutside(true);
+
+        View view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_vip_image, null);
+        vip_cancel = (HighlightRelativeLayout) view.findViewById(R.id.vip_cancel);
+        vip_photos = (HighlightRelativeLayout) view.findViewById(R.id.vip_photos);
+        dialog.setContentView(view);
+        dialog.show();
+
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.width = WindowManager.LayoutParams.FILL_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+        vip_photos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeHeadImageCallBack.choseWhat(2);
+                dialog.dismiss();
+            }
+        });
+
+
+        //添加取消按钮点击事件
+        vip_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
     //修改昵称
     public static void changeNickName(final Context activity, ChangeNickNameCallBack changeNickNameCallBack) {
         //创建对话框创建器
@@ -206,7 +245,8 @@ public class DialogUtils {
     }
 
 
-    public static void tipAddressDialog(final Activity context, AddressListBean.DataBean dataBean, final sureAddressCallBack sureAddressCallBack) {
+    public static void tipAddressDialog(final Activity context, AddressListBean.DataBean dataBean,
+                                        final sureAddressCallBack sureAddressCallBack) {
         //创建对话框创建器
         final HighlightRelativeLayout canle, sure;
         final TextView tip1, tip2;
@@ -320,7 +360,7 @@ public class DialogUtils {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CardListWebActivity.startActivity(mContext,AdConstants.STRING_QIAN_DAO,"");
+                CardListWebActivity.startActivity(mContext, AdConstants.STRING_QIAN_DAO, "");
             }
         });
 
@@ -455,7 +495,8 @@ public class DialogUtils {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ToastGetBC.getInstence().show(mContext, "+" + signInBean.getData().getUsersRegisterInfo().getReward() + "BC");
+                                ToastGetBC.getInstence().show(mContext, "+" + signInBean.getData().getUsersRegisterInfo().getReward() +
+                                        "BC");
                             }
                         }, 1000);
                     }
@@ -532,16 +573,17 @@ public class DialogUtils {
             }
         });
     }
+
     //绑定微信
-    public static void showBindWXDialog(Activity context, BindWXCallBack callBack){
-        final TextView  sure;
+    public static void showBindWXDialog(Activity context, BindWXCallBack callBack) {
+        final TextView sure;
 
         final Dialog dialog = new Dialog(context, R.style.ProductDialog);
         dialog.setCanceledOnTouchOutside(false);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bindwx, null);
         sure = view.findViewById(R.id.tv_ok);
         sure.setOnClickListener(v -> {
-            if(callBack!=null) callBack.sure();
+            if (callBack != null) callBack.sure();
             dialog.dismiss();
 //            if (!isQQClientAvailable(this)) {
 //                showToast("未安装微信");
