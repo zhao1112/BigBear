@@ -38,7 +38,6 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             .error(R.drawable.default_product)//图片加载失败后，显示的图片
             .bitmapTransform(new RoundedCorners(3));
 
-
     public TaoBaoAdapter(Context context) {
         mContext = context;
         list = new ArrayList<>();

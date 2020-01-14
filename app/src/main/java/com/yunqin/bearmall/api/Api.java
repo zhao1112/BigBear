@@ -1247,5 +1247,24 @@ public interface Api {
     Observable<String> gradeDeduction(@FieldMap() Map<String, String> params);
 
 
+    /**
+     * 合伙人订单
+     * */
+    @FormUrlEncoded
+    @POST("api/partner/screenOrders")
+    Observable<String> screenOrders(@FieldMap() Map<String, String> params);
+    /**
+     * 合伙人订单搜索
+     * */
+    @FormUrlEncoded
+    @POST("api/partner/searchOrders")
+    Observable<String> partenerScreenOrders(@FieldMap() Map<String, String> params);
+    /**
+     * 合伙人粉丝
+     * */
+    @FormUrlEncoded
+    @POST("api/partner/searchFans")
+    Observable<String> searchFans(@FieldMap() Map<String, String> params);
+
 }
 

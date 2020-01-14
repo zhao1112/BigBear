@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/no_video_layout"
+        android:visibility="gone"/>
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/backstange_frag_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/backstage_frag_reclcler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+</RelativeLayout>

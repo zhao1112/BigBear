@@ -89,6 +89,7 @@ public class MineOrderActivity extends BaseActivity {
         tbkOrderFragment = new TBKOrderFragment();
         myOrderFragment = new MyOrderFragment();
 
+        //RadioGroup订单页面切换按钮
         rgOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -127,6 +128,7 @@ public class MineOrderActivity extends BaseActivity {
         }
     }
 
+    //返回按钮
     @OnClick({R.id.toolbar_back})
     public void doClicks(View view) {
         switch (view.getId()) {

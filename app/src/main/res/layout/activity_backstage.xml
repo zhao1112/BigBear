@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.yunqin.bearmall.ui.activity.BackstageActivity"
+
+    >
+
+    <RelativeLayout
+        android:id="@+id/partner_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_104"
+        android:background="@color/bg_green"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        >
+        <RelativeLayout
+            android:id="@+id/partner_reclative"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginTop="@dimen/dp_20"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/image_back"
+                android:layout_marginLeft="@dimen/dp_17"
+                android:layout_marginTop="@dimen/dp_13"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合伙人管理后台"
+                android:textColor="@color/bg_gray"
+                android:textSize="@dimen/sp_16"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/seek_relativ"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_below="@+id/partner_reclative"
+
+            android:layout_marginLeft="@dimen/dp_20"
+            >
+            <RelativeLayout
+                android:id="@+id/seek_partner"
+                android:layout_width="@dimen/dp_300"
+                android:layout_height="@dimen/dp_34"
+                android:background="@drawable/partner_search_box"
+                android:layout_marginLeft="@dimen/dp_20"
+                >
+                <ImageView
+                    android:id="@+id/partner_seek"
+                    android:layout_width="@dimen/dp_14"
+                    android:layout_height="@dimen/dp_14"
+                    android:src="@drawable/icon_search"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    />
+                <EditText
+                    android:id="@+id/partner_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/partner_seek"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    android:hint="输入订单号/手机号/邀请码"
+                    android:editable="true"
+                    android:textColor="#999999"
+
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/sp_12"
+                    />
+                <Button
+                    android:id="@+id/partner_button"
+                    android:layout_width="@dimen/dp_52"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/partner_seek"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_3"
+                    android:layout_centerInParent="true"
+                    android:text="搜索"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/sp_12"
+                    />
+
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/partner_calendar_image"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:src="@drawable/partner_calendar"
+                android:layout_toRightOf="@+id/seek_partner"
+                android:layout_marginLeft="@dimen/dp_14"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"
+
+                />
+
+        </RelativeLayout>
+       <!-- <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/seek_relativ"
+            >
+            <com.androidkun.xtablayout.XTabLayout
+                android:id="@+id/backstage_xtab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_23"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:overScrollMode="never"
+                app:xTabDisplayNum="3"
+                app:xTabDividerHeight="@dimen/ds16"
+                app:xTabDividerWidthWidthText="true"
+                app:xTabIndicatorColor="@color/main_color"
+                app:xTabMode="scrollable"
+                app:xTabSelectedTextColor="@color/tab_gb"
+                app:xTabSelectedTextSize="@dimen/ds30"
+                app:xTabTextColor="#666666"
+                app:xTabTextSelectedBold="true"
+                app:xTabTextSize="@dimen/sp_14"
+                />
+
+
+        </RelativeLayout>
+-->
+
+    </RelativeLayout>
+
+    <!--<android.support.v4.view.ViewPager
+        android:id="@+id/backstage_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/partner_bg"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/partner_switchover"
+        android:background="#11000000"
+      />-->
+    <FrameLayout
+        android:id="@+id/backstage_franelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/partner_bg"
+        android:layout_above="@+id/partner_switchover"
+        />
+
+    <RelativeLayout
+        android:id="@+id/partner_switchover"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_54"
+        android:layout_alignParentBottom="true"
+        android:background="@color/md_bai"
+        >
+        <!--底部的RadioGroup-->
+        <RadioGroup
+            android:id="@+id/backstange_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/backstange_manage_rb"
+                style="@style/bottom_tag_style"
+                android:drawableTop="@drawable/partner_order_form"
+                android:background="@color/md_bai"
+                android:text="订单管理" />
+            <RadioButton
+                android:id="@+id/backstange_fanc_rb"
+                style="@style/bottom_tag_style"
+                android:drawableTop="@drawable/partner_fans"
+                android:background="@color/md_bai"
+                android:text="我的粉丝"/>
+
+        </RadioGroup>
+
+    </RelativeLayout>
+</RelativeLayout>

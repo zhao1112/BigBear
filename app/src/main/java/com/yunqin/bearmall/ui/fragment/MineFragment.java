@@ -39,6 +39,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
+import com.yunqin.bearmall.bean.BackstangeOrderBean;
 import com.yunqin.bearmall.bean.BannerBean;
 import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.MessageItemCount;
@@ -49,6 +50,7 @@ import com.yunqin.bearmall.bean.UserBTInfo;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
 import com.yunqin.bearmall.ui.activity.AddressActivity;
+import com.yunqin.bearmall.ui.activity.BackstageActivity;
 import com.yunqin.bearmall.ui.activity.FansActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
@@ -74,6 +76,7 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -179,6 +182,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     TwinklingRefreshLayout mTwinkingRef;
     @BindView(R.id.mine_vip_text)
     TextView vip_text;
+    @BindView(R.id.mine_backstage)
+    LinearLayout mMine_backstage;
+
 
 
     private RequestOptions requestOptions = new RequestOptions()
@@ -281,6 +287,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mMineWithdrawalPrice.setText("0.00");
             mMineTodayPrice.setText("0.00");
             mMineMonthPrice.setText("0.00");
+            //合伙人后台 修改
             mMineToday.setVisibility(View.GONE);
             mMineCommander.setVisibility(View.GONE);
             Glide.with(this).setDefaultRequestOptions(requestOptions).load("error").into(mMineHead);
@@ -299,6 +306,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             if (identity.isPartner()) {
                 mMineToday.setVisibility(View.VISIBLE);
             } else {
+                // 合伙人展示
                 mMineToday.setVisibility(View.GONE);
             }
             //判断升级状态
@@ -431,7 +439,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @OnClick({R.id.mine_vip_data, R.id.mine_copy, R.id.mine_news, R.id.mine_set, R.id.mine_withdrawal, R.id.mine_today,
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
             R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip,
-            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one, R.id.mine_commander})
+            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one, R.id.mine_commander,R.id.mine_backstage})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
@@ -533,6 +541,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.mine_secvice://联系客服
                 ServiceActivity.start(getActivity());
+                break;
+            case R.id.mine_backstage://合伙人后台
+
+                startActivity(new Intent(getActivity(),BackstageActivity.class));
                 break;
             case R.id.mine_login:
                 LoginActivity.starActivity(getActivity());
