@@ -79,7 +79,6 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
                     }
                 });
-                Log.d("ImageUrl", fansone.getIconUrl());
                 break;
             case TYPE_TWO:
                 SecondFans.DataBean.ListBean fanstwo = (SecondFans.DataBean.ListBean) list.get(position);

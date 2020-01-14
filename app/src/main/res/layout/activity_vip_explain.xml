@@ -250,7 +250,8 @@
                         android:layout_toRightOf="@id/vip_service_head"
                         android:text="昵称昵称"
                         android:textColor="#ff272727"
-                        android:textSize="@dimen/sp_14"/>
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold"/>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -284,7 +285,8 @@
                             android:layout_toRightOf="@id/vip_service_jue"
                             android:text="邀请码：7890"
                             android:textColor="#ff303030"
-                            android:textSize="@dimen/sp_12"/>
+                            android:textSize="@dimen/sp_12"
+                            android:textStyle="bold"/>
 
                     </RelativeLayout>
 

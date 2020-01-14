@@ -288,7 +288,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp_7"
                             android:layout_toRightOf="@id/tuanz"
-                            android:text="成为金熊大团长"
+                            android:text="登录查看当前收益及等级"
                             android:textColor="#ff999999"
                             android:textSize="@dimen/sp_14"/>
 

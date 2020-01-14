@@ -4,12 +4,10 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.FansItemAdapter;
 import com.yunqin.bearmall.api.Api;
@@ -32,7 +29,6 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.SecondFans;
 import com.yunqin.bearmall.bean.StairFans;
-import com.yunqin.bearmall.util.CommonUtil;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshFooterView;
@@ -43,7 +39,6 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -101,6 +96,7 @@ public class FansFragment extends BaseFragment {
                 isMoer = true;
                 Secondpage = 1;
                 Stairpage = 1;
+                mFansItemAdapter.clearFansData();
                 StairFans();
             }
 
@@ -122,6 +118,7 @@ public class FansFragment extends BaseFragment {
                 FansInfo(customerId, imageUrl, phone, creatTime);
             }
         });
+
     }
 
     //一级粉丝
@@ -140,6 +137,7 @@ public class FansFragment extends BaseFragment {
                         mFansItemAdapter.addFansOne(stairFans.getData().getList());
                         if (stairFans.getData().getList().size() < 10) {
                             isMoer = false;
+                            SecondFans();
                         }
                     }
                 }
@@ -185,6 +183,8 @@ public class FansFragment extends BaseFragment {
                         if (secondFans.getData().getList().size() < 10) {
                             mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
                         }
+                    }else {
+                        mNulldata.setVisibility(View.VISIBLE);
                     }
                 }
                 hiddenLoadingView();

@@ -86,6 +86,7 @@ public class FansTwoFragment extends BaseFragment {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 Secondpage = 1;
+                mFansItemAdapter.clearFansData();
                 SecondFans();
             }
 
@@ -102,6 +103,7 @@ public class FansTwoFragment extends BaseFragment {
                 FansInfo(customerId, imageUrl, phone, creatTime);
             }
         });
+
     }
 
     //二级粉丝
@@ -119,6 +121,7 @@ public class FansTwoFragment extends BaseFragment {
                     if (secondFans.getData().getList() != null && secondFans.getData().getList().size() > 0) {
                         mFansItemAdapter.addFansTwo(secondFans.getData().getList());
                     } else {
+                        mNulldata.setVisibility(View.VISIBLE);
                         mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
                     }
                 }

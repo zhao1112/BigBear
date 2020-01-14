@@ -28,7 +28,8 @@
                 android:layout_height="wrap_content"
                 android:text="晋升任务（满足其一即可）"
                 android:textColor="#ff303030"
-                android:textSize="@dimen/sp_14"/>
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/vip_logon_tips"

@@ -243,11 +243,12 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     };
     private Vippresenter mVippresenter;
     private PopupWindow mMPopupWindow;
-    private boolean vip_up = true;
+    private int mAudit;
 
 
-    public static void opneVipExplainActivity(Activity context, Class cls) {
+    public static void opneVipExplainActivity(Activity context, Class cls, Bundle bundle) {
         Intent intent = new Intent(context, cls);
+        intent.putExtras(bundle);
         context.startActivity(intent);
         context.overridePendingTransition(0, R.anim.activity_stay);
     }
@@ -261,7 +262,18 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     public void init() {
 
         setTranslucentStatus();
-
+        mAudit = getIntent().getIntExtra("audit", 0);
+        if (mAudit == 0 || mAudit == 2) {
+            vip_logon_up.setText("立即升级");
+            vip_v1_up.setText("立即升级");
+            vip_v2_up.setText("立即升级");
+            vip_partner_up.setText("立即升级");
+        } else if (mAudit == 1) {
+            vip_logon_up.setText("审核中");
+            vip_v1_up.setText("审核中");
+            vip_v2_up.setText("审核中");
+            vip_partner_up.setText("审核中");
+        }
         mVippresenter = new Vippresenter(this);
         mVippresenter.start(this);
     }
@@ -316,8 +328,8 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             case R.id.vip_v1_up:
             case R.id.vip_v2_up:
             case R.id.vip_partner_up:
-                if (vip_up) {
-                    showPopUp();
+                if (mAudit != 1) {
+                    mVippresenter.onDeduction(VipExplainActivity.this, Type_Vip + "");
                 }
                 break;
         }
@@ -350,12 +362,12 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     @Override
     public void getDeduction(int code) {
         if (code == 1) {
-            vip_up = false;
+            showPopUp();
             vip_logon_up.setText("审核中");
             vip_v1_up.setText("审核中");
             vip_v2_up.setText("审核中");
             vip_partner_up.setText("审核中");
-            mMPopupWindow.dismiss();
+            mVippresenter.start(this);
         } else {
             showToast("网络不佳");
         }
@@ -656,8 +668,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
         view.findViewById(R.id.vip_upgrade_up).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //调用升级接口
-                mVippresenter.onDeduction(VipExplainActivity.this, Type_Vip + "");
+                mMPopupWindow.dismiss();
             }
         });
 

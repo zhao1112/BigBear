@@ -194,6 +194,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     private static final float RATIO = 1.725f;
     private static final float THREE = 4.10f;
     private static final float BANNER = 4.31f;
+    private boolean Commander = true;
 
     @Override
     public int layoutId() {
@@ -268,6 +269,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mCode.setVisibility(View.VISIBLE);
             mMineNickname.setVisibility(View.VISIBLE);
             mMineLogin.setVisibility(View.GONE);
+            mMineCommander.setVisibility(View.VISIBLE);
             setVipData(userInfo);
             mPresenter.getOrderNumberInfo(getActivity());
             mPresenter.onProfit(getActivity());
@@ -280,6 +282,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mMineTodayPrice.setText("0.00");
             mMineMonthPrice.setText("0.00");
             mMineToday.setVisibility(View.GONE);
+            mMineCommander.setVisibility(View.GONE);
             Glide.with(this).setDefaultRequestOptions(requestOptions).load("error").into(mMineHead);
             mTwinkingRef.finishRefreshing();
         }
@@ -329,21 +332,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                     break;
                 default:
                     //用户是大团长
+                    Commander = false;
+                    mMineCommander.setVisibility(View.GONE);
+                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.mine_tuanzhang));
+                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.mine_tuanzhang));
                     break;
             }
-
-//            if (dataBean.isMember()) {
-//                mMineVip.setVisibility(View.VISIBLE);
-//                mMineVipData.setVisibility(View.VISIBLE);
-//                openvip.setVisibility(View.GONE);
-//                mMineVipData.setText("剩余" + dataBean.getRestDays() + "天，");
-//                mOpenVipOne.setVisibility(View.VISIBLE);
-//            } else {
-//                mMineVip.setVisibility(View.GONE);
-//                mMineVipData.setVisibility(View.GONE);
-//                mOpenVipOne.setVisibility(View.GONE);
-//                openvip.setVisibility(View.VISIBLE);
-//            }
         }
         mMineNickname.setText(userInfo.getData().getMember().getNickName());
         Glide.with(this).setDefaultRequestOptions(requestOptions).load(userInfo.getData().getMember().getIconUrl()).into(mMineHead);
@@ -549,10 +543,13 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             case R.id.mine_commander://升级
                 UserInfo user = BearMallAplication.getInstance().getUser();
                 if (user != null) {
-                    if (user.getIdentity().getIsAudit() != 1) {
-                        VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class);
+                    if (Commander) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("audit", user.getIdentity().getIsAudit());
+                        VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class,bundle);
                     } else {
-                        showToast("审核中");
+                        //管理后台
+
                     }
                 } else {
                     LoginActivity.starActivity(getActivity());

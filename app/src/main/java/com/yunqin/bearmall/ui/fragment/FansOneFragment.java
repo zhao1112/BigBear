@@ -85,6 +85,7 @@ public class FansOneFragment extends BaseFragment {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 Stairpage = 1;
+                mFansItemAdapter.clearFansData();
                 StairFans();
             }
 
@@ -101,6 +102,7 @@ public class FansOneFragment extends BaseFragment {
                 FansInfo(customerId, imageUrl, phone, creatTime);
             }
         });
+
     }
 
     //一级粉丝
@@ -117,7 +119,8 @@ public class FansOneFragment extends BaseFragment {
                 if (stairFans.getData() != null) {
                     if (stairFans.getData().getList() != null && stairFans.getData().getList().size() > 0) {
                         mFansItemAdapter.addFansOne(stairFans.getData().getList());
-                    }else {
+                    } else {
+                        mNulldata.setVisibility(View.VISIBLE);
                         mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
                     }
                 }
