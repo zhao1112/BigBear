@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:background="@drawable/bg_corner_search_dialog"
         android:layout_width="@dimen/dp_275"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

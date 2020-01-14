@@ -1208,15 +1208,15 @@ public interface Api {
 
 
     /**
-     * 月预估收入
+     * 推荐收益
      */
-    @POST("api/commodity/getMonthProfiteDetailed")
+    @POST("api/commodity/getRecommendEarnings")
     Observable<String> MonthProfiteDetailed();
 
     /**
-     * 日预估收入
+     * 分享收益
      */
-    @POST("api/commodity/getDayProfiteDetailed")
+    @POST("api/commodity/getSinceThePurchaseYield")
     Observable<String> DayProfiteDetailed();
 
     /**
@@ -1238,6 +1238,14 @@ public interface Api {
      * */
     @POST("api/userinfo/userPromotion")
     Observable<String> getUserPromotion();
+
+    /**
+     * vip升级
+     * */
+    @FormUrlEncoded
+    @POST("api/userinfo/gradeDeduction")
+    Observable<String> gradeDeduction(@FieldMap() Map<String, String> params);
+
 
 }
 

@@ -13,6 +13,8 @@ public interface VipContract {
 
     interface Presenter {
         void start(Context context);
+
+        void onDeduction(Context context,String type);
     }
 
     interface UI extends BaseContract.BaseView {
@@ -22,6 +24,8 @@ public interface VipContract {
         void onFail(Throwable throwable);
 
         void onNotNetWork();
+
+        void getDeduction(int s);
 
     }
 

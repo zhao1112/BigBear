@@ -2,7 +2,10 @@ package com.yunqin.bearmall.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
+import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -20,8 +23,6 @@ import butterknife.OnClick;
 
 public class MineProfitActivity extends BaseActivity implements ProfitContract.UI {
 
-//    @BindView(R.id.twinkling)
-//    TwinklingRefreshLayout mTwinkling;
     @BindView(R.id.cash_price)
     TextView mCashPrice;
     @BindView(R.id.withdrawal_price)
@@ -30,6 +31,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     TextView mNotPrice;
     @BindView(R.id.cumulative_price)
     TextView mCumulativePrice;
+    //分享收益
     @BindView(R.id.thisMonthPaymentPens)
     TextView mThisMonthPaymentPens;
     @BindView(R.id.thisMonthConsumption)
@@ -46,6 +48,33 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     TextView mYesterdayPaymentPens;
     @BindView(R.id.yesterdayTransactionRevenue)
     TextView mYesterdayTransactionRevenue;
+    //推荐收益
+    @BindView(R.id.super_todayTransactionRevenue)
+    TextView super_todayTransactionRevenue;
+    @BindView(R.id.super_yesterdayTransactionRevenue)
+    TextView super_yesterdayTransactionRevenue;
+    @BindView(R.id.super_thisMonthConsumption)
+    TextView super_thisMonthConsumption;
+    @BindView(R.id.super_lastMonthConsumption)
+    TextView super_lastMonthConsumption;
+    @BindView(R.id.super_todayPaymentPens)
+    TextView super_todayPaymentPens;
+    @BindView(R.id.super_yesterdayPaymentPens)
+    TextView super_yesterdayPaymentPens;
+    @BindView(R.id.super_thisMonthPaymentPens)
+    TextView super_thisMonthPaymentPens;
+    @BindView(R.id.super_lastMonthPaymentPens)
+    TextView super_lastMonthPaymentPens;
+    @BindView(R.id.vip_super)
+    RelativeLayout vip_super;
+    //团队收益
+    @BindView(R.id.team_yesterdayPaymentPens)
+    TextView team_yesterdayPaymentPens;
+    @BindView(R.id.team_lastMonthPaymentPens)
+    TextView team_lastMonthPaymentPens;
+    @BindView(R.id.vip_team)
+    RelativeLayout vip_team;
+
 
     private ProfitPresenter mProfitPresenter;
     private String withdrawFrom;
@@ -70,27 +99,17 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mProfitPresenter.getMonthProfiteDetailed(this);
         mProfitPresenter.getDayProfiteDetailed(this);
 
-//        mTwinkling.setHeaderView(new RefreshHeadView(this));
-//        mTwinkling.setEnableLoadmore(false);
-//        mTwinkling.setOnRefreshListener(new RefreshListenerAdapter() {
-//            @Override
-//            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-//                mProfitPresenter.getIncomeRecord(MineProfitActivity.this);
-//                mProfitPresenter.getMonthProfiteDetailed(MineProfitActivity.this);
-//                mProfitPresenter.getDayProfiteDetailed(MineProfitActivity.this);
-//            }
-//        });
     }
 
 
     @Override
     public void onFail(Throwable e) {
-//        mTwinkling.finishRefreshing();
+
     }
 
     @Override
     public void onNotNetWork() {
-//        mTwinkling.finishRefreshing();
+
     }
 
     @Override
@@ -101,28 +120,57 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mCumulativePrice.setText(doubleToString(thisMonth));
         this.withdrawFrom = withdrawFrom;
         this.balance = doubleToString(balance);
-//        mTwinkling.finishRefreshing();
     }
 
     @Override
-    public void onMonthProfiteDetailed(int lastMonthPaymentPens, Double lastMonthConsumption, int thisMonthPaymentPens,
-                                       Double thisMonthConsumption) {
-        mThisMonthPaymentPens.setText(thisMonthPaymentPens + "");
-        mThisMonthConsumption.setText("￥" + doubleToString(thisMonthConsumption));
-        mLastMonthPaymentPens.setText(lastMonthPaymentPens + "");
-        mLastMonthConsumption.setText("￥" + doubleToString(lastMonthConsumption));
-//        mTwinkling.finishRefreshing();
+    public void onMonthProfiteDetailed(String todayRecommendEarnings, String yesterdayRecommendEarnings,
+                                       String thisMonthRecommendEarnings, String lastMonthRecommendEarnings, int todayClinchADealNumber,
+                                       int yesterdayClinchADealNumberens, int thisMonthClinchADealNumber, int lastMonthClinchADealNumber,
+                                       String thisMonthEstimatedTheRevenue, String lastMonthTheTeamReturns, int type) {
+        /**
+         * type == 1 显示推荐收益
+         * type == 2 显示推荐收益和团队收益
+         * */
+        if (type == 1) {
+            vip_super.setVisibility(View.VISIBLE);
+        } else if (type == 2) {
+            vip_super.setVisibility(View.VISIBLE);
+            vip_team.setVisibility(View.VISIBLE);
+        }
+
+        //推荐收益
+        super_todayTransactionRevenue.setText("￥" + todayRecommendEarnings);
+        super_yesterdayTransactionRevenue.setText("￥" + yesterdayRecommendEarnings);
+        super_thisMonthConsumption.setText("￥" + thisMonthRecommendEarnings);
+        super_lastMonthConsumption.setText("￥" + lastMonthRecommendEarnings);
+        super_todayPaymentPens.setText(todayClinchADealNumber + "");
+        super_yesterdayPaymentPens.setText(yesterdayClinchADealNumberens + "");
+        super_thisMonthPaymentPens.setText(thisMonthClinchADealNumber + "");
+        super_lastMonthPaymentPens.setText(lastMonthClinchADealNumber + "");
+        //团队收益
+        team_yesterdayPaymentPens.setText("￥" + thisMonthEstimatedTheRevenue);
+        team_lastMonthPaymentPens.setText("￥" + lastMonthTheTeamReturns);
+
     }
 
+
     @Override
-    public void onDayProfiteDetailed(int todayPaymentPens, Double todayTransactionRevenue, int yesterdayPaymentPens,
-                                     Double yesterdayTransactionRevenue) {
+    public void onDayProfiteDetailed(String todayIndividualPurchased, String yesterdayIndividualPurchased,
+                                     String thisMonthIndividualPurchased, String lastMonthIndividualPurchased, int todayPaymentPens,
+                                     int yesterdayPaymentPens, int thisMonthPaymentPens, int lastMonthPaymentPens) {
+
+        //自购收益
         mTodayPaymentPens.setText(todayPaymentPens + "");
-        mTodayTransactionRevenue.setText("￥" + doubleToString(todayTransactionRevenue));
         mYesterdayPaymentPens.setText(yesterdayPaymentPens + "");
-        mYesterdayTransactionRevenue.setText("￥" + doubleToString(yesterdayTransactionRevenue));
-//        mTwinkling.finishRefreshing();
+        mThisMonthPaymentPens.setText(thisMonthPaymentPens + "");
+        mLastMonthPaymentPens.setText(lastMonthPaymentPens + "");
+        mTodayTransactionRevenue.setText("￥" + todayIndividualPurchased);
+        mYesterdayTransactionRevenue.setText("￥" + yesterdayIndividualPurchased);
+        mThisMonthConsumption.setText("￥" + thisMonthIndividualPurchased);
+        mLastMonthConsumption.setText("￥" + lastMonthIndividualPurchased);
+
     }
+
 
     public static String doubleToString(double num) {
         //使用0.00不足位补0，#.##仅保留有效位

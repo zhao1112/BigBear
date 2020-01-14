@@ -61,12 +61,25 @@ public class ProfitPresenter implements ProfitContract.Presenter {
             public void onSuccess(String data) throws JSONException {
                 if (!TextUtils.isEmpty(data)) {
                     JSONObject object = new JSONObject(data);
-                    JSONObject dat = object.optJSONObject("data");
-                    int lastMonthPaymentPens = dat.optInt("lastMonthPaymentPens");
-                    Double lastMonthConsumption = dat.optDouble("lastMonthConsumption");
-                    int thisMonthPaymentPens = dat.optInt("thisMonthPaymentPens");
-                    Double thisMonthConsumption = dat.optDouble("thisMonthConsumption");
-                    view.onMonthProfiteDetailed(lastMonthPaymentPens, lastMonthConsumption, thisMonthPaymentPens, thisMonthConsumption);
+                    if (object.optInt("code") == 1) {
+                        JSONObject dat = object.optJSONObject("data");
+                        String todayRecommendEarnings = dat.optString("todayRecommendEarnings");
+                        String yesterdayRecommendEarnings = dat.optString("yesterdayRecommendEarnings");
+                        String thisMonthRecommendEarnings = dat.optString("thisMonthRecommendEarnings");
+                        String lastMonthRecommendEarnings = dat.optString("lastMonthRecommendEarnings");
+                        int todayClinchADealNumber = dat.optInt("todayClinchADealNumber");
+                        int yesterdayClinchADealNumberens = dat.optInt("yesterdayClinchADealNumber");
+                        int thisMonthClinchADealNumber = dat.optInt("thisMonthClinchADealNumber");
+                        int lastMonthClinchADealNumber = dat.optInt("lastMonthClinchADealNumber");
+                        String thisMonthEstimatedTheRevenue = dat.optString("thisMonthEstimatedTheRevenue");
+                        String lastMonthTheTeamReturns = dat.optString("lastMonthTheTeamReturns");
+                        int type = object.optInt("type");
+
+                        view.onMonthProfiteDetailed(todayRecommendEarnings, yesterdayRecommendEarnings, thisMonthRecommendEarnings,
+                                lastMonthRecommendEarnings, todayClinchADealNumber, yesterdayClinchADealNumberens,
+                                thisMonthClinchADealNumber, lastMonthClinchADealNumber, thisMonthEstimatedTheRevenue,
+                                lastMonthTheTeamReturns, type);
+                    }
                 } else {
                     view.onNotNetWork();
                 }
@@ -91,12 +104,21 @@ public class ProfitPresenter implements ProfitContract.Presenter {
             public void onSuccess(String data) throws JSONException {
                 if (!TextUtils.isEmpty(data)) {
                     JSONObject object = new JSONObject(data);
-                    JSONObject dat = object.optJSONObject("data");
-                    int todayPaymentPens = dat.optInt("todayPaymentPens");
-                    Double todayTransactionRevenue = dat.optDouble("todayTransactionRevenue");
-                    int yesterdayPaymentPens = dat.optInt("yesterdayPaymentPens");
-                    Double yesterdayTransactionRevenue = dat.optDouble("yesterdayTransactionRevenue");
-                    view.onDayProfiteDetailed(todayPaymentPens, todayTransactionRevenue, yesterdayPaymentPens, yesterdayTransactionRevenue);
+                    if (object.optInt("code") == 1) {
+                        JSONObject dat = object.optJSONObject("data");
+                        String todayIndividualPurchased = dat.optString("todayIndividualPurchased");
+                        String yesterdayIndividualPurchased = dat.optString("yesterdayIndividualPurchased");
+                        String thisMonthIndividualPurchased = dat.optString("thisMonthIndividualPurchased");
+                        String lastMonthIndividualPurchased = dat.optString("lastMonthIndividualPurchased");
+                        int todayPaymentPens = dat.optInt("todayPaymentPens");
+                        int yesterdayPaymentPens = dat.optInt("yesterdayPaymentPens");
+                        int thisMonthPaymentPens = dat.optInt("thisMonthPaymentPens");
+                        int lastMonthPaymentPens = dat.optInt("lastMonthPaymentPens");
+                        view.onDayProfiteDetailed(todayIndividualPurchased, yesterdayIndividualPurchased, thisMonthIndividualPurchased,
+                                lastMonthIndividualPurchased, todayPaymentPens, yesterdayPaymentPens, thisMonthPaymentPens,
+                                lastMonthPaymentPens);
+                    }
+
                 } else {
                     view.onNotNetWork();
                 }

@@ -228,6 +228,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         mTwinkingRef.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                mPresenter.onLunboTu(getActivity());
                 initUserView();
             }
         });
@@ -275,9 +276,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mMineVip.setVisibility(View.GONE);
             mCode.setVisibility(View.GONE);
             mMineNickname.setVisibility(View.GONE);
-//            mMineVipData.setVisibility(View.GONE);
-//            mOpenVipOne.setVisibility(View.GONE);
-//            openvip.setVisibility(View.GONE);
             mMineWithdrawalPrice.setText("0.00");
             mMineTodayPrice.setText("0.00");
             mMineMonthPrice.setText("0.00");
@@ -311,11 +309,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             //这里判断是哪个vip
             vip_text.setText(identity.getUpgradeTips());
             mMineVip.setVisibility(View.VISIBLE);
+            mVipIcon.setText(identity.getIdentity());
             switch (identity.getUpgradeType()) {
                 case 1:
                     mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.vip_gray));
                     mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.vip));
-
+                    mVipIcon.setTextColor(getResources().getColor(R.color.white));
                     break;
                 case 2:
                     mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.mine_vip));
@@ -324,12 +323,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 case 3:
                 case 4:
                 case 5:
-                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang));
-                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.up));
-                    break;
                 case 6:
                     mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang));
                     mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.up));
+                    break;
+                default:
+                    //用户是大团长
                     break;
             }
 
@@ -551,9 +550,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 UserInfo user = BearMallAplication.getInstance().getUser();
                 if (user != null) {
                     if (user.getIdentity().getIsAudit() != 1) {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("vip_type",user.getIdentity().getUpgradeType());
-                        VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class,bundle);
+                        VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class);
                     } else {
                         showToast("审核中");
                     }

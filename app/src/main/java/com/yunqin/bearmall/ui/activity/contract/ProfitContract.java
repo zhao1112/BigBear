@@ -28,11 +28,14 @@ public interface ProfitContract {
 
         void onIncomeRecord(Double unsettled, Double balance, Double thisMonth, Double withdrawals, String withdrawFrom);
 
-        void onMonthProfiteDetailed(int lastMonthPaymentPens, Double lastMonthConsumption, int thisMonthPaymentPens,
-                                    Double thisMonthConsumption);
+        void onMonthProfiteDetailed(String todayRecommendEarnings, String yesterdayRecommendEarnings, String thisMonthRecommendEarnings,
+                                    String lastMonthRecommendEarnings, int todayClinchADealNumber, int yesterdayClinchADealNumberens,
+                                    int thisMonthClinchADealNumber, int lastMonthClinchADealNumber, String thisMonthEstimatedTheRevenue,
+                                    String lastMonthTheTeamReturns,int type);
 
-        void onDayProfiteDetailed(int todayPaymentPens, Double todayTransactionRevenue, int yesterdayPaymentPens,
-                                  Double yesterdayTransactionRevenue);
+        void onDayProfiteDetailed(String todayIndividualPurchased, String yesterdayIndividualPurchased, String thisMonthIndividualPurchased,
+                                  String lastMonthIndividualPurchased, int todayPaymentPens, int yesterdayPaymentPens,
+                                  int thisMonthPaymentPens, int lastMonthPaymentPens);
     }
 
 

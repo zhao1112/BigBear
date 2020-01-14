@@ -140,15 +140,12 @@
 
             <TextView
                 android:id="@+id/vip_partner_invitation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_28"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/address_bg_green"
-                android:paddingLeft="@dimen/dp_17"
-                android:paddingTop="@dimen/dp_6"
-                android:paddingRight="@dimen/dp_17"
-                android:paddingBottom="@dimen/dp_6"
+                android:gravity="center"
                 android:text="去邀请"
                 android:textColor="#ff303030"
                 android:textSize="@dimen/sp_12"/>
@@ -200,15 +197,12 @@
 
             <TextView
                 android:id="@+id/vip_partner_extension"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_28"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/address_bg_green"
-                android:paddingLeft="@dimen/dp_17"
-                android:paddingTop="@dimen/dp_6"
-                android:paddingRight="@dimen/dp_17"
-                android:paddingBottom="@dimen/dp_6"
+                android:gravity="center"
                 android:text="去推广"
                 android:textColor="#ff303030"
                 android:textSize="@dimen/sp_12"/>

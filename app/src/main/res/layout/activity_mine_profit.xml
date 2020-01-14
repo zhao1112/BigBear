@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.yunqin.bearmall.ui.activity.MineProfitActivity">
-
-    <!--<com.yunqin.bearmall.widget.MyTwinklingRefreshLayout-->
-    <!--android:id="@+id/twinkling"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="#F1F1F1"-->
-    <!--app:tr_enable_loadmore="false">-->
 
     <RelativeLayout
         android:id="@+id/one"
@@ -591,7 +583,8 @@
                     android:id="@+id/vip_super"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/vip_register">
+                    android:layout_below="@id/vip_register"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/super_title"
@@ -945,7 +938,8 @@
                     android:id="@+id/vip_team"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/vip_super">
+                    android:layout_below="@id/vip_super"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/two_title"
@@ -1068,7 +1062,5 @@
         </android.support.v4.widget.NestedScrollView>
 
     </RelativeLayout>
-
-    <!--</com.yunqin.bearmall.widget.MyTwinklingRefreshLayout>-->
 
 </RelativeLayout>

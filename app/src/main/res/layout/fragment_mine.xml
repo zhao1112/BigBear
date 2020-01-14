@@ -83,7 +83,7 @@
                             android:layout_marginBottom="@dimen/dp_3"
                             android:layout_toRightOf="@id/image_vip"
                             android:text="注册会员"
-                            android:textColor="#ffffffff"
+                            android:textColor="#ffffc755"
                             android:textSize="@dimen/sp_11"/>
 
                     </RelativeLayout>
@@ -799,7 +799,7 @@
                             android:layout_marginTop="@dimen/dp_7"
                             android:layout_marginBottom="@dimen/dp_17"
                             android:orientation="horizontal"
-                            android:visibility="gone">
+                           >
 
                             <LinearLayout
                                 android:id="@+id/mine_backstage"
@@ -818,7 +818,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/dp_6"
-                                    android:text="合伙人管理后台"
+                                    android:text="合伙人后台"
                                     android:textColor="#ff303030"
                                     android:textSize="@dimen/sp_12"/>
 
