@@ -24,7 +24,7 @@ public class BackstangeTabAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         BackstangeFragment backstangeFragment = new BackstangeFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title", mTabs[position]);
+        bundle.putInt("title", position);
         backstangeFragment.setArguments(bundle);
         return backstangeFragment;
     }

@@ -6,7 +6,6 @@
 
     <color name="TRANSPARENT">#00000000</color>
     <!--<color name="black_transparent_30">#00000000</color>-->
-
     <color name="color_my_1">#292c30</color>
     <color name="home_select_color">#e3010101</color>
     <color name="home_select_color_normal">#db7f7a7a</color>
@@ -18,10 +17,8 @@
     <color name="layout_bg">#fafafa</color>
     <color name="navpage">#FFE1E8EB</color>
 
-
     <color name="md_white_1">#e1e0e0</color>
     <color name="md_red_1">#e33b3b</color>
-
 
     <color name="light_green">#61BD91</color>
 
@@ -45,7 +42,6 @@
 
     <color name="add_cart_bg">#88484848</color>
 
-
     <color name="md_select_bg">#c3999999</color>
     <color name="md_keyboard_gap">#cccccc</color>
 
@@ -57,8 +53,7 @@
     <color name="bg_gray">#ffffff</color>
 
     <color name="text_gray">#999999</color>
-
     <color name="right">#239B61</color>
-
     <color name="bg_green">#24A064</color>
+
 </resources>

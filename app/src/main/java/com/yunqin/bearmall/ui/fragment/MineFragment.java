@@ -543,8 +543,11 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 ServiceActivity.start(getActivity());
                 break;
             case R.id.mine_backstage://合伙人后台
-
-                startActivity(new Intent(getActivity(),BackstageActivity.class));
+                if (BearMallAplication.getInstance().getUser() != null) {
+                    startActivity(new Intent(getActivity(),BackstageActivity.class));
+                } else {
+                    LoginActivity.starActivity(getActivity());
+                }
                 break;
             case R.id.mine_login:
                 LoginActivity.starActivity(getActivity());
@@ -561,7 +564,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                         VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class,bundle);
                     } else {
                         //管理后台
-
+                        startActivity(new Intent(getActivity(),BackstageActivity.class));
                     }
                 } else {
                     LoginActivity.starActivity(getActivity());

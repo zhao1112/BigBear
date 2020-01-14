@@ -422,6 +422,9 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     mVipEquity2.setVisibility(View.VISIBLE);
                     mVipEquity3.setVisibility(View.VISIBLE);
                     mVipViewLogon2.setVisibility(View.VISIBLE);
+                    mVipViewV1.setVisibility(View.GONE);
+                    mVipViewV2.setVisibility(View.GONE);
+                    mVipViewPartner.setVisibility(View.GONE);
                     break;
                 case 2://超级会员
                     mVipEquityText1.setText("佣金提高60%");
@@ -453,6 +456,9 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     mVipEquity2.setVisibility(View.VISIBLE);
                     mVipEquity3.setVisibility(View.VISIBLE);
                     mVipViewV1.setVisibility(View.VISIBLE);
+                    mVipViewLogon2.setVisibility(View.GONE);
+                    mVipViewV2.setVisibility(View.GONE);
+                    mVipViewPartner.setVisibility(View.GONE);
                     break;
                 case 3://大团长v1
                     mVipEquityText1.setText("团队收益提高10%");
@@ -478,6 +484,9 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
                     mVipViewV2.setVisibility(View.VISIBLE);
+                    mVipViewV1.setVisibility(View.GONE);
+                    mVipViewLogon2.setVisibility(View.GONE);
+                    mVipViewPartner.setVisibility(View.GONE);
                     break;
                 case 4://大团长v2
                     mVipEquityText1.setText("团队收益提高5%");
@@ -503,6 +512,9 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
                     mVipViewV2.setVisibility(View.VISIBLE);
+                    mVipViewV1.setVisibility(View.GONE);
+                    mVipViewLogon2.setVisibility(View.GONE);
+                    mVipViewPartner.setVisibility(View.GONE);
                     break;
                 case 5://大团长v3
                     mVipEquityText1.setText("团队收益提高2.5%");
@@ -528,6 +540,9 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
                     mVipViewV2.setVisibility(View.VISIBLE);
+                    mVipViewV1.setVisibility(View.GONE);
+                    mVipViewLogon2.setVisibility(View.GONE);
+                    mVipViewPartner.setVisibility(View.GONE);
                     break;
                 case 6://大团长v4
                     mVipEquityText1.setText("平台额外5%佣金补贴");
@@ -556,6 +571,9 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     mVipEquity1.setVisibility(View.VISIBLE);
                     mVipEquity2.setVisibility(View.VISIBLE);
                     mVipViewPartner.setVisibility(View.VISIBLE);
+                    mVipViewV2.setVisibility(View.GONE);
+                    mVipViewV1.setVisibility(View.GONE);
+                    mVipViewLogon2.setVisibility(View.GONE);
                     break;
             }
         } catch (Resources.NotFoundException e) {

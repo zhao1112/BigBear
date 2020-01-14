@@ -40,9 +40,8 @@ public class BackstangeFragment extends BaseFragment {
 
     private int page = 1;
     private int pageSize = 1;
-    private int type = 1;
+    private int type;
     private boolean hasMore = true;
-    private String title;
     private BackstangeAdapter mBackstangeAdapter;
 
 
@@ -56,17 +55,7 @@ public class BackstangeFragment extends BaseFragment {
         mNulldata.setVisibility(View.GONE);
 
         Bundle arguments = getArguments();
-        title = arguments.getString("title");
-
-        if (title.equals("全部")) {
-            type = 0;
-        } else if (title.equals("已付款")) {
-            type = 1;
-        } else if (title.equals("已结算")) {
-            type = 3;
-        } else if (title.equals("已失效")) {
-            type = 4;
-        }
+        type = arguments.getInt("title");
 
         mBackstangeAdapter = new BackstangeAdapter(getContext());
         mBackstangeFrag_Reclcler.setLayoutManager(new LinearLayoutManager(getContext()));

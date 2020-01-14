@@ -30,8 +30,8 @@ public class BackstageActivity extends BaseActivity {
     @Override
     public void init() {
         setTranslucentStatus();
-        boolean type = getIntent().getBooleanExtra("TYPE", false);
-        mBackstangeTabFragment= new BackstangeTabFragment();
+
+        mBackstangeTabFragment = new BackstangeTabFragment();
 
         mBackstangeRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -44,11 +44,11 @@ public class BackstageActivity extends BaseActivity {
                 }
             }
         });
-        if (type){
-            mBackstangeManage_Rb.setChecked(true);
-        }
+
+        mBackstangeManage_Rb.setChecked(true);
 
     }
+
     private void switchFragment(Fragment fragment) {
         if (fragment.isAdded()) {
             getSupportFragmentManager().beginTransaction().hide(mBackstFragment).show(fragment).commit();
