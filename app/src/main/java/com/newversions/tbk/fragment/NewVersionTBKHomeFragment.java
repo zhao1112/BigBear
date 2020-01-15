@@ -154,6 +154,7 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
 
     @Override
     public void attachAddData(TBKHomeGoodsEntity homeBean) {
+        onLoadMoreFinish();
         mNewVersionHomeAdapter.addData(homeBean);
     }
 

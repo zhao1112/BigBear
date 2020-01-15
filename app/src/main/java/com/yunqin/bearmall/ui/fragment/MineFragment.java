@@ -5,10 +5,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,7 +37,6 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
-import com.yunqin.bearmall.bean.BackstangeOrderBean;
 import com.yunqin.bearmall.bean.BannerBean;
 import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.MessageItemCount;
@@ -49,6 +46,7 @@ import com.yunqin.bearmall.bean.PopBean;
 import com.yunqin.bearmall.bean.UserBTInfo;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
+import com.yunqin.bearmall.eventbus.VipUpgrade;
 import com.yunqin.bearmall.ui.activity.AddressActivity;
 import com.yunqin.bearmall.ui.activity.BackstageActivity;
 import com.yunqin.bearmall.ui.activity.FansActivity;
@@ -76,7 +74,6 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -85,9 +82,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * @author Master
@@ -184,7 +179,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     TextView vip_text;
     @BindView(R.id.mine_backstage)
     LinearLayout mMine_backstage;
-
 
 
     private RequestOptions requestOptions = new RequestOptions()
@@ -287,6 +281,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mMineWithdrawalPrice.setText("0.00");
             mMineTodayPrice.setText("0.00");
             mMineMonthPrice.setText("0.00");
+            mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.mine_tuanzhang));
+            vip_text.setText("登录查看当前收益及等级");
             //合伙人后台 修改
             mMineToday.setVisibility(View.GONE);
             mMineCommander.setVisibility(View.GONE);
@@ -297,10 +293,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
 
     private void setVipData(UserInfo userInfo) {
         long currentTime = System.currentTimeMillis();
-        if (currentTime - lastupdateTime > 30 * 60 * 1000) {
+        if (currentTime - lastupdateTime > 5 * 60 * 1000) {
             mPresenter.updateUserInfo(getActivity());
         } else {
-            UserInfo.DataBean.MemberBean dataBean = userInfo.getData().getMember();
             UserInfo.Identity identity = userInfo.getIdentity();
             //判断是否是合伙人
             if (identity.isPartner()) {
@@ -325,11 +320,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 case 1:
                     mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.vip_gray));
                     mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.vip));
-                    mVipIcon.setTextColor(getResources().getColor(R.color.white));
+                    mVipIcon.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case 2:
                     mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.mine_vip));
                     mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang_));
+                    mVipIcon.setTextColor(getResources().getColor(R.color.vip_text));
                     break;
                 case 3:
                 case 4:
@@ -337,13 +333,15 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 case 6:
                     mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang));
                     mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.up));
+                    mVipIcon.setTextColor(getResources().getColor(R.color.vip_text));
                     break;
                 default:
                     //用户是大团长
                     Commander = false;
-                    mMineCommander.setVisibility(View.GONE);
+                    mMineCommander.setText("管理后台");
                     mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.mine_tuanzhang));
                     mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.mine_tuanzhang));
+                    mVipIcon.setTextColor(getResources().getColor(R.color.vip_text));
                     break;
             }
         }
@@ -357,6 +355,11 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         if (isVisibility) {
             mPresenter.initAdData(getActivity());
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(VipUpgrade vipUpgrade) {
+        mPresenter.updateUserInfo(getActivity());
     }
 
     @Override
@@ -439,7 +442,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @OnClick({R.id.mine_vip_data, R.id.mine_copy, R.id.mine_news, R.id.mine_set, R.id.mine_withdrawal, R.id.mine_today,
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
             R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip,
-            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one, R.id.mine_commander,R.id.mine_backstage})
+            R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one, R.id.mine_commander,
+            R.id.mine_backstage})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
@@ -544,7 +548,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.mine_backstage://合伙人后台
                 if (BearMallAplication.getInstance().getUser() != null) {
-                    startActivity(new Intent(getActivity(),BackstageActivity.class));
+                    startActivity(new Intent(getActivity(), BackstageActivity.class));
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }
@@ -561,10 +565,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                     if (Commander) {
                         Bundle bundle = new Bundle();
                         bundle.putInt("audit", user.getIdentity().getIsAudit());
-                        VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class,bundle);
+                        VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class, bundle);
                     } else {
                         //管理后台
-                        startActivity(new Intent(getActivity(),BackstageActivity.class));
+                        startActivity(new Intent(getActivity(), BackstageActivity.class));
                     }
                 } else {
                     LoginActivity.starActivity(getActivity());
@@ -729,4 +733,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

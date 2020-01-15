@@ -56,4 +56,6 @@
     <color name="right">#239B61</color>
     <color name="bg_green">#24A064</color>
 
+    <color name="vip_text">#ffffc755</color>
+
 </resources>

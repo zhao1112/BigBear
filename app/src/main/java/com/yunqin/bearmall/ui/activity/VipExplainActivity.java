@@ -1,26 +1,17 @@
 package com.yunqin.bearmall.ui.activity;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,7 +24,6 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -43,10 +33,10 @@ import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.UserPromotion;
+import com.yunqin.bearmall.eventbus.VipUpgrade;
 import com.yunqin.bearmall.inter.ChangeHeadImageCallBack;
 import com.yunqin.bearmall.ui.activity.contract.VipContract;
 import com.yunqin.bearmall.ui.activity.presenter.Vippresenter;
-import com.yunqin.bearmall.util.CommonUtil;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -54,17 +44,13 @@ import com.yunqin.bearmall.util.UploadScreenshots;
 import com.yunqin.bearmall.widget.CircleImageView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
-import org.json.JSONException;
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class VipExplainActivity extends BaseActivity implements VipContract.UI, ChangeHeadImageCallBack,
@@ -243,7 +229,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     };
     private Vippresenter mVippresenter;
     private PopupWindow mMPopupWindow;
-    private int mAudit;
+    private boolean Audit = true;
 
 
     public static void opneVipExplainActivity(Activity context, Class cls, Bundle bundle) {
@@ -262,18 +248,24 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     public void init() {
 
         setTranslucentStatus();
-        mAudit = getIntent().getIntExtra("audit", 0);
+        int mAudit = getIntent().getIntExtra("audit", 0);
         if (mAudit == 0 || mAudit == 2) {
+            Audit = true;
             vip_logon_up.setText("立即升级");
             vip_v1_up.setText("立即升级");
             vip_v2_up.setText("立即升级");
             vip_partner_up.setText("立即升级");
         } else if (mAudit == 1) {
+            Audit = false;
             vip_logon_up.setText("审核中");
             vip_v1_up.setText("审核中");
             vip_v2_up.setText("审核中");
             vip_partner_up.setText("审核中");
         }
+
+        Glide.with(this).setDefaultRequestOptions(requestOptions).load(BearMallAplication.getInstance().getUser().getData().getMember().getIconUrl()).into(mVipHead);
+        mVipName.setText(BearMallAplication.getInstance().getUser().getData().getMember().getNickName());
+
         mVippresenter = new Vippresenter(this);
         mVippresenter.start(this);
     }
@@ -328,7 +320,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             case R.id.vip_v1_up:
             case R.id.vip_v2_up:
             case R.id.vip_partner_up:
-                if (mAudit != 1) {
+                if (Audit) {
                     mVippresenter.onDeduction(VipExplainActivity.this, Type_Vip + "");
                 }
                 break;
@@ -363,11 +355,12 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     public void getDeduction(int code) {
         if (code == 1) {
             showPopUp();
-            vip_logon_up.setText("审核中");
-            vip_v1_up.setText("审核中");
-            vip_v2_up.setText("审核中");
-            vip_partner_up.setText("审核中");
-            mVippresenter.start(this);
+            if (Type_Vip == 2) {
+                vip_logon_up.setText("审核中");
+                vip_v1_up.setText("审核中");
+                vip_v2_up.setText("审核中");
+                vip_partner_up.setText("审核中");
+            }
         } else {
             showToast("网络不佳");
         }
@@ -391,6 +384,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     } else if (data.getCheckWXState() == 1) {
                         checkImage = false;
                         vip_logon_image.setText("已完成");
+                        vip_logon_image.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else if (data.getCheckWXState() == 2) {
                         checkImage = true;
                         vip_logon_image.setText("审核失败");
@@ -401,6 +395,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getInvitationIsDisplay() == 1) {
                         invitation = false;
                         vip_logon_invitation.setText("已完成");
+                        vip_logon_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         invitation = true;
                         vip_logon_invitation.setText("去邀请");
@@ -409,6 +404,8 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                         extension = false;
                         vip_logon_extension.setText("已完成");
                         vip_logon_extension2.setText("已完成");
+                        vip_logon_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
+                        vip_logon_extension2.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         extension = true;
                         vip_logon_extension.setText("去推广");
@@ -416,6 +413,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     }
                     //是否可以升级
                     if (data.getIsDisplay1() == 1 || data.getIsDisplay2() == 1) {
+                        Audit = true;
                         vip_logon_up.setVisibility(View.VISIBLE);
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
@@ -437,6 +435,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getInvitationIsDisplay() == 1) {
                         invitation = false;
                         vip_v1_invitation.setText("已完成");
+                        vip_v1_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         invitation = true;
                         vip_v1_invitation.setText("去邀请");
@@ -444,12 +443,14 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getActivityIsDisplay() == 1) {
                         extension = false;
                         vip_v1_extension.setText("已完成");
+                        vip_v1_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         extension = true;
                         vip_v1_extension.setText("去推广");
                     }
                     //是否可以升级
                     if (data.getIsDisplay() == 1) {
+                        Audit = true;
                         vip_v1_up.setVisibility(View.VISIBLE);
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
@@ -467,6 +468,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getInvitationIsDisplay() == 1) {
                         invitation = false;
                         vip_v2_invitation.setText("已完成");
+                        vip_v2_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         invitation = true;
                         vip_v2_invitation.setText("去邀请");
@@ -474,12 +476,14 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getActivityIsDisplay() == 1) {
                         extension = false;
                         vip_v2_extension.setText("已完成");
+                        vip_v2_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         extension = true;
                         vip_v2_extension.setText("去推广");
                     }
                     //是否可以升级
                     if (data.getIsDisplay() == 1) {
+                        Audit = true;
                         vip_v2_up.setVisibility(View.VISIBLE);
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
@@ -495,6 +499,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getInvitationIsDisplay() == 1) {
                         invitation = false;
                         vip_v2_invitation.setText("已完成");
+                        vip_v2_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         invitation = true;
                         vip_v2_invitation.setText("去邀请");
@@ -502,12 +507,14 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getActivityIsDisplay() == 1) {
                         extension = false;
                         vip_v2_extension.setText("已完成");
+                        vip_v2_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         extension = true;
                         vip_v2_extension.setText("去推广");
                     }
                     //是否可以升级
                     if (data.getIsDisplay() == 1) {
+                        Audit = true;
                         vip_v2_up.setVisibility(View.VISIBLE);
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
@@ -523,6 +530,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getInvitationIsDisplay() == 1) {
                         invitation = false;
                         vip_v2_invitation.setText("已完成");
+                        vip_v2_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         invitation = true;
                         vip_v2_invitation.setText("去邀请");
@@ -530,12 +538,14 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getActivityIsDisplay() == 1) {
                         extension = false;
                         vip_v2_extension.setText("已完成");
+                        vip_v2_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         extension = true;
                         vip_v2_extension.setText("去推广");
                     }
                     //是否可以升级
                     if (data.getIsDisplay() == 1) {
+                        Audit = true;
                         vip_v2_up.setVisibility(View.VISIBLE);
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
@@ -553,6 +563,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getInvitationIsDisplay() == 1) {
                         invitation = false;
                         vip_partner_invitation.setText("已完成");
+                        vip_partner_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         invitation = true;
                         vip_partner_invitation.setText("去邀请");
@@ -560,12 +571,14 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     if (data.getActivityIsDisplay() == 1) {
                         extension = false;
                         vip_partner_extension.setText("已完成");
+                        vip_partner_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
                     } else {
                         extension = true;
                         vip_partner_extension.setText("去推广");
                     }
                     //是否可以升级
                     if (data.getIsDisplay() == 1) {
+                        Audit = true;
                         vip_partner_up.setVisibility(View.VISIBLE);
                     }
                     mVipEquity1.setVisibility(View.VISIBLE);
@@ -585,8 +598,6 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
         //设置页面共同拥有值
         try {
             UserPromotion.Data data = promotion.getData();
-            Glide.with(this).setDefaultRequestOptions(requestOptions).load(data.getIconUrl()).into(mVipHead);
-            mVipName.setText(data.getNickName());
             Glide.with(this).setDefaultRequestOptions(requestOptions).load(data.getParentIconUrl()).into(mVipServiceHead);
             mVipServiceName.setText(data.getParentNickName());
             mVipServiceJue.setText(data.getParentRole());
@@ -694,10 +705,14 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             @Override
             public void onDismiss() {
                 OpenGoodsDetail.lighton(VipExplainActivity.this);
+                if (Type_Vip == 6) {
+                    finish();
+                } else {
+                    mVippresenter.start(VipExplainActivity.this);
+                }
             }
         });
     }
-
 
     @Override
     public void choseWhat(int flag) {
@@ -733,7 +748,6 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
         UploadScreenshots.okHttpScreenshots(this, uri, this);
     }
 
-
     @Override
     public void onSuccessID(String data) {
         Message message = new Message();
@@ -757,5 +771,11 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
         Message message = new Message();
         message.what = 1;
         mHandler.sendMessage(message);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(new VipUpgrade());
     }
 }

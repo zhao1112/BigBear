@@ -218,7 +218,8 @@
                     android:layout_marginTop="@dimen/dp_16"
                     android:text="专属客服"
                     android:textColor="#ff303030"
-                    android:textSize="@dimen/sp_14"/>
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold"/>
 
                 <View
                     android:id="@+id/condition_vie"

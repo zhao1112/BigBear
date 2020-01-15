@@ -123,10 +123,10 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     }
 
     @Override
-    public void onMonthProfiteDetailed(String todayRecommendEarnings, String yesterdayRecommendEarnings,
-                                       String thisMonthRecommendEarnings, String lastMonthRecommendEarnings, int todayClinchADealNumber,
+    public void onMonthProfiteDetailed(Double todayRecommendEarnings, Double yesterdayRecommendEarnings,
+                                       Double thisMonthRecommendEarnings, Double lastMonthRecommendEarnings, int todayClinchADealNumber,
                                        int yesterdayClinchADealNumberens, int thisMonthClinchADealNumber, int lastMonthClinchADealNumber,
-                                       String thisMonthEstimatedTheRevenue, String lastMonthTheTeamReturns, int type) {
+                                       Double thisMonthEstimatedTheRevenue, Double lastMonthTheTeamReturns, int type) {
         /**
          * type == 1 显示推荐收益
          * type == 2 显示推荐收益和团队收益
@@ -139,24 +139,24 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         }
 
         //推荐收益
-        super_todayTransactionRevenue.setText("￥" + todayRecommendEarnings);
-        super_yesterdayTransactionRevenue.setText("￥" + yesterdayRecommendEarnings);
-        super_thisMonthConsumption.setText("￥" + thisMonthRecommendEarnings);
-        super_lastMonthConsumption.setText("￥" + lastMonthRecommendEarnings);
+        super_todayTransactionRevenue.setText("￥" + doubleToString(todayRecommendEarnings));
+        super_yesterdayTransactionRevenue.setText("￥" + doubleToString(yesterdayRecommendEarnings));
+        super_thisMonthConsumption.setText("￥" + doubleToString(thisMonthRecommendEarnings));
+        super_lastMonthConsumption.setText("￥" + doubleToString(lastMonthRecommendEarnings));
         super_todayPaymentPens.setText(todayClinchADealNumber + "");
         super_yesterdayPaymentPens.setText(yesterdayClinchADealNumberens + "");
         super_thisMonthPaymentPens.setText(thisMonthClinchADealNumber + "");
         super_lastMonthPaymentPens.setText(lastMonthClinchADealNumber + "");
         //团队收益
-        team_yesterdayPaymentPens.setText("￥" + thisMonthEstimatedTheRevenue);
-        team_lastMonthPaymentPens.setText("￥" + lastMonthTheTeamReturns);
+        team_yesterdayPaymentPens.setText("￥" + doubleToString(thisMonthEstimatedTheRevenue));
+        team_lastMonthPaymentPens.setText("￥" + doubleToString(lastMonthTheTeamReturns));
 
     }
 
 
     @Override
-    public void onDayProfiteDetailed(String todayIndividualPurchased, String yesterdayIndividualPurchased,
-                                     String thisMonthIndividualPurchased, String lastMonthIndividualPurchased, int todayPaymentPens,
+    public void onDayProfiteDetailed(Double todayIndividualPurchased, Double yesterdayIndividualPurchased,
+                                     Double thisMonthIndividualPurchased, Double lastMonthIndividualPurchased, int todayPaymentPens,
                                      int yesterdayPaymentPens, int thisMonthPaymentPens, int lastMonthPaymentPens) {
 
         //自购收益
@@ -164,10 +164,10 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mYesterdayPaymentPens.setText(yesterdayPaymentPens + "");
         mThisMonthPaymentPens.setText(thisMonthPaymentPens + "");
         mLastMonthPaymentPens.setText(lastMonthPaymentPens + "");
-        mTodayTransactionRevenue.setText("￥" + todayIndividualPurchased);
-        mYesterdayTransactionRevenue.setText("￥" + yesterdayIndividualPurchased);
-        mThisMonthConsumption.setText("￥" + thisMonthIndividualPurchased);
-        mLastMonthConsumption.setText("￥" + lastMonthIndividualPurchased);
+        mTodayTransactionRevenue.setText("￥" + doubleToString(todayIndividualPurchased));
+        mYesterdayTransactionRevenue.setText("￥" + doubleToString(yesterdayIndividualPurchased));
+        mThisMonthConsumption.setText("￥" + doubleToString(thisMonthIndividualPurchased));
+        mLastMonthConsumption.setText("￥" + doubleToString(lastMonthIndividualPurchased));
 
     }
 

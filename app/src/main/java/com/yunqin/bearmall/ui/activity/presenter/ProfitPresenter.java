@@ -63,16 +63,16 @@ public class ProfitPresenter implements ProfitContract.Presenter {
                     JSONObject object = new JSONObject(data);
                     if (object.optInt("code") == 1) {
                         JSONObject dat = object.optJSONObject("data");
-                        String todayRecommendEarnings = dat.optString("todayRecommendEarnings");
-                        String yesterdayRecommendEarnings = dat.optString("yesterdayRecommendEarnings");
-                        String thisMonthRecommendEarnings = dat.optString("thisMonthRecommendEarnings");
-                        String lastMonthRecommendEarnings = dat.optString("lastMonthRecommendEarnings");
+                        Double todayRecommendEarnings = dat.optDouble("todayRecommendEarnings");
+                        Double yesterdayRecommendEarnings = dat.optDouble("yesterdayRecommendEarnings");
+                        Double thisMonthRecommendEarnings = dat.optDouble("thisMonthRecommendEarnings");
+                        Double lastMonthRecommendEarnings = dat.optDouble("lastMonthRecommendEarnings");
                         int todayClinchADealNumber = dat.optInt("todayClinchADealNumber");
                         int yesterdayClinchADealNumberens = dat.optInt("yesterdayClinchADealNumber");
                         int thisMonthClinchADealNumber = dat.optInt("thisMonthClinchADealNumber");
                         int lastMonthClinchADealNumber = dat.optInt("lastMonthClinchADealNumber");
-                        String thisMonthEstimatedTheRevenue = dat.optString("thisMonthEstimatedTheRevenue");
-                        String lastMonthTheTeamReturns = dat.optString("lastMonthTheTeamReturns");
+                        Double thisMonthEstimatedTheRevenue = dat.optDouble("thisMonthEstimatedTheRevenue");
+                        Double lastMonthTheTeamReturns = dat.optDouble("lastMonthTheTeamReturns");
                         int type = object.optInt("type");
 
                         view.onMonthProfiteDetailed(todayRecommendEarnings, yesterdayRecommendEarnings, thisMonthRecommendEarnings,
@@ -106,10 +106,10 @@ public class ProfitPresenter implements ProfitContract.Presenter {
                     JSONObject object = new JSONObject(data);
                     if (object.optInt("code") == 1) {
                         JSONObject dat = object.optJSONObject("data");
-                        String todayIndividualPurchased = dat.optString("todayIndividualPurchased");
-                        String yesterdayIndividualPurchased = dat.optString("yesterdayIndividualPurchased");
-                        String thisMonthIndividualPurchased = dat.optString("thisMonthIndividualPurchased");
-                        String lastMonthIndividualPurchased = dat.optString("lastMonthIndividualPurchased");
+                        Double todayIndividualPurchased = dat.optDouble("todayIndividualPurchased");
+                        Double yesterdayIndividualPurchased = dat.optDouble("yesterdayIndividualPurchased");
+                        Double thisMonthIndividualPurchased = dat.optDouble("thisMonthIndividualPurchased");
+                        Double lastMonthIndividualPurchased = dat.optDouble("lastMonthIndividualPurchased");
                         int todayPaymentPens = dat.optInt("todayPaymentPens");
                         int yesterdayPaymentPens = dat.optInt("yesterdayPaymentPens");
                         int thisMonthPaymentPens = dat.optInt("thisMonthPaymentPens");
