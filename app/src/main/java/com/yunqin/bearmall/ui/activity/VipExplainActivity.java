@@ -230,6 +230,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     private Vippresenter mVippresenter;
     private PopupWindow mMPopupWindow;
     private boolean Audit = true;
+    private int state2 = 0;
 
 
     public static void opneVipExplainActivity(Activity context, Class cls, Bundle bundle) {
@@ -250,7 +251,6 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
         setTranslucentStatus();
         int mAudit = getIntent().getIntExtra("audit", 0);
         if (mAudit == 0 || mAudit == 2) {
-            Audit = true;
             vip_logon_up.setText("立即升级");
             vip_v1_up.setText("立即升级");
             vip_v2_up.setText("立即升级");
@@ -263,7 +263,10 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             vip_partner_up.setText("审核中");
         }
 
-        Glide.with(this).setDefaultRequestOptions(requestOptions).load(BearMallAplication.getInstance().getUser().getData().getMember().getIconUrl()).into(mVipHead);
+        Glide.with(this)
+                .setDefaultRequestOptions(requestOptions)
+                .load(BearMallAplication.getInstance().getUser().getData().getMember().getIconUrl())
+                .into(mVipHead);
         mVipName.setText(BearMallAplication.getInstance().getUser().getData().getMember().getNickName());
 
         mVippresenter = new Vippresenter(this);
@@ -322,6 +325,8 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             case R.id.vip_partner_up:
                 if (Audit) {
                     mVippresenter.onDeduction(VipExplainActivity.this, Type_Vip + "");
+                } else {
+//                    showPopUp(1);
                 }
                 break;
         }
@@ -354,12 +359,17 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     @Override
     public void getDeduction(int code) {
         if (code == 1) {
-            showPopUp();
             if (Type_Vip == 2) {
                 vip_logon_up.setText("审核中");
                 vip_v1_up.setText("审核中");
                 vip_v2_up.setText("审核中");
                 vip_partner_up.setText("审核中");
+//                showPopUp(1);
+                Audit = false;
+                showToast("审核以提交，请等待结果");
+            } else {
+                Audit = true;
+                showPopUp(0);
             }
         } else {
             showToast("网络不佳");
@@ -371,222 +381,83 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             UserPromotion.Data data = promotion.getData();
             switch (promotion.getType()) {
                 case 1://注册会员
-                    mVipEquityText1.setText("佣金提高20%");
-                    mVipEquityImage1.setImageDrawable(getResources().getDrawable(R.mipmap.vip_yongjin));
-                    mVipEquityText2.setText("额外推荐收益");
-                    mVipEquityIamge2.setImageDrawable(getResources().getDrawable(R.mipmap.vip_ewaishouyi));
-                    mVipEquityText3.setText("商学院VIP课程");
-                    mVipEquityImage3.setImageDrawable(getResources().getDrawable(R.mipmap.vip_kecheng));
+                    setImageView("佣金提高20%", "额外推荐收益", "商学院VIP课程", R.mipmap.vip_yongjin, R.mipmap.vip_ewaishouyi, R.mipmap.vip_kecheng);
+                    hideImageView();
+                    showImageView(3);
                     //任务状态
-                    if (data.getCheckWXState() == 0) {
-                        checkImage = false;
-                        vip_logon_image.setText("审核中");
-                    } else if (data.getCheckWXState() == 1) {
-                        checkImage = false;
-                        vip_logon_image.setText("已完成");
-                        vip_logon_image.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else if (data.getCheckWXState() == 2) {
-                        checkImage = true;
-                        vip_logon_image.setText("审核失败");
-                    } else if (data.getCheckWXState() == 4) {
-                        checkImage = true;
-                        vip_logon_image.setText("上传截图");
-                    }
-                    if (data.getInvitationIsDisplay() == 1) {
-                        invitation = false;
-                        vip_logon_invitation.setText("已完成");
-                        vip_logon_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        invitation = true;
-                        vip_logon_invitation.setText("去邀请");
-                    }
-                    if (data.getOrderIsDisplay() == 1) {
-                        extension = false;
-                        vip_logon_extension.setText("已完成");
-                        vip_logon_extension2.setText("已完成");
-                        vip_logon_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                        vip_logon_extension2.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        extension = true;
-                        vip_logon_extension.setText("去推广");
-                        vip_logon_extension2.setText("去推广");
-                    }
+                    isCheckWXState(data.getCheckWXState(), vip_logon_image);
+                    isInvitationDisplay(data.getInvitationIsDisplay(), vip_logon_invitation);
+                    isOrderDisplay(data.getOrderIsDisplay(), vip_logon_extension, vip_logon_extension2);
                     //是否可以升级
-                    if (data.getIsDisplay1() == 1 || data.getIsDisplay2() == 1) {
-                        Audit = true;
-                        vip_logon_up.setVisibility(View.VISIBLE);
-                    }
-                    mVipEquity1.setVisibility(View.VISIBLE);
-                    mVipEquity2.setVisibility(View.VISIBLE);
-                    mVipEquity3.setVisibility(View.VISIBLE);
-                    mVipViewLogon2.setVisibility(View.VISIBLE);
-                    mVipViewV1.setVisibility(View.GONE);
-                    mVipViewV2.setVisibility(View.GONE);
-                    mVipViewPartner.setVisibility(View.GONE);
+                    isDisplay(data.getIsDisplay1(), data.getIsDisplay2(), vip_logon_up);
+                    //升级按钮
+                    hideUpVip();
+                    showUpVip(1);
                     break;
                 case 2://超级会员
-                    mVipEquityText1.setText("佣金提高60%");
-                    mVipEquityImage1.setImageDrawable(getResources().getDrawable(R.mipmap.vip_yongjin));
-                    mVipEquityText2.setText("额外团队收益");
-                    mVipEquityIamge2.setImageDrawable(getResources().getDrawable(R.mipmap.vip_ewaishouyi));
-                    mVipEquityText3.setText("商学院所有课程");
-                    mVipEquityImage3.setImageDrawable(getResources().getDrawable(R.mipmap.vip_kecheng2));
+                    setImageView("佣金提高60%", "额外团队收益", "商学院所有课程", R.mipmap.vip_yongjin, R.mipmap.vip_ewaishouyi, R.mipmap.vip_kecheng2);
+                    hideImageView();
+                    showImageView(3);
                     //任务状态
-                    if (data.getInvitationIsDisplay() == 1) {
-                        invitation = false;
-                        vip_v1_invitation.setText("已完成");
-                        vip_v1_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        invitation = true;
-                        vip_v1_invitation.setText("去邀请");
-                    }
-                    if (data.getActivityIsDisplay() == 1) {
-                        extension = false;
-                        vip_v1_extension.setText("已完成");
-                        vip_v1_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        extension = true;
-                        vip_v1_extension.setText("去推广");
-                    }
+                    isInvitationDisplay(data.getInvitationIsDisplay(), vip_v1_invitation);
+                    isActivityDisplay(data.getActivityIsDisplay(), vip_v1_extension);
                     //是否可以升级
-                    if (data.getIsDisplay() == 1) {
-                        Audit = true;
-                        vip_v1_up.setVisibility(View.VISIBLE);
-                    }
-                    mVipEquity1.setVisibility(View.VISIBLE);
-                    mVipEquity2.setVisibility(View.VISIBLE);
-                    mVipEquity3.setVisibility(View.VISIBLE);
-                    mVipViewV1.setVisibility(View.VISIBLE);
-                    mVipViewLogon2.setVisibility(View.GONE);
-                    mVipViewV2.setVisibility(View.GONE);
-                    mVipViewPartner.setVisibility(View.GONE);
+                    isDisplay(data.getIsDisplay(), state2, vip_v1_up);
+                    //升级按钮
+                    hideUpVip();
+                    showUpVip(2);
                     break;
                 case 3://大团长v1
-                    mVipEquityText1.setText("团队收益提高10%");
-                    mVipEquityImage1.setImageDrawable(getResources().getDrawable(R.mipmap.vip_v1_comm));
+                    setImageView("团队收益提高10%", null, null, R.mipmap.vip_v1_comm, 0, 0);
+                    hideImageView();
+                    showImageView(1);
                     //任务状态
-                    if (data.getInvitationIsDisplay() == 1) {
-                        invitation = false;
-                        vip_v2_invitation.setText("已完成");
-                        vip_v2_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        invitation = true;
-                        vip_v2_invitation.setText("去邀请");
-                    }
-                    if (data.getActivityIsDisplay() == 1) {
-                        extension = false;
-                        vip_v2_extension.setText("已完成");
-                        vip_v2_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        extension = true;
-                        vip_v2_extension.setText("去推广");
-                    }
+                    isInvitationDisplay(data.getInvitationIsDisplay(), vip_v2_invitation);
+                    isActivityDisplay(data.getActivityIsDisplay(), vip_v2_extension);
                     //是否可以升级
-                    if (data.getIsDisplay() == 1) {
-                        Audit = true;
-                        vip_v2_up.setVisibility(View.VISIBLE);
-                    }
-                    mVipEquity1.setVisibility(View.VISIBLE);
-                    mVipViewV2.setVisibility(View.VISIBLE);
-                    mVipViewV1.setVisibility(View.GONE);
-                    mVipViewLogon2.setVisibility(View.GONE);
-                    mVipViewPartner.setVisibility(View.GONE);
+                    isDisplay(data.getIsDisplay(), state2, vip_v2_up);
+                    //升级按钮
+                    hideUpVip();
+                    showUpVip(3);
                     break;
                 case 4://大团长v2
-                    mVipEquityText1.setText("团队收益提高5%");
-                    mVipEquityImage1.setImageDrawable(getResources().getDrawable(R.mipmap.vip_v2_comm));
+                    setImageView("团队收益提高5%", null, null, R.mipmap.vip_v2_comm, 0, 0);
+                    hideImageView();
+                    showImageView(1);
                     //任务状态
-                    if (data.getInvitationIsDisplay() == 1) {
-                        invitation = false;
-                        vip_v2_invitation.setText("已完成");
-                        vip_v2_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        invitation = true;
-                        vip_v2_invitation.setText("去邀请");
-                    }
-                    if (data.getActivityIsDisplay() == 1) {
-                        extension = false;
-                        vip_v2_extension.setText("已完成");
-                        vip_v2_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        extension = true;
-                        vip_v2_extension.setText("去推广");
-                    }
+                    isInvitationDisplay(data.getInvitationIsDisplay(), vip_v2_invitation);
+                    isActivityDisplay(data.getActivityIsDisplay(), vip_v2_extension);
                     //是否可以升级
-                    if (data.getIsDisplay() == 1) {
-                        Audit = true;
-                        vip_v2_up.setVisibility(View.VISIBLE);
-                    }
-                    mVipEquity1.setVisibility(View.VISIBLE);
-                    mVipViewV2.setVisibility(View.VISIBLE);
-                    mVipViewV1.setVisibility(View.GONE);
-                    mVipViewLogon2.setVisibility(View.GONE);
-                    mVipViewPartner.setVisibility(View.GONE);
+                    isDisplay(data.getIsDisplay(), state2, vip_v2_up);
+                    //升级按钮
+                    hideUpVip();
+                    showUpVip(3);
                     break;
                 case 5://大团长v3
-                    mVipEquityText1.setText("团队收益提高2.5%");
-                    mVipEquityImage1.setImageDrawable(getResources().getDrawable(R.mipmap.vip_v3_comm));
+                    setImageView("团队收益提高2.5%", null, null, R.mipmap.vip_v3_comm, 0, 0);
+                    hideImageView();
+                    showImageView(1);
                     //任务状态
-                    if (data.getInvitationIsDisplay() == 1) {
-                        invitation = false;
-                        vip_v2_invitation.setText("已完成");
-                        vip_v2_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        invitation = true;
-                        vip_v2_invitation.setText("去邀请");
-                    }
-                    if (data.getActivityIsDisplay() == 1) {
-                        extension = false;
-                        vip_v2_extension.setText("已完成");
-                        vip_v2_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        extension = true;
-                        vip_v2_extension.setText("去推广");
-                    }
+                    isInvitationDisplay(data.getInvitationIsDisplay(), vip_v2_invitation);
+                    isActivityDisplay(data.getActivityIsDisplay(), vip_v2_extension);
                     //是否可以升级
-                    if (data.getIsDisplay() == 1) {
-                        Audit = true;
-                        vip_v2_up.setVisibility(View.VISIBLE);
-                    }
-                    mVipEquity1.setVisibility(View.VISIBLE);
-                    mVipViewV2.setVisibility(View.VISIBLE);
-                    mVipViewV1.setVisibility(View.GONE);
-                    mVipViewLogon2.setVisibility(View.GONE);
-                    mVipViewPartner.setVisibility(View.GONE);
+                    isDisplay(data.getIsDisplay(), state2, vip_v2_up);
+                    //升级按钮
+                    hideUpVip();
+                    showUpVip(3);
                     break;
                 case 6://大团长v4
-                    mVipEquityText1.setText("平台额外5%佣金补贴");
-                    mVipEquityImage1.setImageDrawable(getResources().getDrawable(R.mipmap.vip_v2_comm));
-                    mVipEquityText2.setText("独立运营管理后台");
-                    mVipEquityIamge2.setImageDrawable(getResources().getDrawable(R.mipmap.vip_admin_));
+                    setImageView("平台额外5%佣金补贴", "平台额外5%佣金补贴", null, R.mipmap.vip_v2_comm, R.mipmap.vip_admin_, 0);
+                    hideImageView();
+                    showImageView(2);
                     //任务状态
-                    if (data.getInvitationIsDisplay() == 1) {
-                        invitation = false;
-                        vip_partner_invitation.setText("已完成");
-                        vip_partner_invitation.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        invitation = true;
-                        vip_partner_invitation.setText("去邀请");
-                    }
-                    if (data.getActivityIsDisplay() == 1) {
-                        extension = false;
-                        vip_partner_extension.setText("已完成");
-                        vip_partner_extension.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
-                    } else {
-                        extension = true;
-                        vip_partner_extension.setText("去推广");
-                    }
+                    isInvitationDisplay(data.getInvitationIsDisplay(), vip_partner_invitation);
+                    isActivityDisplay(data.getActivityIsDisplay(), vip_partner_extension);
                     //是否可以升级
-                    if (data.getIsDisplay() == 1) {
-                        Audit = true;
-                        vip_partner_up.setVisibility(View.VISIBLE);
-                    }
-                    mVipEquity1.setVisibility(View.VISIBLE);
-                    mVipEquity2.setVisibility(View.VISIBLE);
-                    mVipViewPartner.setVisibility(View.VISIBLE);
-                    mVipViewV2.setVisibility(View.GONE);
-                    mVipViewV1.setVisibility(View.GONE);
-                    mVipViewLogon2.setVisibility(View.GONE);
+                    isDisplay(data.getIsDisplay(), state2, vip_partner_up);
+                    //升级按钮
+                    hideUpVip();
+                    showUpVip(4);
                     break;
             }
         } catch (Resources.NotFoundException e) {
@@ -606,59 +477,47 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             mVipServiceWx.setText("微信号：" + data.getParentWXId());
             switch (promotion.getType()) {
                 case 1://注册会员
-                    mVipLogonOneText.setText("邀请" + data.getTotalNumber() + "名注册会员");
-                    mVipLogonBarOne.setMax(data.getTotalNumber());
-                    mVipLogonBarOne.setProgress(data.getFansNum());
-                    mVipLogonTextOne.setText(data.getFansNum() + "/" + data.getTotalNumber() + "人");
-                    mVipLogonThreeText.setText("完成" + data.getOrderTotalNumber() + "单（0元购除外）");
-                    mVipLogonBarTwo.setMax(data.getOrderTotalNumber());
-                    mVipLogonBarTwo.setProgress(data.getOrderNumber());
-                    mVipLogonTextTwo.setText(data.getOrderNumber() + "/" + data.getOrderTotalNumber() + "单");
+                    setTask(mVipLogonOneText, mVipLogonBarOne, mVipLogonTextOne, "邀请" + data.getTotalNumber() + "名注册会员",
+                            data.getFansNum() + "/" + data.getTotalNumber() + "人", data.getTotalNumber(), data.getFansNum());
+                    setTask(mVipLogonThreeText, mVipLogonBarTwo, mVipLogonTextTwo, "完成" + data.getOrderTotalNumber() + "单（0元购除外）",
+                            data.getOrderNumber() + "/" + data.getOrderTotalNumber() + "单", data.getOrderTotalNumber(),
+                            data.getOrderNumber());
                     vip_logon_wx.setText("建立" + data.getWeChatGroupNumber() + "人以上微信群");
-                    mVipLogonThreeText2.setText("完成" + data.getOrderTotalNumber() + "单（0元购除外）");
-                    mVipLogonBarTwo2.setMax(data.getOrderTotalNumber());
-                    mVipLogonBarTwo2.setProgress(data.getOrderNumber());
-                    mVipLogonTextTwo2.setText(data.getOrderNumber() + "/" + data.getOrderTotalNumber() + "单");
+                    setTask(mVipLogonThreeText2, mVipLogonBarTwo2, mVipLogonTextTwo2, "完成" + data.getOrderTotalNumber() + "单（0元购除外）",
+                            data.getOrderNumber() + "/" + data.getOrderTotalNumber() + "单", data.getOrderTotalNumber(),
+                            data.getOrderNumber());
                     break;
                 case 2://超级会员
-                    vip_v1_one_text.setText("直邀超级会员" + data.getTotalNumber() + "人以上");
-                    vip_v1_bar_one.setMax(data.getTotalNumber());
-                    vip_v1_bar_one.setProgress(data.getFansNum());
-                    vip_v1_text_one.setText(data.getFansNum() + "/" + data.getTotalNumber() + "人");
-                    vip_v1_two_text.setText("直邀或间接超级会员" + data.getTwoLevelTotalNumber() + "人以上");
-                    vip_v1_bar_two.setMax(data.getTwoLevelTotalNumber());
-                    vip_v1_bar_two.setProgress(data.getTwoLevelFans());
-                    vip_v1_text_two.setText(data.getTwoLevelFans() + "/" + data.getTwoLevelTotalNumber() + "人");
-                    vip_v1_three_text.setText("活跃度" + data.getActivityLevelTotalNumber() + "以上");
-                    vip_v1_bar_three.setMax(data.getActivityLevelTotalNumber());
-                    vip_v1_bar_three.setProgress(data.getActivityLevel());
-                    vip_v1_text_three.setText(data.getActivityLevel() + "/" + data.getActivityLevelTotalNumber());
+                    setTask(vip_v1_one_text, vip_v1_bar_one, vip_v1_text_one, "直邀超级会员" + data.getTotalNumber() + "人以上",
+                            data.getFansNum() + "/" + data.getTotalNumber() + "人", data.getTotalNumber(), data.getFansNum());
+                    setTask(vip_v1_two_text, vip_v1_bar_two, vip_v1_text_two, "直邀和间接超级会员" + data.getTwoLevelTotalNumber() + "人以上",
+                            data.getTwoLevelFans() + "/" + data.getTwoLevelTotalNumber() + "人", data.getTwoLevelTotalNumber(),
+                            data.getTwoLevelFans());
+                    setTask(vip_v1_three_text, vip_v1_bar_three, vip_v1_text_three, "活跃度" + data.getActivityLevelTotalNumber() + "以上",
+                            data.getActivityLevel() + "/" + data.getActivityLevelTotalNumber(), data.getActivityLevelTotalNumber(),
+                            data.getActivityLevel());
                     break;
                 case 3://大团长v1
                 case 4://大团长v2
                 case 5://大团长v3
-                    vip_v2_one_text.setText("团队超级会员" + data.getTeamSuperMemberTotal() + "人以上");
-                    vip_v2_bar_one.setMax(data.getTeamSuperMemberTotal());
-                    vip_v2_bar_one.setProgress(data.getSuperMemNumber());
-                    vip_v2_text_one.setText(data.getSuperMemNumber() + "/" + data.getTeamSuperMemberTotal() + "人");
-                    vip_v2_two_text.setText("活跃度" + data.getActivityLevelTotalNumber() + "以上");
-                    vip_v2_bar_two.setMax(data.getActivityLevelTotalNumber());
-                    vip_v2_bar_two.setProgress(data.getActivityLevel());
-                    vip_v2_text_two.setText(data.getActivityLevel() + "/" + data.getActivityLevelTotalNumber());
+                    setTask(vip_v2_one_text, vip_v2_bar_one, vip_v2_text_one, "团队超级会员" + data.getTeamSuperMemberTotal() + "人以上",
+                            data.getSuperMemNumber() + "/" + data.getTeamSuperMemberTotal() + "人", data.getTeamSuperMemberTotal(),
+                            data.getSuperMemNumber());
+                    setTask(vip_v2_two_text, vip_v2_bar_two, vip_v2_text_two, "活跃度" + data.getActivityLevelTotalNumber() + "以上",
+                            data.getActivityLevel() + "/" + data.getActivityLevelTotalNumber(), data.getActivityLevelTotalNumber(),
+                            data.getActivityLevel());
                     break;
                 case 6://大团长v4
-                    vip_partner_one_text1.setText("直邀超级会员" + data.getClassAVipNum() + "人以上");
-                    vip_partner_bar_one1.setMax(data.getClassAVipNum());
-                    vip_partner_bar_one1.setProgress(data.getFansNum());
-                    vip_partner_text_one1.setText(data.getFansNum() + "/" + data.getClassAVipNum() + "人");
-                    vip_partner_one_text2.setText("团队超级会员" + data.getTeamSuperMemberTotal() + "人以上");
-                    vip_partner_bar_one2.setMax(data.getTeamSuperMemberTotal());
-                    vip_partner_bar_one2.setProgress(data.getSuperMemNumber());
-                    vip_partner_text_one2.setText(data.getSuperMemNumber() + "/" + data.getTeamSuperMemberTotal() + "人");
-                    vip_partner_two_text.setText("活跃度" + data.getActivityLevelTotalNumber() + "以上");
-                    vip_partner_bar_two.setMax(data.getActivityLevelTotalNumber());
-                    vip_partner_bar_two.setProgress(data.getActivityLevel());
-                    vip_partner_text_two.setText(data.getActivityLevel() + "/" + data.getActivityLevelTotalNumber());
+                    setTask(vip_partner_one_text1, vip_partner_bar_one1, vip_partner_text_one1, "直邀超级会员" + data.getClassAVipNum() + "人以上"
+                            , data.getFansNum() + "/" + data.getClassAVipNum() + "人", data.getClassAVipNum(), data.getFansNum());
+                    setTask(vip_partner_one_text2, vip_partner_bar_one2, vip_partner_text_one2,
+                            "团队超级会员" + data.getTeamSuperMemberTotal() + "人以上",
+                            data.getSuperMemNumber() + "/" + data.getTeamSuperMemberTotal() + "人", data.getTeamSuperMemberTotal(),
+                            data.getSuperMemNumber());
+                    setTask(vip_partner_two_text, vip_partner_bar_two, vip_partner_text_two,
+                            "活跃度" + data.getActivityLevelTotalNumber() + "以上",
+                            data.getActivityLevel() + "/" + data.getActivityLevelTotalNumber(), data.getActivityLevelTotalNumber(),
+                            data.getActivityLevel());
                     break;
             }
             mVipSercice.setVisibility(View.VISIBLE);
@@ -679,9 +538,14 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
         startActivity(intenta);
     }
 
-    private void showPopUp() {
+    private void showPopUp(int type) {
         OpenGoodsDetail.lightoff(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_upgrade, null);
+        View view;
+        if (type == 0) {
+            view = LayoutInflater.from(this).inflate(R.layout.dialog_upgrade, null);
+        } else {
+            view = LayoutInflater.from(this).inflate(R.layout.dialog_super_upgrade, null);
+        }
         mMPopupWindow = new PopupWindow();
         mMPopupWindow.setContentView(view);
         mMPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
@@ -777,5 +641,134 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().post(new VipUpgrade());
+    }
+
+    private void isInvitationDisplay(int state, TextView textView) {
+        if (state == 1) {
+            invitation = false;
+            textView.setText("已完成");
+            textView.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
+        } else {
+            invitation = true;
+            textView.setText("去邀请");
+        }
+    }
+
+    private void isDisplay(int state, int state2, TextView textView) {
+        if (state == 1 || state2 == 1) {
+            textView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void isActivityDisplay(int state, TextView textView) {
+        if (state == 1) {
+            extension = false;
+            textView.setText("已完成");
+            textView.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
+        } else {
+            extension = true;
+            textView.setText("去推广");
+        }
+    }
+
+    private void isOrderDisplay(int state, TextView textView, TextView textView2) {
+        if (state == 1) {
+            extension = false;
+            textView.setText("已完成");
+            textView2.setText("已完成");
+            textView.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
+            textView2.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
+        } else {
+            extension = true;
+            textView.setText("去推广");
+            textView2.setText("去推广");
+        }
+    }
+
+    private void isCheckWXState(int state, TextView textView) {
+        if (state == 0) {
+            checkImage = false;
+            textView.setText("审核中");
+        } else if (state == 1) {
+            checkImage = false;
+            textView.setText("已完成");
+            textView.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
+        } else if (state == 2) {
+            checkImage = true;
+            textView.setText("审核失败");
+        } else if (state == 4) {
+            checkImage = true;
+            textView.setText("上传截图");
+        }
+    }
+
+    private void setImageView(String equity, String equity2, String equity3, int drawable, int drawable2, int drawable3) {
+        if (!TextUtils.isEmpty(equity)) {
+            mVipEquityText1.setText(equity);
+            mVipEquityImage1.setImageDrawable(getResources().getDrawable(drawable));
+        }
+        if (!TextUtils.isEmpty(equity2)) {
+            mVipEquityText2.setText(equity2);
+            mVipEquityIamge2.setImageDrawable(getResources().getDrawable(drawable2));
+        }
+        if (!TextUtils.isEmpty(equity3)) {
+            mVipEquityText3.setText(equity3);
+            mVipEquityImage3.setImageDrawable(getResources().getDrawable(drawable3));
+        }
+    }
+
+    private void showImageView(int state) {
+        switch (state) {
+            case 1:
+                mVipEquity1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                mVipEquity1.setVisibility(View.VISIBLE);
+                mVipEquity2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                mVipEquity1.setVisibility(View.VISIBLE);
+                mVipEquity2.setVisibility(View.VISIBLE);
+                mVipEquity3.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    private void hideImageView() {
+        mVipEquity1.setVisibility(View.GONE);
+        mVipEquity2.setVisibility(View.GONE);
+        mVipEquity3.setVisibility(View.GONE);
+    }
+
+    private void showUpVip(int state) {
+        switch (state) {
+            case 1:
+                mVipViewLogon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                mVipViewV1.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                mVipViewV2.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                mVipViewPartner.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    private void hideUpVip() {
+        mVipViewLogon2.setVisibility(View.GONE);
+        mVipViewV1.setVisibility(View.GONE);
+        mVipViewV2.setVisibility(View.GONE);
+        mVipViewPartner.setVisibility(View.GONE);
+    }
+
+    private void setTask(TextView textView, ProgressBar progressBar, TextView textView2, String value, String value2, int max,
+                         int progress) {
+        textView.setText(value);
+        progressBar.setMax(max);
+        progressBar.setProgress(progress);
+        textView2.setText(value2);
     }
 }

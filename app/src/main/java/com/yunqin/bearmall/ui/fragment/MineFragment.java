@@ -4,6 +4,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -305,49 +307,46 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 mMineToday.setVisibility(View.GONE);
             }
             //判断升级状态
-            if (identity.getIsAudit() == 0) {
+            if (identity.getIsAudit() == 0 || identity.getIsAudit() == 2) {
                 mMineCommander.setText("去升级");
             } else if (identity.getIsAudit() == 1) {
                 mMineCommander.setText("审核中");
-            } else if (identity.getIsAudit() == 2) {
-                mMineCommander.setText("审核失败");
             }
+
             //这里判断是哪个vip
             vip_text.setText(identity.getUpgradeTips());
             mMineVip.setVisibility(View.VISIBLE);
             mVipIcon.setText(identity.getIdentity());
             switch (identity.getUpgradeType()) {
                 case 1:
-                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.vip_gray));
-                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.vip));
-                    mVipIcon.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.vip_gray,R.mipmap.vip,R.color.colorPrimaryDark);
                     break;
                 case 2:
-                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.mine_vip));
-                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang_));
-                    mVipIcon.setTextColor(getResources().getColor(R.color.vip_text));
+                    setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.mine_vip,R.mipmap.tuanzhang_,R.color.vip_text);
                     break;
                 case 3:
                 case 4:
                 case 5:
                 case 6:
-                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.tuanzhang));
-                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.up));
-                    mVipIcon.setTextColor(getResources().getColor(R.color.vip_text));
+                    setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.tuanzhang,R.mipmap.up,R.color.vip_text);
                     break;
                 default:
                     //用户是大团长
                     Commander = false;
                     mMineCommander.setText("管理后台");
-                    mImageVip.setImageDrawable(getResources().getDrawable(R.mipmap.mine_tuanzhang));
-                    mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.mine_tuanzhang));
-                    mVipIcon.setTextColor(getResources().getColor(R.color.vip_text));
+                    setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.mine_tuanzhang,R.mipmap.mine_tuanzhang,R.color.vip_text);
                     break;
             }
         }
         mMineNickname.setText(userInfo.getData().getMember().getNickName());
         Glide.with(this).setDefaultRequestOptions(requestOptions).load(userInfo.getData().getMember().getIconUrl()).into(mMineHead);
         mMineCode.setText(userInfo.getRecommendCode());
+    }
+
+    private void setIcon(ImageView icon, ImageView icon2, TextView text, int drawable, int drawable2, int color) {
+        icon.setImageDrawable(getResources().getDrawable(drawable));
+        icon2.setImageDrawable(getResources().getDrawable(drawable2));
+        text.setTextColor(getResources().getColor(color));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

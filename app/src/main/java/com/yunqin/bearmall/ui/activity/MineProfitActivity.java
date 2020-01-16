@@ -79,6 +79,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     private ProfitPresenter mProfitPresenter;
     private String withdrawFrom;
     private String balance;
+    private final String money = "¥";
 
     public static void openMineProfitActivity(Activity activity, Class cla) {
         Intent intent = new Intent(activity, cla);
@@ -114,7 +115,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
 
     @Override
     public void onIncomeRecord(Double unsettled, Double balance, Double thisMonth, Double withdrawals, String withdrawFrom) {
-        mCashPrice.setText("￥" + doubleToString(balance));
+        mCashPrice.setText(money + doubleToString(balance));
         mWithdrawalPrice.setText(doubleToString(withdrawals));
         mNotPrice.setText(doubleToString(unsettled));
         mCumulativePrice.setText(doubleToString(thisMonth));
@@ -139,17 +140,17 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         }
 
         //推荐收益
-        super_todayTransactionRevenue.setText("￥" + doubleToString(todayRecommendEarnings));
-        super_yesterdayTransactionRevenue.setText("￥" + doubleToString(yesterdayRecommendEarnings));
-        super_thisMonthConsumption.setText("￥" + doubleToString(thisMonthRecommendEarnings));
-        super_lastMonthConsumption.setText("￥" + doubleToString(lastMonthRecommendEarnings));
+        super_todayTransactionRevenue.setText(money + doubleToString(todayRecommendEarnings));
+        super_yesterdayTransactionRevenue.setText(money + doubleToString(yesterdayRecommendEarnings));
+        super_thisMonthConsumption.setText(money + doubleToString(thisMonthRecommendEarnings));
+        super_lastMonthConsumption.setText(money + doubleToString(lastMonthRecommendEarnings));
         super_todayPaymentPens.setText(todayClinchADealNumber + "");
         super_yesterdayPaymentPens.setText(yesterdayClinchADealNumberens + "");
         super_thisMonthPaymentPens.setText(thisMonthClinchADealNumber + "");
         super_lastMonthPaymentPens.setText(lastMonthClinchADealNumber + "");
         //团队收益
-        team_yesterdayPaymentPens.setText("￥" + doubleToString(thisMonthEstimatedTheRevenue));
-        team_lastMonthPaymentPens.setText("￥" + doubleToString(lastMonthTheTeamReturns));
+        team_yesterdayPaymentPens.setText(money + doubleToString(thisMonthEstimatedTheRevenue));
+        team_lastMonthPaymentPens.setText(money + doubleToString(lastMonthTheTeamReturns));
 
     }
 
@@ -164,10 +165,10 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mYesterdayPaymentPens.setText(yesterdayPaymentPens + "");
         mThisMonthPaymentPens.setText(thisMonthPaymentPens + "");
         mLastMonthPaymentPens.setText(lastMonthPaymentPens + "");
-        mTodayTransactionRevenue.setText("￥" + doubleToString(todayIndividualPurchased));
-        mYesterdayTransactionRevenue.setText("￥" + doubleToString(yesterdayIndividualPurchased));
-        mThisMonthConsumption.setText("￥" + doubleToString(thisMonthIndividualPurchased));
-        mLastMonthConsumption.setText("￥" + doubleToString(lastMonthIndividualPurchased));
+        mTodayTransactionRevenue.setText(money + doubleToString(todayIndividualPurchased));
+        mYesterdayTransactionRevenue.setText(money + doubleToString(yesterdayIndividualPurchased));
+        mThisMonthConsumption.setText(money + doubleToString(thisMonthIndividualPurchased));
+        mLastMonthConsumption.setText(money + doubleToString(lastMonthIndividualPurchased));
 
     }
 

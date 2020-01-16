@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@drawable/bg_corner_search_dialog"
+        android:layout_width="@dimen/dp_275"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_25"
+            android:text="审核中"
+            android:textColor="#ff303030"
+            android:textSize="@dimen/sp_16"/>
+
+        <ImageView
+            android:layout_width="@dimen/dp_161"
+            android:layout_height="@dimen/dp_127"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_24"
+            android:src="@mipmap/vip_update"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="审核通过"
+            android:textColor="#ff555555"
+            android:textSize="@dimen/sp_14"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="您将畅享新权益"
+            android:textColor="#ff555555"
+            android:textSize="@dimen/sp_14"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_19"
+            android:text="高峰期系统审核有延迟，建议隔天查询"
+            android:textColor="#ff999999"
+            android:textSize="@dimen/sp_11"/>
+
+        <Button
+            android:id="@+id/vip_upgrade_up"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_below="@id/condition_six"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_19"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/bg_vip_up"
+            android:text="确定"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/sp_16"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

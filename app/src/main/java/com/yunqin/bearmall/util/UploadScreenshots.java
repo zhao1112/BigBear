@@ -52,7 +52,8 @@ public class UploadScreenshots {
                 .build();
 
         client.newBuilder()
-                .readTimeout(5000, TimeUnit.MILLISECONDS)
+                .connectTimeout(60000, TimeUnit.MILLISECONDS)
+                .readTimeout(60000, TimeUnit.MILLISECONDS)
                 .build()
                 .newCall(request)
                 .enqueue(new Callback() {
