@@ -1,9 +1,13 @@
 package com.yunqin.bearmall.ui.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -43,7 +47,7 @@ public class BackstangeFragment extends BaseFragment {
     private int type;
     private boolean hasMore = true;
     private BackstangeAdapter mBackstangeAdapter;
-
+    private String title;
 
     @Override
     public int layoutId() {
@@ -55,7 +59,17 @@ public class BackstangeFragment extends BaseFragment {
         mNulldata.setVisibility(View.GONE);
 
         Bundle arguments = getArguments();
-        type = arguments.getInt("title");
+        title = arguments.getString("title");
+
+        if (title.equals("全部")) {
+            type = 0;
+        } else if (title.equals("已付款")) {
+            type = 1;
+        } else if (title.equals("已结算")) {
+            type = 3;
+        } else if (title.equals("已失效")) {
+            type = 4;
+        }
 
         mBackstangeAdapter = new BackstangeAdapter(getContext());
         mBackstangeFrag_Reclcler.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -82,6 +96,18 @@ public class BackstangeFragment extends BaseFragment {
             }
         });
 
+        mBackstangeAdapter.setOnBackstangeCopyListener(new BackstangeAdapter.OnBackstangeCopyListener() {
+            @Override
+            public void onCopyOrderNo(String orderNo) {
+                if (!TextUtils.isEmpty(orderNo)) {
+                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, orderNo));
+                    showToast("复制成功");
+                }
+            }
+        });
+
+
         getTabBackage();
     }
 
@@ -92,11 +118,13 @@ public class BackstangeFragment extends BaseFragment {
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
         map.put("type", String.valueOf(type));
+
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).screenOrders(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
+                Log.e("screenOrders",data);
                 BackstangeOrderBean backstangeOrderBean = new Gson().fromJson(data, BackstangeOrderBean.class);
-                if (backstangeOrderBean != null && backstangeOrderBean.getData().getOrders().size() > 0) {
+                if (backstangeOrderBean.getData() != null && backstangeOrderBean.getData().getOrders().size() > 0) {
                     mBackstangeAdapter.addData(backstangeOrderBean.getData().getOrders());
                     if (backstangeOrderBean.getData().getOrders().size() >= 10) {
                         hasMore = true;

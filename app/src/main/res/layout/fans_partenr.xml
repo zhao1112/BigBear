@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <LinearLayout
+        android:id="@+id/fans_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/fans_semicircle"
+        android:orientation="vertical">
+
+        <include layout="@layout/no_video_layout" />
+
+        <LinearLayout
+            android:id="@+id/fans_level"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_41">
+
+            <TextView
+                android:id="@+id/fans_headcount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="总人数"
+                android:textColor="#272727" />
+
+            <TextView
+                android:id="@+id/fans_super_members"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#272727"
+                android:text="超级会员"/>
+
+            <TextView
+                android:id="@+id/fans_big_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#272727"
+                android:text="大团长" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="#F1F1F1" />
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/partenr_fans_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/fans_level">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/partenr_fans_reclcler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/fans_semicircle"
+                />
+
+
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

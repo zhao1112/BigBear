@@ -812,7 +812,7 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@mipmap/img_admin"/>
+                                    android:src="@drawable/partner_image"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"

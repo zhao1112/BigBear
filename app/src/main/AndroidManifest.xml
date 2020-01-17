@@ -53,8 +53,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
-        <activity android:name=".ui.activity.BackstageActivity"></activity>
-        <activity android:name=".ui.activity.VipExplainActivity"></activity>
+        <activity android:name=".ui.activity.PartnerFansSeekActivity"></activity>
+        <activity android:name=".ui.activity.PartnerOrderSeekActivity" />
+        <activity android:name=".ui.activity.BackstageActivity" />
+        <activity android:name=".ui.activity.VipExplainActivity" />
         <activity
             android:name=".ui.activity.MineProfitActivity"
             android:screenOrientation="portrait" />
@@ -65,7 +67,7 @@
             android:name=".ui.activity.SuperSearchActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan"></activity>
+            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
         <activity android:name="com.newversions.InviteFriendActivity" />
         <activity android:name=".ADGiveCandyActivity" />
         <activity android:name=".ui.activity.InformationFragmentActivity" />

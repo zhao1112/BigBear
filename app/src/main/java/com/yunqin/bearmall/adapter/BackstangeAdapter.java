@@ -48,7 +48,18 @@ public class BackstangeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Glide.with(mContext).load(list.get(position) .getImage()).apply(mOptions).into(backstangeHolder.mBackAdpaterImage);
         backstangeHolder.mBackAdapterPrice.setText("+￥"+list.get(position).getSettlementAmount());
         backstangeHolder.mBackAdapterTitle.setText(list.get(position).getItemInfo());
-        backstangeHolder.mBackAdpaterNumber.setText(list.get(position).getOrderNo());
+        backstangeHolder.mBackAdpaterNumber.setText("订单编号:"+list.get(position).getOrderNo());
+        //复制订单号
+        backstangeHolder.mBackAdapterCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onBackstangeCopyListener!=null){
+                    onBackstangeCopyListener.onCopyOrderNo(list.get(position).getOrderNo());
+                }
+            }
+        });
+        //跑马灯
+        backstangeHolder.mBackAdpaterNumber.setSelected(true);
     }
 
 
@@ -86,5 +97,13 @@ public class BackstangeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mBackAdapterPrice = itemView.findViewById(R.id.back_apdate_price);
         }
     }
+    private OnBackstangeCopyListener onBackstangeCopyListener;
+
+    public interface OnBackstangeCopyListener{
+        void onCopyOrderNo(String orderNo);
+   }
+   public  void setOnBackstangeCopyListener(OnBackstangeCopyListener backstangeCopyListener){
+        onBackstangeCopyListener=backstangeCopyListener;
+   }
 
 }

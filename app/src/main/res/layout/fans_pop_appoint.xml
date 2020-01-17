@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_270"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_corner_search_dialog">
+
+        <RelativeLayout
+            android:id="@+id/fans_pop_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_fansinfo">
+
+            <ImageView
+                android:id="@+id/fans_pop_toiamge"
+                android:layout_width="@dimen/dp_64"
+                android:layout_height="@dimen/dp_64"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_15"/>
+
+            <TextView
+                android:id="@+id/fans_pop_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fans_pop_toiamge"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="136****7122"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/sp_16"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fans_pop_phone"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/dp_43"
+                android:layout_marginTop="@dimen/dp_25"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/fans_pop_copy_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="邀请ID"
+                        android:textColor="#ffffffff"
+                        android:textSize="@dimen/sp_12"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_4"
+                        android:src="@mipmap/app_copy_fansh"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/fans_pop_code_fans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:text="FSHGF"
+                    android:textColor="#ffffffff"
+                    android:textSize="@dimen/sp_12"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fans_pop_phone"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_43"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/fans_pop_copy_wxid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="微信号"
+                        android:textColor="#ffffffff"
+                        android:textSize="@dimen/sp_12"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_4"
+                        android:src="@mipmap/app_copy_fansh"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:text="未填写"
+                    android:textColor="#ffffffff"
+                    android:textSize="@dimen/sp_12"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/fans_pop_close"
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_22"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_7"
+                android:layout_marginRight="@dimen/dp_7"
+                android:padding="@dimen/dp_5"
+                android:src="@mipmap/fans_close"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fans_pop_top">
+
+            <LinearLayout
+                android:id="@+id/fans_pop_min"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_68"
+                android:layout_marginTop="@dimen/dp_20">
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上个月预估收益"
+                        android:textColor="#ff888888"
+                        android:textSize="@dimen/sp_12"/>
+
+                    <TextView
+                        android:id="@+id/fans_pop_lastMonthIncome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_9"
+                        android:text="￥0.00"
+                        android:textColor="#ffd62b2b"
+                        android:textSize="@dimen/sp_16"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="累计预估收益"
+                        android:textColor="#ff888888"
+                        android:textSize="@dimen/sp_12"/>
+
+                    <TextView
+                        android:id="@+id/fans_pop_cumulative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_9"
+                        android:text="￥0.00"
+                        android:textColor="#ffd62b2b"
+                        android:textSize="@dimen/sp_16"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/fans_pop_button"
+                android:layout_width="@dimen/dp_128"
+                android:layout_height="@dimen/dp_40"
+                android:layout_below="@+id/fans_pop_min"
+                android:text="提升团长"
+                android:layout_centerInParent="true"
+                android:background="@drawable/fans_pop_button_radous"
+                />
+            <TextView
+                android:id="@+id/fans_pop_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="剩余五个名额"
+                android:layout_below="@+id/fans_pop_button"
+               android:layout_centerInParent="true"
+                android:textSize="@dimen/sp_10"
+                android:textColor="#999999"
+                />
+
+            <View
+                android:id="@+id/fans_pop_mine_min"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_below="@id/fans_pop_button"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="#fff1f1f1"/>
+
+            <TextView
+                android:id="@+id/fans_pop_creattime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fans_pop_mine_min"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:text="注册时间 2019.08.17 18:42:12"
+                android:textColor="#ff4f4f4f"
+                android:textSize="@dimen/sp_14"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

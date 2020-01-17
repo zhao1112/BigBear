@@ -1263,8 +1263,23 @@ public interface Api {
      * 合伙人粉丝
      * */
     @FormUrlEncoded
+    @POST("api/partner/screenFans")
+    Observable<String> screenFans(@FieldMap() Map<String, String> params);
+    /**
+     * 合伙人粉丝总人数
+     * */
+    @FormUrlEncoded
+    @POST("api/partner/partnerFansCount")
+    Observable<String> partnerFansCount(@FieldMap() Map<String, String> params);
+    /**
+     * 合伙人搜索粉丝
+     * */
+    @FormUrlEncoded
     @POST("api/partner/searchFans")
     Observable<String> searchFans(@FieldMap() Map<String, String> params);
+    @FormUrlEncoded
+    @POST("/api/partner/getAppointNum")
+    Observable<String> getAppointNum(@FieldMap() Map<String, String> params);
 
 }
 
