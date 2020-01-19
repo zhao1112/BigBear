@@ -35,7 +35,6 @@ public class PartnerOrderSeekActivity extends BaseActivity {
     private EditText mPartnerOrderText;
     private Button mPartnerOrderButton;
     private ImageView mPartenrOrderReturn;
- //   private TwinklingRefreshLayout mPartenrOrderRefresh;
     private RecyclerView mPartenrOrderRecyclerview;
     private PartnerOrderSeekAdapter partnerOrderSeekAdapter;
 
@@ -72,8 +71,7 @@ public class PartnerOrderSeekActivity extends BaseActivity {
         partnerOrderSeekAdapter = new PartnerOrderSeekAdapter(this);
         mPartenrOrderRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         mPartenrOrderRecyclerview.setAdapter(partnerOrderSeekAdapter);
-
-
+        
         initDate();
     }
 
@@ -99,23 +97,17 @@ public class PartnerOrderSeekActivity extends BaseActivity {
                         } else {
                             mNulldata.setVisibility(View.VISIBLE);
                         }
-                        //mPartenrOrderRefresh.finishRefreshing();
-                        //mPartenrOrderRefresh.finishLoadmore();
                         hiddenLoadingView();
                     }
 
                     @Override
                     public void onNotNetWork() {
-                        //mPartenrOrderRefresh.finishRefreshing();
-                        //mPartenrOrderRefresh.finishLoadmore();
                         hiddenLoadingView();
                         mNulldata.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onFail(Throwable e) {
-                        //mPartenrOrderRefresh.finishRefreshing();
-                        //mPartenrOrderRefresh.finishLoadmore();
                         hiddenLoadingView();
                         mNulldata.setVisibility(View.VISIBLE);
 

@@ -1277,9 +1277,18 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/partner/searchFans")
     Observable<String> searchFans(@FieldMap() Map<String, String> params);
+    /**
+     * 合伙人任命次数
+     * */
     @FormUrlEncoded
     @POST("/api/partner/getAppointNum")
     Observable<String> getAppointNum(@FieldMap() Map<String, String> params);
+    /**
+     * 提升团长
+     * */
+    @FormUrlEncoded
+    @POST("api/partner/appointBigLeader")
+    Observable<String> appointBigLeader(@FieldMap() Map<String, String> params);
 
 }
 

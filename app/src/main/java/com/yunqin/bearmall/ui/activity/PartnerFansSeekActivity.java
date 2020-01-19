@@ -47,7 +47,6 @@ public class PartnerFansSeekActivity extends BaseActivity {
     private EditText mPartnerFansSeekText;
     private Button mPartnerFansSeekButton;
     private ImageView mPartenrFansSeekReturn;
-    //   private TwinklingRefreshLayout mPartenrOrderRefresh;
     private RecyclerView mPartenrFansSeekRecyclerview;
     private ConstraintLayout mNulldata;
     private PartnerFansSeekAdapter partnerFansSeekAdapter;
@@ -88,7 +87,6 @@ public class PartnerFansSeekActivity extends BaseActivity {
         partnerFansSeekAdapter = new PartnerFansSeekAdapter(this);
         mPartenrFansSeekRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         mPartenrFansSeekRecyclerview.setAdapter(partnerFansSeekAdapter);
-
 
         initDate();
     }
@@ -149,7 +147,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
                     Double lastMonthIncome = dat.optDouble("lastMonthIncome");
                     Double cumulativeIncome = dat.optDouble("cumulativeIncome");
                     String recommendCode = dat.optString("recomendCode");
-                   ShowFansSeek(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode);
+                    ShowFansSeek(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode);
                 }
             }
 
@@ -184,6 +182,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
         TextView mFansPopCreattime = view.findViewById(R.id.fans_pop_creattime);
         //提升按钮
 
+        Button mFansPopButton = view.findViewById(R.id.fans_pop_button);
         //任命次数
         mFansPopLevel = view.findViewById(R.id.fans_pop_level);
         PopupWindow mPopupWindow = new PopupWindow();
@@ -221,7 +220,6 @@ public class PartnerFansSeekActivity extends BaseActivity {
         mFansPopCreattime.setText("注册时间 " + createdDate);
 
 
-
         view.findViewById(R.id.fans_pop_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,7 +230,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
         view.findViewById(R.id.fans_pop_copy_code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboardManager = (ClipboardManager)getApplication().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager clipboardManager = (ClipboardManager) getApplication().getSystemService(Context.CLIPBOARD_SERVICE);
                 clipboardManager.setPrimaryClip(ClipData.newPlainText(null, recommendCode));
                 showToast("复制成功");
             }
@@ -249,11 +247,38 @@ public class PartnerFansSeekActivity extends BaseActivity {
                 OpenGoodsDetail.lighton(getParent());
             }
         });
+        mFansPopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, String> map = new HashMap<>();
+                map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                map.put("BigLeaderId", recommendCode);
+                RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).appointBigLeader(map), new RetrofitApi.IResponseListener() {
+
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        Log.e("appointBigLeader", data);
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+
+                    }
+                });
+            }
+        });
     }
+
     public static String doubleToString(double num) {
         //使用0.00不足位补0，#.##仅保留有效位
         return new DecimalFormat("0.00").format(num);
     }
+
     //手机号中间为*
     private boolean isMobileNum(String mobiles) {
         Pattern p = Pattern.compile("^((13[0-9])|(14[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");

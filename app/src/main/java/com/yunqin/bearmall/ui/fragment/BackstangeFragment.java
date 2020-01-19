@@ -43,8 +43,8 @@ public class BackstangeFragment extends BaseFragment {
     ConstraintLayout mNulldata;
 
     private int page = 1;
-    private int pageSize = 1;
-    private int type;
+    private int pageSize = 10;
+    private int type=1;
     private boolean hasMore = true;
     private BackstangeAdapter mBackstangeAdapter;
     private String title;

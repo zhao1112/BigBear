@@ -112,14 +112,6 @@
 
     <include layout="@layout/no_video_layout" />
 
-    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        android:id="@+id/partenr_order_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        >
-
-    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/partenr_order_recyclerview"
         android:layout_width="match_parent"

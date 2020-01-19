@@ -7,14 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.bean.BackstangeOrderBean;
 import com.yunqin.bearmall.bean.PartnerOrderSeekBean;
 
 import java.util.ArrayList;

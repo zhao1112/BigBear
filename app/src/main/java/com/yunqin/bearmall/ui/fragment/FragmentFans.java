@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,6 +29,7 @@ import com.yunqin.bearmall.adapter.PartenrAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
+import com.yunqin.bearmall.bean.AppointNumberBean;
 import com.yunqin.bearmall.bean.FansAppoint;
 import com.yunqin.bearmall.bean.FansPeopleAlwaysBean;
 import com.yunqin.bearmall.bean.PartnerFansBean;
@@ -64,7 +66,7 @@ public class FragmentFans extends BaseFragment {
     private String title;
     int type = 1;
     int page = 1;
-    private int pageSize = 1;
+    private int pageSize = 10;
     private boolean hasMore = true;
     private PartenrAdapter mPartenrAdapter;
     private RequestOptions mOptions = new RequestOptions()
@@ -105,7 +107,6 @@ public class FragmentFans extends BaseFragment {
             public void onFansNet(String createdDate, String id, String iconUrl, String mobile, String level) {
                 FansNext(createdDate, id, iconUrl, mobile, level);
 
-
             }
 
             @Override
@@ -138,6 +139,7 @@ public class FragmentFans extends BaseFragment {
         getTabFans();
     }
 
+    //任命次数
     private void AppoinNun() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
@@ -161,7 +163,7 @@ public class FragmentFans extends BaseFragment {
             }
         });
     }
-
+        //粉丝详情
     private void FansNext(String createdDate, String id, String iconUrl, String mobile, String level) {
         Map<String, String> map = new HashMap<>();
         map.put("customerId", id);
@@ -174,7 +176,7 @@ public class FragmentFans extends BaseFragment {
                     Double lastMonthIncome = dat.optDouble("lastMonthIncome");
                     Double cumulativeIncome = dat.optDouble("cumulativeIncome");
                     String recommendCode = dat.optString("recomendCode");
-                    showFans(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode);
+                    showFans(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode,id);
                 }
             }
 
@@ -191,7 +193,7 @@ public class FragmentFans extends BaseFragment {
 
     }
 
-    private void showFans(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome, String recommendCode) {
+    private void showFans(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome, String recommendCode,String id) {
 
         OpenGoodsDetail.lightoff(getActivity());
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fans_pop_appoint, null);
@@ -208,7 +210,7 @@ public class FragmentFans extends BaseFragment {
         //注册时间
         TextView mFansPopCreattime = view.findViewById(R.id.fans_pop_creattime);
         //提升按钮
-
+       TextView mFansPopButton= view.findViewById(R.id.fans_pop_button);
         //任命次数
         mFansPopLevel = view.findViewById(R.id.fans_pop_level);
         PopupWindow mPopupWindow = new PopupWindow();
@@ -275,6 +277,44 @@ public class FragmentFans extends BaseFragment {
             @Override
             public void onDismiss() {
                 OpenGoodsDetail.lighton(getActivity());
+            }
+        });
+        mFansPopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Map<String, String> map = new HashMap<>();
+                map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                map.put("BigLeaderId",id);
+                RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).appointBigLeader(map), new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        Log.e("appointBigLeader",data);
+                        AppointNumberBean appointNumberBean = new Gson().fromJson(data, AppointNumberBean.class);
+                            if (appointNumberBean.getCode()==1){
+                                if (appointNumberBean.getMsg().equals("此用户已是大团长")){
+                                    Toast.makeText(getContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(getContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
+                                }
+                            }else if (appointNumberBean.getCode()==0){
+                                Toast.makeText(getContext(), "请求失败", Toast.LENGTH_SHORT).show();
+                            }else if (appointNumberBean.getCode()==-2){
+                                Toast.makeText(getContext(), "用户未登录", Toast.LENGTH_SHORT).show();
+                            }
+
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+
+                    }
+                });
             }
         });
 

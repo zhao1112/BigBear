@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.bean.PartnerFansBean;
 import com.yunqin.bearmall.bean.PartnerFansSeekBean;
 
 import java.util.ArrayList;
