@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -29,6 +30,8 @@ import com.yunqin.bearmall.adapter.PartnerFansSeekAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.bean.AppointNumberBean;
+import com.yunqin.bearmall.bean.FansAppoint;
 import com.yunqin.bearmall.bean.PartnerFansSeekBean;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
@@ -147,7 +150,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
                     Double lastMonthIncome = dat.optDouble("lastMonthIncome");
                     Double cumulativeIncome = dat.optDouble("cumulativeIncome");
                     String recommendCode = dat.optString("recomendCode");
-                    ShowFansSeek(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode);
+                    ShowFansSeek(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode,id);
                 }
             }
 
@@ -163,8 +166,31 @@ public class PartnerFansSeekActivity extends BaseActivity {
         });
 
     }
+    //任命次数
+    private void AppoinNun() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).getAppointNum(hashMap), new RetrofitApi.IResponseListener() {
 
-    private void ShowFansSeek(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome, String recommendCode) {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                FansAppoint fansAppoint = new Gson().fromJson(data, FansAppoint.class);
+                int appointNum = fansAppoint.getAppointNum();
+                mFansPopLevel.setText("剩余" + appointNum + "个名额");
+            }
+
+            @Override
+            public void onNotNetWork() {
+
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+
+            }
+        });
+    }
+    private void ShowFansSeek(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome, String recommendCode,String id) {
 
         OpenGoodsDetail.lightoff(this);
         View view = LayoutInflater.from(this).inflate(R.layout.fans_pop_appoint, null);
@@ -180,6 +206,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
         TextView mFansPopCumulative = view.findViewById(R.id.fans_pop_cumulative);
         //注册时间
         TextView mFansPopCreattime = view.findViewById(R.id.fans_pop_creattime);
+
         //提升按钮
 
         Button mFansPopButton = view.findViewById(R.id.fans_pop_button);
@@ -219,6 +246,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
         //赋值注册时间
         mFansPopCreattime.setText("注册时间 " + createdDate);
 
+        AppoinNun();
 
         view.findViewById(R.id.fans_pop_close).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,7 +272,9 @@ public class PartnerFansSeekActivity extends BaseActivity {
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                OpenGoodsDetail.lighton(getParent());
+
+
+                OpenGoodsDetail.lighton(PartnerFansSeekActivity.this);
             }
         });
         mFansPopButton.setOnClickListener(new View.OnClickListener() {
@@ -252,12 +282,25 @@ public class PartnerFansSeekActivity extends BaseActivity {
             public void onClick(View v) {
                 Map<String, String> map = new HashMap<>();
                 map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
-                map.put("BigLeaderId", recommendCode);
+                map.put("BigLeaderId",id);
                 RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).appointBigLeader(map), new RetrofitApi.IResponseListener() {
 
                     @Override
                     public void onSuccess(String data) throws JSONException {
                         Log.e("appointBigLeader", data);
+                        Log.e("appointBigLeader",data);
+                        AppointNumberBean appointNumberBean = new Gson().fromJson(data, AppointNumberBean.class);
+                        if (appointNumberBean.getCode()==1){
+                            if (appointNumberBean.getMsg().equals("此用户已是大团长")){
+                                Toast.makeText(getApplicationContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(getApplicationContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
+                            }
+                        }else if (appointNumberBean.getCode()==0){
+                            Toast.makeText(getApplicationContext(), "请求失败", Toast.LENGTH_SHORT).show();
+                        }else if (appointNumberBean.getCode()==-2){
+                            Toast.makeText(getApplicationContext(), "用户未登录", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
