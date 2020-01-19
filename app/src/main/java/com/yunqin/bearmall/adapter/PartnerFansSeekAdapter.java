@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.PartnerFansSeekBean;
+import com.yunqin.bearmall.widget.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,10 @@ public class PartnerFansSeekAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private Context mContext;
     private List<PartnerFansSeekBean.DataBean.FansBean> list;
-    private RequestOptions mOptions = new RequestOptions()
-            .placeholder(R.drawable.default_product)//图片加载出来前，显示的图片
-            .fallback(R.drawable.default_product) //url为空的时候,显示的图片
-            .error(R.drawable.default_product)//图片加载失败后，显示的图片
-            .bitmapTransform(new RoundedCorners(3));
+    private RequestOptions requestOptions = new RequestOptions()
+            .placeholder(R.drawable.mine_user_icon_defult)
+            .error(R.drawable.mine_user_icon_defult)
+            .centerCrop();
     private String phone;
     private String mFansLevel;
 
@@ -48,9 +48,9 @@ public class PartnerFansSeekAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         FansSeek fansSeek = (FansSeek) holder;
         //图片
-        Glide.with(mContext).load(list.get(position).getIconUrl()).apply(mOptions).into(fansSeek.mFanSeekAdapterImage);
+        Glide.with(mContext).load(list.get(position).getIconUrl()).apply(requestOptions).into(fansSeek.mFanSeekAdapterImage);
         //时间
-        fansSeek.mFanseekAdapterTime.setText("注册会员"+list.get(position).getCreatedDate()+"");
+        fansSeek.mFanseekAdapterTime.setText("注册会员" + list.get(position).getCreatedDate() + "");
         //等级
         int level = list.get(position).getLevel();
         if (level == 0) {
@@ -76,9 +76,10 @@ public class PartnerFansSeekAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         fansSeek.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onFansNextCheckListener!=null){
-                    onFansNextCheckListener.onFansNext(list.get(position).getCreatedDate()+"",list.get(position).getId()+"",list.get(position).getIconUrl(),
-                            list.get(position).getMobile()+"",list.get(position).getLevel()+"");
+                if (onFansNextCheckListener != null) {
+                    onFansNextCheckListener.onFansNext(list.get(position).getCreatedDate() + "", list.get(position).getId() + "",
+                            list.get(position).getIconUrl(),
+                            list.get(position).getMobile() + "", list.get(position).getLevel() + "");
                 }
             }
         });
@@ -100,7 +101,8 @@ public class PartnerFansSeekAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     private class FansSeek extends RecyclerView.ViewHolder {
-        private ImageView mFanSeekAdapterImage, mFanSeekAdapterNext;
+        private ImageView mFanSeekAdapterNext;
+        private CircleImageView mFanSeekAdapterImage;
         private TextView mFansSeekAdapterPhone, mFanseekAdapterTime, mFansSeekAdapterVip;
 
         public FansSeek(View itemView) {
@@ -127,7 +129,7 @@ public class PartnerFansSeekAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private OnFansNextCheckListener onFansNextCheckListener;
 
     public interface OnFansNextCheckListener {
-        void onFansNext(String createdDate,String id,String iconUrl,String mobile,String level);
+        void onFansNext(String createdDate, String id, String iconUrl, String mobile, String level);
     }
 
     public void setOnFansNextCheckListener(OnFansNextCheckListener fansNextCheckListener) {

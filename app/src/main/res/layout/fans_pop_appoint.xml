@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
     <RelativeLayout
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_fansinfo">
 
-            <ImageView
+            <com.yunqin.bearmall.widget.CircleImageView
                 android:id="@+id/fans_pop_toiamge"
                 android:layout_width="@dimen/dp_64"
                 android:layout_height="@dimen/dp_64"
@@ -142,7 +142,7 @@
             <LinearLayout
                 android:id="@+id/fans_pop_min"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_68"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20">
 
                 <LinearLayout
@@ -198,32 +198,35 @@
 
 
             </LinearLayout>
+
             <Button
                 android:id="@+id/fans_pop_button"
                 android:layout_width="@dimen/dp_128"
                 android:layout_height="@dimen/dp_40"
                 android:layout_below="@+id/fans_pop_min"
-                android:text="提升团长"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_15"
                 android:background="@drawable/fans_pop_button_radous"
-                />
+                android:gravity="center"
+                android:text="提升团长"/>
+
             <TextView
                 android:id="@+id/fans_pop_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="剩余五个名额"
                 android:layout_below="@+id/fans_pop_button"
-               android:layout_centerInParent="true"
-                android:textSize="@dimen/sp_10"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="剩余五个名额"
                 android:textColor="#999999"
-                />
+                android:textSize="@dimen/sp_10"/>
 
             <View
                 android:id="@+id/fans_pop_mine_min"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
-                android:layout_below="@id/fans_pop_button"
-                android:layout_marginTop="@dimen/dp_15"
+                android:layout_below="@id/fans_pop_level"
+                android:layout_marginTop="@dimen/dp_14"
                 android:background="#fff1f1f1"/>
 
             <TextView
@@ -236,13 +239,11 @@
                 android:layout_marginBottom="@dimen/dp_20"
                 android:text="注册时间 2019.08.17 18:42:12"
                 android:textColor="#ff4f4f4f"
-                android:textSize="@dimen/sp_14"
-                />
+                android:textSize="@dimen/sp_14"/>
 
         </RelativeLayout>
 
     </RelativeLayout>
-
 
 
 </RelativeLayout>

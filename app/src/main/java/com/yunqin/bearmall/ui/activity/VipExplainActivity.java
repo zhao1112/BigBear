@@ -249,6 +249,11 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     public void init() {
 
         setTranslucentStatus();
+
+        if (BearMallAplication.getInstance().getUser() == null) {
+            return;
+        }
+
         int mAudit = getIntent().getIntExtra("audit", 0);
         if (mAudit == 0 || mAudit == 2) {
             vip_logon_up.setText("立即升级");
@@ -366,7 +371,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                 vip_partner_up.setText("审核中");
 //                showPopUp(1);
                 Audit = false;
-                showToast("审核以提交，请等待结果");
+                showToast("审核已提交，请等待结果");
             } else {
                 Audit = true;
                 showPopUp(0);
@@ -508,8 +513,8 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                             data.getActivityLevel());
                     break;
                 case 6://大团长v4
-                    setTask(vip_partner_one_text1, vip_partner_bar_one1, vip_partner_text_one1, "直邀超级会员" + data.getClassAVipNum() + "人以上"
-                            , data.getFansNum() + "/" + data.getClassAVipNum() + "人", data.getClassAVipNum(), data.getFansNum());
+                    setTask(vip_partner_one_text1, vip_partner_bar_one1, vip_partner_text_one1, "直邀超级会员" + data.getClassAVipNum() + "人以上",
+                            data.getFansNum() + "/" + data.getClassAVipNum() + "人", data.getClassAVipNum(), data.getFansNum());
                     setTask(vip_partner_one_text2, vip_partner_bar_one2, vip_partner_text_one2,
                             "团队超级会员" + data.getTeamSuperMemberTotal() + "人以上",
                             data.getSuperMemNumber() + "/" + data.getTeamSuperMemberTotal() + "人", data.getTeamSuperMemberTotal(),
@@ -689,6 +694,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
         if (state == 0) {
             checkImage = false;
             textView.setText("审核中");
+            textView.setBackground(getResources().getDrawable(R.drawable.bg_vip_success));
         } else if (state == 1) {
             checkImage = false;
             textView.setText("已完成");

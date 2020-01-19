@@ -33,6 +33,7 @@ import com.yunqin.bearmall.bean.AppointNumberBean;
 import com.yunqin.bearmall.bean.FansAppoint;
 import com.yunqin.bearmall.bean.FansPeopleAlwaysBean;
 import com.yunqin.bearmall.bean.PartnerFansBean;
+import com.yunqin.bearmall.widget.CircleImageView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshFooterView;
@@ -69,11 +70,10 @@ public class FragmentFans extends BaseFragment {
     private int pageSize = 10;
     private boolean hasMore = true;
     private PartenrAdapter mPartenrAdapter;
-    private RequestOptions mOptions = new RequestOptions()
-            .placeholder(R.drawable.default_product)//图片加载出来前，显示的图片
-            .fallback(R.drawable.default_product) //url为空的时候,显示的图片
-            .error(R.drawable.default_product)//图片加载失败后，显示的图片
-            .circleCropTransform();
+    private RequestOptions requestOptions = new RequestOptions()
+            .placeholder(R.drawable.mine_user_icon_defult)
+            .error(R.drawable.mine_user_icon_defult)
+            .centerCrop();
     private TextView mFansPopLevel;
     private String phone;
 
@@ -198,7 +198,7 @@ public class FragmentFans extends BaseFragment {
         OpenGoodsDetail.lightoff(getActivity());
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fans_pop_appoint, null);
         //头像
-        ImageView mFansPopToiamge = view.findViewById(R.id.fans_pop_toiamge);
+        CircleImageView mFansPopToiamge = view.findViewById(R.id.fans_pop_toiamge);
         //手机号
         TextView mFansPopPhone = view.findViewById(R.id.fans_pop_phone);
         //id
@@ -228,7 +228,7 @@ public class FragmentFans extends BaseFragment {
 
         //赋值
         //设置头像
-        Glide.with(getActivity()).load(iconUrl).apply(mOptions).into(mFansPopToiamge);
+        Glide.with(getActivity()).load(iconUrl).apply(requestOptions).into(mFansPopToiamge);
         //赋值手机号
         if (mobile != null && !"".equals(mobile)) {
 

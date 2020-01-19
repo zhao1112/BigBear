@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F1F1F1"
-    android:orientation="vertical"
-    tools:context="com.yunqin.bearmall.ui.activity.PartnerOrderSeekActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#F1F1F1"
+              android:orientation="vertical"
+              tools:context="com.yunqin.bearmall.ui.activity.PartnerOrderSeekActivity">
 
 
     <RelativeLayout
         android:id="@+id/partner_order_seek_bg"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_104"
+        android:layout_height="wrap_content"
         android:background="@color/bg_green">
 
         <RelativeLayout
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_17"
                 android:layout_marginTop="@dimen/dp_13"
-                android:src="@mipmap/image_back" />
+                android:src="@mipmap/image_back"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_centerInParent="true"
                 android:text="搜索"
                 android:textColor="@color/bg_gray"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_16"/>
 
         </RelativeLayout>
 
@@ -44,7 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
             android:layout_below="@+id/partner_order_reclative"
-            android:layout_marginTop="@dimen/dp_3">
+            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginBottom="@dimen/dp_8">
 
             <RelativeLayout
                 android:id="@+id/seek_partner_order_re"
@@ -64,7 +65,7 @@
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginBottom="@dimen/dp_10"
-                    android:src="@drawable/icon_search" />
+                    android:src="@drawable/icon_search"/>
 
                 <EditText
                     android:id="@+id/partner_order_text"
@@ -79,7 +80,7 @@
                     android:focusableInTouchMode="true"
                     android:hint="输入订单号/手机号/邀请码"
                     android:textColor="#999999"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="@dimen/sp_12"/>
 
                 <Button
                     android:id="@+id/partner_order_button"
@@ -92,7 +93,7 @@
                     android:gravity="center"
                     android:text="搜索"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="@dimen/sp_12"/>
 
             </RelativeLayout>
 
@@ -104,17 +105,17 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_17"
                 android:src="@drawable/partner_calendar"
-                android:visibility="invisible" />
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-    <include layout="@layout/no_video_layout" />
+    <include layout="@layout/no_video_layout"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/partenr_order_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

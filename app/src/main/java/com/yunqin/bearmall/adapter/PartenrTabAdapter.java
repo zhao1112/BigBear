@@ -12,7 +12,8 @@ import com.yunqin.bearmall.ui.fragment.FragmentFans;
 public class PartenrTabAdapter extends FragmentPagerAdapter {
     private Context mContext;
     private static String[] mTabs;
-    public PartenrTabAdapter( Context context,FragmentManager fm) {
+
+    public PartenrTabAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.mContext = context;
         mTabs = new String[]{"全部", "大团长", "超级会员"};

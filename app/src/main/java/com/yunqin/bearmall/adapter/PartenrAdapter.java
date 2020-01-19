@@ -24,11 +24,10 @@ public class PartenrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Context mContext;
     private List<PartnerFansBean.DataBean.FansBean> list;
-    private RequestOptions mOptions = new RequestOptions()
-            .placeholder(R.drawable.default_product)//图片加载出来前，显示的图片
-            .fallback(R.drawable.default_product) //url为空的时候,显示的图片
-            .error(R.drawable.default_product)//图片加载失败后，显示的图片
-            .bitmapTransform(new RoundedCorners(3));
+    private RequestOptions requestOptions = new RequestOptions()
+            .placeholder(R.drawable.mine_user_icon_defult)
+            .error(R.drawable.mine_user_icon_defult)
+            .centerCrop();
     private String phone;
     private String mFansLevel;
 
@@ -50,7 +49,7 @@ public class PartenrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         PartenrHolder partenrHolder = (PartenrHolder) holder;
         //图片架子啊
-        Glide.with(mContext).load(list.get(position).getIconUrl()).apply(mOptions).into(partenrHolder.mFansAdapterImage);
+        Glide.with(mContext).load(list.get(position).getIconUrl()).apply(requestOptions).into(partenrHolder.mFansAdapterImage);
         //手机号
         String mobile = list.get(position).getMobile();
         if (mobile != null && !"".equals(mobile)) {

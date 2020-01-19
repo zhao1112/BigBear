@@ -79,6 +79,12 @@ public class BearMallIntentService extends GTIntentService {
                 } catch (Exception e) {
                     Log.e(TAG, "GTTransmitMessage" + e.getMessage());
                 }
+            }else if ("103".equals(model)){
+                try {
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

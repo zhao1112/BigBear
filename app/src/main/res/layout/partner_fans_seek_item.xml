@@ -1,58 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/fans_seek_adapter_re"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_66"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10">
+        android:layout_height="@dimen/dp_66">
 
-        <com.yunqin.bearmall.widget.RoundnessImageView
+        <com.yunqin.bearmall.widget.CircleImageView
             android:id="@+id/fans_seek_adapter_image"
             android:layout_width="@dimen/dp_34"
             android:layout_height="@dimen/dp_34"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_13"
-            android:scaleType="centerCrop" />
+            android:layout_marginLeft="@dimen/dp_13"/>
+
+        <RelativeLayout
+            android:id="@+id/vip_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_toRightOf="@+id/fans_seek_adapter_image">
+
+            <TextView
+                android:id="@+id/fans_seek_adapter_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="159****9151"
+                android:textColor="#272727"
+                android:textSize="@dimen/sp_14"/>
+
+            <TextView
+                android:id="@+id/fans_seek_adapter_vip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:layout_toRightOf="@id/fans_seek_adapter_phone"
+                android:background="@drawable/order_text"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingRight="@dimen/dp_5"
+                android:paddingBottom="@dimen/dp_2"
+                android:text="注册会员"
+                android:textSize="@dimen/sp_10"/>
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/fans_seek_adapter_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fans_seek_adapter_phone"
-            android:layout_marginLeft="@dimen/dp_17"
-            android:layout_marginTop="@dimen/dp_7"
+            android:layout_below="@+id/vip_time"
+            android:layout_marginLeft="@dimen/dp_16"
             android:layout_toRightOf="@+id/fans_seek_adapter_image"
             android:text="注册时间"
             android:textColor="#999999"
-            android:textSize="@dimen/sp_12" />
-
-        <TextView
-            android:id="@+id/fans_seek_adapter_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_19"
-            android:layout_toRightOf="@+id/fans_seek_adapter_image"
-            android:text="159****9151"
-            android:textColor="#272727"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:id="@+id/fans_seek_adapter_vip"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_15"
-            android:layout_marginLeft="@dimen/dp_6"
-            android:layout_marginTop="@dimen/dp_17"
-            android:layout_toRightOf="@+id/fans_seek_adapter_phone"
-            android:background="@drawable/order_text"
-            android:gravity="center"
-            android:text="注册会员"
-            android:textSize="@dimen/sp_10" />
+            android:textSize="@dimen/sp_12"/>
 
         <ImageView
             android:id="@+id/fans_seek_adapter_next"
@@ -61,14 +69,14 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/dp_10"
-            android:src="@drawable/partner_next" />
+            android:src="@drawable/partner_next"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/dp_18"
-            android:background="#F1F1F1" />
+            android:background="#F1F1F1"/>
     </RelativeLayout>
 
 
