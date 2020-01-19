@@ -48,7 +48,7 @@ public class BackstangeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Glide.with(mContext).load(list.get(position) .getImage()).apply(mOptions).into(backstangeHolder.mBackAdpaterImage);
         backstangeHolder.mBackAdapterPrice.setText("+￥"+list.get(position).getSettlementAmount());
         backstangeHolder.mBackAdapterTitle.setText(list.get(position).getItemInfo());
-        backstangeHolder.mBackAdpaterNumber.setText("订单编号:"+list.get(position).getOrderNo());
+        backstangeHolder.mBackAdpaterNumber.setText("订单号:"+list.get(position).getOrderNo());
         //复制订单号
         backstangeHolder.mBackAdapterCopy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +58,6 @@ public class BackstangeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         });
-        //跑马灯
-        backstangeHolder.mBackAdpaterNumber.setSelected(true);
     }
 
 

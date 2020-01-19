@@ -333,7 +333,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 default:
                     //用户是大团长
                     Commander = false;
-                    mMineCommander.setText("管理后台");
+                    mMineCommander.setText("去管理");
                     setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.mine_tuanzhang,R.mipmap.mine_tuanzhang,R.color.vip_text);
                     break;
             }

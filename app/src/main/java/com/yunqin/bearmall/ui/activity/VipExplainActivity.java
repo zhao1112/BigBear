@@ -452,7 +452,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     showUpVip(3);
                     break;
                 case 6://大团长v4
-                    setImageView("平台额外5%佣金补贴", "平台额外5%佣金补贴", null, R.mipmap.vip_v2_comm, R.mipmap.vip_admin_, 0);
+                    setImageView("平台额外5%佣金补贴", "独立运营管理后台", null, R.mipmap.vip_v2_comm, R.mipmap.vip_admin_, 0);
                     hideImageView();
                     showImageView(2);
                     //任务状态
