@@ -5,8 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,13 +24,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.adapter.PartnerFansSeekAdapter;
+import com.yunqin.bearmall.adapter.PartenrAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.AppointNumberBean;
 import com.yunqin.bearmall.bean.FansAppoint;
-import com.yunqin.bearmall.bean.PartnerFansSeekBean;
+import com.yunqin.bearmall.bean.PartnerFansBean;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 import org.json.JSONException;
@@ -52,7 +50,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
     private ImageView mPartenrFansSeekReturn;
     private RecyclerView mPartenrFansSeekRecyclerview;
     private ConstraintLayout mNulldata;
-    private PartnerFansSeekAdapter partnerFansSeekAdapter;
+    private PartenrAdapter partnerFansSeekAdapter;
     private RequestOptions mOptions = new RequestOptions()
             .placeholder(R.drawable.default_product)//图片加载出来前，显示的图片
             .fallback(R.drawable.default_product) //url为空的时候,显示的图片
@@ -87,7 +85,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
                 finish();
             }
         });
-        partnerFansSeekAdapter = new PartnerFansSeekAdapter(this);
+        partnerFansSeekAdapter = new PartenrAdapter(this);
         mPartenrFansSeekRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         mPartenrFansSeekRecyclerview.setAdapter(partnerFansSeekAdapter);
 
@@ -98,14 +96,16 @@ public class PartnerFansSeekActivity extends BaseActivity {
         mPartnerFansSeekButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                partnerFansSeekAdapter.clearData();
                 String seek = mPartnerFansSeekText.getText().toString();
                 HashMap map = new HashMap<>();
                 map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
                 map.put("searchPar", seek);
-                RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).searchFans(map), new RetrofitApi.IResponseListener() {
+                RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).searchFans(map),
+                        new RetrofitApi.IResponseListener() {
                     @Override
                     public void onSuccess(String data) throws JSONException {
-                        PartnerFansSeekBean partnerFansSeekBean = new Gson().fromJson(data, PartnerFansSeekBean.class);
+                        PartnerFansBean partnerFansSeekBean = new Gson().fromJson(data, PartnerFansBean.class);
                         if (partnerFansSeekBean.getData().getFans() != null && partnerFansSeekBean.getData().getFans().size() > 0) {
                             partnerFansSeekAdapter.addData(partnerFansSeekBean.getData().getFans());
                             mNulldata.setVisibility(View.GONE);
@@ -130,10 +130,16 @@ public class PartnerFansSeekActivity extends BaseActivity {
                 });
             }
         });
-        partnerFansSeekAdapter.setOnFansNextCheckListener(new PartnerFansSeekAdapter.OnFansNextCheckListener() {
+
+        partnerFansSeekAdapter.setOnNextCheckListener(new PartenrAdapter.OnNextCheckListener() {
             @Override
-            public void onFansNext(String createdDate, String id, String iconUrl, String mobile, String level) {
+            public void onFansNet(String createdDate, String id, String iconUrl, String mobile, String level) {
                 FansSeekNext(createdDate, id, iconUrl, mobile, level);
+            }
+
+            @Override
+            public void onAppoInNun() {
+
             }
         });
     }
@@ -150,7 +156,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
                     Double lastMonthIncome = dat.optDouble("lastMonthIncome");
                     Double cumulativeIncome = dat.optDouble("cumulativeIncome");
                     String recommendCode = dat.optString("recomendCode");
-                    ShowFansSeek(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode,id);
+                    ShowFansSeek(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode, id);
                 }
             }
 
@@ -166,11 +172,13 @@ public class PartnerFansSeekActivity extends BaseActivity {
         });
 
     }
+
     //任命次数
     private void AppoinNun() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
-        RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).getAppointNum(hashMap), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).getAppointNum(hashMap),
+                new RetrofitApi.IResponseListener() {
 
             @Override
             public void onSuccess(String data) throws JSONException {
@@ -190,7 +198,9 @@ public class PartnerFansSeekActivity extends BaseActivity {
             }
         });
     }
-    private void ShowFansSeek(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome, String recommendCode,String id) {
+
+    private void ShowFansSeek(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome,
+                              String recommendCode, String id) {
 
         OpenGoodsDetail.lightoff(this);
         View view = LayoutInflater.from(this).inflate(R.layout.fans_pop_appoint, null);
@@ -282,23 +292,24 @@ public class PartnerFansSeekActivity extends BaseActivity {
             public void onClick(View v) {
                 Map<String, String> map = new HashMap<>();
                 map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
-                map.put("BigLeaderId",id);
-                RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).appointBigLeader(map), new RetrofitApi.IResponseListener() {
+                map.put("BigLeaderId", id);
+                RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).appointBigLeader(map),
+                        new RetrofitApi.IResponseListener() {
 
                     @Override
                     public void onSuccess(String data) throws JSONException {
                         Log.e("appointBigLeader", data);
-                        Log.e("appointBigLeader",data);
+                        Log.e("appointBigLeader", data);
                         AppointNumberBean appointNumberBean = new Gson().fromJson(data, AppointNumberBean.class);
-                        if (appointNumberBean.getCode()==1){
-                            if (appointNumberBean.getMsg().equals("此用户已是大团长")){
+                        if (appointNumberBean.getCode() == 1) {
+                            if (appointNumberBean.getMsg().equals("此用户已是大团长")) {
                                 Toast.makeText(getApplicationContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
-                            }else {
+                            } else {
                                 Toast.makeText(getApplicationContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
                             }
-                        }else if (appointNumberBean.getCode()==0){
+                        } else if (appointNumberBean.getCode() == 0) {
                             Toast.makeText(getApplicationContext(), "请求失败", Toast.LENGTH_SHORT).show();
-                        }else if (appointNumberBean.getCode()==-2){
+                        } else if (appointNumberBean.getCode() == -2) {
                             Toast.makeText(getApplicationContext(), "用户未登录", Toast.LENGTH_SHORT).show();
                         }
                     }

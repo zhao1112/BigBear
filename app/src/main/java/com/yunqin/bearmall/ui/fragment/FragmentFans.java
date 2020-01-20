@@ -90,6 +90,7 @@ public class FragmentFans extends BaseFragment {
 
         Bundle arguments = getArguments();
         title = arguments.getString("title");
+
         if (title.equals("全部")) {
             type = 1;
         } else if (title.equals("大团长")) {
@@ -245,10 +246,7 @@ public class FragmentFans extends BaseFragment {
         //赋值预估收益
         mFansPopCumulative.setText("￥" + doubleToString(cumulativeIncome));
         //赋值注册时间
-
-
         mFansPopCreattime.setText("注册时间 " + createdDate);
-
 
         AppoinNun();
 
@@ -258,7 +256,6 @@ public class FragmentFans extends BaseFragment {
                 mPopupWindow.dismiss();
             }
         });
-
         view.findViewById(R.id.fans_pop_copy_code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -282,7 +279,6 @@ public class FragmentFans extends BaseFragment {
         mFansPopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Map<String, String> map = new HashMap<>();
                 map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
                 map.put("BigLeaderId",id);
