@@ -111,8 +111,8 @@ public class MyTBKCollectionActivity extends BaseActivity {
             helper.setText(R.id.tv_goods_shop, StringUtils.addImageLabel(mContext, item.getTmall() == 1 ? R.mipmap.icon_tmall :
                     R.mipmap.icon_taobao1, item.getSellerName()));
             helper.setText(R.id.item_home_pro_title, item.getName());
-            helper.setText(R.id.item_home_pro_quan, "券￥" + (int) item.getCouponAmount() + "");
-            helper.setText(R.id.item_home_pro_yuanjia, "￥" + item.getPrice());
+            helper.setText(R.id.item_home_pro_quan, "券¥" + (int) item.getCouponAmount() + "");
+            helper.setText(R.id.item_home_pro_yuanjia, "¥" + item.getPrice());
             helper.setText(R.id.item_home_pro_quanhoujia, "" + item.getDiscountPrice());
             helper.setText(R.id.tv_commision, "预估返：" + item.getCommision() + "元");
             ((TextView) helper.getView(R.id.item_home_pro_yuanjia)).getPaint().setFlags(

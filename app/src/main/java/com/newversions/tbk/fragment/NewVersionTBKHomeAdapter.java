@@ -269,8 +269,8 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                 goodsViewHolder.itemHomeProTitle.setText(recommendBean.getName());
                 goodsViewHolder.itemHomeProQuan.setText(recommendBean.getCouponAmount() + "元券");
                 goodsViewHolder.itemHomeXiaoliang.setText("月销" + recommendBean.getSellNum());
-                goodsViewHolder.itemHomeProQuanhoujia.setText("￥" + recommendBean.getDiscountPrice());
-                goodsViewHolder.itemHomeProYuanjia.setText("￥" + recommendBean.getPrice());
+                goodsViewHolder.itemHomeProQuanhoujia.setText("¥" + recommendBean.getDiscountPrice());
+                goodsViewHolder.itemHomeProYuanjia.setText("¥" + recommendBean.getPrice());
                 goodsViewHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 goodsViewHolder.tvCommision.setText("预估佣金：" + recommendBean.getCommision());
                 Glide.with(context)
@@ -515,9 +515,9 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
             Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small)).load(data.get(position).getOutIcon()).into(holder.imGoodsImg);
             holder.tvGoodsContent.setText(data.get(position).getName());
             holder.tvPrice.setText(data.get(position).getDiscountPrice() + "");
-            holder.tvOldPrice.setText("￥" + data.get(position).getPrice() + "");
+            holder.tvOldPrice.setText("¥" + data.get(position).getPrice() + "");
             holder.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
-            holder.tvQuan.setText("券￥" + data.get(position).getCouponAmount());
+            holder.tvQuan.setText("券¥" + data.get(position).getCouponAmount());
             holder.itemView.setOnClickListener(v -> {
                 GoodsDetailActivity.startGoodsDetailActivity(context, data.get(position).getItemId());
             });
@@ -576,7 +576,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
             Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small)).load(data.get(position).getProductImages().getThumbnail()).into(holder.imGoodsImg);
             holder.tvGoodsContent.setText(data.get(position).getProductName());
             holder.tvPrice.setText("0.0");
-            holder.tvOldPrice.setText("￥" + data.get(position).getPrice() + "");
+            holder.tvOldPrice.setText("¥" + data.get(position).getPrice() + "");
             holder.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
             holder.tvQuan.setText("券￥0.0");
             holder.itemView.setOnClickListener(v -> {

@@ -23,7 +23,7 @@ import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.ZanWeiKaiFangActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.util.ToastUtils;
 import com.yunqin.bearmall.widget.RefreshFooterView;
@@ -181,7 +181,7 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
                 break;
             case R.id.n_v_home_2:
                 // TODO 糖果0元兑
-                startActivity(new Intent(getActivity(), ZeroMoneyActivity.class));
+                startActivity(new Intent(getActivity(), ZeorExchangeActivity.class));
                 break;
             case R.id.n_v_home_3:
                 // TODO 会员商城

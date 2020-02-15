@@ -216,8 +216,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             goodsViewHolder.itemHomeProTitle.setText(recommendBean.getName());
             goodsViewHolder.itemHomeProQuan.setText(recommendBean.getCouponAmount() + "元券");
             goodsViewHolder.itemHomeXiaoliang.setText("月销" + recommendBean.getSellNum());
-            goodsViewHolder.itemHomeProQuanhoujia.setText("￥" + recommendBean.getDiscountPrice());
-            goodsViewHolder.itemHomeProYuanjia.setText("￥" + recommendBean.getPrice());
+            goodsViewHolder.itemHomeProQuanhoujia.setText("¥" + recommendBean.getDiscountPrice());
+            goodsViewHolder.itemHomeProYuanjia.setText("¥" + recommendBean.getPrice());
             goodsViewHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
             goodsViewHolder.tvCommision.setText("预估佣金：" + recommendBean.getCommision());
             Glide.with(GoodsDetailActivity.this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(recommendBean.getOutIcon()).into(goodsViewHolder.itemHomeProImage);
@@ -310,9 +310,9 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             tv_yongjin_num.setText("预估返：" + goodDetail.getCommision() + "元");
             commission = goodDetail.getCommision();
         }
-        tvGoodsYuanjia.setText("￥" + goodDetail.getPrice());
+        tvGoodsYuanjia.setText("¥" + goodDetail.getPrice());
         tvGoodsYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        tvQuanhoujia.setText("￥" + goodDetail.getDiscountPrice());
+        tvQuanhoujia.setText("¥" + goodDetail.getDiscountPrice());
         if (StringUtils.isEmpty(goodDetail.getSellerName())) {
             rlSellerName.setVisibility(View.GONE);
         } else {

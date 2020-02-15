@@ -23,7 +23,7 @@ import com.yunqin.bearmall.bean.HomeAd;
 import com.yunqin.bearmall.bean.HomeBean;
 import com.yunqin.bearmall.ui.activity.BargainFreeActivity;
 import com.yunqin.bearmall.ui.activity.BargainFreeDetailActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -434,7 +434,7 @@ public class MoreTypeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerVie
             case R.id.huodong_more:
                 try {
                     if (type == 1) {
-                        StarActivityUtil.starActivity((Activity) mContext, ZeroMoneyActivity.class);
+                        StarActivityUtil.starActivity((Activity) mContext, ZeorExchangeActivity.class);
                     } else {
 
                         Intent intent = new Intent(mContext, BargainFreeActivity.class);

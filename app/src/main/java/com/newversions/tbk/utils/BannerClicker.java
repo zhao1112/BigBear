@@ -19,7 +19,7 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
@@ -79,7 +79,7 @@ public class BannerClicker {
                 DailyTasksActivity.starActivity(activity);
                 break;
             case 16://0购
-                activity.startActivity(new Intent(activity, ZeroMoneyActivity.class));
+                activity.startActivity(new Intent(activity, ZeorExchangeActivity.class));
                 break;
             case 17://邀请
                 if (BearMallAplication.getInstance().getUser() == null) {

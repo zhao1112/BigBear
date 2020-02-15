@@ -37,7 +37,7 @@ import com.yunqin.bearmall.ui.activity.LoanActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.VanguardListPageActivity;
 import com.yunqin.bearmall.ui.activity.VipCenterActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.DeviceUtils;
@@ -98,7 +98,7 @@ public class IAdvClick {
                 intent.putExtra("groupPurchasing_id", sourceId + "");
                 context.startActivity(intent);
             } else {
-                context.startActivity(new Intent(context, ZeroMoneyActivity.class));
+                context.startActivity(new Intent(context, ZeorExchangeActivity.class));
             }
         } else if (type == 6) {
             if (skipType == 0) {

@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/ds20"
                     android:lineSpacingExtra="@dimen/ds10"
-                    android:text="4、如因大熊商城缺货等原因导致的退货退款，则抵扣的糖果将返还到会员账户，如因会员个人原因导致的退货退款，则不返还抵扣糖果。"
+                    android:text="4、如因大熊酷朋缺货等原因导致的退货退款，则抵扣的糖果将返还到会员账户，如因会员个人原因导致的退货退款，则不返还抵扣糖果。"
                     android:textColor="@color/product_customer_collect"
                     android:textSize="@dimen/ds28" />
 

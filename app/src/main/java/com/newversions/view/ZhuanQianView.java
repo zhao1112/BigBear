@@ -112,10 +112,11 @@ public class ZhuanQianView extends LinearLayout {
         mHashMap.put("raffleConfig_id", "" + mAdId);
 
 
-        Glide.with(context)
-                .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.mine_user_icon_defult))
-                .load(imgUrl)
-                .into(imageView);
+//        imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+//        Glide.with(context)
+//                .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.mine_user_icon_defult))
+//                .load(getResources().getDrawable(R.mipmap.ic_launcher))
+//                .into(imageView);
 
         name.setText(title);
         progressTv.setText(String.format("%d/%d", currentCount, count));

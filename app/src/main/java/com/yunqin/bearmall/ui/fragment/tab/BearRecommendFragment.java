@@ -19,7 +19,7 @@ import com.yunqin.bearmall.ui.activity.BargainFreeDetailActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.SweetSnatchActivity;
 import com.yunqin.bearmall.ui.activity.VanguardListPageActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyDetailsActivity;
 import com.yunqin.bearmall.ui.fragment.contract.BearRecommendFragmentContract;
 import com.yunqin.bearmall.ui.fragment.presenter.BearRecommendPresenter;
@@ -90,7 +90,7 @@ public class BearRecommendFragment extends BaseFragment implements BearRecommend
                 //todo 熊波为了测试添加的代码
 //                intent = new Intent(getActivity(), BargainFreeShareActivity.class);
 //                getActivity().startActivity(intent);
-                Intent intent1 = new Intent(getActivity(), ZeroMoneyActivity.class);
+                Intent intent1 = new Intent(getActivity(), ZeorExchangeActivity.class);
                 getActivity().startActivity(intent1);
                 break;
             case R.id.menu_free_obtain:
@@ -164,7 +164,7 @@ public class BearRecommendFragment extends BaseFragment implements BearRecommend
 
         } else if (type == 8) {
 
-            Intent intent1 = new Intent(getActivity(), ZeroMoneyActivity.class);
+            Intent intent1 = new Intent(getActivity(), ZeorExchangeActivity.class);
             getActivity().startActivity(intent1);
 
         } else if (type == 9) {

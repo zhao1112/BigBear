@@ -28,7 +28,6 @@ import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
 import com.yunqin.bearmall.ui.activity.SweetRecordActivity;
 import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;

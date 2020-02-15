@@ -15,7 +15,10 @@ import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.BannerBean;
 import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.ZeroGoodsBean;
+import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
+import com.yunqin.bearmall.ui.dialog.ActivityTextTipDialog;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
@@ -40,6 +43,7 @@ public class ZeorExchangeFragment extends BaseFragment {
     private int page_number = 1;
     private ZeroAdapter zeroAdapter;
     private String sume;
+    private ActivityTextTipDialog activityTextTipDialog;
 
     @Override
     public int layoutId() {
@@ -60,8 +64,14 @@ public class ZeorExchangeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.guiz_zeor:
+                if (activityTextTipDialog == null) {
+                    activityTextTipDialog = new ActivityTextTipDialog(getActivity());
+                } else {
+                    activityTextTipDialog.show();
+                }
                 break;
             case R.id.more_zeor:
+                DailyTasksActivity.starActivity(getActivity());
                 break;
         }
     }

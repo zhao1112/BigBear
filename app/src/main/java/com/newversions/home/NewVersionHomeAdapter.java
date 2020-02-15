@@ -20,7 +20,7 @@ import com.newversions.IAdvClick;
 import com.newversions.detail.NewProductDetailActivity;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.ui.activity.BargainFreeActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.widget.PriceView;
 import com.yunqin.bearmall.widget.TopBanner;
 
@@ -333,7 +333,7 @@ public class NewVersionHomeAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((PinTuanHolder) holder).n_v_top_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent1 = new Intent(context, ZeroMoneyActivity.class);
+                    Intent intent1 = new Intent(context, ZeorExchangeActivity.class);
                     context.startActivity(intent1);
                 }
             });
@@ -341,7 +341,7 @@ public class NewVersionHomeAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((PinTuanHolder) holder).n_v_bottom_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent1 = new Intent(context, ZeroMoneyActivity.class);
+                    Intent intent1 = new Intent(context, ZeorExchangeActivity.class);
                     context.startActivity(intent1);
                 }
             });

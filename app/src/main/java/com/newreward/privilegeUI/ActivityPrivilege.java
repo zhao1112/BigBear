@@ -16,7 +16,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
 
 import org.json.JSONException;
@@ -105,7 +105,7 @@ public class ActivityPrivilege extends BaseActivity {
                     }else if (tag == 1){
                         startActivity(new Intent(this,ChargeActivity.class));
                     }else {
-                        startActivity(new Intent(this, ZeroMoneyActivity.class));
+                        startActivity(new Intent(this, ZeorExchangeActivity.class));
                     }
                 }catch (Exception e){
 

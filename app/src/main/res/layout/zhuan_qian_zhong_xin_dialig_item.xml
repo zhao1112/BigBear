@@ -28,7 +28,7 @@
             android:id="@+id/image"
             android:layout_width="@dimen/ds70"
             android:layout_height="@dimen/ds70"
-            android:src="@drawable/icon_mine_liwu" />
+            android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:layout_width="0dp"

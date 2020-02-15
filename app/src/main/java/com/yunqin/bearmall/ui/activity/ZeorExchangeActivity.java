@@ -13,6 +13,7 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.ZeroGoodsBean;
+import com.yunqin.bearmall.ui.dialog.ActivityTextTipDialog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,7 @@ public class ZeorExchangeActivity extends BaseActivity {
     private int page_number = 1;
     private ZeroAdapter zeroAdapter;
     private String sume;
+    private ActivityTextTipDialog activityTextTipDialog;
 
     @Override
     public int layoutId() {
@@ -50,8 +52,14 @@ public class ZeorExchangeActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.guiz_zeor:
+                if (activityTextTipDialog == null) {
+                    activityTextTipDialog = new ActivityTextTipDialog(ZeorExchangeActivity.this);
+                } else {
+                    activityTextTipDialog.show();
+                }
                 break;
             case R.id.more_zeor:
+                DailyTasksActivity.starActivity(this);
                 break;
             case R.id.banck:
                 finish();

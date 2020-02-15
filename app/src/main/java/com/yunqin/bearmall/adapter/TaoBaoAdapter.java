@@ -73,7 +73,7 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 invalidOrderHolder.mCreat_time.setText("创建时间：" + list.get(position).getCreateTime());
                 invalidOrderHolder.state.setText("已失效");
                 Glide.with(mContext).load(list.get(position).getImageUrl()).apply(mOptions).into(invalidOrderHolder.image);
-                invalidOrderHolder.price.setText("￥" + list.get(position).getPayAmount());
+                invalidOrderHolder.price.setText("¥" + list.get(position).getPayAmount());
                 invalidOrderHolder.commission.setText("预估返佣" + list.get(position).getEffectEstimate() + "元");
                 invalidOrderHolder.commission.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);//中划线
                 invalidOrderHolder.commission.getPaint().setAntiAlias(true); //去掉锯齿
@@ -95,7 +95,7 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 orderHolder.mCreat_time.setText("创建时间：" + list.get(position).getCreateTime());
                 orderHolder.state.setText(list.get(position).getOrderStatus().equals("1") ? "已付款" : "已结算");
                 Glide.with(mContext).load(list.get(position).getImageUrl()).apply(mOptions).into(orderHolder.image);
-                orderHolder.price.setText("￥" + list.get(position).getPayAmount());
+                orderHolder.price.setText("¥" + list.get(position).getPayAmount());
                 orderHolder.commission.setText("预估返佣" + list.get(position).getEffectEstimate() + "元");
                 orderHolder.order.setText("订单编号：" + list.get(position).getTaoOrders_id());
                 orderHolder.title.setText(list.get(position).getItemInfo());

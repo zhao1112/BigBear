@@ -28,7 +28,7 @@ import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.PropertyActivity;
 import com.yunqin.bearmall.ui.activity.SweetRecordActivity;
-import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -188,7 +188,7 @@ public class MakeMoneyFragment1 extends BaseFragment {
                 DialogUtils.signInDialog(getActivity());
                 break;
             case R.id.new_menu_1:// 糖果0元兑换
-                startActivity(new Intent(getActivity(), ZeroMoneyActivity.class));
+                startActivity(new Intent(getActivity(), ZeorExchangeActivity.class));
                 break;
             case R.id.new_menu_2:// 赏金提现
 

@@ -152,7 +152,7 @@ public class PayOverMemberActivity extends BaseActivity {
                     } else if (tag == 1) {
                         startActivity(new Intent(this, ChargeActivity.class));
                     } else {
-                        startActivity(new Intent(this, ZeroMoneyActivity.class));
+                        startActivity(new Intent(this, ZeorExchangeActivity.class));
                     }
                 } catch (Exception e) {
 

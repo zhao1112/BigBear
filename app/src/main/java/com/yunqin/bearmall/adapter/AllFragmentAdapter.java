@@ -115,7 +115,7 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             OrderBean.DataBean.OrdersListBean ordersListBean = list.get(position);
             ((VirtualHolder) holder).name.setText(ordersListBean.getVirtualItem().getTitle());
-            ((VirtualHolder) holder).price.setText("￥" + ordersListBean.getVirtualItem().getPrice());
+            ((VirtualHolder) holder).price.setText("¥" + ordersListBean.getVirtualItem().getPrice());
             ((VirtualHolder) holder).count.setText("X" + ordersListBean.getVirtualItem().getQuantity());
 
             String types = ordersListBean.getVirtualItem().getType() == 0 ? "话费订单-" : "流量订单-";

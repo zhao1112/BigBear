@@ -527,12 +527,10 @@ public class ConfirmActivity extends BaseActivity implements ConfirmActivityCont
                     // 确认订单，下单接口
                     Map<String, String> mHashMap = new HashMap<>();
 
-
                     try {
                         mHashMap.put("idCard", inputIdNumberEditText.getText().toString());
                     } catch (Exception e) {
                     }
-
 
                     mHashMap.put("receiver_id", receiver_id);
                     mHashMap.put("paymentMethod_id", paymentMethod_id);
