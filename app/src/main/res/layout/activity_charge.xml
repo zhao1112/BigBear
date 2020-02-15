@@ -23,9 +23,11 @@
         android:paddingLeft="30pt"
         android:paddingRight="30pt"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_line">
+        app:layout_constraintTop_toBottomOf="@id/top_line"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/phone_num"
@@ -73,6 +75,7 @@
             android:paddingBottom="10pt"
             android:text="充话费"
             android:textSize="32pt"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@id/guide_line"
             app:layout_constraintTop_toBottomOf="@id/line" />
@@ -82,6 +85,7 @@
             android:layout_width="@dimen/ds52"
             android:layout_height="4pt"
             android:background="#23A064"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@id/telephone_charge"
             app:layout_constraintRight_toRightOf="@id/telephone_charge"
             app:layout_constraintTop_toBottomOf="@id/telephone_charge" />
@@ -96,6 +100,7 @@
             android:paddingBottom="10pt"
             android:text="充流量"
             android:textSize="32pt"
+            android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@id/guide_line"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/telephone_charge" />
@@ -138,6 +143,7 @@
             android:layout_width="@dimen/ds30"
             android:layout_height="@dimen/ds30"
             android:src="@drawable/ad_close"
+            android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent" />
 
 
@@ -146,6 +152,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/red_"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

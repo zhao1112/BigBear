@@ -20,7 +20,7 @@
             android:id="@+id/product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="[大熊商城] 100%纯棉 女式纯棉百搭V领T恤"
+            android:text="[大熊酷朋] 100%纯棉 女式纯棉百搭V领T恤"
             android:textColor="@color/product_name_color"
             android:textSize="@dimen/ds32"
             android:singleLine="true"

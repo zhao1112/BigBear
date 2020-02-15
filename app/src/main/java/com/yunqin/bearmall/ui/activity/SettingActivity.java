@@ -8,8 +8,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -160,10 +162,41 @@ public class SettingActivity extends BaseActivity implements SettingContract.UI,
         presenter.start(this);
     }
 
+    private void setIcon(ImageView icon, TextView text, int drawable, int color) {
+        icon.setImageDrawable(getResources().getDrawable(drawable));
+        text.setTextColor(getResources().getColor(color));
+    }
+
     @Override
     public void init() {
 
         EventBus.getDefault().register(this);
+
+        ImageView image_vip = findViewById(R.id.image_vip);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String name = extras.getString("name");
+            int type_id = extras.getInt("type_id", 0);
+            userLevel.setText(name);
+            switch (type_id){
+                case 1:
+                    setIcon(image_vip,userLevel,R.mipmap.vip_gray,R.color.colorPrimaryDark);
+                    break;
+                case 2:
+                    setIcon(image_vip,userLevel,R.mipmap.mine_vip,R.color.vip_text);
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                    setIcon(image_vip,userLevel,R.mipmap.tuanzhang,R.color.vip_text);
+                    break;
+                default:
+                    setIcon(image_vip,userLevel,R.mipmap.mine_tuanzhang,R.color.vip_text);
+                    break;
+            }
+
+        }
 
         toolbarTitle.setText("账号与安全");
         try {
@@ -311,7 +344,6 @@ public class SettingActivity extends BaseActivity implements SettingContract.UI,
                 .load(settingBean.getData().getInfo().getIconUrl()).into(userHeadImg);
         phoneNumber.setText(settingBean.getData().getInfo().getMobile());
         userPhoneNumber = settingBean.getData().getInfo().getMobile();
-        userLevel.setText(settingBean.getData().getInfo().isMember() ? "金熊会员" : "普通会员");
 
         isSetPayPwd = settingBean.getData().getInfo().isSetPayPwd();
 

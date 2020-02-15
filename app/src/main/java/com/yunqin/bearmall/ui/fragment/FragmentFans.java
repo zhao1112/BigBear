@@ -76,6 +76,7 @@ public class FragmentFans extends BaseFragment {
             .centerCrop();
     private TextView mFansPopLevel;
     private String phone;
+    private final String money = "¥";
 
     @Override
     public int layoutId() {
@@ -150,7 +151,7 @@ public class FragmentFans extends BaseFragment {
             public void onSuccess(String data) throws JSONException {
                 FansAppoint fansAppoint = new Gson().fromJson(data, FansAppoint.class);
                 int appointNum = fansAppoint.getAppointNum();
-                mFansPopLevel.setText("剩余"+appointNum+"个名额");
+                mFansPopLevel.setText("剩余" + appointNum + "个名额");
             }
 
             @Override
@@ -164,7 +165,8 @@ public class FragmentFans extends BaseFragment {
             }
         });
     }
-        //粉丝详情
+
+    //粉丝详情
     private void FansNext(String createdDate, String id, String iconUrl, String mobile, String level) {
         Map<String, String> map = new HashMap<>();
         map.put("customerId", id);
@@ -177,7 +179,7 @@ public class FragmentFans extends BaseFragment {
                     Double lastMonthIncome = dat.optDouble("lastMonthIncome");
                     Double cumulativeIncome = dat.optDouble("cumulativeIncome");
                     String recommendCode = dat.optString("recomendCode");
-                    showFans(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode,id);
+                    showFans(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode, id);
                 }
             }
 
@@ -194,7 +196,7 @@ public class FragmentFans extends BaseFragment {
 
     }
 
-    private void showFans(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome, String recommendCode,String id) {
+    private void showFans(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome, String recommendCode, String id) {
 
         OpenGoodsDetail.lightoff(getActivity());
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fans_pop_appoint, null);
@@ -211,7 +213,7 @@ public class FragmentFans extends BaseFragment {
         //注册时间
         TextView mFansPopCreattime = view.findViewById(R.id.fans_pop_creattime);
         //提升按钮
-       TextView mFansPopButton= view.findViewById(R.id.fans_pop_button);
+        TextView mFansPopButton = view.findViewById(R.id.fans_pop_button);
         //任命次数
         mFansPopLevel = view.findViewById(R.id.fans_pop_level);
         PopupWindow mPopupWindow = new PopupWindow();
@@ -242,9 +244,9 @@ public class FragmentFans extends BaseFragment {
         //赋值id
         mFansPopCodeFans.setText(recommendCode);
         //赋值上月收益
-        mFansPopLastMonthIncome.setText("￥" + doubleToString(lastMonthIncome));
+        mFansPopLastMonthIncome.setText(money + doubleToString(lastMonthIncome));
         //赋值预估收益
-        mFansPopCumulative.setText("￥" + doubleToString(cumulativeIncome));
+        mFansPopCumulative.setText(money + doubleToString(cumulativeIncome));
         //赋值注册时间
         mFansPopCreattime.setText("注册时间 " + createdDate);
 
@@ -281,23 +283,23 @@ public class FragmentFans extends BaseFragment {
             public void onClick(View v) {
                 Map<String, String> map = new HashMap<>();
                 map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
-                map.put("BigLeaderId",id);
+                map.put("BigLeaderId", id);
                 RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).appointBigLeader(map), new RetrofitApi.IResponseListener() {
                     @Override
                     public void onSuccess(String data) throws JSONException {
-                        Log.e("appointBigLeader",data);
+                        Log.e("appointBigLeader", data);
                         AppointNumberBean appointNumberBean = new Gson().fromJson(data, AppointNumberBean.class);
-                            if (appointNumberBean.getCode()==1){
-                                if (appointNumberBean.getMsg().equals("此用户已是大团长")){
-                                    Toast.makeText(getContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
-                                }else {
-                                    Toast.makeText(getContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
-                                }
-                            }else if (appointNumberBean.getCode()==0){
-                                Toast.makeText(getContext(), "请求失败", Toast.LENGTH_SHORT).show();
-                            }else if (appointNumberBean.getCode()==-2){
-                                Toast.makeText(getContext(), "用户未登录", Toast.LENGTH_SHORT).show();
+                        if (appointNumberBean.getCode() == 1) {
+                            if (appointNumberBean.getMsg().equals("此用户已是大团长")) {
+                                Toast.makeText(getContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), appointNumberBean.getMsg(), Toast.LENGTH_SHORT).show();
                             }
+                        } else if (appointNumberBean.getCode() == 0) {
+                            Toast.makeText(getContext(), "请求失败", Toast.LENGTH_SHORT).show();
+                        } else if (appointNumberBean.getCode() == -2) {
+                            Toast.makeText(getContext(), "用户未登录", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
 
@@ -316,16 +318,19 @@ public class FragmentFans extends BaseFragment {
 
 
     }
+
     public static String doubleToString(double num) {
         //使用0.00不足位补0，#.##仅保留有效位
         return new DecimalFormat("0.00").format(num);
     }
-        //手机号中间为*
+
+    //手机号中间为*
     private boolean isMobileNum(String mobiles) {
         Pattern p = Pattern.compile("^((13[0-9])|(14[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
         Matcher m = p.matcher(mobiles);
         return m.matches();
     }
+
     private void getTabFans() {
         showLoading();
         HashMap<String, String> map = new HashMap<>();

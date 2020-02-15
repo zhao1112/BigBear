@@ -40,7 +40,7 @@ public class AboutBearMall extends BaseActivity implements CheckVersionCallBack{
 
     @Override
     public void init() {
-        toolbarTitle.setText("关于大熊");
+        toolbarTitle.setText("关于大熊酷朋");
         version.setText(CommonUtils.getVersionName(this));
     }
 

@@ -58,7 +58,7 @@ public class FansFragment extends BaseFragment {
     ConstraintLayout mNulldata;
     @BindView(R.id.fans_twinkling)
     TwinklingRefreshLayout mFansTwinkling;
-
+    private final String money = "¥";
     private FansItemAdapter mFansItemAdapter;
     private int Secondpage = 1;
     private int Stairpage = 1;
@@ -272,8 +272,8 @@ public class FansFragment extends BaseFragment {
         Glide.with(getActivity()).load(imageUrl).apply(mOptions).into(toiamge);
         code.setText(recommendCode);
         phone2.setText(phone);
-        lastMonth.setText("￥" + doubleToString(lastMonthIncome));
-        cumulative.setText("￥" + doubleToString(cumulativeIncome));
+        lastMonth.setText(money + doubleToString(lastMonthIncome));
+        cumulative.setText(money + doubleToString(cumulativeIncome));
         creattime.setText("注册时间 " + creatTime);
         view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override

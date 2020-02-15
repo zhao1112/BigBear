@@ -58,6 +58,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
             .circleCropTransform();
     private TextView mFansPopLevel;
     private String phone;
+    private final String money = "¥";
 
     @Override
     public int layoutId() {
@@ -250,9 +251,9 @@ public class PartnerFansSeekActivity extends BaseActivity {
         //赋值id
         mFansPopCodeFans.setText(recommendCode);
         //赋值上月收益
-        mFansPopLastMonthIncome.setText("￥" + doubleToString(lastMonthIncome));
+        mFansPopLastMonthIncome.setText(money + doubleToString(lastMonthIncome));
         //赋值预估收益
-        mFansPopCumulative.setText("￥" + doubleToString(cumulativeIncome));
+        mFansPopCumulative.setText(money + doubleToString(cumulativeIncome));
         //赋值注册时间
         mFansPopCreattime.setText("注册时间 " + createdDate);
 

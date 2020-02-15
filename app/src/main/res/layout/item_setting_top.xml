@@ -102,6 +102,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/mine_vip"
             android:layout_marginRight="@dimen/ds30">
 
             <TextView
@@ -109,16 +110,17 @@
                 android:layout_width="150pt"
                 android:layout_height="@dimen/ds32"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/ds10"
-                android:background="@drawable/bear_level_bg"
                 android:gravity="center"
                 android:paddingLeft="@dimen/ds18"
+                android:text="sssss"
                 android:textColor="@color/white"
                 android:textSize="@dimen/ds20" />
 
             <ImageView
+                android:layout_marginLeft="@dimen/dp_3"
+                android:id="@+id/image_vip"
                 android:layout_width="@dimen/ds36"
-                android:layout_height="@dimen/ds36"
+                android:layout_height="@dimen/ds30"
                 android:src="@drawable/icon_mine_vip" />
         </RelativeLayout>
 

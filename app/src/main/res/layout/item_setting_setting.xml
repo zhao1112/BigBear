@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="大熊商城公众号"
+            android:text="大熊酷朋公众号"
             android:textColor="#333333"
             android:textSize="@dimen/ds28" />
 
@@ -152,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#999999"
-            android:text="bbearmall"
+            android:text="bbcoupon"
             android:layout_marginRight="@dimen/ds50"
             android:textSize="@dimen/ds24" />
     </LinearLayout>
@@ -176,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="关于大熊"
+            android:text="关于大熊酷朋"
             android:textColor="#333333"
             android:textSize="@dimen/ds28" />
 

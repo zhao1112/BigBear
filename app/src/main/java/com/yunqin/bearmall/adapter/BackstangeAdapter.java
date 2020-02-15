@@ -27,7 +27,7 @@ public class BackstangeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .fallback(R.drawable.default_product) //url为空的时候,显示的图片
             .error(R.drawable.default_product)//图片加载失败后，显示的图片
             .bitmapTransform(new RoundedCorners(3));
-
+    private final String money = "+¥";
 
     public BackstangeAdapter(Context context) {
         mContext = context;
@@ -46,7 +46,7 @@ public class BackstangeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         BackstangeHolder backstangeHolder = (BackstangeHolder) holder;
         //图片
         Glide.with(mContext).load(list.get(position) .getImage()).apply(mOptions).into(backstangeHolder.mBackAdpaterImage);
-        backstangeHolder.mBackAdapterPrice.setText("+￥"+list.get(position).getSettlementAmount());
+        backstangeHolder.mBackAdapterPrice.setText(money+list.get(position).getSettlementAmount());
         backstangeHolder.mBackAdapterTitle.setText(list.get(position).getItemInfo());
         backstangeHolder.mBackAdpaterNumber.setText("订单号:"+list.get(position).getOrderNo());
         //复制订单号

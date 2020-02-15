@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/ds80"
                 android:lineSpacingExtra="@dimen/ds8"
-                android:text="[大熊商城]参加0元拼团，就有机会中奖0元拿走 "
+                android:text="[大熊酷朋]参加0元拼团，就有机会中奖0元拿走 "
                 android:textColor="#333333"
                 android:textSize="@dimen/ds28" />
 

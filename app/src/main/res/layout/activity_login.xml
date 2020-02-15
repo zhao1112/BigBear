@@ -24,7 +24,7 @@
         android:layout_height="@dimen/ds272"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/ds212"
-        android:src="@drawable/logo" />
+        android:src="@mipmap/ic_launcher" />
 
     <com.yunqin.bearmall.widget.Highlight.HighlightLinearLayout
         android:id="@+id/wx_login_btn"

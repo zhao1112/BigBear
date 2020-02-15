@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/ds30"
         android:layout_marginTop="@dimen/ds44"
-        android:text="搜索微信公众号：bbearmall"
+        android:text="搜索微信公众号：bbcoupon"
         android:textColor="#333333"
         android:textSize="@dimen/ds28"/>
 

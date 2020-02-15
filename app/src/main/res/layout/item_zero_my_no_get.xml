@@ -64,7 +64,7 @@
 
         <TextView
             android:id="@+id/goods_name"
-            android:text="[大熊商城]参加0元拼团，就有机会中奖0元拿走 "
+            android:text="[大熊酷朋]参加0元拼团，就有机会中奖0元拿走 "
             android:textSize="@dimen/ds28"
             android:textColor="#333333"
             android:lineSpacingExtra="@dimen/ds8"

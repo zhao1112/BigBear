@@ -16,6 +16,7 @@ import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.ui.activity.ZeroMoneyActivity;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
@@ -80,7 +81,7 @@ public class TopBarClicker {
                 break;
             case 7:
                 // TODO 糖果0元兑
-                activity.startActivity(new Intent(activity, ZeroMoneyActivity.class));
+                activity.startActivity(new Intent(activity, ZeorExchangeActivity.class));
                 //TODO[点击0元兑]
                 ConstantScUtil.exchangeClick();
                 break;

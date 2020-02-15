@@ -15,6 +15,7 @@ import com.yunqin.bearmall.ui.fragment.HomeFragment;
 import com.yunqin.bearmall.ui.fragment.MakeMoneyFragment;
 import com.yunqin.bearmall.ui.fragment.MineFragment;
 import com.yunqin.bearmall.ui.fragment.MineNewFragment;
+import com.yunqin.bearmall.ui.fragment.ZeorExchangeFragment;
 import com.yunqin.bearmall.ui.fragment.ZeroGoodsFragment;
 
 /**
@@ -43,6 +44,7 @@ public class SwitchFragment {
     private MineFragment mMineFragment;
     private FragmentManager manager;
     private Activity activity;
+    private ZeorExchangeFragment zeorExchangeFragment;
 
     public SwitchFragment(FragmentManager manager, Activity activity) {
         this.manager = manager;
@@ -56,11 +58,11 @@ public class SwitchFragment {
         if (mRecommendFragment != null) {
             transaction.hide(mRecommendFragment);
         }
+        if (zeorExchangeFragment != null) {
+            transaction.hide(zeorExchangeFragment);
+        }
         if (mMakeMoneyFragment != null) {
             transaction.hide(mMakeMoneyFragment);
-        }
-        if (mTrolleyFragment != null) {
-            transaction.hide(mTrolleyFragment);
         }
         if (mMineFragment != null) {
             transaction.hide(mMineFragment);
@@ -108,13 +110,13 @@ public class SwitchFragment {
                 setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_TROLLEY:
-                if (mTrolleyFragment == null) {
-                    mTrolleyFragment = new ZeroGoodsFragment();
-                    transaction.add(R.id.content, mTrolleyFragment);
+                if (zeorExchangeFragment == null) {
+                    zeorExchangeFragment = new ZeorExchangeFragment();
+                    transaction.add(R.id.content, zeorExchangeFragment);
                 }
                 hiderFragment(transaction);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                transaction.show(mTrolleyFragment);
+                transaction.show(zeorExchangeFragment);
                 transaction.commit();
                 StatuBarUtils.setTranslucentStatus(activity);
                 //TODO[点击0元兑]

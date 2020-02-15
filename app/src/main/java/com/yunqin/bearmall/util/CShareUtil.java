@@ -185,7 +185,7 @@ public class CShareUtil {
         oks.setImageUrl(shareBean.getImgUrl());
         oks.setUrl(shareBean.getShareUrl());
         oks.setComment("说点什么吧");
-        oks.setSite("大熊商城");
+        oks.setSite("大熊酷朋");
         oks.setSiteUrl(shareBean.getShareUrl());
         oks.setCallback(new PlatformActionListener() {
             @Override

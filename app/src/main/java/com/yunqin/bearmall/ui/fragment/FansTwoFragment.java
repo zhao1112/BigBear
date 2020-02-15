@@ -62,6 +62,7 @@ public class FansTwoFragment extends BaseFragment {
             .fallback(R.drawable.default_product) //url为空的时候,显示的图片
             .error(R.drawable.default_product)//图片加载失败后，显示的图片
             .circleCropTransform();
+    private final String money = "¥";
 
 
     @Override
@@ -206,8 +207,8 @@ public class FansTwoFragment extends BaseFragment {
         Glide.with(getActivity()).load(imageUrl).apply(mOptions).into(toiamge);
         code.setText(recommendCode);
         phone2.setText(phone);
-        lastMonth.setText("￥" + doubleToString(lastMonthIncome));
-        cumulative.setText("￥" + doubleToString(cumulativeIncome));
+        lastMonth.setText(money + doubleToString(lastMonthIncome));
+        cumulative.setText(money + doubleToString(cumulativeIncome));
         creattime.setText("注册时间 " + creatTime);
         view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override

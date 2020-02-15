@@ -169,7 +169,7 @@ public class BargainShareUtil {
         oks.setImageUrl(shareBean.getImgUrl());
         oks.setUrl(shareBean.getShareUrl());
         oks.setComment("说点什么吧");
-        oks.setSite("大熊商城");
+        oks.setSite("大熊酷朋");
         oks.setSiteUrl(shareBean.getShareUrl());
         oks.setCallback(new PlatformActionListener() {
             @Override
@@ -205,7 +205,7 @@ public class BargainShareUtil {
         shareParams.setText(shareBean.getSpeciality());
         shareParams.setTitle(shareBean.getTitle());
         shareParams.setUrl(shareBean.getShareUrl());
-        shareParams.setAuthor("大熊商城");
+        shareParams.setAuthor("大熊酷朋");
         shareParams.setWxUserName(shareBean.getWxProgramId());
         shareParams.setWxPath(shareBean.getWxProgramPageUrl());
         shareParams.setImageUrl(shareBean.getWxProgramPageImageUrl());

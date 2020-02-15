@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.newversions.tbk.activity.WebActivity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
@@ -37,6 +38,7 @@ import com.yunqin.bearmall.eventbus.VipUpgrade;
 import com.yunqin.bearmall.inter.ChangeHeadImageCallBack;
 import com.yunqin.bearmall.ui.activity.contract.VipContract;
 import com.yunqin.bearmall.ui.activity.presenter.Vippresenter;
+import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -205,6 +207,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             .placeholder(R.drawable.mine_user_icon_defult)
             .error(R.drawable.mine_user_icon_defult)
             .centerCrop();
+    private String upUrl = "http://testapi.bbbearmall.com/view/getUpgradeInfo";
     private boolean invitation = true;
     private boolean checkImage = true;
     private boolean extension = true;
@@ -298,7 +301,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             case R.id.vip_v1_tips:
             case R.id.vip_v2_tips:
             case R.id.vip_partner_tips:
-
+                WebActivity.startWebActivity(VipExplainActivity.this, 0, upUrl, "规则说明");
                 break;
             case R.id.vip_logon_invitation://邀请
             case R.id.vip_v1_invitation:
@@ -525,7 +528,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                             data.getActivityLevel());
                     break;
             }
-            mVipSercice.setVisibility(View.VISIBLE);
+//            mVipSercice.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }

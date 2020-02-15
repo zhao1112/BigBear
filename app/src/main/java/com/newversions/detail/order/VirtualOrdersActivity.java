@@ -53,7 +53,7 @@ public class VirtualOrdersActivity extends AppCompatActivity implements View.OnC
     private Button order_del;
     private Button order_go_pay;
     private Button order_cancel;
-
+    private final String money = "¥";
     private LinearLayout order_bottom_layout;
 
 
@@ -114,10 +114,10 @@ public class VirtualOrdersActivity extends AppCompatActivity implements View.OnC
 
         phone.setText(String.format("话费充值号码：%s", virtualOrderBean.getData().getVirtualOrderDetail().getMobile()));
         order_title.setText(virtualOrderBean.getData().getVirtualOrderDetail().getTitle());
-        order_price.setText("￥" + virtualOrderBean.getData().getVirtualOrderDetail().getPrice());
-        good_price.setText("￥" + virtualOrderBean.getData().getVirtualOrderDetail().getPrice());
-        youhui_price.setText("￥" + virtualOrderBean.getData().getVirtualOrderDetail().getUsersTicketDiscount());
-        zhifu_price.setText("￥" + virtualOrderBean.getData().getVirtualOrderDetail().getAmount());
+        order_price.setText(money + virtualOrderBean.getData().getVirtualOrderDetail().getPrice());
+        good_price.setText(money+ virtualOrderBean.getData().getVirtualOrderDetail().getPrice());
+        youhui_price.setText(money + virtualOrderBean.getData().getVirtualOrderDetail().getUsersTicketDiscount());
+        zhifu_price.setText(money+ virtualOrderBean.getData().getVirtualOrderDetail().getAmount());
 
         ding_dan_code.setText("订单编号：" + virtualOrderBean.getData().getVirtualOrderDetail().getOrderSn());
         da_xiong_code.setText("大熊交易号：" + virtualOrderBean.getData().getVirtualOrderDetail().getOutTradeNo());

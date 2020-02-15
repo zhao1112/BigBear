@@ -197,6 +197,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     private static final float THREE = 4.10f;
     private static final float BANNER = 4.31f;
     private boolean Commander = true;
+    private UserInfo.Identity identity;
 
     @Override
     public int layoutId() {
@@ -298,7 +299,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         if (currentTime - lastupdateTime > 5 * 60 * 1000) {
             mPresenter.updateUserInfo(getActivity());
         } else {
-            UserInfo.Identity identity = userInfo.getIdentity();
+            identity = userInfo.getIdentity();
             //判断是否是合伙人
             if (identity.isPartner()) {
                 mMineToday.setVisibility(View.VISIBLE);
@@ -462,7 +463,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.mine_set://设置
                 if (BearMallAplication.getInstance().getUser() != null) {
-                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class);
+                    Bundle bundle = new Bundle();
+                    if (identity!=null){
+                        bundle.putString("name",identity.getIdentity());
+                        bundle.putInt("type_id",identity.getUpgradeType());
+                    }
+                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class,bundle);
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }

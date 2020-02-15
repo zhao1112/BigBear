@@ -15,6 +15,8 @@ import butterknife.OnClick;
 
 public class FragmentPayInfo extends BaseFragment implements PayWaysFragment.OnSelectPayListener{
 
+
+    private final String money = "¥";
     public static FragmentPayInfo instance(PayBean payBean,String goodsName){
         FragmentPayInfo fragment = new FragmentPayInfo();
         Bundle bundle = new Bundle();
@@ -52,7 +54,7 @@ public class FragmentPayInfo extends BaseFragment implements PayWaysFragment.OnS
         payBean = getArguments().getParcelable("PAY");
         String name = getArguments().getString("NAME");
         goodsNameView.setText(name);
-        priceView.setText("￥"+payBean.getAmount());
+        priceView.setText(money+payBean.getAmount());
     }
 
 

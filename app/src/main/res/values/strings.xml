@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="zh-rCN">
-    <string name="app_name">大熊商城</string>
+    <string name="app_name">大熊酷朋</string>
     <string-array name="adBlockDiv">
         <item>ubmcmm.baidustatic.com</item>
         <item>cpro2.baidustatic.com</item>
