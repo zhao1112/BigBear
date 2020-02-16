@@ -80,7 +80,6 @@ public class ZeorExchangeActivity extends BaseActivity {
                         dayliTaskBCInfo.getData().getRewardDetails().getBCbanlance() != null) {
                     DayliTaskBCInfo.DataBean.RewardDetailsBean detailsBean = dayliTaskBCInfo.getData().getRewardDetails();
                     sume_zeor.setText(detailsBean.getBCbanlance());
-                    sume = detailsBean.getBCbanlance();
                 }
             }
 
