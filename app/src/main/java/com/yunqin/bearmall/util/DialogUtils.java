@@ -360,7 +360,7 @@ public class DialogUtils {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CardListWebActivity.startActivity(mContext, AdConstants.STRING_QIAN_DAO, "");
+//                CardListWebActivity.startActivity(mContext, AdConstants.STRING_QIAN_DAO, "");
             }
         });
 

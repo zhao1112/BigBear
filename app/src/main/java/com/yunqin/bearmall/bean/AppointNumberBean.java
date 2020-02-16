@@ -9,6 +9,15 @@ public class AppointNumberBean {
 
     private String msg;
     private int code;
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public String getMsg() {
         return msg;
