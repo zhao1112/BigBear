@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_7"
-                    android:text="糖果可兑"
+                    android:text="糖果"
                     android:textColor="#ffffffff"
                     android:textSize="@dimen/sp_11" />
 

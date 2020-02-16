@@ -40,13 +40,20 @@ public class Vippresenter implements VipContract.Presenter {
                     UserPromotion userPromotion = null;
                     try {
                         userPromotion = new Gson().fromJson(data, UserPromotion.class);
+                        if (userPromotion.getCode() == 2){
+                            if (view != null) {
+                                view.onFail(new Throwable(userPromotion.getMsg()));
+                            }
+                        }else {
+                            if (view != null) {
+                                view.resultData(userPromotion);
+                            }
+                        }
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                         Log.e("JsonSyntaxException", e.getMessage() );
                     }
-                    if (view != null) {
-                        view.resultData(userPromotion);
-                    }
+
                 }
             }
 

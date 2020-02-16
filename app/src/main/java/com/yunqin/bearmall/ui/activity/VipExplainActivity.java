@@ -24,6 +24,7 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -356,7 +357,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
 
     @Override
     public void onFail(Throwable throwable) {
-
+        Toast.makeText(VipExplainActivity.this,throwable.getMessage(),Toast.LENGTH_LONG).show();
     }
 
     @Override

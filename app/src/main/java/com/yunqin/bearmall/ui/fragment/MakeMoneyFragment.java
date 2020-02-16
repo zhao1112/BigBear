@@ -306,7 +306,6 @@ public class MakeMoneyFragment extends BaseFragment {
                 BannerBean bannerBean = new Gson().fromJson(data, BannerBean.class);
                 if (bannerBean != null && bannerBean.getData() != null) {
                     List<BannerBean.DataBean.AdMobileListBean> lists1 = bannerBean.getData().getAdMobileList();
-
                     if (lists1 != null && lists1.size() > 0) {
                         List<String> adList = new ArrayList<>();
                         for (int i = 0; i < lists1.size(); i++) {
