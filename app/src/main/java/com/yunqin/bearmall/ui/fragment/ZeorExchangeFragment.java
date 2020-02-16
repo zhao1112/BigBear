@@ -12,21 +12,11 @@ import com.yunqin.bearmall.adapter.ZeroAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
-import com.yunqin.bearmall.bean.BannerBean;
 import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.ZeroGoodsBean;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
-import com.yunqin.bearmall.ui.activity.InvitationActivity2;
-import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.ui.dialog.ActivityTextTipDialog;
-import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.util.StarActivityUtil;
-
-import org.json.JSONException;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -90,7 +80,6 @@ public class ZeorExchangeFragment extends BaseFragment {
                     DayliTaskBCInfo.DataBean.RewardDetailsBean detailsBean = dayliTaskBCInfo.getData().getRewardDetails();
                     sume_zeor.setText(detailsBean.getBCbanlance());
                     sume = detailsBean.getBCbanlance();
-                    zeroAdapter.setSume(sume);
                 }
             }
 

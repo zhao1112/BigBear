@@ -2,6 +2,7 @@ package com.yunqin.bearmall.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -49,7 +50,8 @@ public class ZeroAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         zeorHolder.title.setText(list.get(position).getProductName());
         zeorHolder.iz_zhanjia.setText("已有" + list.get(position).getTotalCount() + "参加");
         zeorHolder.iz_yuanjia.setText("原价" + money + list.get(position).getMembershipPrice());
-        zeorHolder.iz_sume.setText(sume);
+        zeorHolder.iz_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        zeorHolder.iz_sume.setText(list.get(position).getCost());
         zeorHolder.iz_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
