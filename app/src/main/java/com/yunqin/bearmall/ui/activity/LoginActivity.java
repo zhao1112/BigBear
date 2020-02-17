@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.newversions.tbk.activity.InputIncomCodeActivity;
@@ -64,6 +66,9 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
     TextView userProtocol;
     @BindView(R.id.close)
     RelativeLayout close;
+    @BindView(R.id.yinshi)
+    CheckBox yinshi;
+
 
     private LoginActivityContract.presenter presenter;
     private int LoginWay;//1 QQ  2 微信
@@ -86,15 +91,23 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
     }
 
     //15910008841
-    @OnClick({R.id.wx_login_btn, R.id.other_login_way, R.id.user_protocol, R.id.close})
+    @OnClick({R.id.wx_login_btn, R.id.other_login_way, R.id.user_protocol, R.id.close, R.id.zhengc})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.wx_login_btn:
-                WxLogin();
+                if (yinshi.isChecked()) {
+                    WxLogin();
+                } else {
+                    Toast.makeText(LoginActivity.this, "请先同意用户协议", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.other_login_way:
-                PhoneLoginActivity.starActivity(this);
-                finish();
+                if (yinshi.isChecked()) {
+                    PhoneLoginActivity.starActivity(this);
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "请先同意用户协议", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.user_protocol:
                 String guidelUrl = BuildConfig.BASE_URL + "/view/getPrivacyPolicy";
@@ -102,6 +115,10 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                 break;
             case R.id.close:
                 this.finish();
+                break;
+            case R.id.zhengc:
+                String guidelUrl2 = BuildConfig.BASE_URL + "/view/getPrivacyPolicy";
+                VanguardListPageActivity.startH5Activity(this, guidelUrl2, "隐私政策");
                 break;
         }
     }
@@ -232,7 +249,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                     ConstantScUtil.sensorsLogin("微信");
                     finish();
                 }
-            }else {
+            } else {
                 showToast("登录失败");
                 finish();
             }
