@@ -133,6 +133,15 @@ public class BannerClicker {
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;
+            case 31:
+                if (BearMallAplication.getInstance().getUser() == null) {
+                    LoginActivity.starActivity(activity);
+                    return;
+                }
+                WebActivity.startWebActivity(activity, 31, target, title);
+                //TODO[banner点击]
+                ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
+                break;
         }
     }
 
