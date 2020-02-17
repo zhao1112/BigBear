@@ -208,7 +208,12 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             .placeholder(R.drawable.mine_user_icon_defult)
             .error(R.drawable.mine_user_icon_defult)
             .centerCrop();
-    private String upUrl = "http://testapi.bbbearmall.com/view/getUpgradeInfo";
+    private String upUrl1 = "http://api.bbbearmall.com/view/getUpgradeInfo1";
+    private String upUrl2 = "http://api.bbbearmall.com/view/getUpgradeInfo2";
+    private String upUrl3 = "http://api.bbbearmall.com/view/getUpgradeInfo3";
+    private String upUrl4 = "http://api.bbbearmall.com/view/getUpgradeInfo4";
+    private String upUrl5 = "http://api.bbbearmall.com/view/getUpgradeInfo5";
+    private String upUrl6 = "http://api.bbbearmall.com/view/getUpgradeInfo6";
     private boolean invitation = true;
     private boolean checkImage = true;
     private boolean extension = true;
@@ -302,7 +307,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             case R.id.vip_v1_tips:
             case R.id.vip_v2_tips:
             case R.id.vip_partner_tips:
-                WebActivity.startWebActivity(VipExplainActivity.this, 0, upUrl, "规则说明");
+                setWeb(Type_Vip);
                 break;
             case R.id.vip_logon_invitation://邀请
             case R.id.vip_v1_invitation:
@@ -337,6 +342,29 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                 } else {
 //                    showPopUp(1);
                 }
+                break;
+        }
+    }
+
+    private void setWeb(int type_vip) {
+        switch (type_vip) {
+            case 1://注册会员
+                WebActivity.startWebActivity(VipExplainActivity.this, 0, upUrl1, "规则说明");
+                break;
+            case 2://超级会员
+                WebActivity.startWebActivity(VipExplainActivity.this, 0, upUrl2, "规则说明");
+                break;
+            case 3://大团长v1
+                WebActivity.startWebActivity(VipExplainActivity.this, 0, upUrl3, "规则说明");
+                break;
+            case 4://大团长v2
+                WebActivity.startWebActivity(VipExplainActivity.this, 0, upUrl4, "规则说明");
+                break;
+            case 5://大团长v3
+                WebActivity.startWebActivity(VipExplainActivity.this, 0, upUrl5, "规则说明");
+                break;
+            case 6://大团长v4
+                WebActivity.startWebActivity(VipExplainActivity.this, 0, upUrl6, "规则说明");
                 break;
         }
     }
