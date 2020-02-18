@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class BannerClicker {
     public static void bannerClick(Activity activity, int targetType, String target, String title) {
-        Log.i("bannerClick", "targetType: " + targetType + "--- target" + target);
+        Log.i("bannerClick", "targetType: " + targetType + "--- target" + target+"---"+title);
         switch (targetType) {
             case 1://外部淘宝链接
                 ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
@@ -129,7 +129,11 @@ public class BannerClicker {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE_OTHER, target, title);
+                if (("红包0元购").equals(title)) {
+                    WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, target, title);
+                } else {
+                    WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE_OTHER, target, title);
+                }
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;
