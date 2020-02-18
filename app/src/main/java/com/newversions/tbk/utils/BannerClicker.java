@@ -124,21 +124,21 @@ public class BannerClicker {
                 //TODO[购买名品折扣券]
                 ConstantScUtil.BrandCoupon();
                 break;
-            case 30://0元兑
+            case 30:
+                if (BearMallAplication.getInstance().getUser() == null) {
+                    LoginActivity.starActivity(activity);
+                    return;
+                }
+                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE_OTHER, target, title);
+                //TODO[banner点击]
+                ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
+                break;
+            case 20://0元兑
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(activity);
                     return;
                 }
                 WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, target, title);
-                //TODO[banner点击]
-                ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
-                break;
-            case 31:
-                if (BearMallAplication.getInstance().getUser() == null) {
-                    LoginActivity.starActivity(activity);
-                    return;
-                }
-                WebActivity.startWebActivity(activity, 31, target, title);
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;

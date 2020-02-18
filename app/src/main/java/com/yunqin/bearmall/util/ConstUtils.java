@@ -133,5 +133,6 @@ public class ConstUtils {
     public static final String TUIA_URL = "https://activity.tuia.cn/log/effect/v2";
 
 
-    public static final int WEB_TYPE = 30;
+    public static final int WEB_TYPE = 30;//0元兑
+    public static final int WEB_TYPE_OTHER = 20;
 }
