@@ -106,7 +106,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
                         "【原价】    " + goodDetailBean.getPrice() + "元" + "<br>" +
                         "【券后价】  " + goodDetailBean.getDiscountPrice() + "元<br><br><br>" +
                         "---------------<br>"+
-                        "复制评论" + "(" + taoToken + "),去【tao宝】下单<br>"));
+                        "復製评论" + "(" + taoToken + "),去【tao寶】下单<br>"));
                 etShareMsg.setSelection(etShareMsg.getText().length());
             }
 

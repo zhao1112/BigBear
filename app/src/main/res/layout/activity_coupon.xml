@@ -18,6 +18,7 @@
         android:layout_marginTop="@dimen/ds8"
         android:layout_marginRight="@dimen/ds30"
         android:background="@drawable/ad_bg_"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/top_layout">
 
 

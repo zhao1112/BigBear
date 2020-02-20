@@ -179,6 +179,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 }
             }
         });
+        Log.d("goods", "init: "+goodsId);
         rlv.setLayoutManager(new GridLayoutManager(this, 2));
         rlv.setAdapter(homeAdapter);
         mPresenter.init(goodsId);
