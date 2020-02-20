@@ -2,6 +2,7 @@ package com.newversions.tbk.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,11 +20,13 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.ui.activity.ShopActivity;
 import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
+import com.yunqin.bearmall.util.StarActivityUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +36,7 @@ import java.util.Map;
 
 public class BannerClicker {
     public static void bannerClick(Activity activity, int targetType, String target, String title) {
-        Log.i("bannerClick", "targetType: " + targetType + "--- target" + target+"---"+title);
+        Log.i("bannerClick", "targetType: " + targetType + "--- target" + target + "---" + title);
         switch (targetType) {
             case 1://外部淘宝链接
                 ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
@@ -145,6 +148,15 @@ public class BannerClicker {
                 WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, target, title);
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
+                break;
+            case 21:
+                if (BearMallAplication.getInstance().getUser() == null) {
+                    LoginActivity.starActivity(activity);
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putString("store_id", "20003");
+                StarActivityUtil.starActivity(activity, ShopActivity.class, bundle);
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package com.yunqin.bearmall.ui.activity.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.yunqin.bearmall.Constans;
@@ -35,6 +36,7 @@ public class ShopActivityModel implements ShopActivtyContract.Model {
         RetrofitApi.request(mContext, RetrofitApi.createApi(Api.class).getShopData(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
+                Log.d("getShopData", data);
                 shopBean = new Gson().fromJson(data,ShopBean.class);
                 shopDataCallBack.shopData(shopBean);
             }

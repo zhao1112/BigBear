@@ -418,9 +418,9 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             UserPromotion.Data data = promotion.getData();
             switch (promotion.getType()) {
                 case 1://注册会员
-                    setImageView("佣金提高20%", "额外推荐收益", "商学院VIP课程", R.mipmap.vip_yongjin, R.mipmap.vip_ewaishouyi, R.mipmap.vip_kecheng);
+                    setImageView("额外推荐收益", "商学院VIP课程", null, R.mipmap.vip_ewaishouyi, R.mipmap.vip_kecheng, 0);
                     hideImageView();
-                    showImageView(3);
+                    showImageView(2);
                     //任务状态
                     isCheckWXState(data.getCheckWXState(), vip_logon_image);
                     isInvitationDisplay(data.getInvitationIsDisplay(), vip_logon_invitation);
@@ -432,7 +432,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     showUpVip(1);
                     break;
                 case 2://超级会员
-                    setImageView("佣金提高60%", "额外团队收益", "商学院所有课程", R.mipmap.vip_yongjin, R.mipmap.vip_ewaishouyi, R.mipmap.vip_kecheng2);
+                    setImageView("佣金提高57%", "额外团队收益", "商学院所有课程", R.mipmap.vip_yongjin, R.mipmap.vip_ewaishouyi, R.mipmap.vip_kecheng2);
                     hideImageView();
                     showImageView(3);
                     //任务状态

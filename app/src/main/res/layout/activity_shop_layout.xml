@@ -80,6 +80,7 @@
                         android:background="@drawable/subject_bg">
 
                         <include layout="@layout/item_shop_top" />
+
                     </RelativeLayout>
 
 

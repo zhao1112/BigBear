@@ -63,6 +63,7 @@ import butterknife.OnClick;
  * 商业详情
  */
 public class GoodsDetailActivity extends BaseActivity implements Serializable, GoodsDetailContract.View {
+
     @BindView(R.id.ban_goods_image)
     Banner banGoodsImage;
     @BindView(R.id.tv_goods_title)
@@ -205,7 +206,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         @Override
         public GoodsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.item_priduct_sum, parent, false);
-
             return new GoodsViewHolder(view);
         }
 

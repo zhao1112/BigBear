@@ -1,6 +1,7 @@
 package com.yunqin.bearmall.ui.fragment.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
@@ -23,6 +24,7 @@ public class ShopGoodsModel implements ShopGoodsContract.Model {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getShopGoodsData(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
+                Log.d("onSuccess", data);
                 if (onPresenterModelListener != null) {
                     onPresenterModelListener.onSuccess(data);
                 }

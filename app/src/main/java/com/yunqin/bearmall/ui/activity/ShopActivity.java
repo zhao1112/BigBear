@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,40 +47,29 @@ public class ShopActivity extends BaseActivity implements ShopActivtyContract.UI
 
     @BindView(R.id.banner_top)
     TopBanner banner_top;
-
     @BindView(R.id.xtablelayout)
     XTabLayout xtablelayout;
-
     @BindView(R.id.viewpager)
     ViewPager viewpager;
-
     @BindView(R.id.shop_img)
     CircleImageView shop_img;
-
     @BindView(R.id.shop_name)
     TextView shop_name;
-
     @BindView(R.id.lable_one)
     TextView lable_one;
-
     @BindView(R.id.lable_two)
     TextView lable_two;
-
     @BindView(R.id.goods_text)
     TextView goods_text;
-
     @BindView(R.id.sale_text)
     TextView sale_text;
-
     @BindView(R.id.in_shop)
     HighlightButton in_shop;
-
     @BindView(R.id.back)
     RelativeLayout back;
 
     ShopTableAdapter adapter;
     private String store_id = "";
-
     private int isFavorite = 0;
     private int collection_index = -1;
 
@@ -113,6 +103,7 @@ public class ShopActivity extends BaseActivity implements ShopActivtyContract.UI
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             store_id = (String) bundle.get("store_id");
+            Log.e("storeId", "init: "+store_id );
             if (bundle.getInt("collection_index", -1) != -1) {
                 collection_index = bundle.getInt("collection_index", -1);
             }
@@ -171,13 +162,11 @@ public class ShopActivity extends BaseActivity implements ShopActivtyContract.UI
                 ShopBean.DataBean.AdListBean bean = adListBeans.get(position);
 //                    0：普通商品 1：说明广告 2：导购文章 4：会员往期活动 5：0元拼团 6：砍价免费拿 7 糖果夺宝
                 if (bean.getType() == 0) {
-
                     Intent intent = new Intent(ShopActivity.this, NewProductDetailActivity.class);
                     intent.putExtra("productId", "" + bean.getSource_id());
                     intent.putExtra("sku_id", "");
                     startActivity(intent);
                 } else if (bean.getType() == 2) {
-
                     String guidelUrl = BuildConfig.BASE_URL + "/view/findGuideArticleDetailPage?guideArticle_id=" + bean.getSource_id();
                     VanguardListPageActivity.startH5Activity(ShopActivity.this, guidelUrl, "导购详情");
 

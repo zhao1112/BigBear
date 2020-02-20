@@ -103,10 +103,10 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
                 taoToken = shareGoodsEntity.getTaoToken();
                 hiddenLoadingView();
                 etShareMsg.setText(Html.fromHtml("   <b>" + goodDetailBean.getName() + "</b><br>" +
-                        "【原价】  " + goodDetailBean.getPrice() + "元" + "<br>" +
-                        "【券后价】  " + goodDetailBean.getDiscountPrice() + "元<br>" +
-                        "【使用大熊商城再省】  " + goodDetailBean.getCommision() + "<br><br><br>" +
-                        "复制这条信息" + "，{" + taoToken + "}，打开【手机tao宝】即可查看<br>"));
+                        "【原价】    " + goodDetailBean.getPrice() + "元" + "<br>" +
+                        "【券后价】  " + goodDetailBean.getDiscountPrice() + "元<br><br><br>" +
+                        "---------------<br>"+
+                        "复制评论" + "(" + taoToken + "),去【tao宝】下单<br>"));
                 etShareMsg.setSelection(etShareMsg.getText().length());
             }
 

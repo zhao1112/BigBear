@@ -4,6 +4,7 @@ package com.yunqin.bearmall.ui.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,31 +43,21 @@ public class ShopGoodsFragment extends BaseFragment implements ShopGoodsContract
 
     @BindView(R.id.menu_goods_recycler_view)
     RecyclerView mRecyclerView;
-
-
     @BindViews({R.id.text1, R.id.text2, R.id.text3})
     List<TextView> textViews;
-
     @BindViews({R.id.view1, R.id.view2, R.id.view3})
     List<View> views;
-
     @BindViews({R.id.price, R.id.sales, R.id.score})
     List<LinearLayout> linearLayouts;
-
     @BindView(R.id.sort)
     LinearLayout sort;
-
     @BindView(R.id.no_data_layout)
     LinearLayout no_data_layout;
-
     @BindView(R.id.twink_layout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
 
     ShopGoodsContract.Presenter presenter;
-
-
     private Map<String, String> mHashMap = new HashMap<>();
-
 
     @Override
     public int layoutId() {
@@ -82,16 +73,18 @@ public class ShopGoodsFragment extends BaseFragment implements ShopGoodsContract
         try {
             Bundle bundle = getArguments();
             mHashMap.put("store_id", (String) bundle.get("store_id"));
-            mHashMap.put("tag_id", (String) bundle.get("tag_id"));
+            if (bundle.get("store_id").equals("20003")){
+                mHashMap.put("page_numbe", (String) bundle.get("tag_id"));
+            }else {
+                mHashMap.put("tag_id", (String) bundle.get("tag_id"));
+            }
         } catch (Exception e) {
+
         }
 
         presenter = new ShopGoodsPresenter(getActivity(), this);
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-
-
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(getActivity()));
         mTwinklingRefreshLayout.setBottomView(new RefreshBottomView(getActivity()));
         mTwinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
@@ -109,7 +102,6 @@ public class ShopGoodsFragment extends BaseFragment implements ShopGoodsContract
                 } else {
                     mTwinklingRefreshLayout.finishLoadmore();
                 }
-
             }
         });
 

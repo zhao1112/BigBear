@@ -234,12 +234,10 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                     showToast("请稍后再试");
                     return;
                 }
-
 //                if (!BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
 //                    joinMember("您还不是会员，无法兑换。马上开通会员享受更多权益！");
 //                    return;
 //                }
-
                 Constans.params.clear();
                 showLoading();
                 if (groupPurchasingItemBean.getIsPart() == 0) {
@@ -339,6 +337,7 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 if (position == 1 || position == 2) {
@@ -349,6 +348,7 @@ public class ZeroMoneyDetailsActivity extends BaseActivity implements JoinZeroCa
                     transparentStatusHeadLayout.setAlpha(1 - mAppBarAlptha);
                 }
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 

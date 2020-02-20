@@ -152,15 +152,15 @@ public class FragmentZeroDetails extends BaseFragment implements ScrollViewListe
         headLayout.setFocusableInTouchMode(true);
         headLayout.requestFocus();
 
-        customRecommendView.setTvBottom("推荐商品");
-        customRecommendView.setDiviervisibility(View.VISIBLE);
-        customRecommendView.setTopTextViewLeft();
-        customRecommendView.setTopTextViewBgColor(getActivity().getResources().getColor(R.color.white));
-        customRecommendView.setTopTextViewHeight(getActivity().getResources().getDimension(R.dimen.ds94));
-        customRecommendView.hideTopLayout();
-
-        customRecommendView.setManager(new GridLayoutManager(getActivity(), 2));
-        customRecommendView.start(getActivity());
+//        customRecommendView.setTvBottom("推荐商品");
+//        customRecommendView.setDiviervisibility(View.VISIBLE);
+//        customRecommendView.setTopTextViewLeft();
+//        customRecommendView.setTopTextViewBgColor(getActivity().getResources().getColor(R.color.white));
+//        customRecommendView.setTopTextViewHeight(getActivity().getResources().getDimension(R.dimen.ds94));
+//        customRecommendView.hideTopLayout();
+//
+//        customRecommendView.setManager(new GridLayoutManager(getActivity(), 2));
+//        customRecommendView.start(getActivity());
     }
 
     @Override

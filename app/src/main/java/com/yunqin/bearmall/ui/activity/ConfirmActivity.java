@@ -54,83 +54,57 @@ import butterknife.OnClick;
  */
 public class ConfirmActivity extends BaseActivity implements ConfirmActivityContract.UI {
 
-    public static final String INTENT_DATA = "data";
-
-
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
-
     @BindView(R.id.show_address)
     LinearLayout show_address;
-
     @BindView(R.id.add_address)
     LinearLayout add_address;
-
     @BindView(R.id.toolbar_title)
     TextView titleTextView;
-
-
     @BindView(R.id.tangguo)
     TextView tangguo;
-
     @BindView(R.id.yunfei)
     TextView yunfei;
-
     @BindView(R.id.rmb)
     TextView rmb;
-
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.phone)
     TextView phone;
     @BindView(R.id.dizhi)
     TextView dizhi;
-
-    private String receiver_id = "";
-
     @BindView(R.id.total_money)
     TextView total_money;
-
-
     @BindView(R.id.show_id_number_view)
     LinearLayout showIdNumberView;
-
     @BindView(R.id.input_id_number_view)
     LinearLayout inputIdNumberView;
-
     @BindView(R.id.input_id_number_edit)
     EditText inputIdNumberEditText;
-
     @BindView(R.id.id_number_commit)
     Button idNumberCommit;
-
     @BindView(R.id.id_number_tv)
     TextView idNumberTextView;
     @BindView(R.id.new_zhekou_jine)
     TextView new_zhekou_jine;
     @BindView(R.id.order_coupon_tv)
     TextView order_coupon_tv;
-
     @BindView(R.id.id_number_update)
     ImageView idNumberUpdate;
 
     private boolean showHaiWaiGou = false;
     private boolean yanZhengIdNumber = false;
-
-
+    private String receiver_id = "";
+    public static final String INTENT_DATA = "data";
     private static final int MO_REN_ZHI = 0;// 默认值
     private static final int WU_JING_WAI = 1;// 没有境外商品
     private static final int YOU_JING_WAI_WAIT = 2;// 有境外商品，未验证
     private static final int YOU_JING_WAI_SUCCESS = 3;// 有境外商品，验证通过
-
     private int hiType = MO_REN_ZHI;
-
-
     private static final int REFUND_CODE = 66;
     private static final int YOUHUIQUANREFUND_CODE = 666;
-
-    ConfirmActivityContract.Presenter presenter;
-
+    private ConfirmActivityContract.Presenter presenter;
     // 修改接口添加字段 ** 开始
     private String ORDER_TYPE;// 0 普通订单  3 砍价订单
     private String address = "";// 地址
@@ -140,19 +114,15 @@ public class ConfirmActivity extends BaseActivity implements ConfirmActivityCont
     private String bargainRecord_id = "";// 砍价记录ID
     private String userLog_id = "";// 优惠券ID
     // 修改接口添加字段 ** 结束
-
-
     private boolean isAddAddress = false;
     private int order_type_int;
+    private AddressListBean.DataBean mDataBean = null;
+    private List<NewOrderBean> list;
 
     @Override
     public int layoutId() {
         return R.layout.activity_confirm;
     }
-
-
-    private AddressListBean.DataBean mDataBean = null;
-    private List<NewOrderBean> list;
 
     @Override
     public void init() {
@@ -174,8 +144,6 @@ public class ConfirmActivity extends BaseActivity implements ConfirmActivityCont
         } else {
             order_type_int = 0;
         }
-
-
         try {
             mDataBean = (AddressListBean.DataBean) getIntent().getSerializableExtra("address");
             address = mDataBean.getAddress();
@@ -185,20 +153,13 @@ public class ConfirmActivity extends BaseActivity implements ConfirmActivityCont
         } catch (Exception e) {
             mDataBean = null;
         }
-
-
         if (list == null) {
             finish();
             return;
         }
-
-
         initOrder();
         initLocation();
-
         initCoupon();
-
-
     }
 
     private void initCoupon() {
@@ -499,51 +460,41 @@ public class ConfirmActivity extends BaseActivity implements ConfirmActivityCont
                 StarActivityUtil.startActivityForResult(this, AddressActivity.class, bundle, REFUND_CODE);
                 break;
             case R.id.go_pay:
-
                 if (System.currentTimeMillis() - lastTime > 1000) {
                     lastTime = System.currentTimeMillis();
                 } else {
                     return;
                 }
-
                 try {
                     if (!isAddAddress) {
                         Toast.makeText(this, "请先选择收货地址", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
-
                     if (hiType == MO_REN_ZHI) {
                         initOrder();
                         Toast.makeText(this, "网络错误,请重试!", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
                     if (hiType == YOU_JING_WAI_WAIT) {
                         Toast.makeText(this, "请填写身份证号", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
                     // 确认订单，下单接口
                     Map<String, String> mHashMap = new HashMap<>();
-
                     try {
                         mHashMap.put("idCard", inputIdNumberEditText.getText().toString());
                     } catch (Exception e) {
-                    }
 
+                    }
                     mHashMap.put("receiver_id", receiver_id);
                     mHashMap.put("paymentMethod_id", paymentMethod_id);
-
                     mHashMap.put("orderType", ORDER_TYPE);
                     mHashMap.put("address", address);
                     mHashMap.put("consignee", consignee);
                     mHashMap.put("areaName", areaName);
                     mHashMap.put("phone", mPhone);
                     mHashMap.put("bargainRecord_id", bargainRecord_id + "");
-
                     JSONArray jsonArray = new JSONArray();
-
                     for (int i = 0; i < list.size(); i++) {
                         NewOrderBean newOrderBean = list.get(i);
                         for (int j = 0; j < newOrderBean.getChildBeans().size(); j++) {
@@ -559,7 +510,6 @@ public class ConfirmActivity extends BaseActivity implements ConfirmActivityCont
                             }
                         }
                     }
-
                     mHashMap.put("amount", totalMoneyP + "");
                     mHashMap.put("btAmount", tangGuoP);
                     mHashMap.put("orderItemList", jsonArray.toString());
