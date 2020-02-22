@@ -34,6 +34,14 @@ public class OpenGoodsDetail {
         // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
         mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
+        view.findViewById(R.id.se_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lighton((Activity) context);
+                mPopupWindow.dismiss();
+            }
+        });
+
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
