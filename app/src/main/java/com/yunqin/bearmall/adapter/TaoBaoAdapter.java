@@ -17,6 +17,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.TaoBaoBeanNew;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +76,14 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 invalidOrderHolder.state.setText("已失效");
                 Glide.with(mContext).load(list.get(position).getImageUrl()).apply(mOptions).into(invalidOrderHolder.image);
                 invalidOrderHolder.price.setText("¥" + list.get(position).getPayAmount());
-                invalidOrderHolder.commission.setText("预估返佣" + list.get(position).getEffectEstimate() + "元");
+
+
+                Double aDouble = Double.valueOf(list.get(position).getEffectEstimate());
+                BigDecimal bigDecimal = new BigDecimal(aDouble);
+                String mon = bigDecimal.setScale(2, RoundingMode.DOWN).toString();
+                invalidOrderHolder.commission.setText("预估返佣" + mon + "元");
+
+
                 invalidOrderHolder.commission.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);//中划线
                 invalidOrderHolder.commission.getPaint().setAntiAlias(true); //去掉锯齿
                 Log.i("onBindViewHolder", "onBindViewHolder: " + list.get(position).getTaoOrders_id());

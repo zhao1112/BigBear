@@ -521,6 +521,7 @@ public class ConfirmActivity extends BaseActivity implements ConfirmActivityCont
                         public void onSuccess(String data) throws JSONException {
                             hiddenLoadingView();
                             JSONObject jsonObject = new JSONObject(data);
+
                             JSONObject jsonObject1 = jsonObject.optJSONObject("data");
 
                             Bundle bundle2 = new Bundle();

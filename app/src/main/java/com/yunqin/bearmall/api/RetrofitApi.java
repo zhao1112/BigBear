@@ -198,6 +198,7 @@ public class RetrofitApi {
                                                listener.onFail(new Exception(data));
                                            }
                                            String msg = jsonObject.optString("msg");
+                                           Log.e("toase", "onNext: "+jsonObject.optInt("code"));
                                            if (!"重复请求".equals(msg)) {
                                                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
                                            }

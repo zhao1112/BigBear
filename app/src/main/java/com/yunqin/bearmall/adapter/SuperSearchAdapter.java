@@ -1,6 +1,7 @@
 package com.yunqin.bearmall.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.SuperSearch;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -52,11 +55,16 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         searchHolder.mSeller_name.setText(StringUtils.addImageLabel(mContext, list.get(position).getUser_type().equals("1") ? R.mipmap.icon_tmall :
                 R.mipmap.icon_taobao1, list.get(position).getShop_title()));
         searchHolder.mPro_quan.setText("券¥" + list.get(position).getCoupon_info_money());
-        double kefees = new BigDecimal(Double.valueOf(list.get(position).getTkfee3()) * 0.63).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        searchHolder.mTv_commision.setText("预估返：" + kefees + "元");
+
+        Double aDouble = Double.valueOf(list.get(position).getTkfee3());
+        BigDecimal bigDecimal = new BigDecimal(aDouble);
+        String mon = bigDecimal.setScale(2, RoundingMode.DOWN).toString();
+
+        searchHolder.mTv_commision.setText("预估返：" + mon + "元");
         searchHolder.mPro_yuanjia.setText("¥" + list.get(position).getSize());
+        searchHolder.mPro_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         searchHolder.mXiaoliang.setText(list.get(position).getVolume() + "人已购");
-        searchHolder.mQuanhoujia.setText(list.get(position).getQuanhou_jiage());
+        searchHolder.mQuanhoujia.setText("¥" + list.get(position).getQuanhou_jiage());
 
         searchHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +76,11 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         });
     }
 
+    public static String doubleToString(double num) {
+        //使用0.00不足位补0，#.##仅保留有效位
+        return new DecimalFormat("0.00").format(num);
+    }
+
     @Override
     public int getItemCount() {
         return list.size();
@@ -76,7 +89,7 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private class SuperSearchHolder extends RecyclerView.ViewHolder {
 
         private final ImageView mPro_image;
-//        private final ImageView mIm_tmall;
+        //        private final ImageView mIm_tmall;
         private final TextView mPro_title;
         private final TextView mSeller_name;
         private final TextView mPro_quan;
