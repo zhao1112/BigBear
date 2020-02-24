@@ -155,7 +155,7 @@ public class BannerClicker {
                     return;
                 }
                 Bundle bundle = new Bundle();
-                bundle.putString("store_id", "20003");
+                bundle.putString("store_id", target);
                 StarActivityUtil.starActivity(activity, ShopActivity.class, bundle);
                 break;
         }

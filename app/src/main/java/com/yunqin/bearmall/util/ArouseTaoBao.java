@@ -14,7 +14,6 @@ import com.alibaba.baichuan.android.trade.model.OpenType;
 import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
-import com.newversions.tbk.activity.GoodsDetailActivity;
 
 import java.util.HashMap;
 import java.util.Map;

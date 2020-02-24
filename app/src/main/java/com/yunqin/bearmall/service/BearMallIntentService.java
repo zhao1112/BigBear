@@ -1,5 +1,6 @@
 package com.yunqin.bearmall.service;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.eventbus.GetMessageEvent;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
+import com.yunqin.bearmall.ui.activity.MineOrderActivity;
 import com.yunqin.bearmall.util.INotificationUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 
@@ -57,7 +59,7 @@ public class BearMallIntentService extends GTIntentService {
                 Intent intent = new Intent(context, NewProductDetailActivity.class);
                 intent.putExtra("productId", "" + productId);
                 intent.putExtra("sku_id", "");
-                // TODO 处理透传消息
+                // TODO 处理透传消息onReceiveMessageData
                 INotificationUtil.showNotification(context, intent, title, content);
             } else if ("102".equals(model)) {
                 try {
@@ -81,7 +83,7 @@ public class BearMallIntentService extends GTIntentService {
                 }
             }else if ("103".equals(model)){
                 try {
-
+                    MineOrderActivity.openMineOrderActivity((Activity) context,true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
