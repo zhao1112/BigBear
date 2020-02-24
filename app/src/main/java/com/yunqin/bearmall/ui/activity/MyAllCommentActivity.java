@@ -1,5 +1,6 @@
 package com.yunqin.bearmall.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -135,12 +136,12 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
         view_right.setVisibility(!visibility ? View.VISIBLE : View.GONE);
     }
 
-    private int showWhich ;
+    private int showWhich;
 
     private void switchFragment(int index) {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         if (index == 1) {
-            if(showWhich == 1){
+            if (showWhich == 1) {
                 return;
             }
 
@@ -149,7 +150,7 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
                 fragmentAllComment = new FragmentAllComment();
                 transaction.add(R.id.bt_content, fragmentAllComment);
             }
-            if(fragmentTextComment != null){
+            if (fragmentTextComment != null) {
                 transaction.hide(fragmentTextComment);
             }
             transaction.hide(fragmentAllComment);
@@ -157,7 +158,7 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
             transaction.show(fragmentAllComment);
             transaction.commit();
         } else {
-            if(showWhich == 2){
+            if (showWhich == 2) {
                 return;
             }
 
@@ -166,7 +167,7 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
                 fragmentTextComment = new FragmentTextComment();
                 transaction.add(R.id.bt_content, fragmentTextComment);
             }
-            if(fragmentAllComment != null){
+            if (fragmentAllComment != null) {
                 transaction.hide(fragmentAllComment);
             }
             transaction.hide(fragmentTextComment);
@@ -190,7 +191,7 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
             lp.leftMargin = 40;
             lp.gravity = Gravity.CENTER_VERTICAL;
             imageView.setLayoutParams(lp);
-            Glide.with(this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_comment)).load( waitCommentBean.getData().getItemList().get(i).getThumbnail()).into(imageView);
+            Glide.with(this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_comment)).load(waitCommentBean.getData().getItemList().get(i).getThumbnail()).into(imageView);
             images_layout.addView(imageView);
             int finalI = i;
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +202,6 @@ public class MyAllCommentActivity extends BaseActivity implements AllCommentCont
             });
         }
     }
-
 
 
     private void goToComment(int orders_id) {
