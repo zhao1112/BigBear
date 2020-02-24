@@ -47,6 +47,28 @@ public class INotificationUtil {
         notificationManager.notify(getDataId(), mBuilder.build());
     }
 
+    public static void showMineOrderActivity(Context context, Intent intent, String title, String content) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "default");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(getDataId() + "", "default", NotificationManager.IMPORTANCE_DEFAULT);
+            mBuilder.setChannelId(getDataId() + "");
+            notificationManager.createNotificationChannel(channel);
+        }
+        mBuilder.setContentTitle(title)
+                .setContentText(content)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setWhen(System.currentTimeMillis())
+                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setTicker(content)
+                .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND)
+                .setContentIntent(PendingIntent.getActivity(context, getDataId(), intent, PendingIntent.FLAG_CANCEL_CURRENT));
+        notificationManager.notify(getDataId(), mBuilder.build());
+    }
+
+
 
     private static int getDataId() {
         int i = 0;

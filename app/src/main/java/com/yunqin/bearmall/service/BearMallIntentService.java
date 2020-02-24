@@ -83,7 +83,10 @@ public class BearMallIntentService extends GTIntentService {
                 }
             }else if ("103".equals(model)){
                 try {
-                    MineOrderActivity.openMineOrderActivity((Activity) context,true);
+                    String title = jsonObject.optString("title");
+                    String content = jsonObject.optString("content");
+                    Intent intent = new Intent(context, MineOrderActivity.class);
+                    INotificationUtil.showMineOrderActivity(context, intent, title, content);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
