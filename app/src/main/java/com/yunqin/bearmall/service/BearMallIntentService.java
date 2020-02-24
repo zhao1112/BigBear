@@ -86,7 +86,7 @@ public class BearMallIntentService extends GTIntentService {
                     String title = jsonObject.optString("title");
                     String content = jsonObject.optString("content");
                     Intent intent = new Intent(context, MineOrderActivity.class);
-                    intent.putExtra("TYPE", true);
+                    intent.putExtra("TYPE", false);
                     INotificationUtil.showMineOrderActivity(context, intent, title, content);
                 } catch (Exception e) {
                     e.printStackTrace();
