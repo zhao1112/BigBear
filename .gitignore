@@ -40,3 +40,6 @@ Thumbs.db
 obj/
 =======
 # Created by .ignore support plugin (hsz.mobi)
+
+apk/*.apk
+apk/*.json
