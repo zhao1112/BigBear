@@ -183,8 +183,9 @@ public class ShopActivity extends BaseActivity implements ShopActivtyContract.UI
         for (int i = 0; i < lables.size(); i++) {
             xtablelayout.addTab(xtablelayout.newTab().setText(lables.get(i).getTag_name()));
         }
+        xtablelayout.addTab(xtablelayout.newTab().setText("本店推荐"));
         xtablelayout.addTab(xtablelayout.newTab().setText("店铺活动"));
-        adapter = new ShopTableAdapter(ShopActivity.this, getSupportFragmentManager(), lables, store_id);
+        adapter = new ShopTableAdapter(ShopActivity.this, getSupportFragmentManager(), store_id);
         viewpager.setAdapter(adapter);
         viewpager.setCurrentItem(0);
         viewpager.setOffscreenPageLimit(3);

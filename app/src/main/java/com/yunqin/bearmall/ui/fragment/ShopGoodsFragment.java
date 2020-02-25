@@ -73,11 +73,7 @@ public class ShopGoodsFragment extends BaseFragment implements ShopGoodsContract
         try {
             Bundle bundle = getArguments();
             mHashMap.put("store_id", (String) bundle.get("store_id"));
-            if (bundle.get("store_id").equals("20003")){
-                mHashMap.put("page_numbe", (String) bundle.get("tag_id"));
-            }else {
-                mHashMap.put("tag_id", (String) bundle.get("tag_id"));
-            }
+            mHashMap.put("page_numbe", (String) bundle.get("tag_id"));
         } catch (Exception e) {
 
         }
