@@ -106,20 +106,14 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-
         if (holder instanceof VirtualHolder) {
-
             hideView((VirtualHolder) holder);
             ((VirtualHolder) holder).view.setVisibility(View.VISIBLE);
-
             OrderBean.DataBean.OrdersListBean ordersListBean = list.get(position);
             ((VirtualHolder) holder).name.setText(ordersListBean.getVirtualItem().getTitle());
             ((VirtualHolder) holder).price.setText("¥" + ordersListBean.getVirtualItem().getPrice());
             ((VirtualHolder) holder).count.setText("X" + ordersListBean.getVirtualItem().getQuantity());
-
             String types = ordersListBean.getVirtualItem().getType() == 0 ? "话费订单-" : "流量订单-";
-
             if (ordersListBean.getStatus() == DENGDAIFUKUAN) {
                 if (ordersListBean.getIsExpire() == 0) {// 是否过期
                     ((VirtualHolder) holder).order_type.setText(types + "待付款");
@@ -130,11 +124,8 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     ((VirtualHolder) holder).order_go_pay.setTag(String.format("%d,%d", position, QUFUKUAN));
                     ((VirtualHolder) holder).order_cancel.setOnClickListener(this);
                     ((VirtualHolder) holder).order_go_pay.setOnClickListener(this);
-
                     ((VirtualHolder) holder).goods_view.setTag(String.format("%d#%d,%d", position, 0, CHAKANXIANGQING));
                     ((VirtualHolder) holder).goods_view.setOnClickListener(this);
-
-
                 } else {
                     ((VirtualHolder) holder).order_type.setText(types + "已过期");
                     ((VirtualHolder) holder).order_del.setVisibility(View.VISIBLE);
@@ -143,35 +134,26 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             } else if (ordersListBean.getStatus() == DENGDAIFAHUO) {
                 ((VirtualHolder) holder).order_type.setText(types + "待发货");
-
                 ((VirtualHolder) holder).goods_view.setTag(String.format("%d#%d,%d", position, 0, CHAKANXIANGQING));
                 ((VirtualHolder) holder).goods_view.setOnClickListener(this);
-
                 ((VirtualHolder) holder).view.setVisibility(View.GONE);
-
-
             } else if (ordersListBean.getStatus() == YIWANCHENG) {
                 ((VirtualHolder) holder).order_type.setText(types + "已完成");
-                ((VirtualHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
+//                ((VirtualHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
                 ((VirtualHolder) holder).order_buy_again.setTag(String.format("%d,%d", position, ZAICIGOUMAI));
                 ((VirtualHolder) holder).order_buy_again.setOnClickListener(this);
-
-
                 ((VirtualHolder) holder).goods_view.setTag(String.format("%d#%d,%d", position, 0, CHAKANXIANGQING));
                 ((VirtualHolder) holder).goods_view.setOnClickListener(this);
             } else if (ordersListBean.getStatus() == YISHIBAI) {
                 ((VirtualHolder) holder).order_type.setText(types + "已失败");
-
                 ((VirtualHolder) holder).order_del.setVisibility(View.VISIBLE);
                 ((VirtualHolder) holder).order_del.setTag(String.format("%d,%d", position, SHANCHUDINGDAN));
                 ((VirtualHolder) holder).order_del.setOnClickListener(this);
-
             } else if (ordersListBean.getStatus() == YIQUXIAO) {
                 ((VirtualHolder) holder).order_type.setText(types + "已取消");
                 ((VirtualHolder) holder).view.setVisibility(View.GONE);
             } else if (ordersListBean.getStatus() == YIJUJUE) {
                 ((VirtualHolder) holder).order_type.setText(types + "已拒绝");
-
                 ((VirtualHolder) holder).order_del.setVisibility(View.VISIBLE);
                 ((VirtualHolder) holder).order_del.setTag(String.format("%d,%d", position, SHANCHUDINGDAN));
                 ((VirtualHolder) holder).order_del.setOnClickListener(this);
@@ -183,19 +165,14 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .into(((VirtualHolder) holder).imgview);
         }
 
-
         if (holder instanceof IViewHolder) {
-
             ((IViewHolder) holder).view.setVisibility(View.VISIBLE);
-
             OrderBean.DataBean.OrdersListBean bean = list.get(position);
             hideView(((IViewHolder) holder));
             ((IViewHolder) holder).orderTyleTextView.setVisibility(View.VISIBLE);
             ((IViewHolder) holder).titleTextView.setText(bean.getStore_name());
             if (bean.getStatus() == DENGDAIFUKUAN) {
-
                 if (bean.getIsExpire() == 0) {
-
                     if (bean.getOrderType() == 0) {
                         ((IViewHolder) holder).orderTyleTextView.setText("待付款");
                     } else if (bean.getOrderType() == 1) {
@@ -207,19 +184,14 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     } else {
                         ((IViewHolder) holder).orderTyleTextView.setText("待付款");
                     }
-
-
                     ((IViewHolder) holder).order_cancel.setVisibility(View.VISIBLE);
                     ((IViewHolder) holder).order_go_pay.setVisibility(View.VISIBLE);
                     // 设置监听事件
-
                     ((IViewHolder) holder).order_cancel.setTag(String.format("%d,%d", position, QUXIAO));
                     ((IViewHolder) holder).order_go_pay.setTag(String.format("%d,%d", position, QUFUKUAN));
                     ((IViewHolder) holder).order_cancel.setOnClickListener(this);
                     ((IViewHolder) holder).order_go_pay.setOnClickListener(this);
                 } else {
-
-
                     if (bean.getOrderType() == 0) {
                         ((IViewHolder) holder).orderTyleTextView.setText(Html.fromHtml("<font color=#999999>已过期</font>"));
                     } else if (bean.getOrderType() == 1) {
@@ -231,15 +203,11 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     } else {
                         ((IViewHolder) holder).orderTyleTextView.setText(Html.fromHtml("<font color=#999999>已过期</font>"));
                     }
-
                     ((IViewHolder) holder).order_del.setVisibility(View.VISIBLE);
                     ((IViewHolder) holder).order_del.setTag(String.format("%d,%d", position, SHANCHUDINGDAN));
                     ((IViewHolder) holder).order_del.setOnClickListener(this);
                 }
-
-
             } else if (bean.getStatus() == DENGDAIFAHUO) {
-
                 if (bean.getOrderType() == 0) {
                     ((IViewHolder) holder).orderTyleTextView.setText("待发货");
                 } else if (bean.getOrderType() == 1) {
@@ -251,27 +219,18 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else {
                     ((IViewHolder) holder).orderTyleTextView.setText("待发货");
                 }
-
-
                 if (bean.getIsAllowAfterSales() == 1) {
                     ((IViewHolder) holder).order_apply_after_sale.setVisibility(View.VISIBLE);
                 } else {
                     ((IViewHolder) holder).order_apply_after_sale.setVisibility(View.GONE);
                 }
-
-
                 ((IViewHolder) holder).order_status_view.setVisibility(View.VISIBLE);
-                ((IViewHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
-
+//                ((IViewHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_buy_again.setTag(String.format("%d,%d", position, ZAICIGOUMAI));
                 ((IViewHolder) holder).order_apply_after_sale.setTag(String.format("%d,%d", position, SHENQINGSHOUHOU));
                 ((IViewHolder) holder).order_buy_again.setOnClickListener(this);
                 ((IViewHolder) holder).order_apply_after_sale.setOnClickListener(this);
-
-
             } else if (bean.getStatus() == YIFAHUO) {
-
-
                 if (bean.getOrderType() == 0) {
                     ((IViewHolder) holder).orderTyleTextView.setText("待收货");
                 } else if (bean.getOrderType() == 1) {
@@ -283,71 +242,50 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else {
                     ((IViewHolder) holder).orderTyleTextView.setText("待收货");
                 }
-
-
                 ((IViewHolder) holder).order_status_view.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_info_view.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_status.setText(String.format("你的订单已由%s检货完毕,待出库已交付%s", bean.getStore_name(), bean.getDeliveryCorp()));
                 ((IViewHolder) holder).order_number.setText(bean.getTrackingNo());
                 ((IViewHolder) holder).order_time.setText(bean.getDeliveryTime());
-
                 if (bean.getIsAllowAfterSales() == 1) {
                     ((IViewHolder) holder).order_apply_after_sale.setVisibility(View.VISIBLE);
                 } else {
                     ((IViewHolder) holder).order_apply_after_sale.setVisibility(View.GONE);
                 }
-
                 ((IViewHolder) holder).order_check_logistics.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_confirm_receipt.setVisibility(View.VISIBLE);
-                ((IViewHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
-
+//                ((IViewHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_apply_after_sale.setTag(String.format("%d,%d", position, SHENQINGSHOUHOU));
                 ((IViewHolder) holder).order_check_logistics.setTag(String.format("%d,%d", position, CHAKANWULIU));
                 ((IViewHolder) holder).order_confirm_receipt.setTag(String.format("%d,%d", position, QUERENSHOUHUO));
                 ((IViewHolder) holder).order_buy_again.setTag(String.format("%d,%d", position, ZAICIGOUMAI));
-
                 ((IViewHolder) holder).order_apply_after_sale.setOnClickListener(this);
                 ((IViewHolder) holder).order_check_logistics.setOnClickListener(this);
                 ((IViewHolder) holder).order_confirm_receipt.setOnClickListener(this);
                 ((IViewHolder) holder).order_buy_again.setOnClickListener(this);
-
             } else if (bean.getStatus() == YISHOUHUO || bean.getStatus() == YIWANCHENG) {
-
-
                 if (bean.isReviewed()) {
                     ((IViewHolder) holder).order_appraise.setVisibility(View.GONE);
-
-
                 } else {
                     ((IViewHolder) holder).order_appraise.setVisibility(View.VISIBLE);
                 }
-
                 if (bean.getIsAllowAfterSales() == 1) {
                     ((IViewHolder) holder).order_apply_after_sale.setVisibility(View.VISIBLE);
                 } else {
                     ((IViewHolder) holder).order_apply_after_sale.setVisibility(View.GONE);
                 }
-
                 ((IViewHolder) holder).orderTyleTextView.setText("交易已完成");
-
                 ((IViewHolder) holder).order_check_logistics.setVisibility(View.VISIBLE);
-                ((IViewHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
-
+//                ((IViewHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_check_logistics.setTag(String.format("%d,%d", position, CHAKANWULIU));
-
-
                 ((IViewHolder) holder).order_apply_after_sale.setTag(String.format("%d,%d", position, SHENQINGSHOUHOU));
                 ((IViewHolder) holder).order_appraise.setTag(String.format("%d,%d", position, SHAIDANPINGJIA));
                 ((IViewHolder) holder).order_buy_again.setTag(String.format("%d,%d", position, ZAICIGOUMAI));
-
                 ((IViewHolder) holder).order_check_logistics.setOnClickListener(this);
                 ((IViewHolder) holder).order_apply_after_sale.setOnClickListener(this);
                 ((IViewHolder) holder).order_appraise.setOnClickListener(this);
                 ((IViewHolder) holder).order_buy_again.setOnClickListener(this);
-
             } else if (bean.getStatus() == YIQUXIAO) {
-
-
                 if (bean.getOrderType() == 0) {
                     ((IViewHolder) holder).orderTyleTextView.setText(Html.fromHtml("<font color=#999999>已取消</font>"));
                 } else if (bean.getOrderType() == 1) {
@@ -359,22 +297,15 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else {
                     ((IViewHolder) holder).orderTyleTextView.setText(Html.fromHtml("<font color=#999999>已取消</font>"));
                 }
-
 //                ((IViewHolder) holder).order_del.setVisibility(View.VISIBLE);
-                ((IViewHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
-
+//                ((IViewHolder) holder).order_buy_again.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_del.setTag(String.format("%d,%d", position, SHANCHUDINGDAN));
                 ((IViewHolder) holder).order_buy_again.setTag(String.format("%d,%d", position, ZAICIGOUMAI));
-
                 ((IViewHolder) holder).order_del.setOnClickListener(this);
                 ((IViewHolder) holder).order_buy_again.setOnClickListener(this);
-
             } else if (bean.getStatus() == YIJUJUE) {
                 // TODO 拒绝
-
                 ((IViewHolder) holder).view.setVisibility(View.GONE);
-
-
                 if (bean.getOrderType() == 0) {
                     ((IViewHolder) holder).orderTyleTextView.setText("已拒绝");
                 } else if (bean.getOrderType() == 1) {
@@ -386,16 +317,12 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else {
                     ((IViewHolder) holder).orderTyleTextView.setText("已拒绝");
                 }
-
                 ((IViewHolder) holder).order_del.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_del.setTag(String.format("%d,%d", position, SHANCHUDINGDAN));
                 ((IViewHolder) holder).order_del.setOnClickListener(this);
-
             } else if (bean.getStatus() == YISHIBAI) {
                 // TODO 失败
                 ((IViewHolder) holder).view.setVisibility(View.GONE);
-
-
                 if (bean.getOrderType() == 0) {
                     ((IViewHolder) holder).orderTyleTextView.setText("已失败");
                 } else if (bean.getOrderType() == 1) {
@@ -407,18 +334,15 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else {
                     ((IViewHolder) holder).orderTyleTextView.setText("已失败");
                 }
-
                 ((IViewHolder) holder).order_del.setVisibility(View.VISIBLE);
                 ((IViewHolder) holder).order_del.setTag(String.format("%d,%d", position, SHANCHUDINGDAN));
                 ((IViewHolder) holder).order_del.setOnClickListener(this);
             }
-
             try {
                 Glide.with(mContext).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.mine_user_icon_defult)).load(bean.getLogo()).into(((IViewHolder) holder).imageView);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             ((IViewHolder) holder).contentLayout.removeAllViews();
             List<OrderBean.DataBean.OrdersListBean.ItemBean> items = bean.getItem();
             for (int i = 0; i < items.size(); i++) {
@@ -458,9 +382,7 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     } else {
                         goods_price.setText(String.format("￥%s+BC%s", itemBean.getPartPrice(), itemBean.getPartBtAmount()));
                     }
-
                     goods_count.setText(String.format("X%d", itemBean.getQuantity()));
-
                     view.setTag(String.format("%d#%d,%d", position, i, CHAKANXIANGQING));
                     view.setOnClickListener(this);
                     ((IViewHolder) holder).contentLayout.addView(view);
@@ -476,10 +398,8 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return list.size();
     }
 
-
     private static final int REAL_ORDER = 0x01;
     private static final int VIRTUAL_ORDER = 0x02;
-
 
     @Override
     public int getItemViewType(int position) {
@@ -496,12 +416,10 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.order_go_pay.setVisibility(View.GONE);
         holder.order_del.setVisibility(View.GONE);
         holder.order_check_info.setVisibility(View.GONE);
-
         holder.order_status_view.setVisibility(View.GONE);
         holder.order_info_view.setVisibility(View.GONE);
 
     }
-
 
     private void hideView(VirtualHolder holder) {
         holder.order_buy_again.setVisibility(View.GONE);
@@ -573,7 +491,6 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     class VirtualHolder extends RecyclerView.ViewHolder {
-
         @BindView(R.id.goods_pic)
         ImageView imgview;
         @BindView(R.id.goods_name)
@@ -582,7 +499,6 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView price;
         @BindView(R.id.goods_count)
         TextView count;
-
         // 申请售后
         @BindView(R.id.order_apply_after_sale)
         Button order_apply_after_sale;
@@ -610,15 +526,12 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // 查看详情
         @BindView(R.id.order_check_info)
         Button order_check_info;
-
         @BindView(R.id.order_footer_view)
         View view;
         @BindView(R.id.order_type)
         TextView order_type;
-
         @BindView(R.id.goods_view)
         LinearLayout goods_view;
-
 
         public VirtualHolder(View itemView) {
             super(itemView);
@@ -637,7 +550,6 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView orderTyleTextView;
         @BindView(R.id.order_content)
         LinearLayout contentLayout;
-
         // 申请售后
         @BindView(R.id.order_apply_after_sale)
         Button order_apply_after_sale;
@@ -665,11 +577,8 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // 查看详情
         @BindView(R.id.order_check_info)
         Button order_check_info;
-
-
         @BindView(R.id.order_info_view)
         LinearLayout order_info_view;
-
         // 订单状态View
         @BindView(R.id.order_status_view)
         LinearLayout order_status_view;
@@ -682,10 +591,8 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // 订单时间
         @BindView(R.id.order_time)
         TextView order_time;
-
         @BindView(R.id.order_footer_view)
         View view;
-
 
         public IViewHolder(View itemView) {
             super(itemView);
@@ -719,8 +626,6 @@ public class AllFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         void shenQingShouHou(int index);
 
         void chaKanXiangQing(int index, int childIndex);
-
-
     }
 
 

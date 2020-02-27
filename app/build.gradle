@@ -3,7 +3,6 @@ apply plugin: 'com.mob.sdk'
 //添加 com.sensorsdata.analytics.android 插件
 apply plugin: 'com.sensorsdata.analytics.android'
 
-
 def releaseTimes() {
     return new Date().format("yyyyMMddHH", TimeZone.getTimeZone("UTC")).toInteger()
 }
@@ -13,6 +12,7 @@ def gitVersionCode() {
     def cmd = 'git rev-list HEAD --count'
     return cmd.execute().text.trim().toInteger()
 }
+
 //release
 def SDK_VERSION_CODE = gitVersionCode()
 def SDK_VERSION_NAME = "5.0.5"
@@ -42,11 +42,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "versionCode"
         multiDexEnabled true
-
         buildConfigField "boolean", "CHANNEL_UPDATE", "false"
-
         ndk { abiFilters "armeabi", "armeabi-v7a", "x86_64" }
-
     }
     productFlavors {
         official { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "official"] }  //默认渠道;
@@ -136,7 +133,7 @@ android {
                         apkData.outputFileName = variant.applicationId + "_" + variant.flavorName + "_V" + variant.versionName + "_" + variant.versionCode + "_" + RELEASE_TIME + '_release.apk'
                     }
                 } else {
-                    outputFileName = variant.applicationId + "_" + variant.flavorName + "_V" + variant.versionName + '_' + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
+                    outputFileName = variant.applicationId + "_" + variant.flavorName + "_V" + variant.versionName + "_" + variant.versionCode + "_" + RELEASE_TIME + "_debug.apk"
                 }
             }
         }
@@ -145,14 +142,12 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
-
         buildToolsVersion = '28.0.3'
     }
 
     MobSDK {
         appKey "26e36c1c06eb4"
         appSecret "31f598c49d45a001c83954b333e81980"
-
         ShareSDK {
             //平台配置信息
             devInfo {
@@ -187,8 +182,6 @@ android {
                 }
             }
         }
-
-
     }
 
     dependencies {

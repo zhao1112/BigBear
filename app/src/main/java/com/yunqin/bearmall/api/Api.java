@@ -17,14 +17,9 @@ public interface Api {
 
 
     /**
-
-
      @GET("api/4/news/{data}") Observable<AllStories> getAllStories(@Path("data") String data);
-
-
      @FormUrlEncoded
      @POST("api/product/getMainCategory") Observable<Channel> getSubjectTitle(@FieldMap() Map<String, String> params);
-
      */
 
     /**
@@ -32,7 +27,6 @@ public interface Api {
      *
      * @return
      */
-
     @POST("api/product/getMainCategory")
     Observable<String> getSubjectTitle();
 
@@ -1235,13 +1229,13 @@ public interface Api {
 
     /**
      * vip升级条件
-     * */
+     */
     @POST("api/userinfo/userPromotion")
     Observable<String> getUserPromotion();
 
     /**
      * vip升级
-     * */
+     */
     @FormUrlEncoded
     @POST("api/userinfo/gradeDeduction")
     Observable<String> gradeDeduction(@FieldMap() Map<String, String> params);
@@ -1249,43 +1243,49 @@ public interface Api {
 
     /**
      * 合伙人订单
-     * */
+     */
     @FormUrlEncoded
     @POST("api/partner/screenOrders")
     Observable<String> screenOrders(@FieldMap() Map<String, String> params);
+
     /**
      * 合伙人订单搜索
-     * */
+     */
     @FormUrlEncoded
     @POST("api/partner/searchOrders")
     Observable<String> partenerScreenOrders(@FieldMap() Map<String, String> params);
+
     /**
      * 合伙人粉丝
-     * */
+     */
     @FormUrlEncoded
     @POST("api/partner/screenFans")
     Observable<String> screenFans(@FieldMap() Map<String, String> params);
+
     /**
      * 合伙人粉丝总人数
-     * */
+     */
     @FormUrlEncoded
     @POST("api/partner/partnerFansCount")
     Observable<String> partnerFansCount(@FieldMap() Map<String, String> params);
+
     /**
      * 合伙人搜索粉丝
-     * */
+     */
     @FormUrlEncoded
     @POST("api/partner/searchFans")
     Observable<String> searchFans(@FieldMap() Map<String, String> params);
+
     /**
      * 合伙人任命次数
-     * */
+     */
     @FormUrlEncoded
     @POST("/api/partner/getAppointNum")
     Observable<String> getAppointNum(@FieldMap() Map<String, String> params);
+
     /**
      * 提升团长
-     * */
+     */
     @FormUrlEncoded
     @POST("api/partner/appointBigLeader")
     Observable<String> appointBigLeader(@FieldMap() Map<String, String> params);

@@ -37,26 +37,20 @@ import butterknife.OnClick;
 
 public class AllFragment extends LazyFragment implements TabFragmentContract.UI, AllFragmentAdapter.OnChildClickListener {
 
-
     @BindView(R.id.custom_empty_recommend_view)
     CustomRecommendView mCustomRecommendView;
-
     @BindView(R.id.fragment_all_recycle_view)
     RecyclerView recyclerView;
-
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout twinklingRefreshLayout;
-
-
     @BindView(R.id.content)
     RelativeLayout content;
-
+    @BindView(R.id.not_net)
+    View view;
 
     private boolean isViewCreated;
     private boolean isFirst = true;
-
     TabFragmentContract.Presenter presenter;
-
     private boolean isPrepared;
 
     @Override
@@ -66,16 +60,12 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
 
     @Override
     public void init() {
-
         EventBus.getDefault().register(this);
-
         isViewCreated = true;
         presenter = new AllFragmentPresenter(getActivity(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         isPrepared = true;
         lazyLoad();
-
     }
 
     @Override
@@ -84,22 +74,19 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
             Log.e("CHENGPAN", "停止数据加载");
             return;
         }
-
         if (isPrepared && isVisible && !isFirst) {
             Log.e("CHENGPAN", "刷新*全部订单*" + "AllFragment");
             presenter.shuaXin();
         }
-
         if (isFirst) {
             isFirst = false;
             presenter.start(getActivity(), "");
         }
     }
 
-
     @Override
     public void attachAdapter(AllFragmentAdapter adapter) {
-        Log.i("AllFragment","item count = "+adapter.getItemCount());
+        Log.i("AllFragment", "item count = " + adapter.getItemCount());
         if (adapter.getItemCount() == 0) {
             view.setVisibility(View.GONE);
             mCustomRecommendView.setVisibility(View.VISIBLE);
@@ -131,7 +118,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
                     } else {
                         twinklingRefreshLayout.finishLoadmore();
                     }
-
                 }
             });
         }
@@ -147,7 +133,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
             mCustomRecommendView.setTvContent("你还没有相关的订单");
             mCustomRecommendView.setManager(gridLayoutManager);
             mCustomRecommendView.start(getActivity());
-
         }
     }
 
@@ -173,7 +158,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
 
     @Override
     public void quXiao(int index) {
-
         StringBuffer stringBuffer = new StringBuffer("确认取消订单, ");
         if (presenter.getAdapter() == null) {
 
@@ -211,8 +195,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
 
     @Override
     public void queRenShouHuo(int index) {
-
-
         StringBuffer stringBuffer = new StringBuffer("是否确认收货, ");
         if (presenter.getAdapter() == null) {
 
@@ -231,7 +213,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
 
             }
         });
-
     }
 
     @Override
@@ -241,7 +222,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
 
     @Override
     public void shanChuDingDan(int index) {
-
         StringBuffer stringBuffer = new StringBuffer("确认删除订单, ");
         if (presenter.getAdapter() == null) {
 
@@ -260,8 +240,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
 
             }
         });
-
-
     }
 
     @Override
@@ -274,11 +252,10 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
         presenter.chaKanXiangQing(index, childIndex);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("#dong", "onResume: 2" );
+        Log.e("#dong", "onResume: 2");
         Log.e("CHENGPAN", this.getClass().getSimpleName() + " onResume");
         synchronized (this) {
             if (isUpdate) {
@@ -286,7 +263,6 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
                 isUpdate = false;
             }
         }
-
     }
 
     private boolean isUpdate = false;
@@ -298,21 +274,15 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
         }
     }
 
-
     @Override
     public void updateView() {
         presenter.shuaXin();
     }
 
-    @BindView(R.id.not_net)
-    View view;
-
-
     @OnClick({R.id.reset_load_data})
     public void select(View view) {
         presenter.start(getActivity(), "");
     }
-
 
     @Override
     public void onNotNetWork() {
@@ -355,6 +325,4 @@ public class AllFragment extends LazyFragment implements TabFragmentContract.UI,
 
         DialogUtils.tipSearchDialog(getActivity(), 666, stringBuffer.toString(), joinZeroCallBack);
     }
-
-
 }
