@@ -17,6 +17,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.eventbus.GetMessageEvent;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
+import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.MineOrderActivity;
 import com.yunqin.bearmall.util.INotificationUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
@@ -85,8 +86,7 @@ public class BearMallIntentService extends GTIntentService {
                 try {
                     String title = jsonObject.optString("title");
                     String content = jsonObject.optString("content");
-                    Intent intent = new Intent(context, MineOrderActivity.class);
-                    intent.putExtra("TYPE", false);
+                    Intent intent = new Intent(context, InformationFragmentActivity.class);
                     INotificationUtil.showMineOrderActivity(context, intent, title, content);
                 } catch (Exception e) {
                     e.printStackTrace();

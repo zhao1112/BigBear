@@ -134,35 +134,35 @@ public class InformationFragment extends BaseFragment {
                         info1.setText(homeMessageBean.getData().getMessage_0().getTitle());
                         setUnReadNumber(number_unread_1, homeMessageBean.getData().getMessage_0().getUnreadMessageCount());
                     } else {
-                        info_layout_1.setVisibility(View.GONE);
+                        info1.setText("暂无消息");
                     }
                     if (homeMessageBean.getData().getMessage_4() != null) {
                         info_layout_2.setVisibility(View.VISIBLE);
                         info2.setText(homeMessageBean.getData().getMessage_1().getTitle());
                         setUnReadNumber(number_unread_2, homeMessageBean.getData().getMessage_1().getUnreadMessageCount());
                     } else {
-                        info_layout_2.setVisibility(View.GONE);
+                        info2.setText("暂无消息");
                     }
                     if (homeMessageBean.getData().getMessage_2() != null) {
                         info_layout_3.setVisibility(View.VISIBLE);
                         info3.setText(homeMessageBean.getData().getMessage_2().getTitle());
                         setUnReadNumber(number_unread_3, homeMessageBean.getData().getMessage_2().getUnreadMessageCount());
                     } else {
-                        info_layout_3.setVisibility(View.GONE);
+                        info3.setText("暂无消息");
                     }
                     if (homeMessageBean.getData().getMessage_3() != null) {
                         info_layout_4.setVisibility(View.VISIBLE);
                         info4.setText(homeMessageBean.getData().getMessage_3().getTitle());
                         setUnReadNumber(number_unread_4, homeMessageBean.getData().getMessage_3().getUnreadMessageCount());
                     } else {
-                        info_layout_4.setVisibility(View.GONE);
+                        info4.setText("暂无消息");
                     }
                     if (homeMessageBean.getData().getMessage_1() != null) {
                         info_layout_5.setVisibility(View.VISIBLE);
                         info5.setText(homeMessageBean.getData().getMessage_4().getTitle());
                         setUnReadNumber(number_unread_5, homeMessageBean.getData().getMessage_4().getUnreadMessageCount());
                     } else {
-                        info_layout_5.setVisibility(View.GONE);
+                        info5.setText("暂无消息");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

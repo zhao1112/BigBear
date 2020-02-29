@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,7 +27,9 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,7 +69,7 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
         if (BearMallAplication.getInstance().getUser() != null) {
             // 登陆过
             mTwinklingRefreshLayout.setVisibility(View.VISIBLE);
-            initData();
+            refreshData();
         } else {
             // 未登录
             mTwinklingRefreshLayout.setVisibility(View.GONE);
@@ -110,7 +114,7 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
         if (BearMallAplication.getInstance().getUser() != null) {
             // 登陆过
             mTwinklingRefreshLayout.setVisibility(View.VISIBLE);
-            initData();
+            refreshData();
         } else {
             // 未登录
             mTwinklingRefreshLayout.setVisibility(View.GONE);
@@ -183,7 +187,14 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
                             moneyRewardAdapter = new MoneyRewardAdapter(MoneyRewardActivity.this, moneyRewardBean.getData().getList());
                             mRecyclerView.setAdapter(moneyRewardAdapter);
                         } else {
-                            moneyRewardAdapter.setData(moneyRewardBean.getData().getList());
+                            List<MoneyRewardBean.DataBean.ListBean> listBeans = new ArrayList<>();
+                            for (int i = 0; i < moneyRewardBean.getData().getList().size(); i++) {
+                                if (moneyRewardBean.getData().getList().get(i).getOrderNo() != "null" &&
+                                        !TextUtils.isEmpty(moneyRewardBean.getData().getList().get(i).getOrderNo())) {
+                                    listBeans.add(moneyRewardBean.getData().getList().get(i));
+                                }
+                            }
+                            moneyRewardAdapter.setData(listBeans);
                         }
                     } else {
                         mTwinklingRefreshLayout.setVisibility(View.GONE);
@@ -229,7 +240,14 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
                             moneyRewardAdapter = new MoneyRewardAdapter(MoneyRewardActivity.this, moneyRewardBean.getData().getList());
                             mRecyclerView.setAdapter(moneyRewardAdapter);
                         } else {
-                            moneyRewardAdapter.addData(moneyRewardBean.getData().getList());
+                            List<MoneyRewardBean.DataBean.ListBean> listBeans = new ArrayList<>();
+                            for (int i = 0; i < moneyRewardBean.getData().getList().size(); i++) {
+                                if (moneyRewardBean.getData().getList().get(i).getOrderNo() != "null" &&
+                                        !TextUtils.isEmpty(moneyRewardBean.getData().getList().get(i).getOrderNo())) {
+                                    listBeans.add(moneyRewardBean.getData().getList().get(i));
+                                }
+                            }
+                            moneyRewardAdapter.addData(listBeans);
                         }
                     }
                 }

@@ -114,8 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/info5"
@@ -199,8 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/info2"
@@ -284,8 +282,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/info4"
@@ -370,8 +367,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/info1"
@@ -455,8 +451,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/info3"

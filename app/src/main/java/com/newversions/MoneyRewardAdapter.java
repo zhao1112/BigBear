@@ -3,10 +3,12 @@ package com.newversions;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -73,10 +75,39 @@ public class MoneyRewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         MoneyRewardBean.DataBean.ListBean listBean = mLists.get(position);
         Glide.with(mContext).setDefaultRequestOptions(requestOptions).load("error").into(((MYHolder) holder).y_image);
         ((MYHolder) holder).y_title.setText(listBean.getTitle());
+
         ((MYHolder) holder).y_order.setText("订 单 号  ：" + listBean.getOrderNo());
         ((MYHolder) holder).y_type.setText("订单类型：" + listBean.getContent());
         ((MYHolder) holder).y_money.setText("订单金额：" + listBean.getSpecifications());
+
+//        if (!TextUtils.isEmpty(listBean.getOrderNo()) && listBean.getOrderNo() != "null") {
+//            ((MYHolder) holder).y_order.setText("订 单 号  ：" + listBean.getOrderNo());
+//        } else {
+//            ((MYHolder) holder).view_5.setVisibility(View.GONE);
+//        }
+
+//        if (!TextUtils.isEmpty(listBean.getContent()) && listBean.getContent() != "null") {
+//            ((MYHolder) holder).y_type.setText("订单类型：" + listBean.getContent());
+//        } else {
+//            ((MYHolder) holder).view_5.setVisibility(View.GONE);
+//        }
+
+//        if (!TextUtils.isEmpty(listBean.getSpecifications()) && listBean.getSpecifications() != "null") {
+//            ((MYHolder) holder).y_money.setText("订单金额：" + listBean.getSpecifications());
+//        } else {
+//            ((MYHolder) holder).view_5.setVisibility(View.GONE);
+//        }
+
+
         ((MYHolder) holder).y_shou.setText("获得收益：" + listBean.getValue());
+
+//        if (!TextUtils.isEmpty(listBean.getValue()) && listBean.getValue() != "null") {
+//            ((MYHolder) holder).y_shou.setText("获得收益：" + listBean.getValue());
+//        } else {
+//            ((MYHolder) holder).view_5.setVisibility(View.GONE);
+//        }
+
+
     }
 
     @Override
