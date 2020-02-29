@@ -1,6 +1,7 @@
 package com.yunqin.bearmall.ui.fragment;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -138,8 +139,8 @@ public class InformationFragment extends BaseFragment {
                     }
                     if (homeMessageBean.getData().getMessage_4() != null) {
                         info_layout_2.setVisibility(View.VISIBLE);
-                        info2.setText(homeMessageBean.getData().getMessage_1().getTitle());
-                        setUnReadNumber(number_unread_2, homeMessageBean.getData().getMessage_1().getUnreadMessageCount());
+                        info2.setText(homeMessageBean.getData().getMessage_4().getTitle());
+                        setUnReadNumber(number_unread_2, homeMessageBean.getData().getMessage_4().getUnreadMessageCount());
                     } else {
                         info2.setText("暂无消息");
                     }
@@ -160,7 +161,7 @@ public class InformationFragment extends BaseFragment {
                     if (homeMessageBean.getData().getMessage_1() != null) {
                         info_layout_5.setVisibility(View.VISIBLE);
                         info5.setText(homeMessageBean.getData().getMessage_4().getTitle());
-                        setUnReadNumber(number_unread_5, homeMessageBean.getData().getMessage_4().getUnreadMessageCount());
+                        setUnReadNumber(number_unread_5, homeMessageBean.getData().getMessage_1().getUnreadMessageCount());
                     } else {
                         info5.setText("暂无消息");
                     }
