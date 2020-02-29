@@ -160,7 +160,7 @@ public class InformationFragment extends BaseFragment {
                     }
                     if (homeMessageBean.getData().getMessage_1() != null) {
                         info_layout_5.setVisibility(View.VISIBLE);
-                        info5.setText(homeMessageBean.getData().getMessage_4().getTitle());
+                        info5.setText(homeMessageBean.getData().getMessage_1().getTitle());
                         setUnReadNumber(number_unread_5, homeMessageBean.getData().getMessage_1().getUnreadMessageCount());
                     } else {
                         info5.setText("暂无消息");
