@@ -18,16 +18,14 @@
             android:id="@+id/order_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="状态到底是什么----"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/ds30"
+            android:text="状态到底是什么----"
             android:textColor="@color/main_color"
             android:textSize="@dimen/ds24" />
 
-
     </RelativeLayout>
-
 
     <LinearLayout
         android:id="@+id/goods_view"
@@ -60,7 +58,6 @@
                 android:textColor="#333333"
                 android:textSize="@dimen/ds28" />
 
-
             <TextView
                 android:id="@+id/goods_price"
                 android:layout_width="wrap_content"
@@ -70,7 +67,6 @@
                 android:text="1000"
                 android:textColor="#23A064"
                 android:textSize="@dimen/ds28" />
-
 
         </LinearLayout>
 
@@ -90,6 +86,5 @@
     <include
         android:id="@+id/order_footer_view"
         layout="@layout/item_order_footer" />
-
 
 </LinearLayout>
