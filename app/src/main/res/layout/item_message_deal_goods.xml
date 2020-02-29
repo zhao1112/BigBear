@@ -90,7 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ellipsize="end"
-                        android:maxEms="14"
+                        android:maxEms="12"
                         android:maxLines="1"
                         android:text="有延迟，请您再次查询ddddd"
                         android:textColor="#ff272727"
