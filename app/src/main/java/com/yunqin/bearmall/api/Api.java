@@ -17,14 +17,9 @@ public interface Api {
 
 
     /**
-
-
      @GET("api/4/news/{data}") Observable<AllStories> getAllStories(@Path("data") String data);
-
-
      @FormUrlEncoded
      @POST("api/product/getMainCategory") Observable<Channel> getSubjectTitle(@FieldMap() Map<String, String> params);
-
      */
 
     /**

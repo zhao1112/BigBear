@@ -74,9 +74,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
     FrameLayout content;
 
     private HomePresenter presenter;
-
     private static HomeActivity homeActivity;
-
     private SwitchFragment switchFragment;
     private Map<String, String> mMap;
     private static final String first = "INITIALIZATION";
@@ -113,12 +111,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
         // com.getui.demo.DemoPushService 为第三方自定义推送服务
         PushManager.getInstance().initialize(this.getApplicationContext(), BearMallPushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), BearMallIntentService.class);
-
         EventBus.getDefault().register(this);
         homeActivity = this;
-
         switchFragment = new SwitchFragment(getSupportFragmentManager(), this);
-
         Intent intent = getIntent();
         if (intent != null) {
             String content = intent.getStringExtra("switchFragment");

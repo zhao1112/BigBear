@@ -26,16 +26,15 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="赏金消息"
+            android:text="佣金消息"
             android:textColor="#333333"
             android:textSize="@dimen/ds32" />
 
-
     </RelativeLayout>
-
 
     <View
         android:id="@+id/cut_off_rule"
@@ -43,7 +42,6 @@
         android:layout_height="1pt"
         android:layout_below="@id/top_layout"
         android:background="#6a999999" />
-
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refresh_layout"

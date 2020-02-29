@@ -8,21 +8,21 @@ package com.yunqin.bearmall.bean;
 public class HomeMessageBean {
 
     /**
-     * data : {"message_3":{"title":"双十一","createdDate":"2018-08-14"},"message_2":{"title":"大促销222","createdDate":"2018-08-14"}}
-     * code : 1
      * msg : 请求成功
+     * code : 1
+     * data : {"message_3":{"title":"双十一订单太多，订单同步会有延迟","unreadMessageCount":2},"message_2":{"title":"拍三件可享受半折优惠哦","unreadMessageCount":1},"message_1":{"title":"您在2018-09-15 10:00:29下单成功，预估返佣25元,预计结算时间:收货后次月25日结算","unreadMessageCount":5},"message_0":{"title":"导购文章分享成功,获得糖果数量35","unreadMessageCount":1},"message_4":{"title":"2020-02-26 17:25:50【12212121】已经成为你的粉丝","unreadMessageCount":0}}
      */
 
-    private DataBean data;
-    private int code;
     private String msg;
+    private int code;
+    private DataBean data;
 
-    public DataBean getData() {
-        return data;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setData(DataBean data) {
-        this.data = data;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public int getCode() {
@@ -33,43 +33,43 @@ public class HomeMessageBean {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
     public static class DataBean {
         /**
-         * message_3 : {"title":"双十一","createdDate":"2018-08-14"}
-         * message_2 : {"title":"大促销222","createdDate":"2018-08-14"}
+         * message_3 : {"title":"双十一订单太多，订单同步会有延迟","unreadMessageCount":2}
+         * message_2 : {"title":"拍三件可享受半折优惠哦","unreadMessageCount":1}
+         * message_1 : {"title":"您在2018-09-15 10:00:29下单成功，预估返佣25元,预计结算时间:收货后次月25日结算","unreadMessageCount":5}
+         * message_0 : {"title":"导购文章分享成功,获得糖果数量35","unreadMessageCount":1}
+         * message_4 : {"title":"2020-02-26 17:25:50【12212121】已经成为你的粉丝","unreadMessageCount":0}
          */
 
-        private Message1Bean message_1;
-        private Message0Bean message_0;
         private Message3Bean message_3;
         private Message2Bean message_2;
+        private Message1Bean message_1;
+        private Message0Bean message_0;
+        private Message4Bean message_4;
 
-
-
-
-
-
-
-
-
-
-        private Message2Bean message_4;
-
-
-        public Message2Bean getMessage_4() {
-            return message_4;
+        public Message3Bean getMessage_3() {
+            return message_3;
         }
 
-        public void setMessage_4(Message2Bean message_4) {
-            this.message_4 = message_4;
+        public void setMessage_3(Message3Bean message_3) {
+            this.message_3 = message_3;
+        }
+
+        public Message2Bean getMessage_2() {
+            return message_2;
+        }
+
+        public void setMessage_2(Message2Bean message_2) {
+            this.message_2 = message_2;
         }
 
         public Message1Bean getMessage_1() {
@@ -88,39 +88,22 @@ public class HomeMessageBean {
             this.message_0 = message_0;
         }
 
-        public Message3Bean getMessage_3() {
-            return message_3;
+        public Message4Bean getMessage_4() {
+            return message_4;
         }
 
-        public void setMessage_3(Message3Bean message_3) {
-            this.message_3 = message_3;
-        }
-
-        public Message2Bean getMessage_2() {
-            return message_2;
-        }
-
-        public void setMessage_2(Message2Bean message_2) {
-            this.message_2 = message_2;
+        public void setMessage_4(Message4Bean message_4) {
+            this.message_4 = message_4;
         }
 
         public static class Message3Bean {
             /**
-             * title : 双十一
-             * createdDate : 2018-08-14
+             * title : 双十一订单太多，订单同步会有延迟
+             * unreadMessageCount : 2
              */
 
             private String title;
-            private String createdDate;
             private int unreadMessageCount;
-
-            public int getUnreadMessageCount() {
-                return unreadMessageCount;
-            }
-
-            public void setUnreadMessageCount(int unreadMessageCount) {
-                this.unreadMessageCount = unreadMessageCount;
-            }
 
             public String getTitle() {
                 return title;
@@ -130,108 +113,23 @@ public class HomeMessageBean {
                 this.title = title;
             }
 
-            public String getCreatedDate() {
-                return createdDate;
-            }
-
-            public void setCreatedDate(String createdDate) {
-                this.createdDate = createdDate;
-            }
-        }
-
-        public static class Message1Bean {
-            /**
-             * title : 双十一
-             * createdDate : 2018-08-14
-             */
-
-            private String title;
-            private String createdDate;
-
-            private int unreadMessageCount;
-
             public int getUnreadMessageCount() {
                 return unreadMessageCount;
             }
 
             public void setUnreadMessageCount(int unreadMessageCount) {
                 this.unreadMessageCount = unreadMessageCount;
-            }
-
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-
-            public String getCreatedDate() {
-                return createdDate;
-            }
-
-            public void setCreatedDate(String createdDate) {
-                this.createdDate = createdDate;
-            }
-        }
-
-        public static class Message0Bean {
-            /**
-             * title : 双十一
-             * createdDate : 2018-08-14
-             */
-
-            private String title;
-            private String createdDate;
-
-            private int unreadMessageCount;
-
-            public int getUnreadMessageCount() {
-                return unreadMessageCount;
-            }
-
-            public void setUnreadMessageCount(int unreadMessageCount) {
-                this.unreadMessageCount = unreadMessageCount;
-            }
-
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-
-            public String getCreatedDate() {
-                return createdDate;
-            }
-
-            public void setCreatedDate(String createdDate) {
-                this.createdDate = createdDate;
             }
         }
 
         public static class Message2Bean {
             /**
-             * title : 大促销222
-             * createdDate : 2018-08-14
+             * title : 拍三件可享受半折优惠哦
+             * unreadMessageCount : 1
              */
 
             private String title;
-            private String createdDate;
-
             private int unreadMessageCount;
-
-            public int getUnreadMessageCount() {
-                return unreadMessageCount;
-            }
-
-            public void setUnreadMessageCount(int unreadMessageCount) {
-                this.unreadMessageCount = unreadMessageCount;
-            }
-
 
             public String getTitle() {
                 return title;
@@ -241,12 +139,90 @@ public class HomeMessageBean {
                 this.title = title;
             }
 
-            public String getCreatedDate() {
-                return createdDate;
+            public int getUnreadMessageCount() {
+                return unreadMessageCount;
             }
 
-            public void setCreatedDate(String createdDate) {
-                this.createdDate = createdDate;
+            public void setUnreadMessageCount(int unreadMessageCount) {
+                this.unreadMessageCount = unreadMessageCount;
+            }
+        }
+
+        public static class Message1Bean {
+            /**
+             * title : 您在2018-09-15 10:00:29下单成功，预估返佣25元,预计结算时间:收货后次月25日结算
+             * unreadMessageCount : 5
+             */
+
+            private String title;
+            private int unreadMessageCount;
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public int getUnreadMessageCount() {
+                return unreadMessageCount;
+            }
+
+            public void setUnreadMessageCount(int unreadMessageCount) {
+                this.unreadMessageCount = unreadMessageCount;
+            }
+        }
+
+        public static class Message0Bean {
+            /**
+             * title : 导购文章分享成功,获得糖果数量35
+             * unreadMessageCount : 1
+             */
+
+            private String title;
+            private int unreadMessageCount;
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public int getUnreadMessageCount() {
+                return unreadMessageCount;
+            }
+
+            public void setUnreadMessageCount(int unreadMessageCount) {
+                this.unreadMessageCount = unreadMessageCount;
+            }
+        }
+
+        public static class Message4Bean {
+            /**
+             * title : 2020-02-26 17:25:50【12212121】已经成为你的粉丝
+             * unreadMessageCount : 0
+             */
+
+            private String title;
+            private int unreadMessageCount;
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public int getUnreadMessageCount() {
+                return unreadMessageCount;
+            }
+
+            public void setUnreadMessageCount(int unreadMessageCount) {
+                this.unreadMessageCount = unreadMessageCount;
             }
         }
     }

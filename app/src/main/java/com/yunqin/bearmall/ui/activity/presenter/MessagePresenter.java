@@ -17,7 +17,7 @@ import mlxy.utils.T;
  * Created by chenchen on 2018/8/13.
  */
 
-public class MessagePresenter implements MessageContract.IPresent{
+public class MessagePresenter implements MessageContract.IPresent {
 
     private MessageContract.IView view;
     private MessageModel model;
@@ -31,38 +31,31 @@ public class MessagePresenter implements MessageContract.IPresent{
     @Override
     public void refreshData(int type, int index) {
 
-        Map<String,String> params = new HashMap<>();
-        params.put("category",type+"");
-        params.put("page_number",""+index);
-        params.put("page_size","10");
+        Map<String, String> params = new HashMap<>();
+        params.put("category", type + "");
+        params.put("page_number", "" + index);
+        params.put("page_size", "10");
 
         RetrofitApi.request(context, model.getMessage(params), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-
                 view.onLoadData(data);
-
             }
 
             @Override
             public void onNotNetWork() {
-
                 view.onLoadError();
-
             }
 
             @Override
             public void onFail(Throwable e) {
-
                 view.onLoadError();
             }
         });
-
     }
 
     @Override
     public void start(Context context) {
-
         this.context = context;
     }
 }

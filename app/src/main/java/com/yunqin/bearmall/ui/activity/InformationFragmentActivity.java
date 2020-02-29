@@ -10,12 +10,10 @@ import com.yunqin.bearmall.base.BaseActivity;
 
 public class InformationFragmentActivity extends BaseActivity {
 
-
     public static void start(Context context) {
         Intent intent = new Intent(context, InformationFragmentActivity.class);
         context.startActivity(intent);
     }
-
 
     @Override
     public int layoutId() {

@@ -1,6 +1,7 @@
 package com.newversions;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.bean.ActivityMessageData;
+import com.yunqin.bearmall.bean.BCMessageData;
 import com.yunqin.bearmall.widget.CircleImageView;
 
 import java.util.ArrayList;
@@ -21,22 +24,22 @@ import java.util.List;
  * Create By Master
  * On 2019/2/19 14:50
  */
-public class MoneyRewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BCMAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private Context mContext;
-    private List<MoneyRewardBean.DataBean.ListBean> mLists;
+    private List<BCMessageData.DataBean.ListBean> mLists;
     private RequestOptions requestOptions = new RequestOptions()
             .placeholder(R.drawable.logo)
             .error(R.drawable.logo)
             .centerCrop();
 
-    public MoneyRewardAdapter(Context mContext, List<MoneyRewardBean.DataBean.ListBean> mLists) {
+    public BCMAdapter(Context mContext, List<BCMessageData.DataBean.ListBean> mLists) {
         this.mContext = mContext;
         this.mLists = mLists;
     }
 
-    public void setData(List<MoneyRewardBean.DataBean.ListBean> list) {
+    public void setData(List<BCMessageData.DataBean.ListBean> list) {
         if (mLists == null) {
             mLists = new ArrayList<>();
         }
@@ -49,7 +52,7 @@ public class MoneyRewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
-    public void addData(List<MoneyRewardBean.DataBean.ListBean> list) {
+    public void addData(List<BCMessageData.DataBean.ListBean> list) {
         if (mLists == null) {
             mLists = new ArrayList<>();
         }
@@ -64,19 +67,20 @@ public class MoneyRewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_money_reward_layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_message_deal_goods, parent, false);
         return new MYHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MoneyRewardBean.DataBean.ListBean listBean = mLists.get(position);
-        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load("error").into(((MYHolder) holder).y_image);
-        ((MYHolder) holder).y_title.setText(listBean.getTitle());
-        ((MYHolder) holder).y_order.setText("订 单 号  ：" + listBean.getOrderNo());
-        ((MYHolder) holder).y_type.setText("订单类型：" + listBean.getContent());
-        ((MYHolder) holder).y_money.setText("订单金额：" + listBean.getSpecifications());
-        ((MYHolder) holder).y_shou.setText("获得收益：" + listBean.getValue());
+        BCMessageData.DataBean.ListBean listBean = mLists.get(position);
+        MYHolder myholer = (MYHolder) holder;
+        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load("error").into(myholer.bc_img);
+        myholer.time_text.setText(listBean.getCreatedDate());
+        myholer.bc_title.setText(listBean.getTitle());
+        myholer.bc_content.setText(listBean.getCaption());
+        myholer.bc_value.setText(listBean.getValue() + "");
+
     }
 
     @Override
@@ -86,21 +90,19 @@ public class MoneyRewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class MYHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView y_image;
-        TextView y_title;
-        TextView y_order;
-        TextView y_type;
-        TextView y_money;
-        TextView y_shou;
+        CircleImageView bc_img;
+        TextView time_text;
+        TextView bc_title;
+        TextView bc_content;
+        TextView bc_value;
 
         public MYHolder(View itemView) {
             super(itemView);
-            y_image = itemView.findViewById(R.id.y_image);
-            y_title = itemView.findViewById(R.id.y_title);
-            y_order = itemView.findViewById(R.id.y_order);
-            y_type = itemView.findViewById(R.id.y_type);
-            y_money = itemView.findViewById(R.id.y_money);
-            y_shou = itemView.findViewById(R.id.y_shou);
+            bc_img = itemView.findViewById(R.id.bc_img);
+            time_text = itemView.findViewById(R.id.time_text);
+            bc_title = itemView.findViewById(R.id.bc_title);
+            bc_content = itemView.findViewById(R.id.bc_content);
+            bc_value = itemView.findViewById(R.id.bc_value);
         }
     }
 }

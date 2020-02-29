@@ -6,12 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.bean.ActivityMessageData;
 import com.yunqin.bearmall.widget.CircleImageView;
 
 import java.util.ArrayList;
@@ -21,22 +21,22 @@ import java.util.List;
  * Create By Master
  * On 2019/2/19 14:50
  */
-public class MoneyRewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private Context mContext;
-    private List<MoneyRewardBean.DataBean.ListBean> mLists;
+    private List<ActivityMessageData.DataBean.ListBean> mLists;
     private RequestOptions requestOptions = new RequestOptions()
             .placeholder(R.drawable.logo)
             .error(R.drawable.logo)
             .centerCrop();
 
-    public MoneyRewardAdapter(Context mContext, List<MoneyRewardBean.DataBean.ListBean> mLists) {
+    public EventAdapter(Context mContext, List<ActivityMessageData.DataBean.ListBean> mLists) {
         this.mContext = mContext;
         this.mLists = mLists;
     }
 
-    public void setData(List<MoneyRewardBean.DataBean.ListBean> list) {
+    public void setData(List<ActivityMessageData.DataBean.ListBean> list) {
         if (mLists == null) {
             mLists = new ArrayList<>();
         }
@@ -49,7 +49,7 @@ public class MoneyRewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
-    public void addData(List<MoneyRewardBean.DataBean.ListBean> list) {
+    public void addData(List<ActivityMessageData.DataBean.ListBean> list) {
         if (mLists == null) {
             mLists = new ArrayList<>();
         }
@@ -70,13 +70,8 @@ public class MoneyRewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MoneyRewardBean.DataBean.ListBean listBean = mLists.get(position);
-        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load("error").into(((MYHolder) holder).y_image);
-        ((MYHolder) holder).y_title.setText(listBean.getTitle());
-        ((MYHolder) holder).y_order.setText("订 单 号  ：" + listBean.getOrderNo());
-        ((MYHolder) holder).y_type.setText("订单类型：" + listBean.getContent());
-        ((MYHolder) holder).y_money.setText("订单金额：" + listBean.getSpecifications());
-        ((MYHolder) holder).y_shou.setText("获得收益：" + listBean.getValue());
+        ActivityMessageData.DataBean.ListBean listBean = mLists.get(position);
+
     }
 
     @Override

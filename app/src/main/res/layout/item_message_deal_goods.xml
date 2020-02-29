@@ -1,152 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="520pt"
-    android:id="@+id/layout_order"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/time_text"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24pt"
-        android:textColor="@color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40pt"
-        android:background="@drawable/shape_time_text_bg"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        />
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <android.support.constraint.ConstraintLayout
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_time" />
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_9"
+            android:text="17:35:30"
+            android:textColor="#ff272727"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="30pt"
-        android:layout_marginRight="30pt"
-        android:layout_marginTop="30pt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@color/white"
-        >
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="30pt"
-            android:layout_marginLeft="30pt"
-            android:layout_marginTop="22pt"
-            android:maxLines="1"
-            android:textColor="#333333"
-            android:textSize="28pt"
-            />
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_81"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="#ffcccccc" />
 
-        <TextView
-            android:id="@+id/desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/title"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            android:textColor="#999999"
-            android:textSize="24pt"
-            android:lines="2"
-            android:maxLines="2"
-            android:layout_marginTop="8pt"
-            />
-
-
-        <TextView
-            android:id="@+id/bottom_text"
-            android:layout_width="0pt"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginLeft="30pt"
-            android:layout_marginRight="30pt"
-            android:paddingTop="20pt"
-            android:paddingBottom="20pt"
-            />
-
-        <View
-            android:id="@+id/line"
-            android:layout_width="0dp"
-            android:layout_height="1pt"
-            android:background="#E5E5E5"
-            android:layout_marginLeft="30pt"
-            android:layout_marginRight="30pt"
-            app:layout_constraintBottom_toTopOf="@id/bottom_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/goods_container"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="144pt"
-            android:layout_marginBottom="20pt"
-            android:layout_marginTop="50pt"
-            app:layout_constraintBottom_toTopOf="@id/line"
-            app:layout_constraintTop_toBottomOf="@id/desc"
-            android:layout_marginLeft="30pt"
-            >
-
-            <ImageView
-                android:id="@+id/goods_image"
-                android:layout_width="144pt"
-                android:layout_height="144pt"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
-            <TextView
-                android:id="@+id/goods_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@id/goods_image"
-                app:layout_constraintTop_toTopOf="@id/goods_image"
-                android:layout_marginLeft="20pt"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="30pt"
-                android:maxLines="2"
-                android:textSize="28pt"
-                android:textColor="#333333"
-                />
-
-            <TextView
-                android:id="@+id/goods_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="30pt"
-                android:textSize="24pt"
-                android:textColor="#666666"
-                />
-
-            <TextView
-                android:id="@+id/goods_info"
-                android:layout_width="0pt"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/goods_title"
-                app:layout_constraintBottom_toTopOf="@id/goods_count"
-                app:layout_constraintLeft_toLeftOf="@id/goods_title"
-                app:layout_constraintRight_toRightOf="parent"
-                android:maxLines="1"
-                android:textColor="#999999"
-                android:textSize="24pt"
-                />
+            android:layout_height="@dimen/dp_71"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:layout_marginRight="@dimen/sp_16"
+            android:background="@drawable/bg_corner_search_dialog"
+            android:orientation="horizontal">
 
 
-        </android.support.constraint.ConstraintLayout>
+            <com.yunqin.bearmall.widget.CircleImageView
+                android:id="@+id/bc_img"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher" />
 
-    </android.support.constraint.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/bc_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="双11通知"
+                    android:textColor="#ff272727"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_17"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_23"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/bc_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:maxEms="14"
+                        android:maxLines="1"
+                        android:text="有延迟，请您再次查询ddddd"
+                        android:textColor="#ff272727"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/bc_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="+32"
+                        android:textColor="#F3280A"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

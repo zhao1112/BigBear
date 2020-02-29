@@ -26,14 +26,13 @@
         </android.support.v7.widget.RecyclerView>
 
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
-
-
+    
     <LinearLayout
         android:id="@+id/not_net_group"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/ds88">
+        android:layout_marginTop="@dimen/ds88"
+        android:visibility="gone">
 
         <include layout="@layout/network_error_layout" />
 

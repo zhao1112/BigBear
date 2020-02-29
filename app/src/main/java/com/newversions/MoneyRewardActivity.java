@@ -75,6 +75,8 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initViews() {
+        TextView top = findViewById(R.id.top);
+        top.setText("收益消息");
         mTwinklingRefreshLayout = findViewById(R.id.refresh_layout);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -115,13 +117,12 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
             tip.setText("请先登录");
             highlightButton.setVisibility(View.VISIBLE);
         }
-
     }
 
 
     private void initData() {
         Map<String, String> mHashMap = new HashMap<>();
-        mHashMap.put("category", "4");
+        mHashMap.put("category", "1");
         mHashMap.put("page_number", String.valueOf(index));
         mHashMap.put("page_size", "20");
         getHttpData(mHashMap, new RetrofitApi.IResponseListener() {
@@ -164,7 +165,7 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
     private void refreshData() {
         index = 1;
         Map<String, String> mHashMap = new HashMap<>();
-        mHashMap.put("category", "4");
+        mHashMap.put("category", "1");
         mHashMap.put("page_number", String.valueOf(index));
         mHashMap.put("page_size", "20");
 
@@ -213,7 +214,7 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
     private void loadData() {
         index++;
         Map<String, String> mHashMap = new HashMap<>();
-        mHashMap.put("category", "4");
+        mHashMap.put("category", "1");
         mHashMap.put("page_number", String.valueOf(index));
         mHashMap.put("page_size", "20");
         getHttpData(mHashMap, new RetrofitApi.IResponseListener() {
