@@ -397,29 +397,41 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
                             e.printStackTrace();
                         }
 
-                        String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
-                        String imei = DeviceConfig.getImei(HomeActivity.this);
-                        String md5Value = UpLoadHeadImage.getMd5Value(imei);
-                        initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, ip);
+                        try {
+                            String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
+                            String imei = DeviceConfig.getImei(HomeActivity.this);
+                            String md5Value = UpLoadHeadImage.getMd5Value(imei);
+                            initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, ip);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                     }
 
                     @Override
                     public void onNotNetWork() {
-                        String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
-                        String imei = DeviceConfig.getImei(HomeActivity.this);
-                        String md5Value = UpLoadHeadImage.getMd5Value(imei);
-                        String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
-                        initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
+                        try {
+                            String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
+                            String imei = DeviceConfig.getImei(HomeActivity.this);
+                            String md5Value = UpLoadHeadImage.getMd5Value(imei);
+                            String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
+                            initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
                     public void onFail(Throwable e) {
-                        String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
-                        String imei = DeviceConfig.getImei(HomeActivity.this);
-                        String md5Value = UpLoadHeadImage.getMd5Value(imei);
-                        String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
-                        initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
+                        try {
+                            String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
+                            String imei = DeviceConfig.getImei(HomeActivity.this);
+                            String md5Value = UpLoadHeadImage.getMd5Value(imei);
+                            String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
+                            initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
