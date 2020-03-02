@@ -1,5 +1,6 @@
 package com.newversions.tbk.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,6 +24,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ali.auth.third.core.MemberSDK;
+import com.ali.auth.third.core.callback.LoginCallback;
+import com.ali.auth.third.core.model.Session;
+import com.ali.auth.third.login.LoginService;
+import com.alibaba.baichuan.android.trade.AlibcTrade;
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
+import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
+import com.alibaba.baichuan.android.trade.model.OpenType;
+import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
+import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
+import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
+import com.alibaba.baichuan.trade.biz.login.AlibcLogin;
+import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -136,6 +151,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private boolean search;
     private double commission;
     private int positin;
+    private String TAG = "WebView";
 
     public static void startGoodsDetailActivity(Context context, String goodsId) {
         startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT);
@@ -179,7 +195,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 }
             }
         });
-        Log.d("goods", "init: "+goodsId);
+        Log.d("goods", "init: " + goodsId);
         rlv.setLayoutManager(new GridLayoutManager(this, 2));
         rlv.setAdapter(homeAdapter);
         mPresenter.init(goodsId);
@@ -451,7 +467,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     LoginActivity.starActivity(this);
                 } else {
                     //Toast.makeText(this, "正在跳转淘宝", Toast.LENGTH_SHORT).show();
-                    toTaobao();
+                    STaobao();
+//                    toTaobao();
                 }
                 break;
             case R.id.lin_collect:
@@ -506,6 +523,62 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 }
                 break;
         }
+    }
+
+    private void STaobao() {
+        LoginService loginService = MemberSDK.getService(LoginService.class);
+        if (loginService != null) {
+            loginService.auth(GoodsDetailActivity.this, new LoginCallback() {
+                @Override
+                public void onSuccess(Session session) {
+                    //初始化成功
+                    Log.e(TAG, "onSuccess: " + session.topAccessToken);
+                    //第二次授权
+                    BaiCuanUrl();
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    //提示 初始化 失败
+                }
+            });
+        } else {
+            //提示 初始化 失败
+        }
+    }
+
+    private String BCUrl = "https://oauth.m.taobao.com/authorize?response_type=token&client_id=27683376&view=wap&redirect_ur=http://127.0.0.1:12345/error";
+
+    private void BaiCuanUrl() {
+
+        WebViewClient webViewClient = new WebViewClient() {
+            @Override
+            // 在点击请求的是链接是才会调用，重写此方法返回true表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边。这个函数我们可以做很多操作，比如我们读取到某些特殊的URL，于是就可以不打开地址，取消这个操作，进行预先定义的其他操作，这对一个程序是非常必要的。
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // 判断url链接中是否含有某个字段，如果有就执行指定的跳转（不执行跳转url链接），如果没有就加载url链接
+                if (url.contains("map.")) {
+                    Log.d(TAG, "shouldOverrideUrlLoading() returned: " + true + "---" + url);
+                    return true;
+                } else {
+                    Log.d(TAG, "shouldOverrideUrlLoading() returned: " + false + "---" + url);
+                    return false;
+                }
+            }
+        };
+
+        AlibcTrade.openByUrl(GoodsDetailActivity.this, "", BCUrl, null, webViewClient,
+                null, null, null, null, new AlibcTradeCallback() {
+                    @Override
+                    public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
+                        Log.d(TAG, "shouldOverrideUrlLoading() returned: " + true + "---");
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Log.d(TAG, "shouldOverrideUrlLoading() returned: " + s + "---code" + i);
+                    }
+                });
+
     }
 
     class MyWebViewClient extends WebViewClient {
