@@ -98,6 +98,7 @@ public class RetrofitApi {
             @Override
             public void log(String message) {
                 Log.e("HTTP-LOG", message);
+                Log.e("Login_Process", "请求接口" + message);
             }
         });
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -185,11 +186,10 @@ public class RetrofitApi {
                                            }
                                        } else if (jsonObject.optInt("code") == -3) {
                                            // TODO 刷新 token
-
                                            Log.e("TGG", "Token过期...");
-
                                            RefreshToken.init(mContext, observable, listener);
                                        } else if (jsonObject.optInt("code") == -2) {
+                                           Log.e("Login_Process", "請求返回结果导致登录");
                                            LoginActivity.starActivity((Activity) mContext);
                                            BearMallAplication.getInstance().setNullUser();
                                        } else {

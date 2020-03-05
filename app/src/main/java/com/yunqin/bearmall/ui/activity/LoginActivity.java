@@ -173,6 +173,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             platform.SSOSetting(false);
             platform.setPlatformActionListener(this);
             platform.authorize();
+            Log.e("Login_Process", "微信登录");
         }
     }
 
@@ -192,12 +193,13 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         if (LoginWay == 1) {
             Constans.params.put("open_id", platform.getDb().getUserId());
             Constans.params.put("loginType", 1 + "");
+            Log.e("Login_Process", "QQ");
         } else if (LoginWay == 2) {
             Constans.params.put("open_id", platform.getDb().get("unionid"));
             Constans.params.put("wxopen_id", platform.getDb().get("openid"));
             Constans.params.put("loginType", 2 + "");
+            Log.e("Login_Process", "微信");
         }
-        String openuser = platform.getDb().exportData();
         presenter.start(Constans.params);
         //TODO[授权]
         ConstantScUtil.sensorsAuthorized("true", "Success");
@@ -235,15 +237,18 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                     bundle.putString("open_id", platform.getDb().get("unionid"));
                     bundle.putString("wxopen_id", platform.getDb().get("openid"));
                 }
+                Log.e("Login_Process", "绑定手机");
                 StarActivityUtil.starActivity(this, LoginBindPhone.class, bundle);
                 finish();
             } else if (jsonObject.getJSONObject("data").optInt("status") == 1) {
                 Log.e("isBindPhone", data);
                 UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
+                    Log.e("Login_Process", "填写邀请码");
                     InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this, userInfo.getData().getToken().getAccess_token(), "微信");
                     finish();
                 } else {
+                    Log.e("Login_Process", "登录成功");
                     BearMallAplication.getInstance().setUser(userInfo);
                     //TODO[登录]
                     ConstantScUtil.sensorsLogin("微信");
