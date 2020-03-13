@@ -1,40 +1,51 @@
 package com.yunqin.bearmall.ui.activity;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
-import com.newversions.tbk.activity.ProductSumActivity;
+import com.newversions.tbk.activity.ProductSumActivity2;
+import com.newversions.tbk.entity.TBKHomeEntity;
+import com.newversions.tbk.fragment.NewVersionTBKHomeAdapter;
+import com.newversions.tbk.utils.BannerClicker;
+import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
+import com.youth.banner.loader.ImageLoader;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.SearchAdapter;
+import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.SearchMatch;
 import com.yunqin.bearmall.ui.activity.contract.SearchActivityContract;
 import com.yunqin.bearmall.ui.activity.presenter.SearchPresenter;
 import com.yunqin.bearmall.ui.fragment.MenuGoodsFragment;
-import com.yunqin.bearmall.ui.fragment.MenuShopFragment;
 import com.yunqin.bearmall.ui.fragment.SearchEmptyFragment;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.widget.DelEditText;
 import com.yunqin.bearmall.widget.FlowLayout;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,41 +59,26 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     private static final String KEY = "k";
     private static final String SPLIT = ",";
 
-    @BindView(R.id.goods_check)
-    RadioButton radioButtonone;
-    @BindView(R.id.shop_check)
-    RadioButton radioButtontwo;
-    @BindView(R.id.radiogroup)
-    RadioGroup radioGroup;
+
     @BindView(R.id.flow_layout)
     FlowLayout mFlowLayout;
     @BindView(R.id.search_list_view)
-    ListView mListView;
-    @BindView(R.id.input_content_text)
-    DelEditText mEditText;
-    @BindView(R.id.fragment_view_group)
-    LinearLayout mFrameLayout;
-    @BindView(R.id.linear_layout_content)
-    LinearLayout mLinearLayout;
-    @BindView(R.id.child_1)
-    LinearLayout childLinearLayout;
-    @BindView(R.id.back)
-    RelativeLayout backRelativeLayout;
+    FlowLayout mListView;
     @BindView(R.id.cancel)
     TextView cancelTextView;
-
-
-    List<String> mSearchList;
-    SearchAdapter searchAdapter;
-
-    SearchActivityContract.Presenter presenter = new SearchPresenter(this);
-
-    private String lastMenuGoodsData = null;
-    private String lastMenuShopData = null;
-    private Fragment iL, iR;
-
     @BindView(R.id.not_net_view)
     LinearLayout not_net_view;
+    @BindView(R.id.input_content_text)
+    DelEditText mEditText;
+    @BindView(R.id.banner)
+    Banner banner;
+
+    private List<String> mSearchList;
+    private SearchAdapter searchAdapter;
+    private SearchActivityContract.Presenter presenter = new SearchPresenter(this);
+    private String lastMenuGoodsData = null;
+    private List<TBKHomeEntity.BannerBean> list;
+
 
     @Override
     public int layoutId() {
@@ -95,70 +91,62 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         if (memberType == null) {
             memberType = "0";
         }
-
         mEditText.addTextChangedListener(this);
         mEditText.setOnEditorActionListener(this);
-        mSearchList = getSearchData();
-        searchAdapter = new SearchAdapter(this, mSearchList);
-        searchAdapter.setOnItemCallBack(this);
-        mListView.setAdapter(searchAdapter);
-
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            if (radioButtonone.isChecked()) {
-                // TODO 添加Fragment
-                startFragment(lastMenuGoodsData);
-                radioButtonone.setTextColor(Color.parseColor("#FFFFFF"));
-                radioButtontwo.setTextColor(Color.parseColor("#23A064"));
-            } else {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("searchValue", valueType);
-                Fragment fragment = Fragment.instantiate(this, MenuShopFragment.class.getName(), bundle);
-                fragmentTransaction.replace(R.id.frame_layout_content, fragment);
-                fragmentTransaction.commit();
-
-                mFrameLayout.setVisibility(View.VISIBLE);
-                childLinearLayout.setVisibility(View.VISIBLE);
-
-                backRelativeLayout.setVisibility(View.VISIBLE);
-                cancelTextView.setVisibility(View.GONE);
-
-                // 隐藏筛选按钮
-//                filterRelativeLayout.setVisibility(View.GONE);
-
-                radioButtonone.setTextColor(Color.parseColor("#23A064"));
-                radioButtontwo.setTextColor(Color.parseColor("#FFFFFF"));
-            }
-        });
-
         presenter.start(this);
+        getBanner();
     }
 
-    @OnClick({R.id.cancel, R.id.clear_all, R.id.back, R.id.filter, R.id.reset_load_data})
+    private void setList(List<String> mSearchList) {
+        mListView.setListData(mSearchList);
+        mListView.setOnTagClickListener(text -> {
+            mEditText.setText(text);
+            mEditText.setSelection(text.length());
+            mListView.setVisibility(View.GONE);
+            ProductSumActivity2.startProductSumActivity2(this, text, 8, text);
+        });
+    }
+
+    private void setListdele(List<String> mSearchList) {
+        mListView.setListData(mSearchList);
+        mListView.cleanTag();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEditText.setText("");
+        mListView.cleanTag();
+        mSearchList = getSearchData();
+        setList(mSearchList);
+    }
+
+    @OnClick({R.id.cancel, R.id.reset_load_data, R.id.clear_all, R.id.search})
     public void onChecked(View view) {
         switch (view.getId()) {
             case R.id.cancel:
                 finish();
                 break;
+            case R.id.reset_load_data:
+                // TODO 重试...
+                if (mEditText.getText().toString().length() > 0) {
+                    ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
+                } else {
+                    presenter.start(this);
+                }
+                break;
             case R.id.clear_all:
                 // TODO 删除所有adapter数据
                 SharedPreferencesHelper.clearWhichOne(this, KEY);
                 mSearchList = getSearchData();
-                searchAdapter.setData(mSearchList, true);
+                setListdele(mSearchList);
                 break;
-            case R.id.back:
-                finish();
-                break;
-            case R.id.filter:
-                break;
-            case R.id.reset_load_data:
-                // TODO 重试...
+            case R.id.search:
                 if (mEditText.getText().toString().length() > 0) {
-                    ProductSumActivity.startProductSumActivity(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
-                } else {
-                    presenter.start(this);
+                    ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
+                    assemblyData(mEditText.getText().toString());
                 }
+                hiddenKeyboard();
                 break;
             default:
                 break;
@@ -172,20 +160,13 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (mFrameLayout.getVisibility() == View.VISIBLE) {
-            mFrameLayout.setVisibility(View.GONE);
-        }
         if (mListView.getVisibility() == View.GONE) {
             mListView.setVisibility(View.VISIBLE);
-        }
-        if (backRelativeLayout.getVisibility() == View.VISIBLE) {
-            backRelativeLayout.setVisibility(View.GONE);
         }
         if (cancelTextView.getVisibility() == View.GONE) {
             cancelTextView.setVisibility(View.VISIBLE);
         }
 
-        mLinearLayout.setVisibility(s.length() == 0 ? View.VISIBLE : View.GONE);
         presenter.onTextChangedSearch(this, s + "", new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
@@ -197,7 +178,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                     }
                 }
                 mSearchList = list;
-                searchAdapter.setData(s.length() == 0 ? mSearchList = getSearchData() : mSearchList, s.length() == 0 ? true : false);
                 onNotNet(false);
             }
 
@@ -209,7 +189,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             @Override
             public void onFail(Throwable e) {
                 mSearchList = new ArrayList<>();
-                searchAdapter.setData(s.length() == 0 ? mSearchList = getSearchData() : mSearchList, s.length() == 0 ? true : false);
                 onNotNet(true);
             }
         });
@@ -266,7 +245,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         mEditText.setText(index);
         mEditText.setSelection(index.length());
         assemblyData(index);
-        ProductSumActivity.startProductSumActivity(this, index, 8, index);
+        ProductSumActivity2.startProductSumActivity2(this, index, 8, index);
     }
 
     @Override
@@ -285,7 +264,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             mEditText.setSelection(text.length());
             mListView.setVisibility(View.GONE);
             assemblyData(text);
-            ProductSumActivity.startProductSumActivity(this, text, 8, text);
+            ProductSumActivity2.startProductSumActivity2(this, text, 8, text);
         });
     }
 
@@ -303,13 +282,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         SearchEmptyFragment searchEmptyFragment = new SearchEmptyFragment();
         fragmentTransaction.replace(R.id.frame_layout_content, searchEmptyFragment);
         fragmentTransaction.commit();
-
-        mFrameLayout.setVisibility(View.VISIBLE);
-        childLinearLayout.setVisibility(View.GONE);
-
-        backRelativeLayout.setVisibility(View.VISIBLE);
         cancelTextView.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -324,11 +297,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         Fragment menuGoodsFragment = Fragment.instantiate(this, MenuGoodsFragment.class.getName(), bundle);
         fragmentTransaction.replace(R.id.frame_layout_content, menuGoodsFragment);
         fragmentTransaction.commit();
-
-        mFrameLayout.setVisibility(View.VISIBLE);
-        childLinearLayout.setVisibility(View.VISIBLE);
-
-        backRelativeLayout.setVisibility(View.VISIBLE);
         cancelTextView.setVisibility(View.GONE);
     }
 
@@ -346,8 +314,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
 
     @Override
     public String getMemberType() {
-        // 0 普通会员
-        // 1 付费会员
         return "";
     }
 
@@ -358,7 +324,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                 case KeyEvent.ACTION_UP:
                     // TODO 发送请求
                     if (mEditText.getText().toString().length() > 0) {
-                        ProductSumActivity.startProductSumActivity(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
+                        ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
                         assemblyData(mEditText.getText().toString());
                     }
                     hiddenKeyboard();
@@ -393,4 +359,71 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             not_net_view.setVisibility(View.GONE);
         }
     }
+
+    private void getBanner() {
+        Map<String, String> mHashMap = new HashMap<>();
+        RetrofitApi.request(SearchActivity.this, RetrofitApi.createApi(Api.class).getTBKHomeListData(mHashMap), new RetrofitApi.IResponseListener() {
+
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                try {
+                    Log.e("TCP_DATA", data);
+                    TBKHomeEntity tbkHomeEntity = new Gson().fromJson(data, TBKHomeEntity.class);
+                    if (tbkHomeEntity != null && tbkHomeEntity.getBannerOne() != null && tbkHomeEntity.getBannerOne().size() > 0) {
+                        list = tbkHomeEntity.getBannerOne();
+                        addBannerList(tbkHomeEntity.getBannerOne());
+                    }
+                } catch (Exception e) {
+                }
+
+            }
+
+            @Override
+            public void onNotNetWork() {
+
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+
+            }
+        });
+
+    }
+
+    private void addBannerList(List<TBKHomeEntity.BannerBean> bannerOne) {
+        List<String> stringList = new ArrayList<>();
+        for (int i = 0; i < bannerOne.size(); i++) {
+            stringList.add(bannerOne.get(i).getImage());
+        }
+        banner.setImages(stringList);
+        banner.setImageLoader(new GlideImageLoader());
+        banner.start();
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                if (list != null && list.size() > 0) {
+                    BannerClicker.bannerClick(SearchActivity.this, list.get(position).getTargetType(),
+                            list.get(position).getTarget(), list.get(position).getTitle());
+                }
+            }
+        });
+    }
+
+    private class GlideImageLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            //Glide 加载图片简单用法
+            Glide.with(context)
+                    .load(path)
+                    .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                    .apply(options)
+                    .into(imageView);
+        }
+    }
+
+    RoundedCorners roundedCorners = new RoundedCorners(10);
+    //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+    // RequestOptions options = RequestOptions.bitmapTransform(roundedCorners).override(300, 300);
+    RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
 }

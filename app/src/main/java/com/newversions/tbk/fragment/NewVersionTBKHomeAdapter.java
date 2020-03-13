@@ -424,7 +424,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void setDatas(List<String> imgUrls) {
             banner.setImages(imgUrls);
-            banner.setImageLoader(new NewVersionTBKHomeAdapter.GlideImageLoader());
+            banner.setImageLoader(new GlideImageLoader());
             banner.start();
         }
 

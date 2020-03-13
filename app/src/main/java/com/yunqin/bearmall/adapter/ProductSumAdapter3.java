@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.newversions.tbk.activity.GoodsDetailContract;
 import com.newversions.tbk.entity.GoodsEntity;
 import com.newversions.tbk.utils.StringUtils;
 import com.yunqin.bearmall.R;
@@ -21,21 +20,18 @@ import com.yunqin.bearmall.bean.SearchData;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * @author LWP
  * @PACKAGE com.yunqin.bearmall.adapter
  * @DATE 2020/1/13
  */
-public class ProductSumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ProductSumAdapter3 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private Context context;
-    private List<GoodsEntity.CommodityBean> list;
+    private List<SearchData.DataBean> list;
 
-    public void addList(List<GoodsEntity.CommodityBean> list) {
+    public void addList(List<SearchData.DataBean> list) {
         this.list.addAll(list);
         notifyDataSetChanged();
     }
@@ -44,7 +40,7 @@ public class ProductSumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.list.clear();
     }
 
-    public ProductSumAdapter(Context context) {
+    public ProductSumAdapter3(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
     }
@@ -77,7 +73,7 @@ public class ProductSumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .load(list.get(position).getOutIcon())
                 .into(productSunHolder.itemHomeProImage);
         productSunHolder.itemHomeXiaoliang.setText(list.get(position).getSellNum() + "人已购");
-        productSunHolder.itemSellerName.setText(StringUtils.addImageLabel(context, list.get(position).getTmall() == 1 ?
+        productSunHolder.itemSellerName.setText(StringUtils.addImageLabel(context, list.get(position).getTmall().equals("1") ?
                 R.mipmap.icon_tmall : R.mipmap.icon_taobao1, list.get(position).getSellerName()));
         productSunHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +112,7 @@ public class ProductSumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public interface onClickProductSumItem {
-        void onItem(int position, GoodsEntity.CommodityBean bean);
+        void onItem(int position, SearchData.DataBean bean);
     }
 
     public onClickProductSumItem mOnClickProductSumItem;

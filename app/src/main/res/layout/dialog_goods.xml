@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:background="@drawable/bg_corner_white"
+        android:layout_width="@dimen/dp_295"
+        android:layout_height="@dimen/dp_256"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_29"
+            android:text="素材下载"
+            android:textColor="#ff272727"
+            android:textSize="@dimen/sp_14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_35"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/sume_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="共5张  已下载 "
+                android:textColor="#ff272727"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/sume_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="5"
+                android:textColor="#24A064"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text=" 张"
+                android:textColor="#ff272727"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/xiang"
+            android:background="@drawable/goods_xiang"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_35"
+            android:layout_marginRight="@dimen/dp_20"
+            android:gravity="center"
+            android:text="去相册查看"
+            android:textColor="#ff272727"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/wan"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/goods_wan"
+            android:gravity="center"
+            android:text="完成"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/sp_14" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

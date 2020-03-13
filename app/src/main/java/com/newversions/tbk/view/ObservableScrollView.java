@@ -47,33 +47,19 @@ public class ObservableScrollView extends ScrollView {
     }
 
     public boolean onInterceptTouchEvent(MotionEvent e) {
-
         int action = e.getAction();
-
         switch (action) {
-
             case MotionEvent.ACTION_DOWN:
-
                 downX = (int) e.getRawX();
-
                 downY = (int) e.getRawY();
-
                 break;
-
             case MotionEvent.ACTION_MOVE:
-
                 int moveY = (int) e.getRawY();
-
                 if (Math.abs(moveY - downY) > mTouchSlop) {
-
                     return true;
-
                 }
-
         }
-
         return super.onInterceptTouchEvent(e);
-
     }
 
     //解决切换view时自动滚动的问题
@@ -82,6 +68,7 @@ public class ObservableScrollView extends ScrollView {
         return 0;
 //        return super.computeScrollDeltaToGetChildRectOnScreen(rect);
     }
+
     public interface IScrollViewListener {
         void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy);
     }

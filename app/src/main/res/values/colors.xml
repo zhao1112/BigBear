@@ -59,4 +59,13 @@
     <color name="vip_text">#ffffc755</color>
     <color name="radous">#24A064</color>
 
+    <color name="gao">#F4402C</color>
+    <color name="gao1">#F3280A</color>
+
+    <color name="di">#ff24a064</color>
+    <color name="di1">#24A064</color>
+
+    <color name="ping">#ff797979</color>
+    <color name="ping1">#ff797979</color>
+
 </resources>

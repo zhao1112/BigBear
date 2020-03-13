@@ -154,6 +154,15 @@ public class GoodDetailEntity implements Serializable{
         private String couponStartDate;
         private int categoryId;
         private  boolean collected;
+        private String maxCommision;
+
+        public String getMaxCommision() {
+            return maxCommision;
+        }
+
+        public void setMaxCommision(String maxCommision) {
+            this.maxCommision = maxCommision;
+        }
 
         public boolean isCollected() {
             return collected;

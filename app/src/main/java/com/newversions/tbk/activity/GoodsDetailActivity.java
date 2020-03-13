@@ -1,18 +1,35 @@
 package com.newversions.tbk.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -20,24 +37,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ali.auth.third.core.MemberSDK;
-import com.ali.auth.third.core.callback.LoginCallback;
-import com.ali.auth.third.core.model.Session;
-import com.ali.auth.third.login.LoginService;
-import com.alibaba.baichuan.android.trade.AlibcTrade;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
-import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
-import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
-import com.alibaba.baichuan.trade.biz.login.AlibcLogin;
-import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -55,15 +62,25 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.ContenGoods;
+import com.yunqin.bearmall.bean.UserInfo;
+import com.yunqin.bearmall.ui.activity.BackstageActivity;
 import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.ui.activity.VipExplainActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.ConstantScUtil;
+import com.yunqin.bearmall.util.PermissionsChecker;
+import com.yunqin.bearmall.widget.OpenGoodsDetail;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +89,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 /**
@@ -83,26 +102,18 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     Banner banGoodsImage;
     @BindView(R.id.tv_goods_title)
     TextView tvGoodsTitle;
-    @BindView(R.id.tv_goods_yuanjia)
+    @BindView(R.id.tv_goods_yuanjia_1)
     TextView tvGoodsYuanjia;
-    @BindView(R.id.tv_quanhoujia)
-    TextView tvQuanhoujia;
     @BindView(R.id.tv_goods_xiaoliang)
     TextView tvGoodsXiaoliang;
-    @BindView(R.id.tv_stamps_value)
-    TextView tvStampsValue;
     @BindView(R.id.tv_goods_qixian)
     TextView tvGoodsQixian;
-    @BindView(R.id.tv_get_stamps)
-    TextView tvGetStamps;
     @BindView(R.id.wv_goods_detail)
     WebView wvGoodsDetail;
     @BindView(R.id.tv_quanhoujia_bottom)
     TextView tvQuanhoujiaBottom;
     @BindView(R.id.tv_yongjin_num)
     TextView tv_yongjin_num;
-    @BindView(R.id.lin_get_stamps)
-    LinearLayout linGetStamps;
     @BindView(R.id.iv_collect)
     ImageView ivCollect;
     @BindView(R.id.tv_collect)
@@ -113,14 +124,12 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     LinearLayout linShare;
     @BindView(R.id.lin_quanhoujia)
     LinearLayout linQuanhoujia;
-    @BindView(R.id.lin_buy)
-    LinearLayout linBuy;
     @BindView(R.id.rlv)
     RecyclerView rlv;
     @BindView(R.id.refreshlayout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
     @BindView(R.id.rl_seller_name)
-    RelativeLayout rlSellerName;
+    LinearLayout rlSellerName;
     @BindView(R.id.lin_collect2)
     LinearLayout linCollect2;
     @BindView(R.id.iv_btn_back)
@@ -135,7 +144,25 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     TextView tvArg2;
     @BindView(R.id.tv_arg_3)
     TextView tvArg3;
+    @BindView(R.id.shenji)
+    LinearLayout shenji;
+    @BindView(R.id.s_y)
+    TextView s_y;
+    @BindView(R.id.zui)
+    TextView zui;
+    @BindView(R.id.tv_1)
+    TextView tv_1;
+    @BindView(R.id.tv_2)
+    TextView tv_2;
+    @BindView(R.id.tv_3)
+    TextView tv_3;
 
+
+    private TextView quanhoujia;
+    private TextView youhui, shenq;
+    private RelativeLayout qh;
+    private boolean imageU = false;
+    private int imageSize = 0;
     private List<TBKHomeGoodsEntity.RecommendBean> mList = new ArrayList<>();
     private int page;
     private String itemId;
@@ -151,7 +178,9 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private boolean search;
     private double commission;
     private int positin;
-    private String TAG = "WebView";
+    private GoodDetailEntity.GoodDetailBean goodDetail;
+    private List<String> images;
+    private PopupWindow mMPopupWindow;
 
     public static void startGoodsDetailActivity(Context context, String goodsId) {
         startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT);
@@ -172,6 +201,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     @Override
     public void init() {
         setTranslucentStatus();
+        initView();
         mPresenter = new GoodsDetailPresenter(this, this);
         homeAdapter = new MyAdapter();
         goodsId = getIntent().getStringExtra(Constants.INTENT_KEY_ID);
@@ -179,6 +209,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         positin = getIntent().getIntExtra("POSITION", 0);
         search = getIntent().getBooleanExtra("SEARCH", false);
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(this));
+        mTwinklingRefreshLayout.setEnableLoadmore(false);
         mTwinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -187,19 +218,18 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                Log.d("TAG1122", "onLoadMore: " + hasNext);
-                if (hasNext) {
-                    mPresenter.getMoreLikeGoods(goodsId);
-                } else {
-                    mTwinklingRefreshLayout.finishLoadmore();
-                }
+
             }
         });
-        Log.d("goods", "init: " + goodsId);
-        rlv.setLayoutManager(new GridLayoutManager(this, 2));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
+        rlv.setLayoutManager(linearLayoutManager);
         rlv.setAdapter(homeAdapter);
+
         mPresenter.init(goodsId);
         mPresenter.getContenGoods(goodsId);
+
         banGoodsImage.setImageLoader(new GlideImageLoader());
         //设置自动轮播，默认为true
         banGoodsImage.isAutoPlay(true);
@@ -215,71 +245,22 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         if (type == Constants.GOODS_TYPE_TBK || type == Constants.GOODS_TYPE_TBK_SEARCH) {
             linCollect.setVisibility(View.GONE);
         }
-    }
-
-    class MyAdapter extends RecyclerView.Adapter<GoodsViewHolder> {
-
-        @NonNull
-        @Override
-        public GoodsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.item_priduct_sum, parent, false);
-            return new GoodsViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull GoodsViewHolder goodsViewHolder, int position) {
-            TBKHomeGoodsEntity.RecommendBean recommendBean = mList.get(position);
-            Log.i("TAG", "onBindViewHolder: " + recommendBean);
-            goodsViewHolder.itemHomeProTitle.setText(recommendBean.getName());
-            goodsViewHolder.itemHomeProQuan.setText(recommendBean.getCouponAmount() + "元券");
-            goodsViewHolder.itemHomeXiaoliang.setText("月销" + recommendBean.getSellNum());
-            goodsViewHolder.itemHomeProQuanhoujia.setText("¥" + recommendBean.getDiscountPrice());
-            goodsViewHolder.itemHomeProYuanjia.setText("¥" + recommendBean.getPrice());
-            goodsViewHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-            goodsViewHolder.tvCommision.setText("预估佣金：" + recommendBean.getCommision());
-            Glide.with(GoodsDetailActivity.this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(recommendBean.getOutIcon()).into(goodsViewHolder.itemHomeProImage);
-            goodsViewHolder.itemSellerName.setText(StringUtils.addImageLabel(GoodsDetailActivity.this, recommendBean.getTmall() == 1 ?
-                    R.mipmap.icon_tmall : R.mipmap.icon_taobao1, recommendBean.getSellerName()));
-            goodsViewHolder.itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(GoodsDetailActivity.this, GoodsDetailActivity.class);
-                intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getItemId() + "");
-                intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
-                intent.putExtra(Constants.INTENT_KEY_COMM, mList.get(position).getCommision());
-                GoodsDetailActivity.this.startActivity(intent);
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mList.size();
+        UserInfo userInfo = BearMallAplication.getInstance().getUser();
+        if (userInfo != null && userInfo.getIdentity() != null) {
+            //判断是否是合伙人
+            if (userInfo.getIdentity().isPartner()) {
+                shenji.setVisibility(View.GONE);
+            } else {
+                shenji.setVisibility(View.VISIBLE);
+            }
         }
     }
 
-    class GoodsViewHolder extends RecyclerView.ViewHolder {
-        int id = R.layout.item_priduct_sum;
-        @BindView(R.id.item_home_pro_image)
-        ImageView itemHomeProImage;
-        @BindView(R.id.item_home_pro_title)
-        TextView itemHomeProTitle;
-        @BindView(R.id.item_home_pro_quan)
-        TextView itemHomeProQuan;
-        @BindView(R.id.item_home_xiaoliang)
-        TextView itemHomeXiaoliang;
-        @BindView(R.id.item_home_pro_quanhoujia)
-        TextView itemHomeProQuanhoujia;
-        @BindView(R.id.item_home_pro_yuanjia)
-        TextView itemHomeProYuanjia;
-        @BindView(R.id.tv_commision)
-        TextView tvCommision;
-        @BindView(R.id.item_seller_name)
-        TextView itemSellerName;
-        @BindView(R.id.rl)
-        RelativeLayout rl;
-
-        public GoodsViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
+    private void initView() {
+        quanhoujia = findViewById(R.id.tv_quanhoujia_1);
+        youhui = findViewById(R.id.youhui);
+        shenq = findViewById(R.id.shenq);
+        qh = findViewById(R.id.qh);
     }
 
     @Override
@@ -309,40 +290,57 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         mTwinklingRefreshLayout.finishLoadmore();
     }
 
-    GoodDetailEntity.GoodDetailBean goodDetail;
-
     @Override
     public void attachData(GoodDetailEntity goodDetailEntity) {
         mPresenter.getTBKHomeGoodsListData(goodsId);
         goodDetail = goodDetailEntity.getGoodDetail();
+        images = goodDetail.getImages();
         tvGoodsTitle.setText(goodDetail.getName());
         banGoodsImage.setImages(goodDetail.getImages());
         banGoodsImage.start();
-        tvGoodsQixian.setText("使用期限：" + goodDetail.getCouponStartDate() + "-" + goodDetail.getCouponEndDate());
-        tvStampsValue.setText(goodDetail.getCouponAmount() + "元优惠券");
-        if (getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_DEFAULT) == Constants.GOODS_TYPE_TBK) {
-            tv_yongjin_num.setText("预估返：" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
-            commission = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
-        } else {
-            tv_yongjin_num.setText("预估返：" + goodDetail.getCommision() + "元");
-            commission = goodDetail.getCommision();
-        }
+        tvGoodsQixian.setText(goodDetail.getCouponStartDate() + "-" + goodDetail.getCouponEndDate());
+        quanhoujia.setText(goodDetail.getDiscountPrice() + "");
         tvGoodsYuanjia.setText("¥" + goodDetail.getPrice());
         tvGoodsYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        tvQuanhoujia.setText("¥" + goodDetail.getDiscountPrice());
+        wvGoodsDetail.setVisibility(View.VISIBLE);
+        tvGoodsXiaoliang.setText("销量" + goodDetail.getSellNum());
+        zui.setText(goodDetail.getMaxCommision() + "元");
+        collection = goodDetail.isCollected();
+        changeCollection(goodDetail.isCollected());
+        if (getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_DEFAULT) == Constants.GOODS_TYPE_TBK) {
+            tv_yongjin_num.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
+            s_y.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
+            commission = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
+        } else {
+            tv_yongjin_num.setText("收益" + goodDetail.getCommision() + "元");
+            s_y.setText("收益" + goodDetail.getCommision() + "元");
+            commission = goodDetail.getCommision();
+        }
         if (StringUtils.isEmpty(goodDetail.getSellerName())) {
             rlSellerName.setVisibility(View.GONE);
         } else {
             Glide.with(GoodsDetailActivity.this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small)).load(goodDetail.getSellerLogo()).into(imLogo);
             tvSellerName.setText(goodDetail.getSellerName());
-            tvArg1.setText("商品描述: " + goodDetail.getDsr());
-            tvArg2.setText("买家服务: " + goodDetail.getDse());
-            tvArg3.setText("物流服务: " + goodDetail.getDss());
+
+            tvArg1.setText(goodDetail.getDsr() + "");
+            tvArg2.setText(goodDetail.getDse() + "");
+            tvArg3.setText(goodDetail.getDss() + "");
+            FunWu(tvArg1, tv_1, goodDetail.getDsr());
+            FunWu(tvArg2, tv_2, goodDetail.getDse());
+            FunWu(tvArg3, tv_3, goodDetail.getDss());
+
         }
-        wvGoodsDetail.setVisibility(View.VISIBLE);
-        tvGoodsXiaoliang.setText(goodDetail.getSellNum() + "人已购");
-        collection = goodDetail.isCollected();
-        changeCollection(goodDetail.isCollected());
+        if ("0".equals(goodDetail.getCouponAmount() + "")) {
+            qh.setVisibility(View.GONE);
+            shenq.setVisibility(View.GONE);
+        } else {
+            qh.setVisibility(View.VISIBLE);
+            shenq.setVisibility(View.VISIBLE);
+            shenq.setText("立省" + goodDetail.getCouponAmount() + "元");
+            youhui.setText(goodDetail.getCouponAmount() + "");
+        }
+
+
         //TODO[商品详情页]
         ConstantScUtil.searchDetail(goodsId + "", goodDetail.getName(), goodDetail.getCategoryId() + "",
                 goodDetail.getSubCategoryId() + "", goodDetail.getSellerName(), goodDetail.getSellNum() + "",
@@ -357,6 +355,29 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     public void changeCollection(boolean collection) {
         ivCollect.setImageResource(collection ? R.mipmap.icon_collect : R.mipmap.icon_like_details);
+    }
+
+    private void FunWu(TextView sum, TextView fen, Double aDouble) {
+        BigDecimal data1 = new BigDecimal(aDouble);
+        BigDecimal data2 = new BigDecimal("4.8");
+        BigDecimal data3 = new BigDecimal("4.5");
+
+        if (data1.compareTo(data2) > 0 || data1.compareTo(data2) == 0) {
+            sum.setTextColor(getResources().getColor(R.color.gao));
+            fen.setText("高");
+            fen.setTextColor(getResources().getColor(R.color.gao1));
+            fen.setBackground(getResources().getDrawable(R.drawable.bg_gao));
+        } else if (data1.compareTo(data2) < 0 && data1.compareTo(data3) > 0 || data1.compareTo(data3) == 0) {
+            sum.setTextColor(getResources().getColor(R.color.ping));
+            fen.setText("平");
+            fen.setTextColor(getResources().getColor(R.color.ping1));
+            fen.setBackground(getResources().getDrawable(R.drawable.bg_ping));
+        } else if (data1.compareTo(data3) < 0) {
+            sum.setTextColor(getResources().getColor(R.color.di));
+            fen.setText("低");
+            fen.setTextColor(getResources().getColor(R.color.di1));
+            fen.setBackground(getResources().getDrawable(R.drawable.bg_di));
+        }
     }
 
     @Override
@@ -449,26 +470,22 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         super.onResume();
     }
 
-
     // todo 点击监听
-    @OnClick({R.id.iv_btn_back, R.id.lin_collect, R.id.lin_collect2, R.id.lin_share, R.id.lin_get_stamps, R.id.lin_quanhoujia,
-            R.id.lin_buy, R.id.ll_more_comm})
+    @OnClick({R.id.iv_btn_back, R.id.lin_collect, R.id.lin_collect2, R.id.lin_share, R.id.lin_quanhoujia,
+            R.id.lin_buy_buy, R.id.ll_more_comm, R.id.iv_btn_download, R.id.shen_ji})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_btn_back:
                 finish();
                 break;
-            case R.id.lin_buy:
-            case R.id.lin_get_stamps:
-                // TODO: 2019/7/16 0016 购买
+            case R.id.lin_buy_buy:
             case R.id.lin_quanhoujia:
                 // TODO: 2019/7/16 0016 购买
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(this);
                 } else {
                     //Toast.makeText(this, "正在跳转淘宝", Toast.LENGTH_SHORT).show();
-                    STaobao();
-//                    toTaobao();
+                    toTaobao();
                 }
                 break;
             case R.id.lin_collect:
@@ -522,66 +539,26 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     LoginActivity.starActivity(this);
                 }
                 break;
-        }
-    }
-
-    private void STaobao() {
-        LoginService loginService = MemberSDK.getService(LoginService.class);
-        if (loginService != null) {
-            loginService.auth(GoodsDetailActivity.this, new LoginCallback() {
-                @Override
-                public void onSuccess(Session session) {
-                    //初始化成功
-                    Log.e(TAG, "onSuccess: " + session.topAccessToken);
-                    //第二次授权
-                    BaiCuanUrl();
-                }
-
-                @Override
-                public void onFailure(int i, String s) {
-                    //提示 初始化 失败
-                }
-            });
-        } else {
-            //提示 初始化 失败
-        }
-    }
-
-    private String BCUrl = "https://oauth.m.taobao.com/authorize?response_type=token&client_id=27683376&view=wap&redirect_ur=http://127.0.0.1:12345/error";
-
-    private void BaiCuanUrl() {
-
-        WebViewClient webViewClient = new WebViewClient() {
-            @Override
-            // 在点击请求的是链接是才会调用，重写此方法返回true表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边。这个函数我们可以做很多操作，比如我们读取到某些特殊的URL，于是就可以不打开地址，取消这个操作，进行预先定义的其他操作，这对一个程序是非常必要的。
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // 判断url链接中是否含有某个字段，如果有就执行指定的跳转（不执行跳转url链接），如果没有就加载url链接
-                if (url.contains("map.")) {
-                    Log.d(TAG, "shouldOverrideUrlLoading() returned: " + true + "---" + url);
-                    return true;
+            case R.id.iv_btn_download:
+                //下载图片
+                permissionsChecker = new PermissionsChecker(GoodsDetailActivity.this);
+                imageU = false;
+                beginAlpha(images);
+                break;
+            case R.id.shen_ji:
+                UserInfo user = BearMallAplication.getInstance().getUser();
+                if (user != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("audit", user.getIdentity().getIsAudit());
+                    VipExplainActivity.opneVipExplainActivity(GoodsDetailActivity.this, VipExplainActivity.class, bundle);
                 } else {
-                    Log.d(TAG, "shouldOverrideUrlLoading() returned: " + false + "---" + url);
-                    return false;
+                    LoginActivity.starActivity(GoodsDetailActivity.this);
                 }
-            }
-        };
-
-        AlibcTrade.openByUrl(GoodsDetailActivity.this, "", BCUrl, null, webViewClient,
-                null, null, null, null, new AlibcTradeCallback() {
-                    @Override
-                    public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
-                        Log.d(TAG, "shouldOverrideUrlLoading() returned: " + true + "---");
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        Log.d(TAG, "shouldOverrideUrlLoading() returned: " + s + "---code" + i);
-                    }
-                });
-
+                break;
+        }
     }
 
-    class MyWebViewClient extends WebViewClient {
+    public class MyWebViewClient extends WebViewClient {
 
         @Override
         public void onPageFinished(WebView view, String url) {
@@ -606,5 +583,260 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             view.loadUrl(url);
             return true;
         }
+    }
+
+    public class MyAdapter extends RecyclerView.Adapter<GoodsViewHolder> {
+
+        @NonNull
+        @Override
+        public GoodsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = getLayoutInflater().inflate(R.layout.item_xiangqin, parent, false);
+            return new GoodsViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull GoodsViewHolder goodsViewHolder, int position) {
+            TBKHomeGoodsEntity.RecommendBean recommendBean = mList.get(position);
+            Log.i("TAG", "onBindViewHolder: " + recommendBean);
+            goodsViewHolder.itemHomeProTitle.setText(recommendBean.getName());
+            goodsViewHolder.itemHomeProQuan.setText(recommendBean.getCouponAmount() + "元券");
+            goodsViewHolder.itemHomeProQuanhoujia.setText("¥" + recommendBean.getDiscountPrice());
+            goodsViewHolder.itemHomeProYuanjia.setText("¥" + recommendBean.getPrice());
+            goodsViewHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+            goodsViewHolder.tvCommision.setText("返 ¥ " + recommendBean.getCommision());
+            Glide.with(GoodsDetailActivity.this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(recommendBean.getOutIcon()).into(goodsViewHolder.itemHomeProImage);
+            goodsViewHolder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(GoodsDetailActivity.this, GoodsDetailActivity.class);
+                intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getItemId() + "");
+                intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
+                intent.putExtra(Constants.INTENT_KEY_COMM, mList.get(position).getCommision());
+                GoodsDetailActivity.this.startActivity(intent);
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return mList.size();
+        }
+    }
+
+    public class GoodsViewHolder extends RecyclerView.ViewHolder {
+        int id = R.layout.item_priduct_sum;
+        @BindView(R.id.item_home_pro_image)
+        ImageView itemHomeProImage;
+        @BindView(R.id.item_home_pro_title)
+        TextView itemHomeProTitle;
+        @BindView(R.id.item_home_pro_quan)
+        TextView itemHomeProQuan;
+        @BindView(R.id.item_home_pro_quanhoujia)
+        TextView itemHomeProQuanhoujia;
+        @BindView(R.id.item_home_pro_yuanjia)
+        TextView itemHomeProYuanjia;
+        @BindView(R.id.tv_commision)
+        TextView tvCommision;
+
+        public GoodsViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    //图片下载
+    private static final long ALPHA_DURATION = 2000;
+    private PermissionsChecker permissionsChecker;
+    static final String[] PERMISSIONS = new String[]{WRITE_EXTERNAL_STORAGE};
+    private static final int SAVE_SUCCESS = 0;//保存图片成功
+    private static final int SAVE_FAILURE = 1;//保存图片失败
+    private static final int SAVE_BEGIN = 2;//开始保存图片
+
+    private void beginAlpha(List<String> ImageUrl) {
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new AccelerateInterpolator());
+        animatorSet.setDuration(ALPHA_DURATION);
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                //没有考虑用户永久拒绝的情况
+                if (permissionsChecker.lacksPermissions(PERMISSIONS)) {
+                    showMissingPermissionDialog();
+                } else {
+                    mHandler.obtainMessage(SAVE_BEGIN).sendToTarget();
+                    returnBitMap(ImageUrl);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        animatorSet.start();
+    }
+
+    // 显示缺失权限提示
+    private void showMissingPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailActivity.this);
+        builder.setTitle("帮助");
+        builder.setMessage(R.string.string_help_text);
+
+        // 拒绝, 退出应用
+        builder.setNegativeButton("关闭", (dialog, which) -> {
+            Toast.makeText(GoodsDetailActivity.this, "缺少必要权限，无法保存", Toast.LENGTH_SHORT).show();
+        });
+
+        builder.setPositiveButton("设置", (dialog, which) -> startAppSettings());
+
+        builder.show();
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SAVE_BEGIN:
+                    break;
+                case SAVE_SUCCESS:
+                    Log.e("handleMessage", "handleMessage: ");
+                    showDialog(images.size(), imageSize);
+                    break;
+                case SAVE_FAILURE:
+                    showDialog(images.size(), imageSize);
+                    break;
+            }
+        }
+    };
+
+    private void showDialog(int sume, int sumetwo) {
+        OpenGoodsDetail.lightoff(GoodsDetailActivity.this);
+        View view = LayoutInflater.from(GoodsDetailActivity.this).inflate(R.layout.dialog_goods, null);
+        mMPopupWindow = new PopupWindow();
+        mMPopupWindow.setContentView(view);
+        mMPopupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        mMPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        // 设置背景图片， 必须设置，不然动画没作用
+        mMPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+        mMPopupWindow.setFocusable(false);
+        // 设置点击popupwindow外屏幕其它地方消失
+        mMPopupWindow.setOutsideTouchable(true);
+        // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
+        mMPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        TextView view1 = view.findViewById(R.id.sume_one);
+        TextView view2 = view.findViewById(R.id.sume_two);
+        view1.setText("共" + sume + "张  已下载 ");
+        view2.setText(sumetwo + "");
+        mMPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                OpenGoodsDetail.lighton(GoodsDetailActivity.this);
+            }
+        });
+        view.findViewById(R.id.wan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMPopupWindow.dismiss();
+            }
+        });
+        view.findViewById(R.id.xiang).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAlbum();
+                mMPopupWindow.dismiss();
+            }
+        });
+    }
+
+
+    public void openAlbum() {
+        Intent intent = new Intent();
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        if (Build.VERSION.SDK_INT < 19) {
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+        } else {
+            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        }
+        GoodsDetailActivity.this.startActivity(intent);
+    }
+
+    /**
+     * 将URL转化成bitmap形式
+     *
+     * @param url
+     * @return bitmap type
+     */
+    public final void returnBitMap(List<String> url) {
+        for (int i = 0; i < url.size(); i++) {
+            int finalI = i;
+            Glide.with(GoodsDetailActivity.this).asBitmap().load(url.get(i)).into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                    //保存图片必须在子线程中操作，是耗时操作
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            saveImageToPhotos(GoodsDetailActivity.this, resource, url.size() - 1, finalI);
+                        }
+                    }).start();
+                }
+            });
+        }
+    }
+
+    /**
+     * 保存二维码到本地相册
+     */
+    private void saveImageToPhotos(Context context, Bitmap bmp, int size, int i) {
+        // 首先保存图片
+        File appDir = new File(Environment.getExternalStorageDirectory(), "InvitationPoster");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = System.currentTimeMillis() + ".jpg";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 其次把文件插入到系统图库
+        try {
+            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                    file.getAbsolutePath(), fileName, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            if (size == i) {
+                mHandler.obtainMessage(SAVE_FAILURE).sendToTarget();
+            }
+            return;
+        }
+        // 最后通知图库更新
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(file);
+        intent.setData(uri);
+        context.sendBroadcast(intent);
+        if (size == i) {
+            mHandler.obtainMessage(SAVE_SUCCESS).sendToTarget();
+        }
+        imageSize++;
+    }
+
+
+    // 启动应用的设置
+    private void startAppSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + GoodsDetailActivity.this.getPackageName()));
+        GoodsDetailActivity.this.startActivity(intent);
     }
 }

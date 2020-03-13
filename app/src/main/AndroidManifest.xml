@@ -113,6 +113,10 @@
             android:configChanges="locale|layoutDirection"
             android:windowSoftInputMode="adjustUnspecified|adjustPan" />
         <activity
+            android:name="com.newversions.tbk.activity.ProductSumActivity2"
+            android:configChanges="locale|layoutDirection"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+        <activity
             android:name=".ui.activity.ConfirmActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"

@@ -98,7 +98,6 @@ public interface Api {
     @POST("api/membercenter/getInvitationPageInfo")
     Observable<String> getInvitationPageInfo();
 
-
     //获取商品详情
     @POST("/api/product/getProductBasicInfo")
     Observable<String> getProductData(@QueryMap() Map<String, String> params);
@@ -1289,6 +1288,13 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/partner/appointBigLeader")
     Observable<String> appointBigLeader(@FieldMap() Map<String, String> params);
+
+    /**
+     * 搜索列表
+     * */
+    @FormUrlEncoded
+    @POST("api/userinfo/getKeywordSearch")
+    Observable<String> KeywordSearch(@FieldMap() Map<String, String> params);
 
 }
 
