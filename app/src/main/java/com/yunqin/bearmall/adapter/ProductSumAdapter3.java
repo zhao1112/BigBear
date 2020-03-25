@@ -16,6 +16,7 @@ import com.newversions.tbk.entity.GoodsEntity;
 import com.newversions.tbk.utils.StringUtils;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.SearchData;
+import com.yunqin.bearmall.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,21 +59,26 @@ public class ProductSumAdapter3 extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(productSunHolder.mHome_bg.getLayoutParams());
         if (position % 2 == 0) {
-            params.setMargins(10, 0, 5, 10);
-        } else {
             params.setMargins(5, 0, 10, 10);
+        } else {
+            params.setMargins(10, 0, 5, 10);
         }
         productSunHolder.mHome_bg.setLayoutParams(params);
+        productSunHolder.qh_5.setVisibility(View.GONE);
         productSunHolder.itemHomeProTitle.setText(list.get(position).getName());
-        productSunHolder.itemHomeProQuan.setText("券¥" + list.get(position).getCouponAmount());
-        productSunHolder.itemHomeProYuanjia.setText("¥" + list.get(position).getPrice());
-        productSunHolder.itemHomeProQuanhoujia.setText(list.get(position).getDiscountPrice() + "");
-        productSunHolder.tvCommision.setText("预估返：" + list.get(position).getCommision() + "元");
+        try {
+            productSunHolder.itemHomeProYuanjia.setText("¥" + list.get(position).getPrice());
+            productSunHolder.itemHomeProQuanhoujia.setText(list.get(position).getDiscountPrice() + "");
+            productSunHolder.tvCommision.setText("预估收益¥" + list.get(position).getCommision());
+            productSunHolder.itemHomeProQuan.setText(list.get(position).getCouponAmount() + "元券");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         productSunHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);// 设置中划线并加清晰
         Glide.with(context)
                 .load(list.get(position).getOutIcon())
                 .into(productSunHolder.itemHomeProImage);
-        productSunHolder.itemHomeXiaoliang.setText(list.get(position).getSellNum() + "人已购");
+        productSunHolder.itemHomeXiaoliang.setText("月销" + list.get(position).getSellNum());
         productSunHolder.itemSellerName.setText(StringUtils.addImageLabel(context, list.get(position).getTmall().equals("1") ?
                 R.mipmap.icon_tmall : R.mipmap.icon_taobao1, list.get(position).getSellerName()));
         productSunHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +100,7 @@ public class ProductSumAdapter3 extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         private final ImageView itemHomeProImage;
         private final TextView itemHomeProTitle, itemHomeProQuan, itemHomeXiaoliang, itemHomeProQuanhoujia, itemHomeProYuanjia,
-                tvCommision, itemSellerName;
+                tvCommision, itemSellerName, qh_5;
         private final RelativeLayout mHome_bg;
 
         public ProductSunHolder(View itemView) {
@@ -108,6 +114,7 @@ public class ProductSumAdapter3 extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvCommision = itemView.findViewById(R.id.tv_commision);
             itemSellerName = itemView.findViewById(R.id.item_seller_name);
             mHome_bg = itemView.findViewById(R.id.home_bg);
+            qh_5 = itemView.findViewById(R.id.qh_5);
         }
     }
 

@@ -307,6 +307,15 @@ public class UserInfo {
         private int isAudit;
         private int upgradeType;
         private String upgradeTips;
+        private int identifier;
+
+        public int getIdentifier() {
+            return identifier;
+        }
+
+        public void setIdentifier(int identifier) {
+            this.identifier = identifier;
+        }
 
         public boolean isPartner() {
             return isPartner;

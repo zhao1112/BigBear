@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_160"
-    android:layout_marginTop="@dimen/dp_15"
-    android:background="@drawable/bg_corner_white_2"
-    android:orientation="horizontal">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/dp_15"
+              android:background="@drawable/bg_corner_white_2"
+              android:orientation="horizontal">
 
 
     <com.yunqin.bearmall.widget.CircleImageView
@@ -13,11 +13,11 @@
         android:layout_height="@dimen/dp_50"
         android:layout_marginLeft="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_16"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_13"
         android:orientation="vertical">
 
@@ -31,47 +31,48 @@
             android:maxLines="3"
             android:text="您在2019计结算时间：收货后次月25日结算"
             android:textColor="#ff272727"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_14"/>
 
         <TextView
             android:id="@+id/y_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/y_type"
-            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_below="@id/y_title"
+            android:layout_marginTop="@dimen/dp_15"
             android:text="订 单 号 ："
             android:textColor="#ff555555"
-            android:textSize="@dimen/sp_11" />
+            android:textSize="@dimen/sp_11"/>
 
         <TextView
             android:id="@+id/y_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/y_money"
-            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_below="@id/y_order"
+            android:layout_marginTop="@dimen/dp_6"
             android:text="订单类型："
             android:textColor="#ff555555"
-            android:textSize="@dimen/sp_11" />
+            android:textSize="@dimen/sp_11"/>
 
         <TextView
             android:id="@+id/y_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/y_shou"
-            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_below="@id/y_type"
+            android:layout_marginTop="@dimen/dp_6"
             android:text="订单金额："
             android:textColor="#ff555555"
-            android:textSize="@dimen/sp_11" />
+            android:textSize="@dimen/sp_11"/>
 
         <TextView
+            android:layout_below="@id/y_money"
+            android:layout_marginTop="@dimen/dp_6"
             android:id="@+id/y_shou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_15"
             android:text="获得收益："
             android:textColor="#ff555555"
-            android:textSize="@dimen/sp_11" />
+            android:textSize="@dimen/sp_11"/>
 
     </RelativeLayout>
 

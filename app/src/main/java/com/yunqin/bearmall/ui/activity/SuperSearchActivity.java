@@ -62,7 +62,7 @@ public class SuperSearchActivity extends BaseActivity implements View.OnClickLis
         superSearchAdapter.setgoodsId(new SuperSearchAdapter.goodsId() {
             @Override
             public void getGoodsId(String id) {
-                GoodsDetailActivity.startGoodsDetailActivity(SuperSearchActivity.this, id, Constants.GOODS_TYPE_TBK_SEARCH);
+                GoodsDetailActivity.startGoodsDetailActivity(SuperSearchActivity.this, id, Constants.GOODS_TYPE_TBK_SEARCH,"1");
             }
         });
 

@@ -72,7 +72,7 @@ public class MyTBKCollectionActivity extends BaseActivity {
 //                intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getId());
 //                intent.putExtra(Constants.INTENT_KEY_URL, mList.get(position).getIconUrl());
 //                startActivity(intent);
-                GoodsDetailActivity.startGoodsDetailActivity(MyTBKCollectionActivity.this, mList.get(position).getItemId());
+                GoodsDetailActivity.startGoodsDetailActivity(MyTBKCollectionActivity.this, mList.get(position).getItemId(),"1");
             }
         });
         homeAdapter.setEmptyView(R.layout.empty_layout);

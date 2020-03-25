@@ -112,9 +112,13 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/wx_id_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
+                    android:ellipsize="end"
+                    android:maxEms="4"
+                    android:maxLines="1"
                     android:text="未填写"
                     android:textColor="#ffffffff"
                     android:textSize="@dimen/sp_12"/>

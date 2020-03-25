@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.SecondFans;
+import com.yunqin.bearmall.bean.StairFans;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshFooterView;
@@ -100,8 +102,8 @@ public class FansTwoFragment extends BaseFragment {
 
         mFansItemAdapter.setClickItem(new FansItemAdapter.OnClickItem() {
             @Override
-            public void onFanshInfo(String customerId, String imageUrl, String phone, String creatTime) {
-                FansInfo(customerId, imageUrl, phone, creatTime);
+            public void onFanshInfo(String customerId, String imageUrl, String phone, String creatTime, String wxId) {
+                FansInfo(customerId, imageUrl, phone, creatTime, wxId);
             }
         });
 
@@ -110,17 +112,16 @@ public class FansTwoFragment extends BaseFragment {
     //二级粉丝
     private void SecondFans() {
         Map<String, String> map = new HashMap<>();
-        map.put("openTime", "0");
-        map.put("openCount", "0");
         map.put("page", Secondpage + "");
         map.put("pageSize", pageSize + "");
-        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).SecondFans(map), new RetrofitApi.IResponseListener() {
+        map.put("type", "2");
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUserAllFans(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                SecondFans secondFans = new Gson().fromJson(data, SecondFans.class);
+                StairFans secondFans = new Gson().fromJson(data, StairFans.class);
                 if (secondFans.getData() != null) {
                     if (secondFans.getData().getList() != null && secondFans.getData().getList().size() > 0) {
-                        mFansItemAdapter.addFansTwo(secondFans.getData().getList());
+                        mFansItemAdapter.addFansOne(secondFans.getData().getList());
                     } else {
                         mNulldata.setVisibility(View.VISIBLE);
                         mFansTwinkling.setBottomView(new RefreshFooterView(getActivity()));
@@ -151,7 +152,7 @@ public class FansTwoFragment extends BaseFragment {
     }
 
     //粉丝详情
-    public void FansInfo(String customerId, String imageUrl, String phone, String creatTime) {
+    public void FansInfo(String customerId, String imageUrl, String phone, String creatTime, String wxId) {
         Map<String, String> map = new HashMap<>();
         map.put("customerId", customerId);
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).FansInfo(map), new RetrofitApi.IResponseListener() {
@@ -163,7 +164,7 @@ public class FansTwoFragment extends BaseFragment {
                     Double lastMonthIncome = dat.optDouble("lastMonthIncome");
                     Double cumulativeIncome = dat.optDouble("cumulativeIncome");
                     String recommendCode = dat.optString("recomendCode");
-                    showFans(imageUrl, phone, creatTime, lastMonthIncome, cumulativeIncome, recommendCode);
+                    showFans(imageUrl, phone, creatTime, lastMonthIncome, cumulativeIncome, recommendCode, wxId);
                 }
             }
 
@@ -180,7 +181,7 @@ public class FansTwoFragment extends BaseFragment {
     }
 
     private void showFans(String imageUrl, String phone, String creatTime, Double lastMonthIncome, Double cumulativeIncome,
-                          String recommendCode) {
+                          String recommendCode, String wxId) {
 
         OpenGoodsDetail.lightoff(getActivity());
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_fansh, null);
@@ -190,6 +191,7 @@ public class FansTwoFragment extends BaseFragment {
         TextView lastMonth = view.findViewById(R.id.lastMonthIncome);
         TextView cumulative = view.findViewById(R.id.cumulative);
         TextView creattime = view.findViewById(R.id.creattime);
+        TextView copy_wxid = view.findViewById(R.id.wx_id_2);
         PopupWindow mPopupWindow = new PopupWindow();
         mPopupWindow.setContentView(view);
         mPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
@@ -199,9 +201,7 @@ public class FansTwoFragment extends BaseFragment {
         mPopupWindow.setAnimationStyle(R.style.CenterAnimation);
         mPopupWindow.setFocusable(true);
         // 设置点击popupwindow外屏幕其它地方消失
-        mPopupWindow.setOutsideTouchable(true
-
-        );
+        mPopupWindow.setOutsideTouchable(true);
         // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
         mPopupWindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         Glide.with(getActivity()).load(imageUrl).apply(mOptions).into(toiamge);
@@ -210,6 +210,9 @@ public class FansTwoFragment extends BaseFragment {
         lastMonth.setText(money + doubleToString(lastMonthIncome));
         cumulative.setText(money + doubleToString(cumulativeIncome));
         creattime.setText("注册时间 " + creatTime);
+        if (!TextUtils.isEmpty(wxId) && !wxId.equals("null")) {
+            copy_wxid.setText(wxId);
+        }
         view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,7 +230,13 @@ public class FansTwoFragment extends BaseFragment {
         view.findViewById(R.id.copy_wxid).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("还未填写微信号");
+                if (!TextUtils.isEmpty(wxId) && !wxId.equals("null ")) {
+                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, wxId));
+                    showToast("复制成功");
+                } else {
+                    showToast("还未填写微信号");
+                }
             }
         });
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {

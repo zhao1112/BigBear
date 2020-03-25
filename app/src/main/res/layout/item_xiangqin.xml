@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF">
 
     <RelativeLayout
         android:id="@+id/home_bg"
@@ -15,7 +16,7 @@
             android:id="@+id/item_home_pro_image"
             android:layout_width="@dimen/dp_120"
             android:layout_height="@dimen/dp_120"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"/>
 
 
         <TextView
@@ -28,7 +29,7 @@
             android:lineSpacingExtra="@dimen/dp_4"
             android:maxLines="1"
             android:textColor="#333333"
-            android:textSize="@dimen/sp_15">
+            android:textSize="@dimen/sp_13">
 
         </TextView>
 
@@ -49,7 +50,7 @@
                 android:paddingRight="@dimen/dp_6"
                 android:text="130元劵"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/sp_11" />
+                android:textSize="@dimen/sp_11"/>
 
             <TextView
                 android:id="@+id/tv_commision"
@@ -62,7 +63,7 @@
                 android:paddingRight="@dimen/dp_3"
                 android:text="反¥0.00"
                 android:textColor="#24A064"
-                android:textSize="@dimen/sp_11" />
+                android:textSize="@dimen/sp_11"/>
 
 
         </LinearLayout>
@@ -75,19 +76,35 @@
             android:layout_marginTop="@dimen/dp_10"
             android:text="￥123"
             android:textColor="#888888"
-            android:textSize="@dimen/sp_12" />
+            android:textSize="@dimen/sp_11"/>
 
-        <TextView
-            android:id="@+id/item_home_pro_quanhoujia"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_home_pro_yuanjia"
-            android:layout_gravity="bottom"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_marginBottom="@dimen/dp_15"
-            android:text="￥1111111"
-            android:textColor="#ff333333"
-            android:textSize="@dimen/sp_18" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_home_pro_quanhoujia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="￥1111111"
+                android:textColor="#F3280A"
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="券后"
+                android:textColor="#fff3280a"
+                android:textSize="@dimen/sp_11"/>
+
+        </LinearLayout>
 
 
     </RelativeLayout>

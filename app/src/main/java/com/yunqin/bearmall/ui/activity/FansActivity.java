@@ -104,16 +104,15 @@ public class FansActivity extends BaseActivity {
 
     private void getStairFans() {
         Map<String, String> map = new HashMap<>();
-        map.put("openTime", "0");
-        map.put("openCount", "0");
         map.put("page", page + "");
         map.put("pageSize", pageSize + "");
-        RetrofitApi.request(FansActivity.this, RetrofitApi.createApi(Api.class).StairFans(map), new RetrofitApi.IResponseListener() {
+        map.put("type", "0");
+        RetrofitApi.request(FansActivity.this, RetrofitApi.createApi(Api.class).getUserAllFans(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                Log.d("data", data);
+                Log.e("FansActivity", data);
                 StairFans stairFans = new Gson().fromJson(data, StairFans.class);
-                mFansSize.setText(stairFans.getData().getOneSize() + stairFans.getData().getTwoSize() + "");
+                mFansSize.setText(stairFans.getFansCount() + "");
             }
 
             @Override

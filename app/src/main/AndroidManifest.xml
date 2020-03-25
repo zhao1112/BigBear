@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.yunqin.bearmall">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.yunqin.bearmall">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 个推SDK权限配置开始 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 支持iBeancon 需要蓝牙权限 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- 支持个推3.0 电子围栏功能 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 浮动通知权限 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 自定义权限 -->
-    <uses-permission android:name="getui.permission.GetuiService.${applicationId}" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/> <!-- 个推SDK权限配置开始 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/> <!-- 支持iBeancon 需要蓝牙权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/> <!-- 支持个推3.0 电子围栏功能 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- 浮动通知权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/> <!-- 自定义权限 -->
+    <uses-permission android:name="getui.permission.GetuiService.${applicationId}"/>
     <uses-permission
         android:name="android.permission.MANAGE_USERS"
-        tools:ignore="ProtectedPermissions" />
+        tools:ignore="ProtectedPermissions"/>
     <uses-permission
         android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_SMS" />
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions" />
+        tools:ignore="ProtectedPermissions"/>
     <uses-permission
         android:name="android.permission.BATTERY_STATS"
-        tools:ignore="ProtectedPermissions" />
+        tools:ignore="ProtectedPermissions"/>
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
+        tools:ignore="ProtectedPermissions"/>
 
     <permission
         android:name="getui.permission.GetuiService.${applicationId}"
-        android:protectionLevel="normal" />
+        android:protectionLevel="normal"/>
 
     <application
         android:name=".BearMallAplication"
@@ -53,48 +53,76 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
-        <activity android:name=".ui.activity.PartnerFansSeekActivity"></activity>
-        <activity android:name=".ui.activity.PartnerOrderSeekActivity" />
-        <activity android:name=".ui.activity.BackstageActivity" />
-        <activity android:name=".ui.activity.VipExplainActivity" />
+        <activity android:name=".ui.activity.BinDingWXActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.PartnerFansSeekActivity"
+            android:configChanges="locale|layoutDirection"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.PartnerOrderSeekActivity"
+            android:configChanges="locale|layoutDirection"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.BackstageActivity"
+            android:configChanges="locale|layoutDirection"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.VipExplainActivity"
+            android:configChanges="locale|layoutDirection"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.MineProfitActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.ZeorExchangeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.FansActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.LimitedActivity"
+            android:configChanges="locale|layoutDirection"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.SellwellActivity"
+            android:configChanges="locale|layoutDirection"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.SuperSearchActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
-        <activity android:name="com.newversions.InviteFriendActivity" />
-        <activity android:name=".ADGiveCandyActivity" />
-        <activity android:name=".ui.activity.InformationFragmentActivity" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity android:name="com.newversions.InviteFriendActivity"/>
+        <activity android:name=".ADGiveCandyActivity"/>
+        <activity android:name=".ui.activity.InformationFragmentActivity"/>
         <activity
             android:name=".ui.activity.SplashActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <!-- 在主 Activity 中配置 scheme -->
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
 
                 <data
                     android:host="ph"
                     android:path="/loadtooldetail"
-                    android:scheme="bearmall" />
+                    android:scheme="bearmall"/>
             </intent-filter>
         </activity>
         <activity
@@ -102,144 +130,144 @@
             android:configChanges="locale|layoutDirection|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".ui.activity.LoginActivity"
             android:configChanges="locale|layoutDirection"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.ZanWeiKaiFangActivity"
             android:configChanges="locale|layoutDirection"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name="com.newversions.tbk.activity.ProductSumActivity2"
             android:configChanges="locale|layoutDirection"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.ConfirmActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.PhoneLoginActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.MenuActicity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.MenuSecondLevelActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.RegiestOrForgetPwdActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.AddrActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
-        <activity android:name=".ui.activity.PayActivity" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity android:name=".ui.activity.PayActivity"/>
         <activity
             android:name=".ui.activity.ShopActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.ProductDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.BargainFreeActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.BargainFreeShareActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.BargainFreeDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.SearchActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.AddressActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.MineOrderActivity"
             android:configChanges="locale|layoutDirection"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.CommentActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name=".ui.activity.LoginBindPhone"
             android:configChanges="locale|layoutDirection"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.GivingSweetsActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.OrderDetailsActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.SugestionBack"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.HelpFriendCutDownThePriceActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.AboutBearMall"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name="com.donkingliang.imageselector.ImageSelectorActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name="com.donkingliang.imageselector.PreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name="com.donkingliang.imageselector.ClipImageActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".ui.activity.EvaluateFinActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -248,115 +276,115 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
 
         <activity
             android:name=".ui.activity.AddAddrActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.FindBTGiveWhoActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.RefundActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.MyCollectionActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.MyVoucherActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.SweetRecordActivity"
             android:configChanges="locale|layoutDirection"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.PropertyActivity"
             android:configChanges="locale|layoutDirection"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.SweetRecordWithTypeActivity"
             android:configChanges="locale|layoutDirection"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.VoucherDialogActivity"
             android:configChanges="locale|layoutDirection"
             android:theme="@style/voucher_dialog"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.VanguardListPageActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.AfterSaleActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.BearClassActivity"
             android:configChanges="locale|layoutDirection"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.InvitationActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".ui.activity.MyAllCommentActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.RefundDetailsActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.DailyTasksActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.MessageAboutActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.ZeroMoneyActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.ZeroMoneyDetailsActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.SettingActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.BeforeActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.TrolleyActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" /> <!-- <activity -->
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/> <!-- <activity -->
         <!-- android:name="com.mob.tools.MobUIShell" -->
         <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
         <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
@@ -365,235 +393,235 @@
         <activity
             android:name="com.bbearmall.app.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent" />
+            android:theme="@android:style/Theme.Translucent"/>
         <activity
             android:name=".ui.activity.SweetSnatchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.SnatchDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.BCMessageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.DealMessageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.SystemMessageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.EventMessageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.newreward.SpecialRequestUI.SpecialRequestActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="InnerclassSeparator"/>
         <activity
             android:name="com.newreward.SpecialRequestUI.RequestRecord"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="InnerclassSeparator"/>
         <activity
             android:name="com.newreward.privilegeUI.ActivityPrivilege"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" /> <!-- 个推SDK配置开始 -->
+            android:screenOrientation="portrait"/> <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
         <meta-data
             android:name="PUSH_APPID"
-            android:value="${GETUI_APP_ID}" />
+            android:value="${GETUI_APP_ID}"/>
         <meta-data
             android:name="PUSH_APPKEY"
-            android:value="${GETUI_APP_KEY}" />
+            android:value="${GETUI_APP_KEY}"/>
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="${GETUI_APP_SECRET}" /> <!-- 配置SDK核心服务 -->
+            android:value="${GETUI_APP_SECRET}"/> <!-- 配置SDK核心服务 -->
         <activity
             android:name="com.igexin.sdk.PushActivity"
             android:excludeFromRecents="true"
             android:exported="false"
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name="com.igexin.sdk.GActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".ui.activity.AppReportActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.PayOverActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.PayOverMemberActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.LogisticsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.PastActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.EmptyActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
 
                 <data
                     android:host="app.bbbearmall.com"
                     android:path="/openApp"
-                    android:scheme="bbmall" />
+                    android:scheme="bbmall"/>
             </intent-filter>
         </activity> <!-- 个推SDK配置结束 -->
         <service
             android:name=".service.BearMallPushService"
             android:exported="true"
             android:label="PushService"
-            android:process=":pushservice" />
+            android:process=":pushservice"/>
         <service
             android:name=".service.BearMallIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <activity
             android:name=".ui.activity.HaiWaiGouActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.newversions.MemberMallActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.VideoDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.newversions.hd.HdActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.newversions.hd.HdActivity"/>
         <activity
             android:name="com.newversions.detail.NewProductDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
-        <activity android:name="com.newversions.passwd.PwdActivity" />
-        <activity android:name="com.newversions.passwd.ChangePwdActivity" />
-        <activity android:name="com.newversions.passwd.SettingPwdActivity" />
-        <activity android:name="com.newversions.passwd.RetrievePwdActivity" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity android:name="com.newversions.passwd.PwdActivity"/>
+        <activity android:name="com.newversions.passwd.ChangePwdActivity"/>
+        <activity android:name="com.newversions.passwd.SettingPwdActivity"/>
+        <activity android:name="com.newversions.passwd.RetrievePwdActivity"/>
         <activity
             android:name=".ui.activity.CouponActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.BalanceActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.BalanceDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
-        <activity android:name="com.newversions.help.HelpActivity" />
-        <activity android:name="com.newversions.push.MyPushActivity" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity android:name="com.newversions.help.HelpActivity"/>
+        <activity android:name="com.newversions.push.MyPushActivity"/>
         <activity
             android:name=".ui.activity.ChargeActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.ChargeConfirmActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.OpenVipActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.newversions.detail.order.VirtualOrdersActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.newversions.detail.order.VirtualOrdersActivity"/>
         <activity
             android:name=".ui.activity.InviteVipActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.VipCenterActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.newversions.NewWebViewActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.newversions.NewWebViewActivity"/>
         <activity
             android:name=".ui.activity.RenewVipActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.Testctivity" />
-        <activity android:name="com.newversions.ServiceActivity" />
-        <activity android:name="com.newversions.ImageLookActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Testctivity"/>
+        <activity android:name="com.newversions.ServiceActivity"/>
+        <activity android:name="com.newversions.ImageLookActivity"/>
         <activity
             android:name="com.newreward.SpecialRequestUI.RewardDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            tools:ignore="InnerclassSeparator" />
-        <activity android:name="com.newversions.MoneyRewardActivity" />
-        <activity android:name=".ui.activity.BankCardActivity" />
-        <activity android:name=".ui.activity.BankAddVerifyActivity" />
-        <activity android:name=".ui.activity.BindingBankActivity" />
-        <activity android:name=".ui.activity.PhoneVerifyActivity" />
-        <activity android:name=".ui.activity.VerifySuccessActivity" />
-        <activity android:name=".ui.activity.BalanceWithdrawalActivity" />
-        <activity android:name=".ui.activity.BalanceWithdrawalWxActivity" />
-        <activity android:name=".ui.activity.WithdrawActivity" />
-        <activity android:name=".ui.activity.WithdrawalRecordActivity" />
-        <activity android:name="com.newversions.CreditCardActivity" />
-        <activity android:name="com.newversions.CardListWebActivity" />
-        <activity android:name=".ui.activity.LoanActivity" />
-        <activity android:name="com.newversions.tbk.activity.GoodsDetailActivity" />
-        <activity android:name="com.newversions.tbk.activity.IncomeRecordActivity" />
-        <activity android:name="com.newversions.tbk.activity.WebActivity" />
-        <activity android:name="com.newversions.tbk.activity.ProductSumActivity" />
-        <activity android:name="com.newversions.tbk.activity.ShareComissionActivity" />
-        <activity android:name="com.newversions.tbk.activity.MyTBKCollectionActivity" />
-        <activity android:name="com.newversions.tbk.activity.InputIncomCodeActivity" />
+            tools:ignore="InnerclassSeparator"/>
+        <activity android:name="com.newversions.MoneyRewardActivity"/>
+        <activity android:name=".ui.activity.BankCardActivity"/>
+        <activity android:name=".ui.activity.BankAddVerifyActivity"/>
+        <activity android:name=".ui.activity.BindingBankActivity"/>
+        <activity android:name=".ui.activity.PhoneVerifyActivity"/>
+        <activity android:name=".ui.activity.VerifySuccessActivity"/>
+        <activity android:name=".ui.activity.BalanceWithdrawalActivity"/>
+        <activity android:name=".ui.activity.BalanceWithdrawalWxActivity"/>
+        <activity android:name=".ui.activity.WithdrawActivity"/>
+        <activity android:name=".ui.activity.WithdrawalRecordActivity"/>
+        <activity android:name="com.newversions.CreditCardActivity"/>
+        <activity android:name="com.newversions.CardListWebActivity"/>
+        <activity android:name=".ui.activity.LoanActivity"/>
+        <activity android:name="com.newversions.tbk.activity.GoodsDetailActivity"/>
+        <activity android:name="com.newversions.tbk.activity.IncomeRecordActivity"/>
+        <activity android:name="com.newversions.tbk.activity.WebActivity"/>
+        <activity android:name="com.newversions.tbk.activity.ProductSumActivity"/>
+        <activity android:name="com.newversions.tbk.activity.ShareComissionActivity"/>
+        <activity android:name="com.newversions.tbk.activity.MyTBKCollectionActivity"/>
+        <activity android:name="com.newversions.tbk.activity.InputIncomCodeActivity"/>
         <activity
             android:name=".ui.activity.InvitationActivity2"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
 
         <meta-data
             android:name="TUIA_APPKEY"
-            android:value="26VQ3Jizm2Xpd2KMJvk9g4HMgSA2" /> <!-- value的值填写你在友盟后台申请的应用Appkey    5d7f75ad570df3730e0004cf -->
+            android:value="26VQ3Jizm2Xpd2KMJvk9g4HMgSA2"/> <!-- value的值填写你在友盟后台申请的应用Appkey    5d7f75ad570df3730e0004cf -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5d7f75ad570df3730e0004cf" /> <!-- value的值填写渠道名称，例如yingyongbao。这里设置动态渠道名称变量 -->
+            android:value="5d7f75ad570df3730e0004cf"/> <!-- value的值填写渠道名称，例如yingyongbao。这里设置动态渠道名称变量 -->
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
+            android:value="${UMENG_CHANNEL_VALUE}"/>
     </application>
 
 </manifest>

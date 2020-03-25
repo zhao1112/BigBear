@@ -7,11 +7,13 @@ import android.support.annotation.IntDef;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.ui.fragment.GuideWithVideoFragment;
 import com.yunqin.bearmall.ui.fragment.HomeFragment;
+import com.yunqin.bearmall.ui.fragment.HomeFragment_2;
 import com.yunqin.bearmall.ui.fragment.MakeMoneyFragment;
 import com.yunqin.bearmall.ui.fragment.MineFragment;
 import com.yunqin.bearmall.ui.fragment.MineNewFragment;
@@ -36,7 +38,7 @@ public class SwitchFragment {
 
     }
 
-    private HomeFragment mHomeFragment;
+    private HomeFragment_2 mHomeFragment;
     private GuideWithVideoFragment mRecommendFragment;
     private MakeMoneyFragment mMakeMoneyFragment;
     // TODO: 2019/7/15 0015 替换成0元兑
@@ -78,14 +80,14 @@ public class SwitchFragment {
         switch (type) {
             case FRAGMENT_TYPE.APP_HOME:
                 if (mHomeFragment == null) {
-                    mHomeFragment = new HomeFragment();
+                    mHomeFragment = new HomeFragment_2();
                     transaction.add(R.id.content, mHomeFragment);
                 }
                 hiderFragment(transaction);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mHomeFragment);
                 transaction.commit();
-                setStatusBarColor(R.color.white, true);
+                StatuBarUtils.setTranslucentStatus(activity);
                 break;
             case FRAGMENT_TYPE.APP_RECOMMEND:
                 if (mRecommendFragment == null) {
@@ -139,6 +141,14 @@ public class SwitchFragment {
     public void setStatusBarColor(int color, boolean dark) {
         StatuBarUtils.setStatusBarDarkTheme(activity, dark);
         StatuBarUtils.setStatusBarColor(activity, activity.getResources().getColor(color));
+    }
+
+    public static void setStatusBarColor2(Activity activity, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            //状态栏改变颜色。
+            window.setStatusBarColor(color);
+        }
     }
 
 }

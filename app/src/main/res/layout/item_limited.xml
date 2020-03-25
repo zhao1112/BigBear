@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/item_home_pro_image"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_120"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_17"
+            android:layout_marginBottom="@dimen/dp_13"
+            android:scaleType="centerCrop"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_15"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_home_pro_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_17"
+                android:ellipsize="end"
+                android:lineSpacingExtra="@dimen/dp_4"
+                android:maxLines="1"
+                android:text="11111"
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_14"/>
+
+
+            <LinearLayout
+                android:id="@+id/hot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_home_pro_title"
+                android:layout_marginTop="@dimen/dp_13"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hot"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:gravity="center_vertical"
+                    android:text="已抢 "
+                    android:textColor="#999999"
+                    android:textSize="@dimen/sp_11"/>
+
+                <TextView
+                    android:id="@+id/item_home_xiaoliang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:gravity="center_vertical"
+                    android:textColor="#F3280A"
+                    android:textSize="@dimen/sp_11"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:gravity="center_vertical"
+                    android:text="件"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/sp_11"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/item_home_pro_quan"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_15"
+                android:layout_below="@id/hot"
+                android:layout_marginTop="@dimen/dp_13"
+                android:background="@mipmap/icon_coupons"
+                android:paddingLeft="@dimen/dp_6"
+                android:paddingRight="@dimen/dp_6"
+                android:text="130元劵"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_11"/>
+
+            <TextView
+                android:id="@+id/tv_commision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/boot"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:layout_marginBottom="@dimen/dp_5"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_3"
+                android:text="分享赚:¥0.00"
+                android:textColor="#F3280A"
+                android:textSize="@dimen/sp_11"/>
+
+
+            <RelativeLayout
+                android:id="@+id/boot"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_13"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="¥"
+                    android:textColor="#F3280A"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/item_home_pro_quanhoujia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
+                    android:layout_toRightOf="@id/item_home"
+                    android:text="1111111"
+                    android:textColor="#F3280A"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/item_home_pro_yuanjia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dp_9"
+                    android:layout_toRightOf="@id/item_home_pro_quanhoujia"
+                    android:text="￥123"
+                    android:textColor="#888888"
+                    android:textSize="@dimen/sp_12"/>
+
+                <TextView
+                    android:layout_width="@dimen/dp_70"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/item_qiang"
+                    android:gravity="center"
+                    android:text="马上抢"
+                    android:textColor="#ffffffff"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:background="#F1F1F1"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

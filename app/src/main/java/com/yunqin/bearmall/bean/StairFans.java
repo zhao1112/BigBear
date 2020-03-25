@@ -9,25 +9,12 @@ import java.util.List;
  */
 public class StairFans {
 
-    /**
-     * msg : 请求成功
-     * code : 1
-     * data : {"oneSize":6,"twoSize":3,"list":[{"fans_count":2,"createdDate":"2019-08-17 09:40:49","bigBearNumber":"617801472",
-     * "wxOpen_id":"oKPyws7lrfiFjx5qTEm1vDa1CWsU","nickName":"幸  好","customerId":12268,"mobile":"17865202474","iconUrl":"http://thirdwx
-     * .qlogo.cn/mmopen/vi_32/QBRibaicGLY6scAmHricZhIR5tYCbkhW91OPa5mgXwW7IRdfGs8J61Tl2jLjdt8nucnck1ibeObYcFp6DGR2arAPng/132",
-     * "lastLoginDate":"2019-08-17 09:40:49","memberRank_id":0},{"fans_count":0,"createdDate":"2019-08-17 14:09:48",
-     * "bigBearNumber":"554804755","wxOpen_id":"oKPyws8qjhJn4u2X8J2V83QsqZZk","nickName":"宇宙最可爱v","customerId":12270,
-     * "mobile":"17691214223","iconUrl":"http://thirdwx.qlogo
-     * .cn/mmopen/vi_32/DYAIOgq83ept6UvMIWKZIp0T9IGO7vicyvhiauqJEPt9qQmIq8zMI18GLtIBwQPN7I2uiag9WD9ymLHKu0Bp3zib9w/132",
-     * "lastLoginDate":"2019-08-17 14:09:48","memberRank_id":0},{"fans_count":1,"createdDate":"2019-12-02 09:38:11",
-     * "bigBearNumber":"997921461","wxOpen_id":"oKPyws7-NfOH-2yp72nKIxOZWf2Mkfkf","nickName":"大熊用户997921461","customerId":12379,
-     * "mobile":"1856820020655","iconUrl":"https://shopxxbbc.oss-cn-beijing.aliyuncs.com/upload/image/201808/20180816140417.png",
-     * "lastLoginDate":"2019-12-02 09:38:11","memberRank_id":0}]}
-     */
+
 
     private String msg;
     private int code;
     private DataBean data;
+    private int fansCount;
 
     public String getMsg() {
         return msg;
@@ -53,43 +40,16 @@ public class StairFans {
         this.data = data;
     }
 
+    public int getFansCount() {
+        return fansCount;
+    }
+
+    public void setFansCount(int fansCount) {
+        this.fansCount = fansCount;
+    }
+
     public static class DataBean {
-        /**
-         * oneSize : 6
-         * twoSize : 3
-         * list : [{"fans_count":2,"createdDate":"2019-08-17 09:40:49","bigBearNumber":"617801472",
-         * "wxOpen_id":"oKPyws7lrfiFjx5qTEm1vDa1CWsU","nickName":"幸  好","customerId":12268,"mobile":"17865202474",
-         * "iconUrl":"http://thirdwx.qlogo
-         * .cn/mmopen/vi_32/QBRibaicGLY6scAmHricZhIR5tYCbkhW91OPa5mgXwW7IRdfGs8J61Tl2jLjdt8nucnck1ibeObYcFp6DGR2arAPng/132",
-         * "lastLoginDate":"2019-08-17 09:40:49","memberRank_id":0},{"fans_count":0,"createdDate":"2019-08-17 14:09:48",
-         * "bigBearNumber":"554804755","wxOpen_id":"oKPyws8qjhJn4u2X8J2V83QsqZZk","nickName":"宇宙最可爱v","customerId":12270,
-         * "mobile":"17691214223","iconUrl":"http://thirdwx.qlogo
-         * .cn/mmopen/vi_32/DYAIOgq83ept6UvMIWKZIp0T9IGO7vicyvhiauqJEPt9qQmIq8zMI18GLtIBwQPN7I2uiag9WD9ymLHKu0Bp3zib9w/132",
-         * "lastLoginDate":"2019-08-17 14:09:48","memberRank_id":0},{"fans_count":1,"createdDate":"2019-12-02 09:38:11",
-         * "bigBearNumber":"997921461","wxOpen_id":"oKPyws7-NfOH-2yp72nKIxOZWf2Mkfkf","nickName":"大熊用户997921461","customerId":12379,
-         * "mobile":"1856820020655","iconUrl":"https://shopxxbbc.oss-cn-beijing.aliyuncs.com/upload/image/201808/20180816140417.png",
-         * "lastLoginDate":"2019-12-02 09:38:11","memberRank_id":0}]
-         */
-
-        private int oneSize;
-        private int twoSize;
         private List<ListBean> list;
-
-        public int getOneSize() {
-            return oneSize;
-        }
-
-        public void setOneSize(int oneSize) {
-            this.oneSize = oneSize;
-        }
-
-        public int getTwoSize() {
-            return twoSize;
-        }
-
-        public void setTwoSize(int twoSize) {
-            this.twoSize = twoSize;
-        }
 
         public List<ListBean> getList() {
             return list;
@@ -101,29 +61,24 @@ public class StairFans {
 
         public static class ListBean {
             /**
-             * fans_count : 2
-             * createdDate : 2019-08-17 09:40:49
-             * bigBearNumber : 617801472
-             * wxOpen_id : oKPyws7lrfiFjx5qTEm1vDa1CWsU
-             * nickName : 幸  好
-             * customerId : 12268
-             * mobile : 17865202474
-             * iconUrl : http://thirdwx.qlogo
-             * .cn/mmopen/vi_32/QBRibaicGLY6scAmHricZhIR5tYCbkhW91OPa5mgXwW7IRdfGs8J61Tl2jLjdt8nucnck1ibeObYcFp6DGR2arAPng/132
-             * lastLoginDate : 2019-08-17 09:40:49
-             * memberRank_id : 0
+             * fans_count : 0
+             * createdDate : 2020-03-10 18:19:08
+             * weixin : null
+             * nickName : 大熊用户773055663
+             * customerId : 12415
+             * mobile : 153338316653
+             * wxQrcode : null
+             * iconUrl : https://shopxxbbc.oss-cn-beijing.aliyuncs.com/upload/image/201808/20180816140417.png
              */
 
             private int fans_count;
             private String createdDate;
-            private String bigBearNumber;
-            private String wxOpen_id;
+            private String weixin;
             private String nickName;
             private int customerId;
             private String mobile;
+            private String wxQrcode;
             private String iconUrl;
-            private String lastLoginDate;
-            private int memberRank_id;
 
             public int getFans_count() {
                 return fans_count;
@@ -141,20 +96,12 @@ public class StairFans {
                 this.createdDate = createdDate;
             }
 
-            public String getBigBearNumber() {
-                return bigBearNumber;
+            public String getWeixin() {
+                return weixin;
             }
 
-            public void setBigBearNumber(String bigBearNumber) {
-                this.bigBearNumber = bigBearNumber;
-            }
-
-            public String getWxOpen_id() {
-                return wxOpen_id;
-            }
-
-            public void setWxOpen_id(String wxOpen_id) {
-                this.wxOpen_id = wxOpen_id;
+            public void setWeixin(String weixin) {
+                this.weixin = weixin;
             }
 
             public String getNickName() {
@@ -181,28 +128,20 @@ public class StairFans {
                 this.mobile = mobile;
             }
 
+            public String getWxQrcode() {
+                return wxQrcode;
+            }
+
+            public void setWxQrcode(String wxQrcode) {
+                this.wxQrcode = wxQrcode;
+            }
+
             public String getIconUrl() {
                 return iconUrl;
             }
 
             public void setIconUrl(String iconUrl) {
                 this.iconUrl = iconUrl;
-            }
-
-            public String getLastLoginDate() {
-                return lastLoginDate;
-            }
-
-            public void setLastLoginDate(String lastLoginDate) {
-                this.lastLoginDate = lastLoginDate;
-            }
-
-            public int getMemberRank_id() {
-                return memberRank_id;
-            }
-
-            public void setMemberRank_id(int memberRank_id) {
-                this.memberRank_id = memberRank_id;
             }
         }
     }

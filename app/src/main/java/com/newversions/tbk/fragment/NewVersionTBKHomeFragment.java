@@ -3,7 +3,6 @@ package com.newversions.tbk.fragment;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -18,6 +17,7 @@ import com.newversions.tbk.entity.TBKHomeEntity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseFragment;
+import com.yunqin.bearmall.bean.NewTBHome;
 import com.yunqin.bearmall.ui.activity.BargainFreeActivity;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
@@ -150,6 +150,11 @@ public class NewVersionTBKHomeFragment extends BaseFragment implements NewVersio
     public void attachData(TBKHomeEntity homeBean) {
         mNoNetView.setVisibility(View.GONE);
         mNewVersionHomeAdapter.setData(homeBean);
+    }
+
+    @Override
+    public void TBHome(NewTBHome s) {
+
     }
 
     @Override

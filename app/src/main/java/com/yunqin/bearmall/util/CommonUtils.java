@@ -34,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -136,6 +137,22 @@ public class CommonUtils {
         boolean flag;
         try {
             String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+            Pattern regex = Pattern.compile(check);
+            Matcher matcher = regex.matcher(email);
+            flag = matcher.matches();
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
+    }
+
+    /**
+     * 验证微信号是否正确
+     */
+    public static boolean checkWX(String email) {
+        boolean flag;
+        try {
+            String check = "^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$";
             Pattern regex = Pattern.compile(check);
             Matcher matcher = regex.matcher(email);
             flag = matcher.matches();
@@ -479,9 +496,10 @@ public class CommonUtils {
 
     /**
      * 返回名品有券365加密参数串.
+     *
      * @return
      */
-    public static String getParam365(String url){
+    public static String getParam365(String url) {
         String machineCode = DeviceUtils.getUniqueId(BearMallAplication.getInstance().getApplicationContext());
         String timestamp = String.valueOf(System.currentTimeMillis());
         ConcurrentHashMap map = new ConcurrentHashMap();
@@ -506,4 +524,23 @@ public class CommonUtils {
     }
 
 
+    public static String doubleToString(String num) {
+        Double aDouble = Double.valueOf(num);
+        //使用0.00不足位补0，#.##仅保留有效位
+        return new DecimalFormat("0.00").format(aDouble);
+    }
+
+    public static String doubleToString(Double num) {
+        //使用0.00不足位补0，#.##仅保留有效位
+        return new DecimalFormat("0.00").format(num);
+    }
+
+    public static int doubleToInt(String num) {
+        Integer integer = Integer.valueOf(num);
+        return integer;
+    }
+
+    public static int doubleToInt2(double num) {
+        return (int) num;
+    }
 }

@@ -2,11 +2,12 @@ package com.newversions.tbk.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,13 +16,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,13 +33,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,13 +65,14 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.ContenGoods;
 import com.yunqin.bearmall.bean.UserInfo;
-import com.yunqin.bearmall.ui.activity.BackstageActivity;
 import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.VipExplainActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.PermissionsChecker;
+import com.yunqin.bearmall.widget.CompletedView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
@@ -156,16 +159,17 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     TextView tv_2;
     @BindView(R.id.tv_3)
     TextView tv_3;
+    @BindView(R.id.g_2)
+    TextView mG2;
+    @BindView(R.id.shen_ji)
+    TextView shen_ji;
 
 
     private TextView quanhoujia;
     private TextView youhui, shenq;
     private RelativeLayout qh;
-    private boolean imageU = false;
     private int imageSize = 0;
     private List<TBKHomeGoodsEntity.RecommendBean> mList = new ArrayList<>();
-    private int page;
-    private String itemId;
     private int type;//1表示常规商品,2表示自营商品,3表示猜你喜欢商品
     public static final int TYPE_GOODS = 1;
     public static final int TYPE_TBK = 2;
@@ -181,15 +185,23 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private GoodDetailEntity.GoodDetailBean goodDetail;
     private List<String> images;
     private PopupWindow mMPopupWindow;
+    private String mShouc;
+    private CompletedView copmleted;
+    private int indusum = 20;
+    private TextView mView2;
+    private TextView mXiang;
+    private TextView mWan;
+    private int mFinalI = 0;
 
-    public static void startGoodsDetailActivity(Context context, String goodsId) {
-        startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT);
+    public static void startGoodsDetailActivity(Context context, String goodsId, String shouc) {
+        startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT, shouc);
     }
 
-    public static void startGoodsDetailActivity(Context context, String goodsId, int type) {
+    public static void startGoodsDetailActivity(Context context, String goodsId, int type, String shouc) {
         Intent intent = new Intent(context, GoodsDetailActivity.class);
         intent.putExtra(Constants.INTENT_KEY_ID, goodsId);
         intent.putExtra(Constants.INTENT_KEY_TYPE, type);
+        intent.putExtra("Shouc", shouc);
         context.startActivity(intent);
     }
 
@@ -205,6 +217,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         mPresenter = new GoodsDetailPresenter(this, this);
         homeAdapter = new MyAdapter();
         goodsId = getIntent().getStringExtra(Constants.INTENT_KEY_ID);
+        mShouc = getIntent().getStringExtra("Shouc");
         keyword = getIntent().getStringExtra("DETAILSKEYWORD");
         positin = getIntent().getIntExtra("POSITION", 0);
         search = getIntent().getBooleanExtra("SEARCH", false);
@@ -249,10 +262,27 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         if (userInfo != null && userInfo.getIdentity() != null) {
             //判断是否是合伙人
             if (userInfo.getIdentity().isPartner()) {
-                shenji.setVisibility(View.GONE);
+                shen_ji.setVisibility(View.GONE);
             } else {
-                shenji.setVisibility(View.VISIBLE);
+                shen_ji.setVisibility(View.VISIBLE);
             }
+        }
+
+        tvGoodsTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (!TextUtils.isEmpty(tvGoodsTitle.getText().toString())) {
+                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, tvGoodsTitle.getText().toString()));
+                    showToast("复制成功");
+                }
+                return true;
+            }
+        });
+        if (mShouc.equals("2")) {
+            linCollect.setVisibility(View.VISIBLE);
+        } else {
+            linCollect.setVisibility(View.GONE);
         }
     }
 
@@ -299,23 +329,41 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         banGoodsImage.setImages(goodDetail.getImages());
         banGoodsImage.start();
         tvGoodsQixian.setText(goodDetail.getCouponStartDate() + "-" + goodDetail.getCouponEndDate());
-        quanhoujia.setText(goodDetail.getDiscountPrice() + "");
-        tvGoodsYuanjia.setText("¥" + goodDetail.getPrice());
-        tvGoodsYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        try {
+            String[] split = CommonUtils.doubleToString(goodDetail.getDiscountPrice()).split("\\.");
+            String str2 = split[0] + ".<small>" + split[1] + "</small>";
+            quanhoujia.setText(Html.fromHtml(str2));
+            tvGoodsYuanjia.setText("¥" + CommonUtils.doubleToString(goodDetail.getPrice()));
+            tvGoodsYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         wvGoodsDetail.setVisibility(View.VISIBLE);
         tvGoodsXiaoliang.setText("销量" + goodDetail.getSellNum());
         zui.setText(goodDetail.getMaxCommision() + "元");
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
-        if (getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_DEFAULT) == Constants.GOODS_TYPE_TBK) {
-            tv_yongjin_num.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
-            s_y.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
-            commission = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
-        } else {
-            tv_yongjin_num.setText("收益" + goodDetail.getCommision() + "元");
-            s_y.setText("收益" + goodDetail.getCommision() + "元");
-            commission = goodDetail.getCommision();
-        }
+//        if (getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_DEFAULT) == Constants.GOODS_TYPE_TBK) {
+//            tv_yongjin_num.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
+//            try {
+//                s_y.setText("收益" + CommonUtils.doubleToString(getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0)) + "元");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            commission = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
+//        } else {
+//            tv_yongjin_num.setText("收益" + goodDetail.getCommision() + "元");
+//            try {
+//                s_y.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            commission = goodDetail.getCommision();
+//        }
+        tv_yongjin_num.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
+        s_y.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
+
         if (StringUtils.isEmpty(goodDetail.getSellerName())) {
             rlSellerName.setVisibility(View.GONE);
         } else {
@@ -333,11 +381,13 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         if ("0".equals(goodDetail.getCouponAmount() + "")) {
             qh.setVisibility(View.GONE);
             shenq.setVisibility(View.GONE);
+            mG2.setText("抢购价");
         } else {
             qh.setVisibility(View.VISIBLE);
             shenq.setVisibility(View.VISIBLE);
             shenq.setText("立省" + goodDetail.getCouponAmount() + "元");
             youhui.setText(goodDetail.getCouponAmount() + "");
+            mG2.setText("券后价");
         }
 
 
@@ -498,6 +548,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     Map<String, String> map = new HashMap<>();
                     map.put("goodsId", goodsId);
                     map.put("collection", collection + "");
+                    Log.e("onViewClicked", goodsId + "");
+                    Log.e("onViewClicked", collection + "");
                     RetrofitApi.request(this, RetrofitApi.createApi(Api.class).changeCollection(map), new RetrofitApi.IResponseListener() {
                         @Override
                         public void onSuccess(String data) throws JSONException {
@@ -541,9 +593,10 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 break;
             case R.id.iv_btn_download:
                 //下载图片
+                mFinalI = 0;
+                indusum = 20;
                 permissionsChecker = new PermissionsChecker(GoodsDetailActivity.this);
-                imageU = false;
-                beginAlpha(images);
+                showDialog2(images.size());
                 break;
             case R.id.shen_ji:
                 UserInfo user = BearMallAplication.getInstance().getUser();
@@ -557,6 +610,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 break;
         }
     }
+
 
     public class MyWebViewClient extends WebViewClient {
 
@@ -600,8 +654,12 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             Log.i("TAG", "onBindViewHolder: " + recommendBean);
             goodsViewHolder.itemHomeProTitle.setText(recommendBean.getName());
             goodsViewHolder.itemHomeProQuan.setText(recommendBean.getCouponAmount() + "元券");
-            goodsViewHolder.itemHomeProQuanhoujia.setText("¥" + recommendBean.getDiscountPrice());
-            goodsViewHolder.itemHomeProYuanjia.setText("¥" + recommendBean.getPrice());
+            try {
+                goodsViewHolder.itemHomeProQuanhoujia.setText("¥" + CommonUtils.doubleToString(recommendBean.getDiscountPrice()));
+                goodsViewHolder.itemHomeProYuanjia.setText("¥" + CommonUtils.doubleToString(recommendBean.getPrice()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             goodsViewHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
             goodsViewHolder.tvCommision.setText("返 ¥ " + recommendBean.getCommision());
             Glide.with(GoodsDetailActivity.this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product)).load(recommendBean.getOutIcon()).into(goodsViewHolder.itemHomeProImage);
@@ -610,6 +668,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getItemId() + "");
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                 intent.putExtra(Constants.INTENT_KEY_COMM, mList.get(position).getCommision());
+                intent.putExtra("Shouc", "1");
                 GoodsDetailActivity.this.startActivity(intent);
             });
         }
@@ -664,7 +723,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 if (permissionsChecker.lacksPermissions(PERMISSIONS)) {
                     showMissingPermissionDialog();
                 } else {
-                    mHandler.obtainMessage(SAVE_BEGIN).sendToTarget();
                     returnBitMap(ImageUrl);
                 }
             }
@@ -696,24 +754,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         builder.show();
     }
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SAVE_BEGIN:
-                    break;
-                case SAVE_SUCCESS:
-                    Log.e("handleMessage", "handleMessage: ");
-                    showDialog(images.size(), imageSize);
-                    break;
-                case SAVE_FAILURE:
-                    showDialog(images.size(), imageSize);
-                    break;
-            }
-        }
-    };
-
-    private void showDialog(int sume, int sumetwo) {
+    private void showDialog2(int sume) {
         OpenGoodsDetail.lightoff(GoodsDetailActivity.this);
         View view = LayoutInflater.from(GoodsDetailActivity.this).inflate(R.layout.dialog_goods, null);
         mMPopupWindow = new PopupWindow();
@@ -728,9 +769,13 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
         mMPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         TextView view1 = view.findViewById(R.id.sume_one);
-        TextView view2 = view.findViewById(R.id.sume_two);
+        mView2 = view.findViewById(R.id.sume_two);
+        copmleted = view.findViewById(R.id.copmleted);
+        mXiang = view.findViewById(R.id.xiang);
+        mWan = view.findViewById(R.id.wan);
         view1.setText("共" + sume + "张  已下载 ");
-        view2.setText(sumetwo + "");
+        copmleted.setTargetPercent(0);
+        mView2.setText("0");
         mMPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -750,20 +795,18 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 mMPopupWindow.dismiss();
             }
         });
+        //下载图片
+        beginAlpha(images);
     }
 
 
     public void openAlbum() {
         Intent intent = new Intent();
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        if (Build.VERSION.SDK_INT < 19) {
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-        } else {
-            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-        }
-        GoodsDetailActivity.this.startActivity(intent);
+        startActivityForResult(intent, 2);
     }
+
 
     /**
      * 将URL转化成bitmap形式
@@ -772,8 +815,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
      * @return bitmap type
      */
     public final void returnBitMap(List<String> url) {
+        copmleted.setTargetPercent(100);
         for (int i = 0; i < url.size(); i++) {
-            int finalI = i;
             Glide.with(GoodsDetailActivity.this).asBitmap().load(url.get(i)).into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
@@ -781,7 +824,38 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            saveImageToPhotos(GoodsDetailActivity.this, resource, url.size() - 1, finalI);
+                            File appDir = new File(Environment.getExternalStorageDirectory(), "InvitationPoster");
+                            if (!appDir.exists()) {
+                                appDir.mkdir();
+                            }
+                            String fileName = System.currentTimeMillis() + ".jpg";
+                            File file = new File(appDir, fileName);
+                            try {
+                                FileOutputStream fos = new FileOutputStream(file);
+                                resource.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                                fos.flush();
+                                fos.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            // 其次把文件插入到系统图库
+                            try {
+                                MediaStore.Images.Media.insertImage(GoodsDetailActivity.this.getContentResolver(), file.getAbsolutePath()
+                                        , fileName, null);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                                mFinalI++;
+                                handler.sendMessage(new Message());
+                                return;
+                            }
+                            mFinalI++;
+                            handler.sendMessage(new Message());
+                            // 最后通知图库更新
+                            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                            Uri uri = Uri.fromFile(file);
+                            intent.setData(uri);
+                            GoodsDetailActivity.this.sendBroadcast(intent);
+
                         }
                     }).start();
                 }
@@ -789,48 +863,18 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         }
     }
 
-    /**
-     * 保存二维码到本地相册
-     */
-    private void saveImageToPhotos(Context context, Bitmap bmp, int size, int i) {
-        // 首先保存图片
-        File appDir = new File(Environment.getExternalStorageDirectory(), "InvitationPoster");
-        if (!appDir.exists()) {
-            appDir.mkdir();
-        }
-        String fileName = System.currentTimeMillis() + ".jpg";
-        File file = new File(appDir, fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // 其次把文件插入到系统图库
-        try {
-            MediaStore.Images.Media.insertImage(context.getContentResolver(),
-                    file.getAbsolutePath(), fileName, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            if (size == i) {
-                mHandler.obtainMessage(SAVE_FAILURE).sendToTarget();
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mView2.setText(mFinalI + "");
+            if (mFinalI == images.size()) {
+                copmleted.setVisibility(View.GONE);
+                mXiang.setVisibility(View.VISIBLE);
+                mWan.setText("完成");
             }
-            return;
         }
-        // 最后通知图库更新
-        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri uri = Uri.fromFile(file);
-        intent.setData(uri);
-        context.sendBroadcast(intent);
-        if (size == i) {
-            mHandler.obtainMessage(SAVE_SUCCESS).sendToTarget();
-        }
-        imageSize++;
-    }
+    };
 
 
     // 启动应用的设置

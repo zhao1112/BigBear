@@ -2,6 +2,7 @@ package com.newversions.tbk.fragment;
 
 import com.newversions.tbk.entity.TBKHomeGoodsEntity;
 import com.newversions.tbk.entity.TBKHomeEntity;
+import com.yunqin.bearmall.bean.NewTBHome;
 
 /**
  * Create By Master
@@ -26,11 +27,11 @@ public interface NewVersionTBKHomeContract {
 
         void attachData(TBKHomeEntity TBKHomeEntity);
 
+        void TBHome(NewTBHome newTBHome);
+
         void attachAddData(TBKHomeGoodsEntity TBKGoodsEntity);
-//        void attachBannerData(NewHomeAd homeAd);
 
         //我要贷款
-//        void loanData(String json);
         void loanError();
 
     }

@@ -31,6 +31,7 @@ import com.yunqin.bearmall.adapter.SearchAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.bean.SearchBannerBean;
 import com.yunqin.bearmall.bean.SearchMatch;
 import com.yunqin.bearmall.ui.activity.contract.SearchActivityContract;
 import com.yunqin.bearmall.ui.activity.presenter.SearchPresenter;
@@ -77,7 +78,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     private SearchAdapter searchAdapter;
     private SearchActivityContract.Presenter presenter = new SearchPresenter(this);
     private String lastMenuGoodsData = null;
-    private List<TBKHomeEntity.BannerBean> list;
+    private List<SearchBannerBean.DataBean.PlatformBannerBean> list;
 
 
     @Override
@@ -102,7 +103,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         mListView.setOnTagClickListener(text -> {
             mEditText.setText(text);
             mEditText.setSelection(text.length());
-            mListView.setVisibility(View.GONE);
             ProductSumActivity2.startProductSumActivity2(this, text, 8, text);
         });
     }
@@ -262,7 +262,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         mFlowLayout.setOnTagClickListener(text -> {
             mEditText.setText(text);
             mEditText.setSelection(text.length());
-            mListView.setVisibility(View.GONE);
             assemblyData(text);
             ProductSumActivity2.startProductSumActivity2(this, text, 8, text);
         });
@@ -324,7 +323,8 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                 case KeyEvent.ACTION_UP:
                     // TODO 发送请求
                     if (mEditText.getText().toString().length() > 0) {
-                        ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
+                        ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8,
+                                mEditText.getText().toString());
                         assemblyData(mEditText.getText().toString());
                     }
                     hiddenKeyboard();
@@ -362,36 +362,39 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
 
     private void getBanner() {
         Map<String, String> mHashMap = new HashMap<>();
-        RetrofitApi.request(SearchActivity.this, RetrofitApi.createApi(Api.class).getTBKHomeListData(mHashMap), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(SearchActivity.this, RetrofitApi.createApi(Api.class).getSearchLunboTu(mHashMap),
+                new RetrofitApi.IResponseListener() {
 
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                try {
-                    Log.e("TCP_DATA", data);
-                    TBKHomeEntity tbkHomeEntity = new Gson().fromJson(data, TBKHomeEntity.class);
-                    if (tbkHomeEntity != null && tbkHomeEntity.getBannerOne() != null && tbkHomeEntity.getBannerOne().size() > 0) {
-                        list = tbkHomeEntity.getBannerOne();
-                        addBannerList(tbkHomeEntity.getBannerOne());
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        try {
+                            Log.e("TCP_DATA", data);
+                            SearchBannerBean searchBannerBean = new Gson().fromJson(data, SearchBannerBean.class);
+                            if (searchBannerBean != null && searchBannerBean.getData() != null && searchBannerBean.getData().getPlatformBanner() != null
+                                    && searchBannerBean.getData().getPlatformBanner().size() > 0) {
+
+                                list = searchBannerBean.getData().getPlatformBanner();
+                                addBannerList(searchBannerBean.getData().getPlatformBanner());
+                            }
+                        } catch (Exception e) {
+
+                        }
                     }
-                } catch (Exception e) {
-                }
 
-            }
+                    @Override
+                    public void onNotNetWork() {
 
-            @Override
-            public void onNotNetWork() {
+                    }
 
-            }
+                    @Override
+                    public void onFail(Throwable e) {
 
-            @Override
-            public void onFail(Throwable e) {
-
-            }
-        });
+                    }
+                });
 
     }
 
-    private void addBannerList(List<TBKHomeEntity.BannerBean> bannerOne) {
+    private void addBannerList(List<SearchBannerBean.DataBean.PlatformBannerBean> bannerOne) {
         List<String> stringList = new ArrayList<>();
         for (int i = 0; i < bannerOne.size(); i++) {
             stringList.add(bannerOne.get(i).getImage());

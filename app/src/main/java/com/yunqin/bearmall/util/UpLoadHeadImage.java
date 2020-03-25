@@ -5,10 +5,13 @@ import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.WebSettings;
 
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
+import com.yunqin.bearmall.ui.activity.BinDingWXActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +32,8 @@ import static java.lang.String.valueOf;
 
 public class UpLoadHeadImage {
 
-    public static void okHttpUpLoadImage(Context context, Uri uri, String fileName, Map<String, Object> map, OnUpLoadHeadImageCallBack callBack) {
+    public static void okHttpUpLoadImage(Context context, Uri uri, String fileName, Map<String, Object> map,
+                                         OnUpLoadHeadImageCallBack callBack) {
         OkHttpClient client = new OkHttpClient();
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
         try {
@@ -188,4 +192,54 @@ public class UpLoadHeadImage {
         return userAgent;
     }
 
+    public static void okHttpwxImage(Context context, Uri uri, String fileName, String map, OnUpLoadHeadImageCallBack callBack2) {
+        Log.e("okHttpwxImage", map);
+        OkHttpClient client = new OkHttpClient();
+        String t = String.valueOf(System.currentTimeMillis());
+
+        MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        try {
+            File file = new File(new URI(uri.toString()));
+            if (file != null) {
+                RequestBody body = RequestBody.create(MediaType.parse("image/png"), file);
+                requestBody.addFormDataPart("file", fileName, body);
+            }
+
+        } catch (Exception e) {
+
+        }
+
+        Request request = new Request.Builder()
+                .url(BuildConfig.BASE_URL + "/api/userinfo/uploadWxInfo?weixin=" + map)
+                .post(requestBody.build())
+                .tag(context)
+                .addHeader("Authorization", getAuthorization(t))
+                .addHeader("Timestamp", t)
+                .addHeader("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token())
+                .addHeader("refresh_token", BearMallAplication.getInstance().getUser().getData().getToken().getRefresh_token())
+                .build();
+        client.newBuilder()
+                .readTimeout(5000, TimeUnit.MILLISECONDS)
+                .build()
+                .newCall(request)
+                .enqueue(new Callback() {
+                    @Override
+                    public void onFailure(okhttp3.Call call, IOException e) {
+                        if (callBack2 != null) {
+                            callBack2.onFail(e);
+                        }
+                    }
+
+                    @Override
+                    public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                        if (callBack2 != null) {
+                            if (response.body().string() != null) {
+                                callBack2.onSuccess("");
+                            }
+                        }
+                    }
+                });
+
+    }
 }
+

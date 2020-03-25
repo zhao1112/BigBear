@@ -6,8 +6,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.newversions.tbk.entity.TBKHomeEntity;
 import com.newversions.tbk.entity.TBKHomeGoodsEntity;
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.bean.NewTBHome;
 import com.yunqin.bearmall.util.DeviceUtils;
 
 import org.json.JSONException;
@@ -35,7 +37,8 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
     @Override
     public void init() {
         if (view != null) {
-            getHomeDate();
+            Log.e("attachData2", "init: ");
+            getHomeDate2();
         }
     }
 
@@ -71,10 +74,48 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
         });
     }
 
+    private void getHomeDate2() {
+        Log.e("attachData2", "getHomeDate2: ");
+        Map<String, String> mHashMap = new HashMap<>();
+        mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getNewCommodityCategory(mHashMap),
+                new RetrofitApi.IResponseListener() {
+
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        view.hideLoad();
+                        try {
+                            NewTBHome newTBHome = new Gson().fromJson(data, NewTBHome.class);
+                            view.TBHome(newTBHome);
+                            view.onHasMore(true);
+                            getHomeGoods();
+                        } catch (Exception e) {
+                            Log.e("TCP_DATA", e.getMessage());
+                        }
+
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        Log.e("getHomeGoods", "onNotNetWork: " );
+                        view.hideLoad();
+                        view.onNotNetWork();
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        Log.e("getHomeGoods", e.getMessage() );
+                        view.hideLoad();
+                        view.onNotNetWork();
+                    }
+                });
+    }
+
     private void getHomeGoods() {
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("page", String.valueOf(PAGE_NUMBER));
         mHashMap.put("deviceNumber", DeviceUtils.getUniqueId(context));
+        mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap),
                 new RetrofitApi.IResponseListener() {
 
@@ -116,7 +157,7 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
     public void onRefresh() {
         if (view != null) {
             PAGE_NUMBER = 1;
-            getHomeDate();
+            getHomeDate2();
         }
     }
 

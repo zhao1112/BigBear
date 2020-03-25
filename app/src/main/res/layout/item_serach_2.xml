@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
 
     <LinearLayout
@@ -17,7 +17,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_17"
             android:layout_marginBottom="@dimen/dp_13"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"/>
 
 
         <RelativeLayout
@@ -37,7 +37,7 @@
                 android:maxLines="2"
                 android:text="11111"
                 android:textColor="#333333"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_14"/>
 
 
             <TextView
@@ -49,7 +49,7 @@
                 android:gravity="center_vertical"
                 android:text="淘宝店铺名称展示"
                 android:textColor="#A6A6A6"
-                android:textSize="@dimen/sp_11" />
+                android:textSize="@dimen/sp_11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                     android:paddingRight="@dimen/dp_6"
                     android:text="130元劵"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp_11" />
+                    android:textSize="@dimen/sp_11"/>
 
                 <TextView
                     android:id="@+id/tv_commision"
@@ -79,7 +79,7 @@
                     android:paddingRight="@dimen/dp_3"
                     android:text="预估佣金:¥0.00"
                     android:textColor="#24A064"
-                    android:textSize="@dimen/sp_11" />
+                    android:textSize="@dimen/sp_11"/>
 
             </LinearLayout>
 
@@ -93,33 +93,48 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/onr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:gravity="bottom"
+                    android:text="¥"
+                    android:textColor="#F3280A"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold"/>
+
+                <TextView
                     android:id="@+id/item_home_pro_quanhoujia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:text="￥1111111"
-                    android:textColor="#ff333333"
-                    android:textSize="@dimen/sp_12" />
+                    android:layout_toRightOf="@+id/onr"
+                    android:text="1111111"
+                    android:textColor="#F3280A"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/item_home_pro_yuanjia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_9"
                     android:layout_toRightOf="@id/item_home_pro_quanhoujia"
-                    android:text="￥123"
+                    android:text="¥123"
                     android:textColor="#888888"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="@dimen/sp_12"/>
 
                 <TextView
                     android:id="@+id/item_home_xiaoliang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:singleLine="true"
                     android:text="月销 1000"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="@dimen/sp_12"/>
 
             </RelativeLayout>
 
@@ -127,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_alignParentBottom="true"
-                android:background="#F1F1F1" />
+                android:background="#F1F1F1"/>
 
 
         </RelativeLayout>

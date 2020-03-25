@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_170">
+
+            <ImageView
+                android:id="@+id/home_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/top_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_29"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/home_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:layout_weight="1"
+                    android:background="@drawable/home_search_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:src="@drawable/icon_search"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="搜索商品，领券购买，享受优惠"
+                        android:textColor="@color/home_text_unselect"
+                        android:textSize="@dimen/sp_12"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/xiaoxi"
+                    android:layout_width="@dimen/dp_22"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:src="@mipmap/message_2"/>
+
+            </LinearLayout>
+
+
+            <com.androidkun.xtablayout.XTabLayout
+                android:id="@+id/xtablelayout_2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_41"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_3"
+                android:overScrollMode="never"
+                app:xTabDisplayNum="10"
+                app:xTabDividerWidthWidthText="true"
+                app:xTabIndicatorColor="@color/white"
+                app:xTabMode="scrollable"
+                app:xTabSelectedTextColor="@color/white"
+                app:xTabSelectedTextSize="@dimen/sp_16"
+                app:xTabTextColor="@color/white"
+                app:xTabTextSelectedBold="true"
+                app:xTabTextSize="@dimen/sp_14"/>
+
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_title"
+            android:background="@color/TRANSPARENT">
+
+        </android.support.v4.view.ViewPager>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

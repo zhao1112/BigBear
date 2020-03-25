@@ -6,5 +6,5 @@
         android:radius="@dimen/ds32"
         />
     <!--填充颜色-->
-    <solid android:color="#b7f1efef" />
+    <solid android:color="#EEEEEE" />
 </shape>

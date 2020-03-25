@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -380,12 +381,21 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             wxId = promotion.getData().getParentWXId();
             //会员类型
             Type_Vip = promotion.getType();
+            //微信是否显示
+            if (!TextUtils.isEmpty(promotion.getData().getParentWXCode()) || !TextUtils.isEmpty(promotion.getData().getParentWXId())) {
+                Log.e("resultData", "resultData: "+promotion.getData().getParentWXCode());
+                Log.e("resultData", "resultData: "+promotion.getData().getParentWXId());
+                mVipSercice.setVisibility(View.VISIBLE);
+
+            } else {
+                mVipSercice.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
     public void onFail(Throwable throwable) {
-        Toast.makeText(VipExplainActivity.this,throwable.getMessage(),Toast.LENGTH_LONG).show();
+        Toast.makeText(VipExplainActivity.this, throwable.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override

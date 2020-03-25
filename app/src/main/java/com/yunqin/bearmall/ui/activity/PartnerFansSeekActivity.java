@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -59,6 +60,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
     private TextView mFansPopLevel;
     private String phone;
     private final String money = "¥";
+    private int mAppointNum;
 
     @Override
     public int layoutId() {
@@ -134,8 +136,9 @@ public class PartnerFansSeekActivity extends BaseActivity {
 
         partnerFansSeekAdapter.setOnNextCheckListener(new PartenrAdapter.OnNextCheckListener() {
             @Override
-            public void onFansNet(String createdDate, String id, String iconUrl, String mobile, String level) {
-                FansSeekNext(createdDate, id, iconUrl, mobile, level);
+            public void onFansNet(String createdDate, String id, String iconUrl, String mobile, String level,String wxId) {
+                FansSeekNext(createdDate, id, iconUrl, mobile, level,wxId);
+                AppoinNun(id);
             }
 
             @Override
@@ -145,7 +148,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
         });
     }
 
-    private void FansSeekNext(String createdDate, String id, String iconUrl, String mobile, String level) {
+    private void FansSeekNext(String createdDate, String id, String iconUrl, String mobile, String level,String wxid) {
         Map<String, String> map = new HashMap<>();
         map.put("customerId", id);
         RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).FansInfo(map), new RetrofitApi.IResponseListener() {
@@ -157,7 +160,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
                     Double lastMonthIncome = dat.optDouble("lastMonthIncome");
                     Double cumulativeIncome = dat.optDouble("cumulativeIncome");
                     String recommendCode = dat.optString("recomendCode");
-                    ShowFansSeek(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode, id);
+                    ShowFansSeek(iconUrl, mobile, createdDate, lastMonthIncome, cumulativeIncome, recommendCode, id,wxid);
                 }
             }
 
@@ -175,17 +178,16 @@ public class PartnerFansSeekActivity extends BaseActivity {
     }
 
     //任命次数
-    private void AppoinNun() {
+    private void AppoinNun(String id) {
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        hashMap.put("customerId", id);
         RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).getAppointNum(hashMap),
                 new RetrofitApi.IResponseListener() {
 
             @Override
             public void onSuccess(String data) throws JSONException {
                 FansAppoint fansAppoint = new Gson().fromJson(data, FansAppoint.class);
-                int appointNum = fansAppoint.getAppointNum();
-                mFansPopLevel.setText("剩余" + appointNum + "个名额");
+                mAppointNum = fansAppoint.getAppointNum();
             }
 
             @Override
@@ -201,7 +203,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
     }
 
     private void ShowFansSeek(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome,
-                              String recommendCode, String id) {
+                              String recommendCode, String id,String wxid) {
 
         OpenGoodsDetail.lightoff(this);
         View view = LayoutInflater.from(this).inflate(R.layout.fans_pop_appoint, null);
@@ -221,6 +223,8 @@ public class PartnerFansSeekActivity extends BaseActivity {
         //提升按钮
 
         Button mFansPopButton = view.findViewById(R.id.fans_pop_button);
+        //微信
+        TextView wxid_2 = view.findViewById(R.id.wxid_2);
         //任命次数
         mFansPopLevel = view.findViewById(R.id.fans_pop_level);
         PopupWindow mPopupWindow = new PopupWindow();
@@ -256,8 +260,12 @@ public class PartnerFansSeekActivity extends BaseActivity {
         mFansPopCumulative.setText(money + doubleToString(cumulativeIncome));
         //赋值注册时间
         mFansPopCreattime.setText("注册时间 " + createdDate);
-
-        AppoinNun();
+        mFansPopLevel.setText("剩余" + mAppointNum + "个名额");
+        if (!TextUtils.isEmpty(wxid) && !wxid.equals("null ")) {
+            wxid_2.setText(wxid);
+        }else {
+            wxid_2.setText("未填写");
+        }
 
         view.findViewById(R.id.fans_pop_close).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,7 +285,13 @@ public class PartnerFansSeekActivity extends BaseActivity {
         view.findViewById(R.id.fans_pop_copy_wxid).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("还未填写微信号");
+                if (!TextUtils.isEmpty(wxid) && !wxid.equals("null ")) {
+                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, wxid));
+                    showToast("复制成功");
+                } else {
+                    showToast("还未填写微信号");
+                }
             }
         });
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {

@@ -54,7 +54,7 @@ import butterknife.OnClick;
  */
 public class HomeFragment extends BaseFragment implements HomeContract.UI {
 
-    HomeContract.Presenter mPresenter;
+
     @BindView(R.id.xtablelayout)
     XTabLayout xtablelayout;
     @BindView(R.id.viewpager)
@@ -67,7 +67,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
     DotView dot_view;
 
     private HighlightButton mHighlightButton;
-
+    private HomeContract.Presenter mPresenter;
     private TabTitleAdapter adapter;
 
     @Override

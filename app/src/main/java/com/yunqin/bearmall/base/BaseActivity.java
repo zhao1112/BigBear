@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.ProductSumActivity;
+import com.newversions.tbk.activity.ProductSumActivity2;
 import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.tbk.view.SearchDialog;
 import com.umeng.analytics.MobclickAgent;
@@ -129,6 +130,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             mSearchDialog.dismiss();
                             HashMap<String, String> map = new HashMap<>();
                             map.put("content", content);
+                            map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
                             Log.i("jsonObject", content);
                             RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).findCommodityIdByTpwd(map),
                                     new RetrofitApi.IResponseListener() {
@@ -142,10 +144,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                                                         if (superSearch.getData().size() == 1) {
                                                             GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
                                                                     superSearch.getData().get(0).getTao_id(),
-                                                                    Constants.GOODS_TYPE_TBK_SEARCH);
+                                                                    Constants.GOODS_TYPE_TBK_SEARCH,"1");
                                                         } else {
-                                                            SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch,
-                                                                    content);
+                                                            SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch, content);
                                                         }
                                                     } else {
                                                         OpenGoodsDetail.showDialog(BaseActivity.this);
@@ -154,8 +155,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                                     if (TextUtils.isEmpty(object.optString("data"))) {
                                                         OpenGoodsDetail.showDialog(BaseActivity.this);
                                                     } else {
-                                                        GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, object.optString(
-                                                                "data"), Constants.GOODS_TYPE_TBK_SEARCH);
+                                                        GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, object.optString("data"), Constants.GOODS_TYPE_TBK_SEARCH,"1");
                                                     }
                                                 } else {
                                                     OpenGoodsDetail.showDialog(BaseActivity.this);

@@ -19,6 +19,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.entity.GoodsEntity;
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.ProductSumAdapter;
 import com.yunqin.bearmall.api.Api;
@@ -217,6 +218,9 @@ public class ProductSumFragment extends BaseFragment {
                 } else {
                     intent.putExtra("SEARCH", false);
                 }
+                if (type == 2) {
+                    intent.putExtra("Shouc", "2");
+                }
                 startActivity(intent);
             }
         });
@@ -227,6 +231,7 @@ public class ProductSumFragment extends BaseFragment {
         } else {
             getData();
         }
+
     }
 
     private String getCanBuyStr(int target) {
@@ -280,12 +285,14 @@ public class ProductSumFragment extends BaseFragment {
         map.put("sortType", String.valueOf(sortType));//排序规则
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
+        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
         Log.i("ConstantScUtil", "type ->" + String.valueOf(type));
         Log.i("ConstantScUtil", "orderType ->" + String.valueOf(orderType));
         Log.i("ConstantScUtil", "sortType ->" + String.valueOf(sortType));
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getGoodsList(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
+                Log.e("ConstantScUtil", data);
                 GoodsEntity goodsEntity = new Gson().fromJson(data, GoodsEntity.class);
                 if (goodsEntity != null && goodsEntity.getCommodity() != null && goodsEntity.getCommodity().size() > 0) {
                     mSumAdapter.addList(goodsEntity.getCommodity());

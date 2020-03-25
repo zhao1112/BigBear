@@ -156,12 +156,11 @@
 
                 <RelativeLayout
                     android:id="@+id/code"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/mine_top"
                     android:layout_marginLeft="@dimen/dp_88"
                     android:layout_marginTop="@dimen/dp_3"
-                    android:background="@drawable/app_yaoqinma"
                     android:gravity="center_vertical">
 
                     <LinearLayout
@@ -169,6 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
+                        android:background="@drawable/app_yaoqinma"
                         android:gravity="center_vertical"
                         android:paddingTop="@dimen/dp_2"
                         android:paddingBottom="@dimen/dp_2">
@@ -204,7 +204,7 @@
                             android:id="@+id/mine_copy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginLeft="@dimen/dp_10"
                             android:layout_marginRight="@dimen/dp_3"
                             android:background="@drawable/address_bg"
                             android:gravity="center"
@@ -215,6 +215,36 @@
                             android:text="点击复制"
                             android:textColor="#ff29895a"
                             android:textSize="@dimen/sp_11"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/Wx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="0dp"
+                        android:layout_toRightOf="@+id/copy_one"
+                        android:background="@drawable/address_bg"
+                        android:gravity="center_vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_16"
+                            android:layout_height="@dimen/dp_16"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:src="@mipmap/m_wechat"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginRight="@dimen/dp_5"
+                            android:text="绑定微信号"
+                            android:textColor="#ff272727"
+                            android:textSize="@dimen/sp_11"/>
+
 
                     </LinearLayout>
 
@@ -799,7 +829,7 @@
                             android:layout_marginTop="@dimen/dp_7"
                             android:layout_marginBottom="@dimen/dp_17"
                             android:orientation="horizontal"
-                           >
+                            >
 
                             <LinearLayout
                                 android:id="@+id/mine_backstage"

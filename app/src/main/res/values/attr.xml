@@ -2,78 +2,78 @@
 <resources>
     <declare-styleable name="BottomBarItem">
         <!--默认状态下的图标-->
-        <attr name="iconNormal" format="reference" />
+        <attr name="iconNormal" format="reference"/>
         <!--选中状态下的图标-->
-        <attr name="iconSelected" format="reference" />
+        <attr name="iconSelected" format="reference"/>
 
         <!--底部文字-->
-        <attr name="itemText" format="string" />
+        <attr name="itemText" format="string"/>
         <!--文字大小-->
-        <attr name="itemTextSize" format="dimension" />
+        <attr name="itemTextSize" format="dimension"/>
         <!--默认状态下的文字颜色-->
-        <attr name="textColorNormal" format="color" />
+        <attr name="textColorNormal" format="color"/>
         <!--选中状态下的文字颜色-->
-        <attr name="textColorSelected" format="color" />
+        <attr name="textColorSelected" format="color"/>
 
         <!--文字和图标的顶部距离-->
-        <attr name="itemMarginTop" format="dimension" />
+        <attr name="itemMarginTop" format="dimension"/>
 
         <!--是否开启触摸背景效果-->
-        <attr name="openTouchBg" format="boolean" />
+        <attr name="openTouchBg" format="boolean"/>
         <!--设置触摸背景-->
-        <attr name="touchDrawable" format="reference" />
+        <attr name="touchDrawable" format="reference"/>
 
         <!--设置图标的宽度-->
-        <attr name="iconWidth" format="dimension" />
+        <attr name="iconWidth" format="dimension"/>
         <!--设置图标的高度-->
-        <attr name="iconHeight" format="dimension" />
+        <attr name="iconHeight" format="dimension"/>
 
         <!--设置BottomBarItem的padding-->
-        <attr name="itemPadding" format="dimension" />
+        <attr name="itemPadding" format="dimension"/>
 
         <!--设置未读数字体大小-->
-        <attr name="unreadTextSize" format="dimension" />
+        <attr name="unreadTextSize" format="dimension"/>
         <!--设置未读数字体颜色-->
-        <attr name="unreadTextColor" format="reference" />
+        <attr name="unreadTextColor" format="reference"/>
         <!--设置未读数背景色-->
-        <attr name="unreadTextBg" format="reference" />
+        <attr name="unreadTextBg" format="reference"/>
 
         <!--设置提示消息字体大小-->
-        <attr name="msgTextSize" format="dimension" />
+        <attr name="msgTextSize" format="dimension"/>
         <!--设置提示消息字体颜色-->
-        <attr name="msgTextColor" format="reference" />
+        <attr name="msgTextColor" format="reference"/>
         <!--设置提示消息背景-->
-        <attr name="msgTextBg" format="reference" />
+        <attr name="msgTextBg" format="reference"/>
 
         <!--设置提示点背景-->
-        <attr name="notifyPointBg" format="reference" />
+        <attr name="notifyPointBg" format="reference"/>
 
         <!--设置未读数组阈值 大于阈值的数字将显示为 n+ n为设置的阈值-->
-        <attr name="unreadThreshold" format="integer" />
+        <attr name="unreadThreshold" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="BottomBarLayout">
-        <attr name="smoothScroll" format="boolean" />
+        <attr name="smoothScroll" format="boolean"/>
     </declare-styleable>
 
 
     <!-- ShadowLayout 阴影 -->
 
     <declare-styleable name="ShadowLayout">
-        <attr name="shadowColor" format="color" />
-        <attr name="shadowRadius" format="dimension" />
-        <attr name="shadowDx" format="dimension" />
-        <attr name="shadowDy" format="dimension" />
+        <attr name="shadowColor" format="color"/>
+        <attr name="shadowRadius" format="dimension"/>
+        <attr name="shadowDx" format="dimension"/>
+        <attr name="shadowDy" format="dimension"/>
         <attr name="shadowShape">
-            <flag name="rectangle" value="0x0001" />
-            <flag name="oval" value="0x0010" />
+            <flag name="rectangle" value="0x0001"/>
+            <flag name="oval" value="0x0010"/>
         </attr>
         <attr name="shadowSide">
-            <flag name="all" value="0x1111" />
-            <flag name="left" value="0x0001" />
-            <flag name="top" value="0x0010" />
-            <flag name="right" value="0x0100" />
-            <flag name="bottom" value="0x1000" />
+            <flag name="all" value="0x1111"/>
+            <flag name="left" value="0x0001"/>
+            <flag name="top" value="0x0010"/>
+            <flag name="right" value="0x0100"/>
+            <flag name="bottom" value="0x1000"/>
 
         </attr>
 
@@ -81,10 +81,9 @@
 
 
     <declare-styleable name="CircleImageView">
-        <attr name="border_width" format="dimension" />
-        <attr name="border_color" format="color" />
+        <attr name="border_width" format="dimension"/>
+        <attr name="border_color" format="color"/>
     </declare-styleable>
-
 
 
     <declare-styleable name="SwitchButton">
@@ -111,21 +110,17 @@
     </declare-styleable>
 
 
-
-
-
-
     <declare-styleable name="StarBar">
         <!--星星间距-->
-        <attr format="dimension" name="starDistance"/>
+        <attr name="starDistance" format="dimension"/>
         <!--星星大小-->
-        <attr format="dimension" name="starSize"/>
+        <attr name="starSize" format="dimension"/>
         <!--星星个数-->
-        <attr format="integer" name="starCount"/>
+        <attr name="starCount" format="integer"/>
         <!--星星空图-->
-        <attr format="reference" name="starEmpty"/>
+        <attr name="starEmpty" format="reference"/>
         <!--星星满图-->
-        <attr format="reference" name="starFill"/>
+        <attr name="starFill" format="reference"/>
     </declare-styleable>
 
 
@@ -145,11 +140,11 @@
 
     <!--圆弧进度条-->
     <declare-styleable name="TasksCompletedView">
-        <attr name="radius" format="dimension" />
-        <attr name="strokeWidth" format="dimension" />
-        <attr name="circleColor" format="color" />
-        <attr name="ringColor" format="color" />
-        <attr name="ringBgColor" format="color" />
+        <attr name="radius" format="dimension"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="circleColor" format="color"/>
+        <attr name="ringColor" format="color"/>
+        <attr name="ringBgColor" format="color"/>
         <attr name="ringTextColor" format="color"/>
     </declare-styleable>
 
@@ -167,5 +162,15 @@
         <attr name="text" format="string"/>
         <attr name="corner" format="dimension"/>
     </declare-styleable>
+
+
+    <!--圆弧进度条-->
+    <declare-styleable name="PercentageRing">
+        <attr name="comp_radius" format="integer"/>
+        <attr name="comp_circleBackground" format="color"/>
+        <attr name="comp_ringColor" format="color"/>
+        <attr name="comp_textColor" format="color"/>
+    </declare-styleable>
+
 
 </resources>

@@ -190,7 +190,7 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
                         .into(topBarHolder.imTopBar);
                 topBarHolder.tvTopBar.setText(classificationBean.getName());
                 topBarHolder.itemView.setOnClickListener(v -> {
-                    TopBarClicker.topBarClick(context, classificationBean);
+//                    TopBarClicker.topBarClick(context, classificationBean);
                 });
                 topBarHolder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
                 break;
@@ -514,12 +514,11 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
             }
             Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small)).load(data.get(position).getOutIcon()).into(holder.imGoodsImg);
             holder.tvGoodsContent.setText(data.get(position).getName());
-            holder.tvPrice.setText(data.get(position).getDiscountPrice() + "");
             holder.tvOldPrice.setText("¥" + data.get(position).getPrice() + "");
             holder.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
             holder.tvQuan.setText("券¥" + data.get(position).getCouponAmount());
             holder.itemView.setOnClickListener(v -> {
-                GoodsDetailActivity.startGoodsDetailActivity(context, data.get(position).getItemId());
+                GoodsDetailActivity.startGoodsDetailActivity(context, data.get(position).getItemId(),"1");
             });
 
         }
@@ -575,7 +574,6 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         public void onBindViewHolder(@NonNull ItemHorizontalViewHolder holder, int position) {
             Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small)).load(data.get(position).getProductImages().getThumbnail()).into(holder.imGoodsImg);
             holder.tvGoodsContent.setText(data.get(position).getProductName());
-            holder.tvPrice.setText("0.0");
             holder.tvOldPrice.setText("¥" + data.get(position).getPrice() + "");
             holder.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
             holder.tvQuan.setText("券￥0.0");
@@ -604,10 +602,6 @@ public class NewVersionTBKHomeAdapter extends RecyclerView.Adapter<RecyclerView.
         TextView tvQuan;
         @BindView(R.id.tv_msg)
         TextView tvMsg;
-        @BindView(R.id.tv_tag)
-        TextView tvTag;
-        @BindView(R.id.tv_price)
-        TextView tvPrice;
         @BindView(R.id.tv_old_price)
         TextView tvOldPrice;
         @BindView(R.id.item_goods_layout)

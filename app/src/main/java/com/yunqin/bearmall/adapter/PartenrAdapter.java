@@ -80,7 +80,7 @@ public class PartenrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             public void onClick(View v) {
                 if (onNextCheckListener!=null){
                     onNextCheckListener.onFansNet(list.get(position).getCreatedDate()+"",list.get(position).getId()+"",list.get(position).getIconUrl(),
-                            list.get(position).getMobile()+"",list.get(position).getLevel()+"");
+                            list.get(position).getMobile()+"",list.get(position).getLevel()+"",list.get(position).getWeixin());
                 }
             }
         });
@@ -133,7 +133,7 @@ public class PartenrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private OnNextCheckListener onNextCheckListener;
 
     public interface OnNextCheckListener {
-        void onFansNet(String createdDate,String id,String iconUrl,String mobile,String level);
+        void onFansNet(String createdDate,String id,String iconUrl,String mobile,String level,String wxID);
         void onAppoInNun();
     }
 

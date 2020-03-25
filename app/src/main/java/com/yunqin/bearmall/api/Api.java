@@ -1291,10 +1291,55 @@ public interface Api {
 
     /**
      * 搜索列表
-     * */
+     */
     @FormUrlEncoded
     @POST("api/userinfo/getKeywordSearch")
     Observable<String> KeywordSearch(@FieldMap() Map<String, String> params);
 
+
+    /**
+     * 首頁新接口
+     */
+    @FormUrlEncoded
+    @POST("api/commodity/getNewCommodityCategory")
+    Observable<String> getNewCommodityCategory(@FieldMap() Map<String, String> params);
+
+    /**
+     * 搜索页轮播图
+     */
+    @FormUrlEncoded
+    @POST("api/commodity/getSearchLunboTu")
+    Observable<String> getSearchLunboTu(@FieldMap() Map<String, String> params);
+
+
+    /**
+     * 热销榜单
+     */
+    @FormUrlEncoded
+    @POST("api/commodity/getHotSelling")
+    Observable<String> getHotSelling(@FieldMap() Map<String, String> params);
+
+
+    /**
+     * 绑定微信
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/uploadWxInfo")
+    Observable<String> uploadWxInfo(@FieldMap() Map<String, String> params);
+
+
+    /**
+     * 粉丝接口
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getUserAllFans")
+    Observable<String> getUserAllFans(@FieldMap() Map<String, String> params);
+
+    /**
+     * 拼多多订单
+     */
+    @FormUrlEncoded
+    @POST("api/taokeorder/getPddOrderList")
+    Observable<String> getPddOrderList(@FieldMap() Map<String, String> params);
 }
 

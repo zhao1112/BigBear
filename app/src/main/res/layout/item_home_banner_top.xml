@@ -4,11 +4,29 @@
               android:id="@+id/banner_color"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="@color/TRANSPARENT"
               android:orientation="vertical">
 
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:image_scale_type="fit_xy"/>
+        android:layout_height="@dimen/dp_150"
+        android:background="@color/TRANSPARENT">
+
+        <ImageView
+            android:id="@+id/banner_text_2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_70"
+            android:visibility="gone"/>
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            app:image_scale_type="fit_xy"/>
+
+    </RelativeLayout>
+
+
 </LinearLayout>

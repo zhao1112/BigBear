@@ -68,4 +68,18 @@
     <color name="ping">#ff797979</color>
     <color name="ping1">#ff797979</color>
 
+    <color name="xz">#F3280A</color>
+    <color name="wxz">#FFD1D1</color>
+
+
+    <color name="Twxz">#fffbc4cc</color>
+
+    <color name="colorPrimary2">#3F51B5</color>
+    <color name="colorPrimaryDark2">#303F9F</color>
+    <color name="colorAccent2">#FF4081</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white2">#f5f3f3</color>
+    <color name="colorRed">#d50f09</color>
+
 </resources>

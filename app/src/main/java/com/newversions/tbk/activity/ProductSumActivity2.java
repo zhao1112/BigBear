@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.ProductSumAdapter2;
 import com.yunqin.bearmall.adapter.ProductSumAdapter3;
@@ -45,7 +47,6 @@ public class ProductSumActivity2 extends BaseActivity {
 
     @BindView(R.id.input_content_text)
     LinearLayout input_content_text;
-
     @BindView(R.id.tablayout)
     TabLayout tablayout;
     @BindView(R.id.rcl)
@@ -72,6 +73,8 @@ public class ProductSumActivity2 extends BaseActivity {
     private boolean hasNext = true;
     @BindView(R.id.n_v_refreshLayout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
+    @BindView(R.id.n_v_refreshLayout2)
+    TwinklingRefreshLayout mTwinklingRefreshLayout2;
     private boolean isLoadMore = false;
     private boolean isFlash = false;
     private String groupId;
@@ -116,7 +119,6 @@ public class ProductSumActivity2 extends BaseActivity {
                 page = 1;
                 mSumAdapter.cleanList();
                 productSumAdapter2.cleanList();
-//                getData();
                 getListData();
             }
 
@@ -125,13 +127,37 @@ public class ProductSumActivity2 extends BaseActivity {
                 if (hasNext) {
                     isLoadMore = true;
                     page++;
-//                    getData();
                     getListData();
                 } else {
                     mTwinklingRefreshLayout.finishLoadmore();
                 }
             }
         });
+        mTwinklingRefreshLayout2.setHeaderView(new RefreshHeadView(ProductSumActivity2.this));
+
+        mTwinklingRefreshLayout2.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                isFlash = true;
+                page = 1;
+                mSumAdapter.cleanList();
+                productSumAdapter2.cleanList();
+                getListData();
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                if (hasNext) {
+                    isLoadMore = true;
+                    page++;
+                    getListData();
+                } else {
+                    mTwinklingRefreshLayout.finishLoadmore();
+                    mTwinklingRefreshLayout2.finishLoadmore();
+                }
+            }
+        });
+
         tablayout.setTabMode(TabLayout.MODE_FIXED);
 
         tabs.add("综合");
@@ -147,10 +173,10 @@ public class ProductSumActivity2 extends BaseActivity {
             holder.tv.setTextColor(getResources().getColor(R.color.home_select_color));
             if (i == 0) {
                 holder.tv.setTextColor(getResources().getColor(R.color.colorAccent));
-                holder.im.setImageResource(R.mipmap.icon_sort01);
+                holder.im.setImageResource(R.mipmap.se_down);
                 holder.im.setTag(true);
             } else {
-                holder.im.setImageResource(R.mipmap.icon_arrangement);
+                holder.im.setImageResource(R.mipmap.search_lable);
             }
             tablayout.addTab(tablayout.newTab().setCustomView(v));
         }
@@ -158,16 +184,24 @@ public class ProductSumActivity2 extends BaseActivity {
         tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                sortType = tab.getPosition();//最新。。。。。。
+                sortType = tab.getPosition();
                 page = 1;
                 orderType = 2;//1升2降
                 mSumAdapter.cleanList();
                 productSumAdapter2.cleanList();
-//                getData();
-                getListData();
+                if (mTwinklingRefreshLayout.getVisibility() == View.VISIBLE) {
+                    mTwinklingRefreshLayout.startRefresh();
+                }
+                if (mTwinklingRefreshLayout2.getVisibility() == View.VISIBLE) {
+                    mTwinklingRefreshLayout2.startRefresh();
+                }
                 TabViewHolder holder = (TabViewHolder) tab.getCustomView().getTag();
                 holder.tv.setTextColor(getResources().getColor(R.color.colorAccent));
-                holder.im.setImageResource(R.mipmap.icon_sort01);
+                if (tab.getPosition() == 0) {
+                    holder.im.setImageResource(R.mipmap.se_down);
+                } else {
+                    holder.im.setImageResource(R.mipmap.search_down);
+                }
                 holder.im.setTag(true);
             }
 
@@ -175,26 +209,41 @@ public class ProductSumActivity2 extends BaseActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 TabViewHolder holder = (TabViewHolder) tab.getCustomView().getTag();
                 holder.tv.setTextColor(getResources().getColor(R.color.home_select_color));
-                holder.im.setImageResource(R.mipmap.icon_arrangement);
+                if (tab.getPosition() == 0) {
+                    holder.im.setImageResource(R.mipmap.se_down);
+                } else {
+                    holder.im.setImageResource(R.mipmap.search_lable);
+                }
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                page = 1;
                 mSumAdapter.cleanList();
+                productSumAdapter2.cleanList();
+                page = 1;
                 TabViewHolder holder = (TabViewHolder) tab.getCustomView().getTag();
                 holder.tv.setTextColor(getResources().getColor(R.color.colorAccent));
-                if ((boolean) holder.im.getTag()) {
+                if (tab.getPosition() == 0) {
                     orderType = 1;
-                    holder.im.setImageResource(R.mipmap.icon_sort00);
+                    holder.im.setImageResource(R.mipmap.se_down);
                     holder.im.setTag(false);
                 } else {
-                    orderType = 2;
-                    holder.im.setImageResource(R.mipmap.icon_sort01);
-                    holder.im.setTag(true);
+                    if ((boolean) holder.im.getTag()) {
+                        orderType = 1;
+                        holder.im.setImageResource(R.mipmap.search_up);
+                        holder.im.setTag(false);
+                    } else {
+                        orderType = 2;
+                        holder.im.setImageResource(R.mipmap.search_down);
+                        holder.im.setTag(true);
+                    }
                 }
-//                getData();
-                getListData();
+                if (mTwinklingRefreshLayout.getVisibility() == View.VISIBLE) {
+                    mTwinklingRefreshLayout.startRefresh();
+                }
+                if (mTwinklingRefreshLayout2.getVisibility() == View.VISIBLE) {
+                    mTwinklingRefreshLayout2.startRefresh();
+                }
             }
         });
 
@@ -217,6 +266,7 @@ public class ProductSumActivity2 extends BaseActivity {
                 intent.putExtra("DETAILSKEYWORD", Keyword);
                 intent.putExtra("POSITION", position);
                 intent.putExtra("SEARCH", true);
+                intent.putExtra("Shouc", "1");
                 startActivity(intent);
             }
         });
@@ -231,6 +281,7 @@ public class ProductSumActivity2 extends BaseActivity {
                 intent.putExtra("DETAILSKEYWORD", Keyword);
                 intent.putExtra("POSITION", position);
                 intent.putExtra("SEARCH", true);
+                intent.putExtra("Shouc", "1");
                 startActivity(intent);
             }
         });
@@ -251,6 +302,8 @@ public class ProductSumActivity2 extends BaseActivity {
                     youquan = "0";
                     getListData();
                 }
+                mTwinklingRefreshLayout.startRefresh();
+                mTwinklingRefreshLayout2.startRefresh();
             }
         });
         getListData();
@@ -266,11 +319,15 @@ public class ProductSumActivity2 extends BaseActivity {
                 break;
             case R.id.list_show:
                 if (isListShow) {
+                    mTwinklingRefreshLayout.setVisibility(View.GONE);
+                    mTwinklingRefreshLayout2.setVisibility(View.VISIBLE);
                     rcl.setVisibility(View.GONE);
                     rc2.setVisibility(View.VISIBLE);
                     isListShow = !isListShow;
                     list_show.setImageDrawable(getResources().getDrawable(R.drawable.seatch_change1));
                 } else {
+                    mTwinklingRefreshLayout.setVisibility(View.VISIBLE);
+                    mTwinklingRefreshLayout2.setVisibility(View.GONE);
                     rcl.setVisibility(View.VISIBLE);
                     rc2.setVisibility(View.GONE);
                     isListShow = !isListShow;
@@ -280,87 +337,6 @@ public class ProductSumActivity2 extends BaseActivity {
         }
     }
 
-//    private void getData() {
-//        //TODO[搜索按钮]
-//        ConstantScUtil.sebsorsSearch(type);
-//        // TODO: 2019/7/17 0017 获取数据
-//        showLoading();
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("id", groupId);//分组ID
-//        map.put("type", String.valueOf(type));//入口类型
-//        map.put("orderType", String.valueOf(orderType));//升降序
-//        map.put("sortType", String.valueOf(sortType));//排序规则
-//        map.put("page", String.valueOf(page));
-//        map.put("pageSize", String.valueOf(pageSize));
-//        Log.i("ConstantScUtil", "id ->" + String.valueOf(groupId));
-//        Log.i("ConstantScUtil", "type ->" + String.valueOf(type));
-//        Log.i("ConstantScUtil", "orderType ->" + String.valueOf(orderType));
-//        Log.i("ConstantScUtil", "sortType ->" + String.valueOf(sortType));
-//        RetrofitApi.request(ProductSumActivity.this, RetrofitApi.createApi(Api.class).getGoodsList(map), new RetrofitApi.IResponseListener() {
-//            @Override
-//            public void onSuccess(String data) throws JSONException {
-//                GoodsEntity goodsEntity = new Gson().fromJson(data, GoodsEntity.class);
-//                if (goodsEntity != null && goodsEntity.getCommodity() != null && goodsEntity.getCommodity().size() > 0) {
-//                    if (isQuan) {
-//                        List<GoodsEntity.CommodityBean> commodity = goodsEntity.getCommodity();
-//                        List<GoodsEntity.CommodityBean> list = new ArrayList<>();
-//                        for (int i = 0; i < commodity.size(); i++) {
-//                            Log.e("CommodityBean", commodity.get(i).getDiscountPrice());
-//                            Log.e("CommodityBean", commodity.get(i).getPrice());
-//                            if (!commodity.get(i).getDiscountPrice().equals(commodity.get(i).getPrice())) {
-//                                list.add(commodity.get(i));
-//                            }
-//                        }
-//                        mSumAdapter.addList(list);
-//                        productSumAdapter2.addList(list);
-//                        mNulldata.setVisibility(View.GONE);
-//                    } else {
-//                        mSumAdapter.addList(goodsEntity.getCommodity());
-//                        productSumAdapter2.addList(goodsEntity.getCommodity());
-//                        mNulldata.setVisibility(View.GONE);
-//                    }
-//                }
-//
-//                if (isFlash) {
-//                    mTwinklingRefreshLayout.finishRefreshing();
-//                    isFlash = false;
-//                }
-//                if (isLoadMore) {
-//                    mTwinklingRefreshLayout.finishLoadmore();
-//                    isLoadMore = false;
-//                }
-//
-//                hiddenLoadingView();
-//                rc2.setVisibility(View.VISIBLE);
-//            }
-//
-//            @Override
-//            public void onNotNetWork() {
-//                hiddenLoadingView();
-//                if (isFlash) {
-//                    mTwinklingRefreshLayout.finishRefreshing();
-//                    isFlash = false;
-//                }
-//                if (isLoadMore) {
-//                    mTwinklingRefreshLayout.finishLoadmore();
-//                    isLoadMore = false;
-//                }
-//            }
-//
-//            @Override
-//            public void onFail(Throwable e) {
-//                hiddenLoadingView();
-//                if (isFlash) {
-//                    mTwinklingRefreshLayout.finishRefreshing();
-//                    isFlash = false;
-//                }
-//                if (isLoadMore) {
-//                    mTwinklingRefreshLayout.finishLoadmore();
-//                    isLoadMore = false;
-//                }
-//            }
-//        });
-//    }
 
     private void getListData() {
         showLoading();
@@ -371,59 +347,67 @@ public class ProductSumActivity2 extends BaseActivity {
         map.put("youquan ", youquan);//是否有券 1有券 其他值无券
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
-        RetrofitApi.request(ProductSumActivity2.this, RetrofitApi.createApi(Api.class).KeywordSearch(map), new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                SearchData searchData = new Gson().fromJson(data, SearchData.class);
-                if (searchData != null && searchData.getData() != null && searchData.getData().size() > 0) {
-                    List<SearchData.DataBean> data1 = searchData.getData();
-                    mSumAdapter.addList(searchData.getData());
-                    productSumAdapter2.addList(searchData.getData());
-                    mNulldata.setVisibility(View.GONE);
-                }
+        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        RetrofitApi.request(ProductSumActivity2.this, RetrofitApi.createApi(Api.class).KeywordSearch(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        SearchData searchData = new Gson().fromJson(data, SearchData.class);
+                        if (searchData != null && searchData.getData() != null && searchData.getData().size() > 0) {
+                            mSumAdapter.addList(searchData.getData());
+                            productSumAdapter2.addList(searchData.getData());
+                            mNulldata.setVisibility(View.GONE);
+                        }
 
-                if (isFlash) {
-                    mTwinklingRefreshLayout.finishRefreshing();
-                    isFlash = false;
-                }
-                if (isLoadMore) {
-                    mTwinklingRefreshLayout.finishLoadmore();
-                    isLoadMore = false;
-                }
+                        if (isFlash) {
+                            mTwinklingRefreshLayout.finishRefreshing();
+                            mTwinklingRefreshLayout2.finishRefreshing();
+                            isFlash = false;
+                        }
+                        if (isLoadMore) {
+                            mTwinklingRefreshLayout.finishLoadmore();
+                            mTwinklingRefreshLayout2.finishLoadmore();
+                            isLoadMore = false;
+                        }
 
-                hiddenLoadingView();
-                rc2.setVisibility(View.VISIBLE);
-            }
+                        hiddenLoadingView();
+                        rc2.setVisibility(View.VISIBLE);
+                    }
 
-            @Override
-            public void onNotNetWork() {
-                hiddenLoadingView();
-                if (isFlash) {
-                    mTwinklingRefreshLayout.finishRefreshing();
-                    isFlash = false;
-                }
-                if (isLoadMore) {
-                    mTwinklingRefreshLayout.finishLoadmore();
-                    isLoadMore = false;
-                }
-            }
+                    @Override
+                    public void onNotNetWork() {
+                        hiddenLoadingView();
+                        if (isFlash) {
+                            mTwinklingRefreshLayout.finishRefreshing();
+                            mTwinklingRefreshLayout2.finishRefreshing();
+                            isFlash = false;
+                        }
+                        if (isLoadMore) {
+                            mTwinklingRefreshLayout.finishLoadmore();
+                            mTwinklingRefreshLayout2.finishLoadmore();
+                            isLoadMore = false;
+                        }
+                    }
 
-            @Override
-            public void onFail(Throwable e) {
-                hiddenLoadingView();
-                if (isFlash) {
-                    mTwinklingRefreshLayout.finishRefreshing();
-                    isFlash = false;
-                }
-                if (isLoadMore) {
-                    mTwinklingRefreshLayout.finishLoadmore();
-                    isLoadMore = false;
-                }
-            }
-        });
+                    @Override
+                    public void onFail(Throwable e) {
+                        hiddenLoadingView();
+                        if (isFlash) {
+                            mTwinklingRefreshLayout.finishRefreshing();
+                            mTwinklingRefreshLayout2.finishRefreshing();
+                            isFlash = false;
+                        }
+                        if (isLoadMore) {
+                            mTwinklingRefreshLayout.finishLoadmore();
+                            mTwinklingRefreshLayout2.finishLoadmore();
+                            isLoadMore = false;
+                        }
+                    }
+                });
 
 
     }
+
 
     private class TabViewHolder {
 

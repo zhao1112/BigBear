@@ -271,7 +271,7 @@ android {
         //
         implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
-        implementation 'com.youth.banner:banner:1.4.9'
+        implementation 'com.youth.banner:banner:1.4.10'
 //    https://mvnrepository.com/artifact/com.google.code.gson/gson
         implementation 'com.google.code.gson:gson:2.8.5'
         implementation 'com.blankj:utilcode:1.25.0'
@@ -298,5 +298,6 @@ android {
         implementation 'com.assist:vivo:1.0.3'
         implementation 'com.getui:mzp:1.0.7'
 //    implementation 'com.getui:hwp:1.0.6'
+        implementation 'com.android.support:palette-v7:27.1.1'
     }
 }

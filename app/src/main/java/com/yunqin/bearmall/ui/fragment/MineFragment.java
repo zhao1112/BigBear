@@ -51,6 +51,7 @@ import com.yunqin.bearmall.eventbus.PopWindowEvent;
 import com.yunqin.bearmall.eventbus.VipUpgrade;
 import com.yunqin.bearmall.ui.activity.AddressActivity;
 import com.yunqin.bearmall.ui.activity.BackstageActivity;
+import com.yunqin.bearmall.ui.activity.BinDingWXActivity;
 import com.yunqin.bearmall.ui.activity.FansActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
@@ -181,6 +182,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     TextView vip_text;
     @BindView(R.id.mine_backstage)
     LinearLayout mMine_backstage;
+    @BindView(R.id.Wx)
+    LinearLayout Wx;
 
 
     private RequestOptions requestOptions = new RequestOptions()
@@ -307,6 +310,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 // 合伙人展示
                 mMineToday.setVisibility(View.GONE);
             }
+            //判断是否绑定微信
+            if (identity.getIdentifier() == 0) {
+                Wx.setVisibility(View.GONE);
+            } else {
+                Wx.setVisibility(View.VISIBLE);
+            }
             //判断升级状态
             if (identity.getIsAudit() == 0 || identity.getIsAudit() == 2) {
                 mMineCommander.setText("去升级");
@@ -320,22 +329,22 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             mVipIcon.setText(identity.getIdentity());
             switch (identity.getUpgradeType()) {
                 case 1:
-                    setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.vip_gray,R.mipmap.vip,R.color.colorPrimaryDark);
+                    setIcon(mImageVip, mTuanz, mVipIcon, R.mipmap.vip_gray, R.mipmap.vip, R.color.colorPrimaryDark);
                     break;
                 case 2:
-                    setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.mine_vip,R.mipmap.tuanzhang_,R.color.vip_text);
+                    setIcon(mImageVip, mTuanz, mVipIcon, R.mipmap.mine_vip, R.mipmap.tuanzhang_, R.color.vip_text);
                     break;
                 case 3:
                 case 4:
                 case 5:
                 case 6:
-                    setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.tuanzhang,R.mipmap.up,R.color.vip_text);
+                    setIcon(mImageVip, mTuanz, mVipIcon, R.mipmap.tuanzhang, R.mipmap.up, R.color.vip_text);
                     break;
                 default:
                     //用户是大团长
                     Commander = false;
                     mMineCommander.setText("去管理");
-                    setIcon(mImageVip,mTuanz,mVipIcon,R.mipmap.mine_tuanzhang,R.mipmap.mine_tuanzhang,R.color.vip_text);
+                    setIcon(mImageVip, mTuanz, mVipIcon, R.mipmap.mine_tuanzhang, R.mipmap.mine_tuanzhang, R.color.vip_text);
                     break;
             }
         }
@@ -376,6 +385,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @Override
     public void onResume() {
         super.onResume();
+        mTwinkingRef.startRefresh();
         if (isVisibility) {
             mPresenter.initAdData(getActivity());
             requestData();
@@ -443,7 +453,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
             R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip,
             R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one, R.id.mine_commander,
-            R.id.mine_backstage})
+            R.id.mine_backstage, R.id.Wx})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
@@ -464,11 +474,11 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             case R.id.mine_set://设置
                 if (BearMallAplication.getInstance().getUser() != null) {
                     Bundle bundle = new Bundle();
-                    if (identity!=null){
-                        bundle.putString("name",identity.getIdentity());
-                        bundle.putInt("type_id",identity.getUpgradeType());
+                    if (identity != null) {
+                        bundle.putString("name", identity.getIdentity());
+                        bundle.putInt("type_id", identity.getUpgradeType());
                     }
-                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class,bundle);
+                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class, bundle);
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }
@@ -578,6 +588,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }
+                break;
+            case R.id.Wx://绑定微信
+                Intent intent = new Intent(getActivity(), BinDingWXActivity.class);
+                startActivity(intent);
                 break;
         }
     }

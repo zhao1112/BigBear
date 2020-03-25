@@ -38,6 +38,7 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         Log.e("TCP_goods_detail", goodsId);
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("id", goodsId + "");
+        mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getGoodsDetails(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
@@ -79,6 +80,7 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         mHashMap.put("page", String.valueOf(page));
         mHashMap.put("deviceNumber", DeviceUtils.getUniqueId(context));
         mHashMap.put("itemId", goodsId);
+        mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap),
                 new RetrofitApi.IResponseListener() {
 

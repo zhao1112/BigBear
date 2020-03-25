@@ -68,15 +68,15 @@ public class ProductSumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         productSunHolder.mHome_bg.setLayoutParams(params);
         productSunHolder.itemHomeProTitle.setText(list.get(position).getName());
-        productSunHolder.itemHomeProQuan.setText("券¥" + list.get(position).getCouponAmount());
+        productSunHolder.itemHomeProQuan.setText(list.get(position).getCouponAmount() + "元券");
         productSunHolder.itemHomeProYuanjia.setText("¥" + list.get(position).getPrice());
         productSunHolder.itemHomeProQuanhoujia.setText(list.get(position).getDiscountPrice() + "");
-        productSunHolder.tvCommision.setText("预估返：" + list.get(position).getCommision() + "元");
+        productSunHolder.tvCommision.setText("预估收益¥" + list.get(position).getCommision() + "元");
         productSunHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);// 设置中划线并加清晰
         Glide.with(context)
                 .load(list.get(position).getOutIcon())
                 .into(productSunHolder.itemHomeProImage);
-        productSunHolder.itemHomeXiaoliang.setText(list.get(position).getSellNum() + "人已购");
+        productSunHolder.itemHomeXiaoliang.setText("月销" + list.get(position).getSellNum());
         productSunHolder.itemSellerName.setText(StringUtils.addImageLabel(context, list.get(position).getTmall() == 1 ?
                 R.mipmap.icon_tmall : R.mipmap.icon_taobao1, list.get(position).getSellerName()));
         productSunHolder.itemView.setOnClickListener(new View.OnClickListener() {

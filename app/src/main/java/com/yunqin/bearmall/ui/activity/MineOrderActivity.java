@@ -1,10 +1,12 @@
 package com.yunqin.bearmall.ui.activity;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -12,10 +14,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.newversions.tbk.fragment.MyOrderFragment;
+import com.newversions.tbk.fragment.PddOrderFragment;
 import com.newversions.tbk.fragment.TBKOrderFragment;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.StarActivityUtil;
+
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.function.Consumer;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,6 +48,8 @@ public class MineOrderActivity extends BaseActivity {
     RadioButton rbMyOrder;
     @BindView(R.id.rb_tb_order)
     RadioButton rbTbOrder;
+    @BindView(R.id.rb_tb_pdd)
+    RadioButton rb_tb_pdd;
     @BindView(R.id.rg_order)
     RadioGroup rgOrder;
 
@@ -50,6 +59,7 @@ public class MineOrderActivity extends BaseActivity {
 
     public static final int TYPE_MY_ORDER = 1;
     public static final int TYPE_TAOBAO_ORDER = 2;
+    private PddOrderFragment mPddOrderFragment;
 
 
     @IntDef({ALL_ORDER, AWAIT_ZHIFU, AWAIT_FAHUO, AWAIT_SHOUHUO, AWAIT_PINGJIA})
@@ -88,6 +98,7 @@ public class MineOrderActivity extends BaseActivity {
 
         tbkOrderFragment = new TBKOrderFragment();
         myOrderFragment = new MyOrderFragment();
+        mPddOrderFragment = new PddOrderFragment();
 
         //RadioGroup订单页面切换按钮
         rgOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -100,16 +111,17 @@ public class MineOrderActivity extends BaseActivity {
                     case R.id.rb_tb_order:
                         switchFragment(myOrderFragment);
                         break;
+                    case R.id.rb_tb_pdd:
+                        switchFragment(mPddOrderFragment);
+                        break;
                 }
             }
         });
 
         if (type) {
             rbTbOrder.setChecked(true);
-//            switchFragment(myOrderFragment);
         } else {
             rbMyOrder.setChecked(true);
-//            switchFragment(tbkOrderFragment);
         }
 
     }

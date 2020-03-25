@@ -16,6 +16,7 @@ import com.newversions.tbk.entity.GoodsEntity;
 import com.newversions.tbk.utils.StringUtils;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.SearchData;
+import com.yunqin.bearmall.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,15 +53,19 @@ public class ProductSumAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHo
         ProductSumAdapter2.ProductSunHolder productSunHolder = (ProductSumAdapter2.ProductSunHolder) holder;
 
         productSunHolder.itemHomeProTitle.setText(list.get(position).getName());
-        productSunHolder.itemHomeProQuan.setText("券¥" + list.get(position).getCouponAmount());
-        productSunHolder.itemHomeProYuanjia.setText("¥" + list.get(position).getPrice());
-        productSunHolder.itemHomeProQuanhoujia.setText(list.get(position).getDiscountPrice() + "");
-        productSunHolder.tvCommision.setText("预估返：" + list.get(position).getCommision() + "元");
+        try {
+            productSunHolder.itemHomeProQuanhoujia.setText(list.get(position).getDiscountPrice() + "");
+            productSunHolder.tvCommision.setText("预估收益¥" + list.get(position).getCommision());
+            productSunHolder.itemHomeProYuanjia.setText("¥" + list.get(position).getPrice());
+            productSunHolder.itemHomeProQuan.setText(list.get(position).getCouponAmount() + "元券");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         productSunHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);// 设置中划线并加清晰
         Glide.with(context)
                 .load(list.get(position).getOutIcon())
                 .into(productSunHolder.itemHomeProImage);
-        productSunHolder.itemHomeXiaoliang.setText(list.get(position).getSellNum() + "人已购");
+        productSunHolder.itemHomeXiaoliang.setText("月销" + list.get(position).getSellNum());
         productSunHolder.itemSellerName.setText(StringUtils.addImageLabel(context, list.get(position).getTmall().equals("1") ?
                 R.mipmap.icon_tmall : R.mipmap.icon_taobao1, list.get(position).getSellerName()));
         productSunHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +103,7 @@ public class ProductSumAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public interface onClickProductSumItem2 {
-        void onItem(int position,SearchData.DataBean bean);
+        void onItem(int position, SearchData.DataBean bean);
     }
 
     public onClickProductSumItem2 mOnClickProductSumItem2;

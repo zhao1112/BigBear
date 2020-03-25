@@ -75,27 +75,13 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     public void onClick(View view) {
                         if (onClickItem != null) {
                             onClickItem.onFanshInfo(fansone.getCustomerId() + "", fansone.getIconUrl(), fansonephoe,
-                                    fansone.getCreatedDate());
+                                    fansone.getCreatedDate(),fansone.getWeixin()+" ");
                         }
                     }
                 });
                 break;
             case TYPE_TWO:
-                SecondFans.DataBean.ListBean fanstwo = (SecondFans.DataBean.ListBean) list.get(position);
-                String fanstwophoe = phoe(fanstwo.getMobile());
-                fansHoler.phone.setText(fanstwophoe);
-                fansHoler.time.setText(fanstwo.getCreatedDate());
-                fansHoler.fansnumber.setText("粉丝" + fanstwo.getFans_count() + "人");
-                Glide.with(context).load(fanstwo.getIconUrl()).apply(mOptions).into(fansHoler.image);
-                fansHoler.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (onClickItem != null) {
-                            onClickItem.onFanshInfo(fanstwo.getCustomerId() + "", fanstwo.getIconUrl(), fanstwophoe,
-                                    fanstwo.getCreatedDate());
-                        }
-                    }
-                });
+
                 break;
         }
     }
@@ -110,10 +96,6 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
-    public void addFansTwo(List<SecondFans.DataBean.ListBean> list) {
-        this.list.addAll(list);
-        notifyDataSetChanged();
-    }
 
     public void clearFansData() {
         this.list.clear();
@@ -139,7 +121,7 @@ public class FansItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public interface OnClickItem {
-        void onFanshInfo(String customerId, String imageUrl, String phone, String creatTime);
+        void onFanshInfo(String customerId, String imageUrl, String phone, String creatTime,String wxId);
     }
 
     public OnClickItem onClickItem;
