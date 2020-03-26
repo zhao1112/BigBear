@@ -1,6 +1,7 @@
 package com.yunqin.bearmall.ui.activity.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

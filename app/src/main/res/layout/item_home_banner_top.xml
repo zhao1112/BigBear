@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_150"
+        android:layout_height="@dimen/dp_159"
         android:background="@color/TRANSPARENT">
 
         <ImageView
@@ -21,7 +21,7 @@
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="match_parent"
             app:image_scale_type="fit_xy"/>
 
     </RelativeLayout>
