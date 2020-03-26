@@ -285,7 +285,9 @@ public class ProductSumFragment extends BaseFragment {
         map.put("sortType", String.valueOf(sortType));//排序规则
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
-        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
         Log.i("ConstantScUtil", "type ->" + String.valueOf(type));
         Log.i("ConstantScUtil", "orderType ->" + String.valueOf(orderType));
         Log.i("ConstantScUtil", "sortType ->" + String.valueOf(sortType));

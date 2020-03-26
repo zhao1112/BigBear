@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -61,8 +60,13 @@ public class SuperSearchActivity extends BaseActivity implements View.OnClickLis
         hiddenLoadingView();
         superSearchAdapter.setgoodsId(new SuperSearchAdapter.goodsId() {
             @Override
-            public void getGoodsId(String id) {
-                GoodsDetailActivity.startGoodsDetailActivity(SuperSearchActivity.this, id, Constants.GOODS_TYPE_TBK_SEARCH,"1");
+            public void getGoodsId(SuperSearch.DataBean id, double mon) {
+                Intent intent = new Intent(SuperSearchActivity.this, GoodsDetailActivity.class);
+                intent.putExtra(Constants.INTENT_KEY_ID, id.getTao_id() + "");
+                intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
+                intent.putExtra(Constants.INTENT_KEY_COMM, mon);
+                intent.putExtra("Shouc", "4");
+                startActivity(intent);
             }
         });
 

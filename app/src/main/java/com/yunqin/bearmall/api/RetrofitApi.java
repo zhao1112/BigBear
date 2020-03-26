@@ -14,6 +14,7 @@ import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.RefreshToken;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.NetUtils;
 
 import org.json.JSONException;
@@ -97,8 +98,7 @@ public class RetrofitApi {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.e("HTTP-LOG", message);
-                Log.e("Login_Process", "请求接口" + message);
+                Log.e(CommonUtils.TAG, "请求接口" + message);
             }
         });
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -186,10 +186,10 @@ public class RetrofitApi {
                                            }
                                        } else if (jsonObject.optInt("code") == -3) {
                                            // TODO 刷新 token
-                                           Log.e("TGG", "Token过期...");
+                                           Log.e(CommonUtils.TAG, "Token过期...");
                                            RefreshToken.init(mContext, observable, listener);
                                        } else if (jsonObject.optInt("code") == -2) {
-                                           Log.e("Login_Process", "請求返回结果导致登录");
+                                           Log.e(CommonUtils.TAG, "請求返回结果导致登录");
                                            LoginActivity.starActivity((Activity) mContext);
                                            BearMallAplication.getInstance().setNullUser();
                                        } else {
@@ -198,7 +198,6 @@ public class RetrofitApi {
                                                listener.onFail(new Exception(data));
                                            }
                                            String msg = jsonObject.optString("msg");
-                                           Log.e("toase", "onNext: "+jsonObject.optInt("code"));
                                            if (!"重复请求".equals(msg)) {
                                                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
                                            }
@@ -252,23 +251,16 @@ public class RetrofitApi {
                                            }
                                        } else if (jsonObject.optInt("code") == -3) {
                                            // TODO 刷新 token
-//                                           RefreshToken.init(mContext,  observable,  listener);
-
-                                           Log.e("TGG", "刷新Token过期...跳转登陆页面");
-
+                                           Log.e(CommonUtils.TAG, "刷新Token过期...跳转登陆页面");
                                            LoginActivity.starActivity((Activity) mContext);
                                            BearMallAplication.getInstance().setNullUser();
-
-
                                        } else if (jsonObject.optInt("code") == -2) {
                                            if (listener != null) {
                                                listener.onFail(new Exception(data));
                                            }
-
+                                           Log.e(CommonUtils.TAG, "請求返回结果导致登录");
                                            LoginActivity.starActivity((Activity) mContext);
                                            BearMallAplication.getInstance().setNullUser();
-
-
                                        } else {
                                            if (listener != null) {
                                                listener.onNotNetWork();
@@ -368,9 +360,10 @@ public class RetrofitApi {
                                            }
                                        } else if (jsonObject.optInt("code") == -3) {
                                            // TODO 刷新 token
-                                           Log.e("TGG", "Token过期...");
+                                           Log.e(CommonUtils.TAG, "Token过期...");
                                            RefreshToken.init(mContext, observable, listener);
                                        } else if (jsonObject.optInt("code") == -2) {
+                                           Log.e(CommonUtils.TAG, "請求返回结果导致登录");
                                            LoginActivity.starActivity((Activity) mContext);
                                            BearMallAplication.getInstance().setNullUser();
                                        } else {

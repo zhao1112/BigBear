@@ -314,7 +314,9 @@ public class FragmentFans extends BaseFragment {
             public void onClick(View v) {
                 if (isClic) {
                     Map<String, String> map = new HashMap<>();
-                    map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                    if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+                        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                    }
                     map.put("BigLeaderId", id);
                     RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).appointBigLeader(map),
                             new RetrofitApi.IResponseListener() {
@@ -415,7 +417,9 @@ public class FragmentFans extends BaseFragment {
         });
 
         HashMap<String, String> fansmap = new HashMap<>();
-        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            fansmap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).partnerFansCount(fansmap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {

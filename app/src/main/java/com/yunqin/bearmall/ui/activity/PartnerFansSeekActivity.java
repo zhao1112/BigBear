@@ -102,7 +102,9 @@ public class PartnerFansSeekActivity extends BaseActivity {
                 partnerFansSeekAdapter.clearData();
                 String seek = mPartnerFansSeekText.getText().toString();
                 HashMap map = new HashMap<>();
-                map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+                    map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                }
                 map.put("searchPar", seek);
                 RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).searchFans(map),
                         new RetrofitApi.IResponseListener() {
@@ -306,7 +308,9 @@ public class PartnerFansSeekActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Map<String, String> map = new HashMap<>();
-                map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+                    map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                }
                 map.put("BigLeaderId", id);
                 RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).appointBigLeader(map),
                         new RetrofitApi.IResponseListener() {

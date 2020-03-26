@@ -344,25 +344,18 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         zui.setText(goodDetail.getMaxCommision() + "元");
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
-//        if (getIntent().getIntExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_DEFAULT) == Constants.GOODS_TYPE_TBK) {
-//            tv_yongjin_num.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
-//            try {
-//                s_y.setText("收益" + CommonUtils.doubleToString(getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0)) + "元");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            commission = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
-//        } else {
-//            tv_yongjin_num.setText("收益" + goodDetail.getCommision() + "元");
-//            try {
-//                s_y.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            commission = goodDetail.getCommision();
-//        }
-        tv_yongjin_num.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
-        s_y.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
+        if (mShouc.equals("3")) {
+            s_y.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
+            tv_yongjin_num.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
+        } else if (mShouc.equals("4")) {
+            double doubleExtra = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
+            String comm = CommonUtils.doubleToString(doubleExtra);
+            s_y.setText("收益" + comm + "元");
+            tv_yongjin_num.setText("收益" + comm + "元");
+        } else {
+            s_y.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
+            tv_yongjin_num.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
+        }
 
         if (StringUtils.isEmpty(goodDetail.getSellerName())) {
             rlSellerName.setVisibility(View.GONE);
@@ -592,11 +585,13 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 }
                 break;
             case R.id.iv_btn_download:
-                //下载图片
-                mFinalI = 0;
-                indusum = 20;
-                permissionsChecker = new PermissionsChecker(GoodsDetailActivity.this);
-                showDialog2(images.size());
+                if (images != null && images.size() > 0) {
+                    //下载图片
+                    mFinalI = 0;
+                    indusum = 20;
+                    permissionsChecker = new PermissionsChecker(GoodsDetailActivity.this);
+                    showDialog2(images.size());
+                }
                 break;
             case R.id.shen_ji:
                 UserInfo user = BearMallAplication.getInstance().getUser();
@@ -704,9 +699,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private static final long ALPHA_DURATION = 2000;
     private PermissionsChecker permissionsChecker;
     static final String[] PERMISSIONS = new String[]{WRITE_EXTERNAL_STORAGE};
-    private static final int SAVE_SUCCESS = 0;//保存图片成功
-    private static final int SAVE_FAILURE = 1;//保存图片失败
-    private static final int SAVE_BEGIN = 2;//开始保存图片
 
     private void beginAlpha(List<String> ImageUrl) {
         AnimatorSet animatorSet = new AnimatorSet();
@@ -855,7 +847,9 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                             Uri uri = Uri.fromFile(file);
                             intent.setData(uri);
                             GoodsDetailActivity.this.sendBroadcast(intent);
-
+                            if (file.isFile() && file.exists()) {
+                                file.delete();
+                            }
                         }
                     }).start();
                 }

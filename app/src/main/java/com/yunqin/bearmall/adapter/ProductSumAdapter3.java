@@ -59,9 +59,9 @@ public class ProductSumAdapter3 extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(productSunHolder.mHome_bg.getLayoutParams());
         if (position % 2 == 0) {
-            params.setMargins(5, 0, 10, 10);
+            params.setMargins(15, 0, 5, 10);
         } else {
-            params.setMargins(10, 0, 5, 10);
+            params.setMargins(5, 0, 15, 10);
         }
         productSunHolder.mHome_bg.setLayoutParams(params);
         productSunHolder.qh_5.setVisibility(View.GONE);

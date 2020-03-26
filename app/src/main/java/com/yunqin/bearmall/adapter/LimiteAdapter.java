@@ -25,6 +25,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.util.CommonUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -37,11 +38,12 @@ public class LimiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private Context context;
     private List<GoodsEntity.CommodityBean> list;
-    RoundedCorners roundedCorners = new RoundedCorners(8);
-    //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
-    RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
+    private RoundedCorners roundedCorners = new RoundedCorners(8);
+    private RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
+    private boolean time;
 
-    public void addList(List<GoodsEntity.CommodityBean> list) {
+    public void addList(List<GoodsEntity.CommodityBean> list, boolean time) {
+        this.time = time;
         this.list.addAll(list);
         notifyDataSetChanged();
     }
@@ -66,6 +68,7 @@ public class LimiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ProductSunHolder productSunHolder = (ProductSunHolder) holder;
 
+
         productSunHolder.itemHomeProTitle.setText(StringUtils.addImageLabel(context, list.get(position).getTmall() == 1 ?
                 R.mipmap.icon_tmall : R.mipmap.icon_taobao1, list.get(position).getName()));
         try {
@@ -86,6 +89,14 @@ public class LimiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .apply(options)
                 .into(productSunHolder.itemHomeProImage);
         productSunHolder.itemHomeXiaoliang.setText(list.get(position).getSellNum() + " ");
+        if (time) {
+            productSunHolder.time.setText("马上抢");
+            productSunHolder.time.setBackground(context.getResources().getDrawable(R.drawable.item_qiang));
+        } else {
+            productSunHolder.time.setText("即将开抢");
+            productSunHolder.time.setBackground(context.getResources().getDrawable(R.drawable.item_wqiang));
+        }
+
         productSunHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +116,7 @@ public class LimiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private final ImageView itemHomeProImage;
         private final TextView itemHomeProTitle, itemHomeProQuan, itemHomeXiaoliang, itemHomeProQuanhoujia, itemHomeProYuanjia,
-                tvCommision;
+                tvCommision, time;
         private final RelativeLayout mHome_bg;
 
         public ProductSunHolder(View itemView) {
@@ -118,6 +129,7 @@ public class LimiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemHomeProYuanjia = itemView.findViewById(R.id.item_home_pro_yuanjia);
             tvCommision = itemView.findViewById(R.id.tv_commision);
             mHome_bg = itemView.findViewById(R.id.home_bg);
+            time = itemView.findViewById(R.id.time);
         }
     }
 

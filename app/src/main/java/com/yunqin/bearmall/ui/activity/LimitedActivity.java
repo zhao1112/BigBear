@@ -18,6 +18,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.entity.GoodsEntity;
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.LimiteAdapter;
 import com.yunqin.bearmall.api.Api;
@@ -171,7 +172,6 @@ public class LimitedActivity extends BaseActivity {
             public void onItem(int position, GoodsEntity.CommodityBean bean) {
                 if (type == 9) {
                     if (!canBuyCheck()) {
-                        showToast("抢购时间还未到。请等待");
                         return;
                     }
                 }
@@ -182,7 +182,7 @@ public class LimitedActivity extends BaseActivity {
                 intent.putExtra("DETAILSKEYWORD", Keyword);
                 intent.putExtra("POSITION", position);
                 intent.putExtra("SEARCH", false);
-                intent.putExtra("Shouc", "1");
+                intent.putExtra("Shouc", "5");
 
                 startActivity(intent);
             }
@@ -256,6 +256,9 @@ public class LimitedActivity extends BaseActivity {
         map.put("sortType", String.valueOf(sortType));//排序规则
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
         Log.i("ConstantScUtil", "type ->" + String.valueOf(type));
         Log.i("ConstantScUtil", "orderType ->" + String.valueOf(orderType));
         Log.i("ConstantScUtil", "sortType ->" + String.valueOf(sortType));
@@ -264,7 +267,7 @@ public class LimitedActivity extends BaseActivity {
             public void onSuccess(String data) throws JSONException {
                 GoodsEntity goodsEntity = new Gson().fromJson(data, GoodsEntity.class);
                 if (goodsEntity != null && goodsEntity.getCommodity() != null && goodsEntity.getCommodity().size() > 0) {
-                    mSumAdapter.addList(goodsEntity.getCommodity());
+                    mSumAdapter.addList(goodsEntity.getCommodity(),canBuyCheck());
                     rcl.setVisibility(View.VISIBLE);
                     mNulldata.setVisibility(View.GONE);
                 } else {

@@ -54,7 +54,8 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
 
-public class BargainFreeActivity extends BaseActivity implements BargainFreeContact.UI, BargainFreeShopAdapter.OnBargainSpecificationItemsListener,
+public class BargainFreeActivity extends BaseActivity implements BargainFreeContact.UI,
+        BargainFreeShopAdapter.OnBargainSpecificationItemsListener,
         BargainAddressDialog.OnBargainFreePartListener, BargainFreeShopAdapter.OnBargainProductListener {
 
     @BindViews({R.id.bargain_free_shop_img, R.id.bargain_free_my_img})
@@ -122,10 +123,10 @@ public class BargainFreeActivity extends BaseActivity implements BargainFreeCont
                 break;
 
             case R.id.bargain_free_work_at_for_bc:
-                if(BearMallAplication.getInstance().getUser()!=null){
+                if (BearMallAplication.getInstance().getUser() != null) {
                     intent = new Intent(BargainFreeActivity.this, DailyTasksActivity.class);
                     startActivity(intent);
-                }else {
+                } else {
                     LoginActivity.starActivity(this);
                 }
                 break;
@@ -195,10 +196,10 @@ public class BargainFreeActivity extends BaseActivity implements BargainFreeCont
 
 
         bargain_free_work_at_for_bc.setOnClickListener(v -> {
-            if(BearMallAplication.getInstance().getUser()!=null){
+            if (BearMallAplication.getInstance().getUser() != null) {
                 Intent intent = new Intent(BargainFreeActivity.this, DailyTasksActivity.class);
                 startActivity(intent);
-            }else {
+            } else {
                 LoginActivity.starActivity(this);
             }
         });
@@ -371,7 +372,9 @@ public class BargainFreeActivity extends BaseActivity implements BargainFreeCont
 
     @Override
     public void saveJson(String data) {
-        boolean writeFileReslut = FileUtils.writeFileFromString(BargainFreeActivity.this.getCacheDir().getAbsolutePath() + File.separator + "productBargainInfo.txt", data, false);//复写写文件
+        boolean writeFileReslut =
+                FileUtils.writeFileFromString(BargainFreeActivity.this.getCacheDir().getAbsolutePath() + File.separator +
+                        "productBargainInfo.txt", data, false);//复写写文件
         if (writeFileReslut) {
             Log.e("saveJson", "文件保存成功");
         }
@@ -499,7 +502,7 @@ public class BargainFreeActivity extends BaseActivity implements BargainFreeCont
                     @Override
                     public void onItemClick(int position) {
 //                    0：普通商品 1：说明广告 2：导购文章 4：会员往期活动 5：0元拼团 6：砍价免费拿 7 糖果夺宝
-                            adClick(adMobileList.get(position));
+                        adClick(adMobileList.get(position));
                     }
                 });
             } else {
@@ -517,7 +520,7 @@ public class BargainFreeActivity extends BaseActivity implements BargainFreeCont
     }
 
     public void adClick(BannerBean.DataBean.AdMobileListBean adMobileListBean) {
-        IAdvClick.click(this, adMobileListBean.getType(), adMobileListBean.getSkipType(), adMobileListBean.getSource_id(),null);
+        IAdvClick.click(this, adMobileListBean.getType(), adMobileListBean.getSkipType(), adMobileListBean.getSource_id(), null);
     }
 
     @Override

@@ -116,7 +116,9 @@ public class HotFragment extends BaseFragment {
         map.put("pageSize", String.valueOf(pageSize));
         map.put("cid", mCid);
         map.put("type", mType);
-        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getHotSelling(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {

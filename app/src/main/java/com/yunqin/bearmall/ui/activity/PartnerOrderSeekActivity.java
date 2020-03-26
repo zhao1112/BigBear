@@ -73,7 +73,9 @@ public class PartnerOrderSeekActivity extends BaseActivity {
                 partnerOrderSeekAdapter.clearData();
                 String seek = mPartnerOrderText.getText().toString();
                 HashMap map = new HashMap<>();
-                map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+                    map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+                }
                 map.put("searchPar", seek);
                 RetrofitApi.request(getApplicationContext(), RetrofitApi.createApi(Api.class).partenerScreenOrders(map),
                         new RetrofitApi.IResponseListener() {

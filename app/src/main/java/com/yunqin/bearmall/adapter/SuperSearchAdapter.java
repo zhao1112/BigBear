@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.newversions.tbk.utils.StringUtils;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.SuperSearch;
+import com.yunqin.bearmall.util.CommonUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -69,20 +70,17 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 R.mipmap.icon_taobao1, list.get(position).getShop_title()));
         searchHolder.mPro_quan.setText(list.get(position).getCoupon_info_money() + "元券");
         Double aDouble = Double.valueOf(list.get(position).getTkfee3());
-        BigDecimal bigDecimal = new BigDecimal(aDouble);
-        String mon = bigDecimal.setScale(2, RoundingMode.DOWN).toString();
-
-        searchHolder.mTv_commision.setText("预估收益¥" + mon);
+        String tkf = CommonUtils.doubleToString(list.get(position).getTkfee3());
+        searchHolder.mTv_commision.setText("预估收益¥" + tkf);
         searchHolder.mPro_yuanjia.setText("¥" + list.get(position).getSize());
         searchHolder.mPro_yuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         searchHolder.mXiaoliang.setText("月销" + list.get(position).getVolume());
         searchHolder.mQuanhoujia.setText("" + list.get(position).getQuanhou_jiage());
-
         searchHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (list.get(position).getTao_id() != null && mId != null) {
-                    mId.getGoodsId(list.get(position).getTao_id());
+                    mId.getGoodsId(list.get(position),aDouble);
                 }
             }
         });
@@ -127,7 +125,7 @@ public class SuperSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public interface goodsId {
-        void getGoodsId(String id);
+        void getGoodsId(SuperSearch.DataBean id,double mon);
     }
 
     private goodsId mId;

@@ -77,7 +77,9 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
     private void getHomeDate2() {
         Log.e("attachData2", "getHomeDate2: ");
         Map<String, String> mHashMap = new HashMap<>();
-        mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getNewCommodityCategory(mHashMap),
                 new RetrofitApi.IResponseListener() {
 
@@ -97,14 +99,14 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
 
                     @Override
                     public void onNotNetWork() {
-                        Log.e("getHomeGoods", "onNotNetWork: " );
+                        Log.e("getHomeGoods", "onNotNetWork: ");
                         view.hideLoad();
                         view.onNotNetWork();
                     }
 
                     @Override
                     public void onFail(Throwable e) {
-                        Log.e("getHomeGoods", e.getMessage() );
+                        Log.e("getHomeGoods", e.getMessage());
                         view.hideLoad();
                         view.onNotNetWork();
                     }
@@ -115,7 +117,9 @@ public class NewVersionTBKHomePresenter implements NewVersionTBKHomeContract.Pre
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("page", String.valueOf(PAGE_NUMBER));
         mHashMap.put("deviceNumber", DeviceUtils.getUniqueId(context));
-        mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            mHashMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getTBKHomeGoodsListData(mHashMap),
                 new RetrofitApi.IResponseListener() {
 

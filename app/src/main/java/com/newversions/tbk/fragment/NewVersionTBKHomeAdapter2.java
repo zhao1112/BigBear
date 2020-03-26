@@ -25,19 +25,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.blankj.utilcode.util.SPStaticUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.newversions.home.HomeBean;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.entity.TBKHomeGoodsEntity;
 import com.newversions.tbk.utils.BannerClicker;
-import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.tbk.utils.StringUtils;
 import com.newversions.tbk.utils.TopBarClicker;
 import com.newversions.util.BannerImageLoader;
@@ -49,19 +45,13 @@ import com.youth.banner.loader.ImageLoader;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.NewTBHome;
-import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.SellwellActivity;
-import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.CornerTransform;
-import com.yunqin.bearmall.util.SharedPreferencesHelper;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import mlxy.utils.L;
 
 import static com.newversions.tbk.fragment.NewVersionTBKHomeAdapter2.FRAGMENT_TYPE.VIEWT_TYPE_BANNER;
 import static com.newversions.tbk.fragment.NewVersionTBKHomeAdapter2.FRAGMENT_TYPE.VIEW_TYPE_ACTIVE_TITLE;
@@ -89,17 +79,14 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
     private RoundedCorners roundedCorners = new RoundedCorners(5);
     //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
     private RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
-
     private RoundedCorners roundedCorners2 = new RoundedCorners(10);
     //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
     private RequestOptions options2 = RequestOptions.bitmapTransform(roundedCorners2);
-
     private NewTBHome.SellWellCopywritingBean mSellWellCopywritingBean = null;
     private NewTBHome.SelectedCopywritingBean mSelectedCopywritingBean = null;
     private NewTBHome.InterCopywritingBean mInterCopywritingBean = null;
 
     //只是绘制左上角和右上角圆角
-
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
@@ -707,7 +694,12 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 e.printStackTrace();
             }
             holder.itemView.setOnClickListener(v -> {
-                GoodsDetailActivity.startGoodsDetailActivity(context, data.get(position).getItemId(), "1");
+                Intent intent = new Intent(context, GoodsDetailActivity.class);
+                intent.putExtra(Constants.INTENT_KEY_ID, data.get(position).getItemId() + "");
+                intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
+                intent.putExtra(Constants.INTENT_KEY_COMM, "0");
+                intent.putExtra("Shouc", "3");
+                context.startActivity(intent);
             });
 
         }
@@ -856,7 +848,12 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 e.printStackTrace();
             }
             holder.itemView.setOnClickListener(v -> {
-                GoodsDetailActivity.startGoodsDetailActivity(context, data.get(position).getItemId(), "1");
+                Intent intent = new Intent(context, GoodsDetailActivity.class);
+                intent.putExtra(Constants.INTENT_KEY_ID, data.get(position).getItemId() + "");
+                intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
+                intent.putExtra(Constants.INTENT_KEY_COMM, data.get(position).getCommision());
+                intent.putExtra("Shouc", "1");
+                context.startActivity(intent);
             });
 
         }
@@ -953,7 +950,12 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 e.printStackTrace();
             }
             holder.itemView.setOnClickListener(v -> {
-                GoodsDetailActivity.startGoodsDetailActivity(context, data.get(position).getItemId(), "1");
+                Intent intent = new Intent(context, GoodsDetailActivity.class);
+                intent.putExtra(Constants.INTENT_KEY_ID, data.get(position).getItemId() + "");
+                intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
+                intent.putExtra(Constants.INTENT_KEY_COMM, data.get(position).getCommision());
+                intent.putExtra("Shouc", "1");
+                context.startActivity(intent);
             });
 
         }

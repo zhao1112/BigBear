@@ -96,6 +96,17 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         mEditText.setOnEditorActionListener(this);
         presenter.start(this);
         getBanner();
+
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Log.e("OnBannerClick", "OnBannerClick: " + list.size());
+                if (list != null && list.size() > 0) {
+                    BannerClicker.bannerClick(SearchActivity.this, list.get(position).getTargetType(),
+                            list.get(position).getTarget(), list.get(position).getTitle());
+                }
+            }
+        });
     }
 
     private void setList(List<String> mSearchList) {
@@ -372,7 +383,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                             SearchBannerBean searchBannerBean = new Gson().fromJson(data, SearchBannerBean.class);
                             if (searchBannerBean != null && searchBannerBean.getData() != null && searchBannerBean.getData().getPlatformBanner() != null
                                     && searchBannerBean.getData().getPlatformBanner().size() > 0) {
-
                                 list = searchBannerBean.getData().getPlatformBanner();
                                 addBannerList(searchBannerBean.getData().getPlatformBanner());
                             }
@@ -402,15 +412,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         banner.setImages(stringList);
         banner.setImageLoader(new GlideImageLoader());
         banner.start();
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                if (list != null && list.size() > 0) {
-                    BannerClicker.bannerClick(SearchActivity.this, list.get(position).getTargetType(),
-                            list.get(position).getTarget(), list.get(position).getTitle());
-                }
-            }
-        });
     }
 
     private class GlideImageLoader extends ImageLoader {

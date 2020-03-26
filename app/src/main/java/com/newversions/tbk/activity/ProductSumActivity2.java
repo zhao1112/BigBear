@@ -256,6 +256,7 @@ public class ProductSumActivity2 extends BaseActivity {
         rc2.setAdapter(productSumAdapter2);
 
         mNulldata.setVisibility(View.VISIBLE);
+
         mSumAdapter.setOnClickProductSumItem(new ProductSumAdapter3.onClickProductSumItem() {
             @Override
             public void onItem(int position, SearchData.DataBean bean) {
@@ -347,7 +348,10 @@ public class ProductSumActivity2 extends BaseActivity {
         map.put("youquan ", youquan);//是否有券 1有券 其他值无券
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
-        map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null
+                && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
         RetrofitApi.request(ProductSumActivity2.this, RetrofitApi.createApi(Api.class).KeywordSearch(map),
                 new RetrofitApi.IResponseListener() {
                     @Override

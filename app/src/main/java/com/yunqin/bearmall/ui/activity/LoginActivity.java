@@ -28,6 +28,7 @@ import com.yunqin.bearmall.eventbus.FinishEvent;
 import com.yunqin.bearmall.inter.loginWayCallBack;
 import com.yunqin.bearmall.ui.activity.contract.LoginActivityContract;
 import com.yunqin.bearmall.ui.activity.presenter.LoginPresenter;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
@@ -96,6 +97,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         switch (view.getId()) {
             case R.id.wx_login_btn:
                 if (yinshi.isChecked()) {
+                    Log.e(CommonUtils.TAG, "点击微信登录");
                     WxLogin();
                 } else {
                     Toast.makeText(LoginActivity.this, "请先同意用户协议", Toast.LENGTH_LONG).show();
@@ -173,7 +175,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             platform.SSOSetting(false);
             platform.setPlatformActionListener(this);
             platform.authorize();
-            Log.e("Login_Process", "微信登录");
+            Log.e(CommonUtils.TAG, "调起第三微信登录");
         }
     }
 
@@ -189,18 +191,19 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         this.platform = platform;
         hiddenLoadingView();
         Constans.params.clear();
-        Log.e("Wang", platform.getDb().getUserId() + "----" + platform.getDb().getUserName());
         if (LoginWay == 1) {
             Constans.params.put("open_id", platform.getDb().getUserId());
             Constans.params.put("loginType", 1 + "");
-            Log.e("Login_Process", "QQ");
+            Log.e(CommonUtils.TAG, "QQ--" + "open_id--" + platform.getDb().getUserId() + "--loginType--" + 1);
         } else if (LoginWay == 2) {
             Constans.params.put("open_id", platform.getDb().get("unionid"));
             Constans.params.put("wxopen_id", platform.getDb().get("openid"));
             Constans.params.put("loginType", 2 + "");
-            Log.e("Login_Process", "微信");
+            Log.e(CommonUtils.TAG, "WX--" + "open_id--" + platform.getDb().get("unionid") + "--wxopen_id--" + platform.getDb().get(
+                    "openid") + "--loginType--" + 2);
         }
         presenter.start(Constans.params);
+        Log.e(CommonUtils.TAG, "调起登录接口");
         //TODO[授权]
         ConstantScUtil.sensorsAuthorized("true", "Success");
     }
@@ -211,6 +214,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         showToast("第三方登录错误" + throwable.toString());
         //TODO[授权]
         ConstantScUtil.sensorsAuthorized("false", throwable.getMessage().toString());
+        Log.e(CommonUtils.TAG, "第三方登录错误");
     }
 
     @Override
@@ -219,6 +223,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         showToast("第三方登录取消");
         //TODO[授权]
         ConstantScUtil.sensorsAuthorized("false", "第三方登录取消");
+        Log.e(CommonUtils.TAG, "第三方登录取消");
     }
 
     @Override
@@ -237,21 +242,22 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                     bundle.putString("open_id", platform.getDb().get("unionid"));
                     bundle.putString("wxopen_id", platform.getDb().get("openid"));
                 }
-                Log.e("Login_Process", "绑定手机");
                 StarActivityUtil.starActivity(this, LoginBindPhone.class, bundle);
+                Log.e(CommonUtils.TAG, "绑定手机");
                 finish();
             } else if (jsonObject.getJSONObject("data").optInt("status") == 1) {
                 Log.e("isBindPhone", data);
                 UserInfo userInfo = new Gson().fromJson(data, UserInfo.class);
                 if (StringUtils.isEmpty(userInfo.getParentCode())) {
-                    Log.e("Login_Process", "填写邀请码");
-                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this, userInfo.getData().getToken().getAccess_token(), "微信");
+                    InputIncomCodeActivity.startInputIncomCodeActivity(LoginActivity.this,
+                            userInfo.getData().getToken().getAccess_token(), "微信");
+                    Log.e(CommonUtils.TAG, "填写邀请码");
                     finish();
                 } else {
-                    Log.e("Login_Process", "登录成功");
                     BearMallAplication.getInstance().setUser(userInfo);
                     //TODO[登录]
                     ConstantScUtil.sensorsLogin("微信");
+                    Log.e(CommonUtils.TAG, "登录成功");
                     finish();
                 }
             } else {

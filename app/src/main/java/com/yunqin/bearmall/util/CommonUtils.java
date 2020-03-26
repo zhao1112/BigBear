@@ -535,12 +535,8 @@ public class CommonUtils {
         return new DecimalFormat("0.00").format(num);
     }
 
-    public static int doubleToInt(String num) {
-        Integer integer = Integer.valueOf(num);
-        return integer;
-    }
 
-    public static int doubleToInt2(double num) {
-        return (int) num;
-    }
+
+    public static String TAG = "Login_Wx_Error";
+
 }
