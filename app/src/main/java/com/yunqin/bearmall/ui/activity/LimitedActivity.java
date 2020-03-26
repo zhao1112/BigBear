@@ -102,13 +102,9 @@ public class LimitedActivity extends BaseActivity {
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                if (hasNext) {
-                    isLoadMore = true;
-                    page++;
-                    getData();
-                } else {
-                    mTwinklingRefreshLayout.finishLoadmore();
-                }
+                isLoadMore = true;
+                page++;
+                getData();
             }
         });
 
@@ -267,12 +263,8 @@ public class LimitedActivity extends BaseActivity {
             public void onSuccess(String data) throws JSONException {
                 GoodsEntity goodsEntity = new Gson().fromJson(data, GoodsEntity.class);
                 if (goodsEntity != null && goodsEntity.getCommodity() != null && goodsEntity.getCommodity().size() > 0) {
-                    mSumAdapter.addList(goodsEntity.getCommodity(),canBuyCheck());
-                    rcl.setVisibility(View.VISIBLE);
+                    mSumAdapter.addList(goodsEntity.getCommodity(), canBuyCheck());
                     mNulldata.setVisibility(View.GONE);
-                } else {
-                    rcl.setVisibility(View.GONE);
-                    mNulldata.setVisibility(View.VISIBLE);
                 }
 
                 if (isFlash) {
@@ -285,7 +277,6 @@ public class LimitedActivity extends BaseActivity {
                 }
 
                 hiddenLoadingView();
-                rcl.setVisibility(View.VISIBLE);
             }
 
             @Override

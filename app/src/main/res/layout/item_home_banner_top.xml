@@ -22,8 +22,6 @@
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
             app:image_scale_type="fit_xy"/>
 
     </RelativeLayout>
