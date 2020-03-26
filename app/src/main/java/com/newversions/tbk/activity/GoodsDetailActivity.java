@@ -590,7 +590,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     mFinalI = 0;
                     indusum = 20;
                     permissionsChecker = new PermissionsChecker(GoodsDetailActivity.this);
-                    showDialog2(images.size());
+                    beginAlpha2(images);
                 }
                 break;
             case R.id.shen_ji:
@@ -716,6 +716,36 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     showMissingPermissionDialog();
                 } else {
                     returnBitMap(ImageUrl);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        animatorSet.start();
+    }
+
+    private void beginAlpha2(List<String> ImageUrl) {
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new AccelerateInterpolator());
+        animatorSet.setDuration(ALPHA_DURATION);
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                //没有考虑用户永久拒绝的情况
+                if (permissionsChecker.lacksPermissions(PERMISSIONS)) {
+                    showMissingPermissionDialog();
+                } else {
+                    showDialog2(images.size());
                 }
             }
 
