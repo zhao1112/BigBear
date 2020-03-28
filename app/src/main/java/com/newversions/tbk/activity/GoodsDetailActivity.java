@@ -1,25 +1,14 @@
 package com.newversions.tbk.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
+import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,10 +17,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -39,14 +28,11 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -56,6 +42,7 @@ import com.newversions.tbk.entity.TBKHomeGoodsEntity;
 import com.newversions.tbk.entity.ToTaoBaoEntity;
 import com.newversions.tbk.utils.GlideImageLoader;
 import com.newversions.tbk.utils.StringUtils;
+import com.timqi.sectorprogressview.ColorfulRingProgressView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.yunqin.bearmall.BearMallAplication;
@@ -71,17 +58,12 @@ import com.yunqin.bearmall.ui.activity.VipExplainActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.util.PermissionsChecker;
-import com.yunqin.bearmall.widget.CompletedView;
+import com.yunqin.bearmall.widget.DownLoadImage;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -92,8 +74,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import permison.PermissonUtil;
+import permison.listener.PermissionListener;
 
 
 /**
@@ -168,7 +150,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private TextView quanhoujia;
     private TextView youhui, shenq;
     private RelativeLayout qh;
-    private int imageSize = 0;
     private List<TBKHomeGoodsEntity.RecommendBean> mList = new ArrayList<>();
     private int type;//1表示常规商品,2表示自营商品,3表示猜你喜欢商品
     public static final int TYPE_GOODS = 1;
@@ -186,12 +167,14 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private List<String> images;
     private PopupWindow mMPopupWindow;
     private String mShouc;
-    private CompletedView copmleted;
-    private int indusum = 20;
-    private TextView mView2;
-    private TextView mXiang;
-    private TextView mWan;
-    private int mFinalI = 0;
+    private TextView downLoadImageSum;
+    private TextView openImage;
+    private TextView complete;
+    private String[] ImageList = null;
+    private DownLoadImage mInstance;
+    private RelativeLayout mProgressView;
+    private ColorfulRingProgressView mProgress;
+    private TextView mProgressText;
 
     public static void startGoodsDetailActivity(Context context, String goodsId, String shouc) {
         startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT, shouc);
@@ -284,6 +267,43 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         } else {
             linCollect.setVisibility(View.GONE);
         }
+
+        //下载图片类
+        mInstance = DownLoadImage.getInstance();
+        mInstance.setContext(GoodsDetailActivity.this);
+
+        mInstance.setOnDownLoadImage(new DownLoadImage.onDownLoadImage() {
+            @Override
+            public void progressMax(int value) {
+
+            }
+
+            @Override
+            public void progressValue(int value, int contentLen) {
+                int va = (value * 100) / contentLen;
+                mProgress.setPercent(va);
+                mProgressText.setText(mProgress.getPercent() + "%");
+            }
+
+            @Override
+            public void progerssVisibility() {
+                mProgressView.setVisibility(View.GONE);
+                openImage.setVisibility(View.VISIBLE);
+                complete.setText("完成");
+            }
+
+            @Override
+            public void downLiadImage(int imageLength) {
+                if (ImageList != null && ImageList.length > 0) {
+                    showDialogView(ImageList.length);
+                }
+            }
+
+            @Override
+            public void downLoadValue(int value) {
+                downLoadImageSum.setText(value + "");
+            }
+        });
     }
 
     private void initView() {
@@ -585,13 +605,28 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 }
                 break;
             case R.id.iv_btn_download:
-                if (images != null && images.size() > 0) {
-                    //下载图片
-                    mFinalI = 0;
-                    indusum = 20;
-                    permissionsChecker = new PermissionsChecker(GoodsDetailActivity.this);
-                    beginAlpha2(images);
-                }
+                PermissonUtil.checkPermission(GoodsDetailActivity.this, new PermissionListener() {
+                    @Override
+                    public void havePermission() {
+                        if (images != null && images.size() > 0) {
+                            ImageList = new String[images.size()];
+                            for (int i = 0; i < images.size(); i++) {
+                                ImageList[i] = images.get(i);
+                            }
+                            if (ImageList != null && ImageList.length > 0) {
+                                mInstance.DownImageLength(ImageList);
+                            }
+                        } else {
+                            showToast("图片未加载完成");
+                        }
+                    }
+
+                    @Override
+                    public void requestPermissionFail() {
+                        showToast("缺少必要权限");
+                    }
+                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+
                 break;
             case R.id.shen_ji:
                 UserInfo user = BearMallAplication.getInstance().getUser();
@@ -605,7 +640,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 break;
         }
     }
-
 
     public class MyWebViewClient extends WebViewClient {
 
@@ -695,94 +729,13 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         }
     }
 
-    //图片下载
-    private static final long ALPHA_DURATION = 2000;
-    private PermissionsChecker permissionsChecker;
-    static final String[] PERMISSIONS = new String[]{WRITE_EXTERNAL_STORAGE};
-
-    private void beginAlpha(List<String> ImageUrl) {
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.setInterpolator(new AccelerateInterpolator());
-        animatorSet.setDuration(ALPHA_DURATION);
-        animatorSet.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                //没有考虑用户永久拒绝的情况
-                if (permissionsChecker.lacksPermissions(PERMISSIONS)) {
-                    showMissingPermissionDialog();
-                } else {
-                    returnBitMap(ImageUrl);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-            }
-        });
-        animatorSet.start();
-    }
-
-    private void beginAlpha2(List<String> ImageUrl) {
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.setInterpolator(new AccelerateInterpolator());
-        animatorSet.setDuration(ALPHA_DURATION);
-        animatorSet.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                //没有考虑用户永久拒绝的情况
-                if (permissionsChecker.lacksPermissions(PERMISSIONS)) {
-                    showMissingPermissionDialog();
-                } else {
-                    showDialog2(images.size());
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-            }
-        });
-        animatorSet.start();
-    }
-
-    // 显示缺失权限提示
-    private void showMissingPermissionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailActivity.this);
-        builder.setTitle("帮助");
-        builder.setMessage(R.string.string_help_text);
-
-        // 拒绝, 退出应用
-        builder.setNegativeButton("关闭", (dialog, which) -> {
-            Toast.makeText(GoodsDetailActivity.this, "缺少必要权限，无法保存", Toast.LENGTH_SHORT).show();
-        });
-
-        builder.setPositiveButton("设置", (dialog, which) -> startAppSettings());
-
-        builder.show();
-    }
-
-    private void showDialog2(int sume) {
+    private void showDialogView(int sume) {
         OpenGoodsDetail.lightoff(GoodsDetailActivity.this);
         View view = LayoutInflater.from(GoodsDetailActivity.this).inflate(R.layout.dialog_goods, null);
         mMPopupWindow = new PopupWindow();
         mMPopupWindow.setContentView(view);
         mMPopupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        mMPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        mMPopupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
         // 设置背景图片， 必须设置，不然动画没作用
         mMPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mMPopupWindow.setFocusable(false);
@@ -790,37 +743,46 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         mMPopupWindow.setOutsideTouchable(true);
         // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
         mMPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
         TextView view1 = view.findViewById(R.id.sume_one);
-        mView2 = view.findViewById(R.id.sume_two);
-        copmleted = view.findViewById(R.id.copmleted);
-        mXiang = view.findViewById(R.id.xiang);
-        mWan = view.findViewById(R.id.wan);
+        mProgressText = view.findViewById(R.id.ProgressText);
+        downLoadImageSum = view.findViewById(R.id.sume_two);
+        openImage = view.findViewById(R.id.xiang);
+        complete = view.findViewById(R.id.wan);
+        mProgressView = view.findViewById(R.id.ProgressView);
+        mProgress = view.findViewById(R.id.Progress);
+
+        mProgress.setPercent(0);
         view1.setText("共" + sume + "张  已下载 ");
-        copmleted.setTargetPercent(0);
-        mView2.setText("0");
+        downLoadImageSum.setText("0");
+        mProgress.setPercent(0);
+        mProgressText.setText(0 + "%");
+
         mMPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 OpenGoodsDetail.lighton(GoodsDetailActivity.this);
             }
         });
-        view.findViewById(R.id.wan).setOnClickListener(new View.OnClickListener() {
+
+        complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMPopupWindow.dismiss();
             }
         });
-        view.findViewById(R.id.xiang).setOnClickListener(new View.OnClickListener() {
+
+        openImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openAlbum();
                 mMPopupWindow.dismiss();
             }
         });
-        //下载图片
-        beginAlpha(images);
-    }
 
+        //开始下载图片
+        mInstance.DownLoadImag(ImageList);
+    }
 
     public void openAlbum() {
         Intent intent = new Intent();
@@ -829,82 +791,4 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         startActivityForResult(intent, 2);
     }
 
-
-    /**
-     * 将URL转化成bitmap形式
-     *
-     * @param url
-     * @return bitmap type
-     */
-    public final void returnBitMap(List<String> url) {
-        copmleted.setTargetPercent(100);
-        for (int i = 0; i < url.size(); i++) {
-            Glide.with(GoodsDetailActivity.this).asBitmap().load(url.get(i)).into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                    //保存图片必须在子线程中操作，是耗时操作
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            File appDir = new File(Environment.getExternalStorageDirectory(), "InvitationPoster");
-                            if (!appDir.exists()) {
-                                appDir.mkdir();
-                            }
-                            String fileName = System.currentTimeMillis() + ".jpg";
-                            File file = new File(appDir, fileName);
-                            try {
-                                FileOutputStream fos = new FileOutputStream(file);
-                                resource.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                                fos.flush();
-                                fos.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            // 其次把文件插入到系统图库
-                            try {
-                                MediaStore.Images.Media.insertImage(GoodsDetailActivity.this.getContentResolver(), file.getAbsolutePath()
-                                        , fileName, null);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                                mFinalI++;
-                                handler.sendMessage(new Message());
-                                return;
-                            }
-                            mFinalI++;
-                            handler.sendMessage(new Message());
-                            // 最后通知图库更新
-                            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                            Uri uri = Uri.fromFile(file);
-                            intent.setData(uri);
-                            GoodsDetailActivity.this.sendBroadcast(intent);
-                            if (file.isFile() && file.exists()) {
-                                file.delete();
-                            }
-                        }
-                    }).start();
-                }
-            });
-        }
-    }
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            mView2.setText(mFinalI + "");
-            if (mFinalI == images.size()) {
-                copmleted.setVisibility(View.GONE);
-                mXiang.setVisibility(View.VISIBLE);
-                mWan.setText("完成");
-            }
-        }
-    };
-
-
-    // 启动应用的设置
-    private void startAppSettings() {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + GoodsDetailActivity.this.getPackageName()));
-        GoodsDetailActivity.this.startActivity(intent);
-    }
 }

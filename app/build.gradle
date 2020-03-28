@@ -299,5 +299,7 @@ android {
         implementation 'com.getui:mzp:1.0.7'
 //    implementation 'com.getui:hwp:1.0.6'
         implementation 'com.android.support:palette-v7:27.1.1'
+        //进度条
+        implementation 'com.timqi.sectorprogressview:library:2.0.1'
     }
 }
