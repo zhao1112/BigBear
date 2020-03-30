@@ -49,7 +49,7 @@ public class BannerClicker {
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;
             case 3://单品
-                GoodsDetailActivity.startGoodsDetailActivity(activity, target,"1");
+                GoodsDetailActivity.startGoodsDetailActivity(activity, target,Constants.COMMISSION_TYPE_ONE);
                 break;
             case 10://99
             case 11://抢购

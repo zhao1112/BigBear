@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -47,9 +48,11 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.NewTBHome;
 import com.yunqin.bearmall.ui.activity.SellwellActivity;
 import com.yunqin.bearmall.util.CornerTransform;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -371,7 +374,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                     intent.putExtra(Constants.INTENT_KEY_ID, recommendBean.getItemId() + "");
                     intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                     intent.putExtra(Constants.INTENT_KEY_COMM, recommendBean.getCommision());
-                    intent.putExtra("Shouc", "1");
+                    intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
                     context.startActivity(intent);
                 });
                 break;
@@ -698,7 +701,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 intent.putExtra(Constants.INTENT_KEY_ID, data.get(position).getItemId() + "");
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                 intent.putExtra(Constants.INTENT_KEY_COMM, "0");
-                intent.putExtra("Shouc", "3");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_THREE);
                 context.startActivity(intent);
             });
 
@@ -852,7 +855,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 intent.putExtra(Constants.INTENT_KEY_ID, data.get(position).getItemId() + "");
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                 intent.putExtra(Constants.INTENT_KEY_COMM, data.get(position).getCommision());
-                intent.putExtra("Shouc", "1");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
                 context.startActivity(intent);
             });
 
@@ -954,7 +957,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 intent.putExtra(Constants.INTENT_KEY_ID, data.get(position).getItemId() + "");
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                 intent.putExtra(Constants.INTENT_KEY_COMM, data.get(position).getCommision());
-                intent.putExtra("Shouc", "1");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
                 context.startActivity(intent);
             });
 

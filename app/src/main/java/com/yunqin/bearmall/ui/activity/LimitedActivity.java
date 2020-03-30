@@ -178,7 +178,7 @@ public class LimitedActivity extends BaseActivity {
                 intent.putExtra("DETAILSKEYWORD", Keyword);
                 intent.putExtra("POSITION", position);
                 intent.putExtra("SEARCH", false);
-                intent.putExtra("Shouc", "5");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
 
                 startActivity(intent);
             }

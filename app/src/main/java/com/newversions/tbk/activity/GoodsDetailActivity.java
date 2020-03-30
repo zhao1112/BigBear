@@ -17,7 +17,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -166,7 +165,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private GoodDetailEntity.GoodDetailBean goodDetail;
     private List<String> images;
     private PopupWindow mMPopupWindow;
-    private String mShouc;
+    private String commissionType;
     private TextView downLoadImageSum;
     private TextView openImage;
     private TextView complete;
@@ -176,15 +175,15 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private ColorfulRingProgressView mProgress;
     private TextView mProgressText;
 
-    public static void startGoodsDetailActivity(Context context, String goodsId, String shouc) {
-        startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT, shouc);
+    public static void startGoodsDetailActivity(Context context, String goodsId, String commission) {
+        startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT, commission);
     }
 
-    public static void startGoodsDetailActivity(Context context, String goodsId, int type, String shouc) {
+    public static void startGoodsDetailActivity(Context context, String goodsId, int type, String commission) {
         Intent intent = new Intent(context, GoodsDetailActivity.class);
         intent.putExtra(Constants.INTENT_KEY_ID, goodsId);
         intent.putExtra(Constants.INTENT_KEY_TYPE, type);
-        intent.putExtra("Shouc", shouc);
+        intent.putExtra(Constants.INTENT_KEY_COMMISSION, commission);
         context.startActivity(intent);
     }
 
@@ -199,11 +198,13 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         initView();
         mPresenter = new GoodsDetailPresenter(this, this);
         homeAdapter = new MyAdapter();
+
         goodsId = getIntent().getStringExtra(Constants.INTENT_KEY_ID);
-        mShouc = getIntent().getStringExtra("Shouc");
+        commissionType = getIntent().getStringExtra(Constants.INTENT_KEY_COMMISSION);
         keyword = getIntent().getStringExtra("DETAILSKEYWORD");
         positin = getIntent().getIntExtra("POSITION", 0);
         search = getIntent().getBooleanExtra("SEARCH", false);
+
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(this));
         mTwinklingRefreshLayout.setEnableLoadmore(false);
         mTwinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
@@ -262,7 +263,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 return true;
             }
         });
-        if (mShouc.equals("2")) {
+        if (commissionType.equals("2")) {
             linCollect.setVisibility(View.VISIBLE);
         } else {
             linCollect.setVisibility(View.GONE);
@@ -364,10 +365,12 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         zui.setText(goodDetail.getMaxCommision() + "元");
         collection = goodDetail.isCollected();
         changeCollection(goodDetail.isCollected());
-        if (mShouc.equals("3")) {
+
+        if (commissionType.equals(Constants.COMMISSION_TYPE_THREE)) {
+            Log.e("commissionType", goodDetail.getCommision() + "----");
             s_y.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
             tv_yongjin_num.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
-        } else if (mShouc.equals("4")) {
+        } else if (commissionType.equals(Constants.COMMISSION_TYPE_FOUR)) {
             double doubleExtra = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
             String comm = CommonUtils.doubleToString(doubleExtra);
             s_y.setText("收益" + comm + "元");
@@ -697,7 +700,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getItemId() + "");
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                 intent.putExtra(Constants.INTENT_KEY_COMM, mList.get(position).getCommision());
-                intent.putExtra("Shouc", "1");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
                 GoodsDetailActivity.this.startActivity(intent);
             });
         }

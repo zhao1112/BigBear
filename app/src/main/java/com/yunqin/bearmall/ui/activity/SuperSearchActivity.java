@@ -65,7 +65,7 @@ public class SuperSearchActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra(Constants.INTENT_KEY_ID, id.getTao_id() + "");
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                 intent.putExtra(Constants.INTENT_KEY_COMM, mon);
-                intent.putExtra("Shouc", "4");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_FOUR);
                 startActivity(intent);
             }
         });

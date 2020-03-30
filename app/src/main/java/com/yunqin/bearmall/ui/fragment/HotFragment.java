@@ -100,7 +100,7 @@ public class HotFragment extends BaseFragment {
                 intent.putExtra(Constants.INTENT_KEY_ID, bean.getItemId() + "");
                 intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
                 intent.putExtra(Constants.INTENT_KEY_COMM, bean.getCommision());
-                intent.putExtra("Shouc", "1");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
                 startActivity(intent);
             }
         });

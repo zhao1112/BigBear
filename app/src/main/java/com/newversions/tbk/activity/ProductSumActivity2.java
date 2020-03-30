@@ -267,7 +267,7 @@ public class ProductSumActivity2 extends BaseActivity {
                 intent.putExtra("DETAILSKEYWORD", Keyword);
                 intent.putExtra("POSITION", position);
                 intent.putExtra("SEARCH", true);
-                intent.putExtra("Shouc", "1");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
                 startActivity(intent);
             }
         });
@@ -282,7 +282,7 @@ public class ProductSumActivity2 extends BaseActivity {
                 intent.putExtra("DETAILSKEYWORD", Keyword);
                 intent.putExtra("POSITION", position);
                 intent.putExtra("SEARCH", true);
-                intent.putExtra("Shouc", "1");
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
                 startActivity(intent);
             }
         });

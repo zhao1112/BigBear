@@ -219,7 +219,7 @@ public class ProductSumFragment extends BaseFragment {
                     intent.putExtra("SEARCH", false);
                 }
                 if (type == 2) {
-                    intent.putExtra("Shouc", "2");
+                    intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_TWO);
                 }
                 startActivity(intent);
             }

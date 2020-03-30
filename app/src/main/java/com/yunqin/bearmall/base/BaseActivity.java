@@ -146,7 +146,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                                         if (superSearch.getData().size() == 1) {
                                                             GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
                                                                     superSearch.getData().get(0).getTao_id(),
-                                                                    Constants.GOODS_TYPE_TBK_SEARCH, "1");
+                                                                    Constants.GOODS_TYPE_TBK_SEARCH, Constants.COMMISSION_TYPE_THREE);
                                                         } else {
                                                             SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch,
                                                                     content);
@@ -159,7 +159,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                                         OpenGoodsDetail.showDialog(BaseActivity.this);
                                                     } else {
                                                         GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, object.optString(
-                                                                "data"), Constants.GOODS_TYPE_TBK_SEARCH, "1");
+                                                                "data"), Constants.GOODS_TYPE_TBK_SEARCH, Constants.COMMISSION_TYPE_THREE);
                                                     }
                                                 } else {
                                                     OpenGoodsDetail.showDialog(BaseActivity.this);
