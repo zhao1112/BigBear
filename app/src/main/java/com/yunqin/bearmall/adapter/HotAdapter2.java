@@ -36,7 +36,6 @@ public class HotAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<HotBean.CommodityListBean> list;
     //设置图片圆角角度
     RoundedCorners roundedCorners = new RoundedCorners(8);
-    //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
     RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
 
     public void addList(List<HotBean.CommodityListBean> list) {

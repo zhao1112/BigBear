@@ -6,27 +6,33 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.FansAdapter;
+import com.yunqin.bearmall.adapter.FansItemAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.StairFans;
 import com.yunqin.bearmall.bean.UserInfo;
-import com.yunqin.bearmall.util.SharedPreferencesHelper;
+import com.yunqin.bearmall.widget.RefreshBottomView;
+import com.yunqin.bearmall.widget.RefreshFooterView;
+import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
@@ -34,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FansActivity extends BaseActivity {
@@ -55,6 +62,7 @@ public class FansActivity extends BaseActivity {
 
     private int page = 1;
     private int pageSize = 10;
+    private int type = 0;
 
     private static final String[] xTitle = new String[]{"全部", "直邀粉丝", "推荐粉丝"};
 
@@ -78,13 +86,13 @@ public class FansActivity extends BaseActivity {
     @Override
     public void init() {
         setTranslucentStatus();
+
         if (BearMallAplication.getInstance().getUser() != null) {
             UserInfo user = BearMallAplication.getInstance().getUser();
             Glide.with(FansActivity.this).load(user.getData().getMember().getIconUrl()).apply(requestOptions).into(mImage);
             mWxName.setText("昵称：" + user.getData().getMember().getNickName());
             mWxId.setText("邀请码：" + user.getRecommendCode());
             mCopy.setVisibility(View.VISIBLE);
-            getStairFans();
         } else {
             mCopy.setVisibility(View.GONE);
         }
@@ -94,6 +102,24 @@ public class FansActivity extends BaseActivity {
             mXtable.addTab(mXtable.newTab().setText(xTitle[i]));
         }
 
+        mXtable.addOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(XTabLayout.Tab tab) {
+                type = tab.getPosition();
+                StairFans();
+            }
+
+            @Override
+            public void onTabUnselected(XTabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(XTabLayout.Tab tab) {
+
+            }
+        });
+
         FansAdapter fansAdapter = new FansAdapter(getSupportFragmentManager());
         mViewpager.setAdapter(fansAdapter);
         mViewpager.setOffscreenPageLimit(1);
@@ -101,32 +127,6 @@ public class FansActivity extends BaseActivity {
         mViewpager.setCurrentItem(0);
     }
 
-
-    private void getStairFans() {
-        Map<String, String> map = new HashMap<>();
-        map.put("page", page + "");
-        map.put("pageSize", pageSize + "");
-        map.put("type", "0");
-        RetrofitApi.request(FansActivity.this, RetrofitApi.createApi(Api.class).getUserAllFans(map), new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) throws JSONException {
-                Log.e("FansActivity", data);
-                StairFans stairFans = new Gson().fromJson(data, StairFans.class);
-                mFansSize.setText(stairFans.getFansCount() + "");
-            }
-
-            @Override
-            public void onNotNetWork() {
-                Log.i("SecondFans", "onNotNetWork: ");
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                Log.i("SecondFans", "onFail: ");
-            }
-        });
-
-    }
 
     @OnClick({R.id.back, R.id.copy})
     public void onViewClicked(View view) {
@@ -142,4 +142,34 @@ public class FansActivity extends BaseActivity {
         }
     }
 
+    //    一级粉丝
+    private void StairFans() {
+        Map<String, String> map = new HashMap<>();
+        map.put("page", page + "");
+        map.put("pageSize", "10");
+        map.put("type", type + "");
+        RetrofitApi.request(FansActivity.this, RetrofitApi.createApi(Api.class).getUserAllFans(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                StairFans stairFans = new Gson().fromJson(data, StairFans.class);
+                if (stairFans.getData().getList() != null && stairFans.getData().getList().size() > 0) {
+                    mFansSize.setText(stairFans.getFansCount() + "");
+                } else {
+                    mFansSize.setText(0 + "");
+                }
+                hiddenLoadingView();
+            }
+
+            @Override
+            public void onNotNetWork() {
+                hiddenLoadingView();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                hiddenLoadingView();
+            }
+        });
+
+    }
 }

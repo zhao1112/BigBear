@@ -1,8 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 
-
-
     <style name="NavPage">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
@@ -13,13 +11,9 @@
     </style>
 
 
-
-
     <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">12sp</item>
     </style>
-
-
 
 
     <style name="search_dialog" parent="@android:style/Theme.Dialog">
@@ -32,12 +26,6 @@
         <item name="android:backgroundDimAmount">0.9</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
-
-
-
-
-
-
 
 
     <!-- Base application theme. -->
@@ -114,7 +102,6 @@
         <item name="android:windowIsFloating">true</item>
 
 
-
     </style>
 
     <!--弹窗动画-->
@@ -144,7 +131,6 @@
     </style>
 
 
-
     <!-- dialog中间弹出菜单动画 -->
     <style name="CenterAnimation" parent="android:Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/center_enter</item>
@@ -154,8 +140,6 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
-
-
 
 
     <style name="abcdefg" parent="android:Animation.Dialog">
@@ -169,11 +153,6 @@
 
 
     </style>
-
-
-
-
-
 
 
     <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
@@ -197,7 +176,6 @@
         <item name="android:progressDrawable">@drawable/progress_style</item>
 
     </style>
-
 
 
     <!-- 自定义仿IOS的ActionSheet底部Dialog的样式 ，有模糊效果 -->
@@ -266,7 +244,7 @@
 
     <!-- 合伙人底部切换按钮 -->
 
-    <style name="bottom_tag_style" >
+    <style name="bottom_tag_style">
         <!-- Customize your theme here. -->
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -278,7 +256,8 @@
         <item name="android:textSize">10sp</item>
         <item name="android:drawable">@drawable/partner_picture_select</item>
     </style>
-    <style name="partner_bottom_style" >
+
+    <style name="partner_bottom_style">
         <!-- Customize your theme here. -->
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -291,7 +270,24 @@
         <item name="android:drawable">@drawable/fans_picture_select</item>
     </style>
 
-<!---->
+    <!---->
+
+    <declare-styleable name="VideoView">
+        <attr name="looping" format="boolean"/>
+        <attr name="enableAudioFocus" format="boolean"/>
+        <attr name="enableMediaCodec" format="boolean"/>
+        <attr name="usingSurfaceView" format="boolean"/>
+        <attr name="enableParallelPlay" format="boolean"/>
+
+        <attr name="screenScaleType" format="dimension">
+            <enum name="type_default" value="0"/>
+            <enum name="type_16_9" value="1"/>
+            <enum name="type_4_3" value="2"/>
+            <enum name="type_match_parent" value="3"/>
+            <enum name="type_original" value="4"/>
+            <enum name="type_center_crop" value="5"/>
+        </attr>
+    </declare-styleable>
 
 
 </resources>

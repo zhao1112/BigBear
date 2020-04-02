@@ -208,7 +208,7 @@
                 android:layout_marginRight="@dimen/dp_15"
                 android:layout_marginBottom="@dimen/dp_31"
                 android:background="@drawable/bg_corner_search_dialog"
-                android:visibility="gone">
+               >
 
                 <TextView
                     android:id="@+id/service"

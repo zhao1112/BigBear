@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/popup_business_bg">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_21"
+                    android:text="分享到"
+                    android:textColor="#ff272727"
+                    android:textSize="@dimen/sp_14"/>
+
+                <LinearLayout
+                    android:id="@+id/min"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/wx_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_45"
+                            android:layout_height="@dimen/dp_45"
+                            android:src="@mipmap/wechat_bus"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:text="微信好友"
+                            android:textColor="#ff999999"
+                            android:textSize="@dimen/sp_11"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/moments_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_45"
+                            android:layout_height="@dimen/dp_45"
+                            android:src="@mipmap/pengyouquan"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:text="微信朋友圈"
+                            android:textColor="#ff999999"
+                            android:textSize="@dimen/sp_11"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/qq_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_45"
+                            android:layout_height="@dimen/dp_45"
+                            android:src="@mipmap/qq_bus"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:text="QQ"
+                            android:textColor="#ff999999"
+                            android:textSize="@dimen/sp_11"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/qq_moments_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_45"
+                            android:layout_height="@dimen/dp_45"
+                            android:src="@mipmap/qqkongjian"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:text="QQ空间"
+                            android:textColor="#ff999999"
+                            android:textSize="@dimen/sp_11"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/dwon_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_45"
+                            android:layout_height="@dimen/dp_45"
+                            android:src="@mipmap/picture"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:text="保存图片"
+                            android:textColor="#ff999999"
+                            android:textSize="@dimen/sp_11"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_below="@id/min"
+                    android:background="#fff1f1f1"/>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/clear_bus"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:text="取消分享"
+                android:textColor="#272727"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

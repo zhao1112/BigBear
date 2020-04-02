@@ -367,7 +367,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         changeCollection(goodDetail.isCollected());
 
         if (commissionType.equals(Constants.COMMISSION_TYPE_THREE)) {
-            Log.e("commissionType", goodDetail.getCommision() + "----");
             s_y.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
             tv_yongjin_num.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
         } else if (commissionType.equals(Constants.COMMISSION_TYPE_FOUR)) {
@@ -629,7 +628,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                         showToast("缺少必要权限");
                     }
                 }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
-
                 break;
             case R.id.shen_ji:
                 UserInfo user = BearMallAplication.getInstance().getUser();

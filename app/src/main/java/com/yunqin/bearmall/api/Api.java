@@ -1341,5 +1341,33 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/taokeorder/getPddOrderList")
     Observable<String> getPddOrderList(@FieldMap() Map<String, String> params);
+
+    /**
+     * 获取商学院分类
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getBusinessCategory")
+    Observable<String> getBusinessCategory(@FieldMap() Map<String, String> params);
+
+    /**
+     * 获取大熊爆款数据
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getBusinessProduct")
+    Observable<String> getBusinessProduct(@FieldMap() Map<String, String> params);
+
+    /**
+     * 增加分享数
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/BusinessShare")
+    Observable<String> BusinessShare(@FieldMap() Map<String, String> params);
+
+    /**
+     * 获取宣传素材数据
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getBusinessMaterial")
+    Observable<String> getBusinessMaterial(@FieldMap() Map<String, String> params);
 }
 

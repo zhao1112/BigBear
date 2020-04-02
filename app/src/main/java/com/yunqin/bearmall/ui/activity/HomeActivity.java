@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
@@ -39,7 +38,7 @@ import com.yunqin.bearmall.update.CheckForUpdateHelper;
 import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.RudenessScreenHelper;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
-import com.yunqin.bearmall.util.SwitchFragment;
+import com.yunqin.bearmall.ui.fragment.SwitchFragment;
 import com.yunqin.bearmall.util.UpLoadHeadImage;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,7 +52,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.jzvd.Jzvd;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -102,7 +100,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
     @Override
     public void init() {
-        setTranslucentStatus();
 
         //初始化友盟
         BearMallAplication.initUM(HomeActivity.this);

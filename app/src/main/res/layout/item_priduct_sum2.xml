@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_gray_solid"
-    android:orientation="vertical"
-    android:padding="10dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_gray_solid"
+                android:orientation="vertical"
+                android:padding="10dp">
 
     <RelativeLayout
         android:id="@+id/layout_home_pro_image"
@@ -15,7 +15,7 @@
             android:id="@+id/item_home_pro_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:text="预估佣金:¥0.00"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_12"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
 
     </RelativeLayout>
@@ -44,7 +44,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:src="@mipmap/icon_collect"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/item_home_pro_title"
@@ -71,14 +71,13 @@
             android:maxLines="1"
             android:text=""
             android:textColor="#A6A6A6"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <RelativeLayout
             android:id="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_goods_shop"
-            android:layout_marginTop="8dp"
+            android:layout_above="@id/bot"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -93,7 +92,7 @@
                     android:background="@mipmap/icon_coupon"
                     android:gravity="center"
                     android:textColor="@android:color/white"
-                    android:textSize="8sp" />
+                    android:textSize="@dimen/sp_12"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -106,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:src="@mipmap/icon_money"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tv_commision"
@@ -115,7 +114,7 @@
                         android:gravity="center"
                         android:text="预估佣金:¥0.00"
                         android:textColor="#FF6633"
-                        android:textSize="8sp" />
+                        android:textSize="8sp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -123,10 +122,12 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/bot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rl"
-            android:layout_marginTop="6dp">
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="@dimen/dp_5">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -135,34 +136,29 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="bc"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
-
-                <TextView
                     android:id="@+id/item_home_pro_quanhoujia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="1dp"
                     android:textColor="#ffed1205"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/item_home_pro_yuanjia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
                     android:layout_marginLeft="7dp"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
                 android:gravity="right"
                 android:orientation="vertical">
 
@@ -172,9 +168,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="已售  "
-                    android:textSize="10sp" />
+                    android:textSize="10sp"/>
+
             </LinearLayout>
         </RelativeLayout>
+
     </RelativeLayout>
 
 

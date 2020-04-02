@@ -91,7 +91,7 @@ public class SellweFragment extends BaseFragment {
         viewPager.setAdapter(hotAdapter);
         viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
-        tablayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        tablayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
 
         tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

@@ -179,6 +179,7 @@ android {
                 QZone {
                     appId "1106958459"
                     appKey "5m1o4t91rt6rOQ9M"
+                    bypassApproval true
                 }
             }
         }
@@ -204,7 +205,10 @@ android {
         implementation deps.rxjava2
         implementation deps.support.design
         implementation deps.support.recyclerview
-        implementation deps.glide.runtime
+//        implementation deps.glide.runtime
+        //glide
+        implementation 'com.github.bumptech.glide:glide:4.8.0'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
         //Retrofit
         implementation 'com.squareup.retrofit2:retrofit:2.6.0'
         //Gson converter
@@ -301,5 +305,8 @@ android {
         implementation 'com.android.support:palette-v7:27.1.1'
         //进度条
         implementation 'com.timqi.sectorprogressview:library:2.0.1'
+        //图片查看器
+        implementation 'com.github.SherlockGougou:BigImageViewPager:v4_6.0.0'
+
     }
 }

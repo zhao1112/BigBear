@@ -55,38 +55,75 @@
 
                     <RelativeLayout
                         android:id="@+id/mine_vip"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/mine_nickname"
                         android:layout_marginLeft="@dimen/dp_11"
                         android:layout_marginTop="@dimen/dp_9"
+                        android:layout_marginRight="@dimen/dp_15"
                         android:layout_toRightOf="@id/mine_head"
-                        android:background="@drawable/mine_vip"
                         android:visibility="gone">
 
-                        <ImageView
-                            android:id="@+id/image_vip"
-                            android:layout_width="@dimen/dp_13"
-                            android:layout_height="@dimen/dp_10"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_6"
-                            android:src="@mipmap/vip_gray"/>
-
-                        <TextView
-                            android:id="@+id/vip_icon"
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_4"
-                            android:layout_marginTop="@dimen/dp_3"
-                            android:layout_marginRight="@dimen/dp_9"
-                            android:layout_marginBottom="@dimen/dp_3"
-                            android:layout_toRightOf="@id/image_vip"
-                            android:text="注册会员"
-                            android:textColor="#ffffc755"
-                            android:textSize="@dimen/sp_11"/>
+                            android:background="@drawable/mine_vip">
+
+                            <ImageView
+                                android:id="@+id/image_vip"
+                                android:layout_width="@dimen/dp_13"
+                                android:layout_height="@dimen/dp_10"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/dp_6"
+                                android:src="@mipmap/vip_gray"/>
+
+                            <TextView
+                                android:id="@+id/vip_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/dp_4"
+                                android:layout_marginTop="@dimen/dp_3"
+                                android:layout_marginRight="@dimen/dp_9"
+                                android:layout_marginBottom="@dimen/dp_3"
+                                android:layout_toRightOf="@id/image_vip"
+                                android:text="注册会员"
+                                android:textColor="#ffffc755"
+                                android:textSize="@dimen/sp_11"/>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/Wx"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginTop="0dp"
+                            android:background="@drawable/address_bg"
+                            android:gravity="center_vertical"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginLeft="@dimen/dp_5"
+                                android:src="@mipmap/m_wechat"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_3"
+                                android:layout_marginRight="@dimen/dp_5"
+                                android:text="绑定微信号"
+                                android:textColor="#ff272727"
+                                android:textSize="@dimen/sp_11"/>
+
+                        </LinearLayout>
 
                     </RelativeLayout>
+
 
                     <RelativeLayout
                         android:id="@+id/openvip"
@@ -218,36 +255,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/Wx"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_24"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/copy_one"
-                        android:background="@drawable/address_bg"
-                        android:gravity="center_vertical"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_16"
-                            android:layout_marginLeft="@dimen/dp_5"
-                            android:src="@mipmap/m_wechat"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
-                            android:layout_marginRight="@dimen/dp_5"
-                            android:text="绑定微信号"
-                            android:textColor="#ff272727"
-                            android:textSize="@dimen/sp_11"/>
-
-
-                    </LinearLayout>
-
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -313,11 +320,16 @@
 
                         <TextView
                             android:id="@+id/mine_vip_text"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp_7"
+                            android:layout_marginRight="@dimen/dp_10"
+                            android:layout_toLeftOf="@id/mine_commander"
                             android:layout_toRightOf="@id/tuanz"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:text="登录查看当前收益及等级"
                             android:textColor="#ff999999"
                             android:textSize="@dimen/sp_14"/>

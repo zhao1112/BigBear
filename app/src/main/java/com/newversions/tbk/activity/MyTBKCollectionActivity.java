@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
+import com.newversions.tbk.Constants;
 import com.newversions.tbk.entity.TBKCollectionEntity;
 import com.newversions.tbk.entity.TBKHomeEntity;
 import com.newversions.tbk.utils.StringUtils;
@@ -56,7 +57,6 @@ public class MyTBKCollectionActivity extends BaseActivity {
         homeAdapter.openLoadAnimation();
 
         homeAdapter.setUpFetchEnable(true);
-        // rlv.addItemDecoration(new DividerItemDecoration(this , DividerItemDecoration.VERTICAL));
         homeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -68,11 +68,14 @@ public class MyTBKCollectionActivity extends BaseActivity {
         homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Intent intent = new Intent(CollectAndReferActivity.this, GoodsDetailActivity.class);
-//                intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getId());
-//                intent.putExtra(Constants.INTENT_KEY_URL, mList.get(position).getIconUrl());
-//                startActivity(intent);
-                GoodsDetailActivity.startGoodsDetailActivity(MyTBKCollectionActivity.this, mList.get(position).getItemId(),"1");
+                Intent intent = new Intent(MyTBKCollectionActivity.this, GoodsDetailActivity.class);
+                intent.putExtra(Constants.INTENT_KEY_ID, mList.get(position).getItemId() + "");
+                intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
+                intent.putExtra(Constants.INTENT_KEY_COMM, mList.get(position).getCommision());
+                intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_TWO);
+                MyTBKCollectionActivity.this.startActivity(intent);
+
+//                GoodsDetailActivity.startGoodsDetailActivity(MyTBKCollectionActivity.this, mList.get(position).getItemId(), "1");
             }
         });
         homeAdapter.setEmptyView(R.layout.empty_layout);
@@ -113,14 +116,12 @@ public class MyTBKCollectionActivity extends BaseActivity {
             helper.setText(R.id.item_home_pro_title, item.getName());
             helper.setText(R.id.item_home_pro_quan, "券¥" + (int) item.getCouponAmount() + "");
             helper.setText(R.id.item_home_pro_yuanjia, "¥" + item.getPrice());
-            helper.setText(R.id.item_home_pro_quanhoujia, "" + item.getDiscountPrice());
+            helper.setText(R.id.item_home_pro_quanhoujia, "¥" + item.getDiscountPrice());
             helper.setText(R.id.tv_commision, "预估返：" + item.getCommision() + "元");
             ((TextView) helper.getView(R.id.item_home_pro_yuanjia)).getPaint().setFlags(
                     Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
             Glide.with(mContext).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small)).load(item.getOutIcon()).into((ImageView) helper.getView(R.id.item_home_pro_image));
             helper.setText(R.id.item_home_xiaoliang, "" + item.getSellNum() + "人已购");
-//			helper.getView(R.id.iv_collct).setVisibility(View.VISIBLE);
-
         }
     }
 
@@ -128,6 +129,9 @@ public class MyTBKCollectionActivity extends BaseActivity {
         showLoading();
         Map<String, String> map = new HashMap<>();
         map.put("page", String.valueOf(page));
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getTBKCollection(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {

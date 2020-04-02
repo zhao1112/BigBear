@@ -53,9 +53,12 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cc.shinichi.library.ImagePreview;
+import cc.shinichi.library.bean.ImageInfo;
 
 public class VipExplainActivity extends BaseActivity implements VipContract.UI, ChangeHeadImageCallBack,
         UploadScreenshots.OnUpLoadCallBack {
@@ -241,6 +244,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     private PopupWindow mMPopupWindow;
     private boolean Audit = true;
     private int state2 = 0;
+    private String wxImage;
 
 
     public static void opneVipExplainActivity(Activity context, Class cls, Bundle bundle) {
@@ -291,11 +295,16 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
     @OnClick({R.id.vip_back, R.id.vip_service_copy, R.id.vip_logon_tips, R.id.vip_logon_invitation, R.id.vip_logon_extension,
             R.id.vip_logon_image, R.id.vip_logon_extension2, R.id.vip_v1_tips, R.id.vip_v1_invitation, R.id.vip_v1_extension,
             R.id.vip_v2_tips, R.id.vip_v2_invitation, R.id.vip_v2_extension, R.id.vip_partner_tips, R.id.vip_partner_invitation,
-            R.id.vip_partner_extension, R.id.vip_logon_up, R.id.vip_v1_up, R.id.vip_v2_up, R.id.vip_partner_up})
+            R.id.vip_partner_extension, R.id.vip_logon_up, R.id.vip_v1_up, R.id.vip_v2_up, R.id.vip_partner_up, R.id.vip_service_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.vip_back:
                 finish();
+                break;
+            case R.id.vip_service_image:
+                if (!TextUtils.isEmpty(wxImage)) {
+                    seeImage(wxImage);
+                }
                 break;
             case R.id.vip_service_copy://复制微信号
                 if (!TextUtils.isEmpty(wxId)) {
@@ -344,6 +353,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
 //                    showPopUp(1);
                 }
                 break;
+
         }
     }
 
@@ -383,8 +393,8 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             Type_Vip = promotion.getType();
             //微信是否显示
             if (!TextUtils.isEmpty(promotion.getData().getParentWXCode()) || !TextUtils.isEmpty(promotion.getData().getParentWXId())) {
-                Log.e("resultData", "resultData: "+promotion.getData().getParentWXCode());
-                Log.e("resultData", "resultData: "+promotion.getData().getParentWXId());
+                Log.e("resultData", "resultData: " + promotion.getData().getParentWXCode());
+                Log.e("resultData", "resultData: " + promotion.getData().getParentWXId());
                 mVipSercice.setVisibility(View.VISIBLE);
 
             } else {
@@ -520,7 +530,9 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
             mVipServiceName.setText(data.getParentNickName());
             mVipServiceJue.setText(data.getParentRole());
             mVipServiceCode.setText("邀请码：" + data.getParentInviteCode());
+            wxImage = data.getParentWXCode();
             Glide.with(this).load(data.getParentWXCode()).into(mVipServiceImage);
+
             mVipServiceWx.setText("微信号：" + data.getParentWXId());
             switch (promotion.getType()) {
                 case 1://注册会员
@@ -818,5 +830,24 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
         progressBar.setMax(max);
         progressBar.setProgress(progress);
         textView2.setText(value2);
+    }
+
+    public void seeImage(String position) {
+        final List<ImageInfo> imageInfoList = new ArrayList<>();
+        ImageInfo imageInfo = new ImageInfo();
+        imageInfo.setOriginUrl(position);// 原图url
+        imageInfo.setThumbnailUrl(position);// 缩略图url
+        imageInfoList.add(imageInfo);
+        ImagePreview.LoadStrategy loadStrategy = ImagePreview.LoadStrategy.Default;
+        ImagePreview
+                .getInstance()
+                .setContext(VipExplainActivity.this)
+                .setIndex(0)
+                .setImageInfoList(imageInfoList)
+                .setLoadStrategy(loadStrategy)
+                .setEnableDragClose(true)
+                .setEnableUpDragClose(true)
+                .setShowDownButton(true)
+                .start();
     }
 }

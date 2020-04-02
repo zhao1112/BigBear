@@ -97,6 +97,7 @@ public class ShareVideoUtils {
     }
 
     private static void shareVideo(String plat,String videoUrl,String title,String subTitle,String imageUrl){
+        Log.e("shareVideo", videoUrl );
         Platform platform = ShareSDK.getPlatform(plat);
         Platform.ShareParams shareParams = new  Platform.ShareParams();
         shareParams.setText(subTitle);
