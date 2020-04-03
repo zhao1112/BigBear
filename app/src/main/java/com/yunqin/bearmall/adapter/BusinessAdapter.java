@@ -74,7 +74,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         businessHolder.bus_content.setText(Html.fromHtml(list.get(position).getItemDesc()));
         businessHolder.bus_coupon.setText("¥" + list.get(position).getPrice());
         businessHolder.bus_amount.setText("¥" + list.get(position).getCouponAmount());
-        businessHolder.bus_password.setText("緮置评论₴" + list.get(position).getTaoMsg() + "₴，去【tao宝】下单");
+        businessHolder.bus_password.setText("緮置這條评论去【tao宝】下单");
         Glide.with(context)
                 .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
                 .load(list.get(position).getItemIcon())
@@ -124,9 +124,9 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         businessHolder.bus_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, businessHolder.bus_password.getText().toString()));
-                Toast.makeText(context, "复制成功", Toast.LENGTH_LONG).show();
+                if (mOnClickShare != null) {
+                    mOnClickShare.copy(list.get(position).getItemId());
+                }
             }
         });
 
@@ -179,6 +179,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public interface onClickShare {
         void share(String[] strings, String title, int id, int i);
+
+        void copy(String id);
     }
 
     public onClickShare mOnClickShare;

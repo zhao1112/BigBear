@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author LWP
@@ -31,8 +33,11 @@ public class DownLoadImage {
     private static final int DOWNLOAD = 0X3;
     private static final int DOWNLOADVALUE = 0X4;
     private static final int UPDATEVIEW = 0X5;
+    private static final int WXDOWNLOAD = 0X6;
+    private static final int WXDOWNLOADLIST = 0X7;
     public Context context;
     public File file = null;
+    public List<File> fileList = new ArrayList<>();
 
     public static DownLoadImage getInstance() {
         if (loadImage == null) {
@@ -179,6 +184,86 @@ public class DownLoadImage {
 
     }
 
+    public void WXShear(String[] imageurl) {
+        new WxDownLoad().execute(imageurl);
+    }
+
+
+    public class WxDownLoad extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                File appDir = new File(Environment.getExternalStorageDirectory(), "InvitationPoster");
+                if (!appDir.exists()) {
+                    appDir.mkdir();
+                }
+
+                for (int i = 0; i < strings.length; i++) {
+                    URL url = new URL(strings[i]);
+                    //获取连接
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    //循环下载（边读取边存入）
+                    BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
+                    String fileName = System.currentTimeMillis() + ".jpg";
+                    file = new File(appDir, fileName);
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
+                    int len = -1;
+                    byte[] bytes = new byte[1024];
+                    while ((len = bis.read(bytes)) != -1) {
+                        bos.write(bytes, 0, len);
+                        bos.flush();
+                        //实时更新下载进度（使用标记区别最大值）
+                        downloadLen = downloadLen + len;
+                        publishProgress(UPDATE, downloadLen);
+                    }
+                    bos.close();
+                    bis.close();
+                    publishProgress(WXDOWNLOADLIST);
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            publishProgress(WXDOWNLOAD, 0);
+            return "下载完成";
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            switch (values[0]) {
+                case UPDATE:
+                    if (mOnDownLoadImage != null) {
+                        mOnDownLoadImage.progressValue(values[1], contentLen);
+                    }
+                    break;
+                case DOWNLOADVALUE:
+                    if (mOnDownLoadImage != null) {
+                        mOnDownLoadImage.downLoadValue(values[1]);
+                    }
+                    break;
+                case UPDATEVIEW:
+                    if (mOnDownLoadImage != null) {
+                        mOnDownLoadImage.progerssVisibility();
+                    }
+                    break;
+                case WXDOWNLOADLIST:
+                    fileList.add(file);
+                    break;
+                case WXDOWNLOAD:
+                    if (OnWXDownLoadImage != null) {
+                        if (fileList.size() > 0 && fileList != null) {
+                            OnWXDownLoadImage.fileList(fileList);
+                        }
+                    }
+                    break;
+            }
+        }
+
+    }
+
     public interface onDownLoadImage {
         void progressMax(int value);
 
@@ -195,5 +280,16 @@ public class DownLoadImage {
 
     public void setOnDownLoadImage(onDownLoadImage mOnDownLoadImage) {
         this.mOnDownLoadImage = mOnDownLoadImage;
+    }
+
+
+    public interface onWXDownLoadImage {
+        void fileList(List<File> value);
+    }
+
+    public onWXDownLoadImage OnWXDownLoadImage;
+
+    public void setOnwxDownLoadImage(onWXDownLoadImage OnWXDownLoadImage) {
+        this.OnWXDownLoadImage = OnWXDownLoadImage;
     }
 }

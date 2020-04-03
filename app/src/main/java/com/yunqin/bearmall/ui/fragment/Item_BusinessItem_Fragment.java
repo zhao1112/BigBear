@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,12 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.newversions.tbk.Constants;
+import com.newversions.tbk.activity.GoodsDetailActivity;
+import com.newversions.tbk.activity.ShareComissionActivity;
+import com.newversions.tbk.activity.WebActivity;
+import com.newversions.tbk.entity.ShareGoodsEntity;
+import com.newversions.tbk.entity.ToTaoBaoEntity;
 import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -36,7 +44,9 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.ItemBusinessBean;
+import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.PopUtil;
+import com.yunqin.bearmall.util.PopUtil2;
 import com.yunqin.bearmall.widget.DownLoadImage;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
@@ -44,11 +54,13 @@ import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
@@ -73,7 +85,8 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
     private int page = 1;
     private BusinessAdapter businessAdapter;
     private PopUtil instance;
-    private int refresh = 1;
+    private int refresh = 2;
+    private PopUtil2 popUtil2;
 
     public static Item_BusinessItem_Fragment getInstance(String categoryId) {
         Bundle bundle = new Bundle();
@@ -93,6 +106,8 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
 
         instance = PopUtil.getInstance();
         instance.setContext(getActivity());
+        popUtil2 = PopUtil2.getInstance();
+        popUtil2.setContext(getActivity());
 
         categoryid = getArguments().getString("CATEGORYID");
 
@@ -126,14 +141,24 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             @Override
             public void share(String[] strings, String title, int id, int i) {
                 Log.e("businessAdapter", "share: ");
+                for (int j = 0; j < strings.length; j++) {
+                    Log.e("businessAdapter", strings[j]);
+                }
                 clickshare(strings, title, i);
                 BusinessShare(id);
+            }
+
+            @Override
+            public void copy(String id) {
+                shearMsg(id);
             }
         });
 
     }
 
     private void clickshare(String[] strings, String title, int i) {
+        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
         View popView = instance.getPopView(R.layout.popup_business_share, 1);
         popView.findViewById(R.id.clear_bus).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,8 +172,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 final IWXAPI api1 = WXAPIFactory.createWXAPI(getActivity(), null);
                 api1.registerApp(Constans.WX_APPID);  //将APP注册到微信
                 if (api1.isWXAppInstalled()) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
+                    showToast("文案已复制剪切板", Gravity.CENTER);
                     shareNormal(Wechat.NAME, strings);
                     instance.dismissPopupWindow();
                 } else {
@@ -165,12 +189,9 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                     PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
                         @Override
                         public void havePermission() {
-                            ClipboardManager clipboardManager =
-                                    (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
                             downBusiness(strings, 1);
-                            showLoading();
                             instance.dismissPopupWindow();
+                            popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                         }
 
                         @Override
@@ -188,8 +209,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (isQQClientAvailable(getActivity())) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
+                    showToast("文案已复制剪切板", Gravity.CENTER);
                     shareNormal(QQ.NAME, strings);
                     instance.dismissPopupWindow();
                 } else {
@@ -201,8 +221,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (isQQClientAvailable(getActivity())) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
+                    showToast("文案已复制剪切板", Gravity.CENTER);
                     if (i == 0) {
                         shareQQ(QZone.NAME, strings);
                     } else {
@@ -220,11 +239,9 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
                     @Override
                     public void havePermission() {
-                        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
                         downBusiness(strings, 2);
-                        showLoading();
                         instance.dismissPopupWindow();
+                        popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                     }
 
                     @Override
@@ -254,7 +271,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
 
             @Override
             public void progerssVisibility() {
-                hiddenLoadingView();
+                popUtil2.dismissPopupWindow();
                 if (i == 1) {
                     View popView1 = instance.getPopView(R.layout.popup_business_dwon, 0);
                     popView1.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
@@ -323,7 +340,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         HashMap<String, Object> optionMap = new HashMap<>();
         optionMap.put("Id", "5");
         optionMap.put("SortId", "5");
-        optionMap.put("BypassApproval", true);
+        optionMap.put("bypassApproval", true);
         optionMap.put("Enable", true);
         ShareSDK.setPlatformDevInfo(name, optionMap);
 
@@ -331,16 +348,25 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         Platform.ShareParams shareParams = new Platform.ShareParams();//分享的参数
         shareParams.setImageArray(strings);
         shareParams.setShareType(Platform.SHARE_IMAGE);//分享类型
+        platform.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Log.e("onComplete", i + "");
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Log.e("onComplete", throwable.getMessage().toString());
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        });
         platform.share(shareParams);
     }
 
-
-    /**
-     * 判断qq是否可用
-     *
-     * @param context
-     * @return
-     */
     public static boolean isQQClientAvailable(Context context) {
         final PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
@@ -356,6 +382,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
     }
 
     private void getBusinessProduct() {
+        showLoading();
         HashMap<String, String> map = new HashMap<>();
         if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData()
                 != null && BearMallAplication.getInstance().getUser().getData().getToken()
@@ -378,6 +405,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                     }
                     businessAdapter.addData(itemBusinessBean.getData());
                     mNulldata.setVisibility(View.GONE);
+                    hiddenLoadingView();
                 }
                 mItemBuRefreshLayout.finishRefreshing();
                 mItemBuRefreshLayout.finishLoadmore();
@@ -425,5 +453,39 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             }
         });
     }
+
+
+    public void shearMsg(String id) {
+        Map<String, String> map = new HashMap<>();
+        map.put("goodsId", id);
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getShareMsg(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
+                if (shareGoodsEntity.getCode() == 2) {
+                    // TODO: 2019/8/15 0015 shouquan
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
+                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
+                    startActivity(intent);
+                    return;
+                }
+                ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "(" + shareGoodsEntity.getTaoToken() + ")"));
+                Toast.makeText(getActivity(), "复制淘口令成功", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNotNetWork() {
+                hiddenLoadingView();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                hiddenLoadingView();
+            }
+        });
+    }
+
 
 }

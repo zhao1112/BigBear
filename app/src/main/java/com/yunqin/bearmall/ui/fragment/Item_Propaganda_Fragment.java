@@ -46,6 +46,7 @@ import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.PropagandaBean;
 import com.yunqin.bearmall.util.NetUtils;
 import com.yunqin.bearmall.util.PopUtil;
+import com.yunqin.bearmall.util.PopUtil2;
 import com.yunqin.bearmall.video.CustomVideo;
 import com.yunqin.bearmall.widget.DownLoadImage;
 import com.yunqin.bearmall.widget.RefreshHeadView;
@@ -53,6 +54,7 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 import org.json.JSONException;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -87,7 +89,8 @@ public class Item_Propaganda_Fragment extends BaseFragment {
     private int page = 1;
     private PropagandaAdapter mPropagandaAdapter;
     private PopUtil instance;
-    private int refresh = 1;
+    private PopUtil2 popUtil2;
+    private int refresh = 2;
     private String path;
 
     public static Item_Propaganda_Fragment getInstance(String categoryId) {
@@ -108,6 +111,8 @@ public class Item_Propaganda_Fragment extends BaseFragment {
 
         instance = PopUtil.getInstance();
         instance.setContext(getActivity());
+        popUtil2 = PopUtil2.getInstance();
+        popUtil2.setContext(getActivity());
 
         categoryid = getArguments().getString("CATEGORYID");
 
@@ -135,14 +140,12 @@ public class Item_Propaganda_Fragment extends BaseFragment {
         getBusinessMaterial();
 
         mNulldata.setVisibility(View.VISIBLE);
-
         mPropagandaAdapter.setOnClickShare(new PropagandaAdapter.onClickShare() {
             @Override
             public void share(String[] strings, int id, int i, String title) {
                 clickshare(strings, i, title);
             }
         });
-
         mPropagandaAdapter.setOnVideoClick(new PropagandaAdapter.onVideoClick() {
             @Override
             public void videoUrl(String url) {
@@ -153,7 +156,6 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                 getActivity().startActivity(intent);
             }
         });
-
         mPropagandaAdapter.setOnShearVideo(new PropagandaAdapter.onShearVideo() {
             @Override
             public void videoUrl(String url, String image, String title) {
@@ -234,6 +236,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                 final IWXAPI api1 = WXAPIFactory.createWXAPI(getActivity(), null);
                 api1.registerApp(Constans.WX_APPID);  //将APP注册到微信
                 if (api1.isWXAppInstalled()) {
+                    showToast("文案已复制剪切板", Gravity.CENTER);
                     shareNormal(Wechat.NAME, strings);
                     instance.dismissPopupWindow();
                 } else {
@@ -251,8 +254,8 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                         @Override
                         public void havePermission() {
                             downBusiness(strings, 1);
-                            showLoading();
                             instance.dismissPopupWindow();
+                            popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                         }
 
                         @Override
@@ -270,6 +273,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (isQQClientAvailable(getActivity())) {
+                    showToast("文案已复制剪切板", Gravity.CENTER);
                     shareNormal(QQ.NAME, strings);
                     instance.dismissPopupWindow();
                 } else {
@@ -280,6 +284,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
         popView.findViewById(R.id.qq_moments_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showToast("文案已复制剪切板", Gravity.CENTER);
                 if (isQQClientAvailable(getActivity())) {
                     if (i == 0) {
                         shareQQ(QZone.NAME, strings);
@@ -299,8 +304,8 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                     @Override
                     public void havePermission() {
                         downBusiness(strings, 2);
-                        showLoading();
                         instance.dismissPopupWindow();
+                        popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                     }
 
                     @Override
@@ -371,7 +376,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
 
             @Override
             public void progerssVisibility() {
-                hiddenLoadingView();
+                popUtil2.dismissPopupWindow();
                 if (i == 1) {
                     View popView1 = instance.getPopView(R.layout.popup_business_dwon, 0);
                     popView1.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {

@@ -103,8 +103,8 @@
 
             <ImageView
                 android:id="@+id/bus_video"
-                android:layout_width="@dimen/dp_160"
-                android:layout_height="@dimen/dp_222"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="@dimen/dp_300"
                 android:scaleType="fitXY"/>
 
             <RelativeLayout
