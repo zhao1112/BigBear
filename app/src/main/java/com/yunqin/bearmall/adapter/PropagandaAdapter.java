@@ -134,7 +134,8 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     @Override
                     public void onClick(View view) {
                         if (mOnClickShare != null) {
-                            mOnClickShare.share(image, list.get(position).getId(), 1, imageHolder.bus_content.getText().toString().replace("</br>","\n"));
+                            mOnClickShare.share(image, list.get(position).getId(), 1,
+                                    imageHolder.bus_content.getText().toString().replace("</br>", "\n"));
                             list.get(position).setShare_num(list.get(position).getShare_num() + 1);
                             notifyDataSetChanged();
                         }
@@ -145,8 +146,11 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     @Override
                     public boolean onLongClick(View view) {
                         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, imageHolder.bus_content.getText().toString().replace("</br>","\n")));
-                        Toast.makeText(context, "复制成功", Toast.LENGTH_LONG).show();
+                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, imageHolder.bus_content.getText().toString().replace(
+                                "</br>", "\n")));
+                        if (mOnClickShare != null) {
+                            mOnClickShare.shareCrop();
+                        }
                         return true;
                     }
                 });
@@ -167,7 +171,8 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     @Override
                     public void onClick(View view) {
                         if (mOnClickShare != null) {
-                            mOnClickShare.share(images, list.get(position).getId(), 0, imagesHolder.bus_content.getText().toString().replace("</br>","\n"));
+                            mOnClickShare.share(images, list.get(position).getId(), 0,
+                                    imagesHolder.bus_content.getText().toString().replace("</br>", "\n"));
                             list.get(position).setShare_num(list.get(position).getShare_num() + 1);
                             notifyDataSetChanged();
                         }
@@ -178,8 +183,11 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     @Override
                     public boolean onLongClick(View view) {
                         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, imagesHolder.bus_content.getText().toString().replace("</br>","\n")));
-                        Toast.makeText(context, "复制成功", Toast.LENGTH_LONG).show();
+                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                                imagesHolder.bus_content.getText().toString().replace("</br>", "\n")));
+                        if (mOnClickShare != null) {
+                            mOnClickShare.shareCrop();
+                        }
                         return true;
                     }
                 });
@@ -211,7 +219,8 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     @Override
                     public void onClick(View view) {
                         if (mOnShearVideo != null) {
-                            mOnShearVideo.videoUrl(list.get(position).getVideos(), list.get(position).getVideos_img(), videoHolder.bus_content.getText().toString().replace("</br>","\n"));
+                            mOnShearVideo.videoUrl(list.get(position).getVideos(), list.get(position).getVideos_img(),
+                                    videoHolder.bus_content.getText().toString().replace("</br>", "\n"));
                             list.get(position).setShare_num(list.get(position).getShare_num() + 1);
                             notifyDataSetChanged();
                         }
@@ -222,8 +231,11 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     @Override
                     public boolean onLongClick(View view) {
                         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, videoHolder.bus_content.getText().toString().replace("</br>","\n")));
-                        Toast.makeText(context, "复制成功", Toast.LENGTH_LONG).show();
+                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, videoHolder.bus_content.getText().toString().replace(
+                                "</br>", "\n")));
+                        if (mOnClickShare != null) {
+                            mOnClickShare.shareCrop();
+                        }
                         return true;
                     }
                 });
@@ -307,6 +319,8 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public interface onClickShare {
         void share(String[] strings, int id, int i, String title);
+
+        void shareCrop();
     }
 
     public onClickShare mOnClickShare;

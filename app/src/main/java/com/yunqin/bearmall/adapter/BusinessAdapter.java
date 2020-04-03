@@ -139,9 +139,10 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public boolean onLongClick(View view) {
                 ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
-                        businessHolder.bus_content.getText().toString().replace("</br>", "\n")));
-                Toast.makeText(context, "复制成功", Toast.LENGTH_LONG).show();
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, businessHolder.bus_content.getText().toString().replace("</br>", "\n")));
+                if (mOnClickShare!=null){
+                    mOnClickShare.shearCopy();
+                }
                 return true;
             }
         });
@@ -187,6 +188,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void share(String[] strings, String title, int id, int i);
 
         void copy(String id);
+
+        void shearCopy();
     }
 
     public onClickShare mOnClickShare;
@@ -194,4 +197,6 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setOnClickShare(onClickShare mOnClickShare) {
         this.mOnClickShare = mOnClickShare;
     }
+
+
 }

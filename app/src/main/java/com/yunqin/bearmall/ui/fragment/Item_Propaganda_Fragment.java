@@ -23,6 +23,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -146,6 +147,11 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                 clickshare(strings, i, title);
                 BusinessShare(id);
             }
+
+            @Override
+            public void shareCrop() {
+                showToast("复制成功", Gravity.CENTER);
+            }
         });
         mPropagandaAdapter.setOnVideoClick(new PropagandaAdapter.onVideoClick() {
             @Override
@@ -264,7 +270,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                     PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
                         @Override
                         public void havePermission() {
-                            downBusiness(strings, 1);
+                            downBusiness(strings, 1, 1);
                             instance.dismissPopupWindow();
                             popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                         }
@@ -287,9 +293,9 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                     @Override
                     public void havePermission() {
                         if (isQQClientAvailable(getActivity())) {
-                            showToast("文案已复制剪切板", Gravity.CENTER);
-                            shareNormal(QQ.NAME, strings);
+                            downBusiness(strings, 1, 2);
                             instance.dismissPopupWindow();
+                            popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                         } else {
                             Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                         }
@@ -308,17 +314,20 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                 PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
                     @Override
                     public void havePermission() {
-                        showToast("文案已复制剪切板", Gravity.CENTER);
-                        if (isQQClientAvailable(getActivity())) {
-                            if (i == 0) {
-                                shareQQ(QZone.NAME, strings);
-                            } else {
-                                shareQQImage(QZone.NAME, strings);
-                            }
-                            instance.dismissPopupWindow();
-                        } else {
-                            Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
-                        }
+                        downBusiness(strings, 1, 2);
+                        instance.dismissPopupWindow();
+                        popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
+//
+//                        if (isQQClientAvailable(getActivity())) {
+//                            if (i == 0) {
+//                                shareQQ(QZone.NAME, strings);
+//                            } else {
+//                                shareQQImage(QZone.NAME, strings);
+//                            }
+//                            instance.dismissPopupWindow();
+//                        } else {
+//                            Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+//                        }
                     }
 
                     @Override
@@ -335,7 +344,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                 PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
                     @Override
                     public void havePermission() {
-                        downBusiness(strings, 2);
+                        downBusiness(strings, 2, 3);
                         instance.dismissPopupWindow();
                         popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                     }
@@ -390,7 +399,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
         platform.share(shareParams);
     }
 
-    private void downBusiness(String[] strings, int i) {
+    private void downBusiness(String[] strings, int i, int i2) {
         DownLoadImage dinstance = DownLoadImage.getInstance();
         dinstance.setContext(getActivity());
         dinstance.DownImageLength(strings);
@@ -411,6 +420,13 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                 popUtil2.dismissPopupWindow();
                 if (i == 1) {
                     View popView1 = instance.getPopView(R.layout.popup_business_dwon, 0);
+                    TextView textView = popView1.findViewById(R.id.openwx);
+                    if (i2 == 1) {
+                        textView.setText("打开朋友圈");
+                    }
+                    if (i2 == 2) {
+                        textView.setText("打开QQ空间");
+                    }
                     popView1.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -420,13 +436,23 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                     popView1.findViewById(R.id.openwx).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent();
-                            ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
-                            intent.setAction(Intent.ACTION_MAIN);
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.setComponent(cmp);
-                            startActivity(intent);
+                            if (i2 == 1) {
+                                Intent intent = new Intent();
+                                ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                                intent.setAction(Intent.ACTION_MAIN);
+                                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.setComponent(cmp);
+                                startActivity(intent);
+                            }
+                            if (i2 == 2) {
+                                if (isQQClientAvailable(getActivity())) {
+                                    Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                             instance.dismissPopupWindow();
                         }
                     });
@@ -597,8 +623,12 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                 }
 
                 if (opentype == 2) {
-                    Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
-                    startActivity(intent);
+                    if (isQQClientAvailable(getActivity())) {
+                        Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

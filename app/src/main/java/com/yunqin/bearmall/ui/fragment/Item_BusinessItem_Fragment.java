@@ -146,6 +146,11 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             public void copy(String id) {
                 shearMsg(id);
             }
+
+            @Override
+            public void shearCopy() {
+                showToast("复制成功", Gravity.CENTER);
+            }
         });
 
     }
@@ -193,7 +198,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                     PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
                         @Override
                         public void havePermission() {
-                            downBusiness(strings, 1);
+                            downBusiness(strings, 1, 1);
                             instance.dismissPopupWindow();
                             popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                         }
@@ -203,7 +208,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                             showToast("缺少必要权限");
                         }
                     }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
-                    Item_BusinessItem_Fragment.this.instance.dismissPopupWindow();
                 } else {
                     Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
                 }
@@ -216,9 +220,9 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                     @Override
                     public void havePermission() {
                         if (isQQClientAvailable(getActivity())) {
-                            showToast("文案已复制剪切板", Gravity.CENTER);
-                            shareQQ(QQ.NAME, strings);
+                            downBusiness(strings, 1, 2);
                             instance.dismissPopupWindow();
+                            popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                         } else {
                             Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                         }
@@ -234,17 +238,24 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         popView.findViewById(R.id.qq_moments_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isQQClientAvailable(getActivity())) {
-                    showToast("文案已复制剪切板", Gravity.CENTER);
-                    if (i == 0) {
-                        shareQQ(QZone.NAME, strings);
-                    } else {
-                        shareQQImage(QZone.NAME, strings);
+                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
+                    @Override
+                    public void havePermission() {
+                        if (isQQClientAvailable(getActivity())) {
+                            downBusiness(strings, 1, 2);
+                            instance.dismissPopupWindow();
+                            popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
+                        } else {
+                            Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    instance.dismissPopupWindow();
-                } else {
-                    Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
-                }
+
+                    @Override
+                    public void requestPermissionFail() {
+                        showToast("缺少必要权限");
+                    }
+                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+
             }
         });
         popView.findViewById(R.id.dwon_share).setOnClickListener(new View.OnClickListener() {
@@ -253,7 +264,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
                     @Override
                     public void havePermission() {
-                        downBusiness(strings, 2);
+                        downBusiness(strings, 2, 3);
                         instance.dismissPopupWindow();
                         popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                     }
@@ -267,7 +278,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         });
     }
 
-    private void downBusiness(String[] strings, int i) {
+    private void downBusiness(String[] strings, int i, int i2) {
         DownLoadImage dinstance = DownLoadImage.getInstance();
         dinstance.setContext(getActivity());
         dinstance.DownImageLength(strings);
@@ -288,25 +299,46 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 popUtil2.dismissPopupWindow();
                 if (i == 1) {
                     View popView1 = instance.getPopView(R.layout.popup_business_dwon, 0);
+                    TextView textView = popView1.findViewById(R.id.openwx);
+                    if (i2 == 1) {
+                        textView.setText("打开朋友圈");
+                    }
+                    if (i2 == 2) {
+                        textView.setText("打开QQ空间");
+                    }
                     popView1.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             instance.dismissPopupWindow();
                         }
                     });
+
+
                     popView1.findViewById(R.id.openwx).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent();
-                            ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
-                            intent.setAction(Intent.ACTION_MAIN);
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.setComponent(cmp);
-                            startActivity(intent);
+                            if (i2 == 1) {
+                                Intent intent = new Intent();
+                                ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                                intent.setAction(Intent.ACTION_MAIN);
+                                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.setComponent(cmp);
+                                startActivity(intent);
+                            }
+                            if (i2 == 2) {
+                                if (isQQClientAvailable(getActivity())) {
+                                    Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                             instance.dismissPopupWindow();
                         }
                     });
+
+
                 } else {
                     showToast("已自动复制文案，图片已保存至相册");
                 }
@@ -453,7 +485,8 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 }
 
                 ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "復製评论" + "(" + shareGoodsEntity.getTaoToken() + "),去【tao寶】下单"));
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "復製这条口令" + "(" + shareGoodsEntity.getTaoToken() + "),去【tao" +
+                        "寶】下单"));
                 Toast.makeText(getActivity(), "复制淘口令成功", Toast.LENGTH_LONG).show();
             }
 
