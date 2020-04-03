@@ -1,5 +1,7 @@
 package com.newversions.tbk.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -389,6 +391,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     }
 
     private void showShare(String platform2) {
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, BearMallAplication.getInstance().getUser().getRecommendCode()));
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.app_0image);
         Platform platform = ShareSDK.getPlatform(platform2);//获取平台对象
         Platform.ShareParams shareParams = new Platform.ShareParams();//分享的参数
