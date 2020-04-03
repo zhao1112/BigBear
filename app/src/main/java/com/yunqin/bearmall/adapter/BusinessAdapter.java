@@ -74,7 +74,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         businessHolder.bus_content.setText(Html.fromHtml(list.get(position).getItemDesc()));
         businessHolder.bus_coupon.setText("¥" + list.get(position).getPrice());
         businessHolder.bus_amount.setText("¥" + list.get(position).getCouponAmount());
-        businessHolder.bus_password.setText("緮置這條评论去【tao宝】下单");
+        businessHolder.bus_password.setText("緮置這條口令去【tao宝】下单");
         Glide.with(context)
                 .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
                 .load(list.get(position).getItemIcon())
@@ -91,7 +91,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public void onClick(View view) {
                 if (mOnClickShare != null) {
-                    mOnClickShare.share(images, list.get(position).getItemDesc(), list.get(position).getId(), 0);
+                    mOnClickShare.share(images, businessHolder.bus_content.getText().toString().replace("</br>", "\n"), list.get(position).getId(), 0);
                     list.get(position).setShareNum(list.get(position).getShareNum() + 1);
                     notifyDataSetChanged();
                 }
@@ -114,7 +114,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             public void onClick(View view) {
                 if (mOnClickShare != null) {
                     String[] strings = new String[]{list.get(position).getItemIcon()};
-                    mOnClickShare.share(images, list.get(position).getItemDesc(), list.get(position).getId(), 0);
+                    mOnClickShare.share(images, businessHolder.bus_content.getText().toString().replace("</br>", "\n"), list.get(position).getId(), 0);
                     list.get(position).setShareNum(list.get(position).getShareNum() + 1);
                     notifyDataSetChanged();
                 }
@@ -134,7 +134,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public boolean onLongClick(View view) {
                 ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, businessHolder.bus_content.getText().toString()));
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                        businessHolder.bus_content.getText().toString().replace("</br>", "\n")));
                 Toast.makeText(context, "复制成功", Toast.LENGTH_LONG).show();
                 return true;
             }

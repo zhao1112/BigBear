@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,9 +53,12 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +69,9 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import permison.PermissonUtil;
 import permison.listener.PermissionListener;
 
@@ -142,7 +149,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             public void share(String[] strings, String title, int id, int i) {
                 Log.e("businessAdapter", "share: ");
                 for (int j = 0; j < strings.length; j++) {
-                    Log.e("businessAdapter", strings[j]);
+                    Log.e("businessAdapter", strings[j] + "---");
                 }
                 clickshare(strings, title, i);
                 BusinessShare(id);
@@ -163,6 +170,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         popView.findViewById(R.id.clear_bus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                businessAdapter.notifyDataSetChanged();
                 instance.dismissPopupWindow();
             }
         });
@@ -173,7 +181,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 api1.registerApp(Constans.WX_APPID);  //将APP注册到微信
                 if (api1.isWXAppInstalled()) {
                     showToast("文案已复制剪切板", Gravity.CENTER);
-                    shareNormal(Wechat.NAME, strings);
+                    shareQQ(Wechat.NAME, strings);
                     instance.dismissPopupWindow();
                 } else {
                     Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
@@ -382,7 +390,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
     }
 
     private void getBusinessProduct() {
-        showLoading();
         HashMap<String, String> map = new HashMap<>();
         if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData()
                 != null && BearMallAplication.getInstance().getUser().getData().getToken()
@@ -405,7 +412,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                     }
                     businessAdapter.addData(itemBusinessBean.getData());
                     mNulldata.setVisibility(View.GONE);
-                    hiddenLoadingView();
                 }
                 mItemBuRefreshLayout.finishRefreshing();
                 mItemBuRefreshLayout.finishLoadmore();

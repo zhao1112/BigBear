@@ -84,6 +84,15 @@ public class PropagandaBean {
         private String videos;
         private int id;
         private int share_num;
+        private String videos_img;
+
+        public String getVideos_img() {
+            return videos_img;
+        }
+
+        public void setVideos_img(String videos_img) {
+            this.videos_img = videos_img;
+        }
 
         public String getLaunchTime() {
             return launchTime;
