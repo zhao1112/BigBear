@@ -394,11 +394,12 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         Platform.ShareParams shareParams = new Platform.ShareParams();//分享的参数
         shareParams.setTitle("每天都送免单商品！快跟我一起来领吧！");
         Log.i("showShare", BearMallAplication.getInstance().getUser().getRecommendCode());
-        shareParams.setTitleUrl(mStringUrl);
+        Log.e("showShare", mStringUrl + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode());
+        shareParams.setTitleUrl(mStringUrl + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode());
         shareParams.setImageData(bitmap);//图片的地址
         shareParams.setText("天天抢免单！手慢无！");
         shareParams.setShareType(Platform.SHARE_WEBPAGE);
-        shareParams.setUrl(mStringUrl);
+        shareParams.setUrl(mStringUrl + "?recommendCode=" + BearMallAplication.getInstance().getUser().getRecommendCode());
         platform.share(shareParams);
     }
 

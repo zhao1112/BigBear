@@ -421,7 +421,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).BusinessShare(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                hiddenLoadingView();
+
             }
 
             @Override
@@ -451,8 +451,9 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                     startActivity(intent);
                     return;
                 }
+
                 ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "(" + shareGoodsEntity.getTaoToken() + ")"));
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "復製评论" + "(" + shareGoodsEntity.getTaoToken() + "),去【tao寶】下单"));
                 Toast.makeText(getActivity(), "复制淘口令成功", Toast.LENGTH_LONG).show();
             }
 

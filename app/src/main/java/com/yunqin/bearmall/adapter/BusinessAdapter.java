@@ -24,6 +24,7 @@ import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.ItemBusinessBean;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.widget.CircleImageView;
 
 import java.util.ArrayList;
@@ -80,7 +81,11 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 .load(list.get(position).getItemIcon())
                 .apply(options).into(businessHolder.bus_image_min);
         businessHolder.bus_content_min.setText(list.get(position).getItemName());
-        businessHolder.bus_profit.setText("¥" + list.get(position).getCommision());
+        try {
+            businessHolder.bus_profit.setText("¥" + CommonUtils.doubleToString(list.get(position).getCommision()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String[] images = list.get(position).getImages().split(",");
         businessHolder.bus_recycle.setLayoutManager(new GridLayoutManager(context, 3));

@@ -144,6 +144,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
             @Override
             public void share(String[] strings, int id, int i, String title) {
                 clickshare(strings, i, title);
+                BusinessShare(id);
             }
         });
         mPropagandaAdapter.setOnVideoClick(new PropagandaAdapter.onVideoClick() {
@@ -293,6 +294,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                             Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void requestPermissionFail() {
                         showToast("缺少必要权限");
@@ -318,6 +320,7 @@ public class Item_Propaganda_Fragment extends BaseFragment {
                             Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void requestPermissionFail() {
                         showToast("缺少必要权限");
@@ -619,5 +622,32 @@ public class Item_Propaganda_Fragment extends BaseFragment {
         localContentValues.put("_data", paramFile.getAbsolutePath());
         localContentValues.put("_size", Long.valueOf(paramFile.length()));
         return localContentValues;
+    }
+
+    public void BusinessShare(int id) {
+        HashMap<String, String> map = new HashMap<>();
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData()
+                != null && BearMallAplication.getInstance().getUser().getData().getToken()
+                != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
+        map.put("type", "1");
+        map.put("id", id + "");
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).BusinessShare(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+
+            }
+
+            @Override
+            public void onNotNetWork() {
+                hiddenLoadingView();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                hiddenLoadingView();
+            }
+        });
     }
 }
