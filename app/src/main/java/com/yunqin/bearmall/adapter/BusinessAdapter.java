@@ -74,7 +74,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         businessHolder.bus_content.setText(Html.fromHtml(list.get(position).getItemDesc()));
         businessHolder.bus_coupon.setText("¥" + list.get(position).getPrice());
         businessHolder.bus_amount.setText("¥" + list.get(position).getCouponAmount());
-        businessHolder.bus_password.setText("緮置這條口令去【tao宝】下单");
+        businessHolder.bus_password.setText("緮置这条口令,去【tao宝】下单");
         Glide.with(context)
                 .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
                 .load(list.get(position).getItemIcon())

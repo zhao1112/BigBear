@@ -39,7 +39,9 @@ public class PopUtil2 {
 
 
     public void dismissPopupWindow() {
-        popupWindow.dismiss();
+        if (popupWindow!=null&&popupWindow.isShowing()){
+            popupWindow.dismiss();
+        }
     }
 
     public View getPopView2(int viewID, int position) {

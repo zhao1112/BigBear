@@ -233,15 +233,25 @@ public class Item_Propaganda_Fragment extends BaseFragment {
         popView.findViewById(R.id.wx_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final IWXAPI api1 = WXAPIFactory.createWXAPI(getActivity(), null);
-                api1.registerApp(Constans.WX_APPID);  //将APP注册到微信
-                if (api1.isWXAppInstalled()) {
-                    showToast("文案已复制剪切板", Gravity.CENTER);
-                    shareNormal(Wechat.NAME, strings);
-                    instance.dismissPopupWindow();
-                } else {
-                    Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
-                }
+                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
+                    @Override
+                    public void havePermission() {
+                        final IWXAPI api1 = WXAPIFactory.createWXAPI(getActivity(), null);
+                        api1.registerApp(Constans.WX_APPID);  //将APP注册到微信
+                        if (api1.isWXAppInstalled()) {
+                            showToast("文案已复制剪切板", Gravity.CENTER);
+                            shareNormal(Wechat.NAME, strings);
+                            instance.dismissPopupWindow();
+                        } else {
+                            Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void requestPermissionFail() {
+                        showToast("缺少必要权限");
+                    }
+                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
             }
         });
         popView.findViewById(R.id.moments_share).setOnClickListener(new View.OnClickListener() {
@@ -272,29 +282,48 @@ public class Item_Propaganda_Fragment extends BaseFragment {
         popView.findViewById(R.id.qq_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isQQClientAvailable(getActivity())) {
-                    showToast("文案已复制剪切板", Gravity.CENTER);
-                    shareNormal(QQ.NAME, strings);
-                    instance.dismissPopupWindow();
-                } else {
-                    Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
-                }
+                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
+                    @Override
+                    public void havePermission() {
+                        if (isQQClientAvailable(getActivity())) {
+                            showToast("文案已复制剪切板", Gravity.CENTER);
+                            shareNormal(QQ.NAME, strings);
+                            instance.dismissPopupWindow();
+                        } else {
+                            Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void requestPermissionFail() {
+                        showToast("缺少必要权限");
+                    }
+                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
             }
         });
         popView.findViewById(R.id.qq_moments_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("文案已复制剪切板", Gravity.CENTER);
-                if (isQQClientAvailable(getActivity())) {
-                    if (i == 0) {
-                        shareQQ(QZone.NAME, strings);
-                    } else {
-                        shareQQImage(QZone.NAME, strings);
+                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
+                    @Override
+                    public void havePermission() {
+                        showToast("文案已复制剪切板", Gravity.CENTER);
+                        if (isQQClientAvailable(getActivity())) {
+                            if (i == 0) {
+                                shareQQ(QZone.NAME, strings);
+                            } else {
+                                shareQQImage(QZone.NAME, strings);
+                            }
+                            instance.dismissPopupWindow();
+                        } else {
+                            Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    instance.dismissPopupWindow();
-                } else {
-                    Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
-                }
+                    @Override
+                    public void requestPermissionFail() {
+                        showToast("缺少必要权限");
+                    }
+                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+
             }
         });
         popView.findViewById(R.id.dwon_share).setOnClickListener(new View.OnClickListener() {

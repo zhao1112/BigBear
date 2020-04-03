@@ -8,35 +8,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
-import com.newversions.tbk.activity.GoodsDetailActivity;
-import com.newversions.tbk.activity.ShareComissionActivity;
 import com.newversions.tbk.activity.WebActivity;
 import com.newversions.tbk.entity.ShareGoodsEntity;
-import com.newversions.tbk.entity.ToTaoBaoEntity;
-import com.tencent.connect.share.QQShare;
-import com.tencent.connect.share.QzoneShare;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.R;
@@ -45,7 +36,6 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.ItemBusinessBean;
-import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.PopUtil2;
 import com.yunqin.bearmall.widget.DownLoadImage;
@@ -53,25 +43,18 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import permison.PermissonUtil;
 import permison.listener.PermissionListener;
 
@@ -88,6 +71,9 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
     TwinklingRefreshLayout mItemBuRefreshLayout;
     @BindView(R.id.nulldata)
     ConstraintLayout mNulldata;
+    @BindView(R.id.text_tip)
+    TextView mTextTip;
+    Unbinder unbinder;
     private String categoryid;
     private int page = 1;
     private BusinessAdapter businessAdapter;
@@ -142,6 +128,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
 
         getBusinessProduct();
 
+        mTextTip.setText("数据加载中");
         mNulldata.setVisibility(View.VISIBLE);
 
         businessAdapter.setOnClickShare(new BusinessAdapter.onClickShare() {
@@ -170,22 +157,31 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         popView.findViewById(R.id.clear_bus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                businessAdapter.notifyDataSetChanged();
                 instance.dismissPopupWindow();
             }
         });
         popView.findViewById(R.id.wx_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final IWXAPI api1 = WXAPIFactory.createWXAPI(getActivity(), null);
-                api1.registerApp(Constans.WX_APPID);  //将APP注册到微信
-                if (api1.isWXAppInstalled()) {
-                    showToast("文案已复制剪切板", Gravity.CENTER);
-                    shareQQ(Wechat.NAME, strings);
-                    instance.dismissPopupWindow();
-                } else {
-                    Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
-                }
+                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
+                    @Override
+                    public void havePermission() {
+                        final IWXAPI api1 = WXAPIFactory.createWXAPI(getActivity(), null);
+                        api1.registerApp(Constans.WX_APPID);  //将APP注册到微信
+                        if (api1.isWXAppInstalled()) {
+                            showToast("文案已复制剪切板", Gravity.CENTER);
+                            shareQQ(Wechat.NAME, strings);
+                            instance.dismissPopupWindow();
+                        } else {
+                            Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void requestPermissionFail() {
+                        showToast("缺少必要权限");
+                    }
+                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
             }
         });
         popView.findViewById(R.id.moments_share).setOnClickListener(new View.OnClickListener() {
@@ -216,13 +212,23 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         popView.findViewById(R.id.qq_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isQQClientAvailable(getActivity())) {
-                    showToast("文案已复制剪切板", Gravity.CENTER);
-                    shareNormal(QQ.NAME, strings);
-                    instance.dismissPopupWindow();
-                } else {
-                    Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
-                }
+                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
+                    @Override
+                    public void havePermission() {
+                        if (isQQClientAvailable(getActivity())) {
+                            showToast("文案已复制剪切板", Gravity.CENTER);
+                            shareQQ(QQ.NAME, strings);
+                            instance.dismissPopupWindow();
+                        } else {
+                            Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void requestPermissionFail() {
+                        showToast("缺少必要权限");
+                    }
+                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
             }
         });
         popView.findViewById(R.id.qq_moments_share).setOnClickListener(new View.OnClickListener() {
@@ -342,39 +348,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         platform.share(shareParams);
     }
 
-    //普通的分享
-    public static void shareNormal(String name, String[] strings) {//name 分享到那个平台
-
-        HashMap<String, Object> optionMap = new HashMap<>();
-        optionMap.put("Id", "5");
-        optionMap.put("SortId", "5");
-        optionMap.put("bypassApproval", true);
-        optionMap.put("Enable", true);
-        ShareSDK.setPlatformDevInfo(name, optionMap);
-
-        Platform platform = ShareSDK.getPlatform(name);//获取平台对象
-        Platform.ShareParams shareParams = new Platform.ShareParams();//分享的参数
-        shareParams.setImageArray(strings);
-        shareParams.setShareType(Platform.SHARE_IMAGE);//分享类型
-        platform.setPlatformActionListener(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                Log.e("onComplete", i + "");
-            }
-
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-                Log.e("onComplete", throwable.getMessage().toString());
-            }
-
-            @Override
-            public void onCancel(Platform platform, int i) {
-
-            }
-        });
-        platform.share(shareParams);
-    }
-
     public static boolean isQQClientAvailable(Context context) {
         final PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
@@ -413,6 +386,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                     businessAdapter.addData(itemBusinessBean.getData());
                     mNulldata.setVisibility(View.GONE);
                 }
+                mTextTip.setText("暂无数据");
                 mItemBuRefreshLayout.finishRefreshing();
                 mItemBuRefreshLayout.finishLoadmore();
             }
@@ -420,6 +394,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             @Override
             public void onNotNetWork() {
                 hiddenLoadingView();
+                mTextTip.setText("暂无数据");
                 mItemBuRefreshLayout.finishRefreshing();
                 mItemBuRefreshLayout.finishLoadmore();
             }
@@ -427,6 +402,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             @Override
             public void onFail(Throwable e) {
                 hiddenLoadingView();
+                mTextTip.setText("暂无数据");
                 mItemBuRefreshLayout.finishRefreshing();
                 mItemBuRefreshLayout.finishLoadmore();
             }
@@ -459,7 +435,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
             }
         });
     }
-
 
     public void shearMsg(String id) {
         Map<String, String> map = new HashMap<>();

@@ -95,8 +95,8 @@
 
         <ImageView
             android:id="@+id/bus_image_min"
-            android:layout_width="@dimen/dp_200"
-            android:layout_height="@dimen/dp_300"
+            android:layout_width="@dimen/dp_160"
+            android:layout_height="@dimen/dp_222"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_15"
