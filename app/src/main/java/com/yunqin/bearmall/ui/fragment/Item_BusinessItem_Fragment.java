@@ -220,7 +220,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                     @Override
                     public void havePermission() {
                         if (isQQClientAvailable(getActivity())) {
-                            downBusiness(strings, 1, 2);
+                            downBusiness(strings, 1, 4);
                             instance.dismissPopupWindow();
                             popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
                         } else {
@@ -300,11 +300,18 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 if (i == 1) {
                     View popView1 = instance.getPopView(R.layout.popup_business_dwon, 0);
                     TextView textView = popView1.findViewById(R.id.openwx);
+                    TextView title = popView1.findViewById(R.id.title);
                     if (i2 == 1) {
                         textView.setText("打开朋友圈");
+                        title.setText("去朋友圈分享");
                     }
                     if (i2 == 2) {
                         textView.setText("打开QQ空间");
+                        title.setText("去QQ空间分享");
+                    }
+                    if (i2 == 4) {
+                        textView.setText("打开QQ");
+                        title.setText("去QQ分享");
                     }
                     popView1.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -326,7 +333,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                                 intent.setComponent(cmp);
                                 startActivity(intent);
                             }
-                            if (i2 == 2) {
+                            if (i2 == 2 || i2 == 4) {
                                 if (isQQClientAvailable(getActivity())) {
                                     Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
                                     startActivity(intent);
@@ -487,7 +494,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "復製这条口令" + "(" + shareGoodsEntity.getTaoToken() + "),去【tao" +
                         "寶】下单"));
-                Toast.makeText(getActivity(), "复制淘口令成功", Toast.LENGTH_LONG).show();
+                showToast("复制淘口令成功", Gravity.CENTER);
             }
 
             @Override
