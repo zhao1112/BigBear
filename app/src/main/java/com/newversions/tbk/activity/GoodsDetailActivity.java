@@ -55,6 +55,7 @@ import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.VipExplainActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
+import com.yunqin.bearmall.util.AuntTao;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.widget.DownLoadImage;
@@ -502,11 +503,14 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 if (toTaoBaoEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
                     Log.i("onSuccess", "onSuccess: " + "-------------------");
-                    Intent intent = new Intent(GoodsDetailActivity.this, WebActivity.class);
-                    intent.putExtra(Constants.INTENT_KEY_URL, toTaoBaoEntity.getData());
-                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
-                    startActivity(intent);
-                    finish();
+//                    Intent intent = new Intent(GoodsDetailActivity.this, WebActivity.class);
+//                    intent.putExtra(Constants.INTENT_KEY_URL, toTaoBaoEntity.getData());
+//                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
+//                    startActivity(intent);
+//                    finish();
+                    AuntTao auntTao = AuntTao.getInstance();
+                    auntTao.setContext(GoodsDetailActivity.this);
+                    auntTao.AuntTabo();
                     return;
                 }
                 ArouseTaoBao arouseTaoBao = new ArouseTaoBao(GoodsDetailActivity.this);

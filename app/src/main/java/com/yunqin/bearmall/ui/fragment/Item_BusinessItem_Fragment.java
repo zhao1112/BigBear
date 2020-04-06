@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
+import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.WebActivity;
 import com.newversions.tbk.entity.ShareGoodsEntity;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -36,6 +37,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.ItemBusinessBean;
+import com.yunqin.bearmall.util.AuntTao;
 import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.PopUtil2;
 import com.yunqin.bearmall.widget.DownLoadImage;
@@ -484,10 +486,13 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
                 if (shareGoodsEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
-                    Intent intent = new Intent(getActivity(), WebActivity.class);
-                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
-                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
-                    startActivity(intent);
+//                    Intent intent = new Intent(getActivity(), WebActivity.class);
+//                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
+//                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
+//                    startActivity(intent);
+                    AuntTao auntTao = AuntTao.getInstance();
+                    auntTao.setContext(getActivity());
+                    auntTao.AuntTabo();
                     return;
                 }
 

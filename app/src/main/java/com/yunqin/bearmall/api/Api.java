@@ -1369,5 +1369,13 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/businesscollege/getBusinessMaterial")
     Observable<String> getBusinessMaterial(@FieldMap() Map<String, String> params);
+
+
+    /**
+     * 绑定渠道关系ID
+     */
+    @FormUrlEncoded
+    @POST("api/member/updateRid")
+    Observable<String> updateRid(@FieldMap() Map<String, String> params);
 }
 

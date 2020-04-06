@@ -76,6 +76,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
     private Platform platform;
 
     public static void starActivity(Activity mContext) {
+        Log.e(CommonUtils.TAG, mContext.getPackageName().toString());
         Intent intent = new Intent(mContext, LoginActivity.class);
         mContext.startActivity(intent);
         mContext.overridePendingTransition(R.anim.activity_in, R.anim.activity_stay);

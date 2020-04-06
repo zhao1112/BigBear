@@ -36,6 +36,8 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.api.Api;
+import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.contract.WebContract;
@@ -44,7 +46,12 @@ import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.RSAUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -129,6 +136,17 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(intent);
                 }
+                if (type == 10) {
+                    if (url.indexOf("access_token") != -1) {
+                        showLoading();
+                        String substring = url.substring(url.indexOf("access_token=") + 13, url.indexOf("&token_type="));
+                        updateRid(substring);
+                        Log.e("setWebViewClient", url);
+                        Log.e("setWebViewClient", substring);
+                        return true;
+                    }
+                }
+                Log.e("setWebViewClient", url);
                 return false;
             }
 
@@ -475,5 +493,38 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     public void RefreshActivity() {
         WebActivity.startWebActivity(WebActivity.this, type, mStringUrl, mTitle);
         finish();
+    }
+
+
+    public void updateRid(String token) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tbk_token", token);
+        RetrofitApi.request(this, RetrofitApi.createApi(Api.class).updateRid(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                try {
+                    JSONObject object = new JSONObject(data);
+                    if (object.optInt("code") == 1 || object.optInt("code") == 2) {
+                        showToast("绑定成功", Gravity.CENTER);
+                        finish();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                hiddenLoadingView();
+            }
+
+            @Override
+            public void onNotNetWork() {
+                hiddenLoadingView();
+                showToast("绑定失败", Gravity.CENTER);
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                hiddenLoadingView();
+                showToast("绑定失败", Gravity.CENTER);
+            }
+        });
     }
 }

@@ -46,6 +46,12 @@ import java.util.regex.Pattern;
 public class CommonUtils {
 
     /**
+     * 淘宝授权地址
+     */
+    public static final String TabUrl = "https://oauth.m.taobao.com/authorize?response_type=token&client_id=27683376&view=wap&redirect_ur" +
+            "=http://127.0.0.1:12345/error";
+
+    /**
      * 判断sd卡是否可用
      */
     public static boolean isSDEnable() {
@@ -534,7 +540,6 @@ public class CommonUtils {
         //使用0.00不足位补0，#.##仅保留有效位
         return new DecimalFormat("0.00").format(num);
     }
-
 
 
     public static String TAG = "Login_Wx_Error";
