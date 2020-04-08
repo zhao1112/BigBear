@@ -145,7 +145,6 @@ public class CardListWebActivity extends BaseActivity {
 
     private void commitAdvShow() {
 
-
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).partLuckyDraw(), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
@@ -174,10 +173,12 @@ public class CardListWebActivity extends BaseActivity {
                 if (zhuanQianBean != null && zhuanQianBean.getData() != null
                         && zhuanQianBean.getData().getDrawActivityInfo() != null &&
                         zhuanQianBean.getData().getDrawActivityInfo().size() > 0) {
-                    new ICustomDialog3.Builder(CardListWebActivity.this)
-                            .setCustomTextIds(zhuanQianBean)
-                            .build()
-                            .show();
+                    if (!CardListWebActivity.this.isFinishing()) {
+                        new ICustomDialog3.Builder(CardListWebActivity.this)
+                                .setCustomTextIds(zhuanQianBean)
+                                .build()
+                                .show();
+                    }
                 }
 
 
@@ -193,9 +194,6 @@ public class CardListWebActivity extends BaseActivity {
 
             }
         });
-
-
     }
-
 
 }

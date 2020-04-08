@@ -89,7 +89,7 @@ public class SwitchFragment {
                 hiderFragment(transaction);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mHomeFragment);
-                transaction.commit();
+                transaction.commitAllowingStateLoss();
                 StatuBarUtils.setTranslucentStatus(activity);
                 break;
             case FRAGMENT_TYPE.APP_RECOMMEND:
@@ -100,7 +100,7 @@ public class SwitchFragment {
                 hiderFragment(transaction);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mRecommendFragment);
-                transaction.commit();
+                transaction.commitAllowingStateLoss();
                 setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_INFORMATION:
@@ -111,7 +111,7 @@ public class SwitchFragment {
                 hiderFragment(transaction);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mMakeMoneyFragment);
-                transaction.commit();
+                transaction.commitAllowingStateLoss();
                 setStatusBarColor(R.color.white, true);
                 break;
             case FRAGMENT_TYPE.APP_TROLLEY:
@@ -122,7 +122,7 @@ public class SwitchFragment {
                 hiderFragment(transaction);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(zeorExchangeFragment);
-                transaction.commit();
+                transaction.commitAllowingStateLoss();
                 StatuBarUtils.setTranslucentStatus(activity);
                 //TODO[点击0元兑]
                 ConstantScUtil.exchangeClick();
@@ -135,7 +135,7 @@ public class SwitchFragment {
                 hiderFragment(transaction);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mMineFragment);
-                transaction.commit();
+                transaction.commitAllowingStateLoss();
                 StatuBarUtils.setTranslucentStatus(activity);
                 break;
         }

@@ -297,7 +297,11 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param message
      */
     public void showToast(String message) {
-        this.showToast(message, Gravity.CENTER);
+        try {
+            this.showToast(message, Gravity.CENTER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -306,22 +310,30 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param messageResourceID
      */
     public void showToast(int messageResourceID) {
-        showToast(getString(messageResourceID), Gravity.CENTER);
+        try {
+            showToast(getString(messageResourceID), Gravity.CENTER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void showToast(String message, int gravity) {
-        if (isDestroyed) {
-            return;
-        }
+        try {
+            if (isDestroyed) {
+                return;
+            }
 
-        hiddenKeyboard();
+            hiddenKeyboard();
 
-        if (mToast == null) {
-            mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+            if (mToast == null) {
+                mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+            }
+            mToast.setGravity(gravity, 0, 0);
+            mToast.setText(message);
+            mToast.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        mToast.setGravity(gravity, 0, 0);
-        mToast.setText(message);
-        mToast.show();
 
     }
 

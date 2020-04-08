@@ -490,7 +490,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
 //                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
 //                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
 //                    startActivity(intent);
-                    AuntTao auntTao = AuntTao.getInstance();
+                    AuntTao auntTao = new AuntTao();
                     auntTao.setContext(getActivity());
                     auntTao.AuntTabo();
                     return;

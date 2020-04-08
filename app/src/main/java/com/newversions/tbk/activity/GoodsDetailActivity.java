@@ -264,7 +264,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 return true;
             }
         });
-        if (commissionType.equals("2")) {
+        if ("2".equals(commissionType)) {
             linCollect.setVisibility(View.VISIBLE);
         } else {
             linCollect.setVisibility(View.GONE);
@@ -508,7 +508,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 //                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
 //                    startActivity(intent);
 //                    finish();
-                    AuntTao auntTao = AuntTao.getInstance();
+                    AuntTao auntTao = new AuntTao();
                     auntTao.setContext(GoodsDetailActivity.this);
                     auntTao.AuntTabo();
                     return;

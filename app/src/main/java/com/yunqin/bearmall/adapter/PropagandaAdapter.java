@@ -115,32 +115,38 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ImageHolder imageHolder = (ImageHolder) holder;
                 imageHolder.bus_time.setText(list.get(position).getLaunchTime());
                 imageHolder.share_nume.setText(list.get(position).getShare_num() + "");
-                imageHolder.bus_content.setText(Html.fromHtml(list.get(position).getMaterial_desc()));
-                String[] image = list.get(position).getImages().split(",");
-                Glide.with(context)
-                        .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
-                        .load(image[0])
-                        .apply(options)
-                        .into(imageHolder.bus_image_min);
+                if (!TextUtils.isEmpty(list.get(position).getMaterial_desc())) {
+                    imageHolder.bus_content.setText(Html.fromHtml(list.get(position).getMaterial_desc()));
+                }
+                try {
+                    String[] image = list.get(position).getImages().split(",");
+                    Glide.with(context)
+                            .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
+                            .load(image[0])
+                            .apply(options)
+                            .into(imageHolder.bus_image_min);
 
-                imageHolder.bus_image_min.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        seeImage(image[0]);
-                    }
-                });
-
-                imageHolder.share_bus.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (mOnClickShare != null) {
-                            mOnClickShare.share(image, list.get(position).getId(), 1,
-                                    imageHolder.bus_content.getText().toString().replace("</br>", "\n"));
-                            list.get(position).setShare_num(list.get(position).getShare_num() + 1);
-                            notifyDataSetChanged();
+                    imageHolder.bus_image_min.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            seeImage(image[0]);
                         }
-                    }
-                });
+                    });
+
+                    imageHolder.share_bus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (mOnClickShare != null) {
+                                mOnClickShare.share(image, list.get(position).getId(), 1,
+                                        imageHolder.bus_content.getText().toString().replace("</br>", "\n"));
+                                list.get(position).setShare_num(list.get(position).getShare_num() + 1);
+                                notifyDataSetChanged();
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 imageHolder.bus_content.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -160,24 +166,29 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ImagesHolder imagesHolder = (ImagesHolder) holder;
                 imagesHolder.bus_time.setText(list.get(position).getLaunchTime());
                 imagesHolder.share_nume.setText(list.get(position).getShare_num() + "");
-                imagesHolder.bus_content.setText(Html.fromHtml(list.get(position).getMaterial_desc()));
+                if (!TextUtils.isEmpty(list.get(position).getMaterial_desc())) {
+                    imagesHolder.bus_content.setText(Html.fromHtml(list.get(position).getMaterial_desc()));
+                }
+                try {
+                    String[] images = list.get(position).getImages().split(",");
+                    imagesHolder.bus_recycle.setLayoutManager(new GridLayoutManager(context, 3));
+                    ImageAdapter imageAdapter = new ImageAdapter(context, images);
+                    imagesHolder.bus_recycle.setAdapter(imageAdapter);
 
-                String[] images = list.get(position).getImages().split(",");
-                imagesHolder.bus_recycle.setLayoutManager(new GridLayoutManager(context, 3));
-                ImageAdapter imageAdapter = new ImageAdapter(context, images);
-                imagesHolder.bus_recycle.setAdapter(imageAdapter);
-
-                imagesHolder.share_bus.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (mOnClickShare != null) {
-                            mOnClickShare.share(images, list.get(position).getId(), 0,
-                                    imagesHolder.bus_content.getText().toString().replace("</br>", "\n"));
-                            list.get(position).setShare_num(list.get(position).getShare_num() + 1);
-                            notifyDataSetChanged();
+                    imagesHolder.share_bus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (mOnClickShare != null) {
+                                mOnClickShare.share(images, list.get(position).getId(), 0,
+                                        imagesHolder.bus_content.getText().toString().replace("</br>", "\n"));
+                                list.get(position).setShare_num(list.get(position).getShare_num() + 1);
+                                notifyDataSetChanged();
+                            }
                         }
-                    }
-                });
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 imagesHolder.bus_content.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -196,7 +207,9 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 VideoHolder videoHolder = (VideoHolder) holder;
 
                 videoHolder.bus_time.setText(list.get(position).getLaunchTime());
-                videoHolder.share_nume.setText(list.get(position).getShare_num() + "");
+                if (!TextUtils.isEmpty(list.get(position).getMaterial_desc())) {
+                    videoHolder.share_nume.setText(list.get(position).getShare_num() + "");
+                }
                 videoHolder.bus_content.setText(Html.fromHtml(list.get(position).getMaterial_desc()));
 
 

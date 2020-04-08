@@ -84,10 +84,12 @@ public class LimiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             e.printStackTrace();
         }
         productSunHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);// 设置中划线并加清晰
-        Glide.with(context)
-                .load(list.get(position).getOutIcon())
-                .apply(options)
-                .into(productSunHolder.itemHomeProImage);
+        if (context != null) {
+            Glide.with(context)
+                    .load(list.get(position).getOutIcon())
+                    .apply(options)
+                    .into(productSunHolder.itemHomeProImage);
+        }
         productSunHolder.itemHomeXiaoliang.setText(list.get(position).getSellNum() + " ");
         if (time) {
             productSunHolder.time.setText("马上抢");

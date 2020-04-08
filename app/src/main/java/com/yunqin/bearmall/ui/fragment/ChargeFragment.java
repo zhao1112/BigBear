@@ -3,6 +3,7 @@ package com.yunqin.bearmall.ui.fragment;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -116,7 +117,6 @@ public class ChargeFragment extends BaseFragment {
                             if (onGetChargeDataListener != null) {
                                 onGetChargeDataListener.onGetData(dataBean.getMobile(), dataBean.getCarrierType());
                             }
-                            mobile = dataBean.getMobile();
                             carrierType = dataBean.getCarrierType();
                             ticketCount = dataBean.getUsableTicketCount();
                             boolean isMember = dataBean.getIsMs() == 1;
@@ -153,6 +153,12 @@ public class ChargeFragment extends BaseFragment {
                 });
     }
 
+
+    public void getPhoenNum(String mobile) {
+        this.mobile = mobile;
+    }
+
+
     @OnClick({R.id.charge, R.id.use_time_no})
     public void onViewClick(View view) {
         if (view.getId() == R.id.use_time_no) {
@@ -160,11 +166,14 @@ public class ChargeFragment extends BaseFragment {
         } else {
             if (adapter != null && adapter.getLastSeletIndex() != -1) {
                 Charge charge = charges.get(adapter.getLastSeletIndex());
-                ChargeConfirmActivity.startChargeConfirmActivity(getActivity(), mobile, carrierType, ticketCount, charge);
-                //TODO[话费面额选择]
-                ConstantScUtil.phoneFeeAmountChoose(mobile+"",charge.getTitle(),charge.getPayPrice());
-                //TODO[点击立即充值]
-                ConstantScUtil.phoneFeeSubmit(mobile+"",charge.getTitle(),charge.getPayPrice(),null,null);
+                if (!TextUtils.isEmpty(mobile)) {
+                    ChargeConfirmActivity.startChargeConfirmActivity(getActivity(), mobile, carrierType, ticketCount, charge);
+
+                    //TODO[话费面额选择]
+                    ConstantScUtil.phoneFeeAmountChoose(mobile + "", charge.getTitle(), charge.getPayPrice());
+                    //TODO[点击立即充值]
+                    ConstantScUtil.phoneFeeSubmit(mobile + "", charge.getTitle(), charge.getPayPrice(), null, null);
+                }
             }
         }
     }

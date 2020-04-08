@@ -1,8 +1,12 @@
 package com.yunqin.bearmall.ui.activity;
 
 import android.support.constraint.ConstraintLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +18,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.ui.fragment.ChargeFragment;
 import com.yunqin.bearmall.ui.fragment.LiuliangFragment;
+import com.yunqin.bearmall.util.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +26,7 @@ import butterknife.OnClick;
 public class ChargeActivity extends ContainFragmentActivity implements ChargeFragment.OnGetChargeDataListener {
 
     @BindView(R.id.phone_num)
-    TextView phoneNumView;
+    EditText phoneNumView;
     @BindView(R.id.toolbar_title)
     TextView titleView;
     @BindView(R.id.operator)
@@ -57,8 +62,11 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
             UserInfo.DataBean dataBean = userInfo.getData();
             String mobile = dataBean.getMember().getMobile();
             phoneNumView.setText(mobile);
+            chargeFragment.getPhoenNum(mobile);
         }
         showAnimation();
+
+        phoneNumView.addTextChangedListener(textWatcher);
     }
 
     @Override
@@ -138,4 +146,29 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
         }
         operatorView.setText(type);
     }
+
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            Log.e("CharSequence", "afterTextChanged: " + editable.toString());
+            if (chargeFragment != null) {
+                chargeFragment.getPhoenNum(editable.toString());
+            }
+
+            if (editable.toString().length() == 11) {
+                operatorView.setText(CommonUtils.validateMobile(editable.toString()));
+            }
+        }
+    };
 }

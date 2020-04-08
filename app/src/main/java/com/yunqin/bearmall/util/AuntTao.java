@@ -7,6 +7,7 @@ import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.ali.auth.third.core.MemberSDK;
 import com.ali.auth.third.core.callback.LoginCallback;
@@ -32,19 +33,7 @@ import java.util.Map;
  */
 public class AuntTao {
 
-    private static AuntTao auntTao = null;
     public Context context;
-
-    public static AuntTao getInstance() {
-        if (auntTao == null) {
-            synchronized (PopUtil.class) {
-                if (auntTao == null) {
-                    auntTao = new AuntTao();
-                }
-            }
-        }
-        return auntTao;
-    }
 
     public void setContext(Context context) {
         this.context = context;
@@ -62,6 +51,9 @@ public class AuntTao {
 
                 @Override
                 public void onFailure(int i, String s) {
+                    if (i == 111) {
+                        Toast.makeText(context, "请不要频繁调用", Toast.LENGTH_LONG).show();
+                    }
                     Log.e("WebViewActivity", s);
                 }
             });

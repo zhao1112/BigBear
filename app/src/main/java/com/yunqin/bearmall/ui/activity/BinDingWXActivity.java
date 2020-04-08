@@ -104,7 +104,11 @@ public class BinDingWXActivity extends BaseActivity {
                         public void onSuccess(String data) {
                             Looper.prepare();  // Can't create handler inside thread that has not called Looper.prepare()。
                             upInfo();
-                            showToast("上传成功");
+                            try {
+                                showToast("上传成功");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             try {
                                 new Thread(new Runnable() {
                                     @Override

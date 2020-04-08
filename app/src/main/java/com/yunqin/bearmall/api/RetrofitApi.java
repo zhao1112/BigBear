@@ -149,7 +149,9 @@ public class RetrofitApi {
     public static void request(Context mContext, Observable<String> observable, final IResponseListener listener) {
 
         if (!NetUtils.isConnected(mContext)) {
-            listener.onNotNetWork();
+            if (listener != null) {
+                listener.onNotNetWork();
+            }
             Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -214,7 +216,9 @@ public class RetrofitApi {
     public static void request2(Context mContext, Observable<String> observable, final IResponseListener listener) {
 
         if (!NetUtils.isConnected(mContext)) {
-            listener.onNotNetWork();
+            if (listener != null) {
+                listener.onNotNetWork();
+            }
             Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -283,7 +287,9 @@ public class RetrofitApi {
     public static void request3(Context mContext, Observable<String> observable, final IResponseListener listener) {
 
         if (!NetUtils.isConnected(mContext)) {
-            listener.onNotNetWork();
+            if (listener != null) {
+                listener.onNotNetWork();
+            }
             return;
         }
         observable.subscribeOn(Schedulers.io())
@@ -323,7 +329,9 @@ public class RetrofitApi {
     public static void request4(Context mContext, Observable<String> observable, final IResponseListener listener) {
 
         if (!NetUtils.isConnected(mContext)) {
-            listener.onNotNetWork();
+            if (listener != null) {
+                listener.onNotNetWork();
+            }
             Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -383,7 +391,9 @@ public class RetrofitApi {
     public static void request5(Context mContext, Observable<String> observable, final IResponseListener listener) {
 
         if (!NetUtils.isConnected(mContext)) {
-            listener.onNotNetWork();
+            if (listener != null) {
+                listener.onNotNetWork();
+            }
             Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
             return;
         }

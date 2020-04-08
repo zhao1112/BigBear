@@ -196,30 +196,34 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
                         specInvitationPageInfoBean.getSpecInviteUsableCount());
                 String time = String.format("活动时间为%s—%s", specInvitationPageInfoBean.getActivityStartDate(),
                         specInvitationPageInfoBean.getActivityEndDate());
-                new ICustomDialog.Builder(HomeActivity.this)
-                        // 设置布局
-                        .setLayoutResId(R.layout.join_member_layout1)
-                        // 点击空白是否消失
-                        .setCanceledOnTouchOutside(true)
-                        // 点击返回键是否消失
-                        .setCancelable(true)
-                        // 设置Dialog的绝对位置
-                        .setDialogPosition(Gravity.CENTER)
-                        // 设置自定义动画
-                        .setAnimationResId(0)
-                        // 设置监听ID
-                        .setListenedItems(new int[]{R.id.join_member_ok})
-                        .setCustomTextIds(new int[]{R.id.title, R.id.time})
-                        .setCustomTextContents(new String[]{title, time})
-                        // 设置回掉
-                        .setOnDialogItemClickListener(new ICustomDialog.OnDialogItemClickListener() {
-                            @Override
-                            public void onDialogItemClick(ICustomDialog thisDialog, View clickView) {
-                                startActivity(new Intent(HomeActivity.this, SpecialRequestActivity.class));
-                                thisDialog.dismiss();
-                            }
-                        })
-                        .build().show();
+                try {
+                    new ICustomDialog.Builder(HomeActivity.this)
+                            // 设置布局
+                            .setLayoutResId(R.layout.join_member_layout1)
+                            // 点击空白是否消失
+                            .setCanceledOnTouchOutside(true)
+                            // 点击返回键是否消失
+                            .setCancelable(true)
+                            // 设置Dialog的绝对位置
+                            .setDialogPosition(Gravity.CENTER)
+                            // 设置自定义动画
+                            .setAnimationResId(0)
+                            // 设置监听ID
+                            .setListenedItems(new int[]{R.id.join_member_ok})
+                            .setCustomTextIds(new int[]{R.id.title, R.id.time})
+                            .setCustomTextContents(new String[]{title, time})
+                            // 设置回掉
+                            .setOnDialogItemClickListener(new ICustomDialog.OnDialogItemClickListener() {
+                                @Override
+                                public void onDialogItemClick(ICustomDialog thisDialog, View clickView) {
+                                    startActivity(new Intent(HomeActivity.this, SpecialRequestActivity.class));
+                                    thisDialog.dismiss();
+                                }
+                            })
+                            .build().show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

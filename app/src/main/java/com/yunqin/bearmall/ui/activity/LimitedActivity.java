@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -263,7 +264,9 @@ public class LimitedActivity extends BaseActivity {
             public void onSuccess(String data) throws JSONException {
                 GoodsEntity goodsEntity = new Gson().fromJson(data, GoodsEntity.class);
                 if (goodsEntity != null && goodsEntity.getCommodity() != null && goodsEntity.getCommodity().size() > 0) {
-                    mSumAdapter.addList(goodsEntity.getCommodity(), canBuyCheck());
+                    if (!LimitedActivity.this.isFinishing()) {
+                        mSumAdapter.addList(goodsEntity.getCommodity(), canBuyCheck());
+                    }
                     mNulldata.setVisibility(View.GONE);
                 }
 
