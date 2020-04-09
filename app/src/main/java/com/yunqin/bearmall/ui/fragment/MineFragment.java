@@ -609,17 +609,22 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     }
 
     private void setPopup() {
+        if (BearMallAplication.getInstance().getUser() == null
+                && BearMallAplication.getInstance().getUser().getRecommendCode() == null) {
+            return;
+        }
+        String recommendCode = BearMallAplication.getInstance().getUser().getRecommendCode();
         if (identity != null && identity.getIdentifier() == 0) {
             FansActivity.openFansActivity(getActivity(), FansActivity.class);
         } else {
-            int frequency = (int) SharedPreferencesHelper.get(getActivity(), CommonUtils.FREQUENCY, 0);
+            int frequency = (int) SharedPreferencesHelper.get(getActivity(), CommonUtils.FREQUENCY + recommendCode, 0);
             if (frequency < 3) {
-                boolean firstTime = (boolean) SharedPreferencesHelper.get(getActivity(), CommonUtils.FIRSTTIME, false);
+                boolean firstTime = (boolean) SharedPreferencesHelper.get(getActivity(), CommonUtils.FIRSTTIME + recommendCode, false);
                 if (!firstTime) {
                     setPerfect();
-                    SharedPreferencesHelper.put(getActivity(), CommonUtils.FIRSTTIME, true);
+                    SharedPreferencesHelper.put(getActivity(), CommonUtils.FIRSTTIME + recommendCode, true);
                 } else {
-                    long endTime = (long) SharedPreferencesHelper.get(getActivity(), CommonUtils.END, 0l);
+                    long endTime = (long) SharedPreferencesHelper.get(getActivity(), CommonUtils.END + recommendCode, 0l);
                     long currentTime = System.currentTimeMillis();
                     if (currentTime > endTime) {
                         setPerfect();
@@ -634,9 +639,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     }
 
     public void setPerfect() {
-        int frequencyOpen = (int) SharedPreferencesHelper.get(getActivity(), CommonUtils.FREQUENCY, 0);
+        String recommendCode = BearMallAplication.getInstance().getUser().getRecommendCode();
+        int frequencyOpen = (int) SharedPreferencesHelper.get(getActivity(), CommonUtils.FREQUENCY + recommendCode, 0);
         frequencyOpen++;
-        SharedPreferencesHelper.put(getActivity(), CommonUtils.FREQUENCY, frequencyOpen);
+        SharedPreferencesHelper.put(getActivity(), CommonUtils.FREQUENCY + recommendCode, frequencyOpen);
         PopUtil popUtil = new PopUtil().getInstance();
         popUtil.setContext(getActivity());
         View popView = popUtil.getPopView(R.layout.dialog_perfect_information, 0);
@@ -644,7 +650,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             @Override
             public void onClick(View view) {
                 long time = CommonUtils.getDayEnd().getTime();
-                SharedPreferencesHelper.put(getActivity(), CommonUtils.END, time);
+                SharedPreferencesHelper.put(getActivity(), CommonUtils.END + recommendCode, time);
                 Intent intent = new Intent(getActivity(), BinDingWXActivity.class);
                 startActivityForResult(intent, 1);
                 popUtil.dismissPopupWindow();
@@ -654,7 +660,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             @Override
             public void onClick(View view) {
                 long time = CommonUtils.getDayEnd().getTime();
-                SharedPreferencesHelper.put(getActivity(), CommonUtils.END, time);
+                SharedPreferencesHelper.put(getActivity(), CommonUtils.END + recommendCode, time);
                 FansActivity.openFansActivity(getActivity(), FansActivity.class);
                 popUtil.dismissPopupWindow();
             }

@@ -7,7 +7,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -152,6 +154,7 @@ public class SearFansActivity extends BaseActivity implements TextView.OnEditorA
                     } else {
                         showToast("请输入搜索内容", Gravity.CENTER);
                     }
+                    hiddenKeyboard();
                     return true;
                 default:
                     return true;

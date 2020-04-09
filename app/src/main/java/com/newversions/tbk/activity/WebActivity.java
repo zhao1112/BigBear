@@ -117,6 +117,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         } else {
             newUrl = mStringUrl;
         }
+        Log.e("recommendCode", newUrl);
         mWebView.loadUrl(newUrl);
         mWebView.addJavascriptInterface(this, "android");
         setWebViewAttribute(mWebView);
@@ -197,6 +198,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                 mWebView.clearCache(true);
                 mWebView.destroy();
             } catch (Throwable t) {
+
             }
             mWebView = null;
         }
