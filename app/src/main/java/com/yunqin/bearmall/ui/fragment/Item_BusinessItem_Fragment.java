@@ -486,7 +486,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
                 if (shareGoodsEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
-//                    Intent intent = new Intent(getActivity(), WebActivity.class);
+//                    Intent intent = new Intent(getActivity(), MyWebActivity.class);
 //                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
 //                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
 //                    startActivity(intent);

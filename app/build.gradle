@@ -71,8 +71,8 @@ android {
 
         release {
             // 正式地址
-            buildConfigField 'String', 'BASE_URL', '"https://testapi.bbcoupon.cn"' //国内服务
-//            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'  //正式地址
+//            buildConfigField 'String', 'BASE_URL', '"https://testapi.bbcoupon.cn"' //国内服务
+            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'  //正式地址
             buildConfigField 'String', 'SHENC_URL', '"production"'  //神策正式数据上传地址
             buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"'  //神策正式数据上传地址
             manifestPlaceholders = [

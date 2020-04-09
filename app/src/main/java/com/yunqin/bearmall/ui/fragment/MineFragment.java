@@ -11,11 +11,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -28,6 +30,7 @@ import com.newversions.help.HelpActivity;
 import com.newversions.tbk.activity.MyTBKCollectionActivity;
 import com.newversions.tbk.activity.WebActivity;
 import com.newversions.tbk.utils.BannerClicker;
+import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
 import com.youth.banner.Banner;
@@ -53,6 +56,7 @@ import com.yunqin.bearmall.ui.activity.AddressActivity;
 import com.yunqin.bearmall.ui.activity.BackstageActivity;
 import com.yunqin.bearmall.ui.activity.BinDingWXActivity;
 import com.yunqin.bearmall.ui.activity.FansActivity;
+import com.yunqin.bearmall.ui.activity.HairCircleActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
@@ -66,8 +70,10 @@ import com.yunqin.bearmall.ui.activity.SettingActivity;
 import com.yunqin.bearmall.ui.activity.VipExplainActivity;
 import com.yunqin.bearmall.ui.fragment.contract.MineContract;
 import com.yunqin.bearmall.ui.fragment.presenter.MinePresenter;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
+import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.CircleImageView;
@@ -80,6 +86,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -510,7 +517,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             case R.id.mine_fraction://粉丝
             case R.id.fans_image:
                 if (BearMallAplication.getInstance().getUser() != null) {
-                    FansActivity.openFansActivity(getActivity(), FansActivity.class);
+                    setPopup();
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }
@@ -547,10 +554,15 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 }
                 break;
             case R.id.mine_materiel://地推物料
-                showToast("暂未开放");
+                showToast("提取码复制成功", Gravity.CENTER);
+                ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "uv6m"));
+                WebView webView = new WebView(getActivity());
+                webView.loadUrl("https://pan.baidu.com/s/1dMddwhUwH3KS7kggLHs7KQ");
                 break;
             case R.id.mine_send://发圈文案
-                showToast("暂未开放");
+                Intent intent1 = new Intent(getActivity(), HairCircleActivity.class);
+                getActivity().startActivity(intent1);
                 break;
             case R.id.mine_course://新手教程
                 WebActivity.startWebActivity(getActivity(), 200, url, "新手教程");
@@ -596,6 +608,58 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         }
     }
 
+    private void setPopup() {
+        if (identity != null && identity.getIdentifier() == 0) {
+            FansActivity.openFansActivity(getActivity(), FansActivity.class);
+        } else {
+            int frequency = (int) SharedPreferencesHelper.get(getActivity(), CommonUtils.FREQUENCY, 0);
+            if (frequency < 3) {
+                boolean firstTime = (boolean) SharedPreferencesHelper.get(getActivity(), CommonUtils.FIRSTTIME, false);
+                if (!firstTime) {
+                    setPerfect();
+                    SharedPreferencesHelper.put(getActivity(), CommonUtils.FIRSTTIME, true);
+                } else {
+                    long endTime = (long) SharedPreferencesHelper.get(getActivity(), CommonUtils.END, 0l);
+                    long currentTime = System.currentTimeMillis();
+                    if (currentTime > endTime) {
+                        setPerfect();
+                    } else {
+                        FansActivity.openFansActivity(getActivity(), FansActivity.class);
+                    }
+                }
+            } else if (frequency >= 3) {
+                FansActivity.openFansActivity(getActivity(), FansActivity.class);
+            }
+        }
+    }
+
+    public void setPerfect() {
+        int frequencyOpen = (int) SharedPreferencesHelper.get(getActivity(), CommonUtils.FREQUENCY, 0);
+        frequencyOpen++;
+        SharedPreferencesHelper.put(getActivity(), CommonUtils.FREQUENCY, frequencyOpen);
+        PopUtil popUtil = new PopUtil().getInstance();
+        popUtil.setContext(getActivity());
+        View popView = popUtil.getPopView(R.layout.dialog_perfect_information, 0);
+        popView.findViewById(R.id.perfect).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long time = CommonUtils.getDayEnd().getTime();
+                SharedPreferencesHelper.put(getActivity(), CommonUtils.END, time);
+                Intent intent = new Intent(getActivity(), BinDingWXActivity.class);
+                startActivity(intent);
+                popUtil.dismissPopupWindow();
+            }
+        });
+        popView.findViewById(R.id.looklook).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long time = CommonUtils.getDayEnd().getTime();
+                SharedPreferencesHelper.put(getActivity(), CommonUtils.END, time);
+                FansActivity.openFansActivity(getActivity(), FansActivity.class);
+                popUtil.dismissPopupWindow();
+            }
+        });
+    }
 
     @Override
     public void onDestroyView() {

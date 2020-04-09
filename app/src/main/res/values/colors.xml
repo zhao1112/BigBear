@@ -89,4 +89,8 @@
     <color name="dkplayer_theme_color_translucent">#9939C5BB</color>
     <color name="dkplayer_background_color">#96000000</color>
 
+
+    <color name="juone">#BF6C10</color>
+    <color name="jutwo">#24A064</color>
+
 </resources>

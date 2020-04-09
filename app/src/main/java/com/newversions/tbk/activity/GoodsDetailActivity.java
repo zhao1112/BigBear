@@ -503,7 +503,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 if (toTaoBaoEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
                     Log.i("onSuccess", "onSuccess: " + "-------------------");
-//                    Intent intent = new Intent(GoodsDetailActivity.this, WebActivity.class);
+//                    Intent intent = new Intent(GoodsDetailActivity.this, MyWebActivity.class);
 //                    intent.putExtra(Constants.INTENT_KEY_URL, toTaoBaoEntity.getData());
 //                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
 //                    startActivity(intent);

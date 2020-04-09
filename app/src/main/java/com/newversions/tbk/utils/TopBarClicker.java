@@ -18,6 +18,7 @@ import com.yunqin.bearmall.bean.NewTBHome;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
+import com.yunqin.bearmall.ui.activity.JuhuasuanActivity;
 import com.yunqin.bearmall.ui.activity.LimitedActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.SellwellActivity;
@@ -52,7 +53,7 @@ public class TopBarClicker {
                 break;
             case 3://聚划算
                 bundle.putString("TYPE", "5");
-                SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
+                JuhuasuanActivity.openJuhuasuanActivity(activity, JuhuasuanActivity.class, bundle);
                 break;
             case 4://天猫超市k
             case 5://天猫超市

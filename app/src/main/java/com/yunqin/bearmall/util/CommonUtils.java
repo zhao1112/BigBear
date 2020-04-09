@@ -36,7 +36,9 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -599,7 +601,8 @@ public class CommonUtils {
                 || mobile.trim().substring(0, 3).equals("177")
                 || mobile.trim().substring(0, 3).equals("180")
                 || mobile.trim().substring(0, 3).equals("181")
-                || mobile.trim().substring(0, 3).equals("189")) {
+                || mobile.trim().substring(0, 3).equals("189")
+                || mobile.trim().substring(0, 3).equals("199")) {
             return "中国电信"; // 中国电信
         }
         if (mobile.trim().substring(0, 3).equals("170")) {
@@ -608,5 +611,19 @@ public class CommonUtils {
 
         return "未知运营商";
     }
+
+    //获取当天结束时间
+    public static java.util.Date getDayEnd() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        return calendar.getTime();
+    }
+
+    public static String CURRENT = "CURRENT_TIME";
+    public static String END = "END_TIME";
+    public static String FIRSTTIME = "FIRST_TIME";
+    public static String FREQUENCY = "OPEN_FREQUENCY";
 
 }
