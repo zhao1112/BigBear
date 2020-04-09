@@ -1377,5 +1377,20 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/member/updateRid")
     Observable<String> updateRid(@FieldMap() Map<String, String> params);
+
+
+    /**
+     * 聚划算
+     */
+    @FormUrlEncoded
+    @POST("api/commodity/getSecondHotSelling")
+    Observable<String> getSecondHotSelling(@FieldMap() Map<String, String> params);
+
+    /**
+     * 搜索粉丝
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/searchFansByMobile")
+    Observable<String> searchFansByMobile(@FieldMap() Map<String, String> params);
 }
 

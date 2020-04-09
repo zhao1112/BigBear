@@ -41,13 +41,13 @@ public class JuhuasuanTimeFragment extends BaseFragment {
     private int page = 1;
     private int pageSize = 10;
     private boolean hasNext = true;
-    private String mCid;
+    private int mCid;
     private String mType;
 
 
-    public static JuhuasuanTimeFragment getInstance(String goodsId, String type) {
+    public static JuhuasuanTimeFragment getInstance(int goodsId, String type) {
         Bundle bundle = new Bundle();
-        bundle.putString("CID", goodsId);
+        bundle.putInt("CID", goodsId);
         bundle.putString("TYPE", type);
         JuhuasuanTimeFragment fragment = new JuhuasuanTimeFragment();
         fragment.setArguments(bundle);
@@ -61,9 +61,9 @@ public class JuhuasuanTimeFragment extends BaseFragment {
 
     @Override
     public void init() {
-        mCid = getArguments().getString("CID");
+        mCid = getArguments().getInt("CID");
         mType = getArguments().getString("TYPE");
-        Log.e("getListData_2", mCid);
+        Log.e("getListData_2", mCid + "");
 
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(getActivity()));
         mTwinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
@@ -88,7 +88,7 @@ public class JuhuasuanTimeFragment extends BaseFragment {
         });
         rcl.setNestedScrollingEnabled(false);
         rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
-        productSumAdapter2 = new Juhuasuan_Time_Adapter(getActivity(),mCid);
+        productSumAdapter2 = new Juhuasuan_Time_Adapter(getActivity(), mCid);
         rcl.setAdapter(productSumAdapter2);
 
 
@@ -113,14 +113,17 @@ public class JuhuasuanTimeFragment extends BaseFragment {
         map.put("sortType", String.valueOf(sortType));//排序规则
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
-        map.put("cid", mCid);
         map.put("type", mType);
+        int jhsType = mCid + 1;
+        map.put("jhsType", jhsType + "");
+
         if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
             map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
         }
-        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getHotSelling(map), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getSecondHotSelling(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
+                Log.e("getSecondHotSelling", data);
                 HotBean searchData = new Gson().fromJson(data, HotBean.class);
                 if (searchData != null && searchData.getCommodityList() != null && searchData.getCommodityList().size() > 0) {
                     productSumAdapter2.addList(searchData.getCommodityList());

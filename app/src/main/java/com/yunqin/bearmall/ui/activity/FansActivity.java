@@ -128,7 +128,7 @@ public class FansActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.back, R.id.copy})
+    @OnClick({R.id.back, R.id.copy, R.id.searchfans})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -138,6 +138,10 @@ public class FansActivity extends BaseActivity {
                 ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
                 clipboardManager.setPrimaryClip(ClipData.newPlainText(null, BearMallAplication.getInstance().getUser().getRecommendCode()));
                 showToast("复制成功");
+                break;
+            case R.id.searchfans:
+                Intent intent = new Intent(FansActivity.this, SearFansActivity.class);
+                startActivity(intent);
                 break;
         }
     }

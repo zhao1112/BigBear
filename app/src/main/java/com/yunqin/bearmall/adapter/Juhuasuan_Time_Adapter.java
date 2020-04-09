@@ -30,7 +30,7 @@ public class Juhuasuan_Time_Adapter extends RecyclerView.Adapter<RecyclerView.Vi
     //设置图片圆角角度
     RoundedCorners roundedCorners = new RoundedCorners(8);
     RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
-    private String cid;
+    private int cid;
 
     public void addList(List<HotBean.CommodityListBean> list) {
         this.list.addAll(list);
@@ -41,7 +41,7 @@ public class Juhuasuan_Time_Adapter extends RecyclerView.Adapter<RecyclerView.Vi
         this.list.clear();
     }
 
-    public Juhuasuan_Time_Adapter(Context context, String cid) {
+    public Juhuasuan_Time_Adapter(Context context, int cid) {
         this.context = context;
         this.list = new ArrayList<>();
         this.cid = cid;
@@ -84,12 +84,12 @@ public class Juhuasuan_Time_Adapter extends RecyclerView.Adapter<RecyclerView.Vi
         Glide.with(context).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small)).load(list.get(position).getOutIcon()).apply(options).into(productSunHolder.itemHomeProImage);
 
 
-        if (cid.equals("0")){
+        if (cid == 0) {
             productSunHolder.boot2.setBackground(context.getResources().getDrawable(R.drawable.app_ju_one));
             productSunHolder.bot_text.setBackground(context.getResources().getDrawable(R.drawable.app_juhu_one));
             productSunHolder.bot_text.setText("马上抢");
             productSunHolder.itemHomeXiaoliang.setTextColor(context.getResources().getColor(R.color.juone));
-        }else {
+        } else {
             productSunHolder.boot2.setBackground(context.getResources().getDrawable(R.drawable.app_ju_two));
             productSunHolder.bot_text.setBackground(context.getResources().getDrawable(R.drawable.app_juhu_two));
             productSunHolder.bot_text.setText("即将开团");
@@ -101,7 +101,7 @@ public class Juhuasuan_Time_Adapter extends RecyclerView.Adapter<RecyclerView.Vi
             @Override
             public void onClick(View view) {
                 if (mOnClickProductSumItem2 != null) {
-                    if (cid.equals("0")){
+                    if (cid==0) {
                         mOnClickProductSumItem2.onItem(position, list.get(position));
                     }
                 }
@@ -119,7 +119,7 @@ public class Juhuasuan_Time_Adapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         private final ImageView itemHomeProImage;
         private final TextView itemHomeProTitle, itemHomeProQuan, itemHomeXiaoliang, itemHomeProQuanhoujia, itemHomeProYuanjia,
-                tvCommision, text_one,bot_text;
+                tvCommision, text_one, bot_text;
         private final RelativeLayout boot2;
 
         public ProductSunHolder(View itemView) {

@@ -30,7 +30,7 @@ public class JuhuasuanAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return JuhuasuanTimeFragment.getInstance(position + "", type);
+        return JuhuasuanTimeFragment.getInstance(position, type);
     }
 
     @Override
