@@ -34,6 +34,7 @@ import com.yunqin.bearmall.util.DeviceInfo;
 import com.yunqin.bearmall.util.DeviceInfoHelper;
 import com.yunqin.bearmall.util.DeviceInfoInit;
 import com.yunqin.bearmall.util.FilePutGetUtils;
+import com.yunqin.bearmall.util.HomeListener;
 import com.yunqin.bearmall.util.RudenessScreenHelper;
 
 import java.net.URLEncoder;
@@ -54,6 +55,9 @@ public class BearMallAplication extends MobApplication {
     public static String _channel = "official";
     // 数据接收的 URL
     final String SA_SERVER_URL = BuildConfig.SHENC_BASE_URL + "/sa?project=" + BuildConfig.SHENC_URL;
+
+    private HomeListener mHomeListener;
+    public static boolean isFirst = true;
 
     @Override
     public void onCreate() {
@@ -122,6 +126,35 @@ public class BearMallAplication extends MobApplication {
         });
 
         MobSDK.init(this);
+
+        setBack();
+    }
+
+    @Override
+    public void onTerminate() {
+        mHomeListener.stopListen();
+        super.onTerminate();
+    }
+
+    private void setBack() {
+        mHomeListener = new HomeListener(this);
+        mHomeListener.setInterface(new HomeListener.KeyFun() {
+            @Override
+            public void home() {
+                isFirst = false;
+            }
+
+            @Override
+            public void recent() {
+                isFirst = false;
+            }
+
+            @Override
+            public void longHome() {
+                isFirst = false;
+            }
+        });
+        mHomeListener.startListen();
     }
 
     public HashMap<String, String> getDevParams() {

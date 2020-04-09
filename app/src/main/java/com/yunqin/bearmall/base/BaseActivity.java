@@ -94,6 +94,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (loadingProgress != null && loadingProgress.isShowing()) {
                 return;
             }
+            if (BearMallAplication.isFirst) {
+                return;
+            }
             ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             ClipData data = cm.getPrimaryClip();
             if (data == null || data.getItemCount() == 0) {

@@ -54,6 +54,7 @@ public class BinDingWXActivity extends BaseActivity {
     private Uri iconUri;
     private Uri cropImageUri = null;
     private Bitmap mBitmap = null;
+    private int type = 0;
 
     @Override
     public int layoutId() {
@@ -99,32 +100,46 @@ public class BinDingWXActivity extends BaseActivity {
                 return;
             }
             UpLoadHeadImage.okHttpwxImage(BinDingWXActivity.this, cropImageUri, System.currentTimeMillis() + "-WXImage",
-                    mWxId.getText().toString(), new UpLoadHeadImage.OnUpLoadHeadImageCallBack() {
+                    mWxId.getText().toString(), new UpLoadHeadImage.OnUpLoadHeadImageCallBack2() {
                         @Override
                         public void onSuccess(String data) {
-                            Looper.prepare();  // Can't create handler inside thread that has not called Looper.prepare()。
+                            Log.e("onSuccess", data);
                             upInfo();
                             try {
-                                showToast("上传成功");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            Thread.sleep(300);
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        }
+                                JSONObject object = new JSONObject(data);
+                                if (object.optInt("code") == 1) {
+                                    type = 2;
+                                    Looper.prepare();
+                                    showToast("上传成功");
+                                    Intent intent = new Intent();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("RESULT", type);
+                                    setResult(3, intent.putExtras(bundle));
+                                    try {
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    Thread.sleep(300);
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+                                        finish();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                });
-                                finish();
+                                    Looper.loop();
+                                } else {
+                                    Looper.prepare();
+                                    showToast("上传失败");
+                                    Looper.loop();
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            Looper.loop();
+
                         }
 
                         @Override

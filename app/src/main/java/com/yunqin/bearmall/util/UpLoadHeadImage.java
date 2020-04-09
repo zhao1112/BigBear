@@ -192,7 +192,7 @@ public class UpLoadHeadImage {
         return userAgent;
     }
 
-    public static void okHttpwxImage(Context context, Uri uri, String fileName, String map, OnUpLoadHeadImageCallBack callBack2) {
+    public static void okHttpwxImage(Context context, Uri uri, String fileName, String map, OnUpLoadHeadImageCallBack2 callBack2) {
         Log.e("okHttpwxImage", map);
         OkHttpClient client = new OkHttpClient();
         String t = String.valueOf(System.currentTimeMillis());
@@ -233,13 +233,18 @@ public class UpLoadHeadImage {
                     @Override
                     public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                         if (callBack2 != null) {
-                            if (response.body().string() != null) {
-                                callBack2.onSuccess("");
-                            }
+                            Log.e("onResponse", "onResponse: ");
+                            callBack2.onSuccess(response.body().string());
                         }
                     }
                 });
 
+    }
+
+    public interface OnUpLoadHeadImageCallBack2 {
+        void onSuccess(String data);
+
+        void onFail(Throwable throwable);
     }
 }
 

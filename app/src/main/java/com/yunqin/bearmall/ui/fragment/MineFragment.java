@@ -286,6 +286,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             setVipData(userInfo);
             mPresenter.getOrderNumberInfo(getActivity());
             mPresenter.onProfit(getActivity());
+            mTwinkingRef.finishRefreshing();
         } else {
             mMineLogin.setVisibility(View.VISIBLE);
             mMineVip.setVisibility(View.GONE);
@@ -392,7 +393,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @Override
     public void onResume() {
         super.onResume();
-        mTwinkingRef.startRefresh();
         if (isVisibility) {
             mPresenter.initAdData(getActivity());
             requestData();
@@ -603,7 +603,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 break;
             case R.id.Wx://绑定微信
                 Intent intent = new Intent(getActivity(), BinDingWXActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
         }
     }
@@ -646,7 +646,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 long time = CommonUtils.getDayEnd().getTime();
                 SharedPreferencesHelper.put(getActivity(), CommonUtils.END, time);
                 Intent intent = new Intent(getActivity(), BinDingWXActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 popUtil.dismissPopupWindow();
             }
         });
@@ -820,5 +820,37 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("onActivityResult", "onActivityResult: " + requestCode + "---------" + resultCode);
+        try {
+            if (requestCode == 1 && resultCode == 3) {
+                int result = data.getIntExtra("RESULT", 0);
+                Log.e("onActivityResult", "onActivityResult: " + result);
+                if (result == 2) {
+                    try {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        Log.e("onActivityResult", "onActivityResult: " + result);
+                        mTwinkingRef.startRefresh();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
