@@ -167,11 +167,12 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
             if (chargeFragment != null) {
                 chargeFragment.getPhoenNum(editable.toString());
             }
-
             if (editable.toString().length() == 11) {
                 operatorView.setText(CommonUtils.validateMobile(editable.toString()));
+                operatorView.setTextColor(getResources().getColor(R.color.product_brand_name_color));
             }else {
-                operatorView.setText("未知运营商");
+                operatorView.setText("请输入正确的手机号");
+                operatorView.setTextColor(getResources().getColor(R.color.red));
             }
         }
     };

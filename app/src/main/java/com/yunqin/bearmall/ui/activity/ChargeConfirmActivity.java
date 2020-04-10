@@ -3,6 +3,8 @@ package com.yunqin.bearmall.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.Charge;
 import com.yunqin.bearmall.bean.Coupon;
 import com.yunqin.bearmall.bean.VirtualCucalateResponse;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
 import org.json.JSONException;
@@ -82,6 +85,16 @@ public class ChargeConfirmActivity extends BaseActivity {
 
         phoneNumView.setText(String.format("流量充值号码：%s", mobile));
         int imageID;
+        if (!TextUtils.isEmpty(mobile)) {
+            String s = CommonUtils.validateMobile(mobile);
+            if (s.equals("中国移动")) {
+                carrierType = 0;
+            } else if (s.equals("中国电信")) {
+                carrierType = 1;
+            } else if (s.equals("中国联通")) {
+                carrierType = 2;
+            }
+        }
         switch (carrierType) {
             case 0:
             default:
@@ -193,6 +206,7 @@ public class ChargeConfirmActivity extends BaseActivity {
         params.put("amount", finalAmount);
         params.put("virtualRechargeProudct_id", charge.getVirtualRechargeProudct_id() + "");
         params.put("mobile", mobile);
+        Log.e("preparePay", mobile );
         params.put("code", charge.getCode());
         params.put("usersTicketLog_id", coupon == null ? "" : coupon.getUsersTicket_id() + "");
 

@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.OpenVipActivity;
 import com.yunqin.bearmall.ui.activity.RenewVipActivity;
 import com.yunqin.bearmall.ui.activity.VipCenterActivity;
+import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.widget.RecyclerItemDecoration;
 
@@ -103,6 +105,18 @@ public class ChargeFragment extends BaseFragment {
 
             }
         });
+
+        if (!TextUtils.isEmpty(mobile)) {
+            String s = CommonUtils.validateMobile(mobile);
+            if (s.equals("中国移动")) {
+                carrierType = 0;
+            } else if (s.equals("中国电信")) {
+                carrierType = 1;
+            } else if (s.equals("中国联通")) {
+                carrierType = 2;
+            }
+        }
+
     }
 
     public void loadData() {
@@ -117,7 +131,7 @@ public class ChargeFragment extends BaseFragment {
                             if (onGetChargeDataListener != null) {
                                 onGetChargeDataListener.onGetData(dataBean.getMobile(), dataBean.getCarrierType());
                             }
-                            carrierType = dataBean.getCarrierType();
+//                            carrierType = dataBean.getCarrierType();
                             ticketCount = dataBean.getUsableTicketCount();
                             boolean isMember = dataBean.getIsMs() == 1;
                             if (isMember) {
@@ -166,7 +180,11 @@ public class ChargeFragment extends BaseFragment {
         } else {
             if (adapter != null && adapter.getLastSeletIndex() != -1) {
                 Charge charge = charges.get(adapter.getLastSeletIndex());
+                if (mobile == null || !CommonUtils.isPhoneNumber(mobile)) {
+                    return;
+                }
                 if (!TextUtils.isEmpty(mobile)) {
+
                     ChargeConfirmActivity.startChargeConfirmActivity(getActivity(), mobile, carrierType, ticketCount, charge);
 
                     //TODO[话费面额选择]
