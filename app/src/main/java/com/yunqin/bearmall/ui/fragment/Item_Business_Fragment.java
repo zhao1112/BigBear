@@ -128,6 +128,11 @@ public class Item_Business_Fragment extends BaseFragment {
     private void setTabTitle(List<BusinessTabBean.DataBean> data) {
 
         for (int i = 0; i < data.size(); i++) {
+            if (data.size() > 3) {
+                mItemBuTable.setTabMode(TabLayout.MODE_SCROLLABLE);
+            } else {
+                mItemBuTable.setTabMode(TabLayout.MODE_FIXED);
+            }
             View v = getLayoutInflater().inflate(R.layout.item_tab_business, null);
             BusinessTabView businessTabView = new BusinessTabView(v);
             v.setTag(businessTabView);
@@ -140,7 +145,7 @@ public class Item_Business_Fragment extends BaseFragment {
         }
 
 
-        ItemBusinessAdapter hotAdapter = new ItemBusinessAdapter(getActivity(), getChildFragmentManager(), data,mBusinesstype);
+        ItemBusinessAdapter hotAdapter = new ItemBusinessAdapter(getActivity(), getChildFragmentManager(), data, mBusinesstype);
         mBuPaper.setAdapter(hotAdapter);
         mBuPaper.setOffscreenPageLimit(3);
         mBuPaper.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mItemBuTable));

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -60,6 +61,8 @@ public class SearFansActivity extends BaseActivity implements TextView.OnEditorA
     RecyclerView mRecycler;
     @BindView(R.id.fans_twinkling)
     TwinklingRefreshLayout mFansTwinkling;
+    @BindView(R.id.nofans)
+    LinearLayout nofans;
 
     private FansItemAdapter mFansItemAdapter;
     private int page = 1;
@@ -179,7 +182,9 @@ public class SearFansActivity extends BaseActivity implements TextView.OnEditorA
                                 mFansItemAdapter.clearFansData();
                             }
                             mFansItemAdapter.addFansOne(stairFans.getData().getList());
+                            nofans.setVisibility(View.GONE);
                         } else {
+                            nofans.setVisibility(View.VISIBLE);
                             mFansTwinkling.setBottomView(new RefreshFooterView(SearFansActivity.this));
                         }
                         hiddenLoadingView();
@@ -286,7 +291,8 @@ public class SearFansActivity extends BaseActivity implements TextView.OnEditorA
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(wxId) && !wxId.equals("null ")) {
-                    ClipboardManager clipboardManager = (ClipboardManager) SearFansActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipboardManager clipboardManager =
+                            (ClipboardManager) SearFansActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
                     clipboardManager.setPrimaryClip(ClipData.newPlainText(null, wxId));
                     showToast("复制成功");
                 } else {

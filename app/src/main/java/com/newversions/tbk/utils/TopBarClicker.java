@@ -53,7 +53,7 @@ public class TopBarClicker {
                 break;
             case 3://聚划算
                 bundle.putString("TYPE", "5");
-                JuhuasuanActivity.openJuhuasuanActivity(activity, JuhuasuanActivity.class, bundle);
+                SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
                 break;
             case 4://天猫超市k
             case 5://天猫超市

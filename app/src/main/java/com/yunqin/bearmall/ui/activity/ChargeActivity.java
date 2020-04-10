@@ -63,6 +63,7 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
             String mobile = dataBean.getMember().getMobile();
             phoneNumView.setText(mobile);
             chargeFragment.getPhoenNum(mobile);
+            phoneNumView.setSelection(phoneNumView.length());
         }
         showAnimation();
 
@@ -145,6 +146,7 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
                 break;
         }
         operatorView.setText(type);
+        phoneNumView.setSelection(phoneNumView.length());
     }
 
 
@@ -168,6 +170,8 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
 
             if (editable.toString().length() == 11) {
                 operatorView.setText(CommonUtils.validateMobile(editable.toString()));
+            }else {
+                operatorView.setText("未知运营商");
             }
         }
     };

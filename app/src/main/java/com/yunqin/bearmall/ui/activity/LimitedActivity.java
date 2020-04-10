@@ -139,6 +139,7 @@ public class LimitedActivity extends BaseActivity {
                 orderType = 2;//1升2降
                 mSumAdapter.cleanList();
                 getData();
+                mNulldata.setVisibility(View.VISIBLE);
                 TabViewHolder holder = (TabViewHolder) tab.getCustomView().getTag();
                 holder.tv.setTextColor(getResources().getColor(R.color.white));
                 holder.tv2.setTextColor(getResources().getColor(R.color.xz));
@@ -266,8 +267,12 @@ public class LimitedActivity extends BaseActivity {
                 if (goodsEntity != null && goodsEntity.getCommodity() != null && goodsEntity.getCommodity().size() > 0) {
                     if (!LimitedActivity.this.isFinishing()) {
                         mSumAdapter.addList(goodsEntity.getCommodity(), canBuyCheck());
+                        mNulldata.setVisibility(View.GONE);
+                    } else {
+
                     }
-                    mNulldata.setVisibility(View.GONE);
+                } else {
+                    mNulldata.setVisibility(View.VISIBLE);
                 }
 
                 if (isFlash) {

@@ -2,9 +2,13 @@ package com.yunqin.bearmall.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -18,15 +22,15 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.HotBean;
-import com.yunqin.bearmall.bean.SearchData;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class HotFragment extends BaseFragment {
 
@@ -34,6 +38,9 @@ public class HotFragment extends BaseFragment {
     RecyclerView rcl;
     @BindView(R.id.n_v_refreshLayout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
+    @BindView(R.id.nulldata)
+    ConstraintLayout mNulldata;
+    Unbinder unbinder;
 
     private boolean isLoadMore = false;
     private boolean isFlash = false;
@@ -125,6 +132,9 @@ public class HotFragment extends BaseFragment {
                 HotBean searchData = new Gson().fromJson(data, HotBean.class);
                 if (searchData != null && searchData.getCommodityList() != null && searchData.getCommodityList().size() > 0) {
                     productSumAdapter2.addList(searchData.getCommodityList());
+                    mNulldata.setVisibility(View.GONE);
+                } else {
+                    mNulldata.setVisibility(View.VISIBLE);
                 }
 
                 if (isFlash) {
