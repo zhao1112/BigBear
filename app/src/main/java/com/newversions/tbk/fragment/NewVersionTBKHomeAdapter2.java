@@ -184,14 +184,19 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                     Log.e("onBindViewHolder", bannerOne.banners.get(i).getImage());
                 }
 
-                bannerHolder.setDatas(urlsOne, bannerHolder.mImageView);
-                bannerHolder.setBannerListener(new OnBannerListener() {
-                    @Override
-                    public void OnBannerClick(int position) {
-                        BannerClicker.bannerClick(context, bannerOne.banners.get(position).getTargetType(),
-                                bannerOne.banners.get(position).getTarget(), bannerOne.banners.get(position).getTitle());
-                    }
-                });
+                if (urlsOne != null && urlsOne.size() > 0) {
+                    bannerHolder.setDatas(urlsOne, bannerHolder.mImageView);
+                    bannerHolder.setBannerListener(new OnBannerListener() {
+                        @Override
+                        public void OnBannerClick(int position) {
+                            BannerClicker.bannerClick(context, bannerOne.banners.get(position).getTargetType(),
+                                    bannerOne.banners.get(position).getTarget(), bannerOne.banners.get(position).getTitle());
+                        }
+                    });
+                }else {
+
+                }
+
                 try {
                     image.setBackgroundColor(Color.parseColor(top_bg));
                 } catch (Exception e) {
@@ -221,14 +226,18 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                     urlsTwo.add(bannerTwo.banners.get(i).getImage());
                     Log.e("onBindViewHolder", bannerTwo.banners.get(i).getImage());
                 }
-                bannerHolder2.setDatas(urlsTwo);
-                bannerHolder2.setBannerListener(new OnBannerListener() {
-                    @Override
-                    public void OnBannerClick(int position) {
-                        BannerClicker.bannerClick(context, bannerTwo.banners.get(position).getTargetType(),
-                                bannerTwo.banners.get(position).getTarget(), bannerTwo.banners.get(position).getTitle());
-                    }
-                });
+                if (urlsTwo != null && urlsTwo.size() > 0) {
+                    bannerHolder2.setDatas(urlsTwo);
+                    bannerHolder2.setBannerListener(new OnBannerListener() {
+                        @Override
+                        public void OnBannerClick(int position) {
+                            BannerClicker.bannerClick(context, bannerTwo.banners.get(position).getTargetType(),
+                                    bannerTwo.banners.get(position).getTarget(), bannerTwo.banners.get(position).getTitle());
+                        }
+                    });
+                }else {
+
+                }
                 break;
             case VIEW_TYPE_IMAGE:
                 //  2019/7/15 0015 活动页

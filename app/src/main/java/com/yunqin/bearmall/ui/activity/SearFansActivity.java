@@ -134,6 +134,7 @@ public class SearFansActivity extends BaseActivity implements TextView.OnEditorA
                 } else {
                     showToast("请输入搜索内容", Gravity.CENTER);
                 }
+                hiddenKeyboard();
                 break;
             case R.id.cancel:
                 finish();
