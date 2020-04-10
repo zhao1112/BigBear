@@ -26,7 +26,7 @@ import butterknife.OnClick;
 public class ChargeActivity extends ContainFragmentActivity implements ChargeFragment.OnGetChargeDataListener {
 
     @BindView(R.id.phone_num)
-    EditText phoneNumView;
+    TextView phoneNumView;
     @BindView(R.id.toolbar_title)
     TextView titleView;
     @BindView(R.id.operator)
@@ -63,7 +63,7 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
             String mobile = dataBean.getMember().getMobile();
             phoneNumView.setText(mobile);
             chargeFragment.getPhoenNum(mobile);
-            phoneNumView.setSelection(phoneNumView.length());
+//            phoneNumView.setSelection(phoneNumView.length());
         }
         showAnimation();
 
@@ -146,7 +146,7 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
                 break;
         }
         operatorView.setText(type);
-        phoneNumView.setSelection(phoneNumView.length());
+//        phoneNumView.setSelection(phoneNumView.length());
     }
 
 
@@ -170,6 +170,9 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
             if (editable.toString().length() == 11) {
                 operatorView.setText(CommonUtils.validateMobile(editable.toString()));
                 operatorView.setTextColor(getResources().getColor(R.color.product_brand_name_color));
+                if (chargeFragment != null) {
+                    chargeFragment.loadData2(editable.toString());
+                }
             }else {
                 operatorView.setText("请输入正确的手机号");
                 operatorView.setTextColor(getResources().getColor(R.color.red));

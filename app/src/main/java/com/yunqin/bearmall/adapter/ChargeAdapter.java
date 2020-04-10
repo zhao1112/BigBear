@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.Charge;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,13 +20,23 @@ import butterknife.ButterKnife;
 public class ChargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<Charge> datas;
+    private List<Charge> datas = new ArrayList<>();
     private int lastSeletIndex = -1;
 
     public ChargeAdapter(Context context, List<Charge> datas) {
         this.context = context;
-        this.datas = datas;
+
     }
+
+    public void addData(List<Charge> charges) {
+        this.datas = charges;
+        notifyDataSetChanged();
+    }
+
+    public void clearData() {
+        this.datas.clear();
+    }
+
 
     public int getLastSeletIndex() {
         return lastSeletIndex;

@@ -554,7 +554,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 }
                 break;
             case R.id.mine_materiel://地推物料
-                showToast("提取码复制成功", Gravity.CENTER);
+                showToast("提取码uv6m已复制成功", Gravity.CENTER);
                 ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "uv6m"));
                 WebView webView = new WebView(getActivity());

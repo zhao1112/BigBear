@@ -125,6 +125,7 @@ public class ChargeFragment extends BaseFragment {
                 new RetrofitApi.IResponseListener() {
                     @Override
                     public void onSuccess(String data) throws JSONException {
+                        Log.e("onSuccess", data );
                         ChargeResponse response = new Gson().fromJson(data, ChargeResponse.class);
                         if (response.isSuccess()) {
                             ChargeResponse.DataBean dataBean = response.getData();
@@ -151,6 +152,39 @@ public class ChargeFragment extends BaseFragment {
                             charges = dataBean.getList();
                             adapter = new ChargeAdapter(getActivity(), charges);
                             chargeRecyclerView.setAdapter(adapter);
+                            adapter.addData(charges);
+                        }
+
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+
+                    }
+                });
+    }
+
+    public void loadData2(String mobile) {
+        Map<String, String> params = new HashMap<>();
+        params.put("mobile", mobile);
+        RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getVirtualRechargeInfo(params),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) throws JSONException {
+                        Log.e("onSuccess", data );
+                        ChargeResponse response = new Gson().fromJson(data, ChargeResponse.class);
+                        if (response.isSuccess()) {
+                            ChargeResponse.DataBean dataBean = response.getData();
+                            charges = dataBean.getList();
+                            adapter = new ChargeAdapter(getActivity(), charges);
+                            chargeRecyclerView.setAdapter(adapter);
+                            adapter.clearData();
+                            adapter.addData(charges);
                         }
 
                     }
