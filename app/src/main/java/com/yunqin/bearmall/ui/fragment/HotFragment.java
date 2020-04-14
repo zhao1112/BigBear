@@ -49,13 +49,13 @@ public class HotFragment extends BaseFragment {
     private int page = 1;
     private int pageSize = 10;
     private boolean hasNext = true;
-    private String mCid;
+    private int mCid;
     private String mType;
 
 
-    public static HotFragment getInstance(String goodsId, String type) {
+    public static HotFragment getInstance(int goodsId, String type) {
         Bundle bundle = new Bundle();
-        bundle.putString("CID", goodsId);
+        bundle.putInt("CID", goodsId);
         bundle.putString("TYPE", type);
         HotFragment fragment = new HotFragment();
         fragment.setArguments(bundle);
@@ -69,9 +69,9 @@ public class HotFragment extends BaseFragment {
 
     @Override
     public void init() {
-        mCid = getArguments().getString("CID");
+        mCid = getArguments().getInt("CID");
         mType = getArguments().getString("TYPE");
-        Log.e("getListData_2", mCid);
+        Log.e("getListData_2", mCid + "");
 
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(getActivity()));
         mTwinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
@@ -80,7 +80,21 @@ public class HotFragment extends BaseFragment {
                 isFlash = true;
                 page = 1;
                 productSumAdapter2.cleanList();
-                getListData();
+                switch (mType) {
+                    case "2":
+                        switch (mCid) {
+                            case 0:
+                                getListData();
+                                break;
+                            default:
+                                getListData2();
+                                break;
+                        }
+                        break;
+                    default:
+                        getListData();
+                        break;
+                }
             }
 
             @Override
@@ -88,7 +102,21 @@ public class HotFragment extends BaseFragment {
                 if (hasNext) {
                     isLoadMore = true;
                     page++;
-                    getListData();
+                    switch (mType) {
+                        case "2":
+                            switch (mCid) {
+                                case 0:
+                                    getListData();
+                                    break;
+                                default:
+                                    getListData2();
+                                    break;
+                            }
+                            break;
+                        default:
+                            getListData();
+                            break;
+                    }
                 } else {
                     mTwinklingRefreshLayout.finishLoadmore();
                 }
@@ -112,7 +140,23 @@ public class HotFragment extends BaseFragment {
             }
         });
 
-        getListData();
+        switch (mType) {
+            case "2":
+                switch (mCid) {
+                    case 0:
+                        getListData();
+                        break;
+                    default:
+                        getListData2();
+                        break;
+                }
+                break;
+            default:
+                getListData();
+                break;
+        }
+
+        mNulldata.setVisibility(View.VISIBLE);
     }
 
     private void getListData() {
@@ -121,7 +165,14 @@ public class HotFragment extends BaseFragment {
         map.put("sortType", String.valueOf(sortType));//排序规则
         map.put("page", String.valueOf(page));
         map.put("pageSize", String.valueOf(pageSize));
-        map.put("cid", mCid);
+        if (mType.equals("4")) {
+            map.put("cid", "0");
+            if (mCid != 0) {
+                map.put("category", mCid + "");
+            }
+        } else {
+            map.put("cid", mCid + "");
+        }
         map.put("type", mType);
         if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
             map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
@@ -133,8 +184,72 @@ public class HotFragment extends BaseFragment {
                 if (searchData != null && searchData.getCommodityList() != null && searchData.getCommodityList().size() > 0) {
                     productSumAdapter2.addList(searchData.getCommodityList());
                     mNulldata.setVisibility(View.GONE);
-                } else {
-                    mNulldata.setVisibility(View.VISIBLE);
+                }
+
+                if (isFlash) {
+                    mTwinklingRefreshLayout.finishRefreshing();
+                    isFlash = false;
+                }
+                if (isLoadMore) {
+                    mTwinklingRefreshLayout.finishLoadmore();
+                    isLoadMore = false;
+                }
+
+                hiddenLoadingView();
+            }
+
+            @Override
+            public void onNotNetWork() {
+                hiddenLoadingView();
+                if (isFlash) {
+                    mTwinklingRefreshLayout.finishRefreshing();
+                    isFlash = false;
+                }
+                if (isLoadMore) {
+                    mTwinklingRefreshLayout.finishLoadmore();
+                    isLoadMore = false;
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                hiddenLoadingView();
+                if (isFlash) {
+                    mTwinklingRefreshLayout.finishRefreshing();
+                    isFlash = false;
+                }
+                if (isLoadMore) {
+                    mTwinklingRefreshLayout.finishLoadmore();
+                    isLoadMore = false;
+                }
+            }
+        });
+    }
+
+
+    private void getListData2() {
+        showLoading();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("sortType", String.valueOf(sortType));//排序规则
+        map.put("page", String.valueOf(page));
+        map.put("pageSize", String.valueOf(pageSize));
+        map.put("type", mType);
+        switch (mType) {
+            case "2":
+                map.put("tmallType", mCid + "");
+                break;
+        }
+
+        if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+        }
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getSecondHotSelling(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                Log.e("getSecondHotSelling", data);
+                HotBean searchData = new Gson().fromJson(data, HotBean.class);
+                if (searchData != null && searchData.getCommodityList() != null && searchData.getCommodityList().size() > 0) {
+                    productSumAdapter2.addList(searchData.getCommodityList());
                 }
 
                 if (isFlash) {
@@ -178,4 +293,5 @@ public class HotFragment extends BaseFragment {
 
 
     }
+
 }

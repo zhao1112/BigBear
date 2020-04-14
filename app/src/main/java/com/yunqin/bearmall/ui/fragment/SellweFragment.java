@@ -54,23 +54,44 @@ public class SellweFragment extends BaseFragment {
 
         mType = getArguments().getString("TYPE");
 
-
         List<String> stringList = new ArrayList<>();
-        stringList.add("综合");
-        stringList.add("女装");
-        stringList.add("母婴");
-        stringList.add("美妆");
-        stringList.add("居家日用");
-        stringList.add("鞋品");
-        stringList.add("美食");
-        stringList.add("文娱车品");
-        stringList.add("数码家电");
-        stringList.add("男装");
-        stringList.add("内衣");
-        stringList.add("箱包");
-        stringList.add("配饰");
-        stringList.add("户外运动");
-        stringList.add("家装家纺");
+
+        switch (mType) {
+            case "5":
+                stringList.add("开抢中");
+                stringList.add("爆款预热");
+                tablayout.setTabMode(TabLayout.MODE_FIXED);
+                break;
+            case "2"://天猫超市
+                stringList.add("猫超精选");
+                stringList.add("一件也包邮");
+                stringList.add("第二件0元");
+                stringList.add("1元凑单");
+                break;
+            case "4"://9.9
+                stringList.add("精选");
+                stringList.add("1.9元捡漏");
+                stringList.add("3.9元区");
+                stringList.add("6.9元区");
+                stringList.add("9.9元区");
+                break;
+            default:
+                stringList.add("综合");
+                stringList.add("女装");
+                stringList.add("母婴");
+                stringList.add("美妆");
+                stringList.add("居家日用");
+                stringList.add("鞋品");
+                stringList.add("美食");
+                stringList.add("文娱车品");
+                stringList.add("数码家电");
+                stringList.add("男装");
+                stringList.add("内衣");
+                stringList.add("箱包");
+                stringList.add("配饰");
+                stringList.add("户外运动");
+                stringList.add("家装家纺");
+        }
 
         for (int i = 0; i < stringList.size(); i++) {
             View v = getLayoutInflater().inflate(R.layout.item_tab, null);

@@ -33,7 +33,7 @@ public class CouponActivity extends ContainFragmentActivity implements CouponLis
 
     /**
      * @param context
-     * @param requestCode
+     * @param requestCoden
      * @param ticketType  0:现金抵扣卷 1:话费抵扣卷
      */
     public static void startCouponActivityWithResult(Activity context, int requestCode, int ticketType) {

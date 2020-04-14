@@ -1201,16 +1201,25 @@ public interface Api {
 
 
     /**
-     * 推荐收益
+     * 自购收益
      */
-    @POST("api/commodity/getRecommendEarnings")
-    Observable<String> MonthProfiteDetailed();
+    @FormUrlEncoded
+    @POST("api/userinfo/selfPurchaseRecords")
+    Observable<String> MonthProfiteDetailed(@FieldMap() Map<String, String> params);
 
     /**
      * 分享收益
      */
-    @POST("api/commodity/getSinceThePurchaseYield")
-    Observable<String> DayProfiteDetailed();
+    @FormUrlEncoded
+    @POST("api/userinfo/recommendedRevenue")
+    Observable<String> DayProfiteDetailed(@FieldMap() Map<String, String> params);
+
+    /**
+     * 大团长收益
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getTeamPrediction")
+    Observable<String> recommendedRevenue(@FieldMap() Map<String, String> params);
 
     /**
      * 二级粉丝
@@ -1392,5 +1401,40 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/userinfo/searchFansByMobile")
     Observable<String> searchFansByMobile(@FieldMap() Map<String, String> params);
+
+    /**
+     * 日收益1
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getJapaneseHistory1")
+    Observable<String> getJapaneseHistory1(@FieldMap() Map<String, String> params);
+
+    /**
+     * 日收益2
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getJapaneseHistory2")
+    Observable<String> getJapaneseHistory2(@FieldMap() Map<String, String> params);
+
+    /**
+     * 日收益3
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getJapaneseHistory3")
+    Observable<String> getJapaneseHistory3(@FieldMap() Map<String, String> params);
+
+    /**
+     * 月收益1
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getMonthlyHistory1")
+    Observable<String> getMonthlyHistory1(@FieldMap() Map<String, String> params);
+
+    /**
+     * 月收益2
+     */
+    @FormUrlEncoded
+    @POST("api/userinfo/getMonthlyHistory2")
+    Observable<String> getMonthlyHistory2(@FieldMap() Map<String, String> params);
 }
 

@@ -2,23 +2,21 @@ package com.yunqin.bearmall.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.bean.ProfitBean;
 import com.yunqin.bearmall.ui.activity.contract.ProfitContract;
 import com.yunqin.bearmall.ui.activity.presenter.ProfitPresenter;
-import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import java.text.DecimalFormat;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MineProfitActivity extends BaseActivity implements ProfitContract.UI {
@@ -31,49 +29,88 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     TextView mNotPrice;
     @BindView(R.id.cumulative_price)
     TextView mCumulativePrice;
-    //分享收益
-    @BindView(R.id.thisMonthPaymentPens)
-    TextView mThisMonthPaymentPens;
-    @BindView(R.id.thisMonthConsumption)
-    TextView mThisMonthConsumption;
+    //注册
     @BindView(R.id.lastMonthPaymentPens)
     TextView mLastMonthPaymentPens;
     @BindView(R.id.lastMonthConsumption)
     TextView mLastMonthConsumption;
-    @BindView(R.id.todayPaymentPens)
-    TextView mTodayPaymentPens;
-    @BindView(R.id.todayTransactionRevenue)
-    TextView mTodayTransactionRevenue;
-    @BindView(R.id.yesterdayPaymentPens)
-    TextView mYesterdayPaymentPens;
-    @BindView(R.id.yesterdayTransactionRevenue)
-    TextView mYesterdayTransactionRevenue;
-    //推荐收益
-    @BindView(R.id.super_todayTransactionRevenue)
-    TextView super_todayTransactionRevenue;
-    @BindView(R.id.super_yesterdayTransactionRevenue)
-    TextView super_yesterdayTransactionRevenue;
-    @BindView(R.id.super_thisMonthConsumption)
-    TextView super_thisMonthConsumption;
-    @BindView(R.id.super_lastMonthConsumption)
-    TextView super_lastMonthConsumption;
-    @BindView(R.id.super_todayPaymentPens)
-    TextView super_todayPaymentPens;
-    @BindView(R.id.super_yesterdayPaymentPens)
-    TextView super_yesterdayPaymentPens;
-    @BindView(R.id.super_thisMonthPaymentPens)
-    TextView super_thisMonthPaymentPens;
-    @BindView(R.id.super_lastMonthPaymentPens)
-    TextView super_lastMonthPaymentPens;
-    @BindView(R.id.vip_super)
-    RelativeLayout vip_super;
-    //团队收益
-    @BindView(R.id.team_yesterdayPaymentPens)
-    TextView team_yesterdayPaymentPens;
-    @BindView(R.id.team_lastMonthPaymentPens)
-    TextView team_lastMonthPaymentPens;
-    @BindView(R.id.vip_team)
-    RelativeLayout vip_team;
+    @BindView(R.id.questdata)
+    TextView mQuestdata;
+    @BindView(R.id.PaymentPens)
+    TextView mPaymentPens;
+    @BindView(R.id.Consumption)
+    TextView mConsumption;
+    @BindView(R.id.data)
+    TextView mData;
+    //超级
+    @BindView(R.id.PaymentPens_2)
+    TextView mPaymentPens2;
+    @BindView(R.id.Consumption_2)
+    TextView mConsumption2;
+    @BindView(R.id.quest_2)
+    TextView mQuest2;
+    @BindView(R.id.PaymentPens_2_2)
+    TextView mPaymentPens22;
+    @BindView(R.id.Consumption_2_2)
+    TextView mConsumption22;
+    @BindView(R.id.quest_2_2)
+    TextView mQuest22;
+    @BindView(R.id.PaymentPens_month)
+    TextView mPaymentPensMonth;
+    @BindView(R.id.Consumption_month)
+    TextView mConsumptionMonth;
+    @BindView(R.id.quest_month)
+    TextView mQuestMonth;
+    @BindView(R.id.PaymentPens_month_2)
+    TextView mPaymentPensMonth2;
+    @BindView(R.id.Consumption_month_2)
+    TextView mConsumptionMonth2;
+    @BindView(R.id.quest_month_2)
+    TextView mQuestMonth2;
+    //大团长
+    @BindView(R.id.PaymentPens_3)
+    TextView mPaymentPens3;
+    @BindView(R.id.Consumption_3)
+    TextView mConsumption3;
+    @BindView(R.id.quest_3)
+    TextView mQuest3;
+    @BindView(R.id.Payment_3)
+    TextView mPayment3;
+    @BindView(R.id.Consum_3)
+    TextView mConsum3;
+    @BindView(R.id.quest3)
+    TextView mQuest_3;
+    @BindView(R.id.PaymentPens_month_3)
+    TextView mPaymentPensMonth3;
+    @BindView(R.id.Consumption_month_3)
+    TextView mConsumptionMonth3;
+    @BindView(R.id.quest_month_3)
+    TextView mQuestMonth3;
+    @BindView(R.id.Payment_month)
+    TextView mPaymentMonth;
+    @BindView(R.id.Consum_month)
+    TextView mConsumMonth;
+    @BindView(R.id.quest_month2)
+    TextView mQuestMonth_2;
+    @BindView(R.id.Payment_31)
+    TextView mPayment31;
+    @BindView(R.id.Consum_31)
+    TextView mConsum31;
+    @BindView(R.id.quest31)
+    TextView mQuest31;
+    @BindView(R.id.PaymentPens_month_4)
+    TextView mPaymentPensMonth4;
+    @BindView(R.id.Consumption_month_4)
+    TextView mConsumptionMonth4;
+    @BindView(R.id.quest_month_4)
+    TextView mQuestMonth4;
+    //
+    @BindView(R.id.zhuc)
+    LinearLayout mZhuc;
+    @BindView(R.id.chaoji)
+    LinearLayout mChaoji;
+    @BindView(R.id.datuan)
+    LinearLayout mDatuan;
 
 
     private ProfitPresenter mProfitPresenter;
@@ -81,8 +118,9 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     private String balance;
     private final String money = "¥";
 
-    public static void openMineProfitActivity(Activity activity, Class cla) {
+    public static void openMineProfitActivity(Activity activity, Class cla, Bundle bundle) {
         Intent intent = new Intent(activity, cla);
+        intent.putExtras(bundle);
         activity.startActivity(intent);
     }
 
@@ -97,8 +135,31 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
 
         mProfitPresenter = new ProfitPresenter(this);
         mProfitPresenter.getIncomeRecord(this);
-        mProfitPresenter.getMonthProfiteDetailed(this);
-        mProfitPresenter.getDayProfiteDetailed(this);
+
+        if (getIntent() != null) {
+            int upgradeType = getIntent().getIntExtra("upgradeType", 0);
+            switch (upgradeType) {
+                case 1:
+                    mProfitPresenter.getMonthProfiteDetailed(this);
+                    mZhuc.setVisibility(View.VISIBLE);
+                    break;
+                case 2:
+                    mProfitPresenter.getMonthProfiteDetailed(this);
+                    mProfitPresenter.getDayProfiteDetailed(this);
+                    mChaoji.setVisibility(View.VISIBLE);
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                default:
+                    mProfitPresenter.getMonthProfiteDetailed(this);
+                    mProfitPresenter.getDayProfiteDetailed(this);
+                    mProfitPresenter.getRecommendedRevenue(this);
+                    mDatuan.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
 
     }
 
@@ -123,53 +184,61 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         this.balance = doubleToString(balance);
     }
 
+    //注册会员
     @Override
-    public void onMonthProfiteDetailed(Double todayRecommendEarnings, Double yesterdayRecommendEarnings,
-                                       Double thisMonthRecommendEarnings, Double lastMonthRecommendEarnings, int todayClinchADealNumber,
-                                       int yesterdayClinchADealNumberens, int thisMonthClinchADealNumber, int lastMonthClinchADealNumber,
-                                       Double thisMonthEstimatedTheRevenue, Double lastMonthTheTeamReturns, int type) {
-        /**
-         * type == 1 显示推荐收益
-         * type == 2 显示推荐收益和团队收益
-         * */
-        if (type == 1) {
-            vip_super.setVisibility(View.VISIBLE);
-        } else if (type == 2) {
-            vip_super.setVisibility(View.VISIBLE);
-            vip_team.setVisibility(View.VISIBLE);
-        }
+    public void onMonthProfiteDetailed(ProfitBean profitBean) {
 
-        //推荐收益
-        super_todayTransactionRevenue.setText(money + doubleToString(todayRecommendEarnings));
-        super_yesterdayTransactionRevenue.setText(money + doubleToString(yesterdayRecommendEarnings));
-        super_thisMonthConsumption.setText(money + doubleToString(thisMonthRecommendEarnings));
-        super_lastMonthConsumption.setText(money + doubleToString(lastMonthRecommendEarnings));
-        super_todayPaymentPens.setText(todayClinchADealNumber + "");
-        super_yesterdayPaymentPens.setText(yesterdayClinchADealNumberens + "");
-        super_thisMonthPaymentPens.setText(thisMonthClinchADealNumber + "");
-        super_lastMonthPaymentPens.setText(lastMonthClinchADealNumber + "");
-        //团队收益
-        team_yesterdayPaymentPens.setText(money + doubleToString(thisMonthEstimatedTheRevenue));
-        team_lastMonthPaymentPens.setText(money + doubleToString(lastMonthTheTeamReturns));
-
+        //注册
+        mLastMonthPaymentPens.setText(profitBean.getData().getTodayPaymentPens() + "");
+        mLastMonthConsumption.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
+        mQuestdata.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
+        mPaymentPens.setText(profitBean.getData().getThisMonthPaymentPens() + "");
+        mConsumption.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
+        mData.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+        //超级
+        mPaymentPens2.setText(profitBean.getData().getTodayPaymentPens() + "");
+        mConsumption2.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
+        mQuest2.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
+        mPaymentPensMonth.setText(profitBean.getData().getThisMonthPaymentPens() + "");
+        mConsumptionMonth.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
+        mQuestMonth.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+        //大团长
+        mPaymentPens3.setText(profitBean.getData().getTodayPaymentPens() + "");
+        mConsumption3.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
+        mQuest3.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
+        mPaymentMonth.setText(profitBean.getData().getThisMonthPaymentPens() + "");
+        mConsumMonth.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
+        mQuestMonth_2.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+        mQuestMonth4.setText(doubleToString(profitBean.getData().getThisMonthfirmPredictio()));
     }
 
-
+    //超级会员
     @Override
-    public void onDayProfiteDetailed(Double todayIndividualPurchased, Double yesterdayIndividualPurchased,
-                                     Double thisMonthIndividualPurchased, Double lastMonthIndividualPurchased, int todayPaymentPens,
-                                     int yesterdayPaymentPens, int thisMonthPaymentPens, int lastMonthPaymentPens) {
+    public void onDayProfiteDetailed(ProfitBean profitBean) {
+        //超级
+        mPaymentPens22.setText(profitBean.getData().getTodayClinchADealNumber() + "");
+        mConsumption22.setText(doubleToString(profitBean.getData().getTodayRecommendEarnings()));
+        mQuest22.setText(doubleToString(profitBean.getData().getTodayConfirmEarnings()));
+        mPaymentPensMonth2.setText(profitBean.getData().getThisMonthClinchADealNumber() + "");
+        mConsumptionMonth2.setText(doubleToString(profitBean.getData().getThisMonthRecommendEarnings()));
+        mQuestMonth2.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+        //大团长
+        mPayment3.setText(profitBean.getData().getTodayClinchADealNumber() + "");
+        mConsum3.setText(doubleToString(profitBean.getData().getTodayRecommendEarnings()));
+        mQuest_3.setText(doubleToString(profitBean.getData().getTodayConfirmEarnings()));
+        mPaymentPensMonth3.setText(profitBean.getData().getThisMonthClinchADealNumber() + "");
+        mConsumptionMonth3.setText(doubleToString(profitBean.getData().getThisMonthRecommendEarnings()));
+        mQuestMonth3.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+    }
 
-        //自购收益
-        mTodayPaymentPens.setText(todayPaymentPens + "");
-        mYesterdayPaymentPens.setText(yesterdayPaymentPens + "");
-        mThisMonthPaymentPens.setText(thisMonthPaymentPens + "");
-        mLastMonthPaymentPens.setText(lastMonthPaymentPens + "");
-        mTodayTransactionRevenue.setText(money + doubleToString(todayIndividualPurchased));
-        mYesterdayTransactionRevenue.setText(money + doubleToString(yesterdayIndividualPurchased));
-        mThisMonthConsumption.setText(money + doubleToString(thisMonthIndividualPurchased));
-        mLastMonthConsumption.setText(money + doubleToString(lastMonthIndividualPurchased));
-
+    //大团长
+    @Override
+    public void onRecommendedRevenue(ProfitBean profitBean) {
+        mPayment31.setText(profitBean.getData().getTodayTeamPrediction() + "");
+        mConsum31.setText(doubleToString(profitBean.getData().getTodayPredictioEarnings()));
+        mQuest31.setText(doubleToString(profitBean.getData().getTodayConfirmPredictio()));
+        mPaymentPensMonth4.setText(profitBean.getData().getThisMonthTeamPrediction() + "");
+        mConsumptionMonth4.setText(doubleToString(profitBean.getData().getThisMonthPredictioEarnings()));
     }
 
 
@@ -179,7 +248,8 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     }
 
 
-    @OnClick({R.id.p_back, R.id.p_detailed, R.id.withdrawal})
+    @OnClick({R.id.p_back, R.id.p_detailed, R.id.withdrawal, R.id.item_data, R.id.item_data2, R.id.item_data_2, R.id.item_month
+            , R.id.item_2, R.id.item_month2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.p_back:
@@ -190,6 +260,18 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
                 break;
             case R.id.withdrawal:
                 BalanceActivity.startBalanceActivity(this, balance, withdrawFrom);
+                break;
+            case R.id.item_data://日
+            case R.id.item_data_2:
+            case R.id.item_2:
+                Intent intent = new Intent(MineProfitActivity.this, DailyIncomeActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.item_data2://月
+            case R.id.item_month:
+            case R.id.item_month2:
+                Intent intent1 = new Intent(MineProfitActivity.this, MonthlyIncomeActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

@@ -2,13 +2,19 @@ package com.yunqin.bearmall.ui.activity.presenter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.bean.ProfitBean;
 import com.yunqin.bearmall.ui.activity.contract.ProfitContract;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author LWP
@@ -56,30 +62,14 @@ public class ProfitPresenter implements ProfitContract.Presenter {
 
     @Override
     public void getMonthProfiteDetailed(Context context) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).MonthProfiteDetailed(), new RetrofitApi.IResponseListener() {
+        Map<String, String> map = new HashMap<>();
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).MonthProfiteDetailed(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
                 if (!TextUtils.isEmpty(data)) {
-                    JSONObject object = new JSONObject(data);
-                    if (object.optInt("code") == 1) {
-                        JSONObject dat = object.optJSONObject("data");
-                        Double todayRecommendEarnings = dat.optDouble("todayRecommendEarnings");
-                        Double yesterdayRecommendEarnings = dat.optDouble("yesterdayRecommendEarnings");
-                        Double thisMonthRecommendEarnings = dat.optDouble("thisMonthRecommendEarnings");
-                        Double lastMonthRecommendEarnings = dat.optDouble("lastMonthRecommendEarnings");
-                        int todayClinchADealNumber = dat.optInt("todayClinchADealNumber");
-                        int yesterdayClinchADealNumberens = dat.optInt("yesterdayClinchADealNumber");
-                        int thisMonthClinchADealNumber = dat.optInt("thisMonthClinchADealNumber");
-                        int lastMonthClinchADealNumber = dat.optInt("lastMonthClinchADealNumber");
-                        Double thisMonthEstimatedTheRevenue = dat.optDouble("thisMonthEstimatedTheRevenue");
-                        Double lastMonthTheTeamReturns = dat.optDouble("lastMonthTheTeamReturns");
-                        int type = object.optInt("type");
-
-                        view.onMonthProfiteDetailed(todayRecommendEarnings, yesterdayRecommendEarnings, thisMonthRecommendEarnings,
-                                lastMonthRecommendEarnings, todayClinchADealNumber, yesterdayClinchADealNumberens,
-                                thisMonthClinchADealNumber, lastMonthClinchADealNumber, thisMonthEstimatedTheRevenue,
-                                lastMonthTheTeamReturns, type);
-                    }
+                    Log.e("getMonthProfiteDetailed", data);
+                    ProfitBean profitBean = new Gson().fromJson(data, ProfitBean.class);
+                    view.onMonthProfiteDetailed(profitBean);
                 } else {
                     view.onNotNetWork();
                 }
@@ -99,26 +89,39 @@ public class ProfitPresenter implements ProfitContract.Presenter {
 
     @Override
     public void getDayProfiteDetailed(Context context) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).DayProfiteDetailed(), new RetrofitApi.IResponseListener() {
+        Map<String, String> map = new HashMap<>();
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).DayProfiteDetailed(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
                 if (!TextUtils.isEmpty(data)) {
-                    JSONObject object = new JSONObject(data);
-                    if (object.optInt("code") == 1) {
-                        JSONObject dat = object.optJSONObject("data");
-                        Double todayIndividualPurchased = dat.optDouble("todayIndividualPurchased");
-                        Double yesterdayIndividualPurchased = dat.optDouble("yesterdayIndividualPurchased");
-                        Double thisMonthIndividualPurchased = dat.optDouble("thisMonthIndividualPurchased");
-                        Double lastMonthIndividualPurchased = dat.optDouble("lastMonthIndividualPurchased");
-                        int todayPaymentPens = dat.optInt("todayPaymentPens");
-                        int yesterdayPaymentPens = dat.optInt("yesterdayPaymentPens");
-                        int thisMonthPaymentPens = dat.optInt("thisMonthPaymentPens");
-                        int lastMonthPaymentPens = dat.optInt("lastMonthPaymentPens");
-                        view.onDayProfiteDetailed(todayIndividualPurchased, yesterdayIndividualPurchased, thisMonthIndividualPurchased,
-                                lastMonthIndividualPurchased, todayPaymentPens, yesterdayPaymentPens, thisMonthPaymentPens,
-                                lastMonthPaymentPens);
-                    }
+                    ProfitBean profitBean = new Gson().fromJson(data, ProfitBean.class);
+                    view.onDayProfiteDetailed(profitBean);
+                } else {
+                    view.onNotNetWork();
+                }
+            }
 
+            @Override
+            public void onNotNetWork() {
+                view.onNotNetWork();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                view.onFail(e);
+            }
+        });
+    }
+
+    @Override
+    public void getRecommendedRevenue(Context context) {
+        Map<String, String> map = new HashMap<>();
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).recommendedRevenue(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                if (!TextUtils.isEmpty(data)) {
+                    ProfitBean profitBean = new Gson().fromJson(data, ProfitBean.class);
+                    view.onRecommendedRevenue(profitBean);
                 } else {
                     view.onNotNetWork();
                 }

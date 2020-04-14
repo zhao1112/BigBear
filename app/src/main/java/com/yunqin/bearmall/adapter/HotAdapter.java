@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.yunqin.bearmall.ui.fragment.HotFragment;
+import com.yunqin.bearmall.ui.fragment.JuhuasuanTimeFragment;
 
 import java.util.List;
 
@@ -27,7 +28,12 @@ public class HotAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return HotFragment.getInstance(position + "", type);
+        switch (type) {
+            case "5":
+                return JuhuasuanTimeFragment.getInstance(position, type);
+            default:
+                return HotFragment.getInstance(position, type);
+        }
     }
 
     @Override

@@ -26,7 +26,7 @@ import butterknife.OnClick;
 public class ChargeActivity extends ContainFragmentActivity implements ChargeFragment.OnGetChargeDataListener {
 
     @BindView(R.id.phone_num)
-    TextView phoneNumView;
+    EditText phoneNumView;
     @BindView(R.id.toolbar_title)
     TextView titleView;
     @BindView(R.id.operator)
@@ -63,7 +63,7 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
             String mobile = dataBean.getMember().getMobile();
             phoneNumView.setText(mobile);
             chargeFragment.getPhoenNum(mobile);
-//            phoneNumView.setSelection(phoneNumView.length());
+            phoneNumView.setSelection(phoneNumView.length());
         }
         showAnimation();
 
@@ -146,7 +146,7 @@ public class ChargeActivity extends ContainFragmentActivity implements ChargeFra
                 break;
         }
         operatorView.setText(type);
-//        phoneNumView.setSelection(phoneNumView.length());
+        phoneNumView.setSelection(phoneNumView.length());
     }
 
 

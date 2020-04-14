@@ -161,7 +161,6 @@ public class RetrofitApi {
 
                                @Override
                                public void onError(Throwable e) {
-                                   listener.onNotNetWork();
                                    if (listener != null) {
                                        listener.onFail(e);
                                    }

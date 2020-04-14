@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/one_today"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_79"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_15"
+        android:background="@drawable/profit_shape">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="付款笔数"
+                    android:textColor="#ff888888"
+                    android:textSize="@dimen/sp_11"/>
+
+                <TextView
+                    android:id="@+id/PaymentPens"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_3"
+                    android:text="0"
+                    android:textColor="#ff272727"
+                    android:textSize="@dimen/sp_18"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成交预测收入"
+                    android:textColor="#ff888888"
+                    android:textSize="@dimen/sp_11"/>
+
+                <TextView
+                    android:id="@+id/Revenue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.00"
+                    android:textColor="#ff272727"
+                    android:textSize="@dimen/sp_18"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="确认收货佣金"
+                    android:textColor="#ff888888"
+                    android:textSize="@dimen/sp_11"/>
+
+                <TextView
+                    android:id="@+id/confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_3"
+                    android:text="0"
+                    android:textColor="#ff272727"
+                    android:textSize="@dimen/sp_18"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/adily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/app_img_td"
+            android:gravity="center"
+            android:text="今天"
+            android:textColor="#ffffffff"
+            android:textSize="11sp"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -633,6 +633,8 @@
             android:value="${UMENG_CHANNEL_VALUE}"/>
 
         <activity android:name=".ui.activity.SearFansActivity"/>
+        <activity android:name=".ui.activity.DailyIncomeActivity"/>
+        <activity android:name=".ui.activity.MonthlyIncomeActivity"/>
     </application>
 
 </manifest>

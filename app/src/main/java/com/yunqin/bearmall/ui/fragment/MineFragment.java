@@ -493,7 +493,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             case R.id.mine_withdrawal://收益详情
             case R.id.mine_today:
                 if (BearMallAplication.getInstance().getUser() != null) {
-                    MineProfitActivity.openMineProfitActivity(getActivity(), MineProfitActivity.class);
+                    int upgradeType = BearMallAplication.getInstance().getUser().getIdentity().getUpgradeType();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("upgradeType", upgradeType);
+                    MineProfitActivity.openMineProfitActivity(getActivity(), MineProfitActivity.class,bundle);
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }

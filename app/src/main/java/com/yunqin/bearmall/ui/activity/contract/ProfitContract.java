@@ -2,6 +2,7 @@ package com.yunqin.bearmall.ui.activity.contract;
 
 import android.content.Context;
 
+import com.yunqin.bearmall.bean.ProfitBean;
 import com.yunqin.bearmall.ui.fragment.contract.BaseContract;
 
 import mlxy.utils.S;
@@ -19,6 +20,8 @@ public interface ProfitContract {
         void getMonthProfiteDetailed(Context context);
 
         void getDayProfiteDetailed(Context context);
+
+        void getRecommendedRevenue(Context context);
     }
 
     public interface UI extends BaseContract.BaseView {
@@ -28,14 +31,11 @@ public interface ProfitContract {
 
         void onIncomeRecord(Double unsettled, Double balance, Double thisMonth, Double withdrawals, String withdrawFrom);
 
-        void onMonthProfiteDetailed(Double todayRecommendEarnings, Double yesterdayRecommendEarnings, Double thisMonthRecommendEarnings,
-                                    Double lastMonthRecommendEarnings, int todayClinchADealNumber, int yesterdayClinchADealNumberens,
-                                    int thisMonthClinchADealNumber, int lastMonthClinchADealNumber, Double thisMonthEstimatedTheRevenue,
-                                    Double lastMonthTheTeamReturns,int type);
+        void onMonthProfiteDetailed(ProfitBean profitBean);
 
-        void onDayProfiteDetailed(Double todayIndividualPurchased, Double yesterdayIndividualPurchased, Double thisMonthIndividualPurchased,
-                                  Double lastMonthIndividualPurchased, int todayPaymentPens, int yesterdayPaymentPens,
-                                  int thisMonthPaymentPens, int lastMonthPaymentPens);
+        void onDayProfiteDetailed(ProfitBean profitBean);
+
+        void onRecommendedRevenue(ProfitBean profitBean);
     }
 
 

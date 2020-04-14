@@ -6,19 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.iBookStar.views.YmConfig;
 import com.newversions.tbk.Constants;
-import com.newversions.tbk.activity.ProductSumActivity;
 import com.newversions.tbk.activity.WebActivity;
-import com.newversions.tbk.entity.TBKHomeEntity;
 import com.yunqin.bearmall.BearMallAplication;
-import com.yunqin.bearmall.api.Api;
-import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.NewTBHome;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
-import com.yunqin.bearmall.ui.activity.InvitationActivity2;
-import com.yunqin.bearmall.ui.activity.JuhuasuanActivity;
 import com.yunqin.bearmall.ui.activity.LimitedActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.SellwellActivity;
@@ -27,13 +20,6 @@ import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.util.StarActivityUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class TopBarClicker {
     public static void topBarClick(Activity activity, NewTBHome.ClassificationBean bean) {
@@ -69,7 +55,6 @@ public class TopBarClicker {
                     return;
                 }
                 WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, bean.getUrl(), bean.getName());
-
                 break;
             case 7:
                 Intent intent = new Intent(activity, WebActivity.class);
@@ -98,6 +83,12 @@ public class TopBarClicker {
                 activity.startActivity(new Intent(activity, ZeorExchangeActivity.class));
                 ConstantScUtil.exchangeClick();
                 break;
+            case 11:
+                if (BearMallAplication.getInstance().getUser() == null) {
+                    LoginActivity.starActivity(activity);
+                    return;
+                }
+                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE_OTHER, bean.getUrl(), bean.getName());
         }
     }
 }

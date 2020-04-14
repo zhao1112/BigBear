@@ -2,9 +2,13 @@ package com.yunqin.bearmall.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -13,7 +17,6 @@ import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.adapter.HotAdapter2;
 import com.yunqin.bearmall.adapter.Juhuasuan_Time_Adapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
@@ -26,6 +29,8 @@ import org.json.JSONException;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class JuhuasuanTimeFragment extends BaseFragment {
 
@@ -33,6 +38,8 @@ public class JuhuasuanTimeFragment extends BaseFragment {
     RecyclerView rcl;
     @BindView(R.id.n_v_refreshLayout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
+    @BindView(R.id.nulldata)
+    ConstraintLayout mNulldata;
 
     private boolean isLoadMore = false;
     private boolean isFlash = false;
@@ -105,6 +112,7 @@ public class JuhuasuanTimeFragment extends BaseFragment {
         });
 
         getListData();
+        mNulldata.setVisibility(View.VISIBLE);
     }
 
     private void getListData() {
@@ -115,7 +123,11 @@ public class JuhuasuanTimeFragment extends BaseFragment {
         map.put("pageSize", String.valueOf(pageSize));
         map.put("type", mType);
         int jhsType = mCid + 1;
-        map.put("jhsType", jhsType + "");
+        switch (mType) {
+            case "5":
+                map.put("jhsType", jhsType + "");
+                break;
+        }
 
         if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
             map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
@@ -127,6 +139,7 @@ public class JuhuasuanTimeFragment extends BaseFragment {
                 HotBean searchData = new Gson().fromJson(data, HotBean.class);
                 if (searchData != null && searchData.getCommodityList() != null && searchData.getCommodityList().size() > 0) {
                     productSumAdapter2.addList(searchData.getCommodityList());
+                    mNulldata.setVisibility(View.GONE);
                 }
 
                 if (isFlash) {
@@ -144,6 +157,7 @@ public class JuhuasuanTimeFragment extends BaseFragment {
             @Override
             public void onNotNetWork() {
                 hiddenLoadingView();
+                mNulldata.setVisibility(View.VISIBLE);
                 if (isFlash) {
                     mTwinklingRefreshLayout.finishRefreshing();
                     isFlash = false;
@@ -156,6 +170,7 @@ public class JuhuasuanTimeFragment extends BaseFragment {
 
             @Override
             public void onFail(Throwable e) {
+                mNulldata.setVisibility(View.VISIBLE);
                 hiddenLoadingView();
                 if (isFlash) {
                     mTwinklingRefreshLayout.finishRefreshing();

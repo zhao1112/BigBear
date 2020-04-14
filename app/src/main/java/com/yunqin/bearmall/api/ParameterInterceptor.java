@@ -57,8 +57,8 @@ public class ParameterInterceptor implements Interceptor {
 
         if (checkAdd()) {
             requestBuilder.addHeader(TOKEN, BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
+            Log.e("Access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
             requestBuilder.addHeader("refresh_token", BearMallAplication.getInstance().getUser().getData().getToken().getRefresh_token());
-
         }
 
 
