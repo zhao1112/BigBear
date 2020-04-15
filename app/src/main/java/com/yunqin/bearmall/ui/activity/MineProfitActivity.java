@@ -186,58 +186,69 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     //注册会员
     @Override
     public void onMonthProfiteDetailed(ProfitBean profitBean) {
-
-        //注册
-        mLastMonthPaymentPens.setText(profitBean.getData().getTodayPaymentPens() + "");
-        mLastMonthConsumption.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
-        mQuestdata.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
-        mPaymentPens.setText(profitBean.getData().getThisMonthPaymentPens() + "");
-        mConsumption.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
-        mData.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
-        //超级
-        mPaymentPens2.setText(profitBean.getData().getTodayPaymentPens() + "");
-        mConsumption2.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
-        mQuest2.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
-        mPaymentPensMonth.setText(profitBean.getData().getThisMonthPaymentPens() + "");
-        mConsumptionMonth.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
-        mQuestMonth.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
-        //大团长
-        mPaymentPens3.setText(profitBean.getData().getTodayPaymentPens() + "");
-        mConsumption3.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
-        mQuest3.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
-        mPaymentMonth.setText(profitBean.getData().getThisMonthPaymentPens() + "");
-        mConsumMonth.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
-        mQuestMonth_2.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
-        mQuestMonth4.setText(doubleToString(profitBean.getData().getThisMonthfirmPredictio()));
+        try {
+            //注册
+            mLastMonthPaymentPens.setText(profitBean.getData().getTodayPaymentPens() + "");
+            mLastMonthConsumption.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
+            mQuestdata.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
+            mPaymentPens.setText(profitBean.getData().getThisMonthPaymentPens() + "");
+            mConsumption.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
+            mData.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+            //超级
+            mPaymentPens2.setText(profitBean.getData().getTodayPaymentPens() + "");
+            mConsumption2.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
+            mQuest2.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
+            mPaymentPensMonth.setText(profitBean.getData().getThisMonthPaymentPens() + "");
+            mConsumptionMonth.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
+            mQuestMonth.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+            //大团长
+            mPaymentPens3.setText(profitBean.getData().getTodayPaymentPens() + "");
+            mConsumption3.setText(doubleToString(profitBean.getData().getTodayIndividualPurchased()));
+            mQuest3.setText(doubleToString(profitBean.getData().getTodayConfirmReceipt()));
+            mPaymentMonth.setText(profitBean.getData().getThisMonthPaymentPens() + "");
+            mConsumMonth.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
+            mQuestMonth_2.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+            mQuestMonth4.setText(doubleToString(profitBean.getData().getThisMonthfirmPredictio()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //超级会员
     @Override
     public void onDayProfiteDetailed(ProfitBean profitBean) {
-        //超级
-        mPaymentPens22.setText(profitBean.getData().getTodayClinchADealNumber() + "");
-        mConsumption22.setText(doubleToString(profitBean.getData().getTodayRecommendEarnings()));
-        mQuest22.setText(doubleToString(profitBean.getData().getTodayConfirmEarnings()));
-        mPaymentPensMonth2.setText(profitBean.getData().getThisMonthClinchADealNumber() + "");
-        mConsumptionMonth2.setText(doubleToString(profitBean.getData().getThisMonthRecommendEarnings()));
-        mQuestMonth2.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
-        //大团长
-        mPayment3.setText(profitBean.getData().getTodayClinchADealNumber() + "");
-        mConsum3.setText(doubleToString(profitBean.getData().getTodayRecommendEarnings()));
-        mQuest_3.setText(doubleToString(profitBean.getData().getTodayConfirmEarnings()));
-        mPaymentPensMonth3.setText(profitBean.getData().getThisMonthClinchADealNumber() + "");
-        mConsumptionMonth3.setText(doubleToString(profitBean.getData().getThisMonthRecommendEarnings()));
-        mQuestMonth3.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+        try {
+            //超级
+            mPaymentPens22.setText(profitBean.getData().getTodayClinchADealNumber() + "");
+            mConsumption22.setText(doubleToString(profitBean.getData().getTodayRecommendEarnings()));
+            mQuest22.setText(doubleToString(profitBean.getData().getTodayConfirmEarnings()));
+            mPaymentPensMonth2.setText(profitBean.getData().getThisMonthClinchADealNumber() + "");
+            mConsumptionMonth2.setText(doubleToString(profitBean.getData().getThisMonthRecommendEarnings()));
+            mQuestMonth2.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+            //大团长
+            mPayment3.setText(profitBean.getData().getTodayClinchADealNumber() + "");
+            mConsum3.setText(doubleToString(profitBean.getData().getTodayRecommendEarnings()));
+            mQuest_3.setText(doubleToString(profitBean.getData().getTodayConfirmEarnings()));
+            mPaymentPensMonth3.setText(profitBean.getData().getThisMonthClinchADealNumber() + "");
+            mConsumptionMonth3.setText(doubleToString(profitBean.getData().getThisMonthRecommendEarnings()));
+            mQuestMonth3.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //大团长
     @Override
     public void onRecommendedRevenue(ProfitBean profitBean) {
-        mPayment31.setText(profitBean.getData().getTodayTeamPrediction() + "");
-        mConsum31.setText(doubleToString(profitBean.getData().getTodayPredictioEarnings()));
-        mQuest31.setText(doubleToString(profitBean.getData().getTodayConfirmPredictio()));
-        mPaymentPensMonth4.setText(profitBean.getData().getThisMonthTeamPrediction() + "");
-        mConsumptionMonth4.setText(doubleToString(profitBean.getData().getThisMonthPredictioEarnings()));
+        try {
+            mPayment31.setText(profitBean.getData().getTodayTeamPrediction() + "");
+            mConsum31.setText(doubleToString(profitBean.getData().getTodayPredictioEarnings()));
+            mQuest31.setText(doubleToString(profitBean.getData().getTodayConfirmPredictio()));
+            mPaymentPensMonth4.setText(profitBean.getData().getThisMonthTeamPrediction() + "");
+            mConsumptionMonth4.setText(doubleToString(profitBean.getData().getThisMonthPredictioEarnings()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

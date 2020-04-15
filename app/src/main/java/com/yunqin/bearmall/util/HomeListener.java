@@ -48,8 +48,10 @@ public class HomeListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            Log.e("HomeBtnReceiver", action);
             if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
                 String reason = intent.getStringExtra("reason");
+                Log.e("HomeBtnReceiver", reason);
                 if (reason != null) {
                     if (null != mKeyFun) {
                         if (reason.equals("homekey")) {
@@ -61,6 +63,8 @@ public class HomeListener {
                         } else if (reason.equals("assist")) {
                             //常按home键盘
                             mKeyFun.longHome();
+                        } else if (reason.equals("fs_gesture")) {
+                            mKeyFun.XIHome();
                         }
                     }
                 }
@@ -74,6 +78,8 @@ public class HomeListener {
         public void recent();
 
         public void longHome();
+
+        public void XIHome();
     }
 
 }

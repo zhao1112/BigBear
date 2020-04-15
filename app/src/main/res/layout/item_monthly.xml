@@ -60,7 +60,7 @@
                     android:id="@+id/todayPaymentPens"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_3"
+                    android:layout_marginTop="@dimen/dp_5"
                     android:text="0"
                     android:textColor="#ff272727"
                     android:textSize="@dimen/sp_18"/>
@@ -87,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.00"
+                    android:layout_marginTop="@dimen/dp_5"
                     android:textColor="#ff272727"
                     android:textSize="@dimen/sp_18"/>
 
@@ -111,7 +112,7 @@
                     android:id="@+id/confirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_3"
+                    android:layout_marginTop="@dimen/dp_5"
                     android:text="0"
                     android:textColor="#ff272727"
                     android:textSize="@dimen/sp_18"/>

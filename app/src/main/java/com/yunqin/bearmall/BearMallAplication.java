@@ -153,6 +153,11 @@ public class BearMallAplication extends MobApplication {
             public void longHome() {
                 isFirst = false;
             }
+
+            @Override
+            public void XIHome() {
+                isFirst = false;
+            }
         });
         mHomeListener.startListen();
     }

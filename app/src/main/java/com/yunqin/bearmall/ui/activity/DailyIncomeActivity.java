@@ -20,7 +20,9 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -41,6 +43,10 @@ public class DailyIncomeActivity extends BaseActivity {
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout mRefreshLayout;
     private DailyAdapter mDailyAdapter;
+    private List<DailyIncomeBean.DataBean> list = new ArrayList<>();
+    private boolean one = false;
+    private boolean two = false;
+    private boolean three = false;
 
     @Override
     public int layoutId() {
@@ -50,13 +56,22 @@ public class DailyIncomeActivity extends BaseActivity {
     @Override
     public void init() {
 
+        for (int i = 0; i < 7; i++) {
+            list.add(i, new DailyIncomeBean.DataBean());
+        }
+
         mRefreshLayout.setEnableLoadmore(false);
         mRefreshLayout.setHeaderView(new RefreshHeadView(DailyIncomeActivity.this));
         mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 mDailyAdapter.clearDataList();
+                one = false;
+                two = false;
+                three = false;
                 getJapaneseHistory1();
+                getJapaneseHistory2();
+                getJapaneseHistory3();
             }
         });
 
@@ -65,6 +80,8 @@ public class DailyIncomeActivity extends BaseActivity {
         mRecycle.setAdapter(mDailyAdapter);
 
         getJapaneseHistory1();
+        getJapaneseHistory2();
+        getJapaneseHistory3();
         mNulldata.setVisibility(View.VISIBLE);
     }
 
@@ -74,8 +91,32 @@ public class DailyIncomeActivity extends BaseActivity {
         finish();
     }
 
+    public void Hidden() {
+        try {
+            hiddenLoadingView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setData(List<DailyIncomeBean.DataBean> list) {
+        try {
+            if (one && two && three) {
+                mDailyAdapter.addDataLis(list);
+                mNulldata.setVisibility(View.GONE);
+                Hidden();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void getJapaneseHistory1() {
-        showLoading();
+        try {
+            showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Map<String, String> map = new HashMap<>();
         RetrofitApi.request(DailyIncomeActivity.this, RetrofitApi.createApi(Api.class).getJapaneseHistory1(map),
                 new RetrofitApi.IResponseListener() {
@@ -84,9 +125,15 @@ public class DailyIncomeActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(data)) {
                             DailyIncomeBean dailyIncomeBean = new Gson().fromJson(data, DailyIncomeBean.class);
                             if (dailyIncomeBean.getData() != null && dailyIncomeBean.getData().size() > 0) {
-                                mDailyAdapter.addDataLis(dailyIncomeBean.getData(),1);
-                                mNulldata.setVisibility(View.GONE);
-                                getJapaneseHistory2();
+                                try {
+                                    for (int i = 0; i < dailyIncomeBean.getData().size(); i++) {
+                                        list.set(i, dailyIncomeBean.getData().get(i));
+                                    }
+                                    one = true;
+                                    setData(list);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
@@ -94,19 +141,19 @@ public class DailyIncomeActivity extends BaseActivity {
                     @Override
                     public void onNotNetWork() {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
 
                     @Override
                     public void onFail(Throwable e) {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
                 });
     }
 
+
     public void getJapaneseHistory2() {
-        showLoading();
         Map<String, String> map = new HashMap<>();
         RetrofitApi.request(DailyIncomeActivity.this, RetrofitApi.createApi(Api.class).getJapaneseHistory2(map),
                 new RetrofitApi.IResponseListener() {
@@ -115,9 +162,15 @@ public class DailyIncomeActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(data)) {
                             DailyIncomeBean dailyIncomeBean = new Gson().fromJson(data, DailyIncomeBean.class);
                             if (dailyIncomeBean.getData() != null && dailyIncomeBean.getData().size() > 0) {
-                                mDailyAdapter.addDataLis(dailyIncomeBean.getData(),2);
-                                mNulldata.setVisibility(View.GONE);
-                                getJapaneseHistory3();
+                                try {
+                                    for (int i = 0; i < dailyIncomeBean.getData().size(); i++) {
+                                        list.set(i + 2, dailyIncomeBean.getData().get(i));
+                                    }
+                                    two = true;
+                                    setData(list);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
@@ -125,19 +178,18 @@ public class DailyIncomeActivity extends BaseActivity {
                     @Override
                     public void onNotNetWork() {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
 
                     @Override
                     public void onFail(Throwable e) {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
                 });
     }
 
     public void getJapaneseHistory3() {
-        showLoading();
         Map<String, String> map = new HashMap<>();
         RetrofitApi.request(DailyIncomeActivity.this, RetrofitApi.createApi(Api.class).getJapaneseHistory3(map),
                 new RetrofitApi.IResponseListener() {
@@ -146,24 +198,30 @@ public class DailyIncomeActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(data)) {
                             DailyIncomeBean dailyIncomeBean = new Gson().fromJson(data, DailyIncomeBean.class);
                             if (dailyIncomeBean.getData() != null && dailyIncomeBean.getData().size() > 0) {
-                                mDailyAdapter.addDataLis(dailyIncomeBean.getData(),2);
-                                mNulldata.setVisibility(View.GONE);
+                                try {
+                                    for (int i = 0; i < dailyIncomeBean.getData().size(); i++) {
+                                        list.set(i + 4, dailyIncomeBean.getData().get(i));
+                                    }
+                                    three = true;
+                                    setData(list);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
                     }
 
                     @Override
                     public void onNotNetWork() {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
 
                     @Override
                     public void onFail(Throwable e) {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
                 });
     }

@@ -49,11 +49,15 @@ public class MonthlyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        DailyHolder dailyHolder = (DailyHolder) holder;
-        dailyHolder.data.setText(list.get(position).getTime());
-        dailyHolder.todayPaymentPens.setText(list.get(position).getPaymentNum() + "");
-        dailyHolder.todayTransactionRevenue.setText(doubleToString(list.get(position).getPaymentMoney()));
-        dailyHolder.confirm.setText(doubleToString(list.get(position).getTradingmoney()));
+        try {
+            DailyHolder dailyHolder = (DailyHolder) holder;
+            dailyHolder.data.setText(list.get(position).getTime());
+            dailyHolder.todayPaymentPens.setText(list.get(position).getPaymentNum() + "");
+            dailyHolder.todayTransactionRevenue.setText(doubleToString(list.get(position).getPaymentMoney()));
+            dailyHolder.confirm.setText(doubleToString(list.get(position).getTradingmoney()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

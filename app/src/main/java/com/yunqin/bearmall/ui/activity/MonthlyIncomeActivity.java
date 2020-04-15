@@ -5,6 +5,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -22,7 +23,9 @@ import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -43,6 +46,9 @@ public class MonthlyIncomeActivity extends BaseActivity {
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout mRefreshLayout;
     private MonthlyAdapter mMonthlyAdapter;
+    private List<MonthlyBean.DataBean> list = new ArrayList<>();
+    private boolean one = false;
+    private boolean two = false;
 
     @Override
     public int layoutId() {
@@ -52,13 +58,20 @@ public class MonthlyIncomeActivity extends BaseActivity {
     @Override
     public void init() {
 
+        for (int i = 0; i < 6; i++) {
+            list.add(0, new MonthlyBean.DataBean());
+        }
+
         mRefreshLayout.setEnableLoadmore(false);
         mRefreshLayout.setHeaderView(new RefreshHeadView(MonthlyIncomeActivity.this));
         mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 mMonthlyAdapter.clearDataList();
+                one = false;
+                two = false;
                 getMonthlyHistory1();
+                getMonthlyHistory2();
             }
         });
 
@@ -67,12 +80,36 @@ public class MonthlyIncomeActivity extends BaseActivity {
         mRecycle.setAdapter(mMonthlyAdapter);
 
         getMonthlyHistory1();
+        getMonthlyHistory2();
+
         mNulldata.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.toolbar_back)
     public void onViewClicked() {
         finish();
+    }
+
+    public void Hidden() {
+        try {
+            hiddenLoadingView();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Exception", e.getMessage());
+        }
+    }
+
+    public void setData(List<MonthlyBean.DataBean> list) {
+        try {
+            if (one && two) {
+                mMonthlyAdapter.addDataLis(list);
+                mNulldata.setVisibility(View.GONE);
+                Hidden();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Exception", e.getMessage());
+        }
     }
 
     public void getMonthlyHistory1() {
@@ -85,9 +122,16 @@ public class MonthlyIncomeActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(data)) {
                             MonthlyBean monthlyBean = new Gson().fromJson(data, MonthlyBean.class);
                             if (monthlyBean.getData() != null && monthlyBean.getData().size() > 0) {
-                                mMonthlyAdapter.addDataLis(monthlyBean.getData());
-                                mNulldata.setVisibility(View.GONE);
-                                getMonthlyHistory2();
+                                try {
+                                    for (int i = 0; i < monthlyBean.getData().size(); i++) {
+                                        list.set(i, monthlyBean.getData().get(i));
+                                    }
+                                    one = true;
+                                    setData(list);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Log.e("Exception---***", e.getMessage());
+                                }
                             }
                         }
                     }
@@ -95,19 +139,18 @@ public class MonthlyIncomeActivity extends BaseActivity {
                     @Override
                     public void onNotNetWork() {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
 
                     @Override
                     public void onFail(Throwable e) {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
                 });
     }
 
     public void getMonthlyHistory2() {
-        showLoading();
         Map<String, String> map = new HashMap<>();
         RetrofitApi.request(MonthlyIncomeActivity.this, RetrofitApi.createApi(Api.class).getMonthlyHistory2(map),
                 new RetrofitApi.IResponseListener() {
@@ -116,24 +159,31 @@ public class MonthlyIncomeActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(data)) {
                             MonthlyBean monthlyBean = new Gson().fromJson(data, MonthlyBean.class);
                             if (monthlyBean.getData() != null && monthlyBean.getData().size() > 0) {
-                                mMonthlyAdapter.addDataLis(monthlyBean.getData());
-                                mNulldata.setVisibility(View.GONE);
+                                try {
+                                    for (int i = 0; i < monthlyBean.getData().size(); i++) {
+                                        list.set(i + 3, monthlyBean.getData().get(i));
+                                    }
+                                    two = true;
+                                    setData(list);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Log.e("Exception-----", e.getMessage());
+                                }
                             }
                         }
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
                     }
 
                     @Override
                     public void onNotNetWork() {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
 
                     @Override
                     public void onFail(Throwable e) {
                         mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
+                        Hidden();
                     }
                 });
     }
