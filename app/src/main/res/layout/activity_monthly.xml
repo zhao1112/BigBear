@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="日历史收益"
+            android:text="月历史收益"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_16"/>
 

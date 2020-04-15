@@ -250,6 +250,7 @@ public class HotFragment extends BaseFragment {
                 HotBean searchData = new Gson().fromJson(data, HotBean.class);
                 if (searchData != null && searchData.getCommodityList() != null && searchData.getCommodityList().size() > 0) {
                     productSumAdapter2.addList(searchData.getCommodityList());
+                    mNulldata.setVisibility(View.GONE);
                 }
 
                 if (isFlash) {

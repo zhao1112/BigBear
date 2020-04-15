@@ -89,8 +89,6 @@ public class DailyIncomeActivity extends BaseActivity {
                                 getJapaneseHistory2();
                             }
                         }
-                        mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
                     }
 
                     @Override
@@ -122,8 +120,6 @@ public class DailyIncomeActivity extends BaseActivity {
                                 getJapaneseHistory3();
                             }
                         }
-                        mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
                     }
 
                     @Override

@@ -90,8 +90,6 @@ public class MonthlyIncomeActivity extends BaseActivity {
                                 getMonthlyHistory2();
                             }
                         }
-                        mRefreshLayout.finishRefreshing();
-                        hiddenLoadingView();
                     }
 
                     @Override

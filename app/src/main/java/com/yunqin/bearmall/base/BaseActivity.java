@@ -58,12 +58,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("BaseActivity", "BaseActivity : " + getClass().getSimpleName());
         setContentView(layoutId());
-
+        Log.i("BaseActivity", "BaseActivity : " + getClass().getSimpleName());
         ButterKnife.bind(this);
 //        StatusBarUtil.setImmersiveStatusBar(this, true);
-
         init();
     }
 

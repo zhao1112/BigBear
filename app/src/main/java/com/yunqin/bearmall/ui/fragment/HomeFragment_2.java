@@ -91,7 +91,6 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     }
 
 
-
     @Override
     public void attachChannel(Channel channel) {
 
