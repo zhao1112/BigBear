@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e60000">
+    android:background="#D02042">
     <ImageView
         android:id="@+id/top"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:layout_width="@dimen/dp_70"
         android:layout_height="@dimen/dp_25"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginTop="@dimen/dp_35"
         android:background="@drawable/bg_zeor_guiz"
         android:gravity="center"
         android:text="规则说明"

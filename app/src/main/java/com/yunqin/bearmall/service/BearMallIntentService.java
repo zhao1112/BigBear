@@ -82,7 +82,7 @@ public class BearMallIntentService extends GTIntentService {
                 } catch (Exception e) {
                     Log.e(TAG, "GTTransmitMessage" + e.getMessage());
                 }
-            }else if ("103".equals(model)){
+            } else if ("103".equals(model)) {
                 try {
                     String title = jsonObject.optString("title");
                     String content = jsonObject.optString("content");
