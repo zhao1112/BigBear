@@ -3,10 +3,12 @@ package com.yunqin.bearmall.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.newversions.tbk.activity.WebActivity;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.ProfitBean;
@@ -218,20 +220,21 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
     @Override
     public void onDayProfiteDetailed(ProfitBean profitBean) {
         try {
+            Log.e("ProfiteDetailed", doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
             //超级
             mPaymentPens22.setText(profitBean.getData().getTodayClinchADealNumber() + "");
             mConsumption22.setText(doubleToString(profitBean.getData().getTodayRecommendEarnings()));
             mQuest22.setText(doubleToString(profitBean.getData().getTodayConfirmEarnings()));
             mPaymentPensMonth2.setText(profitBean.getData().getThisMonthClinchADealNumber() + "");
             mConsumptionMonth2.setText(doubleToString(profitBean.getData().getThisMonthRecommendEarnings()));
-            mQuestMonth2.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+            mQuestMonth2.setText(doubleToString(profitBean.getData().getThisMonthfirmEarnings()));
             //大团长
             mPayment3.setText(profitBean.getData().getTodayClinchADealNumber() + "");
             mConsum3.setText(doubleToString(profitBean.getData().getTodayRecommendEarnings()));
             mQuest_3.setText(doubleToString(profitBean.getData().getTodayConfirmEarnings()));
             mPaymentPensMonth3.setText(profitBean.getData().getThisMonthClinchADealNumber() + "");
             mConsumptionMonth3.setText(doubleToString(profitBean.getData().getThisMonthRecommendEarnings()));
-            mQuestMonth3.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
+            mQuestMonth3.setText(doubleToString(profitBean.getData().getThisMonthfirmEarnings()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -259,7 +262,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
 
 
     @OnClick({R.id.p_back, R.id.p_detailed, R.id.withdrawal, R.id.item_data, R.id.item_data2, R.id.item_data_2, R.id.item_month
-            , R.id.item_2, R.id.item_month2})
+            , R.id.item_2, R.id.item_month2, R.id.title_top})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.p_back:
@@ -282,6 +285,9 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
             case R.id.item_month2:
                 Intent intent1 = new Intent(MineProfitActivity.this, MonthlyIncomeActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.title_top:
+                WebActivity.startWebActivity(MineProfitActivity.this, 20, "https://testapi.bbcoupon.cn/view/money/list", "收益概况说明");
                 break;
         }
     }

@@ -80,7 +80,7 @@ public class MoneyRewardActivity extends BaseActivity implements View.OnClickLis
 
     private void initViews() {
         TextView top = findViewById(R.id.top);
-        top.setText("收益消息");
+        top.setText("佣金消息");
         mTwinklingRefreshLayout = findViewById(R.id.refresh_layout);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

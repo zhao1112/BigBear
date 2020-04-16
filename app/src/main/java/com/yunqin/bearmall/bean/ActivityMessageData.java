@@ -83,8 +83,35 @@ public class ActivityMessageData {
             private Object product_id;
             private int model;
             private String title;
-            private Object content;
+            private String content;
             private Object productName;
+            private String article_id;
+            private String articleImage;
+            private int targetType;
+
+            public String getArticle_id() {
+                return article_id;
+            }
+
+            public void setArticle_id(String article_id) {
+                this.article_id = article_id;
+            }
+
+            public String getArticleImage() {
+                return articleImage;
+            }
+
+            public void setArticleImage(String articleImage) {
+                this.articleImage = articleImage;
+            }
+
+            public int getTargetType() {
+                return targetType;
+            }
+
+            public void setTargetType(int targetType) {
+                this.targetType = targetType;
+            }
 
             public String getCreatedDate() {
                 return createdDate;
@@ -126,11 +153,11 @@ public class ActivityMessageData {
                 this.title = title;
             }
 
-            public Object getContent() {
+            public String getContent() {
                 return content;
             }
 
-            public void setContent(Object content) {
+            public void setContent(String content) {
                 this.content = content;
             }
 
