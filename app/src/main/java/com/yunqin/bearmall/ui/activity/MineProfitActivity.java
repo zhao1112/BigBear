@@ -14,6 +14,7 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.ProfitBean;
 import com.yunqin.bearmall.ui.activity.contract.ProfitContract;
 import com.yunqin.bearmall.ui.activity.presenter.ProfitPresenter;
+import com.yunqin.bearmall.util.CommonUtils;
 
 import java.text.DecimalFormat;
 
@@ -210,7 +211,6 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
             mPaymentMonth.setText(profitBean.getData().getThisMonthPaymentPens() + "");
             mConsumMonth.setText(doubleToString(profitBean.getData().getThisMonthIndividualPurchased()));
             mQuestMonth_2.setText(doubleToString(profitBean.getData().getThisMonthConfirmReceipt()));
-            mQuestMonth4.setText(doubleToString(profitBean.getData().getThisMonthfirmPredictio()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -249,6 +249,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
             mQuest31.setText(doubleToString(profitBean.getData().getTodayConfirmPredictio()));
             mPaymentPensMonth4.setText(profitBean.getData().getThisMonthTeamPrediction() + "");
             mConsumptionMonth4.setText(doubleToString(profitBean.getData().getThisMonthPredictioEarnings()));
+            mQuestMonth4.setText(doubleToString(profitBean.getData().getThisMonthfirmPredictio()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -287,7 +288,10 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
                 startActivity(intent1);
                 break;
             case R.id.title_top:
-                WebActivity.startWebActivity(MineProfitActivity.this, 20, "https://testapi.bbcoupon.cn/view/money/list", "收益概况说明");
+                if (System.currentTimeMillis() - CommonUtils.lastClickTime > CommonUtils.FAST_CLICK_DELAY_TIME) {
+                    WebActivity.startWebActivity(MineProfitActivity.this, 20, "https://testapi.bbcoupon.cn/view/money/list", "收益概况说明");
+                    CommonUtils.lastClickTime = System.currentTimeMillis();
+                }
                 break;
         }
     }

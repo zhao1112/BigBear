@@ -105,6 +105,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Glide.with(mContext).load(mLists.get(position).getArticleImage()).apply(new RequestOptions().placeholder(R.drawable.default_product).transform(transformation4)).into(myHolder.image);
             myHolder.product_message_title.setText(mLists.get(position).getTitle());
             myHolder.product_message_content.setText(mLists.get(position).getContent());
+            myHolder.product_message_time.setText(mLists.get(position).getCreatedDate());
             myHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -121,6 +122,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Glide.with(mContext).load(mLists.get(position).getArticleImage()).apply(new RequestOptions().placeholder(R.drawable.default_product).transform(transformation4)).into(myHolder2.image);
             myHolder2.product_message_title.setText(mLists.get(position).getTitle());
             myHolder2.product_message_content.setText(mLists.get(position).getContent());
+            myHolder2.product_message_time.setText(mLists.get(position).getCreatedDate());
             myHolder2.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -145,12 +147,14 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ImageView image;
         TextView product_message_title;
         TextView product_message_content;
+        TextView product_message_time;
 
         public MYHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             product_message_title = itemView.findViewById(R.id.product_message_title);
             product_message_content = itemView.findViewById(R.id.product_message_content);
+            product_message_time = itemView.findViewById(R.id.product_message_time);
         }
     }
 
@@ -159,12 +163,14 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ImageView image;
         TextView product_message_title;
         TextView product_message_content;
+        TextView product_message_time;
 
         public MYHolder2(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             product_message_title = itemView.findViewById(R.id.product_message_title);
             product_message_content = itemView.findViewById(R.id.product_message_content);
+            product_message_time = itemView.findViewById(R.id.product_message_time);
         }
     }
 }

@@ -96,7 +96,7 @@ public class Juhuasuan_Time_Adapter extends RecyclerView.Adapter<RecyclerView.Vi
             productSunHolder.itemHomeXiaoliang.setTextColor(context.getResources().getColor(R.color.jutwo));
         }
 
-        productSunHolder.itemHomeXiaoliang.setText("已抢" + list.get(position).getSellNum());
+        productSunHolder.itemHomeXiaoliang.setText("已抢" + list.get(position).getSellNum()+"件");
         productSunHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -68,7 +68,6 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
 
-        <activity android:name=".ui.activity.JuhuasuanActivity"/>
         <activity
             android:name=".ui.activity.PartnerOrderSeekActivity"
             android:configChanges="locale|layoutDirection"
@@ -635,6 +634,7 @@
         <activity android:name=".ui.activity.SearFansActivity"/>
         <activity android:name=".ui.activity.DailyIncomeActivity"/>
         <activity android:name=".ui.activity.MonthlyIncomeActivity"/>
+
     </application>
 
 </manifest>

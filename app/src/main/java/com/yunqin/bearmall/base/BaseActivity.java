@@ -92,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (loadingProgress != null && loadingProgress.isShowing()) {
                 return;
             }
-            if (BearMallAplication.isFirst) {
+            if (BearMallAplication.isFirst && BearMallAplication.isFirst2) {
                 return;
             }
             ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -114,6 +114,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                             try {
                                 cm.setPrimaryClip(cm.getPrimaryClip());
                                 cm.setText(null);
+                                BearMallAplication.isFirst = true;
+                                BearMallAplication.isFirst2 = true;
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -125,6 +127,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                             try {
                                 cm.setPrimaryClip(cm.getPrimaryClip());
                                 cm.setText(null);
+                                BearMallAplication.isFirst = true;
+                                BearMallAplication.isFirst2 = true;
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

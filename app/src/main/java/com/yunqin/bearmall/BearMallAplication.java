@@ -28,6 +28,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.Address;
 import com.yunqin.bearmall.bean.UserInfo;
+import com.yunqin.bearmall.util.AppFrontBackHelper;
 import com.yunqin.bearmall.util.CommonUtil;
 import com.yunqin.bearmall.util.ContextHelper;
 import com.yunqin.bearmall.util.DeviceInfo;
@@ -58,6 +59,8 @@ public class BearMallAplication extends MobApplication {
 
     private HomeListener mHomeListener;
     public static boolean isFirst = true;
+    public static boolean isFirst2 = false;
+    private AppFrontBackHelper mAppFrontBackHelper;
 
     @Override
     public void onCreate() {
@@ -160,6 +163,19 @@ public class BearMallAplication extends MobApplication {
             }
         });
         mHomeListener.startListen();
+
+        mAppFrontBackHelper = new AppFrontBackHelper();
+        mAppFrontBackHelper.register(this, new AppFrontBackHelper.OnAppStatusListener() {
+            @Override
+            public void onFront() {
+
+            }
+
+            @Override
+            public void onBack() {
+                isFirst2 = false;
+            }
+        });
     }
 
     public HashMap<String, String> getDevParams() {

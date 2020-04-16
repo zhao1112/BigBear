@@ -47,6 +47,12 @@ import java.util.regex.Pattern;
 
 public class CommonUtils {
 
+
+    //全局定义
+    public static long lastClickTime = 0L;
+    // 两次点击间隔不能少于1000ms
+    public static final int FAST_CLICK_DELAY_TIME = 1000;
+
     /**
      * 淘宝授权地址
      */
