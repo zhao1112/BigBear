@@ -254,7 +254,11 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return
      */
     public void showLoading(String message) {
-        showLoading(null, message);
+        try {
+            showLoading(null, message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

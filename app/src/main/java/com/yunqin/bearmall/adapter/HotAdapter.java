@@ -28,12 +28,13 @@ public class HotAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (type) {
-            case "5":
-                return JuhuasuanTimeFragment.getInstance(position, type);
-            default:
-                return HotFragment.getInstance(position, type);
-        }
+//        switch (type) {
+//            case "5":
+//                return JuhuasuanTimeFragment.getInstance(position, type);
+//            default:
+//                return HotFragment.getInstance(position, type);
+//        }
+        return HotFragment.getInstance(position, type);
     }
 
     @Override

@@ -78,7 +78,6 @@ public class MineBannerBean {
             private int targetType;
             private int id;
             private String title;
-            private boolean type;
             private String target;
 
             public String getImage() {
@@ -119,14 +118,6 @@ public class MineBannerBean {
 
             public void setTitle(String title) {
                 this.title = title;
-            }
-
-            public boolean isType() {
-                return type;
-            }
-
-            public void setType(boolean type) {
-                this.type = type;
             }
 
             public String getTarget() {

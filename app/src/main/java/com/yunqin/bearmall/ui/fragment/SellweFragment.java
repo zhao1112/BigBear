@@ -57,11 +57,11 @@ public class SellweFragment extends BaseFragment {
         List<String> stringList = new ArrayList<>();
 
         switch (mType) {
-            case "5":
-                stringList.add("开抢中");
-                stringList.add("爆款预热");
-                tablayout.setTabMode(TabLayout.MODE_FIXED);
-                break;
+//            case "5":
+//                stringList.add("开抢中");
+//                stringList.add("爆款预热");
+//                tablayout.setTabMode(TabLayout.MODE_FIXED);
+//                break;
             case "2"://天猫超市
                 stringList.add("猫超精选");
                 stringList.add("一件也包邮");

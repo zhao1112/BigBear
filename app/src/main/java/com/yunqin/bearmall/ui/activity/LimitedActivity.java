@@ -56,12 +56,10 @@ public class LimitedActivity extends BaseActivity {
     private int sortType = 1;
     private int page = 1;
     private int pageSize = 10;
-    private boolean hasNext = true;
     @BindView(R.id.n_v_refreshLayout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
     private boolean isLoadMore = false;
     private boolean isFlash = false;
-    private String groupId;
     private String Keyword;
     private int selectTabIndex;
     private int type = 9;//1:最上面的分类列表，2：导航栏的分类列表，3：快速导航的分类列表，8：搜索，9：限时抢购
@@ -83,12 +81,8 @@ public class LimitedActivity extends BaseActivity {
     public void init() {
         setTranslucentStatus();
         showLoading();
-        groupId = getIntent().getStringExtra(Constants.INTENT_KEY_ID);
-        Keyword = getIntent().getStringExtra("KEYWORD");
 
-        Log.e("KEYWORD", "init: " + groupId);
-        Log.e("KEYWORD", "init: " + type);
-        Log.e("KEYWORD", "init: " + Keyword);
+        Keyword = getIntent().getStringExtra("KEYWORD");
 
 
         mTwinklingRefreshLayout.setHeaderView(new RefreshHeadView(LimitedActivity.this));

@@ -1176,7 +1176,7 @@ public interface Api {
     /**
      * 我的页面  轮播图
      */
-    @POST(" api/commodity/getLunboTu")
+    @POST("api/commodity/getLunboTu")
     Observable<String> getLunboTu();
 
     /**

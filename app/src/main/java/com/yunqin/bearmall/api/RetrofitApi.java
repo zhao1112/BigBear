@@ -107,7 +107,6 @@ public class RetrofitApi {
                 .retryOnConnectionFailure(true)
                 .addInterceptor(new ParameterInterceptor())
                 .addNetworkInterceptor(logInterceptor)
-                .sslSocketFactory(getsslsocket())
                 .hostnameVerifier(new TrustAllHostnameVerifier())
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(100, TimeUnit.SECONDS)

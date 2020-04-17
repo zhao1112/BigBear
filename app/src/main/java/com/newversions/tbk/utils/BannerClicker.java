@@ -19,7 +19,9 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
+import com.yunqin.bearmall.ui.activity.LimitedActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.ui.activity.SellwellActivity;
 import com.yunqin.bearmall.ui.activity.ShopActivity;
 import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
@@ -37,6 +39,7 @@ import java.util.Map;
 public class BannerClicker {
     public static void bannerClick(Activity activity, int targetType, String target, String title) {
         Log.i("bannerClick", "targetType: " + targetType + "--- target" + target + "---" + title);
+        Bundle bundle = new Bundle();
         switch (targetType) {
             case 1://外部淘宝链接
                 ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
@@ -49,7 +52,7 @@ public class BannerClicker {
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;
             case 3://单品
-                GoodsDetailActivity.startGoodsDetailActivity(activity, target,Constants.COMMISSION_TYPE_ONE);
+                GoodsDetailActivity.startGoodsDetailActivity(activity, target, Constants.COMMISSION_TYPE_ONE);
                 break;
             case 10://99
             case 11://抢购
@@ -149,14 +152,37 @@ public class BannerClicker {
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;
-            case 21:
+            case 21://店铺
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-                Bundle bundle = new Bundle();
                 bundle.putString("store_id", target);
                 StarActivityUtil.starActivity(activity, ShopActivity.class, bundle);
+                break;
+            case 100://聚划算
+                bundle.putString("TYPE", "5");
+                SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
+                break;
+            case 101://9.9
+                bundle.putString("TYPE", "4");
+                SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
+                break;
+            case 102://限时抢购
+                bundle.putString("KEYWORD", title);
+                LimitedActivity.openLimitedActivity(activity, LimitedActivity.class, bundle);
+                break;
+            case 103://热销榜单
+                bundle.putString("TYPE", "1");
+                SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
+                break;
+            case 104://天猫超市
+                bundle.putString("TYPE", "2");
+                SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
+                break;
+            case 105://天猫国际
+                bundle.putString("TYPE", "3");
+                SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
                 break;
         }
     }

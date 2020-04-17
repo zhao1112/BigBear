@@ -217,11 +217,15 @@ public abstract class BaseFragment extends Fragment {
      * 隐藏加载框
      */
     public void hiddenLoadingView() {
-        if (loadingProgress != null) {
-            if (!getActivity().isFinishing()) {
-                loadingProgress.dismiss();
-                loadingProgress = null;
+        try {
+            if (loadingProgress != null) {
+                if (!getActivity().isFinishing()) {
+                    loadingProgress.dismiss();
+                    loadingProgress = null;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

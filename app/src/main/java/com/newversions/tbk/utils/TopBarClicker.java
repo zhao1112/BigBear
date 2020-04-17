@@ -33,7 +33,6 @@ public class TopBarClicker {
                 SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
                 break;
             case 2://限时抢购
-                bundle.putString(Constants.INTENT_KEY_ID, bean.getId() + "");
                 bundle.putString("KEYWORD", bean.getName());
                 LimitedActivity.openLimitedActivity(activity, LimitedActivity.class, bundle);
                 break;
@@ -89,6 +88,7 @@ public class TopBarClicker {
                     return;
                 }
                 WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE_OTHER, bean.getUrl(), bean.getName());
+                break;
         }
     }
 }
