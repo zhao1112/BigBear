@@ -82,7 +82,6 @@ public class DailyIncomeActivity extends BaseActivity {
         getJapaneseHistory1();
         getJapaneseHistory2();
         getJapaneseHistory3();
-        mNulldata.setVisibility(View.VISIBLE);
     }
 
 
@@ -103,7 +102,6 @@ public class DailyIncomeActivity extends BaseActivity {
         try {
             if (one && two && three) {
                 mDailyAdapter.addDataLis(list);
-                mNulldata.setVisibility(View.GONE);
                 Hidden();
             }
         } catch (Exception e) {

@@ -82,7 +82,6 @@ public class MonthlyIncomeActivity extends BaseActivity {
         getMonthlyHistory1();
         getMonthlyHistory2();
 
-        mNulldata.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.toolbar_back)
@@ -103,7 +102,6 @@ public class MonthlyIncomeActivity extends BaseActivity {
         try {
             if (one && two) {
                 mMonthlyAdapter.addDataLis(list);
-                mNulldata.setVisibility(View.GONE);
                 Hidden();
             }
         } catch (Exception e) {
