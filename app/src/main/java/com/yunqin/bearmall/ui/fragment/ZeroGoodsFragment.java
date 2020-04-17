@@ -66,15 +66,19 @@ public class ZeroGoodsFragment extends BaseFragment implements ZeroGoodsContract
         showLoading();
 
         EventBus.getDefault().register(this);
-
         presenter = new ZeroGoodsPresenter(getActivity(), this);
-        presenter.start(false);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         zeroList.setLayoutManager(linearLayoutManager);
         zeroGoodsAdapter = new ZeroGoodsAdapter(getActivity(), mlist);
         zeroList.setAdapter(zeroGoodsAdapter);
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start(false);
         presenter.getBannerData();
         presenter.getCenterAdData();
         initRefresh();

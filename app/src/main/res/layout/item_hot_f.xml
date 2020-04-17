@@ -17,8 +17,8 @@
         <RelativeLayout
             android:layout_width="@dimen/dp_120"
             android:layout_height="@dimen/dp_120"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginTop="@dimen/dp_17"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_13">
 
             <ImageView
@@ -43,8 +43,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_marginRight="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_5"
             android:orientation="vertical">
 
             <TextView
@@ -120,7 +120,7 @@
                     android:layout_marginLeft="@dimen/dp_5"
                     android:text="￥1111111"
                     android:textColor="#F3280A"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -130,9 +130,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_9"
                     android:layout_toRightOf="@id/item_home_pro_quanhoujia"
-                    android:text="￥123"
+                    android:text="123"
                     android:textColor="#888888"
-                    android:textSize="@dimen/sp_12"/>
+                    android:textSize="@dimen/sp_11"/>
 
                 <TextView
                     android:id="@+id/item_home_xiaoliang"
@@ -142,7 +142,7 @@
                     android:layout_centerVertical="true"
                     android:singleLine="true"
                     android:text="月销 1000"
-                    android:textSize="@dimen/sp_12"/>
+                    android:textSize="@dimen/sp_11"/>
 
             </RelativeLayout>
 
@@ -150,7 +150,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_alignParentBottom="true"
-                android:background="#F1F1F1"/>
+                android:background="#F1F1F1"
+                android:visibility="gone"/>
 
 
         </RelativeLayout>

@@ -79,6 +79,17 @@ public class ProductSumFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (type == 9) {
+            selectTabIndex = getCanButIndex();
+            tablayout.getTabAt(selectTabIndex).select();
+        } else {
+            getData();
+        }
+    }
+
+    @Override
     public void init() {
         showLoading();
         groupId = getArguments().getString(Constants.INTENT_KEY_ID);
@@ -224,13 +235,6 @@ public class ProductSumFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-
-        if (type == 9) {
-            selectTabIndex = getCanButIndex();
-            tablayout.getTabAt(selectTabIndex).select();
-        } else {
-            getData();
-        }
 
     }
 

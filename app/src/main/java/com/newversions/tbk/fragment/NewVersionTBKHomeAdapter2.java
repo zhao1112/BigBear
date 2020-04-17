@@ -16,6 +16,7 @@ import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,8 +105,12 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
     public void setData(NewTBHome homeBeanList) {
         Log.e("setData", "setData: " + homeBeanList.toString());
         datas.clear();
-        center_bg = homeBeanList.getCenter_bg().getTarget();
-        top_bg = homeBeanList.getTop_bg().getTarget();
+        if (!TextUtils.isEmpty(homeBeanList.getCenter_bg().getTarget())) {
+            center_bg = homeBeanList.getCenter_bg().getTarget();
+        }
+        if (!TextUtils.isEmpty(homeBeanList.getTop_bg().getTarget())){
+            top_bg = homeBeanList.getTop_bg().getTarget();
+        }
         mSellWellCopywritingBean = homeBeanList.getSellWellCopywriting();
         mSelectedCopywritingBean = homeBeanList.getSelectedCopywriting();
         mInterCopywritingBean = homeBeanList.getInterCopywriting();
@@ -193,7 +198,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                                     bannerOne.banners.get(position).getTarget(), bannerOne.banners.get(position).getTitle());
                         }
                     });
-                }else {
+                } else {
 
                 }
 
@@ -235,7 +240,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                                     bannerTwo.banners.get(position).getTarget(), bannerTwo.banners.get(position).getTitle());
                         }
                     });
-                }else {
+                } else {
 
                 }
                 break;

@@ -474,7 +474,6 @@ public class NewTBHome {
         private int targetType;
         private int id;
         private String title;
-        private boolean type;
         private String target;
 
         public String getImage() {
@@ -517,14 +516,6 @@ public class NewTBHome {
             this.title = title;
         }
 
-        public boolean isType() {
-            return type;
-        }
-
-        public void setType(boolean type) {
-            this.type = type;
-        }
-
         public String getTarget() {
             return target;
         }
@@ -550,7 +541,6 @@ public class NewTBHome {
         private int targetType;
         private int id;
         private String title;
-        private boolean type;
         private String target;
 
         public String getImage() {
@@ -591,14 +581,6 @@ public class NewTBHome {
 
         public void setTitle(String title) {
             this.title = title;
-        }
-
-        public boolean isType() {
-            return type;
-        }
-
-        public void setType(boolean type) {
-            this.type = type;
         }
 
         public String getTarget() {
@@ -838,7 +820,6 @@ public class NewTBHome {
         private int targetType;
         private int id;
         private String title;
-        private boolean type;
         private String target;
 
         public String getImage() {
@@ -879,14 +860,6 @@ public class NewTBHome {
 
         public void setTitle(String title) {
             this.title = title;
-        }
-
-        public boolean isType() {
-            return type;
-        }
-
-        public void setType(boolean type) {
-            this.type = type;
         }
 
         public String getTarget() {

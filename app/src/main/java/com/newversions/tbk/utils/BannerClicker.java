@@ -3,6 +3,7 @@ package com.newversions.tbk.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -131,6 +132,9 @@ public class BannerClicker {
                 ConstantScUtil.BrandCoupon();
                 break;
             case 30:
+                if (TextUtils.isEmpty(target)) {
+                    return;
+                }
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(activity);
                     return;

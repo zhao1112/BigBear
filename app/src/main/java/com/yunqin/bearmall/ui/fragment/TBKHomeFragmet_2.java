@@ -124,7 +124,7 @@ public class TBKHomeFragmet_2 extends BaseFragment implements NewVersionTBKHomeC
             }
         });
 
-        mPresenter.init();
+//        mPresenter.init();
     }
 
     @Override
@@ -140,6 +140,12 @@ public class TBKHomeFragmet_2 extends BaseFragment implements NewVersionTBKHomeC
     @Override
     public void onNotNetWork() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.init();
     }
 
     @Override

@@ -36,6 +36,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.util.AuntTao;
 import com.yunqin.bearmall.util.ConstantScUtil;
 
 import org.json.JSONException;
@@ -92,10 +93,13 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
                 ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
                 if (shareGoodsEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
-                    Intent intent = new Intent(ShareComissionActivity.this, WebActivity.class);
-                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
-                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
-                    startActivity(intent);
+//                    Intent intent = new Intent(ShareComissionActivity.this, WebActivity.class);
+//                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
+//                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
+//                    startActivity(intent);
+                    AuntTao auntTao = new AuntTao();
+                    auntTao.setContext(ShareComissionActivity.this);
+                    auntTao.AuntTabo();
                     finish();
                     return;
                 }
@@ -105,7 +109,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
                 etShareMsg.setText(Html.fromHtml("   <b>" + goodDetailBean.getName() + "</b><br>" +
                         "【原价】    " + goodDetailBean.getPrice() + "元" + "<br>" +
                         "【券后价】  " + goodDetailBean.getDiscountPrice() + "元<br><br><br>" +
-                        "---------------<br>"+
+                        "---------------<br>" +
                         "復製评论" + "(" + taoToken + "),去【tao寶】下单<br>"));
                 etShareMsg.setSelection(etShareMsg.getText().length());
             }
