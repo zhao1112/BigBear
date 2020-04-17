@@ -87,7 +87,6 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     public void init() {
         EventBus.getDefault().register(this);
         mPresenter = new HomePresenter(this);
-        mPresenter.start(getActivity());
     }
 
 
@@ -99,7 +98,6 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
         }
 
         xtablelayout.setVisibility(View.VISIBLE);
-
         xtablelayout.addTab(xtablelayout.newTab().setText("大熊精选"));
         for (int i = 0; i < channel.getData().size(); i++) {
             xtablelayout.addTab(xtablelayout.newTab().setText(channel.getData().get(i).getName()));
@@ -161,6 +159,7 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     @Override
     public void onResume() {
         super.onResume();
+        mPresenter.start(getActivity());
         requestData();
         if (isVisibility) {
             mPresenter.initAdData(getActivity());
