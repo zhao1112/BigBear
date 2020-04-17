@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -77,6 +78,7 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
 
     private HomeContract.Presenter mPresenter;
     private HomeTabTitleAdapter adapter;
+    private boolean isFirst = true;
 
     @Override
     public int layoutId() {
@@ -92,44 +94,47 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
 
     @Override
     public void attachChannel(Channel channel) {
+        try {
+            isFirst = false;
+            if (channel == null) {
+                return;
+            }
+            xtablelayout.setVisibility(View.VISIBLE);
+            xtablelayout.addTab(xtablelayout.newTab().setText("大熊精选"));
+            for (int i = 0; i < channel.getData().size(); i++) {
+                xtablelayout.addTab(xtablelayout.newTab().setText(channel.getData().get(i).getName()));
+            }
+            adapter = new HomeTabTitleAdapter(getActivity(), getFragmentManager(), channel.getData(), home_image);
+            viewpager.removeAllViews();
+            viewpager.setAdapter(adapter);
+            viewpager.setCurrentItem(0);
+            viewpager.setOffscreenPageLimit(1);
+            //初始化显示第一个页面
+            viewpager.addOnPageChangeListener(new XTabLayout.TabLayoutOnPageChangeListener(xtablelayout));
+            xtablelayout.addOnTabSelectedListener(new XTabLayout.ViewPagerOnTabSelectedListener(viewpager));
 
-        if (channel == null) {
-            return;
-        }
-
-        xtablelayout.setVisibility(View.VISIBLE);
-        xtablelayout.addTab(xtablelayout.newTab().setText("大熊精选"));
-        for (int i = 0; i < channel.getData().size(); i++) {
-            xtablelayout.addTab(xtablelayout.newTab().setText(channel.getData().get(i).getName()));
-        }
-        adapter = new HomeTabTitleAdapter(getActivity(), getFragmentManager(), channel.getData(), home_image);
-        viewpager.removeAllViews();
-        viewpager.setAdapter(adapter);
-        viewpager.setCurrentItem(0);
-        viewpager.setOffscreenPageLimit(3);
-        //初始化显示第一个页面
-        xtablelayout.setupWithViewPager(viewpager);
-        xtablelayout.setTabsFromPagerAdapter(adapter);
-
-        xtablelayout.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(XTabLayout.Tab tab) {
-                viewpager.setCurrentItem(tab.getPosition());
-                if (tab.getPosition() == 0) {
-                    mPresenter.initAdData(getActivity());
+            xtablelayout.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(XTabLayout.Tab tab) {
+                    viewpager.setCurrentItem(tab.getPosition());
+                    if (tab.getPosition() == 0) {
+                        mPresenter.initAdData(getActivity());
+                    }
                 }
-            }
 
-            @Override
-            public void onTabUnselected(XTabLayout.Tab tab) {
+                @Override
+                public void onTabUnselected(XTabLayout.Tab tab) {
 
-            }
+                }
 
-            @Override
-            public void onTabReselected(XTabLayout.Tab tab) {
+                @Override
+                public void onTabReselected(XTabLayout.Tab tab) {
 
-            }
-        });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick({R.id.home_search, R.id.xiaoxi})
@@ -159,10 +164,16 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start(getActivity());
-        requestData();
-        if (isVisibility) {
-            mPresenter.initAdData(getActivity());
+        try {
+            if (isFirst) {
+                mPresenter.start(getActivity());
+            }
+            requestData();
+            if (isVisibility) {
+                mPresenter.initAdData(getActivity());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
