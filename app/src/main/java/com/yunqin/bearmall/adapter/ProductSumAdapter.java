@@ -12,11 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.newversions.tbk.activity.GoodsDetailContract;
 import com.newversions.tbk.entity.GoodsEntity;
 import com.newversions.tbk.utils.StringUtils;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.bean.SearchData;
+import com.yunqin.bearmall.util.CornerTransform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,9 +75,14 @@ public class ProductSumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         productSunHolder.itemHomeProQuanhoujia.setText(list.get(position).getDiscountPrice() + "");
         productSunHolder.tvCommision.setText("预估收益¥" + list.get(position).getCommision() + "元");
         productSunHolder.itemHomeProYuanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);// 设置中划线并加清晰
+
+        CornerTransform transformation2 = new CornerTransform(context, dip2px(context, 8));
+        transformation2.setExceptCorner(false, false, true, true);
         Glide.with(context)
                 .load(list.get(position).getOutIcon())
+                .apply(new RequestOptions().placeholder(R.drawable.default_product).transform(transformation2))
                 .into(productSunHolder.itemHomeProImage);
+
         productSunHolder.itemHomeXiaoliang.setText("月销" + list.get(position).getSellNum());
         productSunHolder.itemSellerName.setText(StringUtils.addImageLabel(context, list.get(position).getTmall() == 1 ?
                 R.mipmap.icon_tmall : R.mipmap.icon_taobao1, list.get(position).getSellerName()));
@@ -88,6 +95,13 @@ public class ProductSumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         });
     }
+
+    //只是绘制左上角和右上角圆角
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
 
     @Override
     public int getItemCount() {

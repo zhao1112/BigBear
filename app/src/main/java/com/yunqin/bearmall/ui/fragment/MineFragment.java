@@ -50,6 +50,7 @@ import com.yunqin.bearmall.bean.OrderNumberBean;
 import com.yunqin.bearmall.bean.PopBean;
 import com.yunqin.bearmall.bean.UserBTInfo;
 import com.yunqin.bearmall.bean.UserInfo;
+import com.yunqin.bearmall.eventbus.ChangeFragment;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
 import com.yunqin.bearmall.eventbus.VipUpgrade;
 import com.yunqin.bearmall.ui.activity.AddressActivity;
@@ -496,7 +497,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                     int upgradeType = BearMallAplication.getInstance().getUser().getIdentity().getUpgradeType();
                     Bundle bundle = new Bundle();
                     bundle.putInt("upgradeType", upgradeType);
-                    MineProfitActivity.openMineProfitActivity(getActivity(), MineProfitActivity.class,bundle);
+                    MineProfitActivity.openMineProfitActivity(getActivity(), MineProfitActivity.class, bundle);
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }
@@ -564,8 +565,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                 webView.loadUrl("https://pan.baidu.com/s/1dMddwhUwH3KS7kggLHs7KQ");
                 break;
             case R.id.mine_send://发圈文案
-                Intent intent1 = new Intent(getActivity(), HairCircleActivity.class);
-                getActivity().startActivity(intent1);
+//                Intent intent1 = new Intent(getActivity(), HairCircleActivity.class);
+//                getActivity().startActivity(intent1);
+                EventBus.getDefault().post(new ChangeFragment(1));
                 break;
             case R.id.mine_course://新手教程
                 WebActivity.startWebActivity(getActivity(), 200, url, "新手教程");

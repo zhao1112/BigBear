@@ -22,6 +22,7 @@ import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LimitedActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
+import com.yunqin.bearmall.ui.activity.NewWebViewActivity;
 import com.yunqin.bearmall.ui.activity.SellwellActivity;
 import com.yunqin.bearmall.ui.activity.ShopActivity;
 import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
@@ -187,6 +188,10 @@ public class BannerClicker {
             case 105://天猫国际
                 bundle.putString("TYPE", "3");
                 SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
+                break;
+            case 106://内部天猫国际，天猫超市
+                bundle.putString("Web_Url", title);
+                NewWebViewActivity.openNewWebViewActivity(activity, bundle);
                 break;
         }
     }

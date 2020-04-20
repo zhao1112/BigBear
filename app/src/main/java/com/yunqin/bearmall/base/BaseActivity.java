@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -16,12 +17,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
-import com.newversions.tbk.activity.ProductSumActivity;
-import com.newversions.tbk.activity.ProductSumActivity2;
 import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.tbk.view.SearchDialog;
 import com.umeng.analytics.MobclickAgent;
@@ -32,15 +30,11 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.SuperSearch;
 import com.yunqin.bearmall.ui.activity.SuperSearchActivity;
 import com.yunqin.bearmall.util.StatuBarUtils;
-import com.yunqin.bearmall.util.StatusBarUtil;
 import com.yunqin.bearmall.widget.LoadingView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
-
 import butterknife.ButterKnife;
 
 
@@ -70,7 +64,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         MobclickAgent.onResume(this);
         if (!"SplashActivity".equals(getClass().getSimpleName())) {
-            searchDialog();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    searchDialog();
+                }
+            },500);
         }
     }
 
@@ -93,6 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 return;
             }
             if (BearMallAplication.isFirst && BearMallAplication.isFirst2) {
+                Log.e("BearMallAplication", "searchDialog: " + BearMallAplication.isFirst + "------" + BearMallAplication.isFirst2);
                 return;
             }
             ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -102,10 +102,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
             ClipData.Item item = data.getItemAt(0);
             if (item == null || item.getText() == null || "null".equals(item.getText().toString())) {
+                Log.e("BearMallAplication", "searchDialog: 2");
                 return;
             }
             content = item.getText().toString();
-            Log.d("TAG", "searchDialog:get--- " + content);
             if (!TextUtils.isEmpty(content)) {
                 if (mSearchDialog == null) {
                     mSearchDialog = new SearchDialog(this, new View.OnClickListener() {

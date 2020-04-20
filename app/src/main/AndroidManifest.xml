@@ -634,6 +634,7 @@
         <activity android:name=".ui.activity.SearFansActivity"/>
         <activity android:name=".ui.activity.DailyIncomeActivity"/>
         <activity android:name=".ui.activity.MonthlyIncomeActivity"/>
+        <activity android:name=".ui.activity.NewWebViewActivity"/>
 
     </application>
 
