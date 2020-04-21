@@ -102,7 +102,7 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case TYPE_NORMAL:
                 OrderHolder orderHolder = (OrderHolder) holder;
                 orderHolder.mCreat_time.setText("创建时间：" + list.get(position).getCreateTime());
-                orderHolder.state.setText(list.get(position).getOrderStatus().equals("1") ? "已付款" : "已结算");
+                orderHolder.state.setText(list.get(position).getOrderStatus().equals("1") ? "待返佣" : "已到账");
                 Glide.with(mContext).load(list.get(position).getImageUrl()).apply(mOptions).into(orderHolder.image);
                 orderHolder.price.setText("¥" + list.get(position).getPayAmount());
                 orderHolder.commission.setText("预估返佣" + list.get(position).getEffectEstimate() + "元");

@@ -85,13 +85,6 @@ public class TopBarClicker {
 //                    return;
 //                }
 //                DailyTasksActivity.starActivity(activity);
-
-
-//                IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
-//                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-//                req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
-//                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
-//                api.sendReq(req);
                 EventBus.getDefault().post(new ChangeFragment(2));
                 break;
             case 10:
@@ -133,6 +126,13 @@ public class TopBarClicker {
             case 106://内部天猫国际，天猫超市
                 bundle.putString("Web_Url", bean.getUrl());
                 NewWebViewActivity.openNewWebViewActivity(activity, bundle);
+                break;
+            case 107://唤醒小程序
+                IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
+                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+                req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
+                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+                api.sendReq(req);
                 break;
 
         }

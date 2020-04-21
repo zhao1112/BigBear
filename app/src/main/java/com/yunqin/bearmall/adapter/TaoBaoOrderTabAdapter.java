@@ -24,7 +24,7 @@ public class TaoBaoOrderTabAdapter extends FragmentPagerAdapter {
     public TaoBaoOrderTabAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
         this.mContext = context;
-        mTabs = new String[]{"全部",  "已付款", "已结算", "已失效"};
+        mTabs = new String[]{"全部", "待返佣", "已到账", "已失效"};
 
     }
 

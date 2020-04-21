@@ -14,8 +14,12 @@ import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.ProductSumActivity;
 import com.newversions.tbk.activity.WebActivity;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.BuildConfig;
+import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
@@ -192,6 +196,13 @@ public class BannerClicker {
             case 106://内部天猫国际，天猫超市
                 bundle.putString("Web_Url", title);
                 NewWebViewActivity.openNewWebViewActivity(activity, bundle);
+                break;
+            case 107://唤醒小程序
+                IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
+                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+                req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
+                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+                api.sendReq(req);
                 break;
         }
     }
