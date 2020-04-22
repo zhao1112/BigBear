@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.ui.activity.SettingsActivity;
 import com.blankj.utilcode.util.SPStaticUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -486,7 +487,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                         bundle.putString("name", identity.getIdentity());
                         bundle.putInt("type_id", identity.getUpgradeType());
                     }
-                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class, bundle);
+                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                    getActivity().startActivity(intent);
+//                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class, bundle);
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }

@@ -308,6 +308,6 @@ android {
         implementation 'com.timqi.sectorprogressview:library:2.0.1'
         //图片查看器
         implementation 'com.github.SherlockGougou:BigImageViewPager:v4_6.0.0'
-
+        implementation 'com.contrarywind:Android-PickerView:4.1.9'
     }
 }

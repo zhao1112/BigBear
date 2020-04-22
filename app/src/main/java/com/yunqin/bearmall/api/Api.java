@@ -1436,5 +1436,12 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/userinfo/getMonthlyHistory2")
     Observable<String> getMonthlyHistory2(@FieldMap() Map<String, String> params);
+
+    /**
+     * 分享得糖果
+     */
+    @FormUrlEncoded
+    @POST("api/share/shareArticleAndProduct")
+    Observable<String> shareArticleAndProduct(@FieldMap() Map<String, String> params);
 }
 

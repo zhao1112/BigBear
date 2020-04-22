@@ -24,6 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.ui.bean.RequestInfor;
+import com.bbcoupon.ui.contract.RequestContract;
+import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -64,7 +67,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 /**
  * 分享赚佣金
  */
-public class ShareComissionActivity extends BaseActivity implements PlatformActionListener {
+public class ShareComissionActivity extends BaseActivity implements PlatformActionListener, RequestContract.RequestView {
 
     @BindView(R.id.toolbar_back)
     ImageView toolbarBack;
@@ -76,6 +79,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
     private String qCodeUrl;
     private GoodDetailEntity.GoodDetailBean goodDetailBean;
     Platform platform = null;
+    private RequestPresenter requestPresenter;
 
     @Override
     public int layoutId() {
@@ -84,6 +88,11 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
 
     @Override
     public void init() {
+
+        requestPresenter = new RequestPresenter();
+        requestPresenter.setRelation(this);
+
+
         goodDetailBean = (GoodDetailEntity.GoodDetailBean) getIntent().getSerializableExtra(Constants.INTENT_KEY_DATA);
         Map<String, String> map = new HashMap<>();
         map.put("goodsId", goodDetailBean.getItemId());
@@ -139,6 +148,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        requestPresenter.setUntying(this);
     }
 
     public void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
@@ -329,6 +339,10 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         if (goodDetailBean != null) {
+            Map<String, String> map = new HashMap<>();
+            map.put("type", "1");
+            map.put("content", goodDetailBean.getId() + "");
+            requestPresenter.onCandySharing(ShareComissionActivity.this, map);
             ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
                     goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
                     goodDetailBean.getDiscountPrice() + "", platform.getName(), "true");
@@ -351,5 +365,20 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
                     goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
                     goodDetailBean.getDiscountPrice() + "", platform.getName(), "false");
         }
+    }
+
+    @Override
+    public void onSuccess(Object data) {
+
+    }
+
+    @Override
+    public void onNotNetWork() {
+
+    }
+
+    @Override
+    public void onFail(Throwable e) {
+
     }
 }

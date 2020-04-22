@@ -44,7 +44,6 @@
     <permission
         android:name="getui.permission.GetuiService.${applicationId}"
         android:protectionLevel="normal"/>
-
     <application
         android:name=".BearMallAplication"
         android:allowBackup="false"
@@ -53,21 +52,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
-        <activity android:name=".ui.activity.HairCircleActivity"/>
-
+        <activity
+            android:name=".ui.activity.HairCircleActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name="com.video.videoplayer.player.PlayerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"
             android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.activity.BinDingWXActivity"/>
-
+        <activity
+            android:name=".ui.activity.BinDingWXActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.PartnerFansSeekActivity"
             android:configChanges="locale|layoutDirection"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
-
         <activity
             android:name=".ui.activity.PartnerOrderSeekActivity"
             android:configChanges="locale|layoutDirection"
@@ -107,9 +110,21 @@
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
-        <activity android:name="com.newversions.InviteFriendActivity"/>
-        <activity android:name=".ADGiveCandyActivity"/>
-        <activity android:name=".ui.activity.InformationFragmentActivity"/>
+        <activity
+            android:name="com.newversions.InviteFriendActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ADGiveCandyActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.InformationFragmentActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.SplashActivity"
             android:configChanges="locale|layoutDirection"
@@ -117,7 +132,6 @@
             android:theme="@style/AppTheme1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <!-- 在主 Activity 中配置 scheme -->
@@ -182,7 +196,11 @@
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
-        <activity android:name=".ui.activity.PayActivity"/>
+        <activity
+            android:name=".ui.activity.PayActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.ShopActivity"
             android:configChanges="locale|layoutDirection"
@@ -536,16 +554,36 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.newversions.hd.HdActivity"/>
+        <activity
+            android:name="com.newversions.hd.HdActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name="com.newversions.detail.NewProductDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
-        <activity android:name="com.newversions.passwd.PwdActivity"/>
-        <activity android:name="com.newversions.passwd.ChangePwdActivity"/>
-        <activity android:name="com.newversions.passwd.SettingPwdActivity"/>
-        <activity android:name="com.newversions.passwd.RetrievePwdActivity"/>
+        <activity
+            android:name="com.newversions.passwd.PwdActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.passwd.ChangePwdActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.passwd.SettingPwdActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.passwd.RetrievePwdActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.CouponActivity"
             android:configChanges="locale|layoutDirection"
@@ -561,8 +599,16 @@
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
-        <activity android:name="com.newversions.help.HelpActivity"/>
-        <activity android:name="com.newversions.push.MyPushActivity"/>
+        <activity
+            android:name="com.newversions.help.HelpActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.push.MyPushActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.ChargeActivity"
             android:configChanges="locale|layoutDirection"
@@ -576,45 +622,145 @@
         <activity
             android:name=".ui.activity.OpenVipActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.newversions.detail.order.VirtualOrdersActivity"/>
+        <activity
+            android:name="com.newversions.detail.order.VirtualOrdersActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.InviteVipActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.VipCenterActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.newversions.NewWebViewActivity"/>
+        <activity
+            android:name="com.newversions.NewWebViewActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.RenewVipActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Testctivity"/>
-        <activity android:name="com.newversions.ServiceActivity"/>
-        <activity android:name="com.newversions.ImageLookActivity"/>
+        <activity
+            android:name=".ui.activity.Testctivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.ServiceActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.ImageLookActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name="com.newreward.SpecialRequestUI.RewardDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator"/>
-        <activity android:name="com.newversions.MoneyRewardActivity"/>
-        <activity android:name=".ui.activity.BankCardActivity"/>
-        <activity android:name=".ui.activity.BankAddVerifyActivity"/>
-        <activity android:name=".ui.activity.BindingBankActivity"/>
-        <activity android:name=".ui.activity.PhoneVerifyActivity"/>
-        <activity android:name=".ui.activity.VerifySuccessActivity"/>
-        <activity android:name=".ui.activity.BalanceWithdrawalActivity"/>
-        <activity android:name=".ui.activity.BalanceWithdrawalWxActivity"/>
-        <activity android:name=".ui.activity.WithdrawActivity"/>
-        <activity android:name=".ui.activity.WithdrawalRecordActivity"/>
-        <activity android:name="com.newversions.CreditCardActivity"/>
-        <activity android:name="com.newversions.CardListWebActivity"/>
-        <activity android:name=".ui.activity.LoanActivity"/>
-        <activity android:name="com.newversions.tbk.activity.GoodsDetailActivity"/>
-        <activity android:name="com.newversions.tbk.activity.IncomeRecordActivity"/>
-        <activity android:name="com.newversions.tbk.activity.WebActivity"/>
-        <activity android:name="com.newversions.tbk.activity.ProductSumActivity"/>
-        <activity android:name="com.newversions.tbk.activity.ShareComissionActivity"/>
-        <activity android:name="com.newversions.tbk.activity.MyTBKCollectionActivity"/>
-        <activity android:name="com.newversions.tbk.activity.InputIncomCodeActivity"/>
+        <activity
+            android:name="com.newversions.MoneyRewardActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.BankCardActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.BankAddVerifyActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.BindingBankActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.PhoneVerifyActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.VerifySuccessActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.BalanceWithdrawalActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.BalanceWithdrawalWxActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.WithdrawActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.WithdrawalRecordActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.CreditCardActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.CardListWebActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.LoanActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.tbk.activity.GoodsDetailActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.tbk.activity.IncomeRecordActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.tbk.activity.WebActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.tbk.activity.ProductSumActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.tbk.activity.ShareComissionActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.tbk.activity.MyTBKCollectionActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.newversions.tbk.activity.InputIncomCodeActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name=".ui.activity.InvitationActivity2"
             android:configChanges="locale|layoutDirection"
@@ -631,10 +777,46 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}"/>
 
-        <activity android:name=".ui.activity.SearFansActivity"/>
-        <activity android:name=".ui.activity.DailyIncomeActivity"/>
-        <activity android:name=".ui.activity.MonthlyIncomeActivity"/>
-        <activity android:name=".ui.activity.NewWebViewActivity"/>
+        <activity
+            android:name=".ui.activity.SearFansActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.DailyIncomeActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.MonthlyIncomeActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name=".ui.activity.NewWebViewActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.ModifyPhoneActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.SettingsActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.PersonalActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.MeetingplaceActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
 
     </application>
 

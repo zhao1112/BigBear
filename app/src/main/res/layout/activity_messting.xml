@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:background="@color/md_white">
+
+        <ImageView
+            android:id="@+id/toolbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:padding="@dimen/dp_5"
+            android:src="@drawable/icon_backs"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="题活动会场名称"
+            android:textColor="#272727"
+            android:textSize="@dimen/sp_16"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/me_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.3"
+        android:background="@color/blue"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_25"
+            android:background="@mipmap/mess_button"
+            android:gravity="center"
+            android:text="去会场GO  >"
+            android:textColor="#ff438ff1"
+            android:textSize="@dimen/sp_18"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_25"
+            android:background="@drawable/bg_corner_search_dialog"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_22"
+                android:text="420天貓親子節，滿300減40，享2件75折，復制"
+                android:textColor="#ff272727"
+                android:textSize="@dimen/sp_13"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="（UBKZ1likEpd）打开手机Tao宝即可。"
+                android:textColor="#ff272727"
+                android:textSize="@dimen/sp_13"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_20">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/me_share"
+                        android:layout_width="@dimen/dp_120"
+                        android:layout_height="@dimen/dp_40"
+                        android:gravity="center"
+                        android:text="复制淘口令"
+                        android:textColor="#ffffffff"
+                        android:textSize="@dimen/sp_15"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="@dimen/dp_120"
+                        android:layout_height="@dimen/dp_40"
+                        android:gravity="center"
+                        android:text="分享好友"
+                        android:textColor="#ff272727"
+                        android:textSize="@dimen/sp_15"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

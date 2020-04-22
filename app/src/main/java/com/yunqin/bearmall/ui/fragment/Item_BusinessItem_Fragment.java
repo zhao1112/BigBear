@@ -20,11 +20,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.ui.contract.RequestContract;
+import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
+import com.newversions.tbk.activity.ShareComissionActivity;
 import com.newversions.tbk.activity.WebActivity;
 import com.newversions.tbk.entity.ShareGoodsEntity;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -53,6 +56,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
@@ -65,7 +69,7 @@ import permison.listener.PermissionListener;
  * @PACKAGE com.yunqin.bearmall.ui.fragment
  * @DATE 2020/3/30
  */
-public class Item_BusinessItem_Fragment extends BaseFragment {
+public class Item_BusinessItem_Fragment extends BaseFragment implements RequestContract.RequestView {
 
     @BindView(R.id.item_bu_recycle)
     RecyclerView mItemBuRecycle;
@@ -82,6 +86,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
     private PopUtil instance;
     private int refresh = 2;
     private PopUtil2 popUtil2;
+    private RequestPresenter requestPresenter;
 
     public static Item_BusinessItem_Fragment getInstance(String categoryId) {
         Bundle bundle = new Bundle();
@@ -98,6 +103,9 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
 
     @Override
     public void init() {
+
+        requestPresenter = new RequestPresenter();
+        requestPresenter.setRelation(this);
 
         instance = PopUtil.getInstance();
         instance.setContext(getActivity());
@@ -140,7 +148,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                 for (int j = 0; j < strings.length; j++) {
                     Log.e("businessAdapter", strings[j] + "---");
                 }
-                clickshare(strings, title, i);
+                clickshare(strings, title, i, id);
                 BusinessShare(id);
             }
 
@@ -157,7 +165,10 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
 
     }
 
-    private void clickshare(String[] strings, String title, int i) {
+    private void clickshare(String[] strings, String title, int i, int id) {
+        Map<String, String> map = new HashMap<>();
+        map.put("type", "1");
+        map.put("content", id + "");
         ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
         View popView = instance.getPopView(R.layout.popup_business_share, 1);
@@ -179,6 +190,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                             showToast("文案已复制剪切板", Gravity.CENTER);
                             shareQQ(Wechat.NAME, strings);
                             instance.dismissPopupWindow();
+                            requestPresenter.onCandySharing(getActivity(), map);
                         } else {
                             Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
                         }
@@ -203,6 +215,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                             downBusiness(strings, 1, 1);
                             instance.dismissPopupWindow();
                             popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
+                            requestPresenter.onCandySharing(getActivity(), map);
                         }
 
                         @Override
@@ -225,6 +238,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                             downBusiness(strings, 1, 4);
                             instance.dismissPopupWindow();
                             popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
+                            requestPresenter.onCandySharing(getActivity(), map);
                         } else {
                             Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                         }
@@ -247,6 +261,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
                             downBusiness(strings, 1, 2);
                             instance.dismissPopupWindow();
                             popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
+                            requestPresenter.onCandySharing(getActivity(), map);
                         } else {
                             Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                         }
@@ -379,6 +394,22 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         shareParams.setShareType(Platform.SHARE_IMAGE);//分享类型
         shareParams.setImageArray(strings);
         platform.share(shareParams);
+        platform.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        });
     }
 
     public static void shareQQImage(String name, String[] strings) {//name 分享到那个平台
@@ -514,5 +545,24 @@ public class Item_BusinessItem_Fragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        requestPresenter.setUntying(this);
+    }
 
+    @Override
+    public void onSuccess(Object data) {
+
+    }
+
+    @Override
+    public void onNotNetWork() {
+
+    }
+
+    @Override
+    public void onFail(Throwable e) {
+
+    }
 }
