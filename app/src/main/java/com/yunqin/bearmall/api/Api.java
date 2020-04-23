@@ -1443,5 +1443,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/share/shareArticleAndProduct")
     Observable<String> shareArticleAndProduct(@FieldMap() Map<String, String> params);
+
+    /**
+     * 收益记录
+     */
+    @POST("api/userinfo/getTutorInfo")
+    Observable<String> getTutorInfo();
 }
 

@@ -764,6 +764,29 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/mine_tutor"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/mine_daoshi"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_6"
+                                    android:text="导师微信"
+                                    android:textColor="#ff303030"
+                                    android:textSize="@dimen/sp_12"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:id="@+id/mine_course"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -809,6 +832,16 @@
 
                             </LinearLayout>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/mine_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_7"
+                            android:layout_marginBottom="@dimen/dp_17"
+                            android:orientation="horizontal">
+
                             <LinearLayout
                                 android:id="@+id/mine_secvice"
                                 android:layout_width="0dp"
@@ -832,17 +865,6 @@
 
                             </LinearLayout>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/mine_month"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_7"
-                            android:layout_marginBottom="@dimen/dp_17"
-                            android:orientation="horizontal"
-                            >
-
                             <LinearLayout
                                 android:id="@+id/mine_backstage"
                                 android:layout_width="0dp"
@@ -863,16 +885,6 @@
                                     android:text="合伙人后台"
                                     android:textColor="#ff303030"
                                     android:textSize="@dimen/sp_12"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
 
                             </LinearLayout>
 

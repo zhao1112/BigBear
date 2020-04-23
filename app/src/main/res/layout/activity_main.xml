@@ -57,10 +57,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:iconHeight="@dimen/ds44"
-
                 app:iconNormal="@drawable/icon_tab_home_l"
                 app:iconSelected="@drawable/icon_tab_home_o"
-
                 app:iconWidth="@dimen/ds44"
                 app:itemMarginTop="@dimen/ds14"
                 app:itemText="赚钱中心"
@@ -76,11 +74,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:iconHeight="@dimen/ds44"
-
-
                 app:iconNormal="@drawable/icon_tab_tuijian_normal"
                 app:iconSelected="@drawable/icon_tab_tuijian_selected"
-
                 app:iconWidth="@dimen/ds44"
                 app:itemMarginTop="@dimen/ds14"
                 app:itemText="素材圈"

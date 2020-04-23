@@ -182,8 +182,8 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mWithdrawalPrice.setText(doubleToString(withdrawals));
         mNotPrice.setText(doubleToString(unsettled));
         mCumulativePrice.setText(doubleToString(thisMonth));
-        this.withdrawFrom = withdrawFrom;
-        this.balance = doubleToString(balance);
+        this.withdrawFrom = withdrawFrom + "";
+        this.balance = balance + "";
     }
 
     //注册会员

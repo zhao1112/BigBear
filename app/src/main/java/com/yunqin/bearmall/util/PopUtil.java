@@ -39,9 +39,9 @@ public class PopUtil {
         this.context = context;
     }
 
-    public View getPopView(int viewID, int position) {
+    public View getPopView(int viewId, int position) {
         OpenGoodsDetail.lightoff((Activity) context);
-        View view = LayoutInflater.from(context).inflate(viewID, null);
+        View view = LayoutInflater.from(context).inflate(viewId, null);
         popupWindow = new PopupWindow();
         popupWindow.setContentView(view);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
@@ -49,6 +49,35 @@ public class PopUtil {
         // 设置背景图片， 必须设置，不然动画没作用
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setFocusable(false);
+        // 设置点击popupwindow外屏幕其它地方消失
+        popupWindow.setOutsideTouchable(true);
+        // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
+        if (position == 0) {
+            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        }
+        if (position == 1) {
+            popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        }
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                OpenGoodsDetail.lighton((Activity) context);
+            }
+        });
+        return view;
+    }
+
+    public View setPopView(int viewId, int position) {
+        OpenGoodsDetail.lightoff((Activity) context);
+        View view = LayoutInflater.from(context).inflate(viewId, null);
+        popupWindow = new PopupWindow();
+        popupWindow.setContentView(view);
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        // 设置背景图片， 必须设置，不然动画没作用
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setFocusable(true);
         // 设置点击popupwindow外屏幕其它地方消失
         popupWindow.setOutsideTouchable(true);
         // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置

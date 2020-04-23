@@ -2,16 +2,19 @@ package com.yunqin.bearmall.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -282,7 +285,6 @@ public class DownLoadImage {
         this.mOnDownLoadImage = mOnDownLoadImage;
     }
 
-
     public interface onWXDownLoadImage {
         void fileList(List<File> value);
     }
@@ -292,4 +294,34 @@ public class DownLoadImage {
     public void setOnwxDownLoadImage(onWXDownLoadImage OnWXDownLoadImage) {
         this.OnWXDownLoadImage = OnWXDownLoadImage;
     }
+
+    public void saveBitmap(Bitmap bitmap) throws IOException {
+        File appDir = new File(Environment.getExternalStorageDirectory(), "InvitationPoster");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = System.currentTimeMillis() + ".jpg";
+        file = new File(appDir, fileName);
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(file);
+            if (bitmap.compress(Bitmap.CompressFormat.PNG, 70, out)) {
+                out.flush();
+                out.close();
+                try {
+                    MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("dismissPopupWindow", e.getMessage());
+                }
+                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri uri = Uri.fromFile(file);
+                intent.setData(uri);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("dismissPopupWindow", e.getMessage());
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package com.yunqin.bearmall.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -73,10 +74,19 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
         money = getIntent().getStringExtra("MONEY");
         withdrawFrom = getIntent().getStringExtra("withdrawFrom");
         rightText.setVisibility(View.VISIBLE);
-        mongeyView.setText("¥" + money);
+        if (!TextUtils.isEmpty(money)) {
+            mongeyView.setText("¥" + money);
+        } else {
+            mongeyView.setText("¥0.00");
+        }
         rightText.setText("余额明细");
         titleView.setText("余额");
-        ti_xian_ti_shi.setText("最小提现金额：¥" + withdrawFrom);
+        if (!TextUtils.isEmpty(withdrawFrom)) {
+            ti_xian_ti_shi.setText("最小提现金额：¥" + withdrawFrom);
+        } else {
+            ti_xian_ti_shi.setText("最小提现金额：¥" + 1);
+        }
+
         showAnimation();
     }
 

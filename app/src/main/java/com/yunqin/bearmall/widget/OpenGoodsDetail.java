@@ -54,7 +54,7 @@ public class OpenGoodsDetail {
     //设置手机屏幕亮度变暗
     public static void lightoff(Activity activity) {
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-        lp.alpha = 0.5f;
+        lp.alpha = 0.3f;
         activity.getWindow().setAttributes(lp);
     }
 

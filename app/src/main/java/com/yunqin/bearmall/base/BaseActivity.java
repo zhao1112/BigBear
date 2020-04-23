@@ -53,10 +53,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layoutId());
-        Log.i("BaseActivity", "BaseActivity : " + getClass().getSimpleName());
         ButterKnife.bind(this);
 //        StatusBarUtil.setImmersiveStatusBar(this, true);
         init();
+        Log.i("BaseActivity", "BaseActivity : " + getClass().getSimpleName());
     }
 
     @Override
@@ -373,5 +373,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         //设置状态栏透明
         StatuBarUtils.setTranslucentStatus(this);
     }
-
 }

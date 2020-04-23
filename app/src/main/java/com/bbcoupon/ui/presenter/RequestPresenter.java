@@ -41,4 +41,11 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    @Override
+    public void onTutorWx(Context context) {
+        if (requestView != null) {
+            requestModel.onTutorWx(context, requestView);
+        }
+    }
+
 }

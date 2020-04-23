@@ -28,7 +28,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context context;
     private int type;
 
-    public RecordAdapter(List<SweetRecord.RecordBean> datas, Context context,int type) {
+    public RecordAdapter(List<SweetRecord.RecordBean> datas, Context context, int type) {
         this.datas = datas;
         this.context = context;
         this.type = type;
@@ -37,7 +37,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_sweet_record,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_sweet_record, parent, false);
         return new RecordHolder(view);
     }
 
@@ -49,14 +49,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             SweetRecord.RecordBean recordBean = datas.get(position);
             recordHolder.createDateView.setText(recordBean.getCreatedDate());
             recordHolder.memoView.setText(recordBean.getMemo());
-            String credit = (type==0?"+"+recordBean.getCredit():recordBean.getDebit()) ;
-            if (type == 0){
+            String credit = (type == 0 ? "+" + recordBean.getCredit() : recordBean.getDebit());
+            if (type == 0) {
 
-            }else {
+            } else {
                 recordHolder.bearView.setImageResource(R.drawable.icon_bear_gray);
                 recordHolder.creditView.setTextColor(Color.parseColor("#999999"));
             }
-            recordHolder.creditView.setText(credit);
+            String[] split = credit.split("\\.");
+            recordHolder.creditView.setText(split[0]);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,10 +65,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return datas==null?0:datas.size();
+        return datas == null ? 0 : datas.size();
     }
 
-    class RecordHolder extends RecyclerView.ViewHolder{
+    class RecordHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item_memo)
         TextView memoView;
@@ -80,7 +81,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public RecordHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 

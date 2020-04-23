@@ -13,7 +13,6 @@ import com.newversions.IAdvClick;
 import com.newreward.SpecialRequestUI.RewardDetailActivity;
 import com.yunqin.bearmall.AdConstants;
 import com.yunqin.bearmall.BearMallAplication;
-import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
@@ -30,6 +29,7 @@ import com.yunqin.bearmall.ui.activity.SweetRecordActivity;
 import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.DialogUtils;
+import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StarActivityUtil;
 import com.yunqin.bearmall.widget.DotView;
@@ -125,30 +125,14 @@ public class MakeMoneyFragment extends BaseFragment {
         imageaViews.add(image_5);
     }
 
-    @OnClick({
-            R.id.today_bt,
-            R.id.bt_wallet,
-            R.id.shangjin_left,
-            R.id.shangjin_right,
-            R.id.new_menu_1,
-            R.id.new_menu_2,
-            R.id.new_menu_3,
-            R.id.new_menu_4,
-            R.id.mine_bottom_sign_in,
-            R.id.request_friends,
-            R.id.you_xi_zhuan_li_pin,
-            R.id.share_zixun,
-            R.id.dadachoujiang,
-            R.id.da_chou_jiang,
-            R.id.top_xiao_xi
-    })
+    @OnClick({R.id.today_bt, R.id.bt_wallet, R.id.shangjin_left, R.id.shangjin_right, R.id.new_menu_1, R.id.new_menu_2, R.id.new_menu_3,
+            R.id.new_menu_4, R.id.mine_bottom_sign_in, R.id.request_friends, R.id.you_xi_zhuan_li_pin, R.id.share_zixun, R.id.dadachoujiang,
+            R.id.da_chou_jiang, R.id.top_xiao_xi, R.id.make_rule})
     public void selectView(View view) {
-
         if (BearMallAplication.getInstance().getUser() == null) {
             LoginActivity.starActivity(getActivity());
             return;
         }
-
         switch (view.getId()) {
             case R.id.top_xiao_xi:
                 InformationFragmentActivity.start(getActivity());
@@ -219,6 +203,17 @@ public class MakeMoneyFragment extends BaseFragment {
             case R.id.today_bt:// 今日获得糖果数
                 SweetRecordActivity.startIncomeActivity(0, null, getActivity());
                 break;
+            case R.id.make_rule:
+                PopUtil instance = PopUtil.getInstance();
+                instance.setContext(getActivity());
+                View popView = instance.getPopView(R.layout.item_make_rule_pop, 0);
+                popView.findViewById(R.id.make_rule_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        instance.dismissPopupWindow();
+                    }
+                });
+                break;
             default:
                 break;
         }
@@ -237,10 +232,8 @@ public class MakeMoneyFragment extends BaseFragment {
     HighlightButton mine_bottom_sign_in;
 
     private void initDatas() {
-
         HashMap<String, String> mHashMap = new HashMap<>();
         mHashMap.put("positionType", "28");
-
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getDailyTaskAllReward(), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
@@ -249,18 +242,17 @@ public class MakeMoneyFragment extends BaseFragment {
                 DayliTaskBCInfo.DataBean.RewardDetailsBean detailsBean = dayliTaskBCInfo.getData().getRewardDetails();
 
                 tishi.setText(String.format("今日还有%s糖果待领取，现已领取%s糖果:", detailsBean.getRestReward(), detailsBean.getTodayCreditSum()));
-
                 tip1.setText(String.format("每日签到成功+%s糖果", detailsBean.getUsersRegisterRewardMax()));
                 tip2.setText(String.format("好友注册即得%s个糖果", detailsBean.getFriendInvitReward()));
                 tip3.setText(String.format("每日转发文章最高得%s个糖果", detailsBean.getMemberShareInfoReward()));
                 tip4.setText(String.format("每日转发商品最高得%s个糖果", detailsBean.getMemberShareProduct()));
 
-
-                today_shang_jin_shu.setText(String.valueOf(detailsBean.getTodayRewardMoney()));
+                String[] split1 = detailsBean.getTodayRewardMoney().split("\\.");
+                today_shang_jin_shu.setText(split1[0]);
                 shang_jin_shu.setText(detailsBean.getBalance());
-                today_tang_guo_shu.setText(detailsBean.getTodayCreditSum());
+                String[] split = detailsBean.getTodayCreditSum().split("\\.");
+                today_tang_guo_shu.setText(split[0]);
                 tang_guo_shu.setText(detailsBean.getBCbanlance());
-
 
                 if (dayliTaskBCInfo.getData().getAdRecord().getAdEarnMoneyList1().size() > 0) {
                     setAdData(dayliTaskBCInfo.getData().getAdRecord().getAdEarnMoneyList1().get(0), 0);
@@ -282,11 +274,9 @@ public class MakeMoneyFragment extends BaseFragment {
                     setAdData(dayliTaskBCInfo.getData().getAdRecord().getAdEarnMoneyList5().get(0), 4);
                 }
 
-
                 if (dayliTaskBCInfo.getData().getIsSignToday() == 1) {
                     mine_bottom_sign_in.setText("已签到");
                 }
-
             }
 
             @Override

@@ -25,9 +25,13 @@ public class RequestContract {
         void setUntying(RequestView untying);
 
         void onCandySharing(Context context, Map<String, String> map);
+
+        void onTutorWx(Context context);
     }
 
     public interface RequestModel {
         void onCandySharing(Context context, RequestContract.RequestView requestView, Map<String, String> map);
+
+        void onTutorWx(Context context, RequestContract.RequestView requestView);
     }
 }

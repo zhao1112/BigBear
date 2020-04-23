@@ -97,30 +97,31 @@ public class ZeorExchangeFragment extends BaseFragment {
     public void getZeorData() {
         Map<String, String> map = new HashMap<>();
         map.put("page_number", page_number + "");
-        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getGrouppurchasingIndex(map), new RetrofitApi.IResponseListener() {
-            @Override
-            public void onSuccess(String data) {
-                try {
-                    ZeroGoodsBean zeroGoodsBean = new Gson().fromJson(data, ZeroGoodsBean.class);
-                    if (zeroGoodsBean != null && zeroGoodsBean.getData() != null && zeroGoodsBean.getData().getGroupPurchasingList() != null &&
-                            zeroGoodsBean.getData().getGroupPurchasingList().size() > 0) {
-                        zeroAdapter.setData(zeroGoodsBean.getData().getGroupPurchasingList());
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getGrouppurchasingIndex(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            ZeroGoodsBean zeroGoodsBean = new Gson().fromJson(data, ZeroGoodsBean.class);
+                            if (zeroGoodsBean != null && zeroGoodsBean.getData() != null && zeroGoodsBean.getData().getGroupPurchasingList() != null &&
+                                    zeroGoodsBean.getData().getGroupPurchasingList().size() > 0) {
+                                zeroAdapter.setData(zeroGoodsBean.getData().getGroupPurchasingList());
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+                    @Override
+                    public void onNotNetWork() {
 
-            @Override
-            public void onNotNetWork() {
+                    }
 
-            }
+                    @Override
+                    public void onFail(Throwable e) {
 
-            @Override
-            public void onFail(Throwable e) {
-
-            }
-        });
+                    }
+                });
     }
 }

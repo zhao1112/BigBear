@@ -103,7 +103,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
         //初始化友盟
         BearMallAplication.initUM(HomeActivity.this);
-
         presenter = new HomePresenter(this);
         // com.getui.demo.DemoPushService 为第三方自定义推送服务
         PushManager.getInstance().initialize(this.getApplicationContext(), BearMallPushService.class);

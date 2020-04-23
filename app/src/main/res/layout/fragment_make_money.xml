@@ -84,7 +84,7 @@
                             android:id="@+id/mine_today_bt_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="00.00"
+                            android:text="0"
                             android:textColor="@color/main_color"
                             android:textSize="@dimen/ds40"/>
 
@@ -185,7 +185,7 @@
                             android:id="@+id/shangjin_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="00.00"
+                            android:text="0"
                             android:textColor="@color/main_color"
                             android:textSize="@dimen/ds40"/>
 
@@ -392,6 +392,16 @@
                     android:textColor="#666666"
                     android:textSize="@dimen/ds28"/>
 
+                <ImageView
+                    android:id="@+id/make_rule"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:padding="@dimen/dp_5"
+                    android:src="@mipmap/make_rules"/>
+
             </RelativeLayout>
 
             <LinearLayout
@@ -526,7 +536,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="转发文章领糖果"
+                            android:text="转发宣传素材领糖果"
                             android:textColor="#000000"
                             android:textSize="@dimen/ds28"/>
 

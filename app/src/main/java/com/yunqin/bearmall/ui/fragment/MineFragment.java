@@ -4,9 +4,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -17,8 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bbcoupon.ui.activity.SettingsActivity;
-import com.blankj.utilcode.util.SPStaticUtils;
+import com.bbcoupon.base.BaseFragment2;
+import com.bbcoupon.ui.activity.MeetingplaceActivity;
+import com.bbcoupon.ui.bean.TutorInfor;
+import com.bbcoupon.ui.contract.RequestContract;
+import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -31,7 +33,6 @@ import com.newversions.help.HelpActivity;
 import com.newversions.tbk.activity.MyTBKCollectionActivity;
 import com.newversions.tbk.activity.WebActivity;
 import com.newversions.tbk.utils.BannerClicker;
-import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
 import com.youth.banner.Banner;
@@ -88,7 +89,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,7 +99,7 @@ import butterknife.OnClick;
 /**
  * @author Master
  */
-public class MineFragment extends BaseFragment implements MineContract.UI {
+public class MineFragment extends BaseFragment implements MineContract.UI, RequestContract.RequestView {
 
     @BindView(R.id.mine_head)
     CircleImageView mMineHead;
@@ -210,6 +210,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     private static final float BANNER = 4.31f;
     private boolean Commander = true;
     private UserInfo.Identity identity;
+    private RequestPresenter presenter;
 
     @Override
     public int layoutId() {
@@ -221,6 +222,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         EventBus.getDefault().register(this);
         setshowUI();
         mPresenter = new MinePresenter(this);
+        presenter = new RequestPresenter();
+        presenter.setRelation(this);
         initUserView();
         mBanner.isAutoPlay(true);
         mBanner.setDelayTime(3000);
@@ -462,7 +465,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             R.id.mine_wallet, R.id.mine_order, R.id.mine_fraction, R.id.mine_share, R.id.mine_save, R.id.mine_comment, R.id.mine_address,
             R.id.mine_materiel, R.id.mine_send, R.id.mine_course, R.id.mine_problem, R.id.mine_secvice, R.id.mine_login, R.id.openvip,
             R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one, R.id.mine_commander,
-            R.id.mine_backstage, R.id.Wx})
+            R.id.mine_backstage, R.id.Wx, R.id.mine_tutor})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
@@ -487,9 +490,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
                         bundle.putString("name", identity.getIdentity());
                         bundle.putInt("type_id", identity.getUpgradeType());
                     }
-                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                    getActivity().startActivity(intent);
-//                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class, bundle);
+                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class, bundle);
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }
@@ -612,6 +613,13 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
             case R.id.Wx://绑定微信
                 Intent intent = new Intent(getActivity(), BinDingWXActivity.class);
                 startActivityForResult(intent, 1);
+                break;
+            case R.id.mine_tutor://微信导师号
+                if (BearMallAplication.getInstance().getUser() != null) {
+                    presenter.onTutorWx(getActivity());
+                } else {
+                    LoginActivity.starActivity(getActivity());
+                }
                 break;
         }
     }
@@ -802,6 +810,49 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
         }
     }
 
+    @Override
+    public void onSuccess(Object data) {
+        if (data instanceof TutorInfor) {
+            if (((TutorInfor) data).getData() != null) {
+                PopUtil instance = PopUtil.getInstance();
+                instance.setContext(getActivity());
+                View view = instance.setPopView(R.layout.item_tutor_pop, 0);
+                TextView tutor_wx_number = view.findViewById(R.id.tutor_wx_number);
+                TextView tutor_copy = view.findViewById(R.id.tutor_copy);
+                ImageView tutor_image = view.findViewById(R.id.tutor_image);
+                if (!TextUtils.isEmpty(((TutorInfor) data).getData().getWeixin())) {
+                    tutor_wx_number.setText("微信号：" + ((TutorInfor) data).getData().getWeixin());
+                    tutor_copy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ClipboardManager clipboardManager =
+                                    (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                                    ((TutorInfor) data).getData().getWeixin()));
+                            showToast("复制成功");
+                        }
+                    });
+                } else {
+                    tutor_wx_number.setText("微信号：未填写");
+                }
+                Glide.with(getActivity()).load(((TutorInfor) data).getData().getWxQrcode()).into(tutor_image);
+
+            } else {
+                showToast("导师未绑定微信");
+            }
+        }
+    }
+
+    @Override
+    public void onNotNetWork() {
+        Log.e("onFail", "onFail: ");
+    }
+
+    @Override
+    public void onFail(Throwable e) {
+        Log.e("onFail", "onFail: ");
+    }
+
     private class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
@@ -833,6 +884,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        presenter.setUntying(this);
         EventBus.getDefault().unregister(this);
     }
 
