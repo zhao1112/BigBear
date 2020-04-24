@@ -130,6 +130,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 page = 1;
                 refresh = 1;
+                mPropagandaAdapter.clearData();
                 getBusinessMaterial();
             }
 
@@ -151,7 +152,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
         mPropagandaAdapter.setOnClickShare(new PropagandaAdapter.onClickShare() {
             @Override
             public void share(String[] strings, int id, int i, String title) {
-                clickshare(strings, i, title,id);
+                clickshare(strings, i, title, id);
                 BusinessShare(id);
             }
 
@@ -234,7 +235,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
         });
     }
 
-    private void clickshare(String[] strings, int i, String title,int id) {
+    private void clickshare(String[] strings, int i, String title, int id) {
         Map<String, String> map = new HashMap<>();
         map.put("type", "2");
         map.put("content", id + "");
@@ -528,9 +529,6 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
             public void onSuccess(String data) throws JSONException {
                 PropagandaBean propagandaBean = new Gson().fromJson(data, PropagandaBean.class);
                 if (propagandaBean != null && propagandaBean.getData() != null && propagandaBean.getData().size() > 0) {
-                    if (refresh == 1) {
-                        mPropagandaAdapter.clearData();
-                    }
                     mPropagandaAdapter.addData(propagandaBean.getData());
                     mNulldata.setVisibility(View.GONE);
                 }

@@ -3,8 +3,8 @@ package com.yunqin.bearmall.adapter;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,13 +18,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bbcoupon.util.ImageUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.transition.Transition;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
@@ -32,6 +34,9 @@ import com.yunqin.bearmall.bean.PropagandaBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import cc.shinichi.library.ImagePreview;
 import cc.shinichi.library.bean.ImageInfo;
@@ -60,7 +65,7 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void addData(List<PropagandaBean.DataBean> list) {
-        this.list = list;
+        this.list.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -121,27 +126,28 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
                 try {
                     String[] image = list.get(position).getImages().split(",");
+
                     Glide.with(context)
                             .asBitmap()
                             .load(image[0])
-                            .apply(options)
+                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
                             .into(new SimpleTarget<Bitmap>() {
                                 @Override
                                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    int width = imageHolder.bus_content.getWidth();
-                                    int bitmwidth = resource.getWidth();
-                                    int bitmheight = resource.getHeight();
-                                    if (bitmwidth > width) {
-                                        if (bitmheight > (width / 3 * 2)) {
-                                            Bitmap bitmap = ImageUtil.zoomImage(resource, width, (width / 3 * 2));
-                                            imageHolder.bus_image_min.setImageBitmap(bitmap);
-                                        } else {
-                                            Bitmap bitmap = ImageUtil.zoomImage(resource, width, bitmheight);
-                                            imageHolder.bus_image_min.setImageBitmap(bitmap);
-                                        }
-                                    } else {
-                                        imageHolder.bus_image_min.setImageBitmap(resource);
-                                    }
+                                    imageHolder.bus_image_min.setImageBitmap(resource);
+//                                    int width = imageHolder.bus_image_min.getWidth();
+//                                    int height = imageHolder.bus_image_min.getHeight();
+//                                    int bitmapwidth = resource.getWidth();
+//                                    int bitmapheight = resource.getHeight();
+//                                    if (((int)(bitmapwidth / bitmapheight)) > ((int)(width / height))) {
+//                                        Bitmap bitmap = ImageUtil.ImageWidth(resource, ((float) (bitmapwidth / width)),
+//                                                ((float) (bitmapheight * (width / bitmapwidth))));
+//                                        imageHolder.bus_image_min.setImageBitmap(bitmap);
+//                                    } else {
+//                                        Bitmap bitmap = ImageUtil.ImageWidth(resource, ((float) (bitmapwidth * (height / bitmapheight))),
+//                                                ((float) (bitmapheight / height)));
+//                                        imageHolder.bus_image_min.setImageBitmap(bitmap);
+//                                    }
                                 }
                             });
 
