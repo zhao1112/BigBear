@@ -100,7 +100,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
     @Override
     public void init() {
-
         //初始化友盟
         BearMallAplication.initUM(HomeActivity.this);
         presenter = new HomePresenter(this);
@@ -148,6 +147,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
                 getSpecInvitationPageInfo();
             }
         } catch (Exception e) {
+
         }
 
         new CheckForUpdateHelper().checkForUpdate(this, 1);

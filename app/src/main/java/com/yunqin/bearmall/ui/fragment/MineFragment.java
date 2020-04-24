@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -19,8 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bbcoupon.base.BaseFragment2;
-import com.bbcoupon.ui.activity.MeetingplaceActivity;
 import com.bbcoupon.ui.bean.TutorInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
@@ -221,10 +218,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
     }
 
 
-
     @Override
     public void init() {
         setshowUI();
+        EventBus.getDefault().register(this);
         mPresenter = new MinePresenter(this);
         presenter = new RequestPresenter();
         presenter.setRelation(this);
@@ -573,8 +570,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 webView.loadUrl("https://pan.baidu.com/s/1dMddwhUwH3KS7kggLHs7KQ");
                 break;
             case R.id.mine_send://发圈文案
-                Intent intent1 = new Intent(getActivity(), HairCircleActivity.class);
-                getActivity().startActivity(intent1);
+                EventBus.getDefault().post(new ChangeFragment(1));
                 break;
             case R.id.mine_course://新手教程
                 WebActivity.startWebActivity(getActivity(), 200, url, "新手教程");
@@ -883,8 +879,9 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("TestFragment","onDestroy");
+        Log.i("TestFragment", "onDestroy");
         presenter.setUntying(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -922,18 +919,18 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("TestFragment","onCreate");
+        Log.i("TestFragment", "onCreate");
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.i("TestFragment","onAttach");
+        Log.i("TestFragment", "onAttach");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.i("TestFragment","onViewCreated");
+        Log.i("TestFragment", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
     }
@@ -941,7 +938,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.i("TestFragment","onDestroyView");
+        Log.i("TestFragment", "onDestroyView");
     }
 
 }

@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.util.ImageUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -121,10 +122,28 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 try {
                     String[] image = list.get(position).getImages().split(",");
                     Glide.with(context)
-                            .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
+                            .asBitmap()
                             .load(image[0])
                             .apply(options)
-                            .into(imageHolder.bus_image_min);
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    int width = imageHolder.bus_content.getWidth();
+                                    int bitmwidth = resource.getWidth();
+                                    int bitmheight = resource.getHeight();
+                                    if (bitmwidth > width) {
+                                        if (bitmheight > (width / 3 * 2)) {
+                                            Bitmap bitmap = ImageUtil.zoomImage(resource, width, (width / 3 * 2));
+                                            imageHolder.bus_image_min.setImageBitmap(bitmap);
+                                        } else {
+                                            Bitmap bitmap = ImageUtil.zoomImage(resource, width, bitmheight);
+                                            imageHolder.bus_image_min.setImageBitmap(bitmap);
+                                        }
+                                    } else {
+                                        imageHolder.bus_image_min.setImageBitmap(resource);
+                                    }
+                                }
+                            });
 
                     imageHolder.bus_image_min.setOnClickListener(new View.OnClickListener() {
                         @Override

@@ -39,9 +39,15 @@ public class ImageUtil {
         float scaleHeight = ((float) newHeight) / height;
         // 缩放图片动作
         matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap bitmap = Bitmap.createBitmap(bgimage, 0, 0, (int) width,
-                (int) height, matrix, true);
+        Bitmap bitmap = null;
+        try {
+            bitmap = Bitmap.createBitmap(bgimage, 0, 0, (int) width, (int) height, matrix, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return bitmap;
     }
+
+
 
 }

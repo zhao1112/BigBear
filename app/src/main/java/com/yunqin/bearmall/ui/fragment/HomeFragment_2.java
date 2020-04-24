@@ -73,6 +73,7 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
 
     @Override
     public void init() {
+        EventBus.getDefault().register(this);
         mPresenter = new HomePresenter(this);
     }
 

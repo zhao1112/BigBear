@@ -84,6 +84,8 @@ public class SwitchFragment {
             case FRAGMENT_TYPE.APP_HOME:
                 if (mHomeFragment == null) {
                     mHomeFragment = new HomeFragment_2();
+                }
+                if (!mHomeFragment.isAdded()) {
                     transaction.add(R.id.content, mHomeFragment);
                 }
                 hiderFragment(transaction);
@@ -95,6 +97,8 @@ public class SwitchFragment {
             case FRAGMENT_TYPE.APP_RECOMMEND:
                 if (mRecommendFragment == null) {
                     mRecommendFragment = new BusinessFragment();
+                }
+                if (!mRecommendFragment.isAdded()) {
                     transaction.add(R.id.content, mRecommendFragment);
                 }
                 hiderFragment(transaction);
@@ -106,6 +110,8 @@ public class SwitchFragment {
             case FRAGMENT_TYPE.APP_INFORMATION:
                 if (mMakeMoneyFragment == null) {
                     mMakeMoneyFragment = new MakeMoneyFragment();
+                }
+                if (!mMakeMoneyFragment.isAdded()) {
                     transaction.add(R.id.content, mMakeMoneyFragment);
                 }
                 hiderFragment(transaction);
@@ -117,6 +123,8 @@ public class SwitchFragment {
             case FRAGMENT_TYPE.APP_TROLLEY:
                 if (zeorExchangeFragment == null) {
                     zeorExchangeFragment = new ZeorExchangeFragment();
+                }
+                if (!zeorExchangeFragment.isAdded()) {
                     transaction.add(R.id.content, zeorExchangeFragment);
                 }
                 hiderFragment(transaction);
@@ -130,6 +138,8 @@ public class SwitchFragment {
             case FRAGMENT_TYPE.APP_MINE:
                 if (mMineFragment == null) {
                     mMineFragment = new MineFragment();
+                }
+                if (!mMineFragment.isAdded()) {
                     transaction.add(R.id.content, mMineFragment);
                 }
                 hiderFragment(transaction);

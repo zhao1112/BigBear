@@ -40,6 +40,7 @@ import com.yunqin.bearmall.widget.DotView;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
 import com.yunqin.bearmall.widget.TopBanner;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -148,12 +149,10 @@ public class MakeMoneyFragment extends BaseFragment {
                 CardListWebActivity.startActivity(getActivity(), AdConstants.STRING_XING_YUN_DA_ZHUAN_PAN, "幸运大抽奖");
                 break;
             case R.id.share_zixun:// 转发商品按钮
-                Intent intent = new Intent(getActivity(), HairCircleActivity.class);
-                getActivity().startActivity(intent);
+                EventBus.getDefault().post(new ChangeFragment(1));
                 break;
             case R.id.you_xi_zhuan_li_pin:// 转发文章按钮
-                Intent intent1 = new Intent(getActivity(), HairCircleActivity.class);
-                getActivity().startActivity(intent1);
+                EventBus.getDefault().post(new ChangeFragment(1));
                 break;
             case R.id.request_friends:// 邀请好友
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
