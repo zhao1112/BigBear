@@ -50,7 +50,7 @@
             android:layout_marginLeft="@dimen/dp_25"
             android:layout_marginTop="@dimen/dp_23"
             android:layout_marginRight="@dimen/dp_25"
-            android:text="1. 每日签到成功可领取100个糖果）"
+            android:text="1. 每日签到成功可领取100个糖果"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_13"/>
 
@@ -72,7 +72,7 @@
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_25"
             android:lineSpacingMultiplier="1.3"
-            android:text="3.每日转发宣传素材文章，转发成功后可获得30个糖果，每日最高获得300个糖果"
+            android:text="3.每日转发宣传素材文章，转发成功后可获得30个糖果，每日上限获得300个糖果（每日同一素材分享多次时，只获得一次分享糖果收益）"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_13"/>
 
@@ -83,7 +83,7 @@
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_25"
             android:lineSpacingMultiplier="1.3"
-            android:text="4.每日转发商品分享爆款素材，转发成功后可以提供30个糖果，每日最高获得600个糖果"
+            android:text="4.每日转发商品分享爆款素材，转发成功后可以提供30个糖果，每日上限获得600个糖果（每日同一素材分享多次时，只获得一次分享糖果收益）"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_13"/>
 

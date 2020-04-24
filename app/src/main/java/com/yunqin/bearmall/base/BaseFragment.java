@@ -43,18 +43,11 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (null != rootView) {
-            ViewGroup parent = (ViewGroup) rootView.getParent();
-            if (null != parent) {
-                parent.removeView(rootView);
-            }
-        } else {
-            rootView = inflater.inflate(layoutId(), container, false);
-            resetDensity(getActivity(), 750);
-            ButterKnife.bind(this, rootView);
-            Faceplate.getDefault().performInjectLayoutLayers(this);
-            init();
-        }
+        rootView = inflater.inflate(layoutId(), container, false);
+        resetDensity(getActivity(), 750);
+        ButterKnife.bind(this, rootView);
+        Faceplate.getDefault().performInjectLayoutLayers(this);
+        init();
         return rootView;
     }
 

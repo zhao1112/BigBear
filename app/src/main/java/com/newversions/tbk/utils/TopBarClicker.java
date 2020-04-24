@@ -50,11 +50,14 @@ public class TopBarClicker {
                 break;
             case 4://天猫超市k
             case 5://天猫超市
-                if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
-                    arouseTaoBao.openTaoBao(bean.getUrl());
-                } else {
-                    Toast.makeText(activity, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
-                }
+//                if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+//                    arouseTaoBao.openTaoBao(bean.getUrl());
+//                } else {
+//                    Toast.makeText(activity, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
+//                }
+                bundle.putString("Web_Url", bean.getUrl());
+                bundle.putString("Web_Tiele",bean.getName());
+                NewWebViewActivity.openNewWebViewActivity(activity, bundle);
                 break;
             case 6:
                 if (BearMallAplication.getInstance().getUser() == null) {
@@ -80,17 +83,20 @@ public class TopBarClicker {
                 ConstantScUtil.phoneFeeRecharge();
                 break;
             case 9:
-//                if (BearMallAplication.getInstance().getUser() == null) {
-//                    LoginActivity.starActivity(activity);
-//                    return;
-//                }
-//                DailyTasksActivity.starActivity(activity);
-                EventBus.getDefault().post(new ChangeFragment(2));
+                if (BearMallAplication.getInstance().getUser() == null) {
+                    LoginActivity.starActivity(activity);
+                    return;
+                }
+                DailyTasksActivity.starActivity(activity);
                 break;
             case 10:
 //                activity.startActivity(new Intent(activity, ZeorExchangeActivity.class));
 //                ConstantScUtil.exchangeClick();
-                EventBus.getDefault().post(new ChangeFragment(3));
+                IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
+                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+                req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
+                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+                api.sendReq(req);
                 break;
             case 11:
                 if (BearMallAplication.getInstance().getUser() == null) {
@@ -128,11 +134,11 @@ public class TopBarClicker {
                 NewWebViewActivity.openNewWebViewActivity(activity, bundle);
                 break;
             case 107://唤醒小程序
-                IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
-                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-                req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
-                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
-                api.sendReq(req);
+//                IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
+//                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+//                req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
+//                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+//                api.sendReq(req);
                 break;
 
         }

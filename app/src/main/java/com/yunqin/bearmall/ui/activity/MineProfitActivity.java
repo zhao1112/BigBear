@@ -3,6 +3,7 @@ package com.yunqin.bearmall.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -273,7 +274,11 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
                 BalanceDetailActivity.startBalanceDetailActivity(this, balance);
                 break;
             case R.id.withdrawal:
-                BalanceActivity.startBalanceActivity(this, balance, withdrawFrom);
+                if (!TextUtils.isEmpty(balance) && !TextUtils.isEmpty(withdrawFrom)) {
+                    BalanceActivity.startBalanceActivity(this, balance, withdrawFrom);
+                } else {
+                    showToast("数据未加载完成");
+                }
                 break;
             case R.id.item_data://日
             case R.id.item_data_2:

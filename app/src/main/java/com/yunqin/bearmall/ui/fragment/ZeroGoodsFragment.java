@@ -56,16 +56,15 @@ public class ZeroGoodsFragment extends BaseFragment implements ZeroGoodsContract
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
+//        if (EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().unregister(this);
+//        }
     }
 
     @Override
     public void init() {
         showLoading();
 
-        EventBus.getDefault().register(this);
         presenter = new ZeroGoodsPresenter(getActivity(), this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         zeroList.setLayoutManager(linearLayoutManager);

@@ -81,8 +81,10 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
         try {
             if (position == 0) {
                 RecordAllHeaderHolder mHolder = (RecordAllHeaderHolder) holder;
-                mHolder.todayView.setText(today);
-                mHolder.totalView.setText(total);
+                String[] split1 = today.split("\\.");
+                mHolder.todayView.setText(split1[0]);
+                String[] split = total.split("\\.");
+                mHolder.totalView.setText(split[0]);
                 showAnimation(mHolder.red_package_img);
                 mHolder.red_package_close.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -99,7 +101,8 @@ public class RecordAllTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
             } else if (NetUtils.isConnected(context)) {
                 RecordAllTypeHolder mHolder = (RecordAllTypeHolder) holder;
                 SweetRecordAllType.DataBean bean = dataBeans.get(position);
-                mHolder.recordCountView.setText(bean.getCreditSum());
+                String[] split = bean.getCreditSum().split("\\.");
+                mHolder.recordCountView.setText(split[0]);
                 mHolder.itemView.setTag(position);
                 mHolder.itemView.setOnClickListener(this);
                 switch (bean.getType()) {

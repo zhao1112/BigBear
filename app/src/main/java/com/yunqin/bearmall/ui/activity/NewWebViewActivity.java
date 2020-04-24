@@ -20,6 +20,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -36,6 +37,8 @@ public class NewWebViewActivity extends BaseActivity {
     WebView mWebview;
     @BindView(R.id.toolbar_clear)
     ImageView mToolbarClear;
+    @BindView(R.id.toolbar_refresh)
+    ImageView mToolbarRefresh;
 
     public static void openNewWebViewActivity(Activity activity, Bundle bundle) {
         Intent intent = new Intent(activity, NewWebViewActivity.class);
@@ -52,8 +55,12 @@ public class NewWebViewActivity extends BaseActivity {
     public void init() {
 
         String web_url = getIntent().getStringExtra("Web_Url");
+        String web_tiele = getIntent().getStringExtra("Web_Tiele");
         if (TextUtils.isEmpty(web_url)) {
             return;
+        }
+        if (!TextUtils.isEmpty(web_tiele)) {
+            mTitle.setText(web_tiele);
         }
 
         mWebview.loadUrl(web_url);
@@ -82,7 +89,7 @@ public class NewWebViewActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.toolbar_back, R.id.toolbar_clear})
+    @OnClick({R.id.toolbar_back, R.id.toolbar_clear, R.id.toolbar_refresh})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_back:
@@ -94,6 +101,9 @@ public class NewWebViewActivity extends BaseActivity {
                 break;
             case R.id.toolbar_clear:
                 finish();
+                break;
+            case R.id.toolbar_refresh:
+                mWebview.reload();
                 break;
         }
     }

@@ -86,7 +86,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
         } else {
             ti_xian_ti_shi.setText("最小提现金额：¥" + 1);
         }
-
         showAnimation();
     }
 
@@ -107,10 +106,8 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     }
 
 
-    @OnClick({R.id.toolbar_back, R.id.toolbar_right_text, R.id.withdraw_deposit,
-            R.id.ti_xian_ji_lu, R.id.ti_xian_gui_ze,
-            R.id.red_package_close,
-            R.id.red_package_img})
+    @OnClick({R.id.toolbar_back, R.id.toolbar_right_text, R.id.withdraw_deposit, R.id.ti_xian_ji_lu, R.id.ti_xian_gui_ze,
+            R.id.red_package_close, R.id.red_package_img})
     public void viewClick(View view) {
         switch (view.getId()) {
             case R.id.red_package_close:

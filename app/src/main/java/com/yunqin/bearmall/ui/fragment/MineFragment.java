@@ -5,9 +5,12 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -217,9 +220,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
         return R.layout.fragment_mine;
     }
 
+
+
     @Override
     public void init() {
-        EventBus.getDefault().register(this);
         setshowUI();
         mPresenter = new MinePresenter(this);
         presenter = new RequestPresenter();
@@ -303,7 +307,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
             mTuanz.setImageDrawable(getResources().getDrawable(R.mipmap.mine_tuanzhang));
             vip_text.setText("登录查看当前收益及等级");
             //合伙人后台 修改
-            mMineToday.setVisibility(View.GONE);
+            mMine_backstage.setVisibility(View.INVISIBLE);
             mMineCommander.setVisibility(View.GONE);
             Glide.with(this).setDefaultRequestOptions(requestOptions).load("error").into(mMineHead);
             mTwinkingRef.finishRefreshing();
@@ -318,10 +322,10 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
             identity = userInfo.getIdentity();
             //判断是否是合伙人
             if (identity.isPartner()) {
-                mMineToday.setVisibility(View.VISIBLE);
+                mMine_backstage.setVisibility(View.VISIBLE);
             } else {
                 // 合伙人展示
-                mMineToday.setVisibility(View.GONE);
+                mMine_backstage.setVisibility(View.INVISIBLE);
             }
             //判断是否绑定微信
             if (identity.getIdentifier() == 0) {
@@ -569,9 +573,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 webView.loadUrl("https://pan.baidu.com/s/1dMddwhUwH3KS7kggLHs7KQ");
                 break;
             case R.id.mine_send://发圈文案
-//                Intent intent1 = new Intent(getActivity(), HairCircleActivity.class);
-//                getActivity().startActivity(intent1);
-                EventBus.getDefault().post(new ChangeFragment(1));
+                Intent intent1 = new Intent(getActivity(), HairCircleActivity.class);
+                getActivity().startActivity(intent1);
                 break;
             case R.id.mine_course://新手教程
                 WebActivity.startWebActivity(getActivity(), 200, url, "新手教程");
@@ -683,10 +686,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 
     @Override
     public void resultAdData(String key, String value, String data) {
@@ -884,8 +883,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.i("TestFragment","onDestroy");
         presenter.setUntying(this);
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -919,4 +918,30 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i("TestFragment","onCreate");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.i("TestFragment","onAttach");
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.i("TestFragment","onViewCreated");
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i("TestFragment","onDestroyView");
+    }
+
 }

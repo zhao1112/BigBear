@@ -1,6 +1,9 @@
 package com.yunqin.bearmall.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +24,7 @@ import com.yunqin.bearmall.bean.BannerBean;
 import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.eventbus.ChangeFragment;
+import com.yunqin.bearmall.ui.activity.HairCircleActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
@@ -36,7 +40,6 @@ import com.yunqin.bearmall.widget.DotView;
 import com.yunqin.bearmall.widget.Highlight.HighlightButton;
 import com.yunqin.bearmall.widget.TopBanner;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -145,10 +148,12 @@ public class MakeMoneyFragment extends BaseFragment {
                 CardListWebActivity.startActivity(getActivity(), AdConstants.STRING_XING_YUN_DA_ZHUAN_PAN, "幸运大抽奖");
                 break;
             case R.id.share_zixun:// 转发商品按钮
-                EventBus.getDefault().post(new ChangeFragment(0));
+                Intent intent = new Intent(getActivity(), HairCircleActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.you_xi_zhuan_li_pin:// 转发文章按钮
-                EventBus.getDefault().post(new ChangeFragment(1));
+                Intent intent1 = new Intent(getActivity(), HairCircleActivity.class);
+                getActivity().startActivity(intent1);
                 break;
             case R.id.request_friends:// 邀请好友
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);
@@ -240,8 +245,9 @@ public class MakeMoneyFragment extends BaseFragment {
 
                 DayliTaskBCInfo dayliTaskBCInfo = new Gson().fromJson(data, DayliTaskBCInfo.class);
                 DayliTaskBCInfo.DataBean.RewardDetailsBean detailsBean = dayliTaskBCInfo.getData().getRewardDetails();
-
-                tishi.setText(String.format("今日还有%s糖果待领取，现已领取%s糖果:", detailsBean.getRestReward(), detailsBean.getTodayCreditSum()));
+                String[] split3 = detailsBean.getRestReward().split("\\.");
+                String[] split4 = detailsBean.getTodayCreditSum().split("\\.");
+                tishi.setText(String.format("今日还有%s糖果待领取，现已领取%s糖果", split3[0], split4[0]));
                 tip1.setText(String.format("每日签到成功+%s糖果", detailsBean.getUsersRegisterRewardMax()));
                 tip2.setText(String.format("好友注册即得%s个糖果", detailsBean.getFriendInvitReward()));
                 tip3.setText(String.format("每日转发文章最高得%s个糖果", detailsBean.getMemberShareInfoReward()));
@@ -252,7 +258,8 @@ public class MakeMoneyFragment extends BaseFragment {
                 shang_jin_shu.setText(detailsBean.getBalance());
                 String[] split = detailsBean.getTodayCreditSum().split("\\.");
                 today_tang_guo_shu.setText(split[0]);
-                tang_guo_shu.setText(detailsBean.getBCbanlance());
+                String[] split2 = detailsBean.getBCbanlance().split("\\.");
+                tang_guo_shu.setText(split2[0]);
 
                 if (dayliTaskBCInfo.getData().getAdRecord().getAdEarnMoneyList1().size() > 0) {
                     setAdData(dayliTaskBCInfo.getData().getAdRecord().getAdEarnMoneyList1().get(0), 0);
@@ -390,4 +397,22 @@ public class MakeMoneyFragment extends BaseFragment {
                 });
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i("TestFragment", "onCreate");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i("TestFragment", "onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("TestFragment", "onDestroy");
+
+    }
 }

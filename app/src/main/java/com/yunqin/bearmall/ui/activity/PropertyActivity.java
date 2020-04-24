@@ -169,9 +169,10 @@ public class PropertyActivity extends BaseActivity implements View.OnClickListen
         if (TextUtils.isEmpty(todaySum) || TextUtils.equals("-1", todaySum)) {
             todaySum = "0";
         }
-
-        totalSweetTextView.setText(total);
-        todaySweetTextView.setText(String.format("今日获取：%s", todaySum));
+        String[] split = total.split("\\.");
+        totalSweetTextView.setText(split[0]);
+        String[] split1 = todaySum.split("\\.");
+        todaySweetTextView.setText(String.format("今日获取：%s", split1[0]));
         couponTextView.setText(String.format("剩余%s张", coupon));
         restMoneyTextView.setText(rest);
     }
