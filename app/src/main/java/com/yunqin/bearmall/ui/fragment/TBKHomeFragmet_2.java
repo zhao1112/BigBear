@@ -100,6 +100,7 @@ public class TBKHomeFragmet_2 extends BaseFragment implements NewVersionTBKHomeC
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mNewVersionHomeAdapter);
+        mPresenter.init();
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             boolean isSlidingToLast = false;
@@ -145,7 +146,6 @@ public class TBKHomeFragmet_2 extends BaseFragment implements NewVersionTBKHomeC
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.init();
     }
 
     @Override

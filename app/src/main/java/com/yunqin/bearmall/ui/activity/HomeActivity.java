@@ -180,6 +180,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
                 }
             }
         }
+        SharedPreferencesHelper.put(HomeActivity.this, "SELECT_TYPE", false);
     }
 
 

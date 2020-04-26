@@ -1,11 +1,15 @@
 package com.yunqin.bearmall.ui.fragment;
 
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
+import com.alibaba.wireless.security.open.middletier.fc.IFCActionCallback;
 import com.androidkun.xtablayout.XTabLayout;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseFragment;
+import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.fragment.ZeroActivity.BusinessTableAdapter;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 
 import butterknife.BindView;
 import butterknife.Unbinder;
@@ -44,4 +48,25 @@ public class BusinessFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            boolean isFirst = (boolean) SharedPreferencesHelper.get(getActivity(), "SELECT_TYPE", false);
+            if (isFirst) {
+                mBusinessTable.getTabAt(1).select();
+            }else {
+                mBusinessTable.getTabAt(0).select();
+            }
+            Log.e("onHiddenChanged", "onHiddenChanged: ");
+        }else {
+            SharedPreferencesHelper.put(getActivity(), "SELECT_TYPE", false);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        SharedPreferencesHelper.put(getActivity(), "SELECT_TYPE", false);
+    }
 }

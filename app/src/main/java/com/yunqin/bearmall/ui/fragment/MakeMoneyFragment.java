@@ -152,8 +152,10 @@ public class MakeMoneyFragment extends BaseFragment {
                 EventBus.getDefault().post(new ChangeFragment(1));
                 break;
             case R.id.you_xi_zhuan_li_pin:// 转发文章按钮
-                Intent intent = new Intent(getActivity(), HairCircleActivity.class);
-                getActivity().startActivity(intent);
+                SharedPreferencesHelper.put(getActivity(), "SELECT_TYPE", true);
+                EventBus.getDefault().post(new ChangeFragment(1));
+//                Intent intent = new Intent(getActivity(), HairCircleActivity.class);
+//                getActivity().startActivity(intent);
                 break;
             case R.id.request_friends:// 邀请好友
                 StarActivityUtil.starActivity(getActivity(), InvitationActivity2.class);

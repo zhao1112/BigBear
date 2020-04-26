@@ -75,13 +75,13 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     public void init() {
         EventBus.getDefault().register(this);
         mPresenter = new HomePresenter(this);
+        mPresenter.start(getActivity());
     }
 
 
     @Override
     public void attachChannel(Channel channel) {
         try {
-            isFirst = false;
             if (channel == null) {
                 return;
             }
@@ -151,9 +151,6 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     public void onResume() {
         super.onResume();
         try {
-            if (isFirst) {
-                mPresenter.start(getActivity());
-            }
             requestData();
             if (isVisibility) {
                 mPresenter.initAdData(getActivity());
