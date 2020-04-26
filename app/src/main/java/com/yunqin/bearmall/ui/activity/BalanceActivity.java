@@ -378,12 +378,12 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
             WithdrawalInfor withdrawalInfor = (WithdrawalInfor) data;
             if (data != null) {
                 if (!TextUtils.isEmpty(withdrawalInfor.getData().getBalance())) {
-                    mongeyView.setText("¥" + money);
+                    mongeyView.setText("¥" + withdrawalInfor.getData().getBalance());
                 } else {
                     mongeyView.setText("¥0.00");
                 }
-                if (!TextUtils.isEmpty(withdrawalInfor.getData().getBalance())) {
-                    ti_xian_ti_shi.setText("最小提现金额：¥" + withdrawFrom);
+                if (!TextUtils.isEmpty(withdrawalInfor.getData().getWithdrawFrom())) {
+                    ti_xian_ti_shi.setText("最小提现金额：¥" + withdrawalInfor.getData().getWithdrawFrom());
                 } else {
                     ti_xian_ti_shi.setText("最小提现金额：¥" + 0);
                 }
