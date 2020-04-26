@@ -39,6 +39,7 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             .fallback(R.drawable.default_product) //url为空的时候,显示的图片
             .error(R.drawable.default_product)//图片加载失败后，显示的图片
             .bitmapTransform(new RoundedCorners(3));
+    private String type;
 
     public TaoBaoAdapter(Context context) {
         mContext = context;
@@ -125,8 +126,9 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return list.size();
     }
 
-    public void addData(List<TaoBaoBeanNew.DataBean> list) {
+    public void addData(List<TaoBaoBeanNew.DataBean> list, String type) {
         this.list.addAll(list);
+        this.type = type;
         notifyDataSetChanged();
     }
 

@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.bbcoupon.util.ImageUtil;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.Request;
@@ -127,29 +128,30 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 try {
                     String[] image = list.get(position).getImages().split(",");
 
-                    Glide.with(context)
-                            .asBitmap()
-                            .load(image[0])
-                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                            .into(new SimpleTarget<Bitmap>() {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    imageHolder.bus_image_min.setImageBitmap(resource);
-//                                    int width = imageHolder.bus_image_min.getWidth();
-//                                    int height = imageHolder.bus_image_min.getHeight();
-//                                    int bitmapwidth = resource.getWidth();
-//                                    int bitmapheight = resource.getHeight();
-//                                    if (((int)(bitmapwidth / bitmapheight)) > ((int)(width / height))) {
-//                                        Bitmap bitmap = ImageUtil.ImageWidth(resource, ((float) (bitmapwidth / width)),
-//                                                ((float) (bitmapheight * (width / bitmapwidth))));
-//                                        imageHolder.bus_image_min.setImageBitmap(bitmap);
-//                                    } else {
-//                                        Bitmap bitmap = ImageUtil.ImageWidth(resource, ((float) (bitmapwidth * (height / bitmapheight))),
-//                                                ((float) (bitmapheight / height)));
-//                                        imageHolder.bus_image_min.setImageBitmap(bitmap);
-//                                    }
-                                }
-                            });
+                    try {
+                        Glide.with(context)
+                                .asBitmap()
+                                .load(image[0])
+                                .apply(new RequestOptions()
+                                        .placeholder(R.drawable.default_product)
+                                        .skipMemoryCache(true)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                )
+                                .into(new SimpleTarget<Bitmap>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                        try {
+                                            Bitmap bitmap = ImageUtil.ImageMatrix(resource, imageHolder.bus_content);
+                                            imageHolder.bus_image_min.setImageBitmap(bitmap);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
 
                     imageHolder.bus_image_min.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -291,6 +293,7 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public final TextView bus_time, share_nume, bus_content;
         public final ImageView bus_image_min;
         public final LinearLayout share_bus;
+        public final View viewBitmap;
 
         public ImageHolder(View itemView) {
             super(itemView);
@@ -299,6 +302,7 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             bus_content = itemView.findViewById(R.id.bus_content);
             bus_image_min = itemView.findViewById(R.id.bus_image_min);
             share_bus = itemView.findViewById(R.id.share_bus);
+            viewBitmap = itemView.findViewById(R.id.view_bitmap);
         }
     }
 

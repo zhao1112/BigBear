@@ -129,7 +129,7 @@ public class TaoBaoChildFragment extends BaseFragment {
             public void onSuccess(String data) throws JSONException {
                 TaoBaoBeanNew taoBaoBeanNew = new Gson().fromJson(data, TaoBaoBeanNew.class);
                 if (taoBaoBeanNew.getData() != null && taoBaoBeanNew.getData().size() > 0) {
-                    mTaoBaoAdapter.addData(taoBaoBeanNew.getData());
+                    mTaoBaoAdapter.addData(taoBaoBeanNew.getData(),String.valueOf(type));
                     if (taoBaoBeanNew.getData().size() >= 10) {
                         hasMore = true;
                         refreshLayout.setBottomView(new RefreshBottomView(getActivity()));

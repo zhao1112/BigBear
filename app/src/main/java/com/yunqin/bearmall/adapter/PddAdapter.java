@@ -187,27 +187,15 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (type == -1) {
             return "未支付";
         }
-        if (type == 0) {
-            return "已支付";
-        }
-        if (type == 1) {
-            return "已成团";
-        }
         if (type == 2) {
-            return "确认收货";
+            return "待返佣";
         }
         if (type == 3) {
-            return "审核成功";
+            return "已到账";
         }
         if (type == 4) {
-            return "审核失败";
+            return "已失效";
         }
-        if (type == 5) {
-            return "已经结算";
-        }
-        if (type == 8) {
-            return "非多多进宝商品";
-        }
-        return " ";
+        return "未知";
     }
 }

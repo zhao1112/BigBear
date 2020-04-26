@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.activity.CustomGoodesActivity;
+import com.bbcoupon.ui.activity.MeetingplaceActivity;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.WebActivity;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
@@ -34,7 +35,7 @@ public class TopBarClicker {
         Log.i("topBarClick", bean.getSort() + "---" + bean.getUrl());
         Bundle bundle = new Bundle();
         ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
-        switch (bean.getSort()) {
+        switch (bean.getType()) {
             case 1://9.9
                 bundle.putString("TYPE", "4");
                 SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);

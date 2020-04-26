@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.widget.TextView;
 
 /**
  * @author LWP
@@ -48,6 +49,59 @@ public class ImageUtil {
         return bitmap;
     }
 
+    public static Bitmap ImageMatrix(Bitmap resource, TextView textView) {
+        try {
+            float width = resource.getWidth();
+            float height = resource.getHeight();
+            float viewWidth = textView.getWidth();
+            Bitmap bitmap = null;
+            Matrix matrix = new Matrix();
+            if (width > viewWidth) {
+                float scaleWidth = ((float) viewWidth) / width;
+                matrix.postScale(scaleWidth, scaleWidth);
+                try {
+                    bitmap = Bitmap.createBitmap(resource, 0, 0, (int) width, (int) height, matrix, true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return resource;
+                }
+                float bitmapheight = bitmap.getHeight();
+                float bitmapwidth = bitmap.getWidth();
+                if (bitmapheight > viewWidth) {
+                    Matrix bitmapmatrix = new Matrix();
+                    float bitmapscaleHeight = ((float) viewWidth) / bitmapheight;
+                    bitmapmatrix.postScale(bitmapscaleHeight, bitmapscaleHeight);
+                    try {
+                        bitmap = Bitmap.createBitmap(resource, 0, 0, (int) bitmapwidth, (int) bitmapheight, bitmapmatrix, true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return resource;
+                    }
+                    return bitmap;
+                } else {
+                    return bitmap;
+                }
+            } else {
+                if (height > width) {
+                    Matrix matrixheight = new Matrix();
+                    float heightleHeight = ((float) viewWidth) / height;
+                    matrixheight.postScale(heightleHeight, heightleHeight);
+                    try {
+                        bitmap = Bitmap.createBitmap(resource, 0, 0, (int) width, (int) height, matrixheight, true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return resource;
+                    }
+                    return bitmap;
+                } else {
+                    return resource;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resource;
+        }
+    }
 
 
 }
