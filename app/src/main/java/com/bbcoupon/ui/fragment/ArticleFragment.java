@@ -1,21 +1,21 @@
-package com.yunqin.bearmall.ui.fragment;
+package com.bbcoupon.ui.fragment;
 
 import android.support.v4.view.ViewPager;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.ui.fragment.ZeroActivity.BusinessTableAdapter;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * @author LWP
- * @PACKAGE com.yunqin.bearmall.ui.fragment
- * @DATE 2020/3/30
+ * @PACKAGE com.bbcoupon.ui.fragment
+ * @DATE 2020/4/26
  */
-public class BusinessFragment extends BaseFragment {
+public class ArticleFragment extends BaseFragment {
 
     @BindView(R.id.business_table)
     XTabLayout mBusinessTable;
@@ -42,6 +42,6 @@ public class BusinessFragment extends BaseFragment {
         mBusinessTable.setupWithViewPager(mBusinessViewpager);
         mBusinessTable.setTabsFromPagerAdapter(businessTableAdapter);
 
+        mBusinessTable.getTabAt(1).select();
     }
-
 }

@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/ds88"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
         android:background="@color/white">
 
         <TextView
