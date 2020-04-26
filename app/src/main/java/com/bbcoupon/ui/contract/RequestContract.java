@@ -27,11 +27,15 @@ public class RequestContract {
         void onCandySharing(Context context, Map<String, String> map);
 
         void onTutorWx(Context context);
+
+        void onCustom(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
         void onCandySharing(Context context, RequestContract.RequestView requestView, Map<String, String> map);
 
         void onTutorWx(Context context, RequestContract.RequestView requestView);
+
+        void onCustom(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

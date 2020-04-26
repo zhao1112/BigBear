@@ -1449,5 +1449,13 @@ public interface Api {
      */
     @POST("api/userinfo/getTutorInfo")
     Observable<String> getTutorInfo();
+
+    /**
+     * 自定义商品
+     */
+    @FormUrlEncoded
+    @POST("api/customItemLibrary/getCustomItemLibraryList")
+    Observable<String> getCustomItemLibraryList(@FieldMap() Map<String, String> params);
+
 }
 

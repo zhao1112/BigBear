@@ -73,8 +73,8 @@ public class PopUtil {
         View view = LayoutInflater.from(context).inflate(viewId, null);
         popupWindow = new PopupWindow();
         popupWindow.setContentView(view);
-        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         // 设置背景图片， 必须设置，不然动画没作用
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setFocusable(true);

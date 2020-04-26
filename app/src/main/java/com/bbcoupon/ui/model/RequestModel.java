@@ -2,6 +2,7 @@ package com.bbcoupon.ui.model;
 
 import android.content.Context;
 
+import com.bbcoupon.ui.bean.CustomInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.bean.TutorInfor;
 import com.bbcoupon.ui.contract.RequestContract;
@@ -57,6 +58,34 @@ public class RequestModel implements RequestContract.RequestModel {
                 TutorInfor requestInfor = new Gson().fromJson(data, TutorInfor.class);
                 if (requestView != null) {
                     requestView.onSuccess(requestInfor);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //自定义商品
+    @Override
+    public void onCustom(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getCustomItemLibraryList(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                CustomInfor customInfor = new Gson().fromJson(data, CustomInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(customInfor);
                 }
             }
 

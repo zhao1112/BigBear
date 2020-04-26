@@ -48,4 +48,11 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    @Override
+    public void onCustom(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onCustom(context, map, requestView);
+        }
+    }
+
 }

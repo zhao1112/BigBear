@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:text="￥1111111"
+                    android:text="¥0.0"
                     android:textColor="#F3280A"
                     android:textSize="@dimen/sp_14"
                     android:textStyle="bold"/>
