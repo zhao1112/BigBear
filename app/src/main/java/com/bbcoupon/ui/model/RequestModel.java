@@ -5,6 +5,7 @@ import android.content.Context;
 import com.bbcoupon.ui.bean.CustomInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.bean.TutorInfor;
+import com.bbcoupon.ui.bean.WithdrawalInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.google.gson.Gson;
 import com.yunqin.bearmall.api.Api;
@@ -110,7 +111,7 @@ public class RequestModel implements RequestContract.RequestModel {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getUserbalance(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                CustomInfor customInfor = new Gson().fromJson(data, CustomInfor.class);
+                WithdrawalInfor customInfor = new Gson().fromJson(data, WithdrawalInfor.class);
                 if (requestView != null) {
                     requestView.onSuccess(customInfor);
                 }

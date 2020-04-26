@@ -274,11 +274,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
                 BalanceDetailActivity.startBalanceDetailActivity(this, balance);
                 break;
             case R.id.withdrawal:
-                if (!TextUtils.isEmpty(balance) && !TextUtils.isEmpty(withdrawFrom)) {
-                    BalanceActivity.startBalanceActivity(this, balance, withdrawFrom);
-                } else {
-                    showToast("数据未加载完成");
-                }
+                BalanceActivity.startBalanceActivity(this, "0.0", "0.0");
                 break;
             case R.id.item_data://日
             case R.id.item_data_2:

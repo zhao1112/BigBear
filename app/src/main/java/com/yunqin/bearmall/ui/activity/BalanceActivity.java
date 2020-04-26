@@ -373,7 +373,7 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
 
     @Override
     public void onSuccess(Object data) {
-        hiddenKeyboard();
+        hiddenLoadingView();
         if (data instanceof WithdrawalInfor) {
             WithdrawalInfor withdrawalInfor = (WithdrawalInfor) data;
             if (data != null) {
@@ -393,12 +393,12 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
 
     @Override
     public void onNotNetWork() {
-        hiddenKeyboard();
+        hiddenLoadingView();
     }
 
     @Override
     public void onFail(Throwable e) {
-        hiddenKeyboard();
+        hiddenLoadingView();
     }
 
     @Override
