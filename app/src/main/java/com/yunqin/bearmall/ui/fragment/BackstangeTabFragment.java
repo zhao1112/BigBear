@@ -16,7 +16,7 @@ public class BackstangeTabFragment extends BaseFragment {
     @BindView(R.id.bacjstabge_viewpager)
     ViewPager mViewPager;
 
-    private static final String[] tbTabs = new String[]{"全部", "已付款", "已结算", "已失效"};
+    private static final String[] tbTabs = new String[]{"全部", "待返佣", "已到账", "已失效"};
 
     @Override
     public int layoutId() {

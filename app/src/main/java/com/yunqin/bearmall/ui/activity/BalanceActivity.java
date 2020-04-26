@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.ui.bean.WithdrawalInfor;
+import com.bbcoupon.ui.contract.RequestContract;
+import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.newversions.CardListWebActivity;
@@ -39,7 +42,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.wechat.friends.Wechat;
 
-public class BalanceActivity extends BaseActivity implements PlatformActionListener {
+public class BalanceActivity extends BaseActivity implements PlatformActionListener, RequestContract.RequestView {
 
     @BindView(R.id.banlance_text)
     TextView mongeyView;
@@ -53,6 +56,8 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     ImageView imageView;
     @BindView(R.id.red_package_layout)
     ConstraintLayout constraintLayout;
+
+    private RequestPresenter mPresenter;
 
     private String money;
     private String withdrawFrom;
@@ -74,18 +79,16 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
         money = getIntent().getStringExtra("MONEY");
         withdrawFrom = getIntent().getStringExtra("withdrawFrom");
         rightText.setVisibility(View.VISIBLE);
-        if (!TextUtils.isEmpty(money)) {
-            mongeyView.setText("¥" + money);
-        } else {
-            mongeyView.setText("¥0.00");
-        }
+
+        mPresenter = new RequestPresenter();
+        mPresenter.setRelation(this);
+        showLoading();
+        Map<String, String> map = new HashMap<>();
+        mPresenter.onWithdrawal(this, map);
+
         rightText.setText("余额明细");
         titleView.setText("余额");
-        if (!TextUtils.isEmpty(withdrawFrom)) {
-            ti_xian_ti_shi.setText("最小提现金额：¥" + withdrawFrom);
-        } else {
-            ti_xian_ti_shi.setText("最小提现金额：¥" + 1);
-        }
+
         showAnimation();
     }
 
@@ -366,5 +369,41 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     public void onCancel(Platform platform, int i) {
         hiddenLoadingView();
         Toast.makeText(this, "绑定微信取消", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccess(Object data) {
+        hiddenKeyboard();
+        if (data instanceof WithdrawalInfor) {
+            WithdrawalInfor withdrawalInfor = (WithdrawalInfor) data;
+            if (data != null) {
+                if (!TextUtils.isEmpty(withdrawalInfor.getData().getBalance())) {
+                    mongeyView.setText("¥" + money);
+                } else {
+                    mongeyView.setText("¥0.00");
+                }
+                if (!TextUtils.isEmpty(withdrawalInfor.getData().getBalance())) {
+                    ti_xian_ti_shi.setText("最小提现金额：¥" + withdrawFrom);
+                } else {
+                    ti_xian_ti_shi.setText("最小提现金额：¥" + 0);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onNotNetWork() {
+        hiddenKeyboard();
+    }
+
+    @Override
+    public void onFail(Throwable e) {
+        hiddenKeyboard();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.setUntying(this);
     }
 }

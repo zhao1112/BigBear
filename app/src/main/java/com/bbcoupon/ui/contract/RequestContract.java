@@ -29,6 +29,8 @@ public class RequestContract {
         void onTutorWx(Context context);
 
         void onCustom(Context context, Map<String, String> map);
+
+        void onWithdrawal(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
@@ -37,5 +39,7 @@ public class RequestContract {
         void onTutorWx(Context context, RequestContract.RequestView requestView);
 
         void onCustom(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onWithdrawal(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

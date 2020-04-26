@@ -71,9 +71,9 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         productSunHolder.itemHomeProTitle.setText(list.get(position).getName());
         try {
             productSunHolder.itemHomeProYuanjia.setText("¥" + list.get(position).getPrice());
-//            productSunHolder.itemHomeProQuanhoujia.setText("¥" + list.get(position).getDiscountPrice());
+            productSunHolder.itemHomeProQuanhoujia.setText("¥" + list.get(position).getDiscountPrice());
             productSunHolder.tvCommision.setText("预估收益¥" + list.get(position).getCommision());
-            productSunHolder.itemHomeProQuan.setText(list.get(position).getCouponInfo());
+            productSunHolder.itemHomeProQuan.setText(list.get(position).getCouponAmount()+"元券");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -55,4 +55,11 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    @Override
+    public void onWithdrawal(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onWithdrawal(context, map, requestView);
+        }
+    }
+
 }

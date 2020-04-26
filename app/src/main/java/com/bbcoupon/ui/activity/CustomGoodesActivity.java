@@ -1,5 +1,6 @@
 package com.bbcoupon.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -57,6 +58,14 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
     private int page = 1;
     private CustomAdapter customAdapter;
 
+    public static void openCustomGoodesActivity(Activity context, Class cls, Bundle bundle) {
+        Intent intent = new Intent(context, cls);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+        context.overridePendingTransition(0, R.anim.activity_stay);
+    }
+
+
     @Override
     public int layoutId() {
         return R.layout.activity_customgoodes;
@@ -64,6 +73,9 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
 
     @Override
     public void init() {
+
+        String type_target = getIntent().getStringExtra("TYPE_TARGET");
+
         requestPresenter = new RequestPresenter();
         requestPresenter.setRelation(this);
 

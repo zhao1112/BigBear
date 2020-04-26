@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bbcoupon.ui.activity.CustomGoodesActivity;
 import com.iBookStar.views.YmConfig;
 import com.newversions.CardListWebActivity;
 import com.newversions.InviteFriendActivity;
@@ -193,16 +194,23 @@ public class BannerClicker {
                 bundle.putString("TYPE", "3");
                 SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
                 break;
-            case 106://内部天猫国际，天猫超市
-                bundle.putString("Web_Url", title);
+            case 108://自定义商品
+                bundle.putString("TYPE_TARGET", "5");
+                CustomGoodesActivity.openCustomGoodesActivity(activity,CustomGoodesActivity.class,bundle);
+                break;
+            case 109://内部天猫国际，天猫超市
+                bundle.putString("Web_Url", target);
+                bundle.putString("Web_Tiele", title);
                 NewWebViewActivity.openNewWebViewActivity(activity, bundle);
                 break;
-            case 107://唤醒小程序
+            case 110://唤醒小程序
                 IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
                 WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
                 req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
                 req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
                 api.sendReq(req);
+                break;
+            case 111:
                 break;
         }
     }

@@ -1457,5 +1457,12 @@ public interface Api {
     @POST("api/customItemLibrary/getCustomItemLibraryList")
     Observable<String> getCustomItemLibraryList(@FieldMap() Map<String, String> params);
 
+    /**
+     * 提现
+     */
+    @FormUrlEncoded
+    @POST("api/commodity/getUserbalance")
+    Observable<String> getUserbalance(@FieldMap() Map<String, String> params);
+
 }
 

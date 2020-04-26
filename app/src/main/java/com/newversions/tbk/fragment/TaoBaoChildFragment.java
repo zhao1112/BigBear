@@ -128,7 +128,7 @@ public class TaoBaoChildFragment extends BaseFragment {
             @Override
             public void onSuccess(String data) throws JSONException {
                 TaoBaoBeanNew taoBaoBeanNew = new Gson().fromJson(data, TaoBaoBeanNew.class);
-                if (taoBaoBeanNew.getData().size() > 0 && taoBaoBeanNew.getData() != null) {
+                if (taoBaoBeanNew.getData() != null && taoBaoBeanNew.getData().size() > 0) {
                     mTaoBaoAdapter.addData(taoBaoBeanNew.getData());
                     if (taoBaoBeanNew.getData().size() >= 10) {
                         hasMore = true;

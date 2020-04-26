@@ -104,4 +104,31 @@ public class RequestModel implements RequestContract.RequestModel {
             }
         });
     }
+
+    @Override
+    public void onWithdrawal(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getUserbalance(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                CustomInfor customInfor = new Gson().fromJson(data, CustomInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(customInfor);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bbcoupon.ui.activity.CustomGoodesActivity;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.WebActivity;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
@@ -16,12 +17,10 @@ import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.bean.NewTBHome;
 import com.yunqin.bearmall.eventbus.ChangeFragment;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
-import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LimitedActivity;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
 import com.yunqin.bearmall.ui.activity.NewWebViewActivity;
 import com.yunqin.bearmall.ui.activity.SellwellActivity;
-import com.yunqin.bearmall.ui.activity.ZeorExchangeActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstUtils;
@@ -116,19 +115,24 @@ public class TopBarClicker {
                 bundle.putString("TYPE", "3");
                 SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
                 break;
-            case 106://内部天猫国际，天猫超市
+            case 108://自定义商品
+                bundle.putString("TYPE_TARGET", "5");
+                CustomGoodesActivity.openCustomGoodesActivity(activity,CustomGoodesActivity.class,bundle);
+                break;
+            case 109://内部天猫国际，天猫超市
                 bundle.putString("Web_Url", bean.getUrl());
                 bundle.putString("Web_Tiele", bean.getName());
                 NewWebViewActivity.openNewWebViewActivity(activity, bundle);
                 break;
-            case 107://唤醒小程序
-//                IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
-//                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-//                req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
-//                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
-//                api.sendReq(req);
+            case 110://唤醒小程序
+                IWXAPI api = WXAPIFactory.createWXAPI(activity, Constans.WX_APPID);
+                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+                req.userName = "gh_0c4ffc9fbb48"; // 填小程序原始id
+                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+                api.sendReq(req);
                 break;
-
+            case 111:
+                break;
         }
     }
 }

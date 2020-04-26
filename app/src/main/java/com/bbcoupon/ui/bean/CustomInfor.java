@@ -9,14 +9,15 @@ import java.util.List;
  */
 public class CustomInfor {
 
+
     /**
      * msg : 请求成功
      * code : 1
-     * platformList : {"title":"选品库商品","image":"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1616134753,360647826&fm=26&gp=0
-     * .jpg","content":"#db3428"}
-     * commodityList : [{"itemId":547080273206,"couponInfo":"满22元减10元","price":"22.8","outIcon":"http:https://img.alicdn
-     * .com/i2/3206032358/O1CN016dIyES1TI0VYJR5t9_!!0-item_pic.jpg","name":"麻辣烫底料四川成都特产臻鲜微辣牛油500g火锅料麻辣香锅底料包邮","sellerName":"臻鲜旗舰店",
-     * "commision":12.08,"tmall":"1","sellNum":"3447"}]
+     * platformList : {"title":"选品库火锅","image":"https://shopxxbbc-test.oss-cn-beijing.aliyuncs
+     * .com/upload/image/202004/e5d21106-5259-4f8e-9b97-018b1ba29e7d.jpg","content":"#FFB6C1"}
+     * commodityList : [{"itemId":547080273206,"couponAmount":"10","price":"22.8","outIcon":"https://img.alicdn
+     * .com/i2/3206032358/O1CN016dIyES1TI0VYJR5t9_!!0-item_pic.jpg","name":"麻辣烫底料四川成都特产臻鲜微辣牛油500g火锅料麻辣香锅底料包邮","discountPrice":"12.8",
+     * "sellerName":"臻鲜旗舰店","commision":1.35,"tmall":"1","sellNum":"3447"}]
      */
 
     private String msg;
@@ -58,9 +59,9 @@ public class CustomInfor {
 
     public static class PlatformListBean {
         /**
-         * title : 选品库商品
-         * image : https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1616134753,360647826&fm=26&gp=0.jpg
-         * content : #db3428
+         * title : 选品库火锅
+         * image : https://shopxxbbc-test.oss-cn-beijing.aliyuncs.com/upload/image/202004/e5d21106-5259-4f8e-9b97-018b1ba29e7d.jpg
+         * content : #FFB6C1
          */
 
         private String title;
@@ -95,21 +96,23 @@ public class CustomInfor {
     public static class CommodityListBean {
         /**
          * itemId : 547080273206
-         * couponInfo : 满22元减10元
+         * couponAmount : 10
          * price : 22.8
-         * outIcon : http:https://img.alicdn.com/i2/3206032358/O1CN016dIyES1TI0VYJR5t9_!!0-item_pic.jpg
+         * outIcon : https://img.alicdn.com/i2/3206032358/O1CN016dIyES1TI0VYJR5t9_!!0-item_pic.jpg
          * name : 麻辣烫底料四川成都特产臻鲜微辣牛油500g火锅料麻辣香锅底料包邮
+         * discountPrice : 12.8
          * sellerName : 臻鲜旗舰店
-         * commision : 12.08
+         * commision : 1.35
          * tmall : 1
          * sellNum : 3447
          */
 
         private long itemId;
-        private String couponInfo;
+        private String couponAmount;
         private String price;
         private String outIcon;
         private String name;
+        private String discountPrice;
         private String sellerName;
         private double commision;
         private String tmall;
@@ -123,12 +126,12 @@ public class CustomInfor {
             this.itemId = itemId;
         }
 
-        public String getCouponInfo() {
-            return couponInfo;
+        public String getCouponAmount() {
+            return couponAmount;
         }
 
-        public void setCouponInfo(String couponInfo) {
-            this.couponInfo = couponInfo;
+        public void setCouponAmount(String couponAmount) {
+            this.couponAmount = couponAmount;
         }
 
         public String getPrice() {
@@ -153,6 +156,14 @@ public class CustomInfor {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getDiscountPrice() {
+            return discountPrice;
+        }
+
+        public void setDiscountPrice(String discountPrice) {
+            this.discountPrice = discountPrice;
         }
 
         public String getSellerName() {

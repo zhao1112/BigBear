@@ -63,9 +63,9 @@ public class BackstangeFragment extends BaseFragment {
 
         if (title.equals("全部")) {
             type = 0;
-        } else if (title.equals("已付款")) {
+        } else if (title.equals("待返佣")) {
             type = 1;
-        } else if (title.equals("已结算")) {
+        } else if (title.equals("已到账")) {
             type = 3;
         } else if (title.equals("已失效")) {
             type = 4;
