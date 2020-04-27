@@ -1,11 +1,23 @@
 package com.bbcoupon.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.view.Gravity;
+import android.widget.Toast;
 
+
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.yunqin.bearmall.Constans;
+import com.yunqin.bearmall.util.PopUtil;
+
+import java.util.List;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * @author LWP
@@ -53,6 +65,7 @@ public class ShareUtils {
         platform.share(params);
         return platform;
     }
+
     //单图分享
     public Platform shareContent(String platforms, Bitmap image) {
         Platform.ShareParams params = new Platform.ShareParams();
@@ -63,6 +76,7 @@ public class ShareUtils {
         return platform;
     }
 
+    //分享
     public Platform shareContent(String platforms, String title, String content, Bitmap image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setTitle(title);
@@ -75,7 +89,29 @@ public class ShareUtils {
     }
 
     //判断用户是否安装微信
+    public static boolean isWXClientAvailable(Context context) {
+        final IWXAPI api = WXAPIFactory.createWXAPI(context, null);
+        api.registerApp(Constans.WX_APPID);  //将APP注册到微信
+        if (api.isWXAppInstalled()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //判断用户是否安装QQ
+    public static boolean isQQClientAvailable(Context context) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equals("com.tencent.mobileqq")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }

@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -39,6 +40,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 import com.yunqin.bearmall.util.AuntTao;
 import com.yunqin.bearmall.util.ConstantScUtil;
 
@@ -341,9 +343,10 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
         if (goodDetailBean != null) {
             Map<String, String> map = new HashMap<>();
             map.put("type", "1");
-            map.put("content", goodDetailBean.getId() + "");
+            map.put("content", goodDetailBean.getItemId() + "");
+            Log.e("onCompleteonComplete", goodDetailBean.getId() + "");
             requestPresenter.onCandySharing(ShareComissionActivity.this, map);
-            ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
+            ConstantScUtil.searchShareType(goodDetailBean.getItemId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
                     goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
                     goodDetailBean.getDiscountPrice() + "", platform.getName(), "true");
         }
@@ -352,7 +355,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
         if (goodDetailBean != null) {
-            ConstantScUtil.searchShareType(goodDetailBean.getId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
+            ConstantScUtil.searchShareType(goodDetailBean.getItemId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
                     goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",
                     goodDetailBean.getDiscountPrice() + "", platform.getName(), "false");
         }
@@ -369,7 +372,20 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
 
     @Override
     public void onSuccess(Object data) {
-
+        if (data instanceof RequestInfor) {
+            RequestInfor requestInfor = (RequestInfor) data;
+            if (requestInfor.getCode() == 1) {
+                View view = WindowUtils.timeShow(ShareComissionActivity.this, R.layout.popup_tisp, R.style.TispAnim, 0);
+                TextView value_tisp = view.findViewById(R.id.value_tisp);
+                value_tisp.setText("分享成功，获得" + requestInfor.getValue() + "个糖果，点击查看详情>>");
+                view.findViewById(R.id.top_tisp).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ShareComissionActivity.this.startActivity(new Intent(ShareComissionActivity.this, BCMessageActivity.class));
+                    }
+                });
+            }
+        }
     }
 
     @Override

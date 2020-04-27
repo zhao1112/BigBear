@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
+import com.bbcoupon.util.WindowUtils;
 import com.igexin.sdk.GTIntentService;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTNotificationMessage;
@@ -13,10 +16,12 @@ import com.newversions.detail.NewProductDetailActivity;
 import com.newversions.util.SharedPreferencesManager;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.Constans;
+import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.eventbus.GetMessageEvent;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
+import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.MineOrderActivity;
 import com.yunqin.bearmall.util.INotificationUtil;
@@ -88,6 +93,7 @@ public class BearMallIntentService extends GTIntentService {
                     String content = jsonObject.optString("content");
                     Intent intent = new Intent(context, InformationFragmentActivity.class);
                     INotificationUtil.showMineOrderActivity(context, intent, title, content);
+                    Log.e("onReceiveMessageData", "onReceiveMessageData: ");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

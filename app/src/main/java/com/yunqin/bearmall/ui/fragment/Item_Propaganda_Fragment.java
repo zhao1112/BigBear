@@ -26,8 +26,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -47,6 +49,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.PropagandaBean;
+import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 import com.yunqin.bearmall.util.NetUtils;
 import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.PopUtil2;
@@ -97,6 +100,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
     private int refresh = 2;
     private String path;
     private RequestPresenter requestPresenter;
+    private Map<String, String> mMap;
 
     public static Item_Propaganda_Fragment getInstance(String categoryId) {
         Bundle bundle = new Bundle();
@@ -236,9 +240,9 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
     }
 
     private void clickshare(String[] strings, int i, String title, int id) {
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "2");
-        map.put("content", id + "");
+        mMap = new HashMap<>();
+        mMap.put("type", "2");
+        mMap.put("content", id + "");
         ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
         View popView = instance.getPopView(R.layout.popup_business_share, 1);
@@ -260,7 +264,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
                             showToast("文案已复制剪切板", Gravity.CENTER);
                             shareNormal(Wechat.NAME, strings);
                             instance.dismissPopupWindow();
-                            requestPresenter.onCandySharing(getActivity(), map);
+                            requestPresenter.onCandySharing(getActivity(), mMap);
                         } else {
                             Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
                         }
@@ -285,7 +289,6 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
                             downBusiness(strings, 1, 1);
                             instance.dismissPopupWindow();
                             popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
-                            requestPresenter.onCandySharing(getActivity(), map);
                         }
 
                         @Override
@@ -309,7 +312,6 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
                             downBusiness(strings, 1, 4);
                             instance.dismissPopupWindow();
                             popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
-                            requestPresenter.onCandySharing(getActivity(), map);
                         } else {
                             Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                         }
@@ -331,7 +333,6 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
                         downBusiness(strings, 1, 2);
                         instance.dismissPopupWindow();
                         popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
-                        requestPresenter.onCandySharing(getActivity(), map);
 //                        if (isQQClientAvailable(getActivity())) {
 //                            if (i == 0) {
 //                                shareQQ(QZone.NAME, strings);
@@ -361,6 +362,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
                         downBusiness(strings, 2, 3);
                         instance.dismissPopupWindow();
                         popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
+                        requestPresenter.onCandySharing(getActivity(), mMap);
                     }
 
                     @Override
@@ -397,7 +399,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
     }
 
     //普通的分享
-    public static void shareNormal(String name, String[] strings) {//name 分享到那个平台
+    public void shareNormal(String name, String[] strings) {//name 分享到那个平台
 
         HashMap<String, Object> optionMap = new HashMap<>();
         optionMap.put("Id", "5");
@@ -451,6 +453,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
                     popView1.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            requestPresenter.onCandySharing(getActivity(), mMap);
                             instance.dismissPopupWindow();
                         }
                     });
@@ -707,7 +710,20 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
 
     @Override
     public void onSuccess(Object data) {
-
+        if (data instanceof RequestInfor) {
+            RequestInfor requestInfor = (RequestInfor) data;
+            if (requestInfor.getCode() == 1) {
+                View view = WindowUtils.timeShow(getActivity(), R.layout.popup_tisp, R.style.TispAnim, 0);
+                TextView value_tisp = view.findViewById(R.id.value_tisp);
+                value_tisp.setText("分享成功，获得" + requestInfor.getValue() + "个糖果，点击查看详情>>");
+                view.findViewById(R.id.top_tisp).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getActivity().startActivity(new Intent(getActivity(), BCMessageActivity.class));
+                    }
+                });
+            }
+        }
     }
 
     @Override

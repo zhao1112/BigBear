@@ -289,5 +289,10 @@
         </attr>
     </declare-styleable>
 
+    <style name="TispAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/tisp_popup_in</item>
+        <item name="android:windowExitAnimation">@anim/tisp_popup_out</item>
+    </style>
+
 
 </resources>
