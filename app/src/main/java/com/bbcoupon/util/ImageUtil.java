@@ -66,20 +66,20 @@ public class ImageUtil {
                     return resource;
                 }
                 float bitmapheight = bitmap.getHeight();
-                float bitmapwidth = bitmap.getWidth();
                 if (bitmapheight > viewWidth) {
                     Matrix bitmapmatrix = new Matrix();
-                    float bitmapscaleHeight = ((float) viewWidth) / bitmapheight;
-                    bitmapmatrix.postScale(bitmapscaleHeight, bitmapscaleHeight);
+                    float newviewWidth = viewWidth / 5 * 3;
+                    float bitmapscaleWidth = ((float) newviewWidth) / width;
+                    bitmapmatrix.postScale(bitmapscaleWidth, bitmapscaleWidth);
                     try {
-                        bitmap = Bitmap.createBitmap(resource, 0, 0, (int) bitmapwidth, (int) bitmapheight, bitmapmatrix, true);
+                        bitmap = Bitmap.createBitmap(resource, 0, 0, (int) width, (int) height, bitmapmatrix, true);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return resource;
                     }
                     return bitmap;
                 } else {
-                    return bitmap;
+                return bitmap;
                 }
             } else {
                 if (height > width) {

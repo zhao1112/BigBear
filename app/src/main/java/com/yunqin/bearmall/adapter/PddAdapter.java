@@ -196,6 +196,6 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (type == 4) {
             return "已失效";
         }
-        return "未知";
+        return "未支付";
     }
 }

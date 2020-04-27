@@ -32,6 +32,7 @@ public class ShareUtils {
         this.context = context;
     }
 
+    //分享
     public Platform shareContent(String platforms, String title, String content, String image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setTitle(title);
@@ -43,6 +44,7 @@ public class ShareUtils {
         return platform;
     }
 
+    //单图分享
     public Platform shareContent(String platforms, String image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setImageUrl(image);
@@ -51,7 +53,7 @@ public class ShareUtils {
         platform.share(params);
         return platform;
     }
-
+    //单图分享
     public Platform shareContent(String platforms, Bitmap image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setImageData(image);
@@ -71,5 +73,9 @@ public class ShareUtils {
         platform.share(params);
         return platform;
     }
+
+    //判断用户是否安装微信
+
+    //判断用户是否安装QQ
 
 }
