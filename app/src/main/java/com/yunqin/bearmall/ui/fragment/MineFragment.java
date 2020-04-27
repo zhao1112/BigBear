@@ -95,6 +95,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cc.shinichi.library.ImagePreview;
+import cc.shinichi.library.bean.ImageInfo;
 
 /**
  * @author Master
@@ -815,15 +817,14 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 TextView tutor_wx_number = view.findViewById(R.id.tutor_wx_number);
                 TextView tutor_copy = view.findViewById(R.id.tutor_copy);
                 ImageView tutor_image = view.findViewById(R.id.tutor_image);
+
                 if (!TextUtils.isEmpty(((TutorInfor) data).getData().getWeixin())) {
                     tutor_wx_number.setText("微信号：" + ((TutorInfor) data).getData().getWeixin());
                     tutor_copy.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ClipboardManager clipboardManager =
-                                    (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
-                                    ((TutorInfor) data).getData().getWeixin()));
+                            ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            clipboardManager.setPrimaryClip(ClipData.newPlainText(null, ((TutorInfor) data).getData().getWeixin()));
                             showToast("复制成功");
                         }
                     });
@@ -831,7 +832,12 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                     tutor_wx_number.setText("微信号：未填写");
                 }
                 Glide.with(getActivity()).load(((TutorInfor) data).getData().getWxQrcode()).into(tutor_image);
-
+                tutor_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        seeImage(0,((TutorInfor) data).getData().getWxQrcode());
+                    }
+                });
             } else {
                 showToast("导师未绑定微信");
             }
@@ -941,4 +947,26 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
         Log.i("TestFragment", "onDestroyView");
     }
 
+    public void seeImage(int position,String url) {
+
+        ImageInfo imageInfo;
+        final List<ImageInfo> imageInfoList = new ArrayList<>();
+            imageInfo = new ImageInfo();
+            imageInfo.setOriginUrl(url);// 原图url
+            imageInfo.setThumbnailUrl(url);// 缩略图url
+            imageInfoList.add(imageInfo);
+
+        ImagePreview.LoadStrategy loadStrategy = ImagePreview.LoadStrategy.Default;
+
+        ImagePreview
+                .getInstance()
+                .setContext(getActivity())
+                .setIndex(position)
+                .setImageInfoList(imageInfoList)
+                .setLoadStrategy(loadStrategy)
+                .setEnableDragClose(true)
+                .setEnableUpDragClose(true)
+                .setShowDownButton(true)
+                .start();
+    }
 }
