@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -138,8 +139,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         businessHolder.bus_content.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, businessHolder.bus_content.getText().toString().replace("</br>", "\n")));
+                CopyTextUtil.CopyText(context,businessHolder.bus_content.getText().toString().replace("</br>", "\n"));
                 if (mOnClickShare!=null){
                     mOnClickShare.shearCopy();
                 }

@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -111,8 +112,7 @@ public class PddChildFragment extends BaseFragment {
             @Override
             public void onCopyOrderId(String oderid) {
                 if (!TextUtils.isEmpty(oderid)) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, oderid));
+                    CopyTextUtil.CopyText(getActivity(),oderid);
                     showToast("复制成功");
                 }
             }

@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -285,8 +286,7 @@ public class FragmentFans extends BaseFragment {
         view.findViewById(R.id.fans_pop_copy_code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, recommendCode));
+                CopyTextUtil.CopyText(getActivity(),recommendCode);
                 showToast("复制成功");
             }
         });
@@ -294,8 +294,7 @@ public class FragmentFans extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(wxID) && !wxID.equals("null ")) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, wxID));
+                    CopyTextUtil.CopyText(getActivity(),wxID);
                     showToast("复制成功");
                 } else {
                     showToast("还未填写微信号");

@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -109,8 +110,7 @@ public class TaoBaoChildFragment extends BaseFragment {
             @Override
             public void onCopyOrderId(String oderid) {
                 if (!TextUtils.isEmpty(oderid)) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, oderid));
+                    CopyTextUtil.CopyText(getActivity(), oderid);
                     showToast("复制成功");
                 }
             }
@@ -129,7 +129,7 @@ public class TaoBaoChildFragment extends BaseFragment {
             public void onSuccess(String data) throws JSONException {
                 TaoBaoBeanNew taoBaoBeanNew = new Gson().fromJson(data, TaoBaoBeanNew.class);
                 if (taoBaoBeanNew.getData() != null && taoBaoBeanNew.getData().size() > 0) {
-                    mTaoBaoAdapter.addData(taoBaoBeanNew.getData(),String.valueOf(type));
+                    mTaoBaoAdapter.addData(taoBaoBeanNew.getData(), String.valueOf(type));
                     if (taoBaoBeanNew.getData().size() >= 10) {
                         hasMore = true;
                         refreshLayout.setBottomView(new RefreshBottomView(getActivity()));

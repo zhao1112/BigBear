@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -184,8 +185,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
     }
 
     public void shearVideo(String videoUrl, String image, String title) {
-        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
+        CopyTextUtil.CopyText(getActivity(), title);
         View popView = instance.getPopView(R.layout.popup_business_share, 1);
         popView.findViewById(R.id.clear_bus).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,8 +243,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
         mMap = new HashMap<>();
         mMap.put("type", "2");
         mMap.put("content", id + "");
-        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
+        CopyTextUtil.CopyText(getActivity(), title);
         View popView = instance.getPopView(R.layout.popup_business_share, 1);
         popView.findViewById(R.id.clear_bus).setOnClickListener(new View.OnClickListener() {
             @Override

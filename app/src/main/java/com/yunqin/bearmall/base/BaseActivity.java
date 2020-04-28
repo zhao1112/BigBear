@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.bbcoupon.util.CopyTextUtil;
 import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
@@ -32,9 +34,12 @@ import com.yunqin.bearmall.ui.activity.SuperSearchActivity;
 import com.yunqin.bearmall.util.StatuBarUtils;
 import com.yunqin.bearmall.widget.LoadingView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
+
 import butterknife.ButterKnife;
 
 
@@ -69,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 public void run() {
                     searchDialog();
                 }
-            },500);
+            }, 500);
         }
     }
 
@@ -106,6 +111,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 return;
             }
             content = item.getText().toString();
+            if (CopyTextUtil.isSameContent(this, content)) {
+                return;
+            }
             if (!TextUtils.isEmpty(content)) {
                 if (mSearchDialog == null) {
                     mSearchDialog = new SearchDialog(this, new View.OnClickListener() {

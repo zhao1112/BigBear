@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -135,8 +136,7 @@ public class FansActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.copy:
-                ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, BearMallAplication.getInstance().getUser().getRecommendCode()));
+                CopyTextUtil.CopyText(FansActivity.this,BearMallAplication.getInstance().getUser().getRecommendCode());
                 showToast("复制成功");
                 break;
             case R.id.searchfans:

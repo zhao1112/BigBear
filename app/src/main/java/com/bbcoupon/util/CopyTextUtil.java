@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 
@@ -27,20 +28,8 @@ public class CopyTextUtil {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public static boolean isSameContent(Context context) {
+    public static boolean isSameContent(Context context, String contents) {
         String content = (String) SharedPreferencesHelper.get(context, "COPYCONTENT", "null");
-        ClipboardManager cm = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
-        ClipData data = cm.getPrimaryClip();
-        if (data == null || data.getItemCount() == 0) {
-            return false;
-        }
-        ClipData.Item item = data.getItemAt(0);
-        if (item == null || item.getText() == null || "null".equals(item.getText().toString())) {
-            Log.e("BearMallAplication", "searchDialog: 2");
-            return false;
-        }
-        String contents = item.getText().toString();
         if (contents.equals(content)) {
             return true;
         } else {

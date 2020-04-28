@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.bbcoupon.ui.bean.TutorInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -477,9 +478,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 break;
             case R.id.mine_copy://复制
                 if (BearMallAplication.getInstance().getUser() != null) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
-                            BearMallAplication.getInstance().getUser().getRecommendCode()));
+                    CopyTextUtil.CopyText(getActivity(), BearMallAplication.getInstance().getUser().getRecommendCode());
                     showToast("复制成功");
                 }
                 break;
@@ -566,8 +565,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 break;
             case R.id.mine_materiel://地推物料
                 showToast("提取码uv6m已复制成功", Gravity.CENTER);
-                ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "uv6m"));
+                CopyTextUtil.CopyText(getActivity(), "uv6m");
                 WebView webView = new WebView(getActivity());
                 webView.loadUrl("https://pan.baidu.com/s/1dMddwhUwH3KS7kggLHs7KQ");
                 break;
@@ -823,8 +821,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                     tutor_copy.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            clipboardManager.setPrimaryClip(ClipData.newPlainText(null, ((TutorInfor) data).getData().getWeixin()));
+                            CopyTextUtil.CopyText(getActivity(), ((TutorInfor) data).getData().getWeixin());
                             showToast("复制成功");
                         }
                     });
@@ -835,7 +832,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 tutor_image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        seeImage(0,((TutorInfor) data).getData().getWxQrcode());
+                        seeImage(0, ((TutorInfor) data).getData().getWxQrcode());
                     }
                 });
             } else {
@@ -947,14 +944,14 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
         Log.i("TestFragment", "onDestroyView");
     }
 
-    public void seeImage(int position,String url) {
+    public void seeImage(int position, String url) {
 
         ImageInfo imageInfo;
         final List<ImageInfo> imageInfoList = new ArrayList<>();
-            imageInfo = new ImageInfo();
-            imageInfo.setOriginUrl(url);// 原图url
-            imageInfo.setThumbnailUrl(url);// 缩略图url
-            imageInfoList.add(imageInfo);
+        imageInfo = new ImageInfo();
+        imageInfo.setOriginUrl(url);// 原图url
+        imageInfo.setThumbnailUrl(url);// 缩略图url
+        imageInfoList.add(imageInfo);
 
         ImagePreview.LoadStrategy loadStrategy = ImagePreview.LoadStrategy.Default;
 

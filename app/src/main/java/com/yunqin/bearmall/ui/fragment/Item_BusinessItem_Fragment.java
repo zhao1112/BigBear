@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -173,8 +174,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
         mMap = new HashMap<>();
         mMap.put("type", "1");
         mMap.put("content", id + "");
-        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, title));
+        CopyTextUtil.CopyText(getActivity(), title);
         View popView = instance.getPopView(R.layout.popup_business_share, 1);
         popView.findViewById(R.id.clear_bus).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -529,10 +529,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                     auntTao.AuntTabo();
                     return;
                 }
-
-                ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, "復製这条口令" + "(" + shareGoodsEntity.getTaoToken() + "),去【tao" +
-                        "寶】下单"));
+                CopyTextUtil.CopyText(getActivity(), "復製这条口令" + "(" + shareGoodsEntity.getTaoToken() + "),去【tao寶】下单");
                 showToast("复制淘口令成功", Gravity.CENTER);
             }
 

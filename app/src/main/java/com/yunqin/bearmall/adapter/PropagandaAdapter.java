@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.ImageUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -179,9 +180,7 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 imageHolder.bus_content.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
-                        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, imageHolder.bus_content.getText().toString().replace(
-                                "</br>", "\n")));
+                        CopyTextUtil.CopyText(context, imageHolder.bus_content.getText().toString().replace("</br>", "\n"));
                         if (mOnClickShare != null) {
                             mOnClickShare.shareCrop();
                         }
@@ -221,9 +220,7 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 imagesHolder.bus_content.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
-                        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
-                                imagesHolder.bus_content.getText().toString().replace("</br>", "\n")));
+                        CopyTextUtil.CopyText(context, imagesHolder.bus_content.getText().toString().replace("</br>", "\n"));
                         if (mOnClickShare != null) {
                             mOnClickShare.shareCrop();
                         }
@@ -271,9 +268,7 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 videoHolder.bus_content.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
-                        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, videoHolder.bus_content.getText().toString().replace(
-                                "</br>", "\n")));
+                        CopyTextUtil.CopyText(context, videoHolder.bus_content.getText().toString().replace("</br>", "\n"));
                         if (mOnClickShare != null) {
                             mOnClickShare.shareCrop();
                         }

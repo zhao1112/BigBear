@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -397,9 +398,7 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
 
             case R.id.tv_copy:
                 if (BearMallAplication.getInstance().getUser() != null) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
-                            BearMallAplication.getInstance().getUser().getRecommendCode()));
+                    CopyTextUtil.CopyText(getActivity(),BearMallAplication.getInstance().getUser().getRecommendCode());
                     showToast("复制成功");
                 }
                 break;

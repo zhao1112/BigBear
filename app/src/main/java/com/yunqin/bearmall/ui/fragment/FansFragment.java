@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -226,7 +227,7 @@ public class FansFragment extends BaseFragment {
         creattime.setText("注册时间 " + creatTime);
         if (!TextUtils.isEmpty(wxId) && !wxId.equals("null ")) {
             copy_wxid.setText(wxId);
-        }else {
+        } else {
             copy_wxid.setText("未填写");
         }
         view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
@@ -238,17 +239,15 @@ public class FansFragment extends BaseFragment {
         view.findViewById(R.id.copy_code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, recommendCode));
+                CopyTextUtil.CopyText(getActivity(), recommendCode);
                 showToast("复制成功");
             }
         });
         view.findViewById(R.id.copy_wxid).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.isEmpty(wxId)&& !wxId.equals("null ")) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, wxId));
+                if (!TextUtils.isEmpty(wxId)) {
+                    CopyTextUtil.CopyText(getActivity(), wxId);
                     showToast("复制成功");
                 } else {
                     showToast("还未填写微信号");

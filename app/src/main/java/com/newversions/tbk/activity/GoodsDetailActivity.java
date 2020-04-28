@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -257,8 +258,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             @Override
             public boolean onLongClick(View view) {
                 if (!TextUtils.isEmpty(tvGoodsTitle.getText().toString())) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, tvGoodsTitle.getText().toString()));
+                    CopyTextUtil.CopyText(GoodsDetailActivity.this,tvGoodsTitle.getText().toString());
                     showToast("复制成功");
                 }
                 return true;

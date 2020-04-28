@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.donkingliang.imageselector.utils.ImageSelector;
@@ -308,8 +309,7 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                 break;
             case R.id.vip_service_copy://复制微信号
                 if (!TextUtils.isEmpty(wxId)) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, wxId));
+                    CopyTextUtil.CopyText(VipExplainActivity.this, wxId);
                     showToast("复制成功");
                 }
                 break;

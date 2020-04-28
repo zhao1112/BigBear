@@ -2,7 +2,6 @@ package com.bbcoupon.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
@@ -11,10 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-
-import com.yunqin.bearmall.BearMallAplication;
-import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 
 /**
  * @author LWP

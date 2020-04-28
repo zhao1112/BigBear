@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -100,8 +101,7 @@ public class BackstangeFragment extends BaseFragment {
             @Override
             public void onCopyOrderNo(String orderNo) {
                 if (!TextUtils.isEmpty(orderNo)) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, orderNo));
+                    CopyTextUtil.CopyText(getActivity(),orderNo);
                     showToast("复制成功");
                 }
             }

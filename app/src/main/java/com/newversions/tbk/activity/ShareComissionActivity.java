@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -138,9 +139,8 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
 
 
         tvCopy.setOnClickListener(v -> {
-            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             if (BearMallAplication.getInstance().getUser() != null) {
-                cm.setText(etShareMsg.getText().toString() + "");
+                CopyTextUtil.CopyText(ShareComissionActivity.this,etShareMsg.getText().toString() + "");
                 Toast.makeText(ShareComissionActivity.this, "复制成功", Toast.LENGTH_LONG).show();
             }
         });

@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.utils.MyWebViewClient;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -411,8 +412,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     }
 
     private void showShare(String platform2) {
-        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, BearMallAplication.getInstance().getUser().getRecommendCode()));
+        CopyTextUtil.CopyText(WebActivity.this, BearMallAplication.getInstance().getUser().getRecommendCode());
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.app_0image);
         Platform platform = ShareSDK.getPlatform(platform2);//获取平台对象
         Platform.ShareParams shareParams = new Platform.ShareParams();//分享的参数

@@ -20,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -204,8 +205,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
         });
     }
 
-    private void ShowFansSeek(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome,
-                              String recommendCode, String id,String wxid) {
+    private void ShowFansSeek(String iconUrl, String mobile, String createdDate, Double lastMonthIncome, Double cumulativeIncome, String recommendCode, String id,String wxid) {
 
         OpenGoodsDetail.lightoff(this);
         View view = LayoutInflater.from(this).inflate(R.layout.fans_pop_appoint, null);
@@ -279,8 +279,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
         view.findViewById(R.id.fans_pop_copy_code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboardManager = (ClipboardManager) getApplication().getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, recommendCode));
+                CopyTextUtil.CopyText(PartnerFansSeekActivity.this,recommendCode);
                 showToast("复制成功");
             }
         });
@@ -288,8 +287,7 @@ public class PartnerFansSeekActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(wxid) && !wxid.equals("null ")) {
-                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, wxid));
+                    CopyTextUtil.CopyText(PartnerFansSeekActivity.this,wxid);
                     showToast("复制成功");
                 } else {
                     showToast("还未填写微信号");
@@ -299,8 +297,6 @@ public class PartnerFansSeekActivity extends BaseActivity {
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-
-
                 OpenGoodsDetail.lighton(PartnerFansSeekActivity.this);
             }
         });

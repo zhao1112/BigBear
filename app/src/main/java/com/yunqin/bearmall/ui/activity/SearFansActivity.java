@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -282,8 +283,7 @@ public class SearFansActivity extends BaseActivity implements TextView.OnEditorA
         view.findViewById(R.id.copy_code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboardManager = (ClipboardManager) SearFansActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, recommendCode));
+                CopyTextUtil.CopyText(SearFansActivity.this,recommendCode);
                 showToast("复制成功");
             }
         });
@@ -291,9 +291,7 @@ public class SearFansActivity extends BaseActivity implements TextView.OnEditorA
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(wxId) && !wxId.equals("null ")) {
-                    ClipboardManager clipboardManager =
-                            (ClipboardManager) SearFansActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(null, wxId));
+                    CopyTextUtil.CopyText(SearFansActivity.this,wxId);
                     showToast("复制成功");
                 } else {
                     showToast("还未填写微信号");

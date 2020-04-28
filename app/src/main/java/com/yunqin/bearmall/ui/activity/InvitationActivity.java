@@ -8,6 +8,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.google.gson.Gson;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
@@ -87,8 +88,7 @@ public class InvitationActivity extends BaseActivity {
                 this.finish();
                 break;
             case R.id.copy:
-                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, link.getText().toString()));
+                CopyTextUtil.CopyText(InvitationActivity.this,link.getText().toString());
                 showToast("链接复制成功");
                 break;
             case R.id.creat_poster:
