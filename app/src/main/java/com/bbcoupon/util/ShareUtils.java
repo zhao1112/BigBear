@@ -14,9 +14,11 @@ import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.util.PopUtil;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.wechat.friends.Wechat;
 
@@ -87,6 +89,24 @@ public class ShareUtils {
     public static Platform shareContentPath(String platforms, String image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setImagePath(image);
+        params.setShareType(Platform.SHARE_IMAGE);
+        Platform platform = ShareSDK.getPlatform(platforms);
+        platform.share(params);
+        return platform;
+    }
+
+
+    //多图分享
+    public static Platform MultiGraphShare(String platforms, String[] image) {
+        HashMap<String, Object> optionMap = new HashMap<>();
+        optionMap.put("Id", "5");
+        optionMap.put("SortId", "5");
+        optionMap.put("BypassApproval", true);
+        optionMap.put("Enable", true);
+        ShareSDK.setPlatformDevInfo(platforms, optionMap);
+
+        Platform.ShareParams params = new Platform.ShareParams();
+        params.setImageArray(image);
         params.setShareType(Platform.SHARE_IMAGE);
         Platform platform = ShareSDK.getPlatform(platforms);
         platform.share(params);

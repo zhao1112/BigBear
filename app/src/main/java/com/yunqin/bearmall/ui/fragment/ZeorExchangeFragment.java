@@ -14,8 +14,12 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.DayliTaskBCInfo;
 import com.yunqin.bearmall.bean.ZeroGoodsBean;
+import com.yunqin.bearmall.eventbus.ChangeFragment;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.dialog.ActivityTextTipDialog;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,7 +65,7 @@ public class ZeorExchangeFragment extends BaseFragment {
                 }
                 break;
             case R.id.more_zeor:
-                DailyTasksActivity.starActivity(getActivity());
+                EventBus.getDefault().post(new ChangeFragment(2));
                 break;
         }
     }

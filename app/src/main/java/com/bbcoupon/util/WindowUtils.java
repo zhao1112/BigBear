@@ -2,6 +2,7 @@ package com.bbcoupon.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
@@ -10,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.ui.activity.BCMessageActivity;
+import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 /**
  * @author LWP
@@ -20,6 +26,47 @@ public class WindowUtils {
 
     private static PopupWindow popupWindow;
     private static View viewContent;
+    private static PopupWindow popupWindowOnly;
+
+
+    /**
+     * activity
+     * view  布局view
+     * position popupWindow显示位置 0顶部 1中部 2底部
+     * animaton 动画
+     */
+    public static PopupWindow timeShowOnly(Activity activity, int view, int animaton, int position) {
+        if (popupWindowOnly == null) {
+            popupWindowOnly = new PopupWindow();
+            LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LinearLayout linearLayout = new LinearLayout(activity);
+            viewContent = inflater.inflate(view, linearLayout);
+            popupWindowOnly.setContentView(viewContent);
+            popupWindowOnly.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+            popupWindowOnly.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+            popupWindowOnly.setAnimationStyle(animaton);
+        }
+        switch (position) {
+            case 0:
+                popupWindowOnly.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP, 0, 0);
+                break;
+            case 1:
+                popupWindowOnly.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                break;
+            case 2:
+                popupWindowOnly.showAtLocation(activity.getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+                break;
+            default:
+                popupWindowOnly.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                break;
+        }
+
+        handlerOnly.removeMessages(1);
+        handlerOnly.sendEmptyMessageDelayed(1, 4000);
+
+        return popupWindowOnly;
+    }
+
 
     /**
      * activity
@@ -28,16 +75,14 @@ public class WindowUtils {
      * animaton 动画
      */
     public static View timeShow(Activity activity, int view, int animaton, int position) {
-        if (popupWindow == null) {
-            popupWindow = new PopupWindow();
-            LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout linearLayout = new LinearLayout(activity);
-            viewContent = inflater.inflate(view, linearLayout);
-            popupWindow.setContentView(viewContent);
-            popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-            popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-            popupWindow.setAnimationStyle(animaton);
-        }
+        popupWindow = new PopupWindow();
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout linearLayout = new LinearLayout(activity);
+        viewContent = inflater.inflate(view, linearLayout);
+        popupWindow.setContentView(viewContent);
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setAnimationStyle(animaton);
         switch (position) {
             case 0:
                 popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP, 0, 0);
@@ -61,10 +106,90 @@ public class WindowUtils {
 
 
     /**
+     * activity
+     * view  布局view
+     * position popupWindow显示位置 0顶部 1中部 2底部
+     */
+    public static View ShowBrightness(Activity activity, int view, int position) {
+        popupWindow = new PopupWindow();
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout linearLayout = new LinearLayout(activity);
+        viewContent = inflater.inflate(view, linearLayout);
+        popupWindow.setContentView(viewContent);
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        OpenGoodsDetail.lightoff(activity);
+        switch (position) {
+            case 0:
+                popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP, 0, 0);
+                break;
+            case 1:
+                popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                break;
+            case 2:
+                popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+                break;
+            default:
+                popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                break;
+        }
+        return viewContent;
+    }
+
+    /**
+     * activity
+     * view  布局view
+     * position popupWindow显示位置 0顶部 1中部 2底部
+     */
+    public static View Show(Activity activity, int view, int position) {
+        popupWindow = new PopupWindow();
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout linearLayout = new LinearLayout(activity);
+        viewContent = inflater.inflate(view, linearLayout);
+        popupWindow.setContentView(viewContent);
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        switch (position) {
+            case 0:
+                popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP, 0, 0);
+                break;
+            case 1:
+                popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                break;
+            case 2:
+                popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+                break;
+            default:
+                popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                break;
+        }
+        return viewContent;
+    }
+
+    /**
      * 关闭PopupWindow
      */
     public static void dismiss() {
         if (popupWindow != null && popupWindow.isShowing()) {
+            popupWindow.dismiss();
+        }
+    }
+
+    /**
+     * 关闭PopupWindow
+     */
+    public static void dismissOnly() {
+        if (popupWindowOnly != null && popupWindowOnly.isShowing()) {
+            popupWindowOnly.dismiss();
+        }
+    }
+
+    /**
+     * 关闭PopupWindow
+     */
+    public static void dismissBrightness(Activity activity) {
+        if (popupWindow != null && popupWindow.isShowing()) {
+            OpenGoodsDetail.lighton(activity);
             popupWindow.dismiss();
         }
     }
@@ -75,6 +200,14 @@ public class WindowUtils {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             popupWindow.dismiss();
+        }
+    };
+
+    private static Handler handlerOnly = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            popupWindowOnly.dismiss();
         }
     };
 

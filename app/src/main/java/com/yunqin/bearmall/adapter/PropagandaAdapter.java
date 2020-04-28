@@ -258,7 +258,7 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     public void onClick(View view) {
                         if (mOnShearVideo != null) {
                             mOnShearVideo.videoUrl(list.get(position).getVideos(), list.get(position).getVideos_img(),
-                                    videoHolder.bus_content.getText().toString().replace("</br>", "\n"));
+                                    videoHolder.bus_content.getText().toString().replace("</br>", "\n"), list.get(position).getId());
                             list.get(position).setShare_num(list.get(position).getShare_num() + 1);
                             notifyDataSetChanged();
                         }
@@ -378,7 +378,7 @@ public class PropagandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public interface onShearVideo {
-        void videoUrl(String url, String image, String title);
+        void videoUrl(String url, String image, String title, int goodesId);
     }
 
     public onShearVideo mOnShearVideo;

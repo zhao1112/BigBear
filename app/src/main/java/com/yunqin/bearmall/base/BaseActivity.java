@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,9 +17,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bbcoupon.util.CopyTextUtil;
+import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
@@ -30,7 +34,10 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.SuperSearch;
+import com.yunqin.bearmall.ui.activity.BCMessageActivity;
+import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.SuperSearchActivity;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StatuBarUtils;
 import com.yunqin.bearmall.widget.LoadingView;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
@@ -73,11 +80,32 @@ public abstract class BaseActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 //                    searchDialog();
-                    com.bbcoupon.widget.SuperSearch.searchDialog(BaseActivity.this,loadingProgress);
+                    com.bbcoupon.widget.SuperSearch.searchDialog(BaseActivity.this, loadingProgress);
+                    onCandy();
                 }
             }, 500);
         }
+
     }
+
+    public void onCandy() {
+        String conten = (String) SharedPreferencesHelper.get(BaseActivity.this, "NUMBER_OF_SWEETS", "");
+        if (!TextUtils.isEmpty(conten)) {
+            PopupWindow popupWindow = WindowUtils.timeShowOnly(BaseActivity.this, R.layout.popup_tisp, R.style.TispAnim, 0);
+            TextView value_tisp = popupWindow.getContentView().findViewById(R.id.value_tisp);
+            String[] split = conten.split("：");
+            value_tisp.setText("分享成功，获得" + split[1] + "个糖果，点击查看详情>>");
+            popupWindow.getContentView().findViewById(R.id.top_tisp).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BaseActivity.this.startActivity(new Intent(BaseActivity.this, BCMessageActivity.class));
+                    WindowUtils.dismissOnly();
+                }
+            });
+        }
+        SharedPreferencesHelper.put(BaseActivity.this, "NUMBER_OF_SWEETS", "");
+    }
+
 
     @Override
     protected void onPause() {

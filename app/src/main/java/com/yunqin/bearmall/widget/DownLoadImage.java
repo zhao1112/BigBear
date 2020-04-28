@@ -191,7 +191,6 @@ public class DownLoadImage {
         new WxDownLoad().execute(imageurl);
     }
 
-
     public class WxDownLoad extends AsyncTask<String, Integer, String> {
 
         @Override

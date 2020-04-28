@@ -1,22 +1,16 @@
 package com.yunqin.bearmall.ui.fragment;
 
 import android.Manifest;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,56 +18,41 @@ import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.CopyTextUtil;
+import com.bbcoupon.util.JurisdictionUtil;
+import com.bbcoupon.util.ShareUtils;
 import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.newversions.tbk.Constants;
-import com.newversions.tbk.activity.GoodsDetailActivity;
-import com.newversions.tbk.activity.ShareComissionActivity;
-import com.newversions.tbk.activity.WebActivity;
 import com.newversions.tbk.entity.ShareGoodsEntity;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunqin.bearmall.BearMallAplication;
-import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.BusinessAdapter;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.bean.ItemBusinessBean;
 import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 import com.yunqin.bearmall.util.AuntTao;
-import com.yunqin.bearmall.util.PopUtil;
-import com.yunqin.bearmall.util.PopUtil2;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.widget.DownLoadImage;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import org.json.JSONException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
-import permison.PermissonUtil;
-import permison.listener.PermissionListener;
 
 /**
  * @author LWP
  * @PACKAGE com.yunqin.bearmall.ui.fragment
  * @DATE 2020/3/30
  */
-public class Item_BusinessItem_Fragment extends BaseFragment implements RequestContract.RequestView {
+public class Item_BusinessItem_Fragment extends BaseFragment implements RequestContract.RequestView, View.OnClickListener {
 
     @BindView(R.id.item_bu_recycle)
     RecyclerView mItemBuRecycle;
@@ -83,15 +62,15 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
     ConstraintLayout mNulldata;
     @BindView(R.id.text_tip)
     TextView mTextTip;
-    Unbinder unbinder;
+
     private String categoryid;
     private int page = 1;
     private BusinessAdapter businessAdapter;
-    private PopUtil instance;
     private int refresh = 2;
-    private PopUtil2 popUtil2;
     private RequestPresenter requestPresenter;
-    private Map<String, String> mMap;
+    private String copyContent;
+    private String[] imageLis;
+    private Map<String, String> map;
 
     public static Item_BusinessItem_Fragment getInstance(String categoryId) {
         Bundle bundle = new Bundle();
@@ -111,11 +90,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
 
         requestPresenter = new RequestPresenter();
         requestPresenter.setRelation(this);
-
-        instance = PopUtil.getInstance();
-        instance.setContext(getActivity());
-        popUtil2 = PopUtil2.getInstance();
-        popUtil2.setContext(getActivity());
 
         categoryid = getArguments().getString("CATEGORYID");
 
@@ -140,7 +114,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
         businessAdapter = new BusinessAdapter(getActivity());
         mItemBuRecycle.setAdapter(businessAdapter);
 
-
         getBusinessProduct();
 
         mTextTip.setText("数据加载中");
@@ -148,17 +121,19 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
 
         businessAdapter.setOnClickShare(new BusinessAdapter.onClickShare() {
             @Override
-            public void share(String[] strings, String title, int id, int i) {
-                Log.e("businessAdapter", "share: ");
-                for (int j = 0; j < strings.length; j++) {
-                    Log.e("businessAdapter", strings[j] + "---");
+            public void share(String[] strings, String title, int goodesId, int position) {
+                copyContent = title;//复制文案
+                imageLis = strings;//分享图片集合
+                if (imageLis != null && imageLis.length > 0) {
+                    startSharing(goodesId);
                 }
-                clickshare(strings, title, i, id);
-                BusinessShare(id);
+                //增加分享数量
+                BusinessShare(goodesId);
             }
 
             @Override
             public void copy(String id) {
+                //获得淘口令
                 shearMsg(id);
             }
 
@@ -170,137 +145,93 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
 
     }
 
-    private void clickshare(String[] strings, String title, int i, int id) {
-        mMap = new HashMap<>();
-        mMap.put("type", "1");
-        mMap.put("content", id + "");
-        CopyTextUtil.CopyText(getActivity(), title);
-        View popView = instance.getPopView(R.layout.popup_business_share, 1);
-        popView.findViewById(R.id.clear_bus).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                instance.dismissPopupWindow();
-            }
-        });
-        popView.findViewById(R.id.wx_share).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
-                    @Override
-                    public void havePermission() {
-                        final IWXAPI api1 = WXAPIFactory.createWXAPI(getActivity(), null);
-                        api1.registerApp(Constans.WX_APPID);  //将APP注册到微信
-                        if (api1.isWXAppInstalled()) {
-                            showToast("文案已复制剪切板", Gravity.CENTER);
-                            shareQQ(Wechat.NAME, strings);
-                            instance.dismissPopupWindow();
-                            requestPresenter.onCandySharing(getActivity(), mMap);
-                        } else {
-                            Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void requestPermissionFail() {
-                        showToast("缺少必要权限");
-                    }
-                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
-            }
-        });
-        popView.findViewById(R.id.moments_share).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), null);
-                api.registerApp(Constans.WX_APPID);  //将APP注册到微信
-                if (api.isWXAppInstalled()) {
-                    PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
-                        @Override
-                        public void havePermission() {
-                            downBusiness(strings, 1, 1);
-                            instance.dismissPopupWindow();
-                            popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
-                        }
-
-                        @Override
-                        public void requestPermissionFail() {
-                            showToast("缺少必要权限");
-                        }
-                    }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
-                } else {
-                    Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        popView.findViewById(R.id.qq_share).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
-                    @Override
-                    public void havePermission() {
-                        if (isQQClientAvailable(getActivity())) {
-                            downBusiness(strings, 1, 4);
-                            instance.dismissPopupWindow();
-                            popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
-                        } else {
-                            Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void requestPermissionFail() {
-                        showToast("缺少必要权限");
-                    }
-                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
-            }
-        });
-        popView.findViewById(R.id.qq_moments_share).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
-                    @Override
-                    public void havePermission() {
-                        if (isQQClientAvailable(getActivity())) {
-                            downBusiness(strings, 1, 2);
-                            instance.dismissPopupWindow();
-                            popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
-                        } else {
-                            Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void requestPermissionFail() {
-                        showToast("缺少必要权限");
-                    }
-                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
-
-            }
-        });
-        popView.findViewById(R.id.dwon_share).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PermissonUtil.checkPermission(getActivity(), new PermissionListener() {
-                    @Override
-                    public void havePermission() {
-                        downBusiness(strings, 2, 3);
-                        instance.dismissPopupWindow();
-                        popUtil2.getPopView2(R.layout.bus_dialog_image, 0);
-                        requestPresenter.onCandySharing(getActivity(), mMap);
-                    }
-
-                    @Override
-                    public void requestPermissionFail() {
-                        showToast("缺少必要权限");
-                    }
-                }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
-            }
-        });
+    private void startSharing(int goodesId) {
+        map = new HashMap<>();
+        map.clear();
+        map.put("type", "1");
+        map.put("content", goodesId + "");
+        View show = WindowUtils.ShowBrightness(getActivity(), R.layout.popup_business_share, 1);
+        show.findViewById(R.id.clear_bus).setOnClickListener(this);
+        show.findViewById(R.id.wx_share).setOnClickListener(this);
+        show.findViewById(R.id.moments_share).setOnClickListener(this);
+        show.findViewById(R.id.qq_share).setOnClickListener(this);
+        show.findViewById(R.id.qq_moments_share).setOnClickListener(this);
+        show.findViewById(R.id.dwon_share).setOnClickListener(this);
     }
 
-    private void downBusiness(String[] strings, int i, int i2) {
+    @Override
+    public void onClick(View view) {
+        CopyTextUtil.CopyText(getActivity(), copyContent);
+        switch (view.getId()) {
+            case R.id.clear_bus://关闭
+                WindowUtils.dismissBrightness(getActivity());
+                break;
+            case R.id.wx_share://微信分享
+                JurisdictionUtil.Jurisdiction(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                if (JurisdictionUtil.IsJurisdiction()) {
+                    if (ShareUtils.isWXClientAvailable(getActivity())) {
+                        ShareUtils.MultiGraphShare(Wechat.NAME, imageLis);
+                        WindowUtils.dismissBrightness(getActivity());
+                        requestPresenter.onCandySharing(getActivity(), map);
+                        showToast("文案已复制剪切板", Gravity.CENTER);
+                    } else {
+                        Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                    }
+                    return;
+                }
+                showToast("缺少必要权限");
+                break;
+            case R.id.moments_share://朋友圈分享
+                JurisdictionUtil.Jurisdiction(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                if (JurisdictionUtil.IsJurisdiction()) {
+                    downBusiness(imageLis, 1, 1);
+                    WindowUtils.dismissBrightness(getActivity());
+                    WindowUtils.Show(getActivity(), R.layout.bus_dialog_image, 1);
+                    showToast("文案已复制剪切板", Gravity.CENTER);
+                    return;
+                }
+                showToast("缺少必要权限");
+                break;
+            case R.id.qq_share://QQ分享
+                JurisdictionUtil.Jurisdiction(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                if (JurisdictionUtil.IsJurisdiction()) {
+                    downBusiness(imageLis, 1, 4);
+                    WindowUtils.dismissBrightness(getActivity());
+                    WindowUtils.Show(getActivity(), R.layout.bus_dialog_image, 1);
+                    showToast("文案已复制剪切板", Gravity.CENTER);
+                    return;
+                }
+                showToast("缺少必要权限");
+                break;
+            case R.id.qq_moments_share://QQ空间分享
+                JurisdictionUtil.Jurisdiction(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                if (JurisdictionUtil.IsJurisdiction()) {
+                    downBusiness(imageLis, 1, 2);
+                    WindowUtils.dismissBrightness(getActivity());
+                    WindowUtils.Show(getActivity(), R.layout.bus_dialog_image, 1);
+                    showToast("文案已复制剪切板", Gravity.CENTER);
+                    return;
+                }
+                showToast("缺少必要权限");
+                break;
+            case R.id.dwon_share://下载图片
+                JurisdictionUtil.Jurisdiction(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                if (JurisdictionUtil.IsJurisdiction()) {
+                    downBusiness(imageLis, 2, 3);
+                    WindowUtils.dismissBrightness(getActivity());
+                    WindowUtils.Show(getActivity(), R.layout.bus_dialog_image, 1);
+                    showToast("文案已复制剪切板", Gravity.CENTER);
+                    return;
+                }
+                showToast("缺少必要权限");
+                break;
+        }
+    }
+
+    //下载图片
+    private void downBusiness(String[] strings, int shareId, int contenId) {
         DownLoadImage dinstance = DownLoadImage.getInstance();
         dinstance.setContext(getActivity());
-        dinstance.DownImageLength(strings);
         dinstance.DownLoadImag(strings);
         dinstance.setOnDownLoadImage(new DownLoadImage.onDownLoadImage() {
             @Override
@@ -315,59 +246,64 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
 
             @Override
             public void progerssVisibility() {
-                popUtil2.dismissPopupWindow();
-                if (i == 1) {
-                    View popView1 = instance.getPopView(R.layout.popup_business_dwon, 0);
-                    TextView textView = popView1.findViewById(R.id.openwx);
-                    TextView title = popView1.findViewById(R.id.title);
-                    if (i2 == 1) {
-                        textView.setText("打开朋友圈");
-                        title.setText("去朋友圈分享");
-                    }
-                    if (i2 == 2) {
-                        textView.setText("打开QQ空间");
-                        title.setText("去QQ空间分享");
-                    }
-                    if (i2 == 4) {
-                        textView.setText("打开QQ");
-                        title.setText("去QQ分享");
-                    }
-                    popView1.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            requestPresenter.onCandySharing(getActivity(), mMap);
-                            instance.dismissPopupWindow();
+                try {
+                    WindowUtils.dismiss();
+                    if (shareId == 1) {
+                        View show = WindowUtils.Show(getActivity(), R.layout.popup_business_dwon, 1);
+                        TextView textView = show.findViewById(R.id.openwx);
+                        TextView title = show.findViewById(R.id.title);
+                        if (contenId == 1) {
+                            textView.setText("打开朋友圈");
+                            title.setText("去朋友圈分享");
                         }
-                    });
-
-
-                    popView1.findViewById(R.id.openwx).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (i2 == 1) {
-                                Intent intent = new Intent();
-                                ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
-                                intent.setAction(Intent.ACTION_MAIN);
-                                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.setComponent(cmp);
-                                startActivity(intent);
+                        if (contenId == 2) {
+                            textView.setText("打开QQ空间");
+                            title.setText("去QQ空间分享");
+                        }
+                        if (contenId == 4) {
+                            textView.setText("打开QQ");
+                            title.setText("去QQ分享");
+                        }
+                        show.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                requestPresenter.onCandySharing(getActivity(), map);
+                                WindowUtils.dismiss();
                             }
-                            if (i2 == 2 || i2 == 4) {
-                                if (isQQClientAvailable(getActivity())) {
-                                    Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                        });
+                        show.findViewById(R.id.openwx).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (contenId == 1) {
+                                    if (ShareUtils.isWXClientAvailable(getActivity())) {
+                                        Intent intent = new Intent();
+                                        ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                                        intent.setAction(Intent.ACTION_MAIN);
+                                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.setComponent(cmp);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+                                if (contenId == 2 || contenId == 4) {
+                                    if (ShareUtils.isQQClientAvailable(getActivity())) {
+                                        Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                requestPresenter.onCandySharing(getActivity(), map);
+                                WindowUtils.dismiss();
                             }
-                            instance.dismissPopupWindow();
-                        }
-                    });
-
-
-                } else {
-                    showToast("已自动复制文案，图片已保存至相册");
+                        });
+                    } else {
+                        showToast("已自动复制文案，图片已保存至相册");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -383,60 +319,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
         });
     }
 
-    //普通的分享
-    public void shareQQ(String name, String[] strings) {//name 分享到那个平台
-        HashMap<String, Object> optionMap = new HashMap<>();
-        optionMap.put("Id", "5");
-        optionMap.put("SortId", "5");
-        optionMap.put("BypassApproval", true);
-        optionMap.put("Enable", true);
-        ShareSDK.setPlatformDevInfo(name, optionMap);
-
-        Platform platform = ShareSDK.getPlatform(name);//获取平台对象
-        Platform.ShareParams shareParams = new Platform.ShareParams();//分享的参数
-        shareParams.setShareType(Platform.SHARE_IMAGE);//分享类型
-        shareParams.setImageArray(strings);
-        platform.share(shareParams);
-        platform.setPlatformActionListener(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-
-            }
-
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-
-            }
-
-            @Override
-            public void onCancel(Platform platform, int i) {
-
-            }
-        });
-    }
-
-    public static void shareQQImage(String name, String[] strings) {//name 分享到那个平台
-        Platform platform = ShareSDK.getPlatform(name);//获取平台对象
-        Platform.ShareParams shareParams = new Platform.ShareParams();//分享的参数
-        shareParams.setShareType(Platform.SHARE_IMAGE);//分享类型
-        shareParams.setImageUrl(strings[0]);
-        platform.share(shareParams);
-    }
-
-    public static boolean isQQClientAvailable(Context context) {
-        final PackageManager packageManager = context.getPackageManager();
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        if (pinfo != null) {
-            for (int i = 0; i < pinfo.size(); i++) {
-                String pn = pinfo.get(i).packageName;
-                if (pn.equals("com.tencent.mobileqq")) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
+    //获取页面数据
     private void getBusinessProduct() {
         HashMap<String, String> map = new HashMap<>();
         if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData()
@@ -484,6 +367,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
         });
     }
 
+    //增加分享次数
     public void BusinessShare(int id) {
         HashMap<String, String> map = new HashMap<>();
         if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData()
@@ -511,6 +395,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
         });
     }
 
+    //获得淘口令
     public void shearMsg(String id) {
         Map<String, String> map = new HashMap<>();
         map.put("goodsId", id);
@@ -520,10 +405,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                 ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
                 if (shareGoodsEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
-//                    Intent intent = new Intent(getActivity(), MyWebActivity.class);
-//                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
-//                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
-//                    startActivity(intent);
                     AuntTao auntTao = new AuntTao();
                     auntTao.setContext(getActivity());
                     auntTao.AuntTabo();
@@ -554,15 +435,17 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
     @Override
     public void onSuccess(Object data) {
         if (data instanceof RequestInfor) {
+            SharedPreferencesHelper.put(getActivity(), "NUMBER_OF_SWEETS", "");
             RequestInfor requestInfor = (RequestInfor) data;
             if (requestInfor.getCode() == 1) {
-                View view = WindowUtils.timeShow(getActivity(), R.layout.popup_tisp, R.style.TispAnim, 0);
-                TextView value_tisp = view.findViewById(R.id.value_tisp);
+                PopupWindow popupWindow = WindowUtils.timeShowOnly(getActivity(), R.layout.popup_tisp, R.style.TispAnim, 0);
+                TextView value_tisp = popupWindow.getContentView().findViewById(R.id.value_tisp);
                 value_tisp.setText("分享成功，获得" + requestInfor.getValue() + "个糖果，点击查看详情>>");
-                view.findViewById(R.id.top_tisp).setOnClickListener(new View.OnClickListener() {
+                popupWindow.getContentView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         getActivity().startActivity(new Intent(getActivity(), BCMessageActivity.class));
+                        WindowUtils.dismissOnly();
                     }
                 });
             }
@@ -578,4 +461,5 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
     public void onFail(Throwable e) {
 
     }
+
 }

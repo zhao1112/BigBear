@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 import com.yunqin.bearmall.util.AuntTao;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.ShareUtil;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 
 import org.json.JSONException;
 
@@ -410,15 +412,17 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
     @Override
     public void onSuccess(Object data) {
         if (data instanceof RequestInfor) {
+            SharedPreferencesHelper.put(ShareComissionActivity.this, "NUMBER_OF_SWEETS", "");
             RequestInfor requestInfor = (RequestInfor) data;
             if (requestInfor.getCode() == 1) {
-                View view = WindowUtils.timeShow(ShareComissionActivity.this, R.layout.popup_tisp, R.style.TispAnim, 0);
-                TextView value_tisp = view.findViewById(R.id.value_tisp);
+                PopupWindow popupWindow = WindowUtils.timeShowOnly(ShareComissionActivity.this, R.layout.popup_tisp, R.style.TispAnim, 0);
+                TextView value_tisp = popupWindow.getContentView().findViewById(R.id.value_tisp);
                 value_tisp.setText("分享成功，获得" + requestInfor.getValue() + "个糖果，点击查看详情>>");
-                view.findViewById(R.id.top_tisp).setOnClickListener(new View.OnClickListener() {
+                popupWindow.getContentView().findViewById(R.id.top_tisp).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         ShareComissionActivity.this.startActivity(new Intent(ShareComissionActivity.this, BCMessageActivity.class));
+                        WindowUtils.dismissOnly();
                     }
                 });
             }

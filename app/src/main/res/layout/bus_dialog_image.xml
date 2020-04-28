@@ -6,8 +6,8 @@
 
 
     <RelativeLayout
-        android:layout_width="@dimen/dp_150"
-        android:layout_height="@dimen/dp_150"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
         android:layout_centerInParent="true"
         android:background="@drawable/bus_bg">
 
@@ -20,15 +20,15 @@
 
             <ProgressBar
 
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
                 android:layout_centerInParent="true"
                 android:indeterminateDrawable="@drawable/animdrawloading"
                 android:indeterminateDuration="1500"/>
 
             <ImageView
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/dp_5"
                 android:src="@drawable/loading_center"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/popup"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_5"
             android:text="正在保存图片..."
             android:textSize="@dimen/sp_14"/>
 

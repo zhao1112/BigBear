@@ -22,6 +22,7 @@ import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.eventbus.GetMessageEvent;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
 import com.yunqin.bearmall.ui.activity.BCMessageActivity;
+import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.MineOrderActivity;
 import com.yunqin.bearmall.util.INotificationUtil;
@@ -93,7 +94,10 @@ public class BearMallIntentService extends GTIntentService {
                     String content = jsonObject.optString("content");
                     Intent intent = new Intent(context, InformationFragmentActivity.class);
                     INotificationUtil.showMineOrderActivity(context, intent, title, content);
-                    Log.e("onReceiveMessageData", "onReceiveMessageData: ");
+                    Log.e("onReceiveMessageData", content);
+                    if (content.indexOf("糖果") != -1){
+                        SharedPreferencesHelper.put(context, "NUMBER_OF_SWEETS", content);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
