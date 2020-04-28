@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -198,7 +199,7 @@ public class RetrofitApi {
                                                listener.onFail(new Exception(data));
                                            }
                                            String msg = jsonObject.optString("msg");
-                                           if (!"重复请求".equals(msg)) {
+                                           if (!"重复请求".equals(msg) && !TextUtils.isEmpty(msg)) {
                                                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
                                            }
                                        }
@@ -269,7 +270,7 @@ public class RetrofitApi {
                                                listener.onFail(new Exception(data));
                                            }
                                            String msg = jsonObject.optString("msg");
-                                           if (!"重复请求".equals(msg)) {
+                                           if (!"重复请求".equals(msg)&& !TextUtils.isEmpty(msg)) {
                                                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
                                            }
                                        }
