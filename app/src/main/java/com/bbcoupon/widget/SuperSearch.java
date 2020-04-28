@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.DialogUtil;
 import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
@@ -65,6 +66,9 @@ public class SuperSearch {
                 return;
             }
             content = item.getText().toString();
+            if (CopyTextUtil.isSameContent(context, content)) {
+                return;
+            }
             if (!TextUtils.isEmpty(content)) {
                 if (mSearchDialog == null) {
                     mSearchDialog = new SearchDialog(context, new View.OnClickListener() {
@@ -105,8 +109,7 @@ public class SuperSearch {
                                             JSONObject object = new JSONObject(data);
                                             if (object != null) {
                                                 if (object.optInt("code") == 1) {
-                                                    com.yunqin.bearmall.bean.SuperSearch superSearch = new Gson().fromJson(data,
-                                                            com.yunqin.bearmall.bean.SuperSearch.class);
+                                                    com.yunqin.bearmall.bean.SuperSearch superSearch = new Gson().fromJson(data, com.yunqin.bearmall.bean.SuperSearch.class);
                                                     if (superSearch != null && superSearch.getData().size() > 0) {
                                                         if (superSearch.getData().size() == 1) {
                                                             GoodsDetailActivity.startGoodsDetailActivity(context,

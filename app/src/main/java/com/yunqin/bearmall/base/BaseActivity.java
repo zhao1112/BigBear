@@ -72,7 +72,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    searchDialog();
+//                    searchDialog();
+                    com.bbcoupon.widget.SuperSearch.searchDialog(BaseActivity.this,loadingProgress);
                 }
             }, 500);
         }
@@ -87,124 +88,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private String content;
     private SearchDialog mSearchDialog = null;
 
-    private void searchDialog() {
-        try {
-            Boolean bFirst = (Boolean) SharedPreferencesUtils.getParam(this, Constants.isFirstOpen, true);
-            if (BearMallAplication.getInstance().getUser() == null) {
-                return;
-            }
-            if (loadingProgress != null && loadingProgress.isShowing()) {
-                return;
-            }
-            if (BearMallAplication.isFirst && BearMallAplication.isFirst2) {
-                Log.e("BearMallAplication", "searchDialog: " + BearMallAplication.isFirst + "------" + BearMallAplication.isFirst2);
-                return;
-            }
-            ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-            ClipData data = cm.getPrimaryClip();
-            if (data == null || data.getItemCount() == 0) {
-                return;
-            }
-            ClipData.Item item = data.getItemAt(0);
-            if (item == null || item.getText() == null || "null".equals(item.getText().toString())) {
-                Log.e("BearMallAplication", "searchDialog: 2");
-                return;
-            }
-            content = item.getText().toString();
-            if (CopyTextUtil.isSameContent(this, content)) {
-                return;
-            }
-            if (!TextUtils.isEmpty(content)) {
-                if (mSearchDialog == null) {
-                    mSearchDialog = new SearchDialog(this, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            try {
-                                cm.setPrimaryClip(cm.getPrimaryClip());
-                                cm.setText(null);
-                                BearMallAplication.isFirst = true;
-                                BearMallAplication.isFirst2 = true;
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            mSearchDialog.dismiss();
-                        }
-                    }, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            try {
-                                cm.setPrimaryClip(cm.getPrimaryClip());
-                                cm.setText(null);
-                                BearMallAplication.isFirst = true;
-                                BearMallAplication.isFirst2 = true;
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            mSearchDialog.dismiss();
-                            HashMap<String, String> map = new HashMap<>();
-                            map.put("content", content);
-                            if (BearMallAplication.getInstance().getUser() != null && BearMallAplication.getInstance().getUser().getData() != null && BearMallAplication.getInstance().getUser().getData().getToken() != null && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
-                                map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
-                            }
-                            Log.i("jsonObject", content);
-                            RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).findCommodityIdByTpwd(map),
-                                    new RetrofitApi.IResponseListener() {
-                                        @Override
-                                        public void onSuccess(String data) throws JSONException {
-                                            JSONObject object = new JSONObject(data);
-                                            if (object != null) {
-                                                if (object.optInt("code") == 1) {
-                                                    SuperSearch superSearch = new Gson().fromJson(data, SuperSearch.class);
-                                                    if (superSearch != null && superSearch.getData().size() > 0) {
-                                                        if (superSearch.getData().size() == 1) {
-                                                            GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
-                                                                    superSearch.getData().get(0).getTao_id(),
-                                                                    Constants.GOODS_TYPE_TBK_SEARCH, Constants.COMMISSION_TYPE_THREE);
-                                                        } else {
-                                                            SuperSearchActivity.openSuperSearchActivity(BaseActivity.this, superSearch,
-                                                                    content);
-                                                        }
-                                                    } else {
-                                                        OpenGoodsDetail.showDialog(BaseActivity.this);
-                                                    }
-                                                } else if (object.optInt("code") == 2) {
-                                                    if (TextUtils.isEmpty(object.optString("data"))) {
-                                                        OpenGoodsDetail.showDialog(BaseActivity.this);
-                                                    } else {
-                                                        GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this, object.optString(
-                                                                "data"), Constants.GOODS_TYPE_TBK_SEARCH, Constants.COMMISSION_TYPE_THREE);
-                                                    }
-                                                } else {
-                                                    OpenGoodsDetail.showDialog(BaseActivity.this);
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onNotNetWork() {
-                                            Log.i("jsonObject", "---------");
-                                        }
-
-                                        @Override
-                                        public void onFail(Throwable e) {
-                                            Log.i("jsonObject", "---------");
-                                        }
-                                    });
-                        }
-                    });
-                }
-                if (!mSearchDialog.isShowing()) {
-                    mSearchDialog.setMessage(content);
-                    mSearchDialog.show();
-                } else {
-                    mSearchDialog.setMessage(content);
-                }
-                cm.setText(content);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     //设置沉浸式
     @TargetApi(19)
