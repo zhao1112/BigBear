@@ -28,6 +28,7 @@ import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.CopyTextUtil;
+import com.bbcoupon.util.ShareUtils;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -44,10 +45,12 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 import com.yunqin.bearmall.util.AuntTao;
 import com.yunqin.bearmall.util.ConstantScUtil;
+import com.yunqin.bearmall.util.ShareUtil;
 
 import org.json.JSONException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -83,6 +86,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
     private GoodDetailEntity.GoodDetailBean goodDetailBean;
     Platform platform = null;
     private RequestPresenter requestPresenter;
+    private static String fileName = null;
 
     @Override
     public int layoutId() {
@@ -104,11 +108,6 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
             public void onSuccess(String data) throws JSONException {
                 ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
                 if (shareGoodsEntity.getCode() == 2) {
-                    // TODO: 2019/8/15 0015 shouquan
-//                    Intent intent = new Intent(ShareComissionActivity.this, WebActivity.class);
-//                    intent.putExtra(Constants.INTENT_KEY_URL, shareGoodsEntity.getTaoToken());
-//                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
-//                    startActivity(intent);
                     AuntTao auntTao = new AuntTao();
                     auntTao.setContext(ShareComissionActivity.this);
                     auntTao.AuntTabo();
@@ -140,7 +139,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
 
         tvCopy.setOnClickListener(v -> {
             if (BearMallAplication.getInstance().getUser() != null) {
-                CopyTextUtil.CopyText(ShareComissionActivity.this,etShareMsg.getText().toString() + "");
+                CopyTextUtil.CopyText(ShareComissionActivity.this, etShareMsg.getText().toString() + "");
                 Toast.makeText(ShareComissionActivity.this, "复制成功", Toast.LENGTH_LONG).show();
             }
         });
@@ -214,30 +213,48 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
                         hiddenLoadingView();
                         im_erweima.setImageDrawable(resource);
                         Bitmap bitmap = createBitmap3(view);
-                        saveBmp2Gallery(bitmap, System.currentTimeMillis() + "", ShareComissionActivity.this);
-                        Platform.ShareParams sp = new Platform.ShareParams();
-                        sp.setImageData(bitmap);
-                        sp.setShareType(Platform.SHARE_IMAGE);
+                        String time = System.currentTimeMillis() + "";
+                        saveBmp2Gallery(bitmap, time, ShareComissionActivity.this);
                         switch (btn.getId()) {
                             case R.id.lin_share_weixin:
-                                platform = ShareSDK.getPlatform(Wechat.NAME);
+                                if (ShareUtils.isWXClientAvailable(ShareComissionActivity.this)) {
+                                    Platform platform = ShareUtils.shareContent(Wechat.NAME, bitmap);
+                                    platform.setPlatformActionListener(ShareComissionActivity.this);
+                                } else {
+                                    Toast.makeText(ShareComissionActivity.this, "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                                }
                                 break;
                             case R.id.lin_share_pengyouquan:
-                                platform = ShareSDK.getPlatform(WechatMoments.NAME);
+                                if (ShareUtils.isWXClientAvailable(ShareComissionActivity.this)) {
+                                    Platform platform = ShareUtils.shareContent(WechatMoments.NAME, bitmap);
+                                    platform.setPlatformActionListener(ShareComissionActivity.this);
+                                } else {
+                                    Toast.makeText(ShareComissionActivity.this, "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                                }
                                 break;
                             case R.id.lin_share_qq:
-                                platform = ShareSDK.getPlatform(QQ.NAME);
+                                saveBitmap(bitmap, time);
+                                String appDir = Environment.getExternalStorageDirectory() + "/InvitationPoster/";
+
+                                if (ShareUtils.isQQClientAvailable(ShareComissionActivity.this)) {
+                                    Platform platform = ShareUtils.shareContentPath(QQ.NAME, appDir + time + ".jpg");
+                                    platform.setPlatformActionListener(ShareComissionActivity.this);
+                                } else {
+                                    Toast.makeText(ShareComissionActivity.this, "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                                }
+
                                 break;
                             case R.id.lin_share_qq_qzone:
-                                platform = ShareSDK.getPlatform(QZone.NAME);
+                                if (ShareUtils.isQQClientAvailable(ShareComissionActivity.this)) {
+                                    Platform platform = ShareUtils.shareContent(QZone.NAME, bitmap);
+                                    platform.setPlatformActionListener(ShareComissionActivity.this);
+                                } else {
+                                    Toast.makeText(ShareComissionActivity.this, "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
+                                }
                                 break;
                             case R.id.lin_share_weibo:
                                 platform = ShareSDK.getPlatform(SinaWeibo.NAME);
                                 break;
-                        }
-                        if (platform != null) {
-                            platform.share(sp);
-                            platform.setPlatformActionListener(ShareComissionActivity.this);
                         }
                     }
 
@@ -338,6 +355,25 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
         mContext.sendBroadcast(intent);
     }
 
+    private void saveBitmap(Bitmap bitmap, String tmplName) {
+        String appDir = Environment.getExternalStorageDirectory() + "/InvitationPoster/";
+        try {
+            File dirFile = new File(appDir);
+            if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
+                dirFile.mkdirs();
+            }
+            File file = new File(appDir, tmplName + ".jpg");
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         if (goodDetailBean != null) {
@@ -354,6 +390,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
 
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
+        Log.e("platform", throwable.getMessage());
         if (goodDetailBean != null) {
             ConstantScUtil.searchShareType(goodDetailBean.getItemId() + "", goodDetailBean.getName(), goodDetailBean.getSellerName(),
                     goodDetailBean.getCouponAmount() + "", goodDetailBean + "", goodDetailBean.getPrice() + "",

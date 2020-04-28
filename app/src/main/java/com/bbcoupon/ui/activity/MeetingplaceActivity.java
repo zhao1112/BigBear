@@ -24,6 +24,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.newversions.tbk.activity.ShareComissionActivity;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.PopUtil;
@@ -57,7 +58,6 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
     TextView mMeShear;
 
     private PopUtil popUtil;
-    private ShareUtils shareUtil;
     private DownLoadImage downLoadImage;
     private String image = "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1091882071,1476673950&fm=26&gp=0.jpg";
     private RoundedCorners roundedCorners = new RoundedCorners(10);
@@ -76,8 +76,6 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
 
         popUtil = PopUtil.getInstance();
         popUtil.setContext(this);
-        shareUtil = ShareUtils.getInstance();
-        shareUtil.setContext(this);
 
         setKeyBg(me_password, "#ff438ff1");
         setKeyBg(mMeShear, "#fffbdb4a");
@@ -155,13 +153,21 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.wx_share:
                 if (bitmap1 != null) {
-                    shareUtil.shareContent(Wechat.NAME, bitmap1);
+                    if (ShareUtils.isWXClientAvailable(MeetingplaceActivity.this)) {
+                        ShareUtils.shareContent(Wechat.NAME, bitmap1);
+                    } else {
+                        Toast.makeText(MeetingplaceActivity.this, "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                    }
                     popUtil.dismissPopupWindow();
                 }
                 break;
             case R.id.moments_share:
                 if (bitmap1 != null) {
-                    shareUtil.shareContent(WechatMoments.NAME, bitmap1);
+                    if (ShareUtils.isWXClientAvailable(MeetingplaceActivity.this)) {
+                        ShareUtils.shareContent(WechatMoments.NAME, bitmap1);
+                    } else {
+                        Toast.makeText(MeetingplaceActivity.this, "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                    }
                     popUtil.dismissPopupWindow();
                 }
                 break;

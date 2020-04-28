@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.util.PopUtil;
 
+import java.io.File;
 import java.util.List;
 
 import cn.sharesdk.framework.Platform;
@@ -26,26 +27,8 @@ import cn.sharesdk.wechat.friends.Wechat;
  */
 public class ShareUtils {
 
-    private static ShareUtils shareUtil = null;
-    public Context context;
-
-    public static ShareUtils getInstance() {
-        if (shareUtil == null) {
-            synchronized (ShareUtils.class) {
-                if (shareUtil == null) {
-                    shareUtil = new ShareUtils();
-                }
-            }
-        }
-        return shareUtil;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     //分享
-    public Platform shareContent(String platforms, String title, String content, String image) {
+    public static Platform shareContent(String platforms, String title, String content, String image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setTitle(title);
         params.setText(content);
@@ -57,7 +40,7 @@ public class ShareUtils {
     }
 
     //单图分享
-    public Platform shareContent(String platforms, String image) {
+    public static Platform shareContent(String platforms, String image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setImageUrl(image);
         params.setShareType(Platform.SHARE_IMAGE);
@@ -67,7 +50,7 @@ public class ShareUtils {
     }
 
     //单图分享
-    public Platform shareContent(String platforms, Bitmap image) {
+    public static Platform shareContent(String platforms, Bitmap image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setImageData(image);
         params.setShareType(Platform.SHARE_IMAGE);
@@ -77,7 +60,7 @@ public class ShareUtils {
     }
 
     //分享
-    public Platform shareContent(String platforms, String title, String content, Bitmap image) {
+    public static Platform shareContent(String platforms, String title, String content, Bitmap image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setTitle(title);
         params.setText(content);
@@ -87,6 +70,29 @@ public class ShareUtils {
         platform.share(params);
         return platform;
     }
+
+    //分享
+    public static Platform shareContentPath(String platforms, String title, String content, String image) {
+        Platform.ShareParams params = new Platform.ShareParams();
+        params.setTitle(title);
+        params.setText(content);
+        params.setImagePath(image);
+        params.setShareType(Platform.SHARE_IMAGE);
+        Platform platform = ShareSDK.getPlatform(platforms);
+        platform.share(params);
+        return platform;
+    }
+
+    //单图分享
+    public static Platform shareContentPath(String platforms, String image) {
+        Platform.ShareParams params = new Platform.ShareParams();
+        params.setImagePath(image);
+        params.setShareType(Platform.SHARE_IMAGE);
+        Platform platform = ShareSDK.getPlatform(platforms);
+        platform.share(params);
+        return platform;
+    }
+
 
     //判断用户是否安装微信
     public static boolean isWXClientAvailable(Context context) {
@@ -113,5 +119,6 @@ public class ShareUtils {
         }
         return false;
     }
+
 
 }
