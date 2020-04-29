@@ -3,15 +3,18 @@ package com.yunqin.bearmall.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -127,6 +130,17 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     @Override
     protected void onResume() {
         super.onResume();
+        if(!TextUtils.isEmpty(mEditText.getText().toString())){
+            mEditText.setFocusable(true);
+            mEditText.setFocusableInTouchMode(true);
+            mEditText.requestFocus();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showKeyboard(mEditText);
+                }
+            },900);
+        }
         mListView.cleanTag();
         mSearchList = getSearchData();
         setList(mSearchList);
