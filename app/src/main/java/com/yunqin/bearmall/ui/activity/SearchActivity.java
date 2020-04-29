@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.adapter.AssociationAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -77,12 +80,15 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     DelEditText mEditText;
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.list_view)
+    RecyclerView list_view;
 
     private List<String> mSearchList;
     private SearchAdapter searchAdapter;
     private SearchActivityContract.Presenter presenter = new SearchPresenter(this);
     private String lastMenuGoodsData = null;
     private List<SearchBannerBean.DataBean.PlatformBannerBean> list;
+    private AssociationAdapter mAssociationAdapter;
 
 
     @Override
@@ -111,6 +117,19 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                 }
             }
         });
+
+        mAssociationAdapter = new AssociationAdapter(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        list_view.setLayoutManager(linearLayoutManager);
+        list_view.setAdapter(mAssociationAdapter);
+
+        mAssociationAdapter.setOnAssociationContent(new AssociationAdapter.OnAssociationContent() {
+            @Override
+            public void setConten(String conten) {
+                ProductSumActivity2.startProductSumActivity2(SearchActivity.this, conten, 8, conten);
+                assemblyData(conten);
+            }
+        });
     }
 
     private void setList(List<String> mSearchList) {
@@ -130,7 +149,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     @Override
     protected void onResume() {
         super.onResume();
-        if(!TextUtils.isEmpty(mEditText.getText().toString())){
+        if (!TextUtils.isEmpty(mEditText.getText().toString())) {
             mEditText.setFocusable(true);
             mEditText.setFocusableInTouchMode(true);
             mEditText.requestFocus();
@@ -139,7 +158,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                 public void run() {
                     showKeyboard(mEditText);
                 }
-            },900);
+            }, 900);
         }
         mListView.cleanTag();
         mSearchList = getSearchData();
@@ -185,11 +204,17 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        Log.e("onTextChanged", "CharSequence: " + s.length() + "--start" + start + "---before" + before + "---count" + count);
         if (mListView.getVisibility() == View.GONE) {
             mListView.setVisibility(View.VISIBLE);
         }
         if (cancelTextView.getVisibility() == View.GONE) {
             cancelTextView.setVisibility(View.VISIBLE);
+        }
+        if (s.length() == 0) {
+            list_view.setVisibility(View.GONE);
+        } else {
+            list_view.setVisibility(View.VISIBLE);
         }
 
         presenter.onTextChangedSearch(this, s + "", new RetrofitApi.IResponseListener() {
@@ -197,6 +222,9 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             public void onSuccess(String data) {
                 List<String> list = new ArrayList<>();
                 SearchMatch searchMatch = new Gson().fromJson(data, SearchMatch.class);
+                if (searchMatch.getData() != null && searchMatch.getData().size() > 0) {
+                    mAssociationAdapter.addData(searchMatch.getData());
+                }
                 if (searchMatch.getData() != null) {
                     for (SearchMatch.DataBean dataBean : searchMatch.getData()) {
                         list.add(dataBean.getSearchValue());

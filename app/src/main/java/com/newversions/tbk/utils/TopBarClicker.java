@@ -118,6 +118,7 @@ public class TopBarClicker {
                 break;
             case 108://自定义商品
                 bundle.putString("TYPE_TARGET", bean.getUrl());
+                bundle.putString("TYPE_TITLE", bean.getName());
                 CustomGoodesActivity.openCustomGoodesActivity(activity,CustomGoodesActivity.class,bundle);
                 break;
             case 109://内部天猫国际，天猫超市

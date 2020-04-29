@@ -43,6 +43,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import mlxy.utils.T;
+
 public class BannerClicker {
     public static void bannerClick(Activity activity, int targetType, String target, String title) {
         Log.i("bannerClick", "targetType: " + targetType + "--- target" + target + "---" + title);
@@ -196,6 +198,7 @@ public class BannerClicker {
                 break;
             case 108://自定义商品
                 bundle.putString("TYPE_TARGET", target);
+                bundle.putString("TYPE_TITLE", title);
                 CustomGoodesActivity.openCustomGoodesActivity(activity,CustomGoodesActivity.class,bundle);
                 break;
             case 109://内部天猫国际，天猫超市

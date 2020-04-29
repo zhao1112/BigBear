@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -62,6 +63,8 @@ public class ProductSumActivity2 extends BaseActivity {
     ImageView list_show;
     @BindView(R.id.title_tx)
     TextView title_tx;
+    @BindView(R.id.whole_search)
+    LinearLayout whole_search;
 
 
     Unbinder unbinder;
@@ -317,11 +320,12 @@ public class ProductSumActivity2 extends BaseActivity {
     }
 
 
-    @OnClick({R.id.toolbar_back, R.id.list_show, R.id.input_content_text})
+    @OnClick({R.id.toolbar_back, R.id.list_show, R.id.input_content_text, R.id.whole_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_back:
             case R.id.input_content_text:
+            case R.id.whole_search:
                 finish();
                 break;
             case R.id.list_show:

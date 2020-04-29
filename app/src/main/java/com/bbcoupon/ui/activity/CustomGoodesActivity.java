@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,15 +24,14 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.adapter.HotAdapter2;
 import com.yunqin.bearmall.base.BaseActivity;
-import com.yunqin.bearmall.bean.HotBean;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -58,6 +58,7 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
     private int page = 1;
     private CustomAdapter customAdapter;
     private String type_target;
+    private String type_title;
 
     public static void openCustomGoodesActivity(Activity context, Class cls, Bundle bundle) {
         Intent intent = new Intent(context, cls);
@@ -77,6 +78,7 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
 
         try {
             type_target = getIntent().getStringExtra("TYPE_TARGET");
+            type_title = getIntent().getStringExtra("TYPE_TITLE");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,6 +121,8 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
             }
         });
 
+        mTitle.setText(type_title);
+        mNulldata.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.toolbar_back)
@@ -137,7 +141,6 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
         if (data instanceof CustomInfor) {
             try {
                 CustomInfor customInfor = (CustomInfor) data;
-                mTitle.setText(customInfor.getPlatformList().getTitle());
                 Glide.with(CustomGoodesActivity.this)
                         .load(customInfor.getPlatformList().getImage())
                         .apply(new RequestOptions().placeholder(R.drawable.default_product_small))
