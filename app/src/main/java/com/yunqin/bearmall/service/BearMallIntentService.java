@@ -95,9 +95,6 @@ public class BearMallIntentService extends GTIntentService {
                     Intent intent = new Intent(context, InformationFragmentActivity.class);
                     INotificationUtil.showMineOrderActivity(context, intent, title, content);
                     Log.e("onReceiveMessageData", content);
-                    if (content.indexOf("糖果") != -1){
-                        SharedPreferencesHelper.put(context, "NUMBER_OF_SWEETS", content);
-                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

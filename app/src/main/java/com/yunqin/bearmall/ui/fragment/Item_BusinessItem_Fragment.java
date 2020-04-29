@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -172,8 +173,13 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                     if (ShareUtils.isWXClientAvailable(getActivity())) {
                         ShareUtils.MultiGraphShare(Wechat.NAME, imageLis);
                         WindowUtils.dismissBrightness(getActivity());
-                        requestPresenter.onCandySharing(getActivity(), map);
                         showToast("文案已复制剪切板", Gravity.CENTER);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                requestPresenter.onCandySharing(getActivity(), map);
+                            }
+                        },3000);
                     } else {
                         Toast.makeText(getActivity(), "请先安装微信客户端", Toast.LENGTH_SHORT).show();
                     }
@@ -187,7 +193,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                     downBusiness(imageLis, 1, 1);
                     WindowUtils.dismissBrightness(getActivity());
                     WindowUtils.Show(getActivity(), R.layout.bus_dialog_image, 1);
-                    showToast("文案已复制剪切板", Gravity.CENTER);
                     return;
                 }
                 showToast("缺少必要权限");
@@ -198,7 +203,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                     downBusiness(imageLis, 1, 4);
                     WindowUtils.dismissBrightness(getActivity());
                     WindowUtils.Show(getActivity(), R.layout.bus_dialog_image, 1);
-                    showToast("文案已复制剪切板", Gravity.CENTER);
                     return;
                 }
                 showToast("缺少必要权限");
@@ -209,7 +213,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                     downBusiness(imageLis, 1, 2);
                     WindowUtils.dismissBrightness(getActivity());
                     WindowUtils.Show(getActivity(), R.layout.bus_dialog_image, 1);
-                    showToast("文案已复制剪切板", Gravity.CENTER);
                     return;
                 }
                 showToast("缺少必要权限");
@@ -220,7 +223,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                     downBusiness(imageLis, 2, 3);
                     WindowUtils.dismissBrightness(getActivity());
                     WindowUtils.Show(getActivity(), R.layout.bus_dialog_image, 1);
-                    showToast("文案已复制剪切板", Gravity.CENTER);
                     return;
                 }
                 showToast("缺少必要权限");
@@ -295,12 +297,18 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                                         Toast.makeText(getActivity(), "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                                requestPresenter.onCandySharing(getActivity(), map);
                                 WindowUtils.dismiss();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        requestPresenter.onCandySharing(getActivity(), map);
+                                    }
+                                },3000);
                             }
                         });
                     } else {
                         showToast("已自动复制文案，图片已保存至相册");
+                        requestPresenter.onCandySharing(getActivity(), map);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -435,7 +443,6 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
     @Override
     public void onSuccess(Object data) {
         if (data instanceof RequestInfor) {
-            SharedPreferencesHelper.put(getActivity(), "NUMBER_OF_SWEETS", "");
             RequestInfor requestInfor = (RequestInfor) data;
             if (requestInfor.getCode() == 1) {
                 PopupWindow popupWindow = WindowUtils.timeShowOnly(getActivity(), R.layout.popup_tisp, R.style.TispAnim, 0);

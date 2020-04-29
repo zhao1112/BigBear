@@ -378,6 +378,7 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
             WithdrawalInfor withdrawalInfor = (WithdrawalInfor) data;
             if (data != null) {
                 if (!TextUtils.isEmpty(withdrawalInfor.getData().getBalance())) {
+                    money = withdrawalInfor.getData().getBalance();
                     mongeyView.setText("¥" + withdrawalInfor.getData().getBalance());
                 } else {
                     mongeyView.setText("¥0.00");

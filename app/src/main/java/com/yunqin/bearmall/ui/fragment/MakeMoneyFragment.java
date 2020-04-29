@@ -168,7 +168,8 @@ public class MakeMoneyFragment extends BaseFragment {
                 DialogUtils.signInDialog(getActivity());
                 break;
             case R.id.new_menu_1:// 糖果0元兑换
-                startActivity(new Intent(getActivity(), ZeorExchangeActivity.class));
+                EventBus.getDefault().post(new ChangeFragment(3));
+//                startActivity(new Intent(getActivity(), ZeorExchangeActivity.class));
                 //TODO[点击0元兑]
                 ConstantScUtil.exchangeClick();
                 break;
