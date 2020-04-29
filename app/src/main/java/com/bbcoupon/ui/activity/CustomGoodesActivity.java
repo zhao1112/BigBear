@@ -57,6 +57,7 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
     private RequestPresenter requestPresenter;
     private int page = 1;
     private CustomAdapter customAdapter;
+    private String type_target;
 
     public static void openCustomGoodesActivity(Activity context, Class cls, Bundle bundle) {
         Intent intent = new Intent(context, cls);
@@ -74,7 +75,11 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
     @Override
     public void init() {
 
-        String type_target = getIntent().getStringExtra("TYPE_TARGET");
+        try {
+            type_target = getIntent().getStringExtra("TYPE_TARGET");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         requestPresenter = new RequestPresenter();
         requestPresenter.setRelation(this);
@@ -164,7 +169,7 @@ public class CustomGoodesActivity extends BaseActivity implements RequestContrac
 
     public void getCustomGoods() {
         Map<String, String> map = new HashMap<>();
-        map.put("target", "");
+        map.put("target", type_target);
         map.put("page", page + "");
         map.put("pageSize", "10");
         requestPresenter.onCustom(this, map);

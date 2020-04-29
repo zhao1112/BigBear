@@ -441,8 +441,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     }
 
     RoundedCorners roundedCorners = new RoundedCorners(10);
-    //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
-    // RequestOptions options = RequestOptions.bitmapTransform(roundedCorners).override(300, 300);
     RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
 
     //回传值

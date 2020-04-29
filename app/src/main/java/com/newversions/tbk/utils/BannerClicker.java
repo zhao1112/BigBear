@@ -195,7 +195,7 @@ public class BannerClicker {
                 SellwellActivity.openSellwellActivity(activity, SellwellActivity.class, bundle);
                 break;
             case 108://自定义商品
-                bundle.putString("TYPE_TARGET", "5");
+                bundle.putString("TYPE_TARGET", target);
                 CustomGoodesActivity.openCustomGoodesActivity(activity,CustomGoodesActivity.class,bundle);
                 break;
             case 109://内部天猫国际，天猫超市
