@@ -119,6 +119,9 @@ public class BankAddVerifyActivity extends BaseActivity implements View.OnClickL
             case R.id.next_button:
                 commitPassWord();
                 break;
+            case R.id.keyboard_0:
+                assemblePwd(0);
+                break;
             case R.id.keyboard_1:
                 assemblePwd(1);
                 break;
