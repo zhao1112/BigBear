@@ -3,6 +3,7 @@ package com.newversions.tbk.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -91,7 +92,7 @@ public class ProductSumActivity2 extends BaseActivity {
         intent.putExtra(Constants.INTENT_KEY_ID, groupId);
         intent.putExtra(Constants.INTENT_KEY_TITLE, title);
         intent.putExtra(Constants.INTENT_KEY_TYPE, type);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent, 1);
     }
 
     @Override
@@ -308,6 +309,11 @@ public class ProductSumActivity2 extends BaseActivity {
             }
         });
         getListData();
+
+        Intent searchConten = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putString("result", getIntent().getStringExtra(Constants.INTENT_KEY_TITLE));
+        setResult(3, searchConten.putExtras(bundle));
     }
 
 
@@ -422,5 +428,10 @@ public class ProductSumActivity2 extends BaseActivity {
             tv = v.findViewById(R.id.textView);
             im = v.findViewById(R.id.imageView);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

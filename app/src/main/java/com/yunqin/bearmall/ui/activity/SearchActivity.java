@@ -1,6 +1,7 @@
 package com.yunqin.bearmall.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -69,7 +70,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     TextView cancelTextView;
     @BindView(R.id.not_net_view)
     LinearLayout not_net_view;
-    @BindView(R.id.input_content_text)
+    @BindView(R.id.input_content)
     DelEditText mEditText;
     @BindView(R.id.banner)
     Banner banner;
@@ -126,7 +127,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     @Override
     protected void onResume() {
         super.onResume();
-        mEditText.setText("");
         mListView.cleanTag();
         mSearchList = getSearchData();
         setList(mSearchList);
@@ -430,4 +430,15 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
     //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
     // RequestOptions options = RequestOptions.bitmapTransform(roundedCorners).override(300, 300);
     RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
+
+    //回传值
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 3) {
+            String result = data.getStringExtra("result");
+            mEditText.setText(result);
+            mEditText.setSelection(result.length());
+        }
+    }
 }
