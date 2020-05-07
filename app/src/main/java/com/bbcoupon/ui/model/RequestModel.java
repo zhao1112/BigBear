@@ -3,6 +3,8 @@ package com.bbcoupon.ui.model;
 import android.content.Context;
 
 import com.bbcoupon.ui.bean.CustomInfor;
+import com.bbcoupon.ui.bean.MeetingInfor;
+import com.bbcoupon.ui.bean.MeetingShareInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.bean.TutorInfor;
 import com.bbcoupon.ui.bean.WithdrawalInfor;
@@ -106,6 +108,7 @@ public class RequestModel implements RequestContract.RequestModel {
         });
     }
 
+    //提现
     @Override
     public void onWithdrawal(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getUserbalance(map), new RetrofitApi.IResponseListener() {
@@ -114,6 +117,62 @@ public class RequestModel implements RequestContract.RequestModel {
                 WithdrawalInfor customInfor = new Gson().fromJson(data, WithdrawalInfor.class);
                 if (requestView != null) {
                     requestView.onSuccess(customInfor);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //活动会场
+    @Override
+    public void onMeetingplace(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getMeetingplace(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                MeetingInfor meetingInfor = new Gson().fromJson(data, MeetingInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(meetingInfor);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //活动会场分享
+    @Override
+    public void ontMeetingplaceSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getMeetingplaceSearch(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                MeetingShareInfor meetingShareInfor = new Gson().fromJson(data, MeetingShareInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(meetingShareInfor);
                 }
             }
 

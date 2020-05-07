@@ -1445,7 +1445,7 @@ public interface Api {
     Observable<String> shareArticleAndProduct(@FieldMap() Map<String, String> params);
 
     /**
-     * 收益记录
+     * 导师微信
      */
     @POST("api/userinfo/getTutorInfo")
     Observable<String> getTutorInfo();
@@ -1463,6 +1463,20 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/commodity/getUserbalance")
     Observable<String> getUserbalance(@FieldMap() Map<String, String> params);
+
+    /**
+     * 活动会场
+     */
+    @FormUrlEncoded
+    @POST("api/commodity/getThemeChaintRansfer")
+    Observable<String> getMeetingplace(@FieldMap() Map<String, String> params);
+
+    /**
+     * 会场分享
+     */
+    @FormUrlEncoded
+    @POST("api/commodity/sharePictures")
+    Observable<String> getMeetingplaceSearch(@FieldMap() Map<String, String> params);
 
 }
 

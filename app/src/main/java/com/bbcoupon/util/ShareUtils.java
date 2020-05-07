@@ -113,6 +113,24 @@ public class ShareUtils {
         return platform;
     }
 
+    //多图分享
+    public static Platform MultiGraphShare(String platforms, String[] image, String content) {
+        HashMap<String, Object> optionMap = new HashMap<>();
+        optionMap.put("Id", "5");
+        optionMap.put("SortId", "5");
+        optionMap.put("BypassApproval", true);
+        optionMap.put("Enable", true);
+        ShareSDK.setPlatformDevInfo(platforms, optionMap);
+
+        Platform.ShareParams params = new Platform.ShareParams();
+        params.setText(content);
+        params.setImageArray(image);
+        params.setShareType(Platform.SHARE_IMAGE);
+        Platform platform = ShareSDK.getPlatform(platforms);
+        platform.share(params);
+        return platform;
+    }
+
 
     //判断用户是否安装微信
     public static boolean isWXClientAvailable(Context context) {

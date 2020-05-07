@@ -10,10 +10,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
+import com.bbcoupon.util.ConstantUtil;
+import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.newversions.IAdvClick;
+import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
 import com.yunqin.bearmall.R;
@@ -25,6 +29,7 @@ import com.yunqin.bearmall.bean.Channel;
 import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.bean.PopBean;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
+import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.SearchActivity;
 import com.yunqin.bearmall.ui.fragment.contract.HomeContract;
@@ -32,6 +37,7 @@ import com.yunqin.bearmall.ui.fragment.presenter.HomePresenter;
 import com.yunqin.bearmall.util.CommonUtil;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
+import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
@@ -121,6 +127,24 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        boolean first_home = (boolean) SharedPreferencesHelper.get(getActivity(), ConstantUtil.first_home, false);
+//        if (!first_home) {
+//            View view = WindowUtils.ShowBrightness(getActivity(), R.layout.item_course_home, 0);
+//            view.findViewById(R.id.home_pop_clear).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    WindowUtils.dismissBrightness(getActivity());
+//                }
+//            });
+//            view.findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    WindowUtils.dismissBrightness(getActivity());
+//                }
+//            });
+//            SharedPreferencesHelper.put(getActivity(), ConstantUtil.first_home, true);
+//        }
     }
 
     @OnClick({R.id.home_search, R.id.xiaoxi})

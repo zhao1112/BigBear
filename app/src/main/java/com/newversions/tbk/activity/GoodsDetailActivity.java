@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -31,7 +32,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.base.ImageSelectInfor;
+import com.bbcoupon.ui.activity.ChoiceShareActivity;
+import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.CopyTextUtil;
+import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -42,6 +47,7 @@ import com.newversions.tbk.entity.TBKHomeGoodsEntity;
 import com.newversions.tbk.entity.ToTaoBaoEntity;
 import com.newversions.tbk.utils.GlideImageLoader;
 import com.newversions.tbk.utils.StringUtils;
+import com.newversions.tbk.view.ObservableScrollView;
 import com.timqi.sectorprogressview.ColorfulRingProgressView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -59,6 +65,7 @@ import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.AuntTao;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.widget.DownLoadImage;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 import com.yunqin.bearmall.widget.RefreshHeadView;
@@ -146,6 +153,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     TextView mG2;
     @BindView(R.id.shen_ji)
     TextView shen_ji;
+    @BindView(R.id.scrollView)
+    ObservableScrollView scrollView;
 
 
     private TextView quanhoujia;
@@ -176,6 +185,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private RelativeLayout mProgressView;
     private ColorfulRingProgressView mProgress;
     private TextView mProgressText;
+    private String Profit;
 
     public static void startGoodsDetailActivity(Context context, String goodsId, String commission) {
         startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT, commission);
@@ -258,7 +268,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             @Override
             public boolean onLongClick(View view) {
                 if (!TextUtils.isEmpty(tvGoodsTitle.getText().toString())) {
-                    CopyTextUtil.CopyText(GoodsDetailActivity.this,tvGoodsTitle.getText().toString());
+                    CopyTextUtil.CopyText(GoodsDetailActivity.this, tvGoodsTitle.getText().toString());
                     showToast("复制成功");
                 }
                 return true;
@@ -304,6 +314,35 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             @Override
             public void downLoadValue(int value) {
                 downLoadImageSum.setText(value + "");
+            }
+        });
+
+        scrollView.setScrollViewListener(new ObservableScrollView.IScrollViewListener() {
+            @Override
+            public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+
+
+            }
+
+            @Override
+            public void onScrollListener(int scrollY) {
+                Log.e("onScrollListener", " " + scrollY);
+//                if (scrollY >= 900) {
+//                    boolean first_goodes = (boolean) SharedPreferencesHelper.get(GoodsDetailActivity.this, ConstantUtil.first_goodes,
+//                            false);
+//                    if (!first_goodes) {
+//                        scrollView.scrollTo(0, 890);
+//                        scrollView.smoothScrollTo(0, 890);
+//                        View view = WindowUtils.ShowBrightness(GoodsDetailActivity.this, R.layout.item_course_goodes, 0);
+//                        view.findViewById(R.id.goodes_ok).setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                SharedPreferencesHelper.put(GoodsDetailActivity.this, ConstantUtil.first_goodes, true);
+//                                WindowUtils.dismissBrightness(GoodsDetailActivity.this);
+//                            }
+//                        });
+//                    }
+//                }
             }
         });
     }
@@ -370,14 +409,17 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         if (commissionType.equals(Constants.COMMISSION_TYPE_THREE)) {
             s_y.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
             tv_yongjin_num.setText("收益" + CommonUtils.doubleToString(goodDetail.getCommision()) + "元");
+            Profit = CommonUtils.doubleToString(goodDetail.getCommision()) + "";
         } else if (commissionType.equals(Constants.COMMISSION_TYPE_FOUR)) {
             double doubleExtra = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0);
             String comm = CommonUtils.doubleToString(doubleExtra);
             s_y.setText("收益" + comm + "元");
             tv_yongjin_num.setText("收益" + comm + "元");
+            Profit = comm + "";
         } else {
             s_y.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
             tv_yongjin_num.setText("收益" + getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "元");
+            Profit = getIntent().getDoubleExtra(Constants.INTENT_KEY_COMM, 0) + "";
         }
 
         if (StringUtils.isEmpty(goodDetail.getSellerName())) {
@@ -502,12 +544,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 Log.i("onSuccess", data);
                 if (toTaoBaoEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
-                    Log.i("onSuccess", "onSuccess: " + "-------------------");
-//                    Intent intent = new Intent(GoodsDetailActivity.this, MyWebActivity.class);
-//                    intent.putExtra(Constants.INTENT_KEY_URL, toTaoBaoEntity.getData());
-//                    intent.putExtra(Constants.INTENT_KEY_TITLE, "淘宝授权");
-//                    startActivity(intent);
-//                    finish();
                     AuntTao auntTao = new AuntTao();
                     auntTao.setContext(GoodsDetailActivity.this);
                     auntTao.AuntTabo();
@@ -596,8 +632,28 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             case R.id.lin_share:
                 // TODO: 2019/7/16 0016  分享
                 if (BearMallAplication.getInstance().getUser() != null) {
+//                    if (goodDetail.getImages() == null && goodDetail.getImages().size() <= 0) {
+//                        return;
+//                    }
+//
+//                    ImageSelectInfor imageSelectInfor = new ImageSelectInfor();
+//                    List<ImageSelectInfor.ImageBean> beanList = new ArrayList<>();
+//                    for (int i = 0; i < goodDetail.getImages().size(); i++) {
+//                        ImageSelectInfor.ImageBean imageBean = new ImageSelectInfor.ImageBean();
+//                        imageBean.setImage(goodDetail.getImages().get(i));
+//                        if (i == 0) {
+//                            imageBean.setSelect(true);
+//                        } else {
+//                            imageBean.setSelect(false);
+//                        }
+//                        beanList.add(imageBean);
+//                    }
+//                    imageSelectInfor.setImageBean(beanList);
+
                     Intent intent = new Intent(this, ShareComissionActivity.class);
                     intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
+//                    intent.putExtra("ImageList", imageSelectInfor);
+//                    intent.putExtra("Profit", Profit);
                     startActivity(intent);
                     //TODO[分享]
                     if (goodDetail != null) {

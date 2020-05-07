@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:src="@mipmap/img_hoem"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/home_pop_clear"
+            android:layout_width="@dimen/dp_95"
+            android:layout_alignParentRight="true"
+            android:layout_height="@dimen/dp_22"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/dp_54"
+            android:layout_marginRight="@dimen/sp_12"
+            android:background="@drawable/bg_corner_search_dialog"
+            android:gravity="center"
+            android:text="跳过新手教程"
+            android:textColor="#ff272727"
+            android:textSize="@dimen/sp_12"/>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/home_search"
+        android:layout_width="@dimen/dp_188"
+        android:background="@drawable/bg_vip_up"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_40"
+        android:text="试试搜索该商品  >>"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/sp_14"/>
+
+</LinearLayout>

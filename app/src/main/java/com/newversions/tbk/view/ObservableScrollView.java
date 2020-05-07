@@ -44,6 +44,10 @@ public class ObservableScrollView extends ScrollView {
         if (scrollViewListener != null) {
             scrollViewListener.onScrollChanged(this, x, y, oldx, oldy);
         }
+        if (scrollViewListener!=null){
+            int scrollY = getScrollY();
+            scrollViewListener.onScrollListener(scrollY);
+        }
     }
 
     public boolean onInterceptTouchEvent(MotionEvent e) {
@@ -71,5 +75,6 @@ public class ObservableScrollView extends ScrollView {
 
     public interface IScrollViewListener {
         void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy);
+        void onScrollListener(int scrollY);
     }
 }

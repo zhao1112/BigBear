@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.activity.CustomGoodesActivity;
+import com.bbcoupon.ui.activity.MeetingplaceActivity;
 import com.iBookStar.views.YmConfig;
 import com.newversions.CardListWebActivity;
 import com.newversions.InviteFriendActivity;
@@ -199,7 +200,7 @@ public class BannerClicker {
             case 108://自定义商品
                 bundle.putString("TYPE_TARGET", target);
                 bundle.putString("TYPE_TITLE", title);
-                CustomGoodesActivity.openCustomGoodesActivity(activity,CustomGoodesActivity.class,bundle);
+                CustomGoodesActivity.openCustomGoodesActivity(activity, CustomGoodesActivity.class, bundle);
                 break;
             case 109://内部天猫国际，天猫超市
                 bundle.putString("Web_Url", target);
@@ -214,6 +215,8 @@ public class BannerClicker {
                 api.sendReq(req);
                 break;
             case 111:
+                bundle.putString("MEETINGPLACE", target);
+                MeetingplaceActivity.openMeetingplaceActivity(activity, bundle);
                 break;
         }
     }

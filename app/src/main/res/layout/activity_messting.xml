@@ -37,6 +37,7 @@
         android:scaleType="fitXY"/>
 
     <LinearLayout
+        android:id="@+id/bg_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.3"
@@ -65,21 +66,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/taopassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_22"
-                android:text="420天貓親子節，滿300減40，享2件75折，復制"
-                android:textColor="#ff272727"
-                android:textSize="@dimen/sp_13"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_2"
-                android:text="（UBKZ1likEpd）打开手机Tao宝即可。"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/dp_5"
                 android:textColor="#ff272727"
                 android:textSize="@dimen/sp_13"/>
 

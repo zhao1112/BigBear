@@ -1,20 +1,19 @@
 package com.bbcoupon.util;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 /**
@@ -117,8 +116,8 @@ public class WindowUtils {
         viewContent = inflater.inflate(view, linearLayout);
         popupWindow.setContentView(viewContent);
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        OpenGoodsDetail.lightoff(activity);
+        popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        dimBackground(activity, 1.0f, 0.5f);
         switch (position) {
             case 0:
                 popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP, 0, 0);
@@ -189,7 +188,7 @@ public class WindowUtils {
      */
     public static void dismissBrightness(Activity activity) {
         if (popupWindow != null && popupWindow.isShowing()) {
-            OpenGoodsDetail.lighton(activity);
+            dimBackground(activity, 0.5f, 1.0f);
             popupWindow.dismiss();
         }
     }
@@ -203,12 +202,31 @@ public class WindowUtils {
         }
     };
 
-    private static Handler handlerOnly = new Handler(){
+    private static Handler handlerOnly = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             popupWindowOnly.dismiss();
         }
     };
+
+
+    /**
+     * 设置屏幕亮度
+     */
+    public static void dimBackground(Activity activity, final float from, final float to) {
+        final Window window = activity.getWindow();
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);
+        valueAnimator.setDuration(500);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.alpha = (Float) animation.getAnimatedValue();
+                window.setAttributes(params);
+            }
+        });
+        valueAnimator.start();
+    }
 
 }

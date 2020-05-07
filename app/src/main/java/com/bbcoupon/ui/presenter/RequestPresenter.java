@@ -62,4 +62,20 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //活动会场
+    @Override
+    public void onMeetingplace(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onMeetingplace(context, map, requestView);
+        }
+    }
+
+    //活动会场分享
+    @Override
+    public void ontMeetingplaceSearch(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.ontMeetingplaceSearch(context, map, requestView);
+        }
+    }
+
 }

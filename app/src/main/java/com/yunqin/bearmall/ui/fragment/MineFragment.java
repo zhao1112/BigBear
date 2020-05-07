@@ -1,7 +1,5 @@
 package com.yunqin.bearmall.ui.fragment;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,7 +58,6 @@ import com.yunqin.bearmall.ui.activity.AddressActivity;
 import com.yunqin.bearmall.ui.activity.BackstageActivity;
 import com.yunqin.bearmall.ui.activity.BinDingWXActivity;
 import com.yunqin.bearmall.ui.activity.FansActivity;
-import com.yunqin.bearmall.ui.activity.HairCircleActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.InvitationActivity2;
 import com.yunqin.bearmall.ui.activity.LoginActivity;
@@ -815,7 +812,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 TextView tutor_wx_number = view.findViewById(R.id.tutor_wx_number);
                 TextView tutor_copy = view.findViewById(R.id.tutor_copy);
                 ImageView tutor_image = view.findViewById(R.id.tutor_image);
-
                 if (!TextUtils.isEmpty(((TutorInfor) data).getData().getWeixin())) {
                     tutor_wx_number.setText("微信号：" + ((TutorInfor) data).getData().getWeixin());
                     tutor_copy.setOnClickListener(new View.OnClickListener() {

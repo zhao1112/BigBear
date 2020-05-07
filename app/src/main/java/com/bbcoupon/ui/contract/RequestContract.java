@@ -31,6 +31,10 @@ public class RequestContract {
         void onCustom(Context context, Map<String, String> map);
 
         void onWithdrawal(Context context, Map<String, String> map);
+
+        void onMeetingplace(Context context, Map<String, String> map);
+
+        void ontMeetingplaceSearch(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
@@ -41,5 +45,9 @@ public class RequestContract {
         void onCustom(Context context, Map<String, String> map, RequestContract.RequestView requestView);
 
         void onWithdrawal(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onMeetingplace(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void ontMeetingplaceSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

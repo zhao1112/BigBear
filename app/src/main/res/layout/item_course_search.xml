@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/search_pop_clear"
+        android:layout_width="@dimen/dp_95"
+        android:layout_height="@dimen/dp_22"
+        android:layout_above="@id/sear_img"
+        android:layout_gravity="right"
+        android:layout_marginTop="@dimen/dp_51"
+        android:layout_marginRight="@dimen/sp_12"
+        android:background="@drawable/bg_corner_search_dialog"
+        android:gravity="center"
+        android:text="跳过新手教程"
+        android:textColor="#ff272727"
+        android:textSize="@dimen/sp_12"/>
+
+
+    <ImageView
+        android:id="@+id/sear_img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_150"
+        android:layout_marginTop="@dimen/dp_16"
+        android:src="@mipmap/img_search"/>
+
+
+    <TextView
+        android:id="@+id/goodes_search"
+        android:layout_width="@dimen/dp_188"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_125"
+        android:background="@drawable/bg_vip_up"
+        android:gravity="center"
+        android:text="点击进入详情页 >>"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/sp_14"/>
+
+
+</LinearLayout>

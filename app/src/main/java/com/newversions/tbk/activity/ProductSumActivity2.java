@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.util.ConstantUtil;
+import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -28,6 +30,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.SearchData;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 import com.yunqin.bearmall.widget.SwitchButton;
 
@@ -371,6 +374,7 @@ public class ProductSumActivity2 extends BaseActivity {
                             mSumAdapter.addList(searchData.getData());
                             productSumAdapter2.addList(searchData.getData());
                             mNulldata.setVisibility(View.GONE);
+//                            coursSearch(searchData.getData().get(0).getItemId() + "", searchData.getData().get(0).getCommision() + "");
                         }
 
                         if (isFlash) {
@@ -420,6 +424,35 @@ public class ProductSumActivity2 extends BaseActivity {
                 });
 
 
+    }
+
+    private void coursSearch(String id, String commision) {
+        boolean first_search = (boolean) SharedPreferencesHelper.get(ProductSumActivity2.this, ConstantUtil.first_search, false);
+        if (!first_search) {
+            View view = WindowUtils.ShowBrightness(ProductSumActivity2.this, R.layout.item_course_search, 0);
+            view.findViewById(R.id.search_pop_clear).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    WindowUtils.dismissBrightness(ProductSumActivity2.this);
+                }
+            });
+            view.findViewById(R.id.goodes_search).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ProductSumActivity2.this, GoodsDetailActivity.class);
+                    intent.putExtra(Constants.INTENT_KEY_ID, id);
+                    intent.putExtra(Constants.INTENT_KEY_TYPE, Constants.GOODS_TYPE_TBK);
+                    intent.putExtra(Constants.INTENT_KEY_COMM, commision);
+                    intent.putExtra("DETAILSKEYWORD", Keyword);
+                    intent.putExtra("POSITION", 0);
+                    intent.putExtra("SEARCH", true);
+                    intent.putExtra(Constants.INTENT_KEY_COMMISSION, Constants.COMMISSION_TYPE_ONE);
+                    startActivity(intent);
+                    WindowUtils.dismissBrightness(ProductSumActivity2.this);
+                }
+            });
+        }
+        SharedPreferencesHelper.put(ProductSumActivity2.this, ConstantUtil.first_search, true);
     }
 
 
