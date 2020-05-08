@@ -7,7 +7,8 @@
     <ImageView
         android:id="@+id/image_choice"
         android:layout_width="@dimen/dp_80"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
 
     <CheckBox
         android:id="@+id/select_image_choice"

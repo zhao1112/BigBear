@@ -78,4 +78,12 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //获取分享二维码
+    @Override
+    public void ontShareMsg(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.ontShareMsg(context, map, requestView);
+        }
+    }
+
 }

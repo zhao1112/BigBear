@@ -1,8 +1,11 @@
 package com.bbcoupon.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +17,12 @@ import android.widget.TextView;
 
 import com.bbcoupon.base.ImageSelectInfor;
 import com.bbcoupon.ui.bean.CustomInfor;
+import com.bbcoupon.util.ImageUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.newversions.tbk.utils.StringUtils;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
@@ -31,14 +37,26 @@ public class ChoiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private Context context;
     private List<ImageSelectInfor.ImageBean> list;
+    private Bitmap mBitmap;
 
     //设置图片圆角角度
     RoundedCorners roundedCorners = new RoundedCorners(8);
     RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
 
+
     public ChoiceAdapter(Context context, List<ImageSelectInfor.ImageBean> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void addData(List<ImageSelectInfor.ImageBean> list) {
+        this.list.clear();
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void setImage(Bitmap bitmap) {
+        this.mBitmap = bitmap;
     }
 
     @NonNull
@@ -53,10 +71,15 @@ public class ChoiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         ProductSunHolder sunHolder = (ProductSunHolder) holder;
 
-        Glide.with(context)
-                .load(list.get(position).getImage())
-                .apply(options)
-                .into(sunHolder.image_choice);
+        if (mBitmap != null && position == 0) {
+            sunHolder.image_choice.setImageBitmap(mBitmap);
+        } else {
+            Glide.with(context)
+                    .load(list.get(position).getImage())
+                    .apply(options)
+                    .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                    .into(sunHolder.image_choice);
+        }
 
         sunHolder.select_image_choice.setChecked(list.get(position).isSelect());
 
@@ -111,7 +134,11 @@ public class ChoiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void wholeState(boolean isSelect) {
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setSelect(isSelect);
+            if (!isSelect && i == 0) {
+                list.get(i).setSelect(true);
+            } else {
+                list.get(i).setSelect(isSelect);
+            }
         }
         if (onWholeState != null) {
             onWholeState.onSelection(list);

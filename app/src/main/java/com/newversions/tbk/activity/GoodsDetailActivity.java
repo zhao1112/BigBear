@@ -632,28 +632,12 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             case R.id.lin_share:
                 // TODO: 2019/7/16 0016  分享
                 if (BearMallAplication.getInstance().getUser() != null) {
-//                    if (goodDetail.getImages() == null && goodDetail.getImages().size() <= 0) {
-//                        return;
-//                    }
-//
-//                    ImageSelectInfor imageSelectInfor = new ImageSelectInfor();
-//                    List<ImageSelectInfor.ImageBean> beanList = new ArrayList<>();
-//                    for (int i = 0; i < goodDetail.getImages().size(); i++) {
-//                        ImageSelectInfor.ImageBean imageBean = new ImageSelectInfor.ImageBean();
-//                        imageBean.setImage(goodDetail.getImages().get(i));
-//                        if (i == 0) {
-//                            imageBean.setSelect(true);
-//                        } else {
-//                            imageBean.setSelect(false);
-//                        }
-//                        beanList.add(imageBean);
-//                    }
-//                    imageSelectInfor.setImageBean(beanList);
-
-                    Intent intent = new Intent(this, ShareComissionActivity.class);
+                    if (goodDetail == null ) {
+                        return;
+                    }
+                    Intent intent = new Intent(this, ChoiceShareActivity.class);
                     intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
-//                    intent.putExtra("ImageList", imageSelectInfor);
-//                    intent.putExtra("Profit", Profit);
+                    intent.putExtra("Profit", Profit);
                     startActivity(intent);
                     //TODO[分享]
                     if (goodDetail != null) {

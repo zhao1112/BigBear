@@ -10,6 +10,7 @@ import com.bbcoupon.ui.bean.TutorInfor;
 import com.bbcoupon.ui.bean.WithdrawalInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.google.gson.Gson;
+import com.newversions.tbk.entity.ShareGoodsEntity;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 
@@ -173,6 +174,34 @@ public class RequestModel implements RequestContract.RequestModel {
                 MeetingShareInfor meetingShareInfor = new Gson().fromJson(data, MeetingShareInfor.class);
                 if (requestView != null) {
                     requestView.onSuccess(meetingShareInfor);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //获取详情页分享二维码
+    @Override
+    public void ontShareMsg(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getShareMsg(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                ShareGoodsEntity entity = new Gson().fromJson(data, ShareGoodsEntity.class);
+                if (requestView != null) {
+                    requestView.onSuccess(entity);
                 }
             }
 

@@ -32,20 +32,46 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_51"
+        android:layout_height="@dimen/dp_35"
+        android:background="#FFF9DF">
+
+        <TextView
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="分享后不要忘记复制粘贴【商品评论区文案】！！！"
+            android:textColor="#ffad8f48"
+            android:textSize="@dimen/sp_12"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
         android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:src="@mipmap/item_shouyi"/>
 
         <TextView
             android:id="@+id/profit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toRightOf="@id/image"
             android:text="您的预估收益为：0.00元"
             android:textColor="#ff272727"
             android:textSize="14sp"/>
 
         <LinearLayout
+            android:id="@+id/rule"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -71,86 +97,9 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginRight="@dimen/dp_15"
-        android:background="@drawable/bg_corner_search_dialog">
-
-        <LinearLayout
-            android:id="@+id/select_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_10"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="选择图片  "
-                android:textColor="#ff272727"
-                android:textSize="@dimen/sp_14"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/choose_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="#ff272727"
-                android:textSize="@dimen/sp_14"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/whole_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="/0"
-                android:textColor="#ff272727"
-                android:textSize="@dimen/sp_14"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="@dimen/dp_9"
-                android:text="全选"
-                android:textColor="#ff272727"
-                android:textSize="@dimen/sp_12"/>
-
-            <CheckBox
-                android:id="@+id/choices_select"
-                android:layout_width="@dimen/dp_18"
-                android:layout_height="@dimen/dp_18"
-                android:background="@drawable/app_select_item"
-                android:button="@null"/>
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/chouce_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/select_image"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_15">
-
-
-        </android.support.v7.widget.RecyclerView>
-
-    </RelativeLayout>
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_15"
         android:layout_weight="1">
 
         <LinearLayout
@@ -158,12 +107,89 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginRight="@dimen/dp_15"
-                android:layout_marginBottom="@dimen/dp_15"
+                android:background="@drawable/bg_corner_search_dialog">
+
+                <LinearLayout
+                    android:id="@+id/select_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="选择图片  "
+                        android:textColor="#ff272727"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/choose_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#ff272727"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/whole_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="/0"
+                        android:textColor="#ff272727"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/dp_9"
+                        android:text="全选"
+                        android:textColor="#ff272727"
+                        android:textSize="@dimen/sp_12"/>
+
+                    <CheckBox
+                        android:id="@+id/choices_select"
+                        android:layout_width="@dimen/dp_18"
+                        android:layout_height="@dimen/dp_18"
+                        android:background="@drawable/app_select_item"
+                        android:button="@null"/>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/chouce_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/select_image"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10">
+
+
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:background="@drawable/bg_corner_search_dialog"
                 android:orientation="vertical">
 
@@ -214,7 +240,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_147"
+                    android:layout_height="@dimen/dp_115"
                     android:layout_marginLeft="@dimen/dp_15"
                     android:layout_marginTop="@dimen/dp_11"
                     android:layout_marginRight="@dimen/dp_15"
@@ -234,8 +260,8 @@
                                 android:id="@+id/recommend_conten"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:padding="@dimen/dp_10"
                                 android:background="@null"
+                                android:padding="@dimen/dp_10"
                                 android:text="【帐篷户外野营加厚装备全自动防雨野外露营临时防暴雨账蓬儿童室内】\n【原价】118元\n【券后价】68元\n【下载大熊酷朋】下单返还6.25元\n------ ---------\n【下单即送刷头】声波净齿，超强清洁力，一键启动，净白杜邦软刷毛，IXP7级防水，高频震动续航，智能护理，深入牙缝死角KO牙黄牙渍〜科学刷牙，呵护牙齿，轻松享受洗牙级SPA〜【赠运费险】"
                                 android:textColor="#555555"
                                 android:textSize="@dimen/sp_12"/>
@@ -250,12 +276,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginBottom="@dimen/dp_15"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <CheckBox
+                        android:id="@+id/c_one"
                         android:layout_width="@dimen/dp_18"
                         android:layout_height="@dimen/dp_18"
                         android:background="@drawable/app_select_copy_item"
@@ -330,7 +357,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_147"
+                    android:layout_height="@dimen/dp_115"
                     android:layout_marginLeft="@dimen/dp_15"
                     android:layout_marginTop="@dimen/dp_11"
                     android:layout_marginRight="@dimen/dp_15"
@@ -350,8 +377,8 @@
                                 android:id="@+id/goods_conten"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:padding="@dimen/dp_10"
                                 android:background="@null"
+                                android:padding="@dimen/dp_10"
                                 android:text="【帐篷户外野营加厚装备全自动防雨野外露营临时防暴雨账蓬儿童室内】\n【原价】118元\n【券后价】68元\n【下载大熊酷朋】下单返还6.25元\n------ ---------\n【下单即送刷头】声波净齿，超强清洁力，一键启动，净白杜邦软刷毛，IXP7级防水，高频震动续航，智能护理，深入牙缝死角KO牙黄牙渍〜科学刷牙，呵护牙齿，轻松享受洗牙级SPA〜【赠运费险】"
                                 android:textColor="#555555"
                                 android:textSize="@dimen/sp_12"/>
@@ -366,7 +393,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_15"
                     android:layout_marginBottom="@dimen/dp_15">
 
@@ -377,6 +404,7 @@
                         android:orientation="horizontal">
 
                         <CheckBox
+                            android:id="@+id/c_two"
                             android:layout_width="@dimen/dp_18"
                             android:layout_height="@dimen/dp_18"
                             android:background="@drawable/app_select_copy_item"
@@ -401,6 +429,7 @@
                         android:orientation="horizontal">
 
                         <CheckBox
+                            android:id="@+id/c_three"
                             android:layout_width="@dimen/dp_18"
                             android:layout_height="@dimen/dp_18"
                             android:background="@drawable/app_select_copy_item"
@@ -425,6 +454,7 @@
                         android:orientation="horizontal">
 
                         <CheckBox
+                            android:id="@+id/c_four"
                             android:layout_width="@dimen/dp_18"
                             android:layout_height="@dimen/dp_18"
                             android:background="@drawable/app_select_copy_item"
@@ -458,17 +488,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ff272727">
+            android:background="#FFFFFF">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_21"
+                android:layout_marginTop="@dimen/dp_10"
                 android:text="分享图文到"
-                android:textColor="#ffffffff"
-                android:textSize="@dimen/sp_14"
+                android:textColor="#ff999999"
+                android:textSize="@dimen/sp_12"
                 android:textStyle="bold"/>
 
             <LinearLayout
@@ -476,15 +506,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
-
-                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/wx_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_22"
+                    android:layout_marginBottom="@dimen/dp_13"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -508,7 +537,7 @@
                     android:id="@+id/moments_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_22"
+                    android:layout_marginBottom="@dimen/dp_13"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -532,7 +561,7 @@
                     android:id="@+id/qq_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_22"
+                    android:layout_marginBottom="@dimen/dp_13"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -556,7 +585,7 @@
                     android:id="@+id/qq_moments_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_22"
+                    android:layout_marginBottom="@dimen/dp_13"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -580,7 +609,7 @@
                     android:id="@+id/dwon_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_22"
+                    android:layout_marginBottom="@dimen/dp_13"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">

@@ -827,6 +827,11 @@
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.SharingRulesActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
 
     </application>
 

@@ -86,6 +86,9 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
 
         meetingplace = getIntent().getStringExtra("MEETINGPLACE");
 
+        setKeyBg(mMeShear, "#fffbdb4a");
+        setKeyBg(me_password, "#fffbdb4a");
+
         presenter = new RequestPresenter();
         presenter.setRelation(this);
         Map<String, String> map = new HashMap<>();
@@ -216,7 +219,6 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            setKeyBg(mMeShear, "#fffbdb4a");
             Glide.with(this).load(((MeetingInfor) data).getData().getImage()).into(mMeImage);
             mTaopassword.setText(((MeetingInfor) data).getData().getContnet());
             url = ((MeetingInfor) data).getData().getUrl();
