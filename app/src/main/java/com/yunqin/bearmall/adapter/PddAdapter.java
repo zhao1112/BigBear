@@ -1,7 +1,9 @@
 package com.yunqin.bearmall.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.ui.activity.WebViewActivity;
+import com.bbcoupon.util.ConstantUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -95,7 +100,6 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         }
                     }
                 });
-
                 break;
             case TYPE_NORMAL:
                 OrderHolder orderHolder = (OrderHolder) holder;
@@ -112,6 +116,32 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         if (onChildClickListener != null) {
                             onChildClickListener.onCopyOrderId(list.get(position).getOrderNo());
                         }
+                    }
+                });
+                if (list.get(position).getActive() != null) {
+                    if (list.get(position).getActive().getIsActive() == 1) {
+                        try {
+                            orderHolder.isdouble.setText("翻倍后预估总佣金：" + list.get(position).getActive().getActiveCommission() + "元");
+                            orderHolder.is_double.setVisibility(View.VISIBLE);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                            orderHolder.is_double.setVisibility(View.GONE);
+                        }
+                    } else {
+                        orderHolder.is_double.setVisibility(View.GONE);
+                    }
+                } else {
+                    orderHolder.is_double.setVisibility(View.GONE);
+                }
+
+                orderHolder.is_double.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Web_Url", "https://testapi.bbcoupon.cn/view/doubleRule/list");
+                        bundle.putString("Web_Tiele", "活动时间与规则");
+                        bundle.putString("Web_Type", ConstantUtil.DOUBLING_RULE);
+                        WebViewActivity.openWebViewActivity((Activity) mContext, bundle);
                     }
                 });
                 break;
@@ -135,8 +165,9 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private class OrderHolder extends RecyclerView.ViewHolder {
 
-        private final TextView mCreat_time, state, title, price, commission, order, copy;
+        private final TextView mCreat_time, state, title, price, commission, order, copy, isdouble;
         private final ImageView image;
+        private final LinearLayout is_double;
 
         public OrderHolder(View itemView) {
             super(itemView);
@@ -148,14 +179,17 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             order = itemView.findViewById(R.id.order);
             copy = itemView.findViewById(R.id.copy);
             image = itemView.findViewById(R.id.image);
+            is_double = itemView.findViewById(R.id.id_double);
+            isdouble = itemView.findViewById(R.id.isdouble);
         }
 
     }
 
     private class InvalidOrderHolder extends RecyclerView.ViewHolder {
 
-        private final TextView mCreat_time, state, title, price, commission, order, copy;
+        private final TextView mCreat_time, state, title, price, commission, order, copy, isdouble;
         private final ImageView image;
+        private final LinearLayout is_double;
 
         public InvalidOrderHolder(View itemView) {
             super(itemView);
@@ -167,6 +201,8 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             order = itemView.findViewById(R.id.order);
             copy = itemView.findViewById(R.id.copy);
             image = itemView.findViewById(R.id.image);
+            is_double = itemView.findViewById(R.id.is_double);
+            isdouble = itemView.findViewById(R.id.isdouble);
         }
     }
 

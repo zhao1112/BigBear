@@ -3,12 +3,28 @@ package com.newversions.tbk.entity;
 import java.io.Serializable;
 import java.util.List;
 
-public class GoodDetailEntity implements Serializable{
+public class GoodDetailEntity implements Serializable {
 
     /**
      * msg : 请求成功
      * code : 1
-     * goodDetail : {"freeShip":true,"couponEndDate":"2019-07-04 00:00:00","outerImages":"https://t00img.yangkeduo.com/goods/images/2019-06-12/f22073b1581c43225c147484e4b687f0.jpeg","type":true,"commision":3.99,"couponAmount":1,"sellerId":null,"price":"8.90","handleStatus":true,"id":681648,"tmall":0,"area":null,"images":null,"timeId":null,"module":false,"couponUrl":null,"subCategoryId":null,"sellerLogo":null,"version":null,"brandFlash":false,"itemId":"838296102","dse":4.7,"name":"【8.9元抢1000件，抢完恢复16.9元】童装男童夏装套装2019新款男女宝宝夏季婴幼儿童帅气短袖两件套潮","detailUrl":null,"rushBuy":false,"sellNum":29850,"needBuyed":false,"maternalBaby":0,"dsr":4.6,"todayRecommended":false,"flag":true,"specialCategoryId":0,"dss":4.6,"brandFlashName":null,"icon":null,"discountPrice":"7.90","sellerName":"超级宝宝母婴馆","moduleCategoryId":null,"content":"<p>\n<img src=\"https://t00img.yangkeduo.com/goods/images/2019-06-30/183f9e77-97cc-4e73-b694-c35798efa081.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo.com/goods/images/2019-05-22/21e4794a-3147-4601-b5d2-609c13e4a808.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo.com/goods/images/2019-05-22/bf9811ce-ff78-492a-ac5d-ff8968b535b1.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo.com/goods/images/2019-05-22/deb50eec-aceb-457a-9735-377471496862.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo.com/goods/images/2019-05-22/cf4d1fbb-4c8e-4113-8890-c044680db105.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo.com/goods/images/2019-05-22/2cd835f9-af5c-45d7-9bc1-22429db29468.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo.com/goods/images/2019-05-22/0efa9143-9b07-446e-b0ae-1271327d8c73.jpg\"><\/img>\n<\/p>","enabled":true,"virtualSales":null,"brandSellerId":null,"summary":null,"lastModifiedDate":null,"outIcon":"https://t00img.yangkeduo.com/goods/images/2019-06-12/f22073b1581c43225c147484e4b687f0.jpeg","brandFlashId":0,"createdDate":null,"createTime":null,"taoToken":null,"couponStartDate":"2019-07-03 00:00:00","categoryId":158}
+     * goodDetail : {"freeShip":true,"couponEndDate":"2019-07-04 00:00:00","outerImages":"https://t00img.yangkeduo
+     * .com/goods/images/2019-06-12/f22073b1581c43225c147484e4b687f0.jpeg","type":true,"commision":3.99,"couponAmount":1,"sellerId":null,
+     * "price":"8.90","handleStatus":true,"id":681648,"tmall":0,"area":null,"images":null,"timeId":null,"module":false,"couponUrl":null,
+     * "subCategoryId":null,"sellerLogo":null,"version":null,"brandFlash":false,"itemId":"838296102","dse":4.7,"name":"【8.9元抢1000件，抢完恢复16
+     * .9元】童装男童夏装套装2019新款男女宝宝夏季婴幼儿童帅气短袖两件套潮","detailUrl":null,"rushBuy":false,"sellNum":29850,"needBuyed":false,"maternalBaby":0,"dsr":4
+     * .6,"todayRecommended":false,"flag":true,"specialCategoryId":0,"dss":4.6,"brandFlashName":null,"icon":null,"discountPrice":"7.90",
+     * "sellerName":"超级宝宝母婴馆","moduleCategoryId":null,"content":"<p>\n<img src=\"https://t00img.yangkeduo
+     * .com/goods/images/2019-06-30/183f9e77-97cc-4e73-b694-c35798efa081.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo
+     * .com/goods/images/2019-05-22/21e4794a-3147-4601-b5d2-609c13e4a808.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo
+     * .com/goods/images/2019-05-22/bf9811ce-ff78-492a-ac5d-ff8968b535b1.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo
+     * .com/goods/images/2019-05-22/deb50eec-aceb-457a-9735-377471496862.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo
+     * .com/goods/images/2019-05-22/cf4d1fbb-4c8e-4113-8890-c044680db105.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo
+     * .com/goods/images/2019-05-22/2cd835f9-af5c-45d7-9bc1-22429db29468.jpg\"><\/img>\n<img src=\"https://t00img.yangkeduo
+     * .com/goods/images/2019-05-22/0efa9143-9b07-446e-b0ae-1271327d8c73.jpg\"><\/img>\n<\/p>","enabled":true,"virtualSales":null,
+     * "brandSellerId":null,"summary":null,"lastModifiedDate":null,"outIcon":"https://t00img.yangkeduo
+     * .com/goods/images/2019-06-12/f22073b1581c43225c147484e4b687f0.jpeg","brandFlashId":0,"createdDate":null,"createTime":null,
+     * "taoToken":null,"couponStartDate":"2019-07-03 00:00:00","categoryId":158}
      */
 
     private String msg;
@@ -39,7 +55,7 @@ public class GoodDetailEntity implements Serializable{
         this.goodDetail = goodDetail;
     }
 
-    public static class GoodDetailBean implements Serializable{
+    public static class GoodDetailBean implements Serializable {
         /**
          * freeShip : true
          * couponEndDate : 2019-07-04 00:00:00
@@ -80,14 +96,14 @@ public class GoodDetailEntity implements Serializable{
          * sellerName : 超级宝宝母婴馆
          * moduleCategoryId : null
          * content : <p>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-06-30/183f9e77-97cc-4e73-b694-c35798efa081.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/21e4794a-3147-4601-b5d2-609c13e4a808.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/bf9811ce-ff78-492a-ac5d-ff8968b535b1.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/deb50eec-aceb-457a-9735-377471496862.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/cf4d1fbb-4c8e-4113-8890-c044680db105.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/2cd835f9-af5c-45d7-9bc1-22429db29468.jpg"></img>
-         <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/0efa9143-9b07-446e-b0ae-1271327d8c73.jpg"></img>
-         </p>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-06-30/183f9e77-97cc-4e73-b694-c35798efa081.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/21e4794a-3147-4601-b5d2-609c13e4a808.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/bf9811ce-ff78-492a-ac5d-ff8968b535b1.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/deb50eec-aceb-457a-9735-377471496862.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/cf4d1fbb-4c8e-4113-8890-c044680db105.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/2cd835f9-af5c-45d7-9bc1-22429db29468.jpg"></img>
+         * <img src="https://t00img.yangkeduo.com/goods/images/2019-05-22/0efa9143-9b07-446e-b0ae-1271327d8c73.jpg"></img>
+         * </p>
          * enabled : true
          * virtualSales : null
          * brandSellerId : null
@@ -153,8 +169,17 @@ public class GoodDetailEntity implements Serializable{
         private Object taoToken;
         private String couponStartDate;
         private int categoryId;
-        private  boolean collected;
+        private boolean collected;
         private String maxCommision;
+        private Active active;
+
+        public Active getActive() {
+            return active;
+        }
+
+        public void setActive(Active active) {
+            this.active = active;
+        }
 
         public String getMaxCommision() {
             return maxCommision;
@@ -578,6 +603,36 @@ public class GoodDetailEntity implements Serializable{
 
         public void setCategoryId(int categoryId) {
             this.categoryId = categoryId;
+        }
+
+        public static class Active implements Serializable {
+            private int power;
+            private int isActive;
+            private String activeCommission;
+
+            public String getActiveCommission() {
+                return activeCommission;
+            }
+
+            public void setActiveCommission(String activeCommission) {
+                this.activeCommission = activeCommission;
+            }
+
+            public int getPower() {
+                return power;
+            }
+
+            public void setPower(int power) {
+                this.power = power;
+            }
+
+            public int getIsActive() {
+                return isActive;
+            }
+
+            public void setIsActive(int isActive) {
+                this.isActive = isActive;
+            }
         }
     }
 }

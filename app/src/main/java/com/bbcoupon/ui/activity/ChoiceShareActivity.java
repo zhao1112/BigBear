@@ -3,6 +3,7 @@ package com.bbcoupon.ui.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,11 +11,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -38,6 +42,7 @@ import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.CopyTextUtil;
+import com.bbcoupon.util.DownloadUtil;
 import com.bbcoupon.util.JurisdictionUtil;
 import com.bbcoupon.util.ShareUtils;
 import com.bbcoupon.util.UploadImageUtil;
@@ -62,6 +67,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -213,6 +219,11 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 }
                 break;
             case R.id.wx_share:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                    StrictMode.setVmPolicy(builder.build());
+                    builder.detectFileUriExposure();
+                }
                 mStrings.clear();
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).isSelect()) {
@@ -228,8 +239,21 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                             for (int i = 0; i < mStrings.size(); i++) {
                                 searImage[i] = mStrings.get(i);
                             }
-                            ShareUtils.MultiGraphShare(Wechat.NAME, searImage);
-                            showToast("文案已复制剪切板", Gravity.CENTER);
+                            DownloadUtil.onDownLoadImage(searImage);
+                            DownloadUtil.setOnDownLoadBack(new DownloadUtil.OnDownLoadBack() {
+                                @Override
+                                public void onSuccess() {
+                                    ArrayList<Uri> uris = new ArrayList<>();
+                                    for (int i = 0; i < mStrings.size(); i++) {
+                                        String uri =
+                                                Environment.getExternalStorageDirectory() + "/SharedCache/" + "Wechat_sharing" + i + ".jpg";
+                                        uris.add(Uri.fromFile(new File(uri)));
+                                        Log.e("onSuccess: ", uri);
+                                    }
+                                    sharePic(uris);
+                                }
+                            });
+                            showToast("推荐语文案已自动复制", Gravity.CENTER);
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -264,7 +288,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                         downBusiness(searImage, 1, 1);
                         WindowUtils.dismissBrightness(ChoiceShareActivity.this);
                         WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
-                        showToast("文案已复制剪切板", Gravity.CENTER);
                     } else {
                         Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
                     }
@@ -282,25 +305,16 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 CopyTextUtil.CopyText(ChoiceShareActivity.this, mRecommendConten.getText().toString());
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
                 if (JurisdictionUtil.IsJurisdiction()) {
-                    if (ShareUtils.isWXClientAvailable(ChoiceShareActivity.this)) {
-                        if (mStrings.size() > 0) {
-                            String[] searImage = new String[mStrings.size()];
-                            for (int i = 0; i < mStrings.size(); i++) {
-                                searImage[i] = mStrings.get(i);
-                            }
-                            ShareUtils.MultiGraphShare(QQ.NAME, searImage);
-                            showToast("文案已复制剪切板", Gravity.CENTER);
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    presenter.onCandySharing(ChoiceShareActivity.this, map);
-                                }
-                            }, 3000);
-                        } else {
-                            Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
+                    if (mStrings.size() > 0) {
+                        String[] searImage = new String[mStrings.size()];
+                        for (int i = 0; i < mStrings.size(); i++) {
+                            searImage[i] = mStrings.get(i);
                         }
+                        downBusiness(searImage, 1, 4);
+                        WindowUtils.dismissBrightness(ChoiceShareActivity.this);
+                        WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
                     } else {
-                        Toast.makeText(ChoiceShareActivity.this, "请先安装微信客户端", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
                     }
                     return;
                 }
@@ -324,7 +338,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                         downBusiness(searImage, 1, 2);
                         WindowUtils.dismissBrightness(ChoiceShareActivity.this);
                         WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
-                        showToast("文案已复制剪切板", Gravity.CENTER);
                     } else {
                         Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
                     }
@@ -648,7 +661,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                             }
                         });
                     } else {
-                        showToast("图片已保存至相册");
+                        showToast("图片已保存到本地");
                         presenter.onCandySharing(ChoiceShareActivity.this, map);
                     }
                 } catch (Exception e) {
@@ -729,5 +742,13 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                     "---------" + "\n" + "復製评论" + "(" + taoToken + "),去【tao寶】下单");
         }
 
+    }
+
+    public void sharePic(ArrayList<Uri> imageUris) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+        shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
+        shareIntent.setType("image/*");
+        startActivity(Intent.createChooser(shareIntent, "分享到"));
     }
 }

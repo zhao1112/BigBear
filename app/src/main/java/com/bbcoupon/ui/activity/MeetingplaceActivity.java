@@ -139,9 +139,11 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.me_password:
-                if (!TextUtils.isEmpty(Taopassword)) {
+                if (!TextUtils.isEmpty(Taopassword) && !TextUtils.isEmpty(url)) {
                     CopyTextUtil.CopyText(MeetingplaceActivity.this, Taopassword);
                     showToast("复制成功");
+                } else {
+                    showToast("活动失效，查看其它活动");
                 }
                 break;
             case R.id.me_shear:
@@ -151,6 +153,8 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                     map.put("url", url);
                     map.put("imageUrl", image);
                     presenter.ontMeetingplaceSearch(MeetingplaceActivity.this, map);
+                } else {
+                    showToast("活动失效，查看其它活动");
                 }
                 break;
             case R.id.me_go:
@@ -161,6 +165,8 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                     } else {
                         showToast("请先下载淘宝");
                     }
+                } else {
+                    showToast("活动失效，查看其它活动");
                 }
                 break;
         }
@@ -221,9 +227,14 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
             }
             Glide.with(this).load(((MeetingInfor) data).getData().getImage()).into(mMeImage);
             mTaopassword.setText(((MeetingInfor) data).getData().getContnet());
-            url = ((MeetingInfor) data).getData().getUrl();
+            if (((MeetingInfor) data).getData().getUrl() != null) {
+                url = ((MeetingInfor) data).getData().getUrl();
+            } else {
+                showToast("活动失效，查看其它活动");
+            }
             image = ((MeetingInfor) data).getData().getImage();
             Taopassword = ((MeetingInfor) data).getData().getContnet();
+
         }
         //分享图片
         if (data instanceof MeetingShareInfor) {

@@ -56,6 +56,15 @@ public class PddBean {
         private String payAmount;
         private String createTime;
         private int orderStatus;
+        private Active active;
+
+        public Active getActive() {
+            return active;
+        }
+
+        public void setActive(Active active) {
+            this.active = active;
+        }
 
         public String getImage() {
             return image;
@@ -112,5 +121,37 @@ public class PddBean {
         public void setOrderStatus(int orderStatus) {
             this.orderStatus = orderStatus;
         }
+
+        public static class Active {
+            private int power;
+            private int isActive;
+            private String activeCommission;
+
+            public String getActiveCommission() {
+                return activeCommission;
+            }
+
+            public void setActiveCommission(String activeCommission) {
+                this.activeCommission = activeCommission;
+            }
+
+            public int getPower() {
+                return power;
+            }
+
+            public void setPower(int power) {
+                this.power = power;
+            }
+
+            public int getIsActive() {
+                return isActive;
+            }
+
+            public void setIsActive(int isActive) {
+                this.isActive = isActive;
+            }
+        }
     }
+
+
 }

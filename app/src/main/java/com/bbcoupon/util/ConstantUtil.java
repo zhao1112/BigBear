@@ -15,4 +15,6 @@ public class ConstantUtil {
 
     public static final String download = "https://android.myapp.com/myapp/detail.htm?apkName=com.bbearmall.app&ADTAG=mobile#opened";
 
+    public static final String DOUBLING_RULE = "1";//佣金翻倍规则
+
 }

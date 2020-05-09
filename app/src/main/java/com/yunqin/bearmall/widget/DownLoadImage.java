@@ -157,8 +157,12 @@ public class DownLoadImage {
             }
             publishProgress(UPDATEVIEW, 0);
             //删除
-            if (file.isFile() && file.exists()) {
-                file.delete();
+            try {
+                if (file.isFile() && file.exists()) {
+                    file.delete();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             return "下载完成";
         }

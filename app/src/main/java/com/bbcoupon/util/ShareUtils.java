@@ -4,29 +4,14 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.view.Gravity;
-import android.widget.Toast;
-
-
-import com.bumptech.glide.util.Util;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunqin.bearmall.Constans;
-import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.util.PopUtil;
-
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.wechat.friends.Wechat;
-import cn.sharesdk.wechat.utils.WXImageObject;
-import cn.sharesdk.wechat.utils.WXMediaMessage;
 
 /**
  * @author LWP
