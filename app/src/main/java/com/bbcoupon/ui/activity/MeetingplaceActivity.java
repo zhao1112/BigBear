@@ -238,15 +238,15 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
         }
         //分享图片
         if (data instanceof MeetingShareInfor) {
-            if (((MeetingShareInfor) data).getData() != null && ((MeetingShareInfor) data).getData().getData() != null) {
+            if (((MeetingShareInfor) data).getData() != null && ((MeetingShareInfor) data).getData() != null) {
                 View view = WindowUtils.ShowBrightness(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
                 view.findViewById(R.id.me_clear).setOnClickListener(this);
                 view.findViewById(R.id.wx_share).setOnClickListener(this);
                 view.findViewById(R.id.moments_share).setOnClickListener(this);
                 view.findViewById(R.id.dwon_share).setOnClickListener(this);
                 ImageView imageView = view.findViewById(R.id.me_image);
-                Glide.with(this).load(((MeetingShareInfor) data).getData().getData()).apply(options).into(imageView);
-                images = ((MeetingShareInfor) data).getData().getData();
+                Glide.with(this).load(((MeetingShareInfor) data).getData()).apply(options).into(imageView);
+                images = ((MeetingShareInfor) data).getData();
             }
         }
 

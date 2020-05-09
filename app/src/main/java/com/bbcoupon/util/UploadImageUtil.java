@@ -42,7 +42,7 @@ public class UploadImageUtil {
 
         }
         Request request = new Request.Builder()
-                .url(BuildConfig.BASE_URL + "/api/userinfo/finduUploadImg?type=2")
+                .url(BuildConfig.BASE_URL + "/api/userinfo/finduUploadImg?type=1")
                 .post(requestBody.build())
                 .tag(context)
                 .addHeader("Authorization", getAuthorization(t))

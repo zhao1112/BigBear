@@ -160,6 +160,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
             }
             beanList.add(imageBean);
         }
+        imageSelectInfor.setImageBean(beanList);
 
         mProfit.setText("您的预估收益为：" + profit + "元");
         mWholeImage.setText("/" + beanList.size());
@@ -225,10 +226,14 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                     builder.detectFileUriExposure();
                 }
                 mStrings.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).isSelect()) {
-                        mStrings.add(list.get(i).getImage());
+                try {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).isSelect()) {
+                            mStrings.add(list.get(i).getImage());
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 CopyTextUtil.CopyText(ChoiceShareActivity.this, mRecommendConten.getText().toString());
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
@@ -248,7 +253,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                                         String uri =
                                                 Environment.getExternalStorageDirectory() + "/SharedCache/" + "Wechat_sharing" + i + ".jpg";
                                         uris.add(Uri.fromFile(new File(uri)));
-                                        Log.e("onSuccess: ", uri);
                                     }
                                     sharePic(uris);
                                 }
@@ -272,10 +276,14 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 break;
             case R.id.moments_share:
                 mStrings.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).isSelect()) {
-                        mStrings.add(list.get(i).getImage());
+                try {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).isSelect()) {
+                            mStrings.add(list.get(i).getImage());
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 CopyTextUtil.CopyText(ChoiceShareActivity.this, mRecommendConten.getText().toString());
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
@@ -286,7 +294,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                             searImage[i] = mStrings.get(i);
                         }
                         downBusiness(searImage, 1, 1);
-                        WindowUtils.dismissBrightness(ChoiceShareActivity.this);
                         WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
                     } else {
                         Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
@@ -296,11 +303,15 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 showToast("缺少必要权限");
                 break;
             case R.id.qq_share:
-                mStrings.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).isSelect()) {
-                        mStrings.add(list.get(i).getImage());
+                try {
+                    mStrings.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).isSelect()) {
+                            mStrings.add(list.get(i).getImage());
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 CopyTextUtil.CopyText(ChoiceShareActivity.this, mRecommendConten.getText().toString());
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
@@ -311,7 +322,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                             searImage[i] = mStrings.get(i);
                         }
                         downBusiness(searImage, 1, 4);
-                        WindowUtils.dismissBrightness(ChoiceShareActivity.this);
                         WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
                     } else {
                         Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
@@ -321,11 +331,15 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 showToast("缺少必要权限");
                 break;
             case R.id.qq_moments_share:
-                mStrings.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).isSelect()) {
-                        mStrings.add(list.get(i).getImage());
+                try {
+                    mStrings.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).isSelect()) {
+                            mStrings.add(list.get(i).getImage());
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 CopyTextUtil.CopyText(ChoiceShareActivity.this, mRecommendConten.getText().toString());
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
@@ -336,7 +350,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                             searImage[i] = mStrings.get(i);
                         }
                         downBusiness(searImage, 1, 2);
-                        WindowUtils.dismissBrightness(ChoiceShareActivity.this);
                         WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
                     } else {
                         Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
@@ -354,7 +367,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                             searImage[i] = mStrings.get(i);
                         }
                         downBusiness(searImage, 2, 3);
-                        WindowUtils.dismissBrightness(ChoiceShareActivity.this);
                         WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
                     } else {
                         Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
@@ -600,7 +612,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 try {
                     WindowUtils.dismiss();
                     if (shareId == 1) {
-                        View show = WindowUtils.Show(ChoiceShareActivity.this, R.layout.popup_business_dwon, 1);
+                        View show = WindowUtils.ShowBrightness(ChoiceShareActivity.this, R.layout.popup_business_dwon, 1);
                         TextView textView = show.findViewById(R.id.openwx);
                         TextView title = show.findViewById(R.id.title);
                         TextView conten = show.findViewById(R.id.conten);
@@ -622,7 +634,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                         show.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                WindowUtils.dismiss();
+                                WindowUtils.dismissBrightness(ChoiceShareActivity.this);
                                 presenter.onCandySharing(ChoiceShareActivity.this, map);
                             }
                         });
@@ -651,7 +663,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                                         Toast.makeText(ChoiceShareActivity.this, "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                                WindowUtils.dismiss();
+                                WindowUtils.dismissBrightness(ChoiceShareActivity.this);
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -661,6 +673,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                             }
                         });
                     } else {
+                        WindowUtils.dismiss();
                         showToast("图片已保存到本地");
                         presenter.onCandySharing(ChoiceShareActivity.this, map);
                     }
