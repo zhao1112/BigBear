@@ -47,6 +47,9 @@ public class ChoiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public ChoiceAdapter(Context context, List<ImageSelectInfor.ImageBean> list) {
         this.context = context;
         this.list = list;
+        if (onWholeState != null) {
+            onWholeState.onSelection(list);
+        }
     }
 
     public void addData(List<ImageSelectInfor.ImageBean> list) {

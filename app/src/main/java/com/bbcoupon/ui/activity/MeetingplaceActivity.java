@@ -16,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.bbcoupon.util.ImageUtil;
 import com.bbcoupon.util.ShareUtils;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -209,6 +211,7 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.dwon_share:
                 if (images != null) {
+                    Log.e("downLoadImage", images);
                     try {
                         downLoadImage = DownLoadImage.getInstance();
                         downLoadImage.setContext(this);
@@ -228,6 +231,9 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
     public void onSuccess(Object data) {
         //主题会场
         if (data instanceof MeetingInfor) {
+            if (((MeetingInfor) data).getCode() == 0) {
+                return;
+            }
             try {
                 setKeyBg(me_password, ((MeetingInfor) data).getData().getColour());
                 setKeyBg(mBgColor, ((MeetingInfor) data).getData().getColour());
@@ -266,12 +272,13 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
         //分享图片
         if (data instanceof MeetingShareInfor) {
             if (((MeetingShareInfor) data).getData() != null && ((MeetingShareInfor) data).getData() != null) {
-                View view = WindowUtils.ShowVirtual(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
-                view.findViewById(R.id.me_clear).setOnClickListener(this);
-                view.findViewById(R.id.wx_share).setOnClickListener(this);
-                view.findViewById(R.id.moments_share).setOnClickListener(this);
-                view.findViewById(R.id.dwon_share).setOnClickListener(this);
-                ImageView imageView = view.findViewById(R.id.me_image);
+                PopupWindow popupWindow = WindowUtils.ShowVirtual(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
+                popupWindow.getContentView().findViewById(R.id.me_clear).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.wx_share).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.moments_share).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.dwon_share).setOnClickListener(this);
+                ImageView imageView = popupWindow.getContentView().findViewById(R.id.me_image);
+                Log.e("imageView", ((MeetingShareInfor) data).getData());
                 Glide.with(this)
                         .asBitmap()
                         .load(((MeetingShareInfor) data).getData()).apply(options)

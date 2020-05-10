@@ -25,6 +25,7 @@ import com.yunqin.bearmall.bean.TaoBaoBeanNew;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,7 +108,12 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 orderHolder.state.setText(setText(list.get(position).getOrderStatus()));
                 Glide.with(mContext).load(list.get(position).getImage()).apply(mOptions).into(orderHolder.image);
                 orderHolder.price.setText("¥" + list.get(position).getPayAmount());
-                orderHolder.commission.setText("预估返佣" + list.get(position).getEffectEstimate() + "元");
+
+                Double aDouble2 = Double.valueOf(list.get(position).getEffectEstimate());
+                BigDecimal bigDecimal2 = new BigDecimal(aDouble2);
+                String mon2 = bigDecimal2.setScale(2, RoundingMode.DOWN).toString();
+
+                orderHolder.commission.setText("预估返佣" + mon2 + "元");
                 orderHolder.order.setText("订单编号：" + list.get(position).getOrderNo());
                 orderHolder.title.setText(list.get(position).getItemName());
                 orderHolder.copy.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +152,11 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 });
                 break;
         }
+    }
+
+    public static String doubleToString(double num) {
+        //使用0.00不足位补0，#.##仅保留有效位
+        return new DecimalFormat("0.00").format(num);
     }
 
     @Override

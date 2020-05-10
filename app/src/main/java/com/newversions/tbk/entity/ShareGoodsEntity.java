@@ -13,6 +13,15 @@ public class ShareGoodsEntity {
     private String taoQcodeUrl;
     private int code;
     private String taoToken;
+    private String shareReason;
+
+    public String getShareReason() {
+        return shareReason;
+    }
+
+    public void setShareReason(String shareReason) {
+        this.shareReason = shareReason;
+    }
 
     public String getMsg() {
         return msg;

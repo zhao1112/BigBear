@@ -114,7 +114,7 @@ public class ImageUtil {
             Matrix matrix = new Matrix();
             float scaleWidth = ((float) viewWidth) / width;
             float scaleHeight = ((float) viewHeight) / height;
-            matrix.postScale(scaleWidth, scaleWidth);
+            matrix.postScale(scaleWidth, scaleHeight);
             bitmap = Bitmap.createBitmap(resource, 0, 0, (int) width, (int) height, matrix, true);
             return bitmap;
         } catch (Exception e) {

@@ -121,6 +121,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
     private List<String> mStrings = new ArrayList<>();
     private Map<String, String> map;
     private String taoTokens;
+    private String shareReason;
 
     @Override
     public int layoutId() {
@@ -190,8 +191,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
             }
         });
         mChooseImage.setText("1");
-
-        setOneConten();
     }
 
     public void addimageList(List<String> images, String url) {
@@ -419,6 +418,16 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 showToast("缺少必要权限");
                 break;
             case R.id.dwon_share:
+                try {
+                    mStrings.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).isSelect()) {
+                            mStrings.add(list.get(i).getImage());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
                 if (JurisdictionUtil.IsJurisdiction()) {
                     if (mStrings.size() > 0) {
@@ -436,7 +445,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 showToast("缺少必要权限");
                 break;
             case R.id.c_one:
-                setOneConten();
+                setOneConten(shareReason);
                 break;
             case R.id.c_three:
                 if (!TextUtils.isEmpty(taoTokens)) {
@@ -472,8 +481,10 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 return;
             } else {
                 //加载图片
+                shareReason = entity.getShareReason();
                 taoTokens = entity.getTaoToken();
                 setTwoConten(entity.getTaoToken());
+                setOneConten(entity.getShareReason());
                 addimageList(goodDetailBean.getImages(), entity.getTaoQcodeUrl());
             }
         }
@@ -754,13 +765,13 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
         });
     }
 
-    public void setOneConten() {
+    public void setOneConten(String shareReason) {
         if (c_one.isChecked()) {
             mRecommendConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
-                    "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" + "------ ---------");
+                    "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" + "------ ---------" + "\n" + shareReason);
         } else {
             mRecommendConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
-                    "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "------ ---------");
+                    "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "------ ---------" + "\n" + shareReason);
         }
     }
 
