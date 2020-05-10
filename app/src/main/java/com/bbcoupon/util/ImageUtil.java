@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -79,7 +80,7 @@ public class ImageUtil {
                     }
                     return bitmap;
                 } else {
-                return bitmap;
+                    return bitmap;
                 }
             } else {
                 if (height > width) {
@@ -103,5 +104,23 @@ public class ImageUtil {
         }
     }
 
+    public static Bitmap ImageMatrix(Bitmap resource, ImageView imageView) {
+        try {
+            float width = resource.getWidth();
+            float height = resource.getHeight();
+            float viewWidth = imageView.getWidth();
+            float viewHeight = imageView.getHeight();
+            Bitmap bitmap = null;
+            Matrix matrix = new Matrix();
+            float scaleWidth = ((float) viewWidth) / width;
+            float scaleHeight = ((float) viewHeight) / height;
+            matrix.postScale(scaleWidth, scaleWidth);
+            bitmap = Bitmap.createBitmap(resource, 0, 0, (int) width, (int) height, matrix, true);
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resource;
+        }
+    }
 
 }

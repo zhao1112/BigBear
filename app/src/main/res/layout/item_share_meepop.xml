@@ -24,8 +24,7 @@
             android:id="@+id/me_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_362"
-            android:layout_marginTop="@dimen/dp_22"
-            android:scaleType="fitXY"/>
+            android:layout_marginTop="@dimen/dp_22"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

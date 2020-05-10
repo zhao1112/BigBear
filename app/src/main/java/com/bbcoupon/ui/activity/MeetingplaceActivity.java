@@ -235,7 +235,16 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Glide.with(this).load(((MeetingInfor) data).getData().getImage()).into(mMeImage);
+            Glide.with(this)
+                    .asBitmap()
+                    .load(((MeetingInfor) data).getData().getImage())
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            Bitmap bitmap = ImageUtil.ImageMatrix(resource, mMeImage);
+                            mMeImage.setImageBitmap(bitmap);
+                        }
+                    });
             titile.setText(((MeetingInfor) data).getData().getTitle());
             mTaopassword.setText(((MeetingInfor) data).getData().getContnet());
             if (((MeetingInfor) data).getData().getUrl() != null) {
@@ -263,7 +272,17 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 view.findViewById(R.id.moments_share).setOnClickListener(this);
                 view.findViewById(R.id.dwon_share).setOnClickListener(this);
                 ImageView imageView = view.findViewById(R.id.me_image);
-                Glide.with(this).load(((MeetingShareInfor) data).getData()).apply(options).into(imageView);
+                Glide.with(this)
+                        .asBitmap()
+                        .load(((MeetingShareInfor) data).getData()).apply(options)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                Bitmap bitmap = ImageUtil.ImageMatrix(resource, imageView);
+                                imageView.setImageBitmap(bitmap);
+                            }
+                        });
+
                 images = ((MeetingShareInfor) data).getData();
             }
         }
