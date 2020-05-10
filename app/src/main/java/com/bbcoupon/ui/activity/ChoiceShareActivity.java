@@ -75,8 +75,12 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 /**
  * @author LWP
@@ -239,7 +243,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
                 if (JurisdictionUtil.IsJurisdiction()) {
                     if (ShareUtils.isWXClientAvailable(ChoiceShareActivity.this)) {
-                        if (mStrings.size() > 0) {
+                        if (mStrings.size() > 1) {
                             String[] searImage = new String[mStrings.size()];
                             for (int i = 0; i < mStrings.size(); i++) {
                                 searImage[i] = mStrings.get(i);
@@ -264,6 +268,10 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                                     presenter.onCandySharing(ChoiceShareActivity.this, map);
                                 }
                             }, 3000);
+                        } else if (mStrings.size() == 1) {
+                            Platform platform = ShareUtils.shareContent(Wechat.NAME, mStrings.get(0));
+                            platform.setPlatformActionListener(new MyPlatformActionListener());
+                            showToast("推荐语文案已自动复制", Gravity.CENTER);
                         } else {
                             Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
                         }
@@ -288,15 +296,23 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 CopyTextUtil.CopyText(ChoiceShareActivity.this, mRecommendConten.getText().toString());
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
                 if (JurisdictionUtil.IsJurisdiction()) {
-                    if (mStrings.size() > 0) {
-                        String[] searImage = new String[mStrings.size()];
-                        for (int i = 0; i < mStrings.size(); i++) {
-                            searImage[i] = mStrings.get(i);
+                    if (ShareUtils.isWXClientAvailable(ChoiceShareActivity.this)) {
+                        if (mStrings.size() > 1) {
+                            String[] searImage = new String[mStrings.size()];
+                            for (int i = 0; i < mStrings.size(); i++) {
+                                searImage[i] = mStrings.get(i);
+                            }
+                            downBusiness(searImage, 1, 1);
+                            WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
+                        } else if (mStrings.size() == 1) {
+                            Platform platform = ShareUtils.shareContent(WechatMoments.NAME, mStrings.get(0));
+                            platform.setPlatformActionListener(new MyPlatformActionListener());
+                            showToast("推荐语文案已自动复制", Gravity.CENTER);
+                        } else {
+                            Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
                         }
-                        downBusiness(searImage, 1, 1);
-                        WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
                     } else {
-                        Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChoiceShareActivity.this, "请先安装微信客户端", Toast.LENGTH_SHORT).show();
                     }
                     return;
                 }
@@ -316,15 +332,37 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 CopyTextUtil.CopyText(ChoiceShareActivity.this, mRecommendConten.getText().toString());
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
                 if (JurisdictionUtil.IsJurisdiction()) {
-                    if (mStrings.size() > 0) {
-                        String[] searImage = new String[mStrings.size()];
-                        for (int i = 0; i < mStrings.size(); i++) {
-                            searImage[i] = mStrings.get(i);
+                    if (ShareUtils.isQQClientAvailable(ChoiceShareActivity.this)) {
+                        if (mStrings.size() > 1) {
+                            String[] searImage = new String[mStrings.size()];
+                            for (int i = 0; i < mStrings.size(); i++) {
+                                searImage[i] = mStrings.get(i);
+                            }
+                            downBusiness(searImage, 1, 4);
+                            WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
+                        } else if (mStrings.size() == 1) {
+                            String[] searImage = new String[mStrings.size()];
+                            for (int i = 0; i < mStrings.size(); i++) {
+                                searImage[i] = mStrings.get(i);
+                            }
+                            DownloadUtil.onDownLoadImage(searImage);
+                            DownloadUtil.setOnDownLoadBack(new DownloadUtil.OnDownLoadBack() {
+                                @Override
+                                public void onSuccess() {
+                                    String uri = null;
+                                    for (int i = 0; i < mStrings.size(); i++) {
+                                        uri = Environment.getExternalStorageDirectory() + "/SharedCache/" + "Wechat_sharing" + i + ".jpg";
+                                    }
+                                    Platform platform = ShareUtils.shareContentPath(QQ.NAME, uri);
+                                    platform.setPlatformActionListener(new MyPlatformActionListener());
+                                    showToast("推荐语文案已自动复制", Gravity.CENTER);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
                         }
-                        downBusiness(searImage, 1, 4);
-                        WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
                     } else {
-                        Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChoiceShareActivity.this, "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                     }
                     return;
                 }
@@ -344,15 +382,37 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 CopyTextUtil.CopyText(ChoiceShareActivity.this, mRecommendConten.getText().toString());
                 JurisdictionUtil.Jurisdiction(ChoiceShareActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
                 if (JurisdictionUtil.IsJurisdiction()) {
-                    if (mStrings.size() > 0) {
-                        String[] searImage = new String[mStrings.size()];
-                        for (int i = 0; i < mStrings.size(); i++) {
-                            searImage[i] = mStrings.get(i);
+                    if (ShareUtils.isQQClientAvailable(ChoiceShareActivity.this)) {
+                        if (mStrings.size() > 1) {
+                            String[] searImage = new String[mStrings.size()];
+                            for (int i = 0; i < mStrings.size(); i++) {
+                                searImage[i] = mStrings.get(i);
+                            }
+                            downBusiness(searImage, 1, 2);
+                            WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
+                        } else if (mStrings.size() == 1) {
+                            String[] searImage = new String[mStrings.size()];
+                            for (int i = 0; i < mStrings.size(); i++) {
+                                searImage[i] = mStrings.get(i);
+                            }
+                            DownloadUtil.onDownLoadImage(searImage);
+                            DownloadUtil.setOnDownLoadBack(new DownloadUtil.OnDownLoadBack() {
+                                @Override
+                                public void onSuccess() {
+                                    String uri = null;
+                                    for (int i = 0; i < mStrings.size(); i++) {
+                                        uri = Environment.getExternalStorageDirectory() + "/SharedCache/" + "Wechat_sharing" + i + ".jpg";
+                                    }
+                                    Platform platform = ShareUtils.shareContentPath(QZone.NAME, uri);
+                                    platform.setPlatformActionListener(new MyPlatformActionListener());
+                                    showToast("推荐语文案已自动复制", Gravity.CENTER);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
                         }
-                        downBusiness(searImage, 1, 2);
-                        WindowUtils.Show(ChoiceShareActivity.this, R.layout.bus_dialog_image, 1);
                     } else {
-                        Toast.makeText(ChoiceShareActivity.this, "请至少选择一张图片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChoiceShareActivity.this, "请先安装QQ客户端", Toast.LENGTH_SHORT).show();
                     }
                     return;
                 }
@@ -763,5 +823,22 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
         shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
         shareIntent.setType("image/*");
         startActivity(Intent.createChooser(shareIntent, "分享到"));
+    }
+
+    public class MyPlatformActionListener implements PlatformActionListener {
+        @Override
+        public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+            presenter.onCandySharing(ChoiceShareActivity.this, map);
+        }
+
+        @Override
+        public void onError(Platform platform, int i, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(Platform platform, int i) {
+
+        }
     }
 }

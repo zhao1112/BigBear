@@ -43,6 +43,17 @@ public class ShareUtils {
     }
 
     //单图分享
+    public static Platform shareContent(String platforms, String image,String conten) {
+        Platform.ShareParams params = new Platform.ShareParams();
+        params.setImageUrl(image);
+        params.setText(conten);
+        params.setShareType(Platform.SHARE_IMAGE);
+        Platform platform = ShareSDK.getPlatform(platforms);
+        platform.share(params);
+        return platform;
+    }
+
+    //单图分享
     public static Platform shareContent(String platforms, Bitmap image) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setImageData(image);

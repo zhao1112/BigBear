@@ -6,6 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,11 +24,14 @@ import com.bbcoupon.ui.bean.MeetingShareInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.CopyTextUtil;
+import com.bbcoupon.util.ImageUtil;
 import com.bbcoupon.util.ShareUtils;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
@@ -59,6 +65,9 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
     TextView mTaopassword;
     @BindView(R.id.bg_color)
     LinearLayout mBgColor;
+    @BindView(R.id.titile)
+    TextView titile;
+
 
     private DownLoadImage downLoadImage;
     private RoundedCorners roundedCorners = new RoundedCorners(10);
@@ -222,24 +231,33 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
             try {
                 setKeyBg(me_password, ((MeetingInfor) data).getData().getColour());
                 setKeyBg(mBgColor, ((MeetingInfor) data).getData().getColour());
+                mMeGo.setTextColor(Color.parseColor(((MeetingInfor) data).getData().getColour()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
             Glide.with(this).load(((MeetingInfor) data).getData().getImage()).into(mMeImage);
+            titile.setText(((MeetingInfor) data).getData().getTitle());
             mTaopassword.setText(((MeetingInfor) data).getData().getContnet());
             if (((MeetingInfor) data).getData().getUrl() != null) {
                 url = ((MeetingInfor) data).getData().getUrl();
             } else {
                 showToast("活动失效，查看其它活动");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 1000);
             }
             image = ((MeetingInfor) data).getData().getImage();
+            Log.e("onSuccess", ((MeetingInfor) data).getData().getImage());
             Taopassword = ((MeetingInfor) data).getData().getContnet();
 
         }
         //分享图片
         if (data instanceof MeetingShareInfor) {
             if (((MeetingShareInfor) data).getData() != null && ((MeetingShareInfor) data).getData() != null) {
-                View view = WindowUtils.ShowBrightness(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
+                View view = WindowUtils.ShowVirtual(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
                 view.findViewById(R.id.me_clear).setOnClickListener(this);
                 view.findViewById(R.id.wx_share).setOnClickListener(this);
                 view.findViewById(R.id.moments_share).setOnClickListener(this);
