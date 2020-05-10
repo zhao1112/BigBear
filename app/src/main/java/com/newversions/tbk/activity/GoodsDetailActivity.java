@@ -598,7 +598,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     // todo 点击监听
     @OnClick({R.id.iv_btn_back, R.id.lin_collect, R.id.lin_collect2, R.id.lin_share, R.id.lin_quanhoujia,
-            R.id.lin_buy_buy, R.id.ll_more_comm, R.id.iv_btn_download, R.id.shen_ji,R.id.isdouble})
+            R.id.lin_buy_buy, R.id.ll_more_comm, R.id.iv_btn_download, R.id.shen_ji, R.id.isdouble})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_btn_back:
@@ -705,11 +705,13 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 }
                 break;
             case R.id.isdouble:
-                Bundle bundle = new Bundle();
-                bundle.putString("Web_Url", "https://testapi.bbcoupon.cn/view/doubleRule/list");
-                bundle.putString("Web_Tiele", "活动时间与规则");
-                bundle.putString("Web_Type", ConstantUtil.DOUBLING_RULE);
-                WebViewActivity.openWebViewActivity(GoodsDetailActivity.this,bundle);
+                if (ConstantUtil.isFastClick()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Web_Url", "https://testapi.bbcoupon.cn/view/doubleRule/list");
+                    bundle.putString("Web_Tiele", "活动时间与规则");
+                    bundle.putString("Web_Type", ConstantUtil.DOUBLING_RULE);
+                    WebViewActivity.openWebViewActivity(GoodsDetailActivity.this, bundle);
+                }
                 break;
         }
     }

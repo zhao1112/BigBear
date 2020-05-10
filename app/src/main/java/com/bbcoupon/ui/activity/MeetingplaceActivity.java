@@ -1,5 +1,6 @@
 package com.bbcoupon.ui.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,6 +27,7 @@ import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.ImageUtil;
+import com.bbcoupon.util.JurisdictionUtil;
 import com.bbcoupon.util.ShareUtils;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
@@ -34,9 +36,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.gson.Gson;
+import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
+import com.yunqin.bearmall.util.AuntTao;
 import com.yunqin.bearmall.widget.DownLoadImage;
 
 import java.util.HashMap;
@@ -210,19 +215,24 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 WindowUtils.dismissBrightness(MeetingplaceActivity.this);
                 break;
             case R.id.dwon_share:
-                if (images != null) {
-                    Log.e("downLoadImage", images);
-                    try {
-                        downLoadImage = DownLoadImage.getInstance();
-                        downLoadImage.setContext(this);
-                        downLoadImage.DownLoadImag(new String[]{images});
-                        showToast("保存成功");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.e("dismissPopupWindow", e.getMessage());
+                JurisdictionUtil.Jurisdiction(MeetingplaceActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                if (JurisdictionUtil.IsJurisdiction()) {
+                    if (images != null) {
+                        Log.e("downLoadImage", images);
+                        try {
+                            downLoadImage = DownLoadImage.getInstance();
+                            downLoadImage.setContext(this);
+                            downLoadImage.DownLoadImag(new String[]{images});
+                            showToast("保存成功");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Log.e("dismissPopupWindow", e.getMessage());
+                        }
                     }
+                    WindowUtils.dismissBrightness(MeetingplaceActivity.this);
+                } else {
+                    showToast("缺少必要权限");
                 }
-                WindowUtils.dismissBrightness(MeetingplaceActivity.this);
                 break;
         }
     }
@@ -231,9 +241,6 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
     public void onSuccess(Object data) {
         //主题会场
         if (data instanceof MeetingInfor) {
-            if (((MeetingInfor) data).getCode() == 0) {
-                return;
-            }
             try {
                 setKeyBg(me_password, ((MeetingInfor) data).getData().getColour());
                 setKeyBg(mBgColor, ((MeetingInfor) data).getData().getColour());
@@ -303,7 +310,19 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onFail(Throwable e) {
-
+        MeetingInfor meetingInfor = new Gson().fromJson(e.getMessage(), MeetingInfor.class);
+        if (meetingInfor.getCode() == 3) {
+            ArouseTaoBao arouseTaoBao = new ArouseTaoBao(MeetingplaceActivity.this);
+            if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+                AuntTao auntTao = new AuntTao();
+                auntTao.setContext(MeetingplaceActivity.this);
+                auntTao.AuntTabo();
+            } else {
+                showToast("请先下载淘宝");
+                hiddenLoadingView();
+            }
+        }
+        Log.e("Throwable", e.getMessage());
     }
 
     @Override

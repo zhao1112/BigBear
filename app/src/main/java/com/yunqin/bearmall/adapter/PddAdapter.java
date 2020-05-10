@@ -143,11 +143,13 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 orderHolder.is_double.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("Web_Url", "https://testapi.bbcoupon.cn/view/doubleRule/list");
-                        bundle.putString("Web_Tiele", "活动时间与规则");
-                        bundle.putString("Web_Type", ConstantUtil.DOUBLING_RULE);
-                        WebViewActivity.openWebViewActivity((Activity) mContext, bundle);
+                        if (ConstantUtil.isFastClick()) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Web_Url", "https://testapi.bbcoupon.cn/view/doubleRule/list");
+                            bundle.putString("Web_Tiele", "活动时间与规则");
+                            bundle.putString("Web_Type", ConstantUtil.DOUBLING_RULE);
+                            WebViewActivity.openWebViewActivity((Activity) mContext, bundle);
+                        }
                     }
                 });
                 break;
