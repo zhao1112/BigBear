@@ -52,7 +52,7 @@ public class AuntTao {
                 @Override
                 public void onFailure(int i, String s) {
                     if (i == 111) {
-                        Toast.makeText(context, "请不要频繁调用", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "该淘宝已被其它账号绑定", Toast.LENGTH_LONG).show();
                     }
                     Log.e("WebViewActivity", s);
                 }

@@ -36,10 +36,10 @@
         android:background="#FFF9DF">
 
         <TextView
-            android:layout_marginLeft="@dimen/dp_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_13"
             android:text="分享后不要忘记复制粘贴【商品评论区文案】！！！"
             android:textColor="#ffad8f48"
             android:textSize="@dimen/sp_12"/>
@@ -150,21 +150,28 @@
                         android:textSize="@dimen/sp_14"
                         android:textStyle="bold"/>
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/view_select"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/dp_9"
-                        android:text="全选"
-                        android:textColor="#ff272727"
-                        android:textSize="@dimen/sp_12"/>
+                        android:layout_height="match_parent">
 
-                    <CheckBox
-                        android:id="@+id/choices_select"
-                        android:layout_width="@dimen/dp_18"
-                        android:layout_height="@dimen/dp_18"
-                        android:background="@drawable/app_select_item"
-                        android:button="@null"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/dp_9"
+                            android:text="全选"
+                            android:textColor="#ff272727"
+                            android:textSize="@dimen/sp_12"/>
+
+                        <CheckBox
+                            android:id="@+id/choices_select"
+                            android:layout_width="@dimen/dp_18"
+                            android:layout_height="@dimen/dp_18"
+                            android:background="@drawable/app_select_item"
+                            android:button="@null"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -273,6 +280,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/view_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_15"
@@ -398,6 +406,7 @@
                     android:layout_marginBottom="@dimen/dp_15">
 
                     <LinearLayout
+                        android:id="@+id/view_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -422,6 +431,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/view_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -447,6 +457,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/view_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

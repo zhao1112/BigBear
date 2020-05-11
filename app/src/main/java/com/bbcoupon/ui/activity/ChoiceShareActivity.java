@@ -200,14 +200,18 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
 
 
     @OnClick({R.id.toolbar_back, R.id.choices_select, R.id.recommend_copy, R.id.goodes_copy, R.id.wx_share, R.id.moments_share,
-            R.id.qq_share, R.id.qq_moments_share, R.id.rule,
-            R.id.dwon_share, R.id.c_one, R.id.c_three, R.id.c_two, R.id.c_four})
+            R.id.qq_share, R.id.qq_moments_share, R.id.rule, R.id.view_select, R.id.view_one, R.id.view_two, R.id.view_three,
+            R.id.dwon_share, R.id.c_one, R.id.c_three, R.id.c_two, R.id.c_four, R.id.view_four})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_back:
                 finish();
                 break;
             case R.id.choices_select:
+                choiceAdapter.wholeState(mChoicesSelect.isChecked());
+                break;
+            case R.id.view_select:
+                mChoicesSelect.setChecked(!mChoicesSelect.isChecked());
                 choiceAdapter.wholeState(mChoicesSelect.isChecked());
                 break;
             case R.id.recommend_copy:
@@ -444,15 +448,37 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 }
                 showToast("缺少必要权限");
                 break;
+            case R.id.view_one:
+                c_one.setChecked(!c_one.isChecked());
+                setOneConten(shareReason);
+                break;
             case R.id.c_one:
                 setOneConten(shareReason);
+                break;
+            case R.id.view_three:
+                c_three.setChecked(!c_three.isChecked());
+                if (!TextUtils.isEmpty(taoTokens)) {
+                    setTwoConten(taoTokens);
+                }
                 break;
             case R.id.c_three:
                 if (!TextUtils.isEmpty(taoTokens)) {
                     setTwoConten(taoTokens);
                 }
                 break;
+            case R.id.view_two:
+                c_two.setChecked(!c_two.isChecked());
+                if (!TextUtils.isEmpty(taoTokens)) {
+                    setTwoConten(taoTokens);
+                }
+                break;
             case R.id.c_two:
+                if (!TextUtils.isEmpty(taoTokens)) {
+                    setTwoConten(taoTokens);
+                }
+                break;
+            case R.id.view_four:
+                c_four.setChecked(!c_four.isChecked());
                 if (!TextUtils.isEmpty(taoTokens)) {
                     setTwoConten(taoTokens);
                 }
@@ -481,7 +507,9 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 return;
             } else {
                 //加载图片
-                shareReason = entity.getShareReason();
+                if (!TextUtils.isEmpty(entity.getShareReason())) {
+                    shareReason = entity.getShareReason();
+                }
                 taoTokens = entity.getTaoToken();
                 setTwoConten(entity.getTaoToken());
                 setOneConten(entity.getShareReason());
@@ -766,62 +794,74 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
     }
 
     public void setOneConten(String shareReason) {
-        if (c_one.isChecked()) {
-            mRecommendConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
-                    "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" + "------ ---------" + "\n" + shareReason);
+        if (!TextUtils.isEmpty(shareReason)) {
+            if (c_one.isChecked()) {
+                mRecommendConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+                        "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" + "------ " +
+                        "---------" + "\n" + shareReason);
+            } else {
+                mRecommendConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+                        "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "------ ---------" + "\n" + shareReason);
+            }
         } else {
-            mRecommendConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
-                    "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "------ ---------" + "\n" + shareReason);
+            if (c_one.isChecked()) {
+                mRecommendConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+                        "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" + "------ " +
+                        "---------");
+            } else {
+                mRecommendConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+                        "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "------ ---------");
+            }
         }
     }
 
     public void setTwoConten(String taoToken) {
         //全选
         if (c_two.isChecked() && c_three.isChecked() && c_four.isChecked()) {
-            mGoodsConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+            mGoodsConten.setText("【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
                     "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" + "【下载链接】" + ConstantUtil.download + "\n" +
                     "【邀请码】" + BearMallAplication.getInstance().getUser().getRecommendCode() + "\n" + "------ ---------" + "\n" + "復製评论" + "(" + taoToken + "),去【tao寶】下单");
         }
         //选择前两个
         if (c_two.isChecked() && c_three.isChecked() && !c_four.isChecked()) {
-            mGoodsConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+            mGoodsConten.setText("【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
                     "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" + "【下载链接】" + ConstantUtil.download + "\n" + "------ ---------" + "\n" + "復製评论" + "(" + taoToken + "),去【tao寶】下单");
 
         }
         //选择第一个
         if (c_two.isChecked() && !c_three.isChecked() && !c_four.isChecked()) {
-            mGoodsConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+            mGoodsConten.setText("【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
                     "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" + "------ ---------" + "\n" + "復製评论" + "(" + taoToken + "),去【tao寶】下单");
 
         }
         //全不选
         if (!c_two.isChecked() && !c_three.isChecked() && !c_four.isChecked()) {
-            mGoodsConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+            mGoodsConten.setText("【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
                     "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "------ ---------" + "\n" + "復製评论" + "(" + taoToken + ")," +
                     "去【tao寶】下单");
         }
         //选择第一个和最后一个
         if (c_two.isChecked() && !c_three.isChecked() && c_four.isChecked()) {
-            mGoodsConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+            mGoodsConten.setText("【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
                     "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载大熊酷朋】下单返还" + profit + "元" + "\n" +
                     "【邀请码】" + BearMallAplication.getInstance().getUser().getRecommendCode() + "\n" + "------ ---------" + "\n" + "復製评论" + "(" + taoToken + "),去【tao寶】下单");
 
         }
         //选择后两个
         if (!c_two.isChecked() && c_three.isChecked() && c_four.isChecked()) {
-            mGoodsConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+            mGoodsConten.setText("【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
                     "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载链接】" + ConstantUtil.download + "\n" +
                     "【邀请码】" + BearMallAplication.getInstance().getUser().getRecommendCode() + "\n" + "------ ---------" + "\n" + "復製评论" + "(" + taoToken + "),去【tao寶】下单");
         }
         //选择最后一个
         if (!c_two.isChecked() && !c_three.isChecked() && c_four.isChecked()) {
-            mGoodsConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+            mGoodsConten.setText("【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
                     "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" +
                     "【邀请码】" + BearMallAplication.getInstance().getUser().getRecommendCode() + "\n" + "------ ---------" + "\n" + "復製评论" + "(" + taoToken + "),去【tao寶】下单");
         }
         //选择中间一个
         if (!c_two.isChecked() && c_three.isChecked() && !c_four.isChecked()) {
-            mGoodsConten.setText("【" + goodDetailBean.getName() + "】" + "\n" + "【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
+            mGoodsConten.setText("【原价】" + goodDetailBean.getPrice() + "元" + "\n" +
                     "【券后价】" + goodDetailBean.getDiscountPrice() + "元" + "\n" + "【下载链接】" + ConstantUtil.download + "\n" + "------ " +
                     "---------" + "\n" + "復製评论" + "(" + taoToken + "),去【tao寶】下单");
         }

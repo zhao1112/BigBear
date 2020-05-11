@@ -74,7 +74,8 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
     LinearLayout mBgColor;
     @BindView(R.id.titile)
     TextView titile;
-
+    @BindView(R.id.view_style)
+    LinearLayout view_style;
 
     private DownLoadImage downLoadImage;
     private RoundedCorners roundedCorners = new RoundedCorners(10);
@@ -107,12 +108,18 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
 
         presenter = new RequestPresenter();
         presenter.setRelation(this);
-        Map<String, String> map = new HashMap<>();
-        map.put("target", meetingplace);
-        presenter.onMeetingplace(MeetingplaceActivity.this, map);
 
         //启动动画
         setAnimation();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showLoading();
+        Map<String, String> map = new HashMap<>();
+        map.put("target", meetingplace);
+        presenter.onMeetingplace(MeetingplaceActivity.this, map);
     }
 
     //设置动画
@@ -148,7 +155,7 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
         view.setBackground(drawable);
     }
 
-    @OnClick({R.id.toolbar_back, R.id.me_password, R.id.me_shear, R.id.me_go})
+    @OnClick({R.id.toolbar_back, R.id.me_password, R.id.me_shear, R.id.me_go, R.id.toolbar_refresh})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_back:
@@ -184,6 +191,11 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     showToast("活动失效，查看其它活动");
                 }
+                break;
+            case R.id.toolbar_refresh:
+                Map<String, String> map = new HashMap<>();
+                map.put("target", meetingplace);
+                presenter.onMeetingplace(MeetingplaceActivity.this, map);
                 break;
         }
     }
@@ -274,7 +286,8 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
             image = ((MeetingInfor) data).getData().getImage();
             Log.e("onSuccess", ((MeetingInfor) data).getData().getImage());
             Taopassword = ((MeetingInfor) data).getData().getContnet();
-
+            view_style.setVisibility(View.GONE);
+            hiddenLoadingView();
         }
         //分享图片
         if (data instanceof MeetingShareInfor) {
@@ -318,8 +331,8 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 auntTao.setContext(MeetingplaceActivity.this);
                 auntTao.AuntTabo();
             } else {
+                finish();
                 showToast("请先下载淘宝");
-                hiddenLoadingView();
             }
         }
         Log.e("Throwable", e.getMessage());

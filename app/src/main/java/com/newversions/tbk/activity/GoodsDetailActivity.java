@@ -297,9 +297,13 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
             @Override
             public void progressValue(int value, int contentLen) {
-                int va = (value * 100) / contentLen;
-                mProgress.setPercent(va);
-                mProgressText.setText(mProgress.getPercent() + "%");
+                try {
+                    int va = (value * 100) / contentLen;
+                    mProgress.setPercent(va);
+                    mProgressText.setText(mProgress.getPercent() + "%");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
