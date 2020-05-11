@@ -497,7 +497,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         finish();
     }
 
-
     public void updateRid(String token) {
         Map<String, String> map = new HashMap<>();
         map.put("tbk_token", token);

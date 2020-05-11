@@ -4,11 +4,29 @@
     android:layout_width="@dimen/dp_95"
     android:layout_height="@dimen/dp_80">
 
-    <ImageView
-        android:id="@+id/image_choice"
+    <RelativeLayout
         android:layout_width="@dimen/dp_80"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_choice"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/er_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_17"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/item_choice_style"
+            android:gravity="center"
+            android:text="二维码推广图"
+            android:textColor="#ffffffff"
+            android:textSize="11sp"/>
+
+    </RelativeLayout>
+
 
     <CheckBox
         android:id="@+id/select_image_choice"

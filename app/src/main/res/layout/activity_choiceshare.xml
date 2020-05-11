@@ -269,7 +269,6 @@
                                 android:layout_height="match_parent"
                                 android:background="@null"
                                 android:padding="@dimen/dp_10"
-                                android:text="【帐篷户外野营加厚装备全自动防雨野外露营临时防暴雨账蓬儿童室内】\n【原价】118元\n【券后价】68元\n【下载大熊酷朋】下单返还6.25元\n------ ---------\n【下单即送刷头】声波净齿，超强清洁力，一键启动，净白杜邦软刷毛，IXP7级防水，高频震动续航，智能护理，深入牙缝死角KO牙黄牙渍〜科学刷牙，呵护牙齿，轻松享受洗牙级SPA〜【赠运费险】"
                                 android:textColor="#555555"
                                 android:textSize="@dimen/sp_12"/>
 
@@ -387,7 +386,6 @@
                                 android:layout_height="match_parent"
                                 android:background="@null"
                                 android:padding="@dimen/dp_10"
-                                android:text="【帐篷户外野营加厚装备全自动防雨野外露营临时防暴雨账蓬儿童室内】\n【原价】118元\n【券后价】68元\n【下载大熊酷朋】下单返还6.25元\n------ ---------\n【下单即送刷头】声波净齿，超强清洁力，一键启动，净白杜邦软刷毛，IXP7级防水，高频震动续航，智能护理，深入牙缝死角KO牙黄牙渍〜科学刷牙，呵护牙齿，轻松享受洗牙级SPA〜【赠运费险】"
                                 android:textColor="#555555"
                                 android:textSize="@dimen/sp_12"/>
 

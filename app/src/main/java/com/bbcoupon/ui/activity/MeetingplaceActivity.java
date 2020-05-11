@@ -329,14 +329,7 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
             AuntTao auntTao = new AuntTao();
             auntTao.setContext(MeetingplaceActivity.this);
             auntTao.AuntTabo();
-            auntTao.setOnBack(new AuntTao.OnBack() {
-                @Override
-                public void onFailure(int code) {
-                    if (code == 10004) {
-                        finish();
-                    }
-                }
-            });
+            finish();
         }
         Log.e("Throwable", e.getMessage());
     }

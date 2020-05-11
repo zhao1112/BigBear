@@ -74,6 +74,12 @@ public class ChoiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         ProductSunHolder sunHolder = (ProductSunHolder) holder;
 
+        if (position == 0) {
+            sunHolder.er_content.setVisibility(View.VISIBLE);
+        } else {
+            sunHolder.er_content.setVisibility(View.GONE);
+        }
+
         if (mBitmap != null && position == 0) {
             sunHolder.image_choice.setImageBitmap(mBitmap);
         } else {
@@ -126,11 +132,13 @@ public class ChoiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private final ImageView image_choice;
         private final CheckBox select_image_choice;
+        private final TextView er_content;
 
         public ProductSunHolder(View itemView) {
             super(itemView);
             image_choice = itemView.findViewById(R.id.image_choice);
             select_image_choice = itemView.findViewById(R.id.select_image_choice);
+            er_content = itemView.findViewById(R.id.er_content);
         }
     }
 
