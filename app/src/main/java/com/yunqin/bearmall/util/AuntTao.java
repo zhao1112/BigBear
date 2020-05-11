@@ -19,9 +19,13 @@ import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
 import com.alibaba.baichuan.android.trade.model.OpenType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
+import com.alibaba.baichuan.trade.biz.login.AlibcLogin;
+import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
 import com.alibaba.baichuan.trade.common.utils.AlibcLogger;
+import com.bbcoupon.util.ConstantUtil;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.WebActivity;
+import com.yunqin.bearmall.ui.activity.HomeActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,21 +44,31 @@ public class AuntTao {
     }
 
     public void AuntTabo() {
-        LoginService loginService = MemberSDK.getService(LoginService.class);
-        if (loginService != null) {
-            loginService.auth((Activity) context, new LoginCallback() {
+
+        boolean authorization = (boolean) SharedPreferencesHelper.get(context, ConstantUtil.AUTHORIZATION_SUCCESSFUL, false);
+        if (authorization) {
+            openByUrlTaobao(CommonUtils.TabUrl);
+        } else {
+            AlibcLogin alibcLogin = AlibcLogin.getInstance();
+            alibcLogin.showLogin(new AlibcLoginCallback() {
                 @Override
-                public void onSuccess(Session session) {
-                    Log.e("WebViewActivity", "s");
+                public void onSuccess(int loginResult, String openId, String userNick) {
+                    // 参数说明：
+                    // loginResult(0--登录初始化成功；1--登录初始化完成；2--登录成功)
+                    // openId：用户id
+                    // userNick: 用户昵称
+                    SharedPreferencesHelper.put(context, ConstantUtil.AUTHORIZATION_SUCCESSFUL, true);
                     openByUrlTaobao(CommonUtils.TabUrl);
+                    Log.i("alibcLogin", "获取淘宝用户信息: " + AlibcLogin.getInstance().getSession());
                 }
 
                 @Override
-                public void onFailure(int i, String s) {
-                    if (i == 111) {
-                        Toast.makeText(context, "该淘宝已被其它账号绑定", Toast.LENGTH_LONG).show();
+                public void onFailure(int code, String msg) {
+                    // code：错误码  msg： 错误信息
+                    Log.i("alibcLogin", "code: " + code + "----msg" + msg);
+                    if (onBack != null) {
+                        onBack.onFailure(code);
                     }
-                    Log.e("WebViewActivity", s);
                 }
             });
         }
@@ -96,5 +110,16 @@ public class AuntTao {
                     }
                 });
     }
+
+    public interface OnBack {
+        void onFailure(int code);
+    }
+
+    public OnBack onBack;
+
+    public void setOnBack(OnBack onBack) {
+        this.onBack = onBack;
+    }
+
 
 }

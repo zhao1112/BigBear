@@ -114,6 +114,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (CopyTextUtil.isSameContent(this, content)) {
                 return;
             }
+            if (content.trim().isEmpty()) {
+                return;
+            }
             if (!TextUtils.isEmpty(content)) {
                 if (mSearchDialog == null) {
                     mSearchDialog = new SearchDialog(this, new View.OnClickListener() {

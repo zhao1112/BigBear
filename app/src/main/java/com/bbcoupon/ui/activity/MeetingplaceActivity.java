@@ -193,6 +193,7 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.toolbar_refresh:
+                showLoading();
                 Map<String, String> map = new HashMap<>();
                 map.put("target", meetingplace);
                 presenter.onMeetingplace(MeetingplaceActivity.this, map);
@@ -325,15 +326,17 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
     public void onFail(Throwable e) {
         MeetingInfor meetingInfor = new Gson().fromJson(e.getMessage(), MeetingInfor.class);
         if (meetingInfor.getCode() == 3) {
-            ArouseTaoBao arouseTaoBao = new ArouseTaoBao(MeetingplaceActivity.this);
-            if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
-                AuntTao auntTao = new AuntTao();
-                auntTao.setContext(MeetingplaceActivity.this);
-                auntTao.AuntTabo();
-            } else {
-                finish();
-                showToast("请先下载淘宝");
-            }
+            AuntTao auntTao = new AuntTao();
+            auntTao.setContext(MeetingplaceActivity.this);
+            auntTao.AuntTabo();
+            auntTao.setOnBack(new AuntTao.OnBack() {
+                @Override
+                public void onFailure(int code) {
+                    if (code == 10004) {
+                        finish();
+                    }
+                }
+            });
         }
         Log.e("Throwable", e.getMessage());
     }
