@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,7 +126,11 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 if (list.get(position).getActive() != null) {
                     if (list.get(position).getActive().getIsActive() == 1) {
                         try {
-                            orderHolder.isdouble.setText("翻倍后预估总佣金：" + list.get(position).getActive().getActiveCommission() + "元");
+                            if (!TextUtils.isEmpty(list.get(position).getActive().getActiveCommission())) {
+                                orderHolder.isdouble.setText("翻倍后预估总佣金：" + list.get(position).getActive().getActiveCommission() + "元");
+                            } else {
+                                orderHolder.isdouble.setText("翻倍后预估总佣金：" + 0.00 + "元");
+                            }
                             orderHolder.is_double.setVisibility(View.VISIBLE);
                         } catch (NumberFormatException e) {
                             e.printStackTrace();

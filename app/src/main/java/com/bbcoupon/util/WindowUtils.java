@@ -117,7 +117,7 @@ public class WindowUtils {
         popupWindow.setContentView(viewContent);
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-        dimBackground(activity, 1.0f, 0.5f);
+        dimBackground(activity, 1.0f, 0.3f);
         switch (position) {
             case 0:
                 popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP, 0, 0);
@@ -174,15 +174,13 @@ public class WindowUtils {
      */
     public static PopupWindow ShowVirtual(Activity activity, int view, int position) {
         dimBackground(activity, 1.0f, 0.2f);
-        if (popupWindow == null) {
-            popupWindow = new PopupWindow();
-            LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout linearLayout = new LinearLayout(activity);
-            viewContent = inflater.inflate(view, linearLayout);
-            popupWindow.setContentView(viewContent);
-            popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-            popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-        }
+        popupWindow = new PopupWindow();
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout linearLayout = new LinearLayout(activity);
+        viewContent = inflater.inflate(view, linearLayout);
+        popupWindow.setContentView(viewContent);
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         switch (position) {
             case 0:
                 popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP, 0, 0);

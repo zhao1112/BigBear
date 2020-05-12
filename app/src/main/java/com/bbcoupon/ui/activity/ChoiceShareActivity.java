@@ -493,8 +493,8 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 boolean fastClick = ConstantUtil.isFastClick();
                 if (fastClick) {
                     try {
-                        PopupWindow popupWindow = WindowUtils.ShowVirtual(ChoiceShareActivity.this, R.layout.popup_choice, 1);
-                        TextView clone = popupWindow.getContentView().findViewById(R.id.clone);
+                        View show = WindowUtils.ShowBrightness(ChoiceShareActivity.this, R.layout.popup_choice, 1);
+                        TextView clone = show.findViewById(R.id.clone);
                         clone.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -708,7 +708,13 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                     imageSelectInfor.setImageBean(beanList);
                     list = beanList;
                     choiceAdapter.addData(list);
-                    hiddenLoadingView();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            hiddenLoadingView();
+                        }
+                    }, 1000);
+
                     break;
             }
         }

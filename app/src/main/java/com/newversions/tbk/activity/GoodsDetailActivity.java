@@ -403,7 +403,11 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         if (goodDetailEntity.getGoodDetail().getActive() != null) {
             if (goodDetailEntity.getGoodDetail().getActive().getIsActive() == 1) {
                 try {
-                    double_content.setText("限时佣金翻倍，翻倍后可得" + goodDetailEntity.getGoodDetail().getActive().getActiveCommission() + "元");
+                    if (!TextUtils.isEmpty(goodDetailEntity.getGoodDetail().getActive().getActiveCommission())) {
+                        double_content.setText("限时佣金翻倍，翻倍后可得" + goodDetailEntity.getGoodDetail().getActive().getActiveCommission() + "元");
+                    } else {
+                        double_content.setText("限时佣金翻倍，翻倍后可得" + 0.00 + "元");
+                    }
                     isdouble.setVisibility(View.VISIBLE);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
