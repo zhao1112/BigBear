@@ -708,13 +708,12 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                     imageSelectInfor.setImageBean(beanList);
                     list = beanList;
                     choiceAdapter.addData(list);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            hiddenLoadingView();
-                        }
-                    }, 1000);
-
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+                    hiddenLoadingView();
+//                        }
+//                    }, 1000);
                     break;
             }
         }
