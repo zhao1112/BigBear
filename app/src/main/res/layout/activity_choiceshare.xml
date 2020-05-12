@@ -44,6 +44,16 @@
             android:textColor="#ffad8f48"
             android:textSize="@dimen/sp_12"/>
 
+        <ImageView
+            android:id="@+id/g_three"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/choce_image"/>
+
     </RelativeLayout>
 
     <RelativeLayout

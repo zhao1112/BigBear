@@ -201,7 +201,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
 
     @OnClick({R.id.toolbar_back, R.id.choices_select, R.id.recommend_copy, R.id.goodes_copy, R.id.wx_share, R.id.moments_share,
             R.id.qq_share, R.id.qq_moments_share, R.id.rule, R.id.view_select, R.id.view_one, R.id.view_two, R.id.view_three,
-            R.id.dwon_share, R.id.c_one, R.id.c_three, R.id.c_two, R.id.c_four, R.id.view_four})
+            R.id.dwon_share, R.id.c_one, R.id.c_three, R.id.c_two, R.id.c_four, R.id.view_four, R.id.g_three})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_back:
@@ -489,6 +489,16 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 }
                 break;
             case R.id.rule:
+                PopupWindow popupWindow = WindowUtils.ShowVirtual(ChoiceShareActivity.this, R.layout.popup_choice, 1);
+                TextView clone = popupWindow.getContentView().findViewById(R.id.clone);
+                clone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        WindowUtils.dismissBrightness(ChoiceShareActivity.this);
+                    }
+                });
+                break;
+            case R.id.g_three:
                 Intent intent = new Intent(ChoiceShareActivity.this, SharingRulesActivity.class);
                 startActivity(intent);
                 break;

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:background="@drawable/bg_corner_search_dialog"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_18"
+            android:text="规则说明"
+            android:textColor="#ff272727"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_36"
+            android:layout_marginTop="@dimen/dp_14"
+            android:layout_marginRight="@dimen/dp_26"
+            android:lineSpacingExtra="@dimen/dp_10"
+            android:text="1. 下单支付后会在成交预估收入里查看（会有不定期的延时）
+\n2. 订单在确认收货(结算)后才会呈现在确认收货佣金中。
+\n3. 当申请售后、维权成功后会从成交预估收入及确认收货佣金中提出。
+\n4. 取消订单、退款退货、申请售后维权都会产生成交预估收入和确认收货佣金使收入的数据变动。
+\n5. 此处展示佣金为卖家设置的佣金，不同层级的用户申请到的佣金不同，最终以实际结算结果为准。"
+            android:textColor="#ff272727"
+            android:textSize="12sp"/>
+
+
+        <TextView
+            android:id="@+id/clone"
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:background="@drawable/bg_vip_up"
+            android:gravity="center"
+            android:text="我知道了"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/sp_14"/>
+
+    </LinearLayout>
+
+</LinearLayout>

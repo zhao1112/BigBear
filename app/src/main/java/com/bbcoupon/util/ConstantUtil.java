@@ -11,7 +11,7 @@ public class ConstantUtil {
     public static final String first_search = "FIRST_SEARCH";//第一次打开搜索页
     public static final String first_goodes = "FIRST_GOODES";//第一次打开搜索详情页
     public static final String money = "¥";
-    public static final String download = "https://android.myapp.com/myapp/detail.htm?apkName=com.bbearmall.app&ADTAG=mobile#opened";//下载app链接
+    public static final String download = "https://a.app.qq.com/o/simple.jsp?pkgname=com.bbearmall.app";//下载app链接
     public static final String DOUBLING_RULE = "1";//佣金翻倍规则
     public static final String AUTHORIZATION_SUCCESSFUL = "authorization_successful";//授权记录
 

@@ -584,7 +584,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
             //设置自动轮播，默认为true
             banner_list.isAutoPlay(true);
             //设置轮播时间
-            banner_list.setDelayTime(3000);
+            banner_list.setDelayTime(4000);
             //设置指示器位置（当banner模式中有指示器时）
             banner_list.setIndicatorGravity(BannerConfig.RIGHT);
             banner_list.setImages(imgUrls);
@@ -613,7 +613,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
             //设置自动轮播，默认为true
             banner_list.isAutoPlay(true);
             //设置轮播时间
-            banner_list.setDelayTime(3000);
+            banner_list.setDelayTime(4000);
             //设置指示器位置（当banner模式中有指示器时）
             banner_list.setIndicatorGravity(BannerConfig.RIGHT);
             banner_list.setImages(imgUrls);
