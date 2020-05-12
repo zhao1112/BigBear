@@ -181,7 +181,7 @@ public class WindowUtils {
             viewContent = inflater.inflate(view, linearLayout);
             popupWindow.setContentView(viewContent);
             popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-            popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+            popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         }
         switch (position) {
             case 0:

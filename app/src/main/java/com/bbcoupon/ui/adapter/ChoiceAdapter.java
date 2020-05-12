@@ -60,6 +60,7 @@ public class ChoiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setImage(Bitmap bitmap) {
         this.mBitmap = bitmap;
+        notifyDataSetChanged();
     }
 
     @NonNull

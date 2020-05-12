@@ -35,7 +35,7 @@ public class UploadImageUtil {
         try {
             File file = new File(new URI(uri.toString()));
             if (file != null) {
-                RequestBody body = RequestBody.create(MediaType.parse("image/png"), file);
+                RequestBody body = RequestBody.create(MediaType.parse("image/jpg"), file);
                 requestBody.addFormDataPart("file", fileName, body);
             }
         } catch (Exception e) {

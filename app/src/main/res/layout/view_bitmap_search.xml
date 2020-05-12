@@ -10,7 +10,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:textScaleX="1"
             android:id="@+id/b_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +19,7 @@
             android:lineSpacingExtra="@dimen/dp_8"
             android:text="小红书网红氨基酸洗发水护发素沐浴露持久留香男女柔顺去屑无硅油"
             android:textColor="#ff272727"
+            android:textScaleX="1"
             android:textSize="@dimen/sp_15"/>
 
         <LinearLayout
@@ -118,7 +118,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"/>
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

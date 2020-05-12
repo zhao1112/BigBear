@@ -37,6 +37,7 @@ import com.bbcoupon.ui.activity.ChoiceShareActivity;
 import com.bbcoupon.ui.activity.WebViewActivity;
 import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.CopyTextUtil;
+import com.bbcoupon.util.JurisdictionUtil;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -660,10 +661,14 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                     if (goodDetail == null) {
                         return;
                     }
-                    Intent intent = new Intent(this, ChoiceShareActivity.class);
-                    intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
-                    intent.putExtra("Profit", Profit);
-                    startActivity(intent);
+
+                    JurisdictionUtil.Jurisdiction(GoodsDetailActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                    if (JurisdictionUtil.IsJurisdiction()) {
+                        Intent intent = new Intent(this, ChoiceShareActivity.class);
+                        intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
+                        intent.putExtra("Profit", Profit);
+                        startActivity(intent);
+                    }
                     //TODO[分享]
                     if (goodDetail != null) {
                         ConstantScUtil.searchShare(goodDetail.getId() + "", goodDetail.getName(), goodDetail.getSellerName(),

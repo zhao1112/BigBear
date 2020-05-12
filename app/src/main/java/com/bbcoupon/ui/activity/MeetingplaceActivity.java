@@ -293,25 +293,32 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
         //分享图片
         if (data instanceof MeetingShareInfor) {
             if (((MeetingShareInfor) data).getData() != null && ((MeetingShareInfor) data).getData() != null) {
-                PopupWindow popupWindow = WindowUtils.ShowVirtual(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
-                popupWindow.getContentView().findViewById(R.id.me_clear).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.wx_share).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.moments_share).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.dwon_share).setOnClickListener(this);
-                ImageView imageView = popupWindow.getContentView().findViewById(R.id.me_image);
-                Log.e("imageView", ((MeetingShareInfor) data).getData());
-                Glide.with(this)
-                        .asBitmap()
-                        .load(((MeetingShareInfor) data).getData()).apply(options)
-                        .into(new SimpleTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Bitmap bitmap = ImageUtil.ImageMatrix(resource, imageView);
-                                imageView.setImageBitmap(bitmap);
-                            }
-                        });
-
                 images = ((MeetingShareInfor) data).getData();
+                try {
+                    PopupWindow popupWindow = WindowUtils.ShowVirtual(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
+                    ImageView me_clear = popupWindow.getContentView().findViewById(R.id.me_clear);
+                    LinearLayout wx_share = popupWindow.getContentView().findViewById(R.id.wx_share);
+                    LinearLayout moments_share = popupWindow.getContentView().findViewById(R.id.moments_share);
+                    LinearLayout dwon_share = popupWindow.getContentView().findViewById(R.id.dwon_share);
+                    ImageView imageView = popupWindow.getContentView().findViewById(R.id.me_image);
+                    me_clear.setOnClickListener(this);
+                    wx_share.setOnClickListener(this);
+                    moments_share.setOnClickListener(this);
+                    dwon_share.setOnClickListener(this);
+                    Log.e("imageView", ((MeetingShareInfor) data).getData());
+                    Glide.with(this)
+                            .asBitmap()
+                            .load(((MeetingShareInfor) data).getData()).apply(options)
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    Bitmap bitmap = ImageUtil.ImageMatrix(resource, imageView);
+                                    imageView.setImageBitmap(bitmap);
+                                }
+                            });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 

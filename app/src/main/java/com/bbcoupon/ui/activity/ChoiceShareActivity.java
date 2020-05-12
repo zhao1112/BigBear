@@ -136,12 +136,13 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
 
         presenter = new RequestPresenter();
         presenter.setRelation(this);
-
+        showLoading();
         if (goodDetailBean != null) {
             Map<String, String> map = new HashMap<>();
             map.put("goodsId", goodDetailBean.getItemId());
             presenter.ontShareMsg(ChoiceShareActivity.this, map);
         } else {
+            hiddenLoadingView();
             return;
         }
 
@@ -489,18 +490,28 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                 }
                 break;
             case R.id.rule:
-                PopupWindow popupWindow = WindowUtils.ShowVirtual(ChoiceShareActivity.this, R.layout.popup_choice, 1);
-                TextView clone = popupWindow.getContentView().findViewById(R.id.clone);
-                clone.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        WindowUtils.dismissBrightness(ChoiceShareActivity.this);
+                boolean fastClick = ConstantUtil.isFastClick();
+                if (fastClick) {
+                    try {
+                        PopupWindow popupWindow = WindowUtils.ShowVirtual(ChoiceShareActivity.this, R.layout.popup_choice, 1);
+                        TextView clone = popupWindow.getContentView().findViewById(R.id.clone);
+                        clone.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                WindowUtils.dismissBrightness(ChoiceShareActivity.this);
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
+                }
                 break;
             case R.id.g_three:
-                Intent intent = new Intent(ChoiceShareActivity.this, SharingRulesActivity.class);
-                startActivity(intent);
+                boolean fastClick2 = ConstantUtil.isFastClick();
+                if (fastClick2) {
+                    Intent intent = new Intent(ChoiceShareActivity.this, SharingRulesActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
@@ -510,6 +521,8 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
         if (data instanceof ShareGoodsEntity) {
             ShareGoodsEntity entity = (ShareGoodsEntity) data;
             if (entity.getCode() == 2) {
+                hiddenLoadingView();
+                showToast("未授权淘宝");
                 AuntTao auntTao = new AuntTao();
                 auntTao.setContext(ChoiceShareActivity.this);
                 auntTao.AuntTabo();
@@ -695,6 +708,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                     imageSelectInfor.setImageBean(beanList);
                     list = beanList;
                     choiceAdapter.addData(list);
+                    hiddenLoadingView();
                     break;
             }
         }
