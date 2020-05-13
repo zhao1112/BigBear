@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.ui.activity.SettingsActivity;
 import com.bbcoupon.ui.bean.TutorInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
@@ -216,7 +217,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
     public int layoutId() {
         return R.layout.fragment_mine;
     }
-
 
     @Override
     public void init() {
@@ -468,6 +468,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
             R.id.wallet_image, R.id.order_image, R.id.fans_image, R.id.share_image, R.id.open_vip_one, R.id.mine_commander,
             R.id.mine_backstage, R.id.Wx, R.id.mine_tutor})
     public void onViewClicked(View view) {
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.mine_vip_data://续费
             case R.id.open_vip_one:
@@ -484,11 +485,11 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 break;
             case R.id.mine_set://设置
                 if (BearMallAplication.getInstance().getUser() != null) {
-                    Bundle bundle = new Bundle();
                     if (identity != null) {
                         bundle.putString("name", identity.getIdentity());
                         bundle.putInt("type_id", identity.getUpgradeType());
                     }
+//                    startActivity(new Intent(getActivity(), SettingsActivity.class));
                     StarActivityUtil.starActivity(getActivity(), SettingActivity.class, bundle);
                 } else {
                     LoginActivity.starActivity(getActivity());
@@ -498,7 +499,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
             case R.id.mine_today:
                 if (BearMallAplication.getInstance().getUser() != null) {
                     int upgradeType = BearMallAplication.getInstance().getUser().getIdentity().getUpgradeType();
-                    Bundle bundle = new Bundle();
                     bundle.putInt("upgradeType", upgradeType);
                     MineProfitActivity.openMineProfitActivity(getActivity(), MineProfitActivity.class, bundle);
                 } else {
@@ -595,7 +595,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                 UserInfo user = BearMallAplication.getInstance().getUser();
                 if (user != null) {
                     if (Commander) {
-                        Bundle bundle = new Bundle();
                         bundle.putInt("audit", user.getIdentity().getIsAudit());
                         VipExplainActivity.opneVipExplainActivity(getActivity(), VipExplainActivity.class, bundle);
                     } else {

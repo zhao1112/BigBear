@@ -295,12 +295,12 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
             if (((MeetingShareInfor) data).getData() != null && ((MeetingShareInfor) data).getData() != null) {
                 images = ((MeetingShareInfor) data).getData();
                 try {
-                    PopupWindow popupWindow = WindowUtils.ShowVirtual(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
-                    ImageView me_clear = popupWindow.getContentView().findViewById(R.id.me_clear);
-                    LinearLayout wx_share = popupWindow.getContentView().findViewById(R.id.wx_share);
-                    LinearLayout moments_share = popupWindow.getContentView().findViewById(R.id.moments_share);
-                    LinearLayout dwon_share = popupWindow.getContentView().findViewById(R.id.dwon_share);
-                    ImageView imageView = popupWindow.getContentView().findViewById(R.id.me_image);
+                    View view = WindowUtils.ShowBrightness(MeetingplaceActivity.this, R.layout.item_share_meepop, 1);
+                    ImageView me_clear = view.findViewById(R.id.me_clear);
+                    LinearLayout wx_share = view.findViewById(R.id.wx_share);
+                    LinearLayout moments_share = view.findViewById(R.id.moments_share);
+                    LinearLayout dwon_share = view.findViewById(R.id.dwon_share);
+                    ImageView imageView = view.findViewById(R.id.me_image);
                     me_clear.setOnClickListener(this);
                     wx_share.setOnClickListener(this);
                     moments_share.setOnClickListener(this);

@@ -9,14 +9,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.bbcoupon.util.DialogUtil;
+import com.bbcoupon.util.WindowUtils;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
@@ -34,6 +37,7 @@ import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.UpLoadHeadImage;
 import com.yunqin.bearmall.widget.CircleImageView;
 import com.yunqin.bearmall.widget.DelEditText;
+import com.yunqin.bearmall.widget.DelEditText2;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +67,6 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     @BindView(R.id.sett_head_img)
     CircleImageView mSettHeadImg;
 
-    private PopUtil instance;
     public static String SAVED_IMAGE_DIR_PATH = Environment.getExternalStorageDirectory().getPath();
     private Uri imageUri;
     private static final int CODE_CAMERA_REQUEST = 2;
@@ -72,7 +75,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     private Uri cropImageUri;
     private static final int CROP_PICTURE = 4;
     private String newNeckname;
-    private DelEditText sett_nackname;
+    private DelEditText2 sett_nackname;
     private SettingPresenter presenter;
     private DialogUtil dialogUtil;
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
@@ -112,12 +115,11 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.sett_head:
-                instance = PopUtil.getInstance();
-                instance.setContext(PersonalActivity.this);
-                View popView = instance.getPopView(R.layout.item_heard_pop, 0);
-                popView.findViewById(R.id.sett_cancel).setOnClickListener(this);
-                popView.findViewById(R.id.sett_album).setOnClickListener(this);
-                popView.findViewById(R.id.sett_camera).setOnClickListener(this);
+                PopupWindow popupWindow = WindowUtils.ShowVirtual(PersonalActivity.this, R.layout.item_heard_pop,
+                        R.style.bottom_animation, 2);
+                popupWindow.getContentView().findViewById(R.id.sett_cancel).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.sett_album).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.sett_camera).setOnClickListener(this);
                 break;
             case R.id.sett_nickname:
                 dialogUtil = DialogUtil.getInstance();
@@ -159,17 +161,17 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sett_cancel://修改头像
-                instance.dismissPopupWindow();
+                WindowUtils.dismissBrightness(PersonalActivity.this);
                 break;
             case R.id.sett_cancel_nack://修改名称
                 dialogUtil.dismissDialog();
                 break;
             case R.id.sett_album://相册
-                instance.dismissPopupWindow();
+                WindowUtils.dismissBrightness(PersonalActivity.this);
                 setHealdImage(0);
                 break;
             case R.id.sett_camera://相机
-                instance.dismissPopupWindow();
+                WindowUtils.dismissBrightness(PersonalActivity.this);
                 setHealdImage(1);
                 break;
             case R.id.sett_confirm:
@@ -189,6 +191,11 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 
     //调用相机，相册
     public void setHealdImage(int id) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+            builder.detectFileUriExposure();
+        }
         PermissonUtil.checkPermission(PersonalActivity.this, new PermissionListener() {
             @Override
             public void havePermission() {

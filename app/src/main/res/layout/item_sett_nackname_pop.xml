@@ -20,7 +20,7 @@
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_14"/>
 
-        <com.yunqin.bearmall.widget.DelEditText
+        <com.yunqin.bearmall.widget.DelEditText2
             android:id="@+id/sett_nackname"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"

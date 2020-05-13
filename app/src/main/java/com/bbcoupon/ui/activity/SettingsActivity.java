@@ -3,8 +3,10 @@ package com.bbcoupon.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.igexin.sdk.PushManager;
@@ -49,7 +51,7 @@ import io.reactivex.schedulers.Schedulers;
  * @PACKAGE com.bbcoupon.ui.activity
  * @DATE 2020/4/21
  */
-public class SettingsActivity extends BaseActivity implements SettingContract.UI, JoinZeroCallBack {
+public class SettingsActivity extends BaseActivity implements SettingContract.UI, JoinZeroCallBack, View.OnClickListener {
 
     @BindView(R.id.sett_head_img)
     CircleImageView mSettHeadImg;
@@ -197,8 +199,12 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
                 StarActivityUtil.starActivity(this, AboutBearMall.class);
                 break;
             case R.id.set_sign_out://退出登录
-                showLoading();
-                settingPresenter.out(this);
+                PopupWindow popupWindow = WindowUtils.ShowVirtual(SettingsActivity.this, R.layout.popup_item_out,
+                        R.style.bottom_animation, 1);
+                TextView close = popupWindow.getContentView().findViewById(R.id.close_p);
+                TextView out = popupWindow.getContentView().findViewById(R.id.out_p);
+                close.setOnClickListener(this);
+                out.setOnClickListener(this);
                 break;
         }
     }
@@ -266,5 +272,19 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
     @Override
     public void canle() {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.close_p:
+                WindowUtils.dismissBrightness(SettingsActivity.this);
+                break;
+            case R.id.out_p:
+                WindowUtils.dismissBrightness(SettingsActivity.this);
+                showLoading();
+                settingPresenter.out(this);
+                break;
+        }
     }
 }

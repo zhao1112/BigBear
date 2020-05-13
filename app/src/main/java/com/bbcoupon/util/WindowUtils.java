@@ -172,7 +172,7 @@ public class WindowUtils {
      * position popupWindow显示位置 0顶部 1中部 2底部
      * animaton 动画
      */
-    public static PopupWindow ShowVirtual(Activity activity, int view, int position) {
+    public static PopupWindow ShowVirtual(Activity activity, int view, int animaton, int position) {
         dimBackground(activity, 1.0f, 0.2f);
         popupWindow = new PopupWindow();
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -181,6 +181,7 @@ public class WindowUtils {
         popupWindow.setContentView(viewContent);
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setAnimationStyle(animaton);
         switch (position) {
             case 0:
                 popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP, 0, 0);
