@@ -1,6 +1,8 @@
 package com.newversions.tbk.entity;
 
-public class ShareGoodsEntity {
+import java.io.Serializable;
+
+public class ShareGoodsEntity implements Serializable {
 
     /**
      * msg : 请求成功

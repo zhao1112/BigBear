@@ -88,7 +88,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.getCartItemCount(this, new HashMap<>());
+//        presenter.getCartItemCount(this, new HashMap<>());
         requestData();
     }
 

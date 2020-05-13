@@ -233,7 +233,6 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
      * @param type
      */
     private void login(int type) {
-        showLoading();
         Constans.params.clear();
         if (phone_number.getText() == null || phone_number.getText().toString().equals("")) {
             showToast("请先输入手机号");
@@ -263,8 +262,9 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         }
         Constans.params.put("mobile", phone_number.getText().toString());
         Constans.params.put("type", type + "");
-        Constans.params.put("cid", (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(), "clientid", ""));
-
+        Constans.params.put("cid", (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(),
+                "clientid", ""));
+        showLoading();
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).userLogin(Constans.params), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
@@ -276,7 +276,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                             if (!isQQClientAvailable(PhoneLoginActivity.this)) {
                                 showToast("未安装微信");
                             } else {
-                                showLoading();
+                                hiddenLoadingView();
                                 Platform platform = ShareSDK.getPlatform(Wechat.NAME);
                                 platform.SSOSetting(false);
                                 platform.setPlatformActionListener(PhoneLoginActivity.this);
@@ -285,14 +285,17 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
                         });
                     } else if (StringUtils.isEmpty(userInfo.getParentCode())) {
                         // TODO: 2019/8/1 0001 填写邀请码
+                        hiddenLoadingView();
                         InputIncomCodeActivity.startInputIncomCodeActivity(PhoneLoginActivity.this,
                                 userInfo.getData().getToken().getAccess_token(), "手机");
                         finish();
 
                     } else {
+                        hiddenLoadingView();
                         if (type == 2) {
                             if (userInfo.getData().getIsFirstLogin() == 1) {
-                                SharedPreferencesHelper.put(PhoneLoginActivity.this, "firstLoginReward", userInfo.getData().getFirstLoginReward());
+                                SharedPreferencesHelper.put(PhoneLoginActivity.this, "firstLoginReward",
+                                        userInfo.getData().getFirstLoginReward());
                                 SharedPreferencesHelper.put(PhoneLoginActivity.this, "isFirstBind", true);
                             } else {
                                 SharedPreferencesHelper.put(PhoneLoginActivity.this, "isFirstBind", false);
@@ -315,11 +318,12 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
 
             @Override
             public void onNotNetWork() {
-
+                hiddenLoadingView();
             }
 
             @Override
             public void onFail(Throwable e) {
+                hiddenLoadingView();
                 getVerificationCode();
             }
         });
@@ -367,17 +371,17 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
 
             @Override
             public void onNotNetWork() {
-
+                hiddenLoadingView();
             }
 
             @Override
             public void onFail(Throwable e) {
-
+                hiddenLoadingView();
                 e.printStackTrace();
             }
         });
-        SharedPreferencesHelper.put(PhoneLoginActivity.this,"WX_NAME",platform.getDb().getUserName());
-        SharedPreferencesHelper.put(PhoneLoginActivity.this,"WX_ICON",platform.getDb().getUserIcon());
+        SharedPreferencesHelper.put(PhoneLoginActivity.this, "WX_NAME", platform.getDb().getUserName());
+        SharedPreferencesHelper.put(PhoneLoginActivity.this, "WX_ICON", platform.getDb().getUserIcon());
     }
 
     @Override

@@ -25,6 +25,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Choreographer;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -67,6 +68,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,6 +124,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
     private Map<String, String> map;
     private String taoTokens;
     private String shareReason;
+    private ShareGoodsEntity entity;
 
     @Override
     public int layoutId() {
@@ -132,15 +135,20 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
     public void init() {
 
         goodDetailBean = (GoodDetailEntity.GoodDetailBean) getIntent().getSerializableExtra(Constants.INTENT_KEY_DATA);
+        entity = (ShareGoodsEntity) getIntent().getSerializableExtra("GOODSENTITY");
         profit = getIntent().getStringExtra("Profit");
 
         presenter = new RequestPresenter();
         presenter.setRelation(this);
         showLoading();
-        if (goodDetailBean != null) {
-            Map<String, String> map = new HashMap<>();
-            map.put("goodsId", goodDetailBean.getItemId());
-            presenter.ontShareMsg(ChoiceShareActivity.this, map);
+        if (goodDetailBean != null && entity != null) {
+            addimageList(goodDetailBean.getImages(), entity.getTaoQcodeUrl());
+            if (!TextUtils.isEmpty(entity.getShareReason())) {
+                shareReason = entity.getShareReason();
+            }
+            taoTokens = entity.getTaoToken();
+            setTwoConten(entity.getTaoToken());
+            setOneConten(entity.getShareReason());
         } else {
             hiddenLoadingView();
             return;
@@ -196,7 +204,57 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
 
     public void addimageList(List<String> images, String url) {
         mStrings = images;
-        getShareQRCode(ChoiceShareActivity.this, goodDetailBean, url);
+        View view = getLayoutInflater().inflate(R.layout.view_bitmap_search, null, false);
+        TextView b_title = view.findViewById(R.id.b_title);
+        TextView b_price = view.findViewById(R.id.b_price);
+        TextView b_price_original = view.findViewById(R.id.b_price_original);
+        TextView b_volume = view.findViewById(R.id.b_volume);
+        ImageView b_image = view.findViewById(R.id.b_image);
+        TextView b_price2 = view.findViewById(R.id.b_price2);
+        ImageView b_image2 = view.findViewById(R.id.b_image2);
+        TextView comm = view.findViewById(R.id.comm);
+
+        b_title.setText(StringUtils.addImageLabel(ChoiceShareActivity.this, goodDetailBean.getTmall() == 1 ? R.mipmap.icon_tmall :
+                R.mipmap.icon_taobao1, goodDetailBean.getName()));
+        String[] split = CommonUtils.doubleToString(goodDetailBean.getDiscountPrice()).split("\\.");
+        String str2 = split[0] + ".<small>" + split[1] + "</small>";
+        b_price.setText(Html.fromHtml(str2));
+        b_price_original.setText("¥" + CommonUtils.doubleToString(goodDetailBean.getPrice()));
+        b_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        b_volume.setText("销量" + goodDetailBean.getSellNum());
+        b_price2.setText(goodDetailBean.getDiscountPrice() + "");
+
+        comm.setText(ConstantUtil.money + goodDetailBean.getCouponAmount());
+
+        Glide.with(ChoiceShareActivity.this)
+                .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product))
+                .load(goodDetailBean.getOutIcon())
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        b_image.setImageDrawable(resource);
+                        Glide.with(ChoiceShareActivity.this)
+                                .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product))
+                                .load(url)
+                                .into(new SimpleTarget<Drawable>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Drawable resource,
+                                                                @Nullable Transition<? super Drawable> transition) {
+                                        b_image2.setImageDrawable(resource);
+                                        Bitmap bitmap3 = createBitmap3(view, ChoiceShareActivity.this);
+                                        saveBitmap(bitmap3, "search");
+                                        try {
+                                            Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory() +
+                                                    "/InvitationPoster/search" + ".jpg"));
+                                            onUpLoadImage(uri);
+                                            choiceAdapter.setImage(bitmap3);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                    }
+                });
     }
 
 
@@ -518,27 +576,6 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
 
     @Override
     public void onSuccess(Object data) {
-        if (data instanceof ShareGoodsEntity) {
-            ShareGoodsEntity entity = (ShareGoodsEntity) data;
-            if (entity.getCode() == 2) {
-                hiddenLoadingView();
-                showToast("未授权淘宝");
-                AuntTao auntTao = new AuntTao();
-                auntTao.setContext(ChoiceShareActivity.this);
-                auntTao.AuntTabo();
-                finish();
-                return;
-            } else {
-                //加载图片
-                if (!TextUtils.isEmpty(entity.getShareReason())) {
-                    shareReason = entity.getShareReason();
-                }
-                taoTokens = entity.getTaoToken();
-                setTwoConten(entity.getTaoToken());
-                setOneConten(entity.getShareReason());
-                addimageList(goodDetailBean.getImages(), entity.getTaoQcodeUrl());
-            }
-        }
         if (data instanceof RequestInfor) {
             RequestInfor requestInfor = (RequestInfor) data;
             if (requestInfor.getCode() == 1) {
@@ -558,68 +595,16 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
 
     @Override
     public void onNotNetWork() {
+        hiddenLoadingView();
         Log.e("onNotNetWork", "onNotNetWork: ");
     }
 
     @Override
     public void onFail(Throwable e) {
+        hiddenLoadingView();
         Log.e("onNotNetWork", "onNotNetWork: ");
     }
 
-    public void getShareQRCode(Activity activity, GoodDetailEntity.GoodDetailBean bean, String url) {
-
-        View view = activity.getLayoutInflater().inflate(R.layout.view_bitmap_search, null, false);
-        TextView b_title = view.findViewById(R.id.b_title);
-        TextView b_price = view.findViewById(R.id.b_price);
-        TextView b_price_original = view.findViewById(R.id.b_price_original);
-        TextView b_volume = view.findViewById(R.id.b_volume);
-        ImageView b_image = view.findViewById(R.id.b_image);
-        TextView b_price2 = view.findViewById(R.id.b_price2);
-        ImageView b_image2 = view.findViewById(R.id.b_image2);
-        TextView comm = view.findViewById(R.id.comm);
-
-        b_title.setText(StringUtils.addImageLabel(activity, bean.getTmall() == 1 ? R.mipmap.icon_tmall :
-                R.mipmap.icon_taobao1, bean.getName()));
-        String[] split = CommonUtils.doubleToString(bean.getDiscountPrice()).split("\\.");
-        String str2 = split[0] + ".<small>" + split[1] + "</small>";
-        b_price.setText(Html.fromHtml(str2));
-        b_price_original.setText("¥" + CommonUtils.doubleToString(bean.getPrice()));
-        b_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        b_volume.setText("销量" + bean.getSellNum());
-        b_price2.setText(bean.getDiscountPrice() + "");
-
-        comm.setText(ConstantUtil.money + bean.getCouponAmount());
-
-        Glide.with(activity)
-                .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product))
-                .load(bean.getOutIcon())
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        b_image.setImageDrawable(resource);
-                        Glide.with(activity)
-                                .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product))
-                                .load(url)
-                                .into(new SimpleTarget<Drawable>() {
-                                    @Override
-                                    public void onResourceReady(@NonNull Drawable resource,
-                                                                @Nullable Transition<? super Drawable> transition) {
-                                        b_image2.setImageDrawable(resource);
-                                        Bitmap bitmap3 = createBitmap3(view, activity);
-                                        saveBitmap(bitmap3, "search");
-                                        try {
-                                            Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory() +
-                                                    "/InvitationPoster/search" + ".jpg"));
-                                            onUpLoadImage(uri);
-                                            choiceAdapter.setImage(bitmap3);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
-                    }
-                });
-    }
 
     public Bitmap createBitmap3(View view, Activity activity) {
         WindowManager manager = activity.getWindowManager();
@@ -708,12 +693,7 @@ public class ChoiceShareActivity extends BaseActivity implements RequestContract
                     imageSelectInfor.setImageBean(beanList);
                     list = beanList;
                     choiceAdapter.addData(list);
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
                     hiddenLoadingView();
-//                        }
-//                    }, 1000);
                     break;
             }
         }

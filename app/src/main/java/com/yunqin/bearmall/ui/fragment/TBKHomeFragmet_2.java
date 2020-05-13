@@ -140,7 +140,7 @@ public class TBKHomeFragmet_2 extends BaseFragment implements NewVersionTBKHomeC
 
     @Override
     public void onNotNetWork() {
-
+        hiddenLoadingView();
     }
 
     @Override
@@ -166,6 +166,7 @@ public class TBKHomeFragmet_2 extends BaseFragment implements NewVersionTBKHomeC
 
     @Override
     public void attachData(TBKHomeEntity homeBean) {
+        hiddenLoadingView();
         mNoNetView.setVisibility(View.GONE);
     }
 
@@ -174,16 +175,19 @@ public class TBKHomeFragmet_2 extends BaseFragment implements NewVersionTBKHomeC
         Log.e("TBHome", "TBHome: ");
         mNoNetView.setVisibility(View.GONE);
         mNewVersionHomeAdapter.setData(newTBHome);
+        hiddenLoadingView();
     }
 
     @Override
     public void attachAddData(TBKHomeGoodsEntity homeBean) {
         onLoadMoreFinish();
         mNewVersionHomeAdapter.addData(homeBean);
+        hiddenLoadingView();
     }
 
     @Override
     public void loanError() {
+        hiddenLoadingView();
         ToastUtils.showToast(getActivity(), "加载失败");
     }
 

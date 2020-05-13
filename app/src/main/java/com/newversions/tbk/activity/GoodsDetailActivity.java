@@ -35,6 +35,8 @@ import android.widget.Toast;
 import com.bbcoupon.base.ImageSelectInfor;
 import com.bbcoupon.ui.activity.ChoiceShareActivity;
 import com.bbcoupon.ui.activity.WebViewActivity;
+import com.bbcoupon.ui.contract.RequestContract;
+import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.JurisdictionUtil;
@@ -45,6 +47,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.entity.GoodDetailEntity;
+import com.newversions.tbk.entity.ShareGoodsEntity;
 import com.newversions.tbk.entity.TBKHomeGoodsEntity;
 import com.newversions.tbk.entity.ToTaoBaoEntity;
 import com.newversions.tbk.utils.GlideImageLoader;
@@ -91,7 +94,7 @@ import permison.listener.PermissionListener;
 /**
  * 商业详情
  */
-public class GoodsDetailActivity extends BaseActivity implements Serializable, GoodsDetailContract.View {
+public class GoodsDetailActivity extends BaseActivity implements Serializable, GoodsDetailContract.View, RequestContract.RequestView {
 
     @BindView(R.id.ban_goods_image)
     Banner banGoodsImage;
@@ -192,6 +195,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     private ColorfulRingProgressView mProgress;
     private TextView mProgressText;
     private String Profit;
+    private RequestPresenter presenter;
 
     public static void startGoodsDetailActivity(Context context, String goodsId, String commission) {
         startGoodsDetailActivity(context, goodsId, Constants.GOODS_TYPE_DEFAULT, commission);
@@ -217,6 +221,9 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         mPresenter = new GoodsDetailPresenter(this, this);
         homeAdapter = new MyAdapter();
 
+        presenter = new RequestPresenter();
+        presenter.setRelation(this);
+
         goodsId = getIntent().getStringExtra(Constants.INTENT_KEY_ID);
         commissionType = getIntent().getStringExtra(Constants.INTENT_KEY_COMMISSION);
         keyword = getIntent().getStringExtra("DETAILSKEYWORD");
@@ -241,9 +248,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
         rlv.setLayoutManager(linearLayoutManager);
         rlv.setAdapter(homeAdapter);
-
-        mPresenter.init(goodsId);
-        mPresenter.getContenGoods(goodsId);
 
         banGoodsImage.setImageLoader(new GlideImageLoader());
         //设置自动轮播，默认为true
@@ -376,8 +380,37 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     }
 
     @Override
+    public void onSuccess(Object data) {
+        if (data instanceof ShareGoodsEntity) {
+            hiddenLoadingView();
+            ShareGoodsEntity entity = (ShareGoodsEntity) data;
+            if (entity.getCode() == 2) {
+                showToast("未授权淘宝");
+                AuntTao auntTao = new AuntTao();
+                auntTao.setContext(GoodsDetailActivity.this);
+                auntTao.AuntTabo();
+                finish();
+                return;
+            } else {
+                //加载图片
+                Intent intent = new Intent(this, ChoiceShareActivity.class);
+                intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
+                intent.putExtra("GOODSENTITY", entity);
+                intent.putExtra("Profit", Profit);
+                startActivity(intent);
+            }
+        }
+    }
+
+    @Override
     public void onNotNetWork() {
+        hiddenLoadingView();
         Toast.makeText(GoodsDetailActivity.this, "服务器繁忙,请重新加载", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFail(Throwable e) {
+        hiddenLoadingView();
     }
 
     @Override
@@ -603,6 +636,8 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     @Override
     protected void onResume() {
         super.onResume();
+        mPresenter.init(goodsId);
+        mPresenter.getContenGoods(goodsId);
     }
 
     // todo 点击监听
@@ -668,10 +703,10 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
                     JurisdictionUtil.Jurisdiction(GoodsDetailActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
                     if (JurisdictionUtil.IsJurisdiction()) {
-                        Intent intent = new Intent(this, ChoiceShareActivity.class);
-                        intent.putExtra(Constants.INTENT_KEY_DATA, goodDetail);
-                        intent.putExtra("Profit", Profit);
-                        startActivity(intent);
+                        showLoad();
+                        Map<String, String> map = new HashMap<>();
+                        map.put("goodsId", goodDetail.getItemId());
+                        presenter.ontShareMsg(GoodsDetailActivity.this, map);
                     }
                     //TODO[分享]
                     if (goodDetail != null) {
@@ -879,4 +914,9 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         startActivityForResult(intent, 2);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.setUntying(this);
+    }
 }

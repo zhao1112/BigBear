@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
+import com.bbcoupon.util.JurisdictionUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.yunqin.bearmall.BearMallAplication;
@@ -17,6 +18,7 @@ import com.yunqin.bearmall.bean.MemberBeanResponse;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.update.CheckForUpdateHelper;
 import com.yunqin.bearmall.util.ConstantScUtil;
+
 import java.util.HashMap;
 
 import permison.PermissonUtil;
@@ -102,7 +104,7 @@ public class SplashActivity extends BaseActivity {
                 openActivity();
                 ConstantScUtil.trackInstallation(SplashActivity.this);
             }
-        }, new String[]{Manifest.permission.READ_PHONE_STATE});
+        }, new String[]{Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE});
     }
 
     public void openActivity() {
