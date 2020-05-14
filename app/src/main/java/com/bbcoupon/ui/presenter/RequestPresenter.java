@@ -86,4 +86,12 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //获取短信验证码
+    @Override
+    public void onMsgCode(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onMsgCode(context, map, requestView);
+        }
+    }
+
 }

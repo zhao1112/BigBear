@@ -389,7 +389,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 AuntTao auntTao = new AuntTao();
                 auntTao.setContext(GoodsDetailActivity.this);
                 auntTao.AuntTabo();
-                finish();
                 return;
             } else {
                 //加载图片

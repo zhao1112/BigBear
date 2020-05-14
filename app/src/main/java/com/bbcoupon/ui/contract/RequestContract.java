@@ -37,6 +37,8 @@ public class RequestContract {
         void ontMeetingplaceSearch(Context context, Map<String, String> map);
 
         void ontShareMsg(Context context, Map<String, String> map);
+
+        void onMsgCode(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
@@ -53,5 +55,7 @@ public class RequestContract {
         void ontMeetingplaceSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView);
 
         void ontShareMsg(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onMsgCode(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

@@ -1,6 +1,7 @@
 package com.bbcoupon.ui.model;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.CustomInfor;
 import com.bbcoupon.ui.bean.MeetingInfor;
@@ -13,6 +14,8 @@ import com.google.gson.Gson;
 import com.newversions.tbk.entity.ShareGoodsEntity;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.ui.activity.PhoneLoginActivity;
+import com.yunqin.bearmall.util.CommonUtils;
 
 import org.json.JSONException;
 
@@ -202,6 +205,33 @@ public class RequestModel implements RequestContract.RequestModel {
                 ShareGoodsEntity entity = new Gson().fromJson(data, ShareGoodsEntity.class);
                 if (requestView != null) {
                     requestView.onSuccess(entity);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //获取短信验证码
+    @Override
+    public void onMsgCode(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getMsgCode(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                if (requestView != null) {
+                    requestView.onSuccess(new RequestInfor());
                 }
             }
 

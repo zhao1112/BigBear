@@ -195,7 +195,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
     private void startSharing(int goodesId) {
         map = new HashMap<>();
         map.clear();
-        map.put("type", "1");
+        map.put("type", "2");
         map.put("content", goodesId + "");
         View show = WindowUtils.ShowBrightness(getActivity(), R.layout.popup_business_share, 1);
         show.findViewById(R.id.clear_bus).setOnClickListener(this);

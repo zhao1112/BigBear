@@ -2,6 +2,7 @@ package com.bbcoupon.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -64,6 +65,7 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
     private SettingBean settingBean;
     private boolean isSetPayPwd = false;
     private String cacheSizeNumber = "";
+    private String PhomeNamber = "";
 
     @Override
     public int layoutId() {
@@ -145,6 +147,7 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
                     .load(settingBean.getData().getInfo().getIconUrl())
                     .into(mSettHeadImg);
             isSetPayPwd = settingBean.getData().getInfo().isSetPayPwd();
+            PhomeNamber = settingBean.getData().getInfo().getMobile();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -176,7 +179,11 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
                 }
                 break;
             case R.id.set_phone://修改手机号
-
+                if (!TextUtils.isEmpty(PhomeNamber)) {
+                    Intent intent = new Intent(SettingsActivity.this, ModifyPhoneNumberActivity.class);
+                    intent.putExtra("PHONE_NAMBER", PhomeNamber);
+                    startActivity(intent);
+                }
                 break;
             case R.id.set_balance://余额密码
                 if (isSetPayPwd) {
