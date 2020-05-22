@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bbcoupon.ui.bean.AlipayInfor;
 import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.WithdrawalInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.WindowUtils;
@@ -72,9 +73,15 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
     private String name;
     private String code;
 
-    public static void openAlipayCashActivity(Activity activity, Class cla, Bundle bundle) {
+    public static void openAlipayCashActivity(Activity activity, Class cla) {
         Intent intent = new Intent(activity, cla);
-        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+    public static void openAlipayCashActivitys(Activity activity, Class cla) {
+        Intent intent = new Intent(activity, cla);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         activity.startActivity(intent);
     }
 
@@ -89,11 +96,9 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
         presenter = new RequestPresenter();
         presenter.setRelation(this);
 
-        money = getIntent().getStringExtra("MONEY");
-        withdrawfrom = getIntent().getStringExtra("WITHDRAWFROM");
+        Map<String, String> map = new HashMap<>();
+        presenter.onWithdrawal(this, map);
 
-        mAmount.setHint("最小提现金额" + withdrawfrom + "元");
-        mPrice.setText(money + "元");
 
         CashierInputFilter cashierInputFilter = new CashierInputFilter();
         InputFilter[] inputFilters = new InputFilter[]{cashierInputFilter};
@@ -316,6 +321,27 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
             mAlipName.setText(name);
             mAlipCode.setText(code);
         }
+        if (data instanceof WithdrawalInfor) {
+            WithdrawalInfor withdrawalInfor = (WithdrawalInfor) data;
+            if (data != null) {
+                if (!TextUtils.isEmpty(withdrawalInfor.getData().getBalance())) {
+                    money = withdrawalInfor.getData().getBalance();
+                    mPrice.setText(withdrawalInfor.getData().getBalance() + "元");
+                } else {
+                    mPrice.setText("0.00元");
+                    money = "0.00";
+                }
+                if (!TextUtils.isEmpty(withdrawalInfor.getData().getWithdrawFrom())) {
+                    withdrawfrom = withdrawalInfor.getData().getWithdrawFrom();
+                    mAmount.setHint("最小提现金额" + withdrawalInfor.getData().getWithdrawFrom() + "元");
+                } else {
+                    mAmount.setHint("最小提现金额" + 0 + "元");
+                    withdrawfrom = "0";
+                }
+            }
+        }
+
+
         hiddenLoadingView();
     }
 

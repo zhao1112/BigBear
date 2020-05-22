@@ -377,9 +377,7 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
             Bundle bundle = new Bundle();
             AlipayInfor baseInfor = (AlipayInfor) data;
             if (baseInfor.getCode() == 1) {
-                bundle.putString("MONEY", money);
-                bundle.putString("WITHDRAWFROM", withdrawFrom);
-                AlipayCashActivity.openAlipayCashActivity(BalanceActivity.this, AlipayCashActivity.class, bundle);
+                AlipayCashActivity.openAlipayCashActivity(BalanceActivity.this, AlipayCashActivity.class);
             } else {
                 bundle.putString("TITLE", "绑定支付宝");
                 bundle.putInt("TYPE", 0);

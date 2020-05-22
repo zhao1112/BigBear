@@ -21,6 +21,7 @@ import com.bbcoupon.util.WindowUtils;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.ui.activity.MineProfitActivity;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.RSAUtil;
 import com.yunqin.bearmall.widget.DelEditText;
@@ -116,14 +117,13 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
                 if (type == 1) {//修改绑定支付宝
                     bundle.putString("ALIP_TYPE", "2");
                     MsgCheckingActivity.openMsgCheckingActivity(BindingAlipayActivity.this, MsgCheckingActivity.class, bundle);
-                    finish();
                     return;
                 }
                 if (mName.getText() == null) {
                     showToast("请先输入支付宝真实姓名");
                     return;
                 }
-                if (ConstantUtil.isSpecialChar(mName.getText().toString()) || ConstantUtil.containSpace(mName.getText().toString()) || !ConstantUtil.isNmae(mName.getText().toString())) {
+                if (ConstantUtil.isSpecialChar(mName.getText().toString()) || !ConstantUtil.isNmae(mName.getText().toString())) {
                     showToast("请输入支付宝真实姓名");
                     return;
                 }
@@ -138,7 +138,6 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
                         bundle.putString("ALIP_CODE", mAlipCode.getText().toString());
                         bundle.putString("ALIP_TYPE", "1");
                         MsgCheckingActivity.openMsgCheckingActivity(BindingAlipayActivity.this, MsgCheckingActivity.class, bundle);
-                        finish();
                     }
                     if (type == 3) {//修改绑定支付宝
                         PopupWindow popupWindow = WindowUtils.ShowVirtual(BindingAlipayActivity.this, R.layout.item_popup_alip,
@@ -193,6 +192,7 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
     public void onSuccess(Object data) {
         if (data instanceof BaseInfor) {
             Toast.makeText(BindingAlipayActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
+            AlipayCashActivity.openAlipayCashActivitys(BindingAlipayActivity.this, AlipayCashActivity.class);
             finish();
         }
         if (data instanceof RequestInfor) {
@@ -234,14 +234,4 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
         presenter.setUntying(this);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 0:
-                break;
-            default:
-                break;
-        }
-    }
 }

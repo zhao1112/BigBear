@@ -127,7 +127,6 @@ public class MsgCheckingActivity extends BaseActivity implements RequestContract
                     bundle.putString("MOBILE", mobile);
                     bundle.putString("SMSCODE", mCodeNew.getText().toString());
                     BindingAlipayActivity.openBindingAlipayActivity(MsgCheckingActivity.this, BindingAlipayActivity.class, bundle);
-                    finish();
                     return;
                 }
                 showLoading();
@@ -192,6 +191,10 @@ public class MsgCheckingActivity extends BaseActivity implements RequestContract
         }
         if (data instanceof BaseInfor) {
             Toast.makeText(MsgCheckingActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
+            Bundle bundle = new Bundle();
+            int upgradeType = BearMallAplication.getInstance().getUser().getIdentity().getUpgradeType();
+            bundle.putInt("upgradeType", upgradeType);
+            MineProfitActivity.openMineProfitActivitys(MsgCheckingActivity.this, MineProfitActivity.class, bundle);
             finish();
         }
         if (data instanceof RequestInfor) {

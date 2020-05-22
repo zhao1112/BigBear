@@ -151,6 +151,14 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         activity.startActivity(intent);
     }
 
+    public static void openMineProfitActivitys(Activity activity, Class cla, Bundle bundle) {
+        Intent intent = new Intent(activity, cla);
+        intent.putExtras(bundle);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        activity.startActivity(intent);
+    }
+
     @Override
     public int layoutId() {
         return R.layout.activity_mine_profit;
@@ -241,9 +249,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
             Bundle bundle = new Bundle();
             AlipayInfor baseInfor = (AlipayInfor) data;
             if (baseInfor.getCode() == 1) {
-                bundle.putString("MONEY", balance);
-                bundle.putString("WITHDRAWFROM", withdrawFrom);
-                AlipayCashActivity.openAlipayCashActivity(MineProfitActivity.this, AlipayCashActivity.class, bundle);
+                AlipayCashActivity.openAlipayCashActivity(MineProfitActivity.this, AlipayCashActivity.class);
             } else {
                 bundle.putString("TITLE", "绑定支付宝");
                 bundle.putInt("TYPE", 0);
