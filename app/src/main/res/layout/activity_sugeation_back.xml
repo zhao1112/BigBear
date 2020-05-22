@@ -32,7 +32,6 @@
                 android:layout_marginTop="@dimen/ds46"
                 android:background="@null"
                 android:hint="请输入您的建议"
-                android:text=""
                 android:textColor="#000"
                 android:textColorHint="@color/text_color_1"
                 android:textSize="@dimen/ds28" />

@@ -211,10 +211,8 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
             case VIEW_TYPE_TOP_BAR:
                 TopBarHolder topBarHolder = (TopBarHolder) holder;
                 NewTBHome.ClassificationBean classificationBean = (NewTBHome.ClassificationBean) datas.get(position);
-                Glide.with(context)
-                        .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product))
-                        .load(classificationBean.getImg())
-                        .into(topBarHolder.imTopBar);
+                GlideImageLoader glideImageLoader = new GlideImageLoader();
+                glideImageLoader.displayImage(context, classificationBean.getImg(), topBarHolder.imTopBar);
                 topBarHolder.tvTopBar.setText(classificationBean.getName());
                 topBarHolder.itemView.setOnClickListener(v -> {
                     int sort = classificationBean.getSort();
@@ -248,6 +246,17 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 //  2019/7/15 0015 活动页
                 NewTBHome.BannerThreeBean bannerThreeBean = (NewTBHome.BannerThreeBean) datas.get(position);
                 ImageHolder imageHolder = (ImageHolder) holder;
+
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                if (position % 2 == 0) {
+                    layoutParams.setMargins(30, 10, 10, 10);//4个参数按顺序分别是左上右下
+                }else {
+                    layoutParams.setMargins(10, 10, 30, 10);//4个参数按顺序分别是左上右下
+                }
+
+                imageHolder.baner_re.setLayoutParams(layoutParams);
+
                 Glide.with(context)
                         .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
                         .asBitmap()
@@ -645,6 +654,8 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
         ImageView imageView;
         @BindView(R.id.image_view_color)
         LinearLayout view_color;
+        @BindView(R.id.baner_re)
+        RelativeLayout baner_re;
 
         public ImageHolder(View itemView) {
             super(itemView);

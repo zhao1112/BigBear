@@ -489,8 +489,8 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
                         bundle.putString("name", identity.getIdentity());
                         bundle.putInt("type_id", identity.getUpgradeType());
                     }
-//                    startActivity(new Intent(getActivity(), SettingsActivity.class));
-                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class, bundle);
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+//                    StarActivityUtil.starActivity(getActivity(), SettingActivity.class, bundle);
                 } else {
                     LoginActivity.starActivity(getActivity());
                 }

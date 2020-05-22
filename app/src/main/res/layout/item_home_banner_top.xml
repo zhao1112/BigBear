@@ -4,13 +4,12 @@
               android:id="@+id/banner_color"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@color/TRANSPARENT"
               android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_159"
-        android:background="@color/TRANSPARENT">
+        android:background="#fff1f1f1">
 
         <ImageView
             android:id="@+id/banner_text_2"

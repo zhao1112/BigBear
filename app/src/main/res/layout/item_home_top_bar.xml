@@ -2,27 +2,33 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:background="#fff1f1f1"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/dp_8"
-    android:paddingBottom="@dimen/dp_8">
+    android:layout_height="wrap_content">
 
-
-    <ImageView
-        android:id="@+id/im_top_bar"
-        android:layout_width="@dimen/dp_46"
-        android:layout_height="@dimen/dp_46"
-        android:src="@drawable/n_v_1"/>
-
-    <TextView
-        android:id="@+id/tv_top_bar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="充值中心"
-        android:textColor="#666666"
-        android:textSize="@dimen/sp_10"/>
+        android:layout_gravity="center_horizontal"
+        android:background="#fff1f1f1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8">
+
+        <ImageView
+            android:id="@+id/im_top_bar"
+            android:layout_width="@dimen/dp_46"
+            android:layout_height="@dimen/dp_46"
+            android:src="@drawable/n_v_1"/>
+
+        <TextView
+            android:id="@+id/tv_top_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充值中心"
+            android:textColor="#666666"
+            android:textSize="@dimen/sp_10"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

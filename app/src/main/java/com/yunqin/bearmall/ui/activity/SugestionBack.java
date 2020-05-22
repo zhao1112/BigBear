@@ -56,7 +56,7 @@ public class SugestionBack extends BaseActivity implements FeedBackContract.UI{
 
     @Override
     public void init() {
-        toolbarTitle.setText("意见反馈");
+        toolbarTitle.setText("帮助与反馈");
 
         presenter = new FeedBackPresenter(this);
 

@@ -89,7 +89,7 @@
         android:layout_height="@dimen/ds72"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/ds100"
-        android:background="@drawable/new_version_pwd_button_selector"
+        android:background="@drawable/bg_vip_up"
         android:text="下一步"
         android:textColor="@color/white"
         android:textSize="@dimen/ds28" />

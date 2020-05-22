@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="绑定手机号"
+            android:text="短信验证"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_16"/>
 
@@ -39,15 +40,16 @@
             android:layout_width="@dimen/dp_100"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="绑定手机号"
+            android:text="手机号码"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_14"/>
 
-        <com.yunqin.bearmall.widget.DelEditText2
+        <TextView
             android:id="@+id/m_phone_new"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
+            android:gravity="center_vertical"
             android:hint="请输入手机号"
             android:inputType="number"
             android:maxLength="11"
@@ -110,7 +112,7 @@
         android:layout_marginRight="@dimen/dp_21"
         android:background="@drawable/updata_phone"
         android:gravity="center"
-        android:text="下一步"
+        android:text="立即绑定"
         android:textColor="#ffffffff"
         android:textSize="@dimen/sp_15"/>
 

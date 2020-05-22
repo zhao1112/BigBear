@@ -336,6 +336,7 @@
                     android:layout_centerInParent="true"
                     android:clickable="false"
                     android:src="@drawable/num_del" />
+
             </RelativeLayout>
 
         </LinearLayout>

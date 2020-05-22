@@ -75,7 +75,7 @@ public class SystemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         MYHolder myholer = (MYHolder) holder;
         myholer.time_text.setText(listBean.getCreatedDate());
         myholer.title.setText(listBean.getTitle());
-        myholer.desc.setText(listBean.getTitle());
+        myholer.desc.setText(listBean.getContent());
 
     }
 

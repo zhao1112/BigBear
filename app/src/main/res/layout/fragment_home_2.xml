@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_5"
                         android:text="搜索商品，领券购买，享受优惠"
-                        android:textColor="@color/home_text_unselect"
+                        android:textColor="#797979"
                         android:textSize="@dimen/sp_12"/>
 
                 </LinearLayout>
@@ -67,10 +67,9 @@
                     android:layout_width="@dimen/dp_22"
                     android:layout_height="@dimen/dp_22"
                     android:layout_marginRight="@dimen/dp_15"
-                    android:src="@mipmap/message_2"/>
+                    android:src="@mipmap/message_10"/>
 
             </LinearLayout>
-
 
             <com.androidkun.xtablayout.XTabLayout
                 android:id="@+id/xtablelayout_2"
@@ -83,12 +82,12 @@
                 android:layout_marginBottom="@dimen/dp_3"
                 android:overScrollMode="never"
                 app:xTabDisplayNum="10"
-                app:xTabIndicatorColor="@color/white"
+                app:xTabIndicatorColor="#24A064"
                 app:xTabIndicatorWidth="@dimen/dp_28"
                 app:xTabMode="scrollable"
-                app:xTabSelectedTextColor="@color/white"
+                app:xTabSelectedTextColor="#24A064"
                 app:xTabSelectedTextSize="@dimen/sp_16"
-                app:xTabTextColor="@color/white"
+                app:xTabTextColor="#555555"
                 app:xTabTextSelectedBold="true"
                 app:xTabTextSize="@dimen/sp_14"/>
 

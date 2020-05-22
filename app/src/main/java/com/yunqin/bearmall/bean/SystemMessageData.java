@@ -82,7 +82,7 @@ public class SystemMessageData {
             private String createdDate;
             private Object articleDescription;
             private String title;
-            private Object content;
+            private String content;
 
             public int getArticle_id() {
                 return article_id;
@@ -124,11 +124,11 @@ public class SystemMessageData {
                 this.title = title;
             }
 
-            public Object getContent() {
+            public String getContent() {
                 return content;
             }
 
-            public void setContent(Object content) {
+            public void setContent(String content) {
                 this.content = content;
             }
         }

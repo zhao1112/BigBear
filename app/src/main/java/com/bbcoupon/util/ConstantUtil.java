@@ -1,12 +1,19 @@
 package com.bbcoupon.util;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.util.CommonUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 /**
  * @author LWP
@@ -84,5 +91,59 @@ public class ConstantUtil {
         }
     }
 
+    /**
+     * 通过包名 在应用商店打开应用
+     *
+     * @param packageName 包名
+     */
+    public static void openApplicationMarket(String packageName) {
+        try {
+            String str = "market://details?id=" + packageName;
+            Intent localIntent = new Intent(Intent.ACTION_VIEW);
+            localIntent.setData(Uri.parse(str));
+            startActivity(localIntent);
+        } catch (Exception e) {
+            // 打开应用商店失败 可能是没有手机没有安装应用市场
+            e.printStackTrace();
+            // 调用系统浏览器进入商城
+            String url = "http://app.mi.com/detail/163525?ref=search";
+            openLinkBySystem(url);
+        }
+    }
+
+    /**
+     * 调用系统浏览器打开网页
+     *
+     * @param url 地址
+     */
+    public static void openLinkBySystem(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
+
+    /**
+     * 判断是否含有特殊字符
+     *
+     * @param str
+     * @return true为包含，false为不包含
+     */
+    public static boolean isSpecialChar(String str) {
+        String regEx = "[ _`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return m.find();
+    }
+
+    /**
+     * 包括空格判断
+     *
+     * @param input
+     * @return
+     */
+    public static boolean containSpace(CharSequence input) {
+        return Pattern.compile("\\s+").matcher(input).find();
+    }
 
 }

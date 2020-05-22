@@ -37,6 +37,8 @@ public class BalanceWithdrawalWxActivity extends BaseActivity implements View.On
 
     private LoadingView loadingProgress;
     private int selectPosition = 0;
+    private String money;
+    private TextView _yue;
 
     private void showLoadings() {
         if (loadingProgress == null) {
@@ -53,17 +55,11 @@ public class BalanceWithdrawalWxActivity extends BaseActivity implements View.On
         }
     }
 
-
-    private String money;
-
-    private TextView _yue;
-
     public static void startActivity(Context context, String money) {
         Intent intent = new Intent(context, BalanceWithdrawalWxActivity.class);
         intent.putExtra("money", money);
         context.startActivity(intent);
     }
-
 
     @Override
     public int layoutId() {
@@ -73,7 +69,6 @@ public class BalanceWithdrawalWxActivity extends BaseActivity implements View.On
     @Override
     public void init() {
         money = getIntent().getStringExtra("money");
-
         initViews();
     }
 

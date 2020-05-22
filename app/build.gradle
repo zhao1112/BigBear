@@ -159,17 +159,19 @@ android {
                     shareByAppClient true
                 }
                 Wechat {
-                    appId "wx10529911212690c7"
-                    appSecret "312cf793d8a38713aef231661d5739b8"
+                    appId "wx294c8fbc4541306b"
+                    appSecret "84d788a143db2e12af2bac73e50fd89f"
                     shareByAppClient true
                     BypassApproval false
+                    enable true
                 }
 
                 WechatMoments {
-                    appId "wx10529911212690c7"
-                    appSecret "312cf793d8a38713aef231661d5739b8"
+                    appId "wx294c8fbc4541306b"
+                    appSecret "84d788a143db2e12af2bac73e50fd89f"
                     shareByAppClient true
                     BypassApproval false
+                    enable true
                 }
 
                 QQ {

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+              android:layout_width="wrap_content"
 
-    android:layout_height="wrap_content">
+              android:layout_height="wrap_content">
 
 
     <LinearLayout
         android:layout_width="@dimen/ds534"
         android:layout_height="@dimen/ds356"
-        android:background="#ffffff"
+        android:background="@drawable/bg_corner_search_dialog"
         android:orientation="vertical">
 
 
@@ -27,7 +27,7 @@
                 android:gravity="center"
                 android:text="您还不是会员，无法以金熊价购买商品。马上开通会员享受更多权益！"
                 android:textColor="#333333"
-                android:textSize="@dimen/ds32" />
+                android:textSize="@dimen/ds32"/>
 
 
         </LinearLayout>
@@ -53,7 +53,7 @@
                     android:gravity="center"
                     android:text="直接购买"
                     android:textColor="#33A76F"
-                    android:textSize="@dimen/ds28" />
+                    android:textSize="@dimen/ds28"/>
 
 
             </RelativeLayout>
@@ -72,7 +72,7 @@
                     android:gravity="center"
                     android:text="成为会员"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/ds28" />
+                    android:textSize="@dimen/ds28"/>
 
 
             </RelativeLayout>

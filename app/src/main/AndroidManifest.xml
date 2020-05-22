@@ -837,9 +837,28 @@
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
-
         <activity
             android:name="com.bbcoupon.ui.activity.ModifyPhoneNumberActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.BindingAlipayActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.AlipayCashActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.MsgCheckingActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.WithdrawalTipsActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>

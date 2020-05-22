@@ -11,6 +11,15 @@ public class RequestInfor {
     private int code;
     private String value;
     private String data;
+    private boolean isBindBankCard;
+
+    public boolean getIsBindBankCard() {
+        return isBindBankCard;
+    }
+
+    public void setIsBindBankCard(boolean isBindBankCard) {
+        this.isBindBankCard = isBindBankCard;
+    }
 
     public String getData() {
         return data;

@@ -89,6 +89,8 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
 
     @Override
     public void init() {
+        String packageName = getPackageName();
+        Log.e("packageName", packageName );
         presenter = new LoginPresenter(this, this);
     }
 

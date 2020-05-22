@@ -1478,5 +1478,60 @@ public interface Api {
     @POST("api/commodity/sharePictures")
     Observable<String> getMeetingplaceSearch(@FieldMap() Map<String, String> params);
 
+    /**
+     * 修改用户性别
+     */
+    @FormUrlEncoded
+    @POST("api/member/updateGender")
+    Observable<String> getUpdateGender(@FieldMap() Map<String, String> params);
+
+    /**
+     * 绑定微信信息
+     */
+    @POST("api/userinfo/getUsersWXInfo")
+    Observable<String> getUsersWXInfo();
+
+    /**
+     * 修改手机号短信
+     */
+    @FormUrlEncoded
+    @POST("api/member/getSmsVerificationCode")
+    Observable<String> getVerificationCode(@FieldMap() Map<String, String> params);
+
+    /**
+     * 验证修改手机号短信
+     */
+    @FormUrlEncoded
+    @POST("api/member/changePhoneNext")
+    Observable<String> getSmsVerificationCode(@FieldMap() Map<String, String> params);
+
+    /**
+     * 绑定手机号
+     */
+    @FormUrlEncoded
+    @POST("api/member/bindingMobilePhone")
+    Observable<String> getMobilePhone(@FieldMap() Map<String, String> params);
+
+    /**
+     * 校验是否绑定支付宝
+     */
+    @FormUrlEncoded
+    @POST("api/withdraw/validateUserWithOutAlipay")
+    Observable<String> onWithOutAlipay(@FieldMap() Map<String, String> params);
+
+    /**
+     * 绑定支付短信验证
+     */
+    @FormUrlEncoded
+    @POST("api/withdraw/getAlipaySmsVerificationCode")
+    Observable<String> onSmsVerificationCode(@FieldMap() Map<String, String> params);
+
+    /**
+     * 绑定支付
+     */
+    @FormUrlEncoded
+    @POST("api/withdraw/bindingAlipay")
+    Observable<String> onBindingAlipay(@FieldMap() Map<String, String> params);
+
 }
 

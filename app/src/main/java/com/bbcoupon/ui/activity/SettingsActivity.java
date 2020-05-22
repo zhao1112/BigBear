@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -21,6 +22,7 @@ import com.yunqin.bearmall.eventbus.PayPasswordEvent;
 import com.yunqin.bearmall.eventbus.TrolleyCountEvent;
 import com.yunqin.bearmall.inter.JoinZeroCallBack;
 import com.yunqin.bearmall.ui.activity.AboutBearMall;
+import com.yunqin.bearmall.ui.activity.BinDingWXActivity;
 import com.yunqin.bearmall.ui.activity.SettingActivity;
 import com.yunqin.bearmall.ui.activity.SugestionBack;
 import com.yunqin.bearmall.ui.activity.contract.SettingContract;
@@ -79,21 +81,21 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
 
         //接收消息开关
         if (SharedPreferencesHelper.get(SettingsActivity.this, "isPush", "0").equals("0")) {
-            mSetSwitch.setChecked(false);
-        } else {
             mSetSwitch.setChecked(true);
+        } else {
+            mSetSwitch.setChecked(false);
         }
         mSetSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (isChecked) {
-                    SharedPreferencesHelper.put(SettingsActivity.this, "isPush", "1");
-                    showToast("已关闭消息推送");
-                    PushManager.getInstance().turnOffPush(SettingsActivity.this);
-                } else {
                     SharedPreferencesHelper.put(SettingsActivity.this, "isPush", "0");
                     showToast("已打开消息推送");
                     PushManager.getInstance().turnOnPush(SettingsActivity.this);
+                } else {
+                    SharedPreferencesHelper.put(SettingsActivity.this, "isPush", "1");
+                    showToast("已关闭消息推送");
+                    PushManager.getInstance().turnOffPush(SettingsActivity.this);
                 }
             }
         });
@@ -164,7 +166,7 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
     }
 
     @OnClick({R.id.toolbar_back, R.id.sett_head, R.id.set_phone, R.id.set_balance, R.id.set_wipecache, R.id.set_feedback,
-            R.id.set_about, R.id.set_sign_out})
+            R.id.set_about, R.id.set_sign_out, R.id.comment, R.id.bindwechat})
     public void onViewClicked(View view) {
         Bundle bundle = new Bundle();
         switch (view.getId()) {
@@ -172,10 +174,12 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
                 finish();
                 break;
             case R.id.sett_head://设置个人资料
-                if (settingBean != null && settingBean.getData().getInfo().getIconUrl() != null) {
-                    Intent intent = new Intent(SettingsActivity.this, PersonalActivity.class);
-                    intent.putExtra("Heald_Image", settingBean.getData().getInfo().getIconUrl());
-                    startActivity(intent);
+                if (ConstantUtil.isFastClick()) {
+                    if (settingBean != null && settingBean.getData().getInfo().getIconUrl() != null) {
+                        Intent intent = new Intent(SettingsActivity.this, PersonalActivity.class);
+                        intent.putExtra("Heald_Image", settingBean.getData().getInfo().getIconUrl());
+                        startActivity(intent);
+                    }
                 }
                 break;
             case R.id.set_phone://修改手机号
@@ -212,6 +216,13 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
                 TextView out = popupWindow.getContentView().findViewById(R.id.out_p);
                 close.setOnClickListener(this);
                 out.setOnClickListener(this);
+                break;
+            case R.id.comment://评论
+                ConstantUtil.openApplicationMarket(getPackageName());
+                break;
+            case R.id.bindwechat://绑定微信
+                Intent intent = new Intent(SettingsActivity.this, BinDingWXActivity.class);
+                startActivityForResult(intent, 1);
                 break;
         }
     }

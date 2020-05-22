@@ -137,6 +137,15 @@ public class UserInfo {
 
             private boolean isBindWxopenId;
             private boolean isBindWx;
+            private String gender;
+
+            public String getGender() {
+                return gender;
+            }
+
+            public void setGender(String gender) {
+                this.gender = gender;
+            }
 
             public boolean isBindWxopenId() {
                 return isBindWxopenId;

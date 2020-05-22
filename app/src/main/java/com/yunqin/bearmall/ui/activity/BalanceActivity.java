@@ -2,18 +2,24 @@ package com.yunqin.bearmall.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.ui.activity.AlipayCashActivity;
+import com.bbcoupon.ui.activity.BindingAlipayActivity;
+import com.bbcoupon.ui.bean.AlipayInfor;
 import com.bbcoupon.ui.bean.WithdrawalInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.newversions.CardListWebActivity;
@@ -42,7 +48,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.wechat.friends.Wechat;
 
-public class BalanceActivity extends BaseActivity implements PlatformActionListener, RequestContract.RequestView {
+public class BalanceActivity extends BaseActivity implements PlatformActionListener, RequestContract.RequestView, View.OnClickListener {
 
     @BindView(R.id.banlance_text)
     TextView mongeyView;
@@ -57,8 +63,8 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     @BindView(R.id.red_package_layout)
     ConstraintLayout constraintLayout;
 
-    private RequestPresenter mPresenter;
-
+    private RequestPresenter presenter;
+    private boolean isBind = false;
     private String money;
     private String withdrawFrom;
 
@@ -80,11 +86,12 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
         withdrawFrom = getIntent().getStringExtra("withdrawFrom");
         rightText.setVisibility(View.VISIBLE);
 
-        mPresenter = new RequestPresenter();
-        mPresenter.setRelation(this);
+        presenter = new RequestPresenter();
+        presenter.setRelation(this);
+
         showLoading();
         Map<String, String> map = new HashMap<>();
-        mPresenter.onWithdrawal(this, map);
+        presenter.onWithdrawal(this, map);
 
         rightText.setText("余额明细");
         titleView.setText("余额");
@@ -108,7 +115,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
         imageView.startAnimation(rotateAnim);
     }
 
-
     @OnClick({R.id.toolbar_back, R.id.toolbar_right_text, R.id.withdraw_deposit, R.id.ti_xian_ji_lu, R.id.ti_xian_gui_ze,
             R.id.red_package_close, R.id.red_package_img})
     public void viewClick(View view) {
@@ -127,31 +133,13 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 BalanceDetailActivity.startBalanceDetailActivity(this, money);
                 break;
             case R.id.withdraw_deposit:
-                new ICustomDialog.Builder(this)
-                        // 设置布局
-                        .setLayoutResId(R.layout.dialog_item_tx)
-                        // 点击空白是否消失
-                        .setCanceledOnTouchOutside(true)
-                        // 点击返回键是否消失
-                        .setCancelable(true)
-                        // 设置Dialog的绝对位置
-                        .setDialogPosition(Gravity.BOTTOM)
-                        // 设置自定义动画
-                        .setAnimationResId(0)
-                        .setWindow(true)
-                        // 设置监听ID
-                        .setListenedItems(new int[]{R.id.yhk_tc, R.id.wx_tv})
-                        // 设置回掉
-                        .setOnDialogItemClickListener((thisDialog, clickView) -> {
-                            thisDialog.dismiss();
-                            if (clickView.getId() == R.id.yhk_tc) {
-                                BalanceActivity.this.checkBank();
-                            } else if (clickView.getId() == R.id.wx_tv) {
-                                BalanceActivity.this.checkWx();
-                            }
-                        })
-                        .build().show();
 
+                PopupWindow popupWindow = WindowUtils.ShowVirtual(BalanceActivity.this, R.layout.item_popup_withdrawal_options,
+                        R.style.bottom_animation, 2);
+                popupWindow.getContentView().findViewById(R.id.wit_cancel).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.wit_zfb).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.wit_wx).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.wit_yhk).setOnClickListener(this);
                 break;
             case R.id.ti_xian_ji_lu:
                 WithdrawalRecordActivity.startActivity(this);
@@ -168,9 +156,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     /**
      * 提现到微信
      */
-
-    private boolean isBind = false;
-
     private void checkWx() {
 //        if (BearMallAplication.getInstance().getUser().getData().getMember().isMember()) {
         if (BearMallAplication.getInstance().getUser().getData().getMember().isBindWxopenId() || isBind) {
@@ -208,7 +193,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
 //            joinMember_();
 //        }
     }
-
 
     /**
      * 提现到银行卡
@@ -274,7 +258,6 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 .build().show();
     }
 
-
     private void joinMember_() {
         new ICustomDialog.Builder(this)
                 // 设置布局
@@ -299,9 +282,7 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 .build().show();
     }
 
-
     // ----- 以下是微信绑定回调
-
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         // 绑定微信成功
@@ -384,10 +365,25 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                     mongeyView.setText("¥0.00");
                 }
                 if (!TextUtils.isEmpty(withdrawalInfor.getData().getWithdrawFrom())) {
+                    withdrawFrom = withdrawalInfor.getData().getWithdrawFrom();
                     ti_xian_ti_shi.setText("最小提现金额：¥" + withdrawalInfor.getData().getWithdrawFrom());
                 } else {
                     ti_xian_ti_shi.setText("最小提现金额：¥" + 0);
+                    withdrawFrom = "0";
                 }
+            }
+        }
+        if (data instanceof AlipayInfor) {
+            Bundle bundle = new Bundle();
+            AlipayInfor baseInfor = (AlipayInfor) data;
+            if (baseInfor.getCode() == 1) {
+                bundle.putString("MONEY", money);
+                bundle.putString("WITHDRAWFROM", withdrawFrom);
+                AlipayCashActivity.openAlipayCashActivity(BalanceActivity.this, AlipayCashActivity.class, bundle);
+            } else {
+                bundle.putString("TITLE", "绑定支付宝");
+                bundle.putInt("TYPE", 0);
+                BindingAlipayActivity.openBindingAlipayActivity(BalanceActivity.this, BindingAlipayActivity.class, bundle);
             }
         }
     }
@@ -405,6 +401,28 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.setUntying(this);
+        presenter.setUntying(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.wit_cancel:
+                WindowUtils.dismissBrightness(BalanceActivity.this);
+                break;
+            case R.id.wit_zfb:
+                Map<String, String> map = new HashMap<>();
+                presenter.onWithOutAlipay(BalanceActivity.this, map);
+                WindowUtils.dismissBrightness(BalanceActivity.this);
+                break;
+            case R.id.wit_wx:
+                checkWx();
+                WindowUtils.dismissBrightness(BalanceActivity.this);
+                break;
+            case R.id.wit_yhk:
+                checkBank();
+                WindowUtils.dismissBrightness(BalanceActivity.this);
+                break;
+        }
     }
 }

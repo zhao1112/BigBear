@@ -45,11 +45,12 @@
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_14"/>
 
-        <com.yunqin.bearmall.widget.DelEditText2
+        <TextView
             android:id="@+id/m_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
+            android:gravity="center_vertical"
             android:hint="请输入手机号"
             android:inputType="number"
             android:maxLength="11"

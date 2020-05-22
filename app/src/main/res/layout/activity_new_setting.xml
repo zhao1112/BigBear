@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="设定"
+            android:text="设置"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_16"/>
 
@@ -76,6 +76,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bindwechat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
@@ -306,6 +307,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/md_white">

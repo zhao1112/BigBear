@@ -496,6 +496,7 @@ public class PayActivity extends BaseActivity {
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getPayParams(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
+                Log.e("outTradeNo", data);
                 JSONObject jsonObject = new JSONObject(data);
                 JSONObject jsonObject1 = jsonObject.optJSONObject("data");
                 if (zfbCheckBox.isChecked()) {

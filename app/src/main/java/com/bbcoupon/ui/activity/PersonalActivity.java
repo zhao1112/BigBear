@@ -1,10 +1,10 @@
 package com.bbcoupon.ui.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -12,16 +12,29 @@ import android.os.Looper;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import com.bbcoupon.ui.bean.CardInfor;
+import com.bbcoupon.ui.contract.RequestContract;
+import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.DialogUtil;
 import com.bbcoupon.util.WindowUtils;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
+import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bumptech.glide.Glide;
@@ -33,7 +46,6 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.ui.activity.contract.SettingContract;
 import com.yunqin.bearmall.ui.activity.presenter.SettingPresenter;
-import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.UpLoadHeadImage;
 import com.yunqin.bearmall.widget.CircleImageView;
 import com.yunqin.bearmall.widget.DelEditText;
@@ -48,7 +60,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -62,10 +73,14 @@ import permison.listener.PermissionListener;
  * @DATE 2020/4/21
  */
 public class PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadHeadImage.OnUpLoadHeadImageCallBack,
-        SettingContract.UI {
+        SettingContract.UI, RequestContract.RequestView {
 
     @BindView(R.id.sett_head_img)
     CircleImageView mSettHeadImg;
+    @BindView(R.id.name)
+    TextView mName;
+    @BindView(R.id.sex)
+    TextView mSex;
 
     public static String SAVED_IMAGE_DIR_PATH = Environment.getExternalStorageDirectory().getPath();
     private Uri imageUri;
@@ -75,13 +90,14 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     private Uri cropImageUri;
     private static final int CROP_PICTURE = 4;
     private String newNeckname;
-    private DelEditText2 sett_nackname;
+    private EditText sett_nackname;
     private SettingPresenter presenter;
     private DialogUtil dialogUtil;
-    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
-    private ArrayList<String> options2Items_01 = new ArrayList<>();
-    private ArrayList<String> options2Items_02 = new ArrayList<>();
-
+    private RequestPresenter mPresenter;
+    private String genders;
+    private OptionsPickerView mPvOptions;
+    private ArrayList<CardInfor> cardItem = new ArrayList<>();
+    private ImageView mDele;
 
     @Override
     public int layoutId() {
@@ -92,20 +108,33 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     public void init() {
 
         presenter = new SettingPresenter(this, this);
+        mPresenter = new RequestPresenter();
+        mPresenter.setRelation(this);
 
         try {
             String heald_image = getIntent().getStringExtra("Heald_Image");
             Glide.with(this)
                     .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.mine_user_icon_defult))
                     .load(heald_image).into(mSettHeadImg);
+            mName.setText(BearMallAplication.getInstance().getUser().getData().getMember().getNickName());
+            if (BearMallAplication.getInstance().getUser().getData().getMember().getGender() != null) {
+                mSex.setText(BearMallAplication.getInstance().getUser().getData().getMember().getGender());
+            } else {
+                mSex.setText("请选择");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        options2Items_01.add("男");
-        options2Items_02.add("女");
-        options2Items.add(options2Items_01);
-        options2Items.add(options2Items_02);
+        cardItem.add(new CardInfor(0, "男"));
+        cardItem.add(new CardInfor(0, "女"));
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.setUntying(this);
     }
 
     @OnClick({R.id.toolbar_back, R.id.sett_head, R.id.sett_nickname, R.id.sett_sex})
@@ -115,47 +144,108 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.sett_head:
-                PopupWindow popupWindow = WindowUtils.ShowVirtual(PersonalActivity.this, R.layout.item_heard_pop,
-                        R.style.bottom_animation, 2);
-                popupWindow.getContentView().findViewById(R.id.sett_cancel).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.sett_album).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.sett_camera).setOnClickListener(this);
+                if (ConstantUtil.isFastClick()) {
+                    PopupWindow popupWindow = WindowUtils.ShowVirtual(PersonalActivity.this, R.layout.item_heard_pop,
+                            R.style.bottom_animation, 2);
+                    popupWindow.getContentView().findViewById(R.id.sett_cancel).setOnClickListener(this);
+                    popupWindow.getContentView().findViewById(R.id.sett_album).setOnClickListener(this);
+                    popupWindow.getContentView().findViewById(R.id.sett_camera).setOnClickListener(this);
+                }
                 break;
             case R.id.sett_nickname:
-                dialogUtil = DialogUtil.getInstance();
-                dialogUtil.setContext(PersonalActivity.this);
-                View nackname = dialogUtil.getDialog(R.layout.item_sett_nackname_pop);
-                nackname.findViewById(R.id.sett_cancel_nack).setOnClickListener(this);
-                nackname.findViewById(R.id.sett_confirm).setOnClickListener(this);
-                sett_nackname = nackname.findViewById(R.id.sett_nackname);
+                if (ConstantUtil.isFastClick()) {
+                    dialogUtil = DialogUtil.getInstance();
+                    dialogUtil.setContext(PersonalActivity.this);
+                    View nackname = dialogUtil.getDialog(R.layout.item_sett_nackname_pop);
+                    nackname.findViewById(R.id.sett_cancel_nack).setOnClickListener(this);
+                    nackname.findViewById(R.id.sett_confirm).setOnClickListener(this);
+                    sett_nackname = nackname.findViewById(R.id.sett_nackname);
+                    sett_nackname.addTextChangedListener(textWatcher);
+                    mDele = nackname.findViewById(R.id.dele);
+                    mDele.setOnClickListener(this);
+                }
                 break;
             case R.id.sett_sex:
+                try {
+                    mPvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+                        @Override
+                        public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                            showLoading();
+                            Map<String, String> map = new HashMap<>();
+                            if ("男".equals(cardItem.get(options1).getCardNo())) {
+                                map.put("gender", "0");
+                                genders = "男";
+                            }
+                            if ("女".equals(cardItem.get(options1).getCardNo())) {
+                                map.put("gender", "1");
+                                genders = "女";
+                            }
+                            mPresenter.onUpdateGender(PersonalActivity.this, map);
+                        }
+                    }).setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
+                        @Override
+                        public void customLayout(View v) {
+                            final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
+                            TextView ivCancel = (TextView) v.findViewById(R.id.iv_cancel);
+                            tvSubmit.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mPvOptions.returnData();
+                                    mPvOptions.dismiss();
+                                }
+                            });
 
-                OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-                    @Override
-                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                        Toast.makeText(PersonalActivity.this, options2Items.get(options1).get(0), Toast.LENGTH_SHORT).show();
-                        //返回的分别是三个级别的选中位置
+                            ivCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mPvOptions.dismiss();
+                                }
+                            });
+                        }
+                    })
+                            .isDialog(true)
+                            .setOutSideCancelable(false)
+                            .build();
+                    mPvOptions.setPicker(cardItem);
+                    Dialog dialogm = mPvOptions.getDialog();
+                    if (dialogm != null) {
+                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT, Gravity.BOTTOM);
+                        mPvOptions.getDialogContainerLayout().setLayoutParams(params);
+                        Window dialogWindow = dialogm.getWindow();
+                        if (dialogWindow != null) {
+                            dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);//修改动画样式
+                            dialogWindow.setGravity(Gravity.BOTTOM);//改成Bottom,底部显示
+                        }
                     }
-                })
-                        .setTitleText("")
-                        .setContentTextSize(15)//设置滚轮文字大小
-                        .setDividerColor(getResources().getColor(R.color.sex))//设置分割线的颜色
-                        .setSelectOptions(0, 1)//默认选中项
-                        .setBgColor(getResources().getColor(R.color.white))
-                        .setTitleBgColor(getResources().getColor(R.color.white))
-                        .setCancelColor(getResources().getColor(R.color.business))
-                        .setSubmitColor(getResources().getColor(R.color.business))
-                        .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
-                        .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                        .setLabels("", "", "")
-                        .setOutSideColor(0x00000000) //设置外部遮罩颜色
-                        .build();
-                pvOptions.setPicker(options2Items);//二级选择器
-                pvOptions.show();
+                    mPvOptions.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if (sett_nackname.getText().toString().length() > 0) {
+                mDele.setVisibility(View.VISIBLE);
+            } else {
+                mDele.setVisibility(View.GONE);
+            }
+        }
+    };
 
     @Override
     public void onClick(View view) {
@@ -175,6 +265,10 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 setHealdImage(1);
                 break;
             case R.id.sett_confirm:
+                if (ConstantUtil.containSpace(sett_nackname.getText().toString())) {
+                    showToast("请输入正确昵称", Gravity.CENTER);
+                    return;
+                }
                 if (!TextUtils.isEmpty(sett_nackname.getText().toString())) {
                     showLoading();
                     newNeckname = sett_nackname.getText().toString();
@@ -185,6 +279,9 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 } else {
                     showToast("昵称不能为空", Gravity.CENTER);
                 }
+                break;
+            case R.id.dele:
+                sett_nackname.setText("");
                 break;
         }
     }
@@ -231,7 +328,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
             public void requestPermissionFail() {
                 showToast("获取权限失败");
             }
-        }, new String[]{android.Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE});
+        }, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE});
     }
 
     @Override
@@ -337,11 +434,40 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void onFail(Throwable throwable) {
+    public void onSuccess(Object data) {
+        if (data instanceof String) {
+            try {
+                JSONObject jsonObject = new JSONObject((String) data);
+                if (jsonObject.getInt("code") == 1) {
+                    UserInfo userInfo = BearMallAplication.getInstance().getUser();
+                    UserInfo.DataBean.MemberBean member = userInfo.getData().getMember();
+                    member.setGender(genders);
+                    BearMallAplication.getInstance().setUser(userInfo);
+                    mSex.setText(BearMallAplication.getInstance().getUser().getData().getMember().getGender());
+                    showToast("修改成功");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         hiddenLoadingView();
-        Looper.prepare();  // Can't create handler inside thread that has not called Looper.prepare()。
-        showToast("上传失败");
-        Looper.loop();
+    }
+
+    @Override
+    public void onNotNetWork() {
+        hiddenLoadingView();
+    }
+
+    @Override
+    public void onFail(Throwable throwable) {
+        try {
+            hiddenLoadingView();
+            Looper.prepare();  // Can't create handler inside thread that has not called Looper.prepare()。
+            showToast("上传失败");
+            Looper.loop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -371,6 +497,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
         dataBean.setMember(memberBean);
         userInfo.setData(dataBean);
         BearMallAplication.getInstance().setUser(userInfo);
+        mName.setText(BearMallAplication.getInstance().getUser().getData().getMember().getNickName());
         showToast("修改成功");
     }
 
@@ -388,4 +515,5 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     public void onFail() {
 
     }
+
 }
