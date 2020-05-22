@@ -206,4 +206,12 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //获取RSA公钥
+    @Override
+    public void onRsaPublickey(Context context) {
+        if (requestView != null) {
+            requestModel.onRsaPublickey(context, requestView);
+        }
+    }
+
 }

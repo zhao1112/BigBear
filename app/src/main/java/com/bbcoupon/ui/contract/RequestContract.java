@@ -67,6 +67,8 @@ public class RequestContract {
         void onSmsVerification(Context context, Map<String, String> map);
 
         void onApplyWithdraw(Context context, Map<String, String> map);
+
+        void onRsaPublickey(Context context);
     }
 
     public interface RequestModel {
@@ -113,5 +115,7 @@ public class RequestContract {
         void onSmsVerification(Context context, Map<String, String> map, RequestContract.RequestView requestView);
 
         void onApplyWithdraw(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onRsaPublickey(Context context, RequestContract.RequestView requestView);
     }
 }

@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.ConstantUtil;
@@ -21,6 +23,7 @@ import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.MineProfitActivity;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.DeviceUtils;
+import com.yunqin.bearmall.util.RSAUtil;
 import com.yunqin.bearmall.widget.DelEditText2;
 
 import java.util.HashMap;
@@ -127,13 +130,8 @@ public class MsgCheckingActivity extends BaseActivity implements RequestContract
                     finish();
                     return;
                 }
-                Map<String, String> hasMap = new HashMap<>();
-                hasMap.put("alipayTrueName", alip_name);
-                hasMap.put("alipayAccount", alip_code);
-                hasMap.put("mobile", mobile);
-                hasMap.put("smsCode", mCodeNew.getText().toString());
-                hasMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
-                presenter.onBindingAlipay(MsgCheckingActivity.this, hasMap);
+                showLoading();
+                presenter.onRsaPublickey(MsgCheckingActivity.this);
                 break;
             case R.id.m_code_new:
                 if (mobile == null || mobile.equals("")) {
@@ -195,6 +193,25 @@ public class MsgCheckingActivity extends BaseActivity implements RequestContract
         if (data instanceof BaseInfor) {
             Toast.makeText(MsgCheckingActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
             finish();
+        }
+        if (data instanceof RequestInfor) {
+            try {
+                RequestInfor requestInfor = (RequestInfor) data;
+                String rsa = requestInfor.getData();
+                String name_rsa = RSAUtil.encrypt(alip_name, RSAUtil.getPublicKey(rsa));
+                String code_rsa = RSAUtil.encrypt(alip_code, RSAUtil.getPublicKey(rsa));
+                Log.e("BindingAlipayActivity", name_rsa);
+                Log.e("BindingAlipayActivity", code_rsa);
+                Map<String, String> hasMap = new HashMap<>();
+                hasMap.put("alipayTrueName", name_rsa);
+                hasMap.put("alipayAccount", code_rsa);
+                hasMap.put("mobile", mobile);
+                hasMap.put("smsCode", mCodeNew.getText().toString());
+                hasMap.put("type", "1");
+                presenter.onBindingAlipay(MsgCheckingActivity.this, hasMap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         hiddenLoadingView();
     }

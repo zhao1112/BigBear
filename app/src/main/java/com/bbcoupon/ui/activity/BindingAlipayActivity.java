@@ -3,14 +3,17 @@ package com.bbcoupon.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.ConstantUtil;
@@ -19,6 +22,7 @@ import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.CommonUtils;
+import com.yunqin.bearmall.util.RSAUtil;
 import com.yunqin.bearmall.widget.DelEditText;
 
 import java.util.HashMap;
@@ -85,7 +89,7 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
             mAlipCode.setVisibility(View.GONE);
             mNameT.setVisibility(View.VISIBLE);
             mAlipCodeT.setVisibility(View.VISIBLE);
-            mAlipNext.setText("确认");
+            mAlipNext.setText("下一步");
             mAlipNext.setBackground(getResources().getDrawable(R.drawable.bg_vip_up));
             mAlipNext.setClickable(true);
         }
@@ -119,8 +123,8 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
                     showToast("请先输入支付宝真实姓名");
                     return;
                 }
-                if (ConstantUtil.isSpecialChar(mName.getText().toString()) || mName.getText().toString().trim().isEmpty()) {
-                    showToast("真实姓名不可包含特殊字符和空格");
+                if (ConstantUtil.isSpecialChar(mName.getText().toString()) || ConstantUtil.containSpace(mName.getText().toString()) || !ConstantUtil.isNmae(mName.getText().toString())) {
+                    showToast("请输入支付宝真实姓名");
                     return;
                 }
                 if (mAlipCode.getText() == null) {
@@ -141,7 +145,6 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
                                 R.style.bottom_animation, 1);
                         popupWindow.getContentView().findViewById(R.id.alip_close).setOnClickListener(this);
                         popupWindow.getContentView().findViewById(R.id.alip_true).setOnClickListener(this);
-
                     }
                 } else {
                     showToast("请输入正确的支付宝账号");
@@ -181,14 +184,7 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.alip_true:
                 showLoading();
-                Map<String, String> hasMap = new HashMap<>();
-                hasMap.put("alipayTrueName", mName.getText().toString());
-                hasMap.put("alipayAccount", mAlipCode.getText().toString());
-                hasMap.put("mobile", mobile);
-                hasMap.put("smsCode", smscode);
-                hasMap.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
-                presenter.onBindingAlipay(BindingAlipayActivity.this, hasMap);
-                WindowUtils.dismissBrightness(BindingAlipayActivity.this);
+                presenter.onRsaPublickey(BindingAlipayActivity.this);
                 break;
         }
     }
@@ -198,6 +194,26 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
         if (data instanceof BaseInfor) {
             Toast.makeText(BindingAlipayActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
             finish();
+        }
+        if (data instanceof RequestInfor) {
+            try {
+                RequestInfor requestInfor = (RequestInfor) data;
+                String rsa = requestInfor.getData();
+                String name_rsa = RSAUtil.encrypt(mName.getText().toString(), RSAUtil.getPublicKey(rsa));
+                String code_rsa = RSAUtil.encrypt(mAlipCode.getText().toString(), RSAUtil.getPublicKey(rsa));
+                Log.e("BindingAlipayActivity", name_rsa);
+                Log.e("BindingAlipayActivity", code_rsa);
+                Map<String, String> hasMap = new HashMap<>();
+                hasMap.put("alipayTrueName", name_rsa);
+                hasMap.put("alipayAccount", code_rsa);
+                hasMap.put("mobile", mobile);
+                hasMap.put("smsCode", smscode);
+                hasMap.put("type", "2");
+                presenter.onBindingAlipay(BindingAlipayActivity.this, hasMap);
+                WindowUtils.dismissBrightness(BindingAlipayActivity.this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         hiddenLoadingView();
     }
@@ -216,5 +232,16 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
     protected void onDestroy() {
         super.onDestroy();
         presenter.setUntying(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 0:
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -144,6 +145,18 @@ public class ConstantUtil {
      */
     public static boolean containSpace(CharSequence input) {
         return Pattern.compile("\\s+").matcher(input).find();
+    }
+
+    /**
+     * 判断真实姓名
+     */
+    public static boolean isNmae(String name) {
+        if (!TextUtils.isEmpty(name)) {
+            Matcher matcher = Pattern.compile("^([\\u4E00-\\u9FA5]+|[a-zA-Z]+)$").matcher(name);
+            return matcher.matches();
+        } else {
+            return false;
+        }
     }
 
 }

@@ -167,25 +167,25 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.sett_sex:
-                PopupWindow popupWindow = WindowUtils.ShowSex(PersonalActivity.this, R.layout.pickerview_custom_options,
+                PopupWindow popupWindow = WindowUtils.ShowVirtual(PersonalActivity.this, R.layout.pickerview_custom_options,
                         R.style.bottom_animation, 2);
                 pickerView = popupWindow.getContentView().findViewById(R.id.pickerview);
                 pickerView.setAdapter(new NumericWheelAdapter(1, 2));
                 pickerView.setHorizontal(false);
-                pickerView.setTextSize(15, 22);
-                pickerView.setColor(Color.YELLOW, Color.RED);
+                pickerView.setTextSize(15, 18);
+                pickerView.setColor(getResources().getColor(R.color.sex_line_true), getResources().getColor(R.color.sex_line_false));
                 pickerView.setIsCirculation(false);
                 pickerView.setCanTap(false);
                 pickerView.setDisallowInterceptTouch(false);
                 pickerView.setVisibleItemCount(5);
-                pickerView.setItemSize(45);
+                pickerView.setItemSize(50);
                 pickerView.setFormatter(new BasePickerView.Formatter() {
                     @Override
                     public CharSequence format(BasePickerView pickerView, int position, CharSequence charSequence) {
                         return cardItem.get(position).getCardNo();
                     }
                 });
-                DefaultCenterDecoration centerDecoration = new DefaultCenterDecoration(PersonalActivity.this).setLineColor(Color.YELLOW);
+                DefaultCenterDecoration centerDecoration = new DefaultCenterDecoration(PersonalActivity.this).setLineColor(getResources().getColor(R.color.sex_line));
                 pickerView.setCenterDecoration(centerDecoration);
                 pickerView.setOnSelectedListener(new BasePickerView.OnSelectedListener() {
                     @Override
@@ -239,7 +239,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 setHealdImage(1);
                 break;
             case R.id.sett_confirm:
-                if (ConstantUtil.containSpace(sett_nackname.getText().toString())) {
+                if (sett_nackname.getText().toString().trim().isEmpty()) {
                     showToast("请输入正确昵称", Gravity.CENTER);
                     return;
                 }
@@ -258,7 +258,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 sett_nackname.setText("");
                 break;
             case R.id.iv_cancel:
-                WindowUtils.dismiss();
+                WindowUtils.dismissBrightness(PersonalActivity.this);
                 break;
             case R.id.tv_finish:
                 showLoading();
@@ -276,6 +276,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                     genders = "女";
                 }
                 mPresenter.onUpdateGender(PersonalActivity.this, map);
+                WindowUtils.dismissBrightness(PersonalActivity.this);
                 break;
         }
     }

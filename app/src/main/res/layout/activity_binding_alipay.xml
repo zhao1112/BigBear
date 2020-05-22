@@ -52,6 +52,7 @@
             android:layout_marginRight="@dimen/dp_23"
             android:background="@null"
             android:hint="请输入支付宝认证的真实姓名"
+            android:maxLength="15"
             android:maxLines="1"
             android:textColor="#ff999999"
             android:textSize="@dimen/sp_14"/>

@@ -160,7 +160,7 @@ public class BinDingWXActivity extends BaseActivity implements RequestContract.R
                                 if (object.optInt("code") == 1) {
                                     type = 2;
                                     Looper.prepare();
-                                    showToast("上传成功");
+                                    showToast("提交成功");
                                     Intent intent = new Intent();
                                     Bundle bundle = new Bundle();
                                     bundle.putInt("RESULT", type);
@@ -183,7 +183,7 @@ public class BinDingWXActivity extends BaseActivity implements RequestContract.R
                                     Looper.loop();
                                 } else {
                                     Looper.prepare();
-                                    showToast("上传失败");
+                                    showToast("提交失败");
                                     Looper.loop();
                                 }
                             } catch (Exception e) {

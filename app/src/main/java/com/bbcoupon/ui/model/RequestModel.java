@@ -647,4 +647,32 @@ public class RequestModel implements RequestContract.RequestModel {
         });
     }
 
+    //获取RSA公钥
+    @Override
+    public void onRsaPublickey(Context context, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onRsaPublickey(), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                RequestInfor requestInfor = new Gson().fromJson(data, RequestInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(requestInfor);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
 }

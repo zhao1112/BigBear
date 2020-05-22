@@ -15,22 +15,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_23"
-            android:text="确认是否修改"
-            android:textColor="#ff272727"
-            android:textSize="@dimen/sp_16"
-            android:textStyle="bold"/>
-
-        <TextView
+            android:id="@+id/conten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_40"
             android:layout_marginTop="@dimen/dp_18"
             android:layout_marginRight="@dimen/dp_40"
             android:gravity="center_horizontal"
-            android:text="请确保您填写的支付宝账户与支付宝页面显示的一致"
             android:textColor="#ff555555"
             android:textSize="@dimen/sp_14"/>
 
@@ -46,12 +37,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/alip_close"
+                android:id="@+id/p_close"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="取消"
+                android:text="忘记密码"
                 android:textColor="#ff272727"
                 android:textSize="@dimen/sp_16"
                 android:textStyle="bold"/>
@@ -62,12 +53,12 @@
                 android:background="#fff1f1f1"/>
 
             <TextView
-                android:id="@+id/alip_true"
+                android:id="@+id/p_true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="确认"
+                android:text="重试"
                 android:textColor="#ff2b4a84"
                 android:textSize="@dimen/sp_16"
                 android:textStyle="bold"/>

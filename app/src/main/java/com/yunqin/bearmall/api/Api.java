@@ -1533,5 +1533,11 @@ public interface Api {
     @POST("api/withdraw/bindingAlipay")
     Observable<String> onBindingAlipay(@FieldMap() Map<String, String> params);
 
+    /**
+     * 获取RSA公钥
+     */
+    @POST("api/basic/getRsaPublickey")
+    Observable<String> onRsaPublickey();
+
 }
 
