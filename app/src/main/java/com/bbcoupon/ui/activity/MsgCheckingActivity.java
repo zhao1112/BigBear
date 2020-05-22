@@ -190,6 +190,11 @@ public class MsgCheckingActivity extends BaseActivity implements RequestContract
             Toast.makeText(MsgCheckingActivity.this, "随机码发送成功", Toast.LENGTH_SHORT).show();
         }
         if (data instanceof BaseInfor) {
+            BaseInfor baseInfor = (BaseInfor) data;
+            if (baseInfor.getCode() == 2) {
+                showToast(baseInfor.getMsg());
+                return;
+            }
             Toast.makeText(MsgCheckingActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
             Bundle bundle = new Bundle();
             int upgradeType = BearMallAplication.getInstance().getUser().getIdentity().getUpgradeType();

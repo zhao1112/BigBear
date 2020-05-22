@@ -191,6 +191,11 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onSuccess(Object data) {
         if (data instanceof BaseInfor) {
+            BaseInfor baseInfor = (BaseInfor) data;
+            if (baseInfor.getCode() == 2) {
+                showToast(baseInfor.getMsg());
+                return;
+            }
             Toast.makeText(BindingAlipayActivity.this, "绑定成功", Toast.LENGTH_SHORT).show();
             AlipayCashActivity.openAlipayCashActivitys(BindingAlipayActivity.this, AlipayCashActivity.class);
             finish();

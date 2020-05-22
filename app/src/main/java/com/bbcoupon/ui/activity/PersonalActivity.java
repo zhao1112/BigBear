@@ -38,9 +38,14 @@ import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.api.Api;
+import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.bean.MemberBeanResponse;
 import com.yunqin.bearmall.bean.UserInfo;
 import com.yunqin.bearmall.ui.activity.contract.SettingContract;
 import com.yunqin.bearmall.ui.activity.presenter.SettingPresenter;
@@ -111,6 +116,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
         presenter = new SettingPresenter(this, this);
         mPresenter = new RequestPresenter();
         mPresenter.setRelation(this);
+        getInfor();
 
         try {
             String heald_image = getIntent().getStringExtra("Heald_Image");
@@ -185,7 +191,8 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                         return cardItem.get(position).getCardNo();
                     }
                 });
-                DefaultCenterDecoration centerDecoration = new DefaultCenterDecoration(PersonalActivity.this).setLineColor(getResources().getColor(R.color.sex_line));
+                DefaultCenterDecoration centerDecoration =
+                        new DefaultCenterDecoration(PersonalActivity.this).setLineColor(getResources().getColor(R.color.sex_line));
                 pickerView.setCenterDecoration(centerDecoration);
                 pickerView.setOnSelectedListener(new BasePickerView.OnSelectedListener() {
                     @Override
@@ -445,6 +452,18 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 e.printStackTrace();
             }
         }
+        if (data instanceof MemberBeanResponse) {
+            MemberBeanResponse memberBeanResponse = (MemberBeanResponse) data;
+            UserInfo userInfo = BearMallAplication.getInstance().getUser();
+            UserInfo.DataBean dataBean = userInfo.getData();
+            UserInfo.DataBean.MemberBean memberBean = memberBeanResponse.getData();
+            UserInfo.Identity identity = memberBeanResponse.getIdentity();
+            dataBean.setMember(memberBean);
+            userInfo.setData(dataBean);
+            userInfo.setIdentity(identity);
+            BearMallAplication.getInstance().setUser(userInfo);
+
+        }
         hiddenLoadingView();
     }
 
@@ -509,6 +528,44 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onFail() {
 
+    }
+
+    public void getInfor() {
+        if (BearMallAplication.getInstance().getUser() != null) {
+            RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getMemberInfo(new HashMap<>()), new RetrofitApi.IResponseListener() {
+                @Override
+                public void onSuccess(String data) {
+                    try {
+                        UserInfo userInfo = BearMallAplication.getInstance().getUser();
+                        UserInfo.DataBean dataBean = userInfo.getData();
+                        MemberBeanResponse response = new Gson().fromJson(data, MemberBeanResponse.class);
+                        UserInfo.DataBean.MemberBean memberBean = response.getData();
+                        UserInfo.Identity identity = response.getIdentity();
+                        dataBean.setMember(memberBean);
+                        userInfo.setData(dataBean);
+                        userInfo.setIdentity(identity);
+                        BearMallAplication.getInstance().setUser(userInfo);
+                        mName.setText(BearMallAplication.getInstance().getUser().getData().getMember().getNickName());
+                        if (BearMallAplication.getInstance().getUser().getData().getMember().getGender() != null) {
+                            mSex.setText(BearMallAplication.getInstance().getUser().getData().getMember().getGender());
+                        } else {
+                            mSex.setText("请选择");
+                        }
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onNotNetWork() {
+
+                }
+
+                @Override
+                public void onFail(Throwable e) {
+                }
+            });
+        }
     }
 
 }
