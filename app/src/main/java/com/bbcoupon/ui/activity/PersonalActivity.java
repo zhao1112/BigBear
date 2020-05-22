@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -15,6 +16,7 @@ import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +35,6 @@ import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.DialogUtil;
 import com.bbcoupon.util.WindowUtils;
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.listener.CustomListener;
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
-import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
@@ -48,9 +46,11 @@ import com.yunqin.bearmall.ui.activity.contract.SettingContract;
 import com.yunqin.bearmall.ui.activity.presenter.SettingPresenter;
 import com.yunqin.bearmall.util.UpLoadHeadImage;
 import com.yunqin.bearmall.widget.CircleImageView;
-import com.yunqin.bearmall.widget.DelEditText;
-import com.yunqin.bearmall.widget.DelEditText2;
 
+import org.jaaksi.pickerview.adapter.NumericWheelAdapter;
+import org.jaaksi.pickerview.widget.BasePickerView;
+import org.jaaksi.pickerview.widget.DefaultCenterDecoration;
+import org.jaaksi.pickerview.widget.PickerView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -95,9 +95,10 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     private DialogUtil dialogUtil;
     private RequestPresenter mPresenter;
     private String genders;
-    private OptionsPickerView mPvOptions;
     private ArrayList<CardInfor> cardItem = new ArrayList<>();
     private ImageView mDele;
+    private PickerView<Integer> pickerView;
+    private String gendersId;
 
     @Override
     public int layoutId() {
@@ -127,7 +128,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
         }
 
         cardItem.add(new CardInfor(0, "男"));
-        cardItem.add(new CardInfor(0, "女"));
+        cardItem.add(new CardInfor(1, "女"));
 
     }
 
@@ -166,62 +167,35 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.sett_sex:
-                try {
-                    mPvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-                        @Override
-                        public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                            showLoading();
-                            Map<String, String> map = new HashMap<>();
-                            if ("男".equals(cardItem.get(options1).getCardNo())) {
-                                map.put("gender", "0");
-                                genders = "男";
-                            }
-                            if ("女".equals(cardItem.get(options1).getCardNo())) {
-                                map.put("gender", "1");
-                                genders = "女";
-                            }
-                            mPresenter.onUpdateGender(PersonalActivity.this, map);
-                        }
-                    }).setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
-                        @Override
-                        public void customLayout(View v) {
-                            final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                            TextView ivCancel = (TextView) v.findViewById(R.id.iv_cancel);
-                            tvSubmit.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mPvOptions.returnData();
-                                    mPvOptions.dismiss();
-                                }
-                            });
-
-                            ivCancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mPvOptions.dismiss();
-                                }
-                            });
-                        }
-                    })
-                            .isDialog(true)
-                            .setOutSideCancelable(false)
-                            .build();
-                    mPvOptions.setPicker(cardItem);
-                    Dialog dialogm = mPvOptions.getDialog();
-                    if (dialogm != null) {
-                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.MATCH_PARENT, Gravity.BOTTOM);
-                        mPvOptions.getDialogContainerLayout().setLayoutParams(params);
-                        Window dialogWindow = dialogm.getWindow();
-                        if (dialogWindow != null) {
-                            dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);//修改动画样式
-                            dialogWindow.setGravity(Gravity.BOTTOM);//改成Bottom,底部显示
-                        }
+                PopupWindow popupWindow = WindowUtils.ShowSex(PersonalActivity.this, R.layout.pickerview_custom_options,
+                        R.style.bottom_animation, 2);
+                pickerView = popupWindow.getContentView().findViewById(R.id.pickerview);
+                pickerView.setAdapter(new NumericWheelAdapter(1, 2));
+                pickerView.setHorizontal(false);
+                pickerView.setTextSize(15, 22);
+                pickerView.setColor(Color.YELLOW, Color.RED);
+                pickerView.setIsCirculation(false);
+                pickerView.setCanTap(false);
+                pickerView.setDisallowInterceptTouch(false);
+                pickerView.setVisibleItemCount(5);
+                pickerView.setItemSize(45);
+                pickerView.setFormatter(new BasePickerView.Formatter() {
+                    @Override
+                    public CharSequence format(BasePickerView pickerView, int position, CharSequence charSequence) {
+                        return cardItem.get(position).getCardNo();
                     }
-                    mPvOptions.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                });
+                DefaultCenterDecoration centerDecoration = new DefaultCenterDecoration(PersonalActivity.this).setLineColor(Color.YELLOW);
+                pickerView.setCenterDecoration(centerDecoration);
+                pickerView.setOnSelectedListener(new BasePickerView.OnSelectedListener() {
+                    @Override
+                    public void onSelected(BasePickerView pickerView, int position) {
+                        gendersId = position + "";
+                        Log.e("onSelected", position + "");
+                    }
+                });
+                popupWindow.getContentView().findViewById(R.id.iv_cancel).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.tv_finish).setOnClickListener(this);
                 break;
         }
     }
@@ -282,6 +256,26 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.dele:
                 sett_nackname.setText("");
+                break;
+            case R.id.iv_cancel:
+                WindowUtils.dismiss();
+                break;
+            case R.id.tv_finish:
+                showLoading();
+                Map<String, String> map = new HashMap<>();
+                if (gendersId == null) {
+                    map.put("gender", "0");
+                    genders = "男";
+                }
+                if ("0".equals(gendersId)) {
+                    map.put("gender", "0");
+                    genders = "男";
+                }
+                if ("1".equals(gendersId)) {
+                    map.put("gender", "1");
+                    genders = "女";
+                }
+                mPresenter.onUpdateGender(PersonalActivity.this, map);
                 break;
         }
     }

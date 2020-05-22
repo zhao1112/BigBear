@@ -14,21 +14,6 @@ import android.widget.TextView;
  */
 public class ImageUtil {
 
-    public static Bitmap compoundBitmap(Bitmap BitmapOne, Bitmap BitmapTwo) {
-        Bitmap newBitmap = null;
-        newBitmap = Bitmap.createBitmap(BitmapOne);
-        Canvas canvas = new Canvas(newBitmap);
-        Paint paint = new Paint();
-        int oneWidth = BitmapOne.getWidth();
-        int oneHeight = BitmapOne.getHeight();
-        int twoWidth = BitmapTwo.getWidth();
-        int twoHeight = BitmapTwo.getHeight();
-        BitmapOne.getHeight();
-        canvas.drawBitmap(BitmapTwo, (oneWidth / 2) - (twoWidth / 2), (oneHeight / 2) + (twoHeight / 2), paint);
-        canvas.save(Canvas.ALL_SAVE_FLAG);
-        canvas.restore();
-        return newBitmap;
-    }
 
     public static Bitmap zoomImage(Bitmap bgimage, double newWidth, double newHeight) {
         // 获取这个图片的宽和高

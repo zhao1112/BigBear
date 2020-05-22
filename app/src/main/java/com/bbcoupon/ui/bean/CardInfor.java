@@ -1,13 +1,11 @@
 package com.bbcoupon.ui.bean;
 
-import com.contrarywind.interfaces.IPickerViewData;
-
 /**
  * @author LWP
  * @PACKAGE com.bbcoupon.ui.bean
  * @DATE 2020/5/21
  */
-public class CardInfor implements IPickerViewData {
+public class CardInfor  {
 
     private int id;
     private String sex;
@@ -33,8 +31,4 @@ public class CardInfor implements IPickerViewData {
         this.sex = cardNo;
     }
 
-    @Override
-    public String getPickerViewText() {
-        return sex;
-    }
 }

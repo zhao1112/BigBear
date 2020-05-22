@@ -39,34 +39,6 @@ public class ImageCodeUtil {
         this.content = content;
     }
 
-    //生成验证码图片  返回类型为bitmap 直接用imageview.setbitmap()即可
-    public Bitmap createBitmap(String content) {
-        setImageContent(content);
-
-        Bitmap bitmap = Bitmap.createBitmap(DEFAULT_WIDTH, DEFAULT_HEIGHT, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-
-        code = createCode();
-
-        canvas.drawColor(Color.rgb(DEFAULT_COLOR_R, DEFAULT_COLOR_B, DEFAULT_COLOR_G));
-        Paint paint = new Paint();
-        paint.setTextSize(DEFAULT_FONT_SIZE);
-//        paint.setTextAlign(Paint.Align.CENTER);
-
-//        for (int i = 0; i < code.length(); i++) {
-        randomTextStyle(paint);
-        canvas.drawText(code + "", 40, 40, paint);
-//        }
-
-        //干扰线
-        for (int i = 0; i < DEFAULT_LINE_NUMBER; i++) {
-            drawLine(canvas, paint);
-        }
-
-        canvas.save(Canvas.ALL_SAVE_FLAG);//保存
-        canvas.restore();
-        return bitmap;
-    }
 
     /**
      * 得到图片中的验证码字符串
@@ -79,12 +51,6 @@ public class ImageCodeUtil {
 
     //生成验证码
     public String createCode() {
-//        mBuilder.delete(0, mBuilder.length()); //使用之前首先清空内容
-//
-//        for (int i = 0; i < DEFAULT_CODE_LENGTH; i++) {
-//            mBuilder.append(CHARS[mRandom.nextInt(CHARS.length)]);
-//        }
-
         return content;
     }
 

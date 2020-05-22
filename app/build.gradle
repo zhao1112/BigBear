@@ -32,11 +32,11 @@ android {
         }
     }
 
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.bbearmall.app"
         minSdkVersion 17
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode SDK_VERSION_CODE
         versionName SDK_VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -310,6 +310,7 @@ android {
         implementation 'com.timqi.sectorprogressview:library:2.0.1'
         //图片查看器
         implementation 'com.github.SherlockGougou:BigImageViewPager:v4_6.0.0'
-        implementation 'com.contrarywind:Android-PickerView:4.1.9'
+        //选择器
+        implementation 'org.jaaksi:pickerview:3.0.1'
     }
 }
