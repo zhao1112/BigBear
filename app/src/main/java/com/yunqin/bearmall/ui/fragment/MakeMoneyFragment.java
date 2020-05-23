@@ -366,6 +366,9 @@ public class MakeMoneyFragment extends BaseFragment {
     }
 
     public void requestData() {
+        if (BearMallAplication.getInstance().getUser() == null) {
+            return;
+        }
         Map timeMap = new HashMap();
         if ((long) SharedPreferencesHelper.get(getActivity(), "lastTime0", 0l) != 0l) {
             timeMap.put("lastTime0", (long) SharedPreferencesHelper.get(getActivity(), "lastTime0", 0l) + "");

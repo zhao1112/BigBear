@@ -288,6 +288,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onSuccess(Object data) {
         if (data instanceof String) {
+            hiddenLoadingView();
             String datas = (String) data;
             WindowUtils.dismissBrightness(AlipayCashActivity.this);
             try {
@@ -304,6 +305,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
                 } else {
                     JSONObject jsonData = jsonObject.optJSONObject("data");
                     String resValidCode = jsonData.optString("resValidCode");
+                    showLoading();
                     Map<String, String> map = new HashMap<>();
                     map.put("amount", mAmount.getText().toString());
                     map.put("type", "2");
@@ -315,6 +317,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
             }
         }
         if (data instanceof BaseInfor) {
+            hiddenLoadingView();
             BaseInfor baseInfor = (BaseInfor) data;
             if (baseInfor.getCode() == 1) {
                 startActivity(new Intent(AlipayCashActivity.this, WithdrawalTipsActivity.class));
@@ -322,6 +325,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
             }
         }
         if (data instanceof AlipayInfor) {
+            hiddenLoadingView();
             AlipayInfor alipayInfor = (AlipayInfor) data;
             name = alipayInfor.getData().getAlipayTrueName();
             code = alipayInfor.getData().getAlipayAccountNum();
@@ -329,6 +333,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
             mAlipCode.setText(code);
         }
         if (data instanceof WithdrawalInfor) {
+            hiddenLoadingView();
             WithdrawalInfor withdrawalInfor = (WithdrawalInfor) data;
             if (data != null) {
                 if (!TextUtils.isEmpty(withdrawalInfor.getData().getBalance())) {
@@ -348,10 +353,10 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
             }
         }
         if (data instanceof SettingBean) {
+            hiddenLoadingView();
             SettingBean settingBean = (SettingBean) data;
             isSetPayPwd = settingBean.getData().getInfo().isSetPayPwd();
         }
-        hiddenLoadingView();
     }
 
     @Override

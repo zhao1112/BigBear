@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.google.gson.Gson;
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.GuidePagerAdapter;
 import com.yunqin.bearmall.api.Api;
@@ -113,22 +114,13 @@ public class GuideWithVideoFragment extends BaseFragment {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     @BindView(R.id.dot_view)
     DotView dot_view;
 
     public void requestData() {
+        if (BearMallAplication.getInstance().getUser() == null) {
+            return;
+        }
         Map timeMap = new HashMap();
         if ((long) SharedPreferencesHelper.get(getActivity(), "lastTime0", 0l) != 0l) {
             timeMap.put("lastTime0", (long) SharedPreferencesHelper.get(getActivity(), "lastTime0", 0l) + "");
@@ -143,7 +135,8 @@ public class GuideWithVideoFragment extends BaseFragment {
             timeMap.put("lastTime3", (long) SharedPreferencesHelper.get(getActivity(), "lastTime3", 0l) + "");
         }
 
-        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap), new RetrofitApi.IResponseListener() {
+        RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getUnreadMessageCount(timeMap),
+                new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
                 MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
@@ -161,19 +154,6 @@ public class GuideWithVideoFragment extends BaseFragment {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

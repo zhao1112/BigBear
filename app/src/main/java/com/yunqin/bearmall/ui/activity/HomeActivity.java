@@ -111,17 +111,17 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
         switchFragment = new SwitchFragment(getSupportFragmentManager(), this);
         switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_HOME);
         Intent intent = getIntent();
-//        if (intent != null) {
-//            String content = intent.getStringExtra("switchFragment");
-//            if (content != null && content.equals("TrolleyFragment")) {
-//                switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_TROLLEY);
-//            } else {
-//                switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_HOME);
-//                bottomBar.setCurrentItem(0);
-//            }
-//        } else {
-//            switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_HOME);
-//        }
+        if (intent != null) {
+            String content = intent.getStringExtra("switchFragment");
+            if (content != null && content.equals("TrolleyFragment")) {
+                switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_TROLLEY);
+            } else {
+                switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_HOME);
+                bottomBar.setCurrentItem(0);
+            }
+        } else {
+            switchFragment.chooseFragment(SwitchFragment.FRAGMENT_TYPE.APP_HOME);
+        }
 
         bottomBar.setOnItemSelectedListener((bottomBarItem, previousPosition, currentPosition) -> {
 

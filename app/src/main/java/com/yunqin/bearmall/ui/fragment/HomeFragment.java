@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.newversions.IAdvClick;
 import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.TabTitleAdapter;
 import com.yunqin.bearmall.api.Api;
@@ -273,6 +274,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.UI {
     }
 
     public void requestData() {
+        if (BearMallAplication.getInstance().getUser() == null) {
+            return;
+        }
         Map timeMap = new HashMap();
         if ((long) SharedPreferencesHelper.get(getActivity(), "lastTime0", 0l) != 0l) {
             timeMap.put("lastTime0", (long) SharedPreferencesHelper.get(getActivity(), "lastTime0", 0l) + "");

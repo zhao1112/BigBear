@@ -41,7 +41,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="@android:color/darker_gray"/>
+            android:background="#ffc8c8c8"/>
 
         <TextView
             android:id="@+id/al_name"
@@ -364,6 +364,11 @@
                 </RelativeLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="#ffc8c8c8"/>
 
         </LinearLayout>
 
