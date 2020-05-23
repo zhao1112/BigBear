@@ -156,7 +156,18 @@
                     android:textColor="#ff272727"
                     android:textSize="@dimen/sp_14"/>
 
+                <TextView
+                    android:id="@+id/phone_mobie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_toLeftOf="@id/one"
+                    android:textColor="#ff272727"
+                    android:textSize="@dimen/sp_12"/>
+
                 <ImageView
+                    android:id="@+id/one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

@@ -24,7 +24,6 @@ import com.yunqin.bearmall.eventbus.TrolleyCountEvent;
 import com.yunqin.bearmall.inter.JoinZeroCallBack;
 import com.yunqin.bearmall.ui.activity.AboutBearMall;
 import com.yunqin.bearmall.ui.activity.BinDingWXActivity;
-import com.yunqin.bearmall.ui.activity.SettingActivity;
 import com.yunqin.bearmall.ui.activity.SugestionBack;
 import com.yunqin.bearmall.ui.activity.contract.SettingContract;
 import com.yunqin.bearmall.ui.activity.presenter.SettingPresenter;
@@ -65,6 +64,8 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
     TextView mSetCache;
     @BindView(R.id.set_bbcoupo)
     TextView set_bbcoupo;
+    @BindView(R.id.phone_mobie)
+    TextView mPhoneMobie;
 
     private SettingPresenter settingPresenter;
     private SettingBean settingBean;
@@ -109,6 +110,11 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        String mobile = BearMallAplication.getInstance().getUser().getData().getMember().getMobile();
+        String replace = mobile.substring(3, 7);
+        String newStr = mobile.replace(replace, "****");
+        mPhoneMobie.setText(newStr);
     }
 
     @Override
@@ -186,11 +192,11 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
                 }
                 break;
             case R.id.set_phone://修改手机号
-                if (!TextUtils.isEmpty(PhomeNamber)) {
-                    Intent intent = new Intent(SettingsActivity.this, ModifyPhoneNumberActivity.class);
-                    intent.putExtra("PHONE_NAMBER", PhomeNamber);
-                    startActivity(intent);
-                }
+//                if (!TextUtils.isEmpty(PhomeNamber)) {
+//                    Intent intent = new Intent(SettingsActivity.this, ModifyPhoneNumberActivity.class);
+//                    intent.putExtra("PHONE_NAMBER", PhomeNamber);
+//                    startActivity(intent);
+//                }
                 break;
             case R.id.set_balance://余额密码
                 if (isSetPayPwd) {
@@ -312,4 +318,5 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
                 break;
         }
     }
+
 }
