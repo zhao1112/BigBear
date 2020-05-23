@@ -264,16 +264,6 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         if (type == Constants.GOODS_TYPE_TBK || type == Constants.GOODS_TYPE_TBK_SEARCH) {
             linCollect.setVisibility(View.GONE);
         }
-        UserInfo userInfo = BearMallAplication.getInstance().getUser();
-        if (userInfo != null && userInfo.getIdentity() != null) {
-            //判断是否是合伙人
-            if (userInfo.getIdentity().isPartner()) {
-                shen_ji.setVisibility(View.GONE);
-            } else {
-                shen_ji.setVisibility(View.VISIBLE);
-            }
-        }
-
         tvGoodsTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -284,6 +274,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 return true;
             }
         });
+
         if ("2".equals(commissionType)) {
             linCollect.setVisibility(View.VISIBLE);
         } else {
@@ -425,6 +416,15 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
 
     @Override
     public void attachData(GoodDetailEntity goodDetailEntity) {
+        UserInfo userInfo = BearMallAplication.getInstance().getUser();
+        if (userInfo != null && userInfo.getIdentity() != null) {
+            //判断是否是合伙人
+            if (userInfo.getIdentity().isPartner()) {
+                shen_ji.setVisibility(View.GONE);
+            } else {
+                shen_ji.setVisibility(View.VISIBLE);
+            }
+        }
         mPresenter.getTBKHomeGoodsListData(goodsId);
         goodDetail = goodDetailEntity.getGoodDetail();
         images = goodDetail.getImages();

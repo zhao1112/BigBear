@@ -93,6 +93,7 @@
 
         </LinearLayout>
 
+
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
@@ -101,6 +102,17 @@
             android:background="@color/TRANSPARENT">
 
         </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:id="@+id/recycle_a"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_title"
+            android:visibility="gone">
+
+            <include layout="@layout/network_error_layout"/>
+
+        </LinearLayout>
 
 
     </RelativeLayout>

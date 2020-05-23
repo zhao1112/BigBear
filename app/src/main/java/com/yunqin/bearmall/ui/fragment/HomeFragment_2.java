@@ -2,22 +2,21 @@ package com.yunqin.bearmall.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
-import com.bbcoupon.util.ConstantUtil;
-import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.newversions.IAdvClick;
-import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
 import com.yunqin.bearmall.BearMallAplication;
@@ -30,7 +29,6 @@ import com.yunqin.bearmall.bean.Channel;
 import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.bean.PopBean;
 import com.yunqin.bearmall.eventbus.PopWindowEvent;
-import com.yunqin.bearmall.ui.activity.HomeActivity;
 import com.yunqin.bearmall.ui.activity.InformationFragmentActivity;
 import com.yunqin.bearmall.ui.activity.SearchActivity;
 import com.yunqin.bearmall.ui.fragment.contract.HomeContract;
@@ -38,7 +36,6 @@ import com.yunqin.bearmall.ui.fragment.presenter.HomePresenter;
 import com.yunqin.bearmall.util.CommonUtil;
 import com.yunqin.bearmall.util.CommonUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
-import com.yunqin.bearmall.util.PopUtil;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
@@ -50,7 +47,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @author LWP
@@ -68,6 +67,9 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     ViewPager viewpager;
     @BindView(R.id.home_image)
     ImageView home_image;
+    @BindView(R.id.recycle_a)
+    LinearLayout mRecycleA;
+    Unbinder unbinder;
 
     private HomeContract.Presenter mPresenter;
     private HomeTabTitleAdapter adapter;
@@ -90,8 +92,10 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     public void attachChannel(Channel channel) {
         try {
             if (channel == null) {
+                mRecycleA.setVisibility(View.VISIBLE);
                 return;
             }
+            mRecycleA.setVisibility(View.GONE);
             xtablelayout.setVisibility(View.VISIBLE);
             xtablelayout.addTab(xtablelayout.newTab().setText("大熊精选"));
             for (int i = 0; i < channel.getData().size(); i++) {
@@ -148,7 +152,7 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
 //        }
     }
 
-    @OnClick({R.id.home_search, R.id.xiaoxi})
+    @OnClick({R.id.home_search, R.id.xiaoxi, R.id.reset_load_data})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.home_search:
@@ -160,6 +164,9 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
             case R.id.xiaoxi:
                 InformationFragmentActivity.start(getActivity());
                 break;
+            case R.id.reset_load_data:
+                mPresenter.start(getActivity());
+                break;
             default:
                 break;
         }
@@ -169,6 +176,7 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     public void onNotNetWork() {
         hiddenLoadingView();
         xtablelayout.setVisibility(View.GONE);
+        mRecycleA.setVisibility(View.VISIBLE);
     }
 
 
@@ -324,5 +332,19 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
                     public void onFail(Throwable e) {
                     }
                 });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
