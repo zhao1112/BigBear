@@ -228,7 +228,7 @@
 
                     <LinearLayout
                         android:id="@+id/recommend_copy"
-                        android:layout_width="@dimen/dp_90"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_22"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/sp_11"
@@ -248,6 +248,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginRight="@dimen/dp_10"
                             android:text="复制推荐语"
                             android:textColor="#ffffffff"
                             android:textSize="@dimen/sp_11"/>
@@ -346,7 +347,7 @@
 
                     <LinearLayout
                         android:id="@+id/goodes_copy"
-                        android:layout_width="@dimen/dp_100"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_22"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/sp_11"
@@ -366,6 +367,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginRight="@dimen/dp_10"
                             android:text="复制商品评论"
                             android:textColor="#ffffffff"
                             android:textSize="@dimen/sp_11"/>
