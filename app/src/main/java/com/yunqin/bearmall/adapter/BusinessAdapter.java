@@ -74,7 +74,9 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         businessHolder.bus_time.setText(list.get(position).getCreateTime());
         businessHolder.share_nume.setText(list.get(position).getShareNum() + "");
         businessHolder.bus_content.setText(Html.fromHtml(list.get(position).getItemDesc()));
-        businessHolder.bus_coupon.setText("¥" + list.get(position).getPrice());
+        if (list.get(position).getPrice() != null) {
+            businessHolder.bus_coupon.setText("¥" + list.get(position).getPrice());
+        }
         businessHolder.bus_amount.setText("¥" + list.get(position).getCouponAmount());
         businessHolder.bus_password.setText("緮置这条口令,去【tao宝】下单");
         Glide.with(context)
@@ -97,7 +99,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public void onClick(View view) {
                 if (mOnClickShare != null) {
-                    mOnClickShare.share(images, businessHolder.bus_content.getText().toString().replace("</br>", "\n"), list.get(position).getId(), 0);
+                    mOnClickShare.share(images, businessHolder.bus_content.getText().toString().replace("</br>", "\n"),
+                            list.get(position).getId(), 0);
                     list.get(position).setShareNum(list.get(position).getShareNum() + 1);
                     notifyDataSetChanged();
                 }
@@ -120,7 +123,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             public void onClick(View view) {
                 if (mOnClickShare != null) {
                     String[] strings = new String[]{list.get(position).getItemIcon()};
-                    mOnClickShare.share(images, businessHolder.bus_content.getText().toString().replace("</br>", "\n"), list.get(position).getId(), 0);
+                    mOnClickShare.share(images, businessHolder.bus_content.getText().toString().replace("</br>", "\n"),
+                            list.get(position).getId(), 0);
                     list.get(position).setShareNum(list.get(position).getShareNum() + 1);
                     notifyDataSetChanged();
                 }
@@ -139,8 +143,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         businessHolder.bus_content.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                CopyTextUtil.CopyText(context,businessHolder.bus_content.getText().toString().replace("</br>", "\n"));
-                if (mOnClickShare!=null){
+                CopyTextUtil.CopyText(context, businessHolder.bus_content.getText().toString().replace("</br>", "\n"));
+                if (mOnClickShare != null) {
                     mOnClickShare.shearCopy();
                 }
                 return true;

@@ -66,6 +66,10 @@ public class BankTXAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((BankViewHolder) holder).item_2.setVisibility(View.VISIBLE);
                 ((BankViewHolder) holder).item_3.setVisibility(View.GONE);
                 ((BankViewHolder) holder).item_2.setText("绑定微信");
+            } else if (bankTxBean.getType() == 2) {
+                ((BankViewHolder) holder).item_2.setVisibility(View.VISIBLE);
+                ((BankViewHolder) holder).item_3.setVisibility(View.GONE);
+                ((BankViewHolder) holder).item_2.setText("绑定支付宝");
             } else {
                 ((BankViewHolder) holder).item_2.setVisibility(View.VISIBLE);
                 ((BankViewHolder) holder).item_3.setVisibility(View.VISIBLE);

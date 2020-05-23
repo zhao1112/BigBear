@@ -5,271 +5,272 @@
               android:orientation="vertical">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/app_bu_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_12">
+
+
+            <com.yunqin.bearmall.widget.CircleImageView
+                android:id="@+id/bus_image"
+                android:layout_width="@dimen/dp_42"
+                android:layout_height="@dimen/dp_42"
+                android:scaleType="fitXY"
+                android:src="@drawable/push"/>
+
+            <TextView
+                android:id="@+id/bus_nickname"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
-                android:background="@drawable/app_bu_bg"
-                android:orientation="vertical">
+                android:layout_toRightOf="@id/bus_image"
+                android:textColor="#ff272727"
+                android:textSize="@dimen/sp_14"/>
 
-                <RelativeLayout
+            <TextView
+                android:id="@+id/bus_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_toRightOf="@id/bus_image"
+                android:textColor="#ff999999"
+                android:textSize="@dimen/sp_11"/>
+
+            <LinearLayout
+                android:id="@+id/share_bus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_2"
+                android:background="@drawable/shear_bg"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_12"
+                    android:layout_height="@dimen/dp_12"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_marginBottom="@dimen/dp_5"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/share"/>
+
+                <TextView
+                    android:id="@+id/share_nume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:textColor="#ff24a064"
+                    android:textSize="@dimen/sp_11"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/bus_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_14"
+            android:layout_marginRight="@dimen/dp_12"
+            android:textColor="#ff555555"
+            android:textSize="@dimen/sp_13"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bus_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_12">
+
+
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/shope"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_12"
+            android:background="@drawable/item_bg_busadapter_bg"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/bus_image_min"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_80"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_6"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_12">
+
+                <TextView
+                    android:id="@+id/bus_content_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_13"
+                    android:layout_marginRight="@dimen/dp_38"
+                    android:ellipsize="end"
+                    android:enabled="true"
+                    android:maxLines="1"
+                    android:textColor="#ff272727"
+                    android:textSize="@dimen/sp_13"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_42"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginRight="@dimen/dp_12">
-
-
-                    <com.yunqin.bearmall.widget.CircleImageView
-                        android:id="@+id/bus_image"
-                        android:layout_width="@dimen/dp_42"
-                        android:layout_height="@dimen/dp_42"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/push"/>
-
-                    <TextView
-                        android:id="@+id/bus_nickname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_toRightOf="@id/bus_image"
-                        android:textColor="#ff272727"
-                        android:textSize="@dimen/sp_14"/>
-
-                    <TextView
-                        android:id="@+id/bus_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_toRightOf="@id/bus_image"
-                        android:textColor="#ff999999"
-                        android:textSize="@dimen/sp_11"/>
+                    android:layout_height="@dimen/dp_44"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_9"
+                    android:background="@drawable/item_bg_min_busadapter"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/share_bus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/dp_2"
-                        android:background="@drawable/shear_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/dp_12"
-                            android:layout_height="@dimen/dp_12"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:layout_marginBottom="@dimen/dp_5"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/share"/>
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/share_nume"
+                            android:id="@+id/bus_coupon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
-                            android:layout_marginRight="@dimen/dp_10"
-                            android:textColor="#ff24a064"
-                            android:textSize="@dimen/sp_11"/>
+                            android:gravity="center"
+                            android:text="0.00"
+                            android:textColor="#fff3280a"
+                            android:textSize="@dimen/sp_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="券后价"
+                            android:textColor="#ff272727"
+                            android:textSize="@dimen/sp_12"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/dp_1"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dp_9"
+                        android:layout_marginBottom="@dimen/dp_9"
+                        android:background="#fff3280a"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/bus_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#fff3280a"
+                            android:textSize="@dimen/sp_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="券额"
+                            android:textColor="#ff272727"
+                            android:textSize="@dimen/sp_12"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/shear_min_s"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/item_bg_min_text_busadapter"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="分享收益"
+                            android:textColor="#ffffffff"
+                            android:textSize="@dimen/sp_12"/>
+
+                        <TextView
+                            android:id="@+id/bus_profit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffffffff"
+                            android:textSize="@dimen/sp_12"/>
 
                     </LinearLayout>
 
 
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/bus_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_14"
-                    android:layout_marginRight="@dimen/dp_12"
-                    android:textColor="#ff555555"
-                    android:textSize="@dimen/sp_13"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/bus_recycle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginRight="@dimen/dp_12">
-
-
-                </android.support.v7.widget.RecyclerView>
-
-                <LinearLayout
-                    android:id="@+id/shope"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_12"
-                    android:background="@drawable/item_bg_busadapter_bg"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/bus_image_min"
-                        android:layout_width="@dimen/dp_80"
-                        android:layout_height="@dimen/dp_80"
-                        android:layout_marginLeft="@dimen/dp_6"
-                        android:layout_marginTop="@dimen/dp_6"
-                        android:layout_marginBottom="@dimen/dp_6"/>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_12">
-
-                        <TextView
-                            android:id="@+id/bus_content_min"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_13"
-                            android:layout_marginRight="@dimen/dp_38"
-                            android:ellipsize="end"
-                            android:enabled="true"
-                            android:maxLines="1"
-                            android:textColor="#ff272727"
-                            android:textSize="@dimen/sp_13"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_44"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginRight="@dimen/dp_10"
-                            android:layout_marginBottom="@dimen/dp_9"
-                            android:background="@drawable/item_bg_min_busadapter"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/bus_coupon"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:textColor="#fff3280a"
-                                    android:textSize="@dimen/sp_12"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="券后价"
-                                    android:textColor="#ff272727"
-                                    android:textSize="@dimen/sp_12"/>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="@dimen/dp_1"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="@dimen/dp_9"
-                                android:layout_marginBottom="@dimen/dp_9"
-                                android:background="#fff3280a"/>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/bus_amount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="#fff3280a"
-                                    android:textSize="@dimen/sp_12"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="券额"
-                                    android:textColor="#ff272727"
-                                    android:textSize="@dimen/sp_12"/>
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/shear_min_s"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:background="@drawable/item_bg_min_text_busadapter"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="分享收益"
-                                    android:textColor="#ffffffff"
-                                    android:textSize="@dimen/sp_12"/>
-
-                                <TextView
-                                    android:id="@+id/bus_profit"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="#ffffffff"
-                                    android:textSize="@dimen/sp_12"/>
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-
-                    </RelativeLayout>
-
-
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_41"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginRight="@dimen/dp_12"
-                    android:layout_marginBottom="@dimen/dp_19"
-                    android:background="@drawable/item_bg_bottom_bg"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/bus_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:textColor="#ff272727"
-                        android:textSize="@dimen/sp_11"/>
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/bus_copy"
-                        android:layout_width="@dimen/dp_65"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/item_bg_bottom_text"
-                        android:gravity="center"
-                        android:text="复制评论"
-                        android:textColor="#ffffffff"
-                        android:textSize="@dimen/sp_12"/>
 
-                </LinearLayout>
+        </LinearLayout>
 
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_41"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_19"
+            android:background="@drawable/item_bg_bottom_bg"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bus_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="#ff272727"
+                android:textSize="@dimen/sp_11"/>
+
+            <TextView
+                android:id="@+id/bus_copy"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="match_parent"
+                android:background="@drawable/item_bg_bottom_text"
+                android:gravity="center"
+                android:text="复制评论"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/sp_12"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.yunqin.bearmall.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,6 +25,9 @@ import org.json.JSONException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -72,7 +74,6 @@ public class WithdrawalRecordActivity extends BaseActivity {
     @Override
     public void init() {
         initVeiws();
-        showLoadings();
         getData();
     }
 
@@ -162,7 +163,6 @@ public class WithdrawalRecordActivity extends BaseActivity {
 
     private void addData() {
         pagePosition++;
-        showLoadings();
         Map<String, String> mHashMap = new HashMap<>();
         mHashMap.put("page_size", "30");
         mHashMap.put("page_number", String.valueOf(pagePosition));
@@ -195,4 +195,9 @@ public class WithdrawalRecordActivity extends BaseActivity {
 
     }
 
+
+    @OnClick(R.id.new_version_back)
+    public void onViewClicked() {
+        finish();
+    }
 }
