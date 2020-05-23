@@ -116,7 +116,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
         presenter = new SettingPresenter(this, this);
         mPresenter = new RequestPresenter();
         mPresenter.setRelation(this);
-        getInfor();
+        mPresenter.onMemberInfo(this,new HashMap<>());
 
         try {
             String heald_image = getIntent().getStringExtra("Heald_Image");
@@ -462,7 +462,12 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
             userInfo.setData(dataBean);
             userInfo.setIdentity(identity);
             BearMallAplication.getInstance().setUser(userInfo);
-
+            mName.setText(BearMallAplication.getInstance().getUser().getData().getMember().getNickName());
+            if (BearMallAplication.getInstance().getUser().getData().getMember().getGender() != null) {
+                mSex.setText(BearMallAplication.getInstance().getUser().getData().getMember().getGender());
+            } else {
+                mSex.setText("请选择");
+            }
         }
         hiddenLoadingView();
     }
@@ -529,43 +534,4 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     public void onFail() {
 
     }
-
-    public void getInfor() {
-        if (BearMallAplication.getInstance().getUser() != null) {
-            RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getMemberInfo(new HashMap<>()), new RetrofitApi.IResponseListener() {
-                @Override
-                public void onSuccess(String data) {
-                    try {
-                        UserInfo userInfo = BearMallAplication.getInstance().getUser();
-                        UserInfo.DataBean dataBean = userInfo.getData();
-                        MemberBeanResponse response = new Gson().fromJson(data, MemberBeanResponse.class);
-                        UserInfo.DataBean.MemberBean memberBean = response.getData();
-                        UserInfo.Identity identity = response.getIdentity();
-                        dataBean.setMember(memberBean);
-                        userInfo.setData(dataBean);
-                        userInfo.setIdentity(identity);
-                        BearMallAplication.getInstance().setUser(userInfo);
-                        mName.setText(BearMallAplication.getInstance().getUser().getData().getMember().getNickName());
-                        if (BearMallAplication.getInstance().getUser().getData().getMember().getGender() != null) {
-                            mSex.setText(BearMallAplication.getInstance().getUser().getData().getMember().getGender());
-                        } else {
-                            mSex.setText("请选择");
-                        }
-                    } catch (JsonSyntaxException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onNotNetWork() {
-
-                }
-
-                @Override
-                public void onFail(Throwable e) {
-                }
-            });
-        }
-    }
-
 }

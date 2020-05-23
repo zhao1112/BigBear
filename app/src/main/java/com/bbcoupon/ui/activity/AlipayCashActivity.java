@@ -23,8 +23,10 @@ import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.WindowUtils;
 import com.newversions.passwd.IMD5;
 import com.newversions.passwd.RetrievePwdActivity;
+import com.newversions.passwd.SettingPwdActivity;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.bean.SettingBean;
 import com.yunqin.bearmall.ui.activity.MineProfitActivity;
 import com.yunqin.bearmall.util.CashierInputFilter;
 import com.yunqin.bearmall.util.CommonUtils;
@@ -72,6 +74,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
     private String accountNum;
     private String name;
     private String code;
+    private boolean isSetPayPwd = false;
 
     public static void openAlipayCashActivity(Activity activity, Class cla) {
         Intent intent = new Intent(activity, cla);
@@ -99,7 +102,6 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
         Map<String, String> map = new HashMap<>();
         presenter.onWithdrawal(this, map);
 
-
         CashierInputFilter cashierInputFilter = new CashierInputFilter();
         InputFilter[] inputFilters = new InputFilter[]{cashierInputFilter};
         mAmount.setFilters(inputFilters);
@@ -113,6 +115,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
         super.onResume();
         Map<String, String> map = new HashMap<>();
         presenter.onWithOutAlipay(AlipayCashActivity.this, map);
+        presenter.onSettingMemberInfo(this, map);
     }
 
     @OnClick({R.id.toolbar_back, R.id.updata, R.id.allmoney, R.id.alip_pwd})
@@ -133,6 +136,10 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
                 mAmount.setText(money);
                 break;
             case R.id.alip_pwd:
+                if (!isSetPayPwd) {
+                    startActivity(new Intent(AlipayCashActivity.this, SettingPwdActivity.class));
+                    return;
+                }
                 setPwd();
                 break;
         }
@@ -340,8 +347,10 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
                 }
             }
         }
-
-
+        if (data instanceof SettingBean) {
+            SettingBean settingBean = (SettingBean) data;
+            isSetPayPwd = settingBean.getData().getInfo().isSetPayPwd();
+        }
         hiddenLoadingView();
     }
 

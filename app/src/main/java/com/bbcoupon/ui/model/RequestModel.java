@@ -23,6 +23,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.MemberBeanResponse;
+import com.yunqin.bearmall.bean.SettingBean;
 import com.yunqin.bearmall.ui.activity.BalanceWithdrawalWxActivity;
 import com.yunqin.bearmall.ui.activity.PhoneLoginActivity;
 import com.yunqin.bearmall.ui.activity.WithdrawActivity;
@@ -657,6 +658,35 @@ public class RequestModel implements RequestContract.RequestModel {
                 if (requestView != null) {
                     requestView.onSuccess(requestInfor);
                 }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //获取用户设置页信息
+    @Override
+    public void onSettingMemberInfo(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getSettingMemberInfo(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                SettingBean settingBean = new Gson().fromJson(data, SettingBean.class);
+                if (requestView != null) {
+                    requestView.onSuccess(settingBean);
+                }
+
             }
 
             @Override

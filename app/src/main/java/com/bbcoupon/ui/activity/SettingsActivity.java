@@ -8,6 +8,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bbcoupon.util.ConstantUtil;
+import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -62,6 +63,8 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
     SwitchButton mSetSwitch;
     @BindView(R.id.set_cache)
     TextView mSetCache;
+    @BindView(R.id.set_bbcoupo)
+    TextView set_bbcoupo;
 
     private SettingPresenter settingPresenter;
     private SettingBean settingBean;
@@ -166,7 +169,7 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
     }
 
     @OnClick({R.id.toolbar_back, R.id.sett_head, R.id.set_phone, R.id.set_balance, R.id.set_wipecache, R.id.set_feedback,
-            R.id.set_about, R.id.set_sign_out, R.id.comment, R.id.bindwechat})
+            R.id.set_about, R.id.set_sign_out, R.id.comment, R.id.bindwechat, R.id.set_bbcoup})
     public void onViewClicked(View view) {
         Bundle bundle = new Bundle();
         switch (view.getId()) {
@@ -223,6 +226,10 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
             case R.id.bindwechat://绑定微信
                 Intent intent = new Intent(SettingsActivity.this, BinDingWXActivity.class);
                 startActivityForResult(intent, 1);
+                break;
+            case R.id.set_bbcoup://复制公众号
+                CopyTextUtil.CopyText(SettingsActivity.this, set_bbcoupo.getText().toString());
+                showToast("复制成功");
                 break;
         }
     }

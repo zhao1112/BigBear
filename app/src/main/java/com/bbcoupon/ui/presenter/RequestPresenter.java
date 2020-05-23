@@ -214,4 +214,12 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //获取用户设置页信息
+    @Override
+    public void onSettingMemberInfo(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onSettingMemberInfo(context, map, requestView);
+        }
+    }
+
 }

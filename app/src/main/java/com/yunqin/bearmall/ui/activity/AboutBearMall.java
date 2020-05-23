@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.util.CopyTextUtil;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.inter.CheckVersionCallBack;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
  * @create 2018/8/21
  * @Describe
  */
-public class AboutBearMall extends BaseActivity implements CheckVersionCallBack{
+public class AboutBearMall extends BaseActivity implements CheckVersionCallBack {
     @BindView(R.id.toolbar_back)
     ImageView toolbarBack;
     @BindView(R.id.toolbar_title)
@@ -32,6 +33,8 @@ public class AboutBearMall extends BaseActivity implements CheckVersionCallBack{
     TextView version;
     @BindView(R.id.chenck_version)
     TextView chenckVersion;
+    @BindView(R.id.bbcoupor)
+    TextView mBbcoupor;
 
     @Override
     public int layoutId() {
@@ -44,15 +47,19 @@ public class AboutBearMall extends BaseActivity implements CheckVersionCallBack{
         version.setText(CommonUtils.getVersionName(this));
     }
 
-    @OnClick({R.id.toolbar_back,R.id.chenck_version})
-    void click(View view){
-        switch (view.getId()){
+    @OnClick({R.id.toolbar_back, R.id.chenck_version, R.id.bbcoupor})
+    void click(View view) {
+        switch (view.getId()) {
             case R.id.toolbar_back:
                 finish();
                 break;
             case R.id.chenck_version:
                 showLoading();
-                new CheckForUpdateHelper(this).checkForUpdate(this,1);
+                new CheckForUpdateHelper(this).checkForUpdate(this, 1);
+                break;
+            case R.id.bbcoupor:
+                CopyTextUtil.CopyText(AboutBearMall.this, mBbcoupor.getText().toString());
+                showToast("复制成功");
                 break;
         }
     }
