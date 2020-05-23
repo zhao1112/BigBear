@@ -433,6 +433,7 @@ public class Item_Propaganda_Fragment extends BaseFragment implements RequestCon
             map.put("access_token", BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token());
         }
         map.put("categoryId", categoryid);
+        map.put("itemType", "1");
         map.put("page", page + "");
         map.put("pageSize", "10");
         RetrofitApi.request(getActivity(), RetrofitApi.createApi(Api.class).getBusinessMaterial(map), new RetrofitApi.IResponseListener() {
