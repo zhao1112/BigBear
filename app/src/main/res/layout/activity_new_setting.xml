@@ -152,7 +152,7 @@
                     android:layout_marginLeft="@dimen/dp_15"
                     android:layout_marginTop="@dimen/dp_18"
                     android:layout_marginBottom="@dimen/dp_18"
-                    android:text="修改手机号"
+                    android:text="手机号"
                     android:textColor="#ff272727"
                     android:textSize="@dimen/sp_14"/>
 
@@ -160,9 +160,9 @@
                     android:id="@+id/phone_mobie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:layout_toLeftOf="@id/one"
+                    android:layout_marginRight="@dimen/dp_15"
                     android:textColor="#ff272727"
                     android:textSize="@dimen/sp_12"/>
 
@@ -170,10 +170,10 @@
                     android:id="@+id/one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_15"
-                    android:src="@mipmap/sett_next"/>
+                    android:src="@mipmap/sett_next"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
