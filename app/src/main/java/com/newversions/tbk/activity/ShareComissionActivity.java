@@ -103,6 +103,11 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
 
 
         goodDetailBean = (GoodDetailEntity.GoodDetailBean) getIntent().getSerializableExtra(Constants.INTENT_KEY_DATA);
+        if (goodDetailBean == null) {
+            showToast("创建信息错误");
+            finish();
+            return;
+        }
         Map<String, String> map = new HashMap<>();
         map.put("goodsId", goodDetailBean.getItemId());
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).getShareMsg(map), new RetrofitApi.IResponseListener() {

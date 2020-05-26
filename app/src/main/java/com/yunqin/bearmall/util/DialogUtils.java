@@ -523,10 +523,12 @@ public class DialogUtils {
     }
 
     private static void setChildView(int i) {
-        View view = signInfoView.get(i);
-        ((ImageView) view.findViewById(R.id.img)).setImageResource(R.drawable.sign_in_img);
-        ((TextView) view.findViewById(R.id.text_day)).setText("已领取");
-        ((TextView) view.findViewById(R.id.bt_number_text_1)).setTextColor(Color.parseColor("#23A064"));
+        if (i >= 0 && i < signInfoView.size()) {
+            View view = signInfoView.get(i);
+            ((ImageView) view.findViewById(R.id.img)).setImageResource(R.drawable.sign_in_img);
+            ((TextView) view.findViewById(R.id.text_day)).setText("已领取");
+            ((TextView) view.findViewById(R.id.bt_number_text_1)).setTextColor(Color.parseColor("#23A064"));
+        }
     }
 
 

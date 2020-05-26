@@ -265,7 +265,9 @@ public class WindowUtils {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            popupWindow.dismiss();
+            if (popupWindow != null && popupWindow.isShowing()) {
+                popupWindow.dismiss();
+            }
         }
     };
 
@@ -273,7 +275,9 @@ public class WindowUtils {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            popupWindowOnly.dismiss();
+            if (popupWindowOnly != null && popupWindowOnly.isShowing()) {
+                popupWindowOnly.dismiss();
+            }
         }
     };
 

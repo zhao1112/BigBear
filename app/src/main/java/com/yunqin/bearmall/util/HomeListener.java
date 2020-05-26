@@ -48,10 +48,8 @@ public class HomeListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            Log.e("HomeBtnReceiver", action);
             if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
                 String reason = intent.getStringExtra("reason");
-                Log.e("HomeBtnReceiver", reason);
                 if (reason != null) {
                     if (null != mKeyFun) {
                         if (reason.equals("homekey")) {

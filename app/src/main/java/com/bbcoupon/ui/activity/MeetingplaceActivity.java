@@ -37,6 +37,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
@@ -331,14 +332,18 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onFail(Throwable e) {
-        MeetingInfor meetingInfor = new Gson().fromJson(e.getMessage(), MeetingInfor.class);
-        if (meetingInfor.getCode() == 3) {
-            AuntTao auntTao = new AuntTao();
-            auntTao.setContext(MeetingplaceActivity.this);
-            auntTao.AuntTabo();
-            finish();
+        try {
+            MeetingInfor meetingInfor = new Gson().fromJson(e.getMessage(), MeetingInfor.class);
+            if (meetingInfor.getCode() == 3) {
+                AuntTao auntTao = new AuntTao();
+                auntTao.setContext(MeetingplaceActivity.this);
+                auntTao.AuntTabo();
+                finish();
+            }
+            Log.e("Throwable", e.getMessage());
+        } catch (JsonSyntaxException e1) {
+            e1.printStackTrace();
         }
-        Log.e("Throwable", e.getMessage());
     }
 
     @Override

@@ -178,7 +178,9 @@ public class DownLoadImage {
                     break;
                 case DOWNLOADVALUE:
                     if (mOnDownLoadImage != null) {
-                        mOnDownLoadImage.downLoadValue(values[1]);
+                        if (values[1]!=null){
+                            mOnDownLoadImage.downLoadValue(values[1]);
+                        }
                     }
                     break;
                 case UPDATEVIEW:

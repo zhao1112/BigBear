@@ -108,6 +108,9 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
         mAmount.addTextChangedListener(textWatcher);
 
         mAlipPwd.setClickable(false);
+
+        pwdTvs = new ArrayList<>();
+        newPwdStringBuffer = new StringBuffer();
     }
 
     @Override
@@ -161,8 +164,6 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
             return;
         }
         //输入密码
-        pwdTvs = new ArrayList<>();
-        newPwdStringBuffer = new StringBuffer();
         PopupWindow popupWindow = WindowUtils.ShowVirtual(AlipayCashActivity.this, R.layout.item_alip_pwd,
                 R.style.bottom_animation, 2);
         pwd_1 = popupWindow.getContentView().findViewById(R.id.pwd_1);
@@ -264,8 +265,12 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
     private void setPwd(StringBuffer stringBuffer) {
         Withdrawal(stringBuffer);
         resetPwd();
-        for (int i = 0; i < stringBuffer.length(); i++) {
-            pwdTvs.get(i).setText("1");
+        try {
+            for (int i = 0; i < stringBuffer.length(); i++) {
+                pwdTvs.get(i).setText("1");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

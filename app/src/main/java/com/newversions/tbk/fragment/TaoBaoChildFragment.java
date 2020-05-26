@@ -132,10 +132,18 @@ public class TaoBaoChildFragment extends BaseFragment {
                     mTaoBaoAdapter.addData(taoBaoBeanNew.getData(), String.valueOf(type));
                     if (taoBaoBeanNew.getData().size() >= 10) {
                         hasMore = true;
-                        refreshLayout.setBottomView(new RefreshBottomView(getActivity()));
+                        try {
+                            refreshLayout.setBottomView(new RefreshBottomView(getActivity()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         hasMore = false;
-                        refreshLayout.setBottomView(new RefreshFooterView(getActivity()));
+                        try {
+                            refreshLayout.setBottomView(new RefreshFooterView(getActivity()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     mNulldata.setVisibility(View.GONE);
                 } else {

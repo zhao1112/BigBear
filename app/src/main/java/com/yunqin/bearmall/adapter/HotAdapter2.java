@@ -95,7 +95,9 @@ public class HotAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void onClick(View view) {
                 if (mOnClickProductSumItem2 != null) {
-                    mOnClickProductSumItem2.onItem(position, list.get(position));
+                    if (position >= 0 && position < list.size()) {
+                        mOnClickProductSumItem2.onItem(position, list.get(position));
+                    }
                 }
             }
         });

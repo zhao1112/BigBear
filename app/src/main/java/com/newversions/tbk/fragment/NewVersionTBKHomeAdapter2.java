@@ -108,7 +108,7 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
         if (!TextUtils.isEmpty(homeBeanList.getCenter_bg().getTarget())) {
             center_bg = homeBeanList.getCenter_bg().getTarget();
         }
-        if (!TextUtils.isEmpty(homeBeanList.getTop_bg().getTarget())){
+        if (!TextUtils.isEmpty(homeBeanList.getTop_bg().getTarget())) {
             top_bg = homeBeanList.getTop_bg().getTarget();
         }
         mSellWellCopywritingBean = homeBeanList.getSellWellCopywriting();
@@ -247,15 +247,19 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 NewTBHome.BannerThreeBean bannerThreeBean = (NewTBHome.BannerThreeBean) datas.get(position);
                 ImageHolder imageHolder = (ImageHolder) holder;
 
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                if (position % 2 == 0) {
-                    layoutParams.setMargins(30, 10, 10, 10);//4个参数按顺序分别是左上右下
-                }else {
-                    layoutParams.setMargins(10, 10, 30, 10);//4个参数按顺序分别是左上右下
-                }
+                try {
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    if (position % 2 == 0) {
+                        layoutParams.setMargins(30, 10, 10, 10);//4个参数按顺序分别是左上右下
+                    } else {
+                        layoutParams.setMargins(10, 10, 30, 10);//4个参数按顺序分别是左上右下
+                    }
 
-                imageHolder.baner_re.setLayoutParams(layoutParams);
+                    imageHolder.baner_re.setLayoutParams(layoutParams);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 Glide.with(context)
                         .setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.default_product_small))
@@ -365,13 +369,17 @@ public class NewVersionTBKHomeAdapter2 extends RecyclerView.Adapter<RecyclerView
                 //  2019/7/15 0015 商品
                 TBKHomeGoodsEntity.RecommendBean recommendBean = (TBKHomeGoodsEntity.RecommendBean) datas.get(position);
                 GoodsViewHolder goodsViewHolder = (GoodsViewHolder) holder;
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(goodsViewHolder.home_bg.getLayoutParams());
-                if (position % 2 == 0) {
-                    params.setMargins(5, 0, 15, 15);
-                } else {
-                    params.setMargins(15, 0, 5, 15);
+                try {
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(goodsViewHolder.home_bg.getLayoutParams());
+                    if (position % 2 == 0) {
+                        params.setMargins(5, 0, 15, 15);
+                    } else {
+                        params.setMargins(15, 0, 5, 15);
+                    }
+                    goodsViewHolder.home_bg.setLayoutParams(params);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                goodsViewHolder.home_bg.setLayoutParams(params);
                 goodsViewHolder.itemHomeProTitle.setText(recommendBean.getName());
                 goodsViewHolder.itemHomeXiaoliang.setText("月销" + recommendBean.getSellNum());
                 goodsViewHolder.itemHomeProYuanjia.setText("¥" + recommendBean.getPrice());
