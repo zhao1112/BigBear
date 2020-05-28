@@ -28,7 +28,6 @@ public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.UI view;
     private HomeContract.Model model;
 
-
     public HomePresenter(HomeContract.UI view) {
         this.view = view;
         this.model = new HomeFragmentModel();
@@ -57,7 +56,6 @@ public class HomePresenter implements HomeContract.Presenter {
 
     }
 
-
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     @Override
     public void onDestroy() {
@@ -65,43 +63,29 @@ public class HomePresenter implements HomeContract.Presenter {
         view = null;
     }
 
-
     private boolean isStart = true;
-
 
     @Override
     public synchronized void initAdData(Context context) {
-
-
         if (isStart) {
             isStart = false;
-
-
             if (BearMallAplication.getInstance().getUser() == null) {
                 // 未登录不展示
                 isStart = true;
                 return;
             }
-
             String mobile = BearMallAplication.getInstance().getUser().getData().getMember().getMobile();
-
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
             String value = simpleDateFormat.format(System.currentTimeMillis());
             String param = (String) SharedPreferencesManager.getParam(context, mobile + "home", "home");
-
             Log.e("TAG-HOME", "value = " + value);
             Log.e("TAG-HOME", "param = " + param);
-
-
             if (value.equals(param)) {
                 isStart = true;
                 return;
             }
-
-
             Map<String, String> mHashMap = new HashMap<>();
             mHashMap.put("adLocation", "0");
-
             RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getPopupAdInfo(mHashMap), new RetrofitApi.IResponseListener() {
                 @Override
                 public void onSuccess(String data) throws JSONException {
@@ -119,9 +103,6 @@ public class HomePresenter implements HomeContract.Presenter {
                     isStart = true;
                 }
             });
-
         }
-
-
     }
 }

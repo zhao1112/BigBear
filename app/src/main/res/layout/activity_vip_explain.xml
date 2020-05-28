@@ -272,6 +272,7 @@
                             android:paddingRight="@dimen/dp_5"
                             android:paddingBottom="@dimen/dp_2"
                             android:text="上级角色"
+                            android:visibility="gone"
                             android:textColor="#ff303030"
                             android:textSize="@dimen/sp_10"/>
 
@@ -281,7 +282,6 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_13"
                             android:layout_toRightOf="@id/vip_service_jue"
                             android:text="邀请码：7890"
                             android:textColor="#ff303030"

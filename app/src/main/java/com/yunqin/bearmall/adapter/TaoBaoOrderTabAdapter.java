@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import com.newversions.tbk.fragment.TaoBaoChildFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author Master
@@ -19,7 +22,7 @@ public class TaoBaoOrderTabAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
     private static String[] mTabs;
-
+    private List<TaoBaoChildFragment> mTaoBao = new ArrayList<>();
 
     public TaoBaoOrderTabAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -30,8 +33,8 @@ public class TaoBaoOrderTabAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.d("TAGaa", "getItem: ___________"+position);
         TaoBaoChildFragment testFragment = new TaoBaoChildFragment();
+        mTaoBao.add(testFragment);
         Bundle bundle = new Bundle();
         bundle.putString("title", mTabs[position]);
         testFragment.setArguments(bundle);
@@ -56,4 +59,14 @@ public class TaoBaoOrderTabAdapter extends FragmentPagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
 
     }
+
+    public void setOrder(String order) {
+        if (mTaoBao != null && mTaoBao.size() > 0) {
+            for (int i = 0; i < mTaoBao.size(); i++) {
+                TaoBaoChildFragment taoBaoChildFragment = mTaoBao.get(i);
+                taoBaoChildFragment.setOrder(order);
+            }
+        }
+    }
+
 }

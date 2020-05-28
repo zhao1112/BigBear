@@ -126,7 +126,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         mAssociationAdapter.setOnAssociationContent(new AssociationAdapter.OnAssociationContent() {
             @Override
             public void setConten(String conten) {
-                ProductSumActivity2.startProductSumActivity2(SearchActivity.this, conten, 8, conten);
+                ProductSumActivity2.startProductSumActivity2(SearchActivity.this, conten, 8, conten,"1");
                 assemblyData(conten);
             }
         });
@@ -137,7 +137,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         mListView.setOnTagClickListener(text -> {
             mEditText.setText(text);
             mEditText.setSelection(text.length());
-            ProductSumActivity2.startProductSumActivity2(this, text, 8, text);
+            ProductSumActivity2.startProductSumActivity2(this, text, 8, text,"1");
         });
     }
 
@@ -174,7 +174,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             case R.id.reset_load_data:
                 // TODO 重试...
                 if (mEditText.getText().toString().length() > 0) {
-                    ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
+                    ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8, mEditText.getText().toString(),"1");
                 } else {
                     presenter.start(this);
                 }
@@ -187,7 +187,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                 break;
             case R.id.search:
                 if (mEditText.getText().toString().length() > 0) {
-                    ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8, mEditText.getText().toString());
+                    ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8, mEditText.getText().toString(),"1");
                     assemblyData(mEditText.getText().toString());
                 }
                 hiddenKeyboard();
@@ -298,7 +298,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
         mEditText.setText(index);
         mEditText.setSelection(index.length());
         assemblyData(index);
-        ProductSumActivity2.startProductSumActivity2(this, index, 8, index);
+        ProductSumActivity2.startProductSumActivity2(this, index, 8, index,"1");
     }
 
     @Override
@@ -316,7 +316,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
             mEditText.setText(text);
             mEditText.setSelection(text.length());
             assemblyData(text);
-            ProductSumActivity2.startProductSumActivity2(this, text, 8, text);
+            ProductSumActivity2.startProductSumActivity2(this, text, 8, text,"1");
         });
     }
 
@@ -377,7 +377,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, SearchA
                     // TODO 发送请求
                     if (mEditText.getText().toString().length() > 0) {
                         ProductSumActivity2.startProductSumActivity2(this, mEditText.getText().toString(), 8,
-                                mEditText.getText().toString());
+                                mEditText.getText().toString(),"1");
                         assemblyData(mEditText.getText().toString());
                     }
                     hiddenKeyboard();

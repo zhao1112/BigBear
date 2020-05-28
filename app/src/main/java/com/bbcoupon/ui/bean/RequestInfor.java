@@ -12,6 +12,15 @@ public class RequestInfor {
     private String value;
     private String data;
     private boolean isBindBankCard;
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public boolean getIsBindBankCard() {
         return isBindBankCard;

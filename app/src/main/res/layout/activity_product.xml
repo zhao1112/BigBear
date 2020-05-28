@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
         android:background="@android:color/white">
 
         <ImageView
@@ -46,6 +47,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_6"
                 android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginRight="@dimen/dp_20"
                 android:layout_marginBottom="@dimen/dp_4"
                 android:background="@drawable/bg_item_search"
                 android:gravity="center_vertical"
@@ -53,10 +55,13 @@
 
                 <TextView
                     android:id="@+id/title_tx"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_7"
-                    android:text="智利干露"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1"
                     android:textColor="#ffffffff"
                     android:textSize="14sp"/>
 
@@ -142,28 +147,57 @@
             android:background="#ffe1e1e1"/>
 
         <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-            android:id="@+id/n_v_refreshLayout"
+            android:id="@+id/refresh_vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rcl"
+                android:id="@+id/recycle_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffffff"
-                android:visibility="gone"/>
+                android:background="#ffffff"/>
 
 
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
         <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-            android:id="@+id/n_v_refreshLayout2"
+            android:id="@+id/refresh_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rc"
+                android:id="@+id/recycle_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"/>
+
+
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/list_refresh_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_recycle_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"/>
+
+
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/list_refresh_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_recycle_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#ffffff"/>
@@ -172,6 +206,5 @@
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

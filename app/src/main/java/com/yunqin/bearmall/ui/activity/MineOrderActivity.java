@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.newversions.tbk.fragment.MyOrderFragment;
 import com.newversions.tbk.fragment.PddOrderFragment;
@@ -19,10 +16,6 @@ import com.newversions.tbk.fragment.TBKOrderFragment;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.StarActivityUtil;
-
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.function.Consumer;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,10 +33,6 @@ import static com.yunqin.bearmall.ui.activity.MineOrderActivity.FragmentType.AWA
  */
 public class MineOrderActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar_title)
-    TextView mToolBatTitle;
-    @BindView(R.id.toolbar_search_img)
-    ImageView mImageView;
     @BindView(R.id.rb_my_order)
     RadioButton rbMyOrder;
     @BindView(R.id.rb_tb_order)
@@ -56,9 +45,6 @@ public class MineOrderActivity extends BaseActivity {
     private Fragment nowFragment;
     private MyOrderFragment myOrderFragment;
     private TBKOrderFragment tbkOrderFragment;
-
-    public static final int TYPE_MY_ORDER = 1;
-    public static final int TYPE_TAOBAO_ORDER = 2;
     private PddOrderFragment mPddOrderFragment;
 
 
@@ -77,8 +63,6 @@ public class MineOrderActivity extends BaseActivity {
         bundle.putInt("index", type);
         StarActivityUtil.starActivity(activity, MineOrderActivity.class, bundle);
     }
-
-    private int index = 0;
 
     public static void openMineOrderActivity(Activity activity, boolean type) {
         Intent intent = new Intent(activity, MineOrderActivity.class);

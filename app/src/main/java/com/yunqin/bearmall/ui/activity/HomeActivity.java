@@ -186,7 +186,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
 
     private void getSpecInvitationPageInfo() {
-
         RetrofitApi.request4(this, RetrofitApi.createApi(Api.class).getSpecInvitationPageInfo(), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {

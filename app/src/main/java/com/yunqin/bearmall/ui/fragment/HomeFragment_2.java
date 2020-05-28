@@ -225,7 +225,6 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
         if (popBean.getData() != null && popBean.getData().getPopupAd() != null
                 && popBean.getData().getPopupAd().getImg() != null) {
             SharedPreferencesManager.setParam(getActivity(), key, value);
-
             new ICustomDialog.Builder(getActivity())
                     // 设置布局
                     .setLayoutResId(R.layout.dialog_first_ad)

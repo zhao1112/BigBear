@@ -1539,5 +1539,12 @@ public interface Api {
     @POST("api/basic/getRsaPublickey")
     Observable<String> onRsaPublickey();
 
+    /**
+     * 新超级搜索
+     */
+    @FormUrlEncoded
+    @POST("api/commodity/superSearch")
+    Observable<String> onSuperSearch(@FieldMap() Map<String, String> params);
+
 }
 

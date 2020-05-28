@@ -30,6 +30,7 @@ public class ConstantUtil {
     public static final String download = "https://a.app.qq.com/o/simple.jsp?pkgname=com.bbearmall.app";//下载app链接
     public static final String DOUBLING_RULE = "1";//佣金翻倍规则
     public static final String AUTHORIZATION_SUCCESSFUL = "authorization_successful";//授权记录
+    public static final String Search_Type = "Search_Type";
 
 
     // 两次点击按钮之间的点击间隔不能少于1000毫秒

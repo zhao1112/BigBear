@@ -3,6 +3,7 @@ package com.bbcoupon.ui.model;
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.AlipayInfor;
@@ -11,11 +12,13 @@ import com.bbcoupon.ui.bean.CustomInfor;
 import com.bbcoupon.ui.bean.MeetingInfor;
 import com.bbcoupon.ui.bean.MeetingShareInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
+import com.bbcoupon.ui.bean.SearchInfor;
 import com.bbcoupon.ui.bean.TutorInfor;
 import com.bbcoupon.ui.bean.WXInfor;
 import com.bbcoupon.ui.bean.WithdrawalInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.google.gson.Gson;
+import com.newversions.tbk.activity.ProductSumActivity2;
 import com.newversions.tbk.entity.ShareGoodsEntity;
 import com.newversions.view.DrawMoneyDialog;
 import com.newversions.view.ICustomDialog;
@@ -23,6 +26,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.MemberBeanResponse;
+import com.yunqin.bearmall.bean.SearchData;
 import com.yunqin.bearmall.bean.SettingBean;
 import com.yunqin.bearmall.ui.activity.BalanceWithdrawalWxActivity;
 import com.yunqin.bearmall.ui.activity.PhoneLoginActivity;
@@ -687,6 +691,88 @@ public class RequestModel implements RequestContract.RequestModel {
                     requestView.onSuccess(settingBean);
                 }
 
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //新超级搜索
+    @Override
+    public void onSuperSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onSuperSearch(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                try {
+                    JSONObject object = new JSONObject(data);
+                    int type = object.optInt("type");
+                    if (type == 1) {
+                        Log.e("onSuperSearch", data);
+                        SearchInfor searchInfor = new Gson().fromJson(data, SearchInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(searchInfor);
+                        }
+                    }
+                    if (type == 2) {
+                        Log.e("onSuperSearch", data);
+                        RequestInfor requestInfor = new Gson().fromJson(data, RequestInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(requestInfor);
+                        }
+                    }
+                    if (type == 3) {
+                        Log.e("onSuperSearch", data);
+                        BaseInfor baseInfor = new Gson().fromJson(data, BaseInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(baseInfor);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                Log.e("onSuperSearch", "onNotNetWork");
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                Log.e("onSuperSearch", e.getMessage());
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //搜索接口
+    @Override
+    public void onKeywordSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).KeywordSearch(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                Log.e("searchData", data );
+                SearchData searchData = new Gson().fromJson(data, SearchData.class);
+                if (requestView != null) {
+                    requestView.onSuccess(searchData);
+                }
             }
 
             @Override

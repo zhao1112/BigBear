@@ -52,7 +52,6 @@ import java.util.Map;
  * 统一封装广告点击事件
  */
 public class IAdvClick {
-
     public static void click(Context context, int type, int skipType, long sourceId, String adUrl) {
         Log.i("IAdvClick", "type: " + type + "\n" + "skipType: " + skipType + "\n" + "sourceId: " + sourceId + "\n" + adUrl);
         if (type == 0) {
@@ -111,54 +110,39 @@ public class IAdvClick {
             }
         } else if (type == 7) {
             // TODO 充值中心
-
             if (BearMallAplication.getInstance().getUser() == null) {
-
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
                 return;
             }
             context.startActivity(new Intent(context, ChargeActivity.class));
-
-
         } else if (type == 8) {
             // TODO 会员中心
             if (BearMallAplication.getInstance().getUser() == null) {
-
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
                 return;
             }
-
             VipCenterActivity.startVipCenterActivity(context, "", "");
         } else if (type == 9) {
             // TODO 信用卡中心
-
             if (BearMallAplication.getInstance().getUser() == null) {
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
                 return;
             }
-
             String token = BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token();
             String url = BuildConfig.BASE_URL + "/view/getCreditCardBankPage?access_token=" + token;
-
             CardListWebActivity.startActivity(context, url, "信用卡申请");
-
         } else if (type == 10) {
-
-
             HashMap map = new HashMap();
             map.put("deviceType", "安卓");
             map.put("device", DeviceUtils.getUniqueId(context));
-
             RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getLoanSupermarketData(map), new RetrofitApi.IResponseListener() {
-
                 @Override
                 public void onSuccess(String data) throws JSONException {
                     LoanBean loanBean = new Gson().fromJson(data, LoanBean.class);
                     LoanActivity.startLoanActivity(context, loanBean.getData().getLinkSite(), "我要借钱");
-
                 }
 
                 @Override
@@ -172,31 +156,22 @@ public class IAdvClick {
                 }
             });
 
-
         } else if (type == 11) {
-
             if (BearMallAplication.getInstance().getUser() == null) {
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
                 return;
             }
-
-
             while (!(BearMallAplication.getInstance().getActivityStack().getTopAct() instanceof HomeActivity)) {
                 BearMallAplication.getInstance().getActivityStack().finishActivity(BearMallAplication.getInstance().getActivityStack().getTopAct());
             }
-
             EventBus.getDefault().post(new ChangeFragment(2));
-
-
         } else if (type == 12) {
             if (BearMallAplication.getInstance().getUser() == null) {
-
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
                 return;
             }
-
             VipCenterActivity.startVipCenterActivity(context, "", "");
         } else if (type == 13) {
             if (!TextUtils.isEmpty(adUrl)) {

@@ -71,6 +71,10 @@ public class RequestContract {
         void onRsaPublickey(Context context);
 
         void onSettingMemberInfo(Context context, Map<String, String> map);
+
+        void onSuperSearch(Context context, Map<String, String> map);
+
+        void onKeywordSearch(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
@@ -121,5 +125,9 @@ public class RequestContract {
         void onRsaPublickey(Context context, RequestContract.RequestView requestView);
 
         void onSettingMemberInfo(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onSuperSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onKeywordSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

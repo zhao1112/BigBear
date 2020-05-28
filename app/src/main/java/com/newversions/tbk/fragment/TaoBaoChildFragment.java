@@ -51,6 +51,7 @@ public class TaoBaoChildFragment extends BaseFragment {
     private boolean hasMore = true;
     private TaoBaoAdapter mTaoBaoAdapter;
     private String title;
+    private String orderType = "1";
 
     @Override
     public int layoutId() {
@@ -63,10 +64,9 @@ public class TaoBaoChildFragment extends BaseFragment {
         Log.e("#dong", "onResume: 4");
     }
 
+
     @Override
     public void init() {
-        Log.d("TaoBaoAdapter", "init: ------");
-        mNulldata.setVisibility(View.GONE);
 
         Bundle arguments = getArguments();
         title = arguments.getString("title");
@@ -91,14 +91,15 @@ public class TaoBaoChildFragment extends BaseFragment {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 page = 1;
                 mTaoBaoAdapter.clearData();
-                getTBOrder();
+                Log.e("orderType", "onRefresh: " + orderType);
+                getTBOrder(orderType);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refresh) {
                 if (hasMore) {
                     page++;
-                    getTBOrder();
+                    getTBOrder(orderType);
                 } else {
                     refreshLayout.finishRefreshing();
                     refreshLayout.finishLoadmore();
@@ -115,15 +116,23 @@ public class TaoBaoChildFragment extends BaseFragment {
                 }
             }
         });
-        getTBOrder();
+
+        getTBOrder(orderType);
     }
 
-    private void getTBOrder() {
+    public void setOrder(String orderType) {
+        this.orderType = orderType;
+        refreshLayout.startRefresh();
+    }
+
+    private void getTBOrder(String orderType) {
         showLoading();
         HashMap<String, String> map = new HashMap<>();
         map.put("page_size", String.valueOf(pageSize));
         map.put("page_number", String.valueOf(page));
         map.put("taoOrderStatus", String.valueOf(type));
+        map.put("orderType", orderType);
+        Log.e("orderType", orderType);
         RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).TaoOrderList(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
@@ -159,7 +168,6 @@ public class TaoBaoChildFragment extends BaseFragment {
                 refreshLayout.finishRefreshing();
                 refreshLayout.finishLoadmore();
                 hiddenLoadingView();
-                mNulldata.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -167,7 +175,6 @@ public class TaoBaoChildFragment extends BaseFragment {
                 refreshLayout.finishRefreshing();
                 refreshLayout.finishLoadmore();
                 hiddenLoadingView();
-                mNulldata.setVisibility(View.VISIBLE);
             }
         });
     }

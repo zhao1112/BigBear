@@ -222,4 +222,20 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //新超级搜索
+    @Override
+    public void onSuperSearch(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onSuperSearch(context, map, requestView);
+        }
+    }
+
+    //搜索接口
+    @Override
+    public void onKeywordSearch(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onKeywordSearch(context, map, requestView);
+        }
+    }
+
 }

@@ -53,6 +53,7 @@ public class PddChildFragment extends BaseFragment {
     private boolean hasMore = true;
     private PddAdapter mTaoBaoAdapter;
     private String title;
+    private String orderType = "1";
 
     @Override
     public int layoutId() {
@@ -93,14 +94,14 @@ public class PddChildFragment extends BaseFragment {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 page = 1;
                 mTaoBaoAdapter.clearData();
-                getTBOrder();
+                getTBOrder(orderType);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refresh) {
                 if (hasMore) {
                     page++;
-                    getTBOrder();
+                    getTBOrder(orderType);
                 } else {
                     refreshLayout.finishRefreshing();
                     refreshLayout.finishLoadmore();
@@ -117,15 +118,17 @@ public class PddChildFragment extends BaseFragment {
                 }
             }
         });
-        getTBOrder();
+        getTBOrder(orderType);
     }
 
-    private void getTBOrder() {
+    private void getTBOrder(String orderType) {
         showLoading();
         HashMap<String, String> map = new HashMap<>();
         map.put("pageSize", String.valueOf(pageSize));
         map.put("page", String.valueOf(page));
         map.put("Status", String.valueOf(type));
+        map.put("orderType", orderType);
+        Log.e("orderType", orderType);
         RetrofitApi.request(getContext(), RetrofitApi.createApi(Api.class).getPddOrderList(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
@@ -166,6 +169,11 @@ public class PddChildFragment extends BaseFragment {
                 mNulldata.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    public void setOrder(String orderType) {
+        this.orderType = orderType;
+        refreshLayout.startRefresh();
     }
 
 

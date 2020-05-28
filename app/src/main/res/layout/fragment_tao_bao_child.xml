@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F1F1F1">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#F1F1F1"
+              android:orientation="vertical">
 
-    <include
-        layout="@layout/no_video_layout"
-        android:visibility="gone"/>
+    <include layout="@layout/no_video_layout"/>
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
@@ -20,4 +19,5 @@
 
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
-</RelativeLayout>
+
+</LinearLayout>

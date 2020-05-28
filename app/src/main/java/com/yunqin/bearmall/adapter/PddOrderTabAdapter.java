@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import com.newversions.tbk.fragment.PddChildFragment;
 import com.newversions.tbk.fragment.TaoBaoChildFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author Master
@@ -20,6 +23,7 @@ public class PddOrderTabAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
     private static String[] mTabs;
+    private List<PddChildFragment> mTaoBao = new ArrayList<>();
 
 
     public PddOrderTabAdapter(Context context, FragmentManager fragmentManager) {
@@ -33,6 +37,7 @@ public class PddOrderTabAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Log.d("TAGaa", "getItem: ___________" + position);
         PddChildFragment testFragment = new PddChildFragment();
+        mTaoBao.add(testFragment);
         Bundle bundle = new Bundle();
         bundle.putString("title", mTabs[position]);
         testFragment.setArguments(bundle);
@@ -56,5 +61,14 @@ public class PddOrderTabAdapter extends FragmentPagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
+    }
+
+    public void setOrder(String order) {
+        if (mTaoBao != null && mTaoBao.size() > 0) {
+            for (int i = 0; i < mTaoBao.size(); i++) {
+                PddChildFragment pddChildFragment = mTaoBao.get(i);
+                pddChildFragment.setOrder(order);
+            }
+        }
     }
 }

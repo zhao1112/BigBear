@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_165"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_40"
+                android:src="@mipmap/search_find"/>
+
+            <TextView
+                android:id="@+id/goodes_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_40"
+                android:text=" 没有找到相关的宝贝，为您推荐更多相似宝贝"
+                android:textColor="#ff555555"
+                android:textSize="@dimen/sp_12"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sp_15">
+
+            <View
+                android:layout_width="@dimen/dp_83"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_17"
+                android:layout_toLeftOf="@id/tuijian"
+                android:background="#ffcccccc"/>
+
+            <TextView
+                android:id="@+id/tuijian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="为你推荐"
+                android:textColor="#ff272727"
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="@dimen/dp_83"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_17"
+                android:layout_toRightOf="@id/tuijian"
+                android:background="#ffcccccc"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

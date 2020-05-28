@@ -1,25 +1,12 @@
 package com.yunqin.bearmall.ui.fragment;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.os.Build;
 import android.support.annotation.IntDef;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.view.Window;
-import android.widget.LinearLayout;
 
+import com.bbcoupon.ui.fragment.MakeFragment;
 import com.yunqin.bearmall.R;
-import com.yunqin.bearmall.ui.fragment.BusinessFragment;
-import com.yunqin.bearmall.ui.fragment.GuideWithVideoFragment;
-import com.yunqin.bearmall.ui.fragment.HomeFragment;
-import com.yunqin.bearmall.ui.fragment.HomeFragment_2;
-import com.yunqin.bearmall.ui.fragment.MakeMoneyFragment;
-import com.yunqin.bearmall.ui.fragment.MineFragment;
-import com.yunqin.bearmall.ui.fragment.MineNewFragment;
-import com.yunqin.bearmall.ui.fragment.ZeorExchangeFragment;
-import com.yunqin.bearmall.ui.fragment.ZeroGoodsFragment;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.StatuBarUtils;
 
@@ -43,7 +30,7 @@ public class SwitchFragment {
 
     private HomeFragment_2 mHomeFragment;
     private BusinessFragment mRecommendFragment;
-    private MakeMoneyFragment mMakeMoneyFragment;
+    private MakeFragment mMakeMoneyFragment;
     // TODO: 2019/7/15 0015 替换成0元兑
     private ZeroGoodsFragment mTrolleyFragment;
     private MineFragment mMineFragment;
@@ -109,7 +96,7 @@ public class SwitchFragment {
                 break;
             case FRAGMENT_TYPE.APP_INFORMATION:
                 if (mMakeMoneyFragment == null) {
-                    mMakeMoneyFragment = new MakeMoneyFragment();
+                    mMakeMoneyFragment = new MakeFragment();
                 }
                 if (!mMakeMoneyFragment.isAdded()) {
                     transaction.add(R.id.content, mMakeMoneyFragment);
@@ -118,7 +105,7 @@ public class SwitchFragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.show(mMakeMoneyFragment);
                 transaction.commitAllowingStateLoss();
-                setStatusBarColor(R.color.white, true);
+                StatuBarUtils.setTranslucentStatus(activity);
                 break;
             case FRAGMENT_TYPE.APP_TROLLEY:
                 if (zeorExchangeFragment == null) {
