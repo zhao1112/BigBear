@@ -8,7 +8,9 @@ import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.AlipayInfor;
 import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.ContentInfor;
 import com.bbcoupon.ui.bean.CustomInfor;
+import com.bbcoupon.ui.bean.MakeInfor;
 import com.bbcoupon.ui.bean.MeetingInfor;
 import com.bbcoupon.ui.bean.MeetingShareInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
@@ -26,6 +28,7 @@ import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.bean.MemberBeanResponse;
+import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.bean.SearchData;
 import com.yunqin.bearmall.bean.SettingBean;
 import com.yunqin.bearmall.ui.activity.BalanceWithdrawalWxActivity;
@@ -727,7 +730,7 @@ public class RequestModel implements RequestContract.RequestModel {
                     }
                     if (type == 2) {
                         Log.e("onSuperSearch", data);
-                        RequestInfor requestInfor = new Gson().fromJson(data, RequestInfor.class);
+                        ContentInfor requestInfor = new Gson().fromJson(data, ContentInfor.class);
                         if (requestView != null) {
                             requestView.onSuccess(requestInfor);
                         }
@@ -789,6 +792,64 @@ public class RequestModel implements RequestContract.RequestModel {
                 }
             }
         });
+    }
+
+    //赚钱中心奖励信息新
+    @Override
+    public void onTaskAllRewardNew(Context context, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onTaskAllRewardNew(), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) throws JSONException {
+                Log.e("searchData", data );
+                MakeInfor makeInfor = new Gson().fromJson(data, MakeInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(makeInfor);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //消息数量
+    @Override
+    public void onMessageCount(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getUnreadMessageCount(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
     }
 
 }

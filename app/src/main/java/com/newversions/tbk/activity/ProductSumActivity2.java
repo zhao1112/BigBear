@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bbcoupon.adapter.SearchListHorizontalAdapter;
-import com.bbcoupon.adapter.SearchListVerticalAdapter;
+import com.bbcoupon.ui.adapter.SearchListHorizontalAdapter;
+import com.bbcoupon.ui.adapter.SearchListVerticalAdapter;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.ConstantUtil;

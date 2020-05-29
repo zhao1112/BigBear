@@ -1546,5 +1546,11 @@ public interface Api {
     @POST("api/commodity/superSearch")
     Observable<String> onSuperSearch(@FieldMap() Map<String, String> params);
 
+    /**
+     * 赚钱中心奖励信息（新）
+     */
+    @POST("api/dailytask/getDailyTaskAllRewardNew")
+    Observable<String> onTaskAllRewardNew();
+
 }
 

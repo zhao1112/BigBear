@@ -99,4 +99,6 @@
    <color name="sex_line_true">#ff272727</color>
    <color name="sex_line_false">#ff999999</color>
 
+    <color name="make_true">#ff139e65</color>
+
 </resources>

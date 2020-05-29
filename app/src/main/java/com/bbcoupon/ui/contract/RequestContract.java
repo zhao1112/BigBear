@@ -75,6 +75,10 @@ public class RequestContract {
         void onSuperSearch(Context context, Map<String, String> map);
 
         void onKeywordSearch(Context context, Map<String, String> map);
+
+        void onTaskAllRewardNew(Context context);
+
+        void onMessageCount(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
@@ -129,5 +133,9 @@ public class RequestContract {
         void onSuperSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView);
 
         void onKeywordSearch(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onTaskAllRewardNew(Context context, RequestContract.RequestView requestView);
+
+        void onMessageCount(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

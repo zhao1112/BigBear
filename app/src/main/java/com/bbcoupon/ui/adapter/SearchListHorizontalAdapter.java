@@ -1,4 +1,4 @@
-package com.bbcoupon.adapter;
+package com.bbcoupon.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -20,8 +20,8 @@ import com.yunqin.bearmall.bean.SearchData;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bbcoupon.adapter.SearchListHorizontalAdapter.FRAGMENT_TYPE.VIEW_TYPE_ACTIVE_TITLE;
-import static com.bbcoupon.adapter.SearchListHorizontalAdapter.FRAGMENT_TYPE.VIEW_TYPE_IMAGE_FOUR;
+import static com.bbcoupon.ui.adapter.SearchListHorizontalAdapter.FRAGMENT_TYPE.VIEW_TYPE_ACTIVE_TITLE;
+import static com.bbcoupon.ui.adapter.SearchListHorizontalAdapter.FRAGMENT_TYPE.VIEW_TYPE_IMAGE_FOUR;
 
 public class SearchListHorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

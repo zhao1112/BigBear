@@ -16,7 +16,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_24"
             android:layout_marginRight="@dimen/dp_10"
-            android:lineSpacingExtra="@dimen/dp_8"
+            android:lineSpacingExtra="@dimen/dp_3"
             android:text="小红书网红氨基酸洗发水护发素沐浴露持久留香男女柔顺去屑无硅油"
             android:textColor="#ff272727"
             android:textScaleX="1"

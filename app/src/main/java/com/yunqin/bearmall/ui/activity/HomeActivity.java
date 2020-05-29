@@ -75,7 +75,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
     private static HomeActivity homeActivity;
     private SwitchFragment switchFragment;
     private Map<String, String> mMap;
-    private static final String first = "INITIALIZATION";
     private boolean isStart = true;
 
     @Override
@@ -155,16 +154,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
 
         if (BearMallAplication.getInstance().getUser() == null) {
             LoginActivity.starActivity(HomeActivity.this);
-        }
-
-        /**
-         * 推啊
-         * 上报初始信息
-         * */
-        boolean isFirst = (boolean) SharedPreferencesHelper.get(HomeActivity.this, first, false);
-        if (!isFirst) {
-            initTuias();
-            SharedPreferencesHelper.put(HomeActivity.this, first, true);
         }
 
         /**
@@ -378,126 +367,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.UI {
         super.onSaveInstanceState(outState);
     }
 
-    /**
-     * 推啊上报
-     */
-    private void initTuias() {
-        RetrofitApi.request5(HomeActivity.this, RetrofitApi.contenApi(Api.class, "http://pv.sohu.com/").getip(),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) throws JSONException {
-
-                        String ip = null;
-                        try {
-                            int satrtIndex = data.indexOf("{");
-                            int endIndex = data.indexOf("}");
-                            String json = data.substring(satrtIndex, endIndex + 1);
-                            JSONObject jo = new JSONObject(json);
-                            ip = jo.getString("cip");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
-                            String imei = DeviceConfig.getImei(HomeActivity.this);
-                            String md5Value = null;
-                            try {
-                                md5Value = UpLoadHeadImage.getMd5Value(imei);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, ip);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onNotNetWork() {
-                        try {
-                            String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
-                            String imei = DeviceConfig.getImei(HomeActivity.this);
-                            String md5Value = null;
-                            try {
-                                md5Value = UpLoadHeadImage.getMd5Value(imei);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
-                            initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(Throwable e) {
-                        try {
-                            String userAgent = UpLoadHeadImage.getUserAgent(HomeActivity.this);
-                            String imei = DeviceConfig.getImei(HomeActivity.this);
-                            String md5Value = null;
-                            try {
-                                md5Value = UpLoadHeadImage.getMd5Value(imei);
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
-                            }
-                            String inNetIp = UpLoadHeadImage.getInNetIp(HomeActivity.this);
-                            initsTuia(ConstUtils.TUIA_ADVERTKEY, "2", userAgent, md5Value, inNetIp);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    /**
-     * 推啊上报
-     *
-     * @param advertKey 推啊广告秘钥
-     * @param subType   分类：1. 安装 APP，2. 启动 APP，3. 注册账号，4. 激 活账号，5. 登录账号，6. 用户付费，7. 用户进件，8. 用户完件，9. 用户签收， 10. 用户拒签
-     * @param ua        header 中的 user- agent 设置为标准格式
-     * @param device    使用 md5 小写 32 位的加密方式
-     * @param ip        ip 获取，ip 必须是客户端的外网 ip
-     */
-    public void initsTuia(String advertKey, String subType, String ua, String device, String ip) {
-        Log.i("tuiaip", "ip --> " + ip);
-        try {
-            mMap = new HashMap<>();
-            OkHttpClient okHttpClient = new OkHttpClient();
-            final Request request = new Request.Builder()
-                    .url(ConstUtils.TUIA_URL + "?device=" + device + "&advertKey=" + advertKey + "&subType=" + subType + "&ip=" + ip +
-                            "&ua=" + ua)
-                    .build();
-            Call call = okHttpClient.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    mMap.put("tuia_id", "000");
-                    RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        if (jsonObject.optString("a_oId") != null && !TextUtils.isEmpty(jsonObject.optString("a_oId"))) {
-                            mMap.put("tuia_id", jsonObject.optString("a_oId"));
-                            RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
-                        } else {
-                            mMap.put("tuia_id", "000");
-                            RetrofitApi.request(HomeActivity.this, RetrofitApi.createApi(Api.class).getInitMessage(mMap), null);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }

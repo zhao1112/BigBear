@@ -24,6 +24,7 @@ import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
+import com.yunqin.bearmall.eventbus.ChangeFragment;
 import com.yunqin.bearmall.ui.activity.ChargeActivity;
 import com.yunqin.bearmall.ui.activity.DailyTasksActivity;
 import com.yunqin.bearmall.ui.activity.LimitedActivity;
@@ -38,6 +39,7 @@ import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.ConstantScUtil;
 import com.yunqin.bearmall.util.StarActivityUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,11 +66,6 @@ public class BannerClicker {
             case 3://单品
                 GoodsDetailActivity.startGoodsDetailActivity(activity, target, Constants.COMMISSION_TYPE_ONE);
                 break;
-            case 10://99
-            case 11://抢购
-            case 12://大额
-                ProductSumActivity.startProductSumActivity(activity, target + "", 3, title);
-                break;
             case 13://充值
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(activity);
@@ -92,10 +89,10 @@ public class BannerClicker {
                     LoginActivity.starActivity(activity);
                     return;
                 }
-                DailyTasksActivity.starActivity(activity);
+                EventBus.getDefault().post(new ChangeFragment(2));
                 break;
             case 16://0购
-                activity.startActivity(new Intent(activity, ZeorExchangeActivity.class));
+                EventBus.getDefault().post(new ChangeFragment(3));
                 break;
             case 17://邀请
                 if (BearMallAplication.getInstance().getUser() == null) {
@@ -156,15 +153,6 @@ public class BannerClicker {
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
                 break;
-            case 20://0元兑
-                if (BearMallAplication.getInstance().getUser() == null) {
-                    LoginActivity.starActivity(activity);
-                    return;
-                }
-                WebActivity.startWebActivity(activity, ConstUtils.WEB_TYPE, target, title);
-                //TODO[banner点击]
-                ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");
-                break;
             case 21://店铺
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(activity);
@@ -214,7 +202,7 @@ public class BannerClicker {
                 req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
                 api.sendReq(req);
                 break;
-            case 111:
+            case 111://主题会场
                 bundle.putString("MEETINGPLACE", target);
                 MeetingplaceActivity.openMeetingplaceActivity(activity, bundle);
                 break;

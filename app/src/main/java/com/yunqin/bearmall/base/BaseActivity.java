@@ -4,9 +4,7 @@ import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.ContentInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.bean.SearchInfor;
 import com.bbcoupon.ui.contract.RequestContract;
@@ -36,7 +35,6 @@ import com.google.gson.Gson;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.activity.GoodsDetailActivity;
 import com.newversions.tbk.activity.ProductSumActivity2;
-import com.newversions.tbk.utils.SharedPreferencesUtils;
 import com.newversions.tbk.utils.StringUtils;
 import com.newversions.tbk.view.SearchDialog;
 import com.umeng.analytics.MobclickAgent;
@@ -44,18 +42,11 @@ import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
-import com.yunqin.bearmall.bean.SuperSearch;
-import com.yunqin.bearmall.ui.activity.BCMessageActivity;
-import com.yunqin.bearmall.ui.activity.HomeActivity;
-import com.yunqin.bearmall.ui.activity.SearchActivity;
-import com.yunqin.bearmall.ui.activity.SuperSearchActivity;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.AuntTao;
-import com.yunqin.bearmall.util.CornerTransform;
 import com.yunqin.bearmall.util.SharedPreferencesHelper;
 import com.yunqin.bearmall.util.StatuBarUtils;
 import com.yunqin.bearmall.widget.LoadingView;
-import com.yunqin.bearmall.widget.OpenGoodsDetail;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,13 +57,12 @@ import java.util.Map;
 import butterknife.ButterKnife;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements RequestContract.RequestView {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public boolean isDestroyed = false;
     //普通Dialog的Loading
     protected LoadingView loadingProgress;
     protected Toast mToast;
-    private RequestPresenter presenter;
     private ClipboardManager clipboardManager;
     private static final String KEY = "k";
     private static final String SPLIT = ",";
@@ -99,8 +89,6 @@ public abstract class BaseActivity extends AppCompatActivity implements RequestC
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    presenter = new RequestPresenter();
-                    presenter.setRelation(BaseActivity.this);
                     searchDialog();
                 }
             }, 500);
@@ -136,7 +124,155 @@ public abstract class BaseActivity extends AppCompatActivity implements RequestC
         if (!TextUtils.isEmpty(content)) {
             Map<String, String> map = new HashMap<>();
             map.put("content", content);
-            presenter.onSuperSearch(BaseActivity.this, map);
+            RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).onSuperSearch(map), new RetrofitApi.IResponseListener() {
+                @Override
+                public void onSuccess(String data) {
+                    try {
+                        JSONObject object = new JSONObject(data);
+                        int type = object.optInt("type");
+                        if (type == 1) {
+                            Log.e("onSuperSearch", data);
+                            SearchInfor searchInfor = new Gson().fromJson(data, SearchInfor.class);
+                            if (searchInfor == null) {
+                                WindowUtils.dismissBrightness(BaseActivity.this);
+                                return;
+                            }
+                            PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search, R.style.bottom_animation, 2);
+                            popupWindow.getContentView().findViewById(R.id.goods_id).setVisibility(View.VISIBLE);
+                            ImageView image = popupWindow.getContentView().findViewById(R.id.image);
+                            TextView content = popupWindow.getContentView().findViewById(R.id.content);
+                            TextView commision = popupWindow.getContentView().findViewById(R.id.commision);
+                            TextView price = popupWindow.getContentView().findViewById(R.id.price);
+                            Glide.with(BaseActivity.this)
+                                    .load(searchInfor.getData().getImage())
+                                    .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                                    .into(image);
+                            content.setText(StringUtils.addImageLabel(BaseActivity.this, "1".equals(searchInfor.getData().getTmall()) ?
+                                    R.mipmap.icon_tmall : R.mipmap.icon_taobao1, searchInfor.getData().getTitle()));
+                            commision.setText("收益¥" + searchInfor.getData().getTkfee3());
+                            price.setText("" + searchInfor.getData().getDiscountPrice());
+                            popupWindow.getContentView().findViewById(R.id.goodsid).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                    clipboardManager.setText(null);
+                                    BearMallAplication.isFirst = true;
+                                    BearMallAplication.isFirst2 = true;
+                                    GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
+                                            searchInfor.getData().getItemId(), Constants.GOODS_TYPE_TBK_SEARCH, Constants.COMMISSION_TYPE_THREE);
+                                    WindowUtils.dismissBrightness(BaseActivity.this);
+                                }
+                            });
+                            popupWindow.getContentView().findViewById(R.id.search_buy).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                    clipboardManager.setText(null);
+                                    BearMallAplication.isFirst = true;
+                                    BearMallAplication.isFirst2 = true;
+                                    if (searchInfor.getData().getUrl() != null) {
+                                        ArouseTaoBao arouseTaoBao = new ArouseTaoBao(BaseActivity.this);
+                                        if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+                                            arouseTaoBao.openTaoBao(searchInfor.getData().getUrl());
+                                        } else {
+                                            showToast("请先下载淘宝");
+                                            hiddenLoadingView();
+                                        }
+                                    } else {
+                                        AuntTao auntTao = new AuntTao();
+                                        auntTao.setContext(BaseActivity.this);
+                                        auntTao.AuntTabo();
+                                    }
+                                    WindowUtils.dismissBrightness(BaseActivity.this);
+                                }
+                            });
+                        }
+                        if (type == 2) {
+                            Log.e("onSuperSearch", data);
+                            ContentInfor requestInfor = new Gson().fromJson(data, ContentInfor.class);
+                            if (requestInfor != null && requestInfor.getData() != null) {
+                                PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
+                                        R.style.bottom_animation, 2);
+                                popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
+                                TextView sea_conten = popupWindow.getContentView().findViewById(R.id.sea_conten);
+                                sea_conten.setText(requestInfor.getData());
+                                popupWindow.getContentView().findViewById(R.id.cleosn).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                        clipboardManager.setText(null);
+                                        BearMallAplication.isFirst = true;
+                                        BearMallAplication.isFirst2 = true;
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                    }
+                                });
+                                popupWindow.getContentView().findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                        clipboardManager.setText(null);
+                                        BearMallAplication.isFirst = true;
+                                        BearMallAplication.isFirst2 = true;
+                                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, requestInfor.getData(), 8, requestInfor.getData()
+                                                , "1");
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                    }
+                                });
+                            } else {
+                                WindowUtils.dismissBrightness(BaseActivity.this);
+                            }
+                        }
+                        if (type == 3) {
+                            Log.e("onSuperSearch", data);
+                            BaseInfor baseInfor = new Gson().fromJson(data, BaseInfor.class);
+                            if (baseInfor != null && baseInfor.getData() != null) {
+                                PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
+                                        R.style.bottom_animation, 2);
+                                popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
+                                TextView sea_conten = popupWindow.getContentView().findViewById(R.id.sea_conten);
+                                sea_conten.setText(baseInfor.getData());
+                                popupWindow.getContentView().findViewById(R.id.cleosn).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                        clipboardManager.setText(null);
+                                        BearMallAplication.isFirst = true;
+                                        BearMallAplication.isFirst2 = true;
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                    }
+                                });
+                                popupWindow.getContentView().findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                        clipboardManager.setText(null);
+                                        BearMallAplication.isFirst = true;
+                                        BearMallAplication.isFirst2 = true;
+                                        assemblyData(baseInfor.getData());
+                                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, baseInfor.getData(), 8, baseInfor.getData()
+                                                , "2");
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                    }
+                                });
+                            } else {
+                                WindowUtils.dismissBrightness(BaseActivity.this);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onNotNetWork() {
+                    Log.e("onSuperSearch", "onNotNetWork");
+                }
+
+                @Override
+                public void onFail(Throwable e) {
+                    Log.e("onSuperSearch", e.getMessage());
+                }
+            });
         }
     }
 
@@ -322,154 +458,6 @@ public abstract class BaseActivity extends AppCompatActivity implements RequestC
     public void setTranslucentStatus() {
         //设置状态栏透明
         StatuBarUtils.setTranslucentStatus(this);
-    }
-
-    @Override
-    public void onSuccess(Object data) {
-        if (data instanceof BaseInfor) {//超级搜索未搜索到结果
-            BaseInfor baseInfor = (BaseInfor) data;
-            if (baseInfor != null && baseInfor.getData() != null) {
-                PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
-                        R.style.bottom_animation, 2);
-                popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
-                TextView sea_conten = popupWindow.getContentView().findViewById(R.id.sea_conten);
-                sea_conten.setText(baseInfor.getData());
-                popupWindow.getContentView().findViewById(R.id.cleosn).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                        clipboardManager.setText(null);
-                        BearMallAplication.isFirst = true;
-                        BearMallAplication.isFirst2 = true;
-                        WindowUtils.dismissBrightness(BaseActivity.this);
-                    }
-                });
-                popupWindow.getContentView().findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                        clipboardManager.setText(null);
-                        BearMallAplication.isFirst = true;
-                        BearMallAplication.isFirst2 = true;
-                        assemblyData(baseInfor.getData());
-                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, baseInfor.getData(), 8, baseInfor.getData()
-                                , "2");
-                        WindowUtils.dismissBrightness(BaseActivity.this);
-                    }
-                });
-            } else {
-                WindowUtils.dismissBrightness(BaseActivity.this);
-            }
-        }
-        if (data instanceof SearchInfor) {
-            SearchInfor searchInfor = (SearchInfor) data;
-            if (searchInfor == null) {
-                WindowUtils.dismissBrightness(BaseActivity.this);
-                return;
-            }
-            PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search, R.style.bottom_animation, 2);
-            popupWindow.getContentView().findViewById(R.id.goods_id).setVisibility(View.VISIBLE);
-            ImageView image = popupWindow.getContentView().findViewById(R.id.image);
-            TextView content = popupWindow.getContentView().findViewById(R.id.content);
-            TextView commision = popupWindow.getContentView().findViewById(R.id.commision);
-            TextView price = popupWindow.getContentView().findViewById(R.id.price);
-            CornerTransform transformation4 = new CornerTransform(BaseActivity.this, dip2px(BaseActivity.this, 5));
-            transformation4.setExceptCorner(true, true, true, true);
-            Glide.with(BaseActivity.this)
-                    .load(searchInfor.getData().getItemId())
-                    .apply(new RequestOptions().placeholder(R.drawable.default_product).transform(transformation4))
-                    .into(image);
-            content.setText(StringUtils.addImageLabel(BaseActivity.this, "1".equals(searchInfor.getData().getTmall()) ?
-                    R.mipmap.icon_tmall : R.mipmap.icon_taobao1, searchInfor.getData().getTitle()));
-            commision.setText("收益¥" + searchInfor.getData().getTkfee3());
-            price.setText("" + searchInfor.getData().getDiscountPrice());
-            popupWindow.getContentView().findViewById(R.id.goodsid).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                    clipboardManager.setText(null);
-                    BearMallAplication.isFirst = true;
-                    BearMallAplication.isFirst2 = true;
-                    GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
-                            searchInfor.getData().getItemId(), Constants.GOODS_TYPE_TBK_SEARCH, Constants.COMMISSION_TYPE_THREE);
-                    WindowUtils.dismissBrightness(BaseActivity.this);
-                }
-            });
-            popupWindow.getContentView().findViewById(R.id.search_buy).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                    clipboardManager.setText(null);
-                    BearMallAplication.isFirst = true;
-                    BearMallAplication.isFirst2 = true;
-                    if (searchInfor.getData().getUrl() != null) {
-                        ArouseTaoBao arouseTaoBao = new ArouseTaoBao(BaseActivity.this);
-                        if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
-                            arouseTaoBao.openTaoBao(searchInfor.getData().getUrl());
-                        } else {
-                            showToast("请先下载淘宝");
-                            hiddenLoadingView();
-                        }
-                    } else {
-                        AuntTao auntTao = new AuntTao();
-                        auntTao.setContext(BaseActivity.this);
-                        auntTao.AuntTabo();
-                    }
-                    WindowUtils.dismissBrightness(BaseActivity.this);
-                }
-            });
-        }//搜索出来的是商品
-        if (data instanceof RequestInfor) {//搜索出来的是内容
-            RequestInfor requestInfor = (RequestInfor) data;
-            if (requestInfor != null && requestInfor.getData() != null) {
-                PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
-                        R.style.bottom_animation, 2);
-                popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
-                TextView sea_conten = popupWindow.getContentView().findViewById(R.id.sea_conten);
-                sea_conten.setText(requestInfor.getData());
-                popupWindow.getContentView().findViewById(R.id.cleosn).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                        clipboardManager.setText(null);
-                        BearMallAplication.isFirst = true;
-                        BearMallAplication.isFirst2 = true;
-                        WindowUtils.dismissBrightness(BaseActivity.this);
-                    }
-                });
-                popupWindow.getContentView().findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                        clipboardManager.setText(null);
-                        BearMallAplication.isFirst = true;
-                        BearMallAplication.isFirst2 = true;
-                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, requestInfor.getData(), 8, requestInfor.getData()
-                                , "1");
-                        WindowUtils.dismissBrightness(BaseActivity.this);
-                    }
-                });
-            } else {
-                WindowUtils.dismissBrightness(BaseActivity.this);
-            }
-        }
-        hiddenLoadingView();
-    }
-
-    @Override
-    public void onNotNetWork() {
-        hiddenLoadingView();
-    }
-
-    @Override
-    public void onFail(Throwable e) {
-        hiddenLoadingView();
-    }
-
-    //只是绘制左上角和右上角圆角
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
     }
 
     private void assemblyData(String data) {

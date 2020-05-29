@@ -238,4 +238,20 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //赚钱中心奖励信息新
+    @Override
+    public void onTaskAllRewardNew(Context context) {
+        if (requestView != null) {
+            requestModel.onTaskAllRewardNew(context, requestView);
+        }
+    }
+
+    //消息数量
+    @Override
+    public void onMessageCount(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onMessageCount(context, map, requestView);
+        }
+    }
+
 }

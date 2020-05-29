@@ -1,4 +1,4 @@
-package com.bbcoupon.adapter;
+package com.bbcoupon.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
