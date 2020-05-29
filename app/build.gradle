@@ -90,7 +90,9 @@ android {
                     VIVO_APP_KEY    : "b545474e-6786-4b8e-b310-d779ad29eb55",
 
                     MEIZU_APP_ID    : "126453",
-                    MEIZU_APP_KEY   : "938c41209a284229b83997d1867bbe8d"
+                    MEIZU_APP_KEY   : "938c41209a284229b83997d1867bbe8d",
+
+                    HUAWEI_APP_ID : "100642105"
 
             ]
             minifyEnabled false
@@ -119,7 +121,9 @@ android {
                     VIVO_APP_KEY    : "b545474e-6786-4b8e-b310-d779ad29eb55",
 
                     MEIZU_APP_ID    : "126453",
-                    MEIZU_APP_KEY   : "938c41209a284229b83997d1867bbe8d"
+                    MEIZU_APP_KEY   : "938c41209a284229b83997d1867bbe8d",
+
+                    HUAWEI_APP_ID : "100642105"
 
             ]
             signingConfig signingConfigs.config
@@ -208,7 +212,7 @@ android {
         implementation deps.rxjava2
         implementation deps.support.design
         implementation deps.support.recyclerview
-//        implementation deps.glide.runtime
+        //implementation deps.glide.runtime
         //glide
         implementation 'com.github.bumptech.glide:glide:4.8.0'
         annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
@@ -238,14 +242,12 @@ android {
         implementation 'com.github.iwgang:countdownview:2.1.6'
         implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
         implementation(name: 'lamorlibrary-release', ext: 'aar')
-//    implementation(name: 'tuia-2.4.3', ext: 'aar')
-//    implementation files('libs/GetuiSDK2.12.4.0.jar')
+        //implementation(name: 'tuia-2.4.3', ext: 'aar')
+        //implementation files('libs/GetuiSDK2.12.4.0.jar')
         //视频
         //implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
         implementation 'com.android.support:multidex:1.0.3'
         implementation project(':jiaozivideoplayer')
-
-        implementation "com.android.support:support-v4:27.1.0"
         //阿里百川
         //fastjson
         implementation 'com.alibaba:fastjson:1.2.41'
@@ -271,7 +273,7 @@ android {
         implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard'
         implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
         //电商SDK
-//    implementation 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
+        //implementation 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
         implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.2@aar'
         implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.2@aar'
         implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.2@aar'
@@ -279,14 +281,10 @@ android {
         implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
         implementation 'com.youth.banner:banner:1.4.10'
-//    https://mvnrepository.com/artifact/com.google.code.gson/gson
+        //https://mvnrepository.com/artifact/com.google.code.gson/gson
         implementation 'com.google.code.gson:gson:2.8.5'
         implementation 'com.blankj:utilcode:1.25.0'
-        //阅读
-        api(name: 'YmSdk20190725', ext: 'aar')
-        api "com.android.support:support-compat:27.0.0"
-        api "com.android.support:support-core-utils:27.0.0"
-        api "com.android.support:support-fragment:27.0.0"
+
         //XBanner
         implementation 'com.github.xiaohaibin:XBanner:1.7.0'
         //高斯模糊
@@ -299,12 +297,18 @@ android {
         //添加 Sensors Analytics SDK 依赖
         implementation 'com.sensorsdata.analytics.android:SensorsAnalyticsSDK:3.2.5'
         //个推
-        implementation 'com.getui:sdk:2.13.3.0'
-        implementation 'com.getui:xmp:1.0.5'
-        implementation 'com.assist:oppo:1.0.3'
-        implementation 'com.assist:vivo:1.0.3'
-        implementation 'com.getui:mzp:1.0.7'
-//    implementation 'com.getui:hwp:1.0.6'
+        implementation 'com.getui:sdk:2.14.0.0'
+        implementation 'com.assist:oppo:1.0.6'
+        implementation 'com.assist:vivo:1.0.4'
+        implementation 'com.getui:mzp:1.0.9'
+        implementation 'com.getui:xmp:1.0.7'
+        implementation 'com.getui:hwp:1.0.6'
+        //阅读
+        api(name: 'YmSdk20190725', ext: 'aar')
+        api "com.android.support:support-compat:27.0.0"
+        api "com.android.support:support-core-utils:27.0.0"
+        api "com.android.support:support-fragment:27.0.0"
+        implementation "com.android.support:support-v4:27.1.0"
         implementation 'com.android.support:palette-v7:27.1.1'
         //进度条
         implementation 'com.timqi.sectorprogressview:library:2.0.1'
