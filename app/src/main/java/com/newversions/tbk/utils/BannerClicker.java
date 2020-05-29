@@ -50,15 +50,20 @@ import mlxy.utils.T;
 
 public class BannerClicker {
     public static void bannerClick(Activity activity, int targetType, String target, String title) {
-        Log.i("bannerClick", "targetType: " + targetType + "--- target" + target + "---" + title);
+        Log.i("bannerClick", "targetType: --" + targetType + "--- target--" + target + "---" + title);
         Bundle bundle = new Bundle();
         switch (targetType) {
             case 1://外部淘宝链接
-                ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
-                if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
-                    arouseTaoBao.openTaoBao(target);
-                } else {
-                    Toast.makeText(activity, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
+                try {
+                    ArouseTaoBao arouseTaoBao = new ArouseTaoBao(activity);
+                    if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+                        Log.e("bannerClick", target );
+                        arouseTaoBao.openTaoBao(target);
+                    } else {
+                        Toast.makeText(activity, "您未安装淘宝，请先安装", Toast.LENGTH_LONG);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 //TODO[banner点击]
                 ConstantScUtil.bannerClick("首页", "轮播图", "活动", title, targetType + "", target, targetType + "");

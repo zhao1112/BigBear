@@ -90,7 +90,9 @@ public class TaoBaoChildFragment extends BaseFragment {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 page = 1;
-                mTaoBaoAdapter.clearData();
+                if (mTaoBaoAdapter.getItem()) {
+                    mTaoBaoAdapter.clearData();
+                }
                 Log.e("orderType", "onRefresh: " + orderType);
                 getTBOrder(orderType);
             }
@@ -117,11 +119,14 @@ public class TaoBaoChildFragment extends BaseFragment {
             }
         });
 
+        mNulldata.setVisibility(View.VISIBLE);
+
         getTBOrder(orderType);
     }
 
     public void setOrder(String orderType) {
         this.orderType = orderType;
+        this.hasMore = false;
         refreshLayout.startRefresh();
     }
 
@@ -156,7 +161,9 @@ public class TaoBaoChildFragment extends BaseFragment {
                     }
                     mNulldata.setVisibility(View.GONE);
                 } else {
-                    mNulldata.setVisibility(View.VISIBLE);
+                    if (!hasMore) {
+                        mNulldata.setVisibility(View.VISIBLE);
+                    }
                 }
                 refreshLayout.finishRefreshing();
                 refreshLayout.finishLoadmore();

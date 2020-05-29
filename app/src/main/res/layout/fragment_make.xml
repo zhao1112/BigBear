@@ -449,7 +449,8 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+               android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
                 android:text="赚钱中心"
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/sp_16"/>
@@ -459,7 +460,7 @@
                 android:layout_width="@dimen/dp_24"
                 android:layout_height="@dimen/dp_24"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginRight="@dimen/sp_15">
 
                 <ImageView

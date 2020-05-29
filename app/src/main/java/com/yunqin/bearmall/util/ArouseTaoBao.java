@@ -33,29 +33,33 @@ public class ArouseTaoBao {
     }
 
     public void openTaoBao(String url) {
-        AlibcShowParams alibcShowParams = new AlibcShowParams();
-        alibcShowParams.setOpenType(OpenType.Native);
-        alibcShowParams.setClientType("taobao");
-        alibcShowParams.setBackUrl(url);
-        alibcShowParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
+        try {
+            AlibcShowParams alibcShowParams = new AlibcShowParams();
+            alibcShowParams.setOpenType(OpenType.Native);
+            alibcShowParams.setClientType("taobao");
+            alibcShowParams.setBackUrl(url);
+            alibcShowParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
 
-        AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
-        taokeParams.setPid("mm_446530152_629950029_109291250388");
+            AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
+            taokeParams.setPid("mm_446530152_629950029_109291250388");
 
-        Map<String, String> trackParams = new HashMap<>();
+            Map<String, String> trackParams = new HashMap<>();
 
-        AlibcTrade.openByUrl((Activity) mContext, "", url, null, new WebViewClient(),
-                new WebChromeClient(), alibcShowParams, taokeParams, trackParams, new AlibcTradeCallback() {
-                    @Override
-                    public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
+            AlibcTrade.openByUrl((Activity) mContext, "", url, null, new WebViewClient(),
+                    new WebChromeClient(), alibcShowParams, taokeParams, trackParams, new AlibcTradeCallback() {
+                        @Override
+                        public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onFailure(int i, String s) {
-                        Log.i("onFailure", "code: " + i + "  meg: " + s);
-                    }
-                });
+                        @Override
+                        public void onFailure(int i, String s) {
+                            Log.i("onFailure", "code: " + i + "  meg: " + s);
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

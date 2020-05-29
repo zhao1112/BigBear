@@ -137,8 +137,12 @@ public class MakeFragment extends BaseFragment implements RequestContract.Reques
             @Override
             public void OnBannerClick(int position) {
                 if (bannerList != null && bannerList.size() > 0) {
-                    BannerClicker.bannerClick(getActivity(), bannerList.get(position).getTargetType(),
-                            bannerList.get(position).getTarget(), bannerList.get(position).getTitle());
+                    try {
+                        BannerClicker.bannerClick(getActivity(), bannerList.get(position).getTargetType(),
+                                bannerList.get(position).getTarget(), bannerList.get(position).getTitle());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

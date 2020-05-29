@@ -53,6 +53,13 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         list = new ArrayList<>();
     }
 
+    public boolean getItem() {
+        if (list != null && list.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public int getItemViewType(int position) {
         if ("4".equals(list.get(position).getOrderStatus())) {
@@ -109,7 +116,7 @@ public class TaoBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case TYPE_NORMAL:
                 OrderHolder orderHolder = (OrderHolder) holder;
                 orderHolder.mCreat_time.setText("创建时间：" + list.get(position).getCreateTime());
-                orderHolder.state.setText(list.get(position).getOrderStatus().equals("1") ? "待返佣" : "已到账");
+                orderHolder.state.setText("1".equals(list.get(position).getOrderStatus()) ? "待返佣" : "已到账");
                 Glide.with(mContext).load(list.get(position).getImageUrl()).apply(mOptions).into(orderHolder.image);
                 orderHolder.price.setText("¥" + list.get(position).getPayAmount());
                 orderHolder.commission.setText("预估返佣" + list.get(position).getEffectEstimate() + "元");

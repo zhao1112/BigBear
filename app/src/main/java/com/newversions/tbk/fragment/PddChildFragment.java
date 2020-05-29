@@ -84,7 +84,7 @@ public class PddChildFragment extends BaseFragment {
             type = 4;
         }
 
-        mTaoBaoAdapter = new PddAdapter(getActivity(),type);
+        mTaoBaoAdapter = new PddAdapter(getActivity(), type);
         rlv.setLayoutManager(new LinearLayoutManager(getContext()));
         rlv.setAdapter(mTaoBaoAdapter);
 
@@ -113,11 +113,14 @@ public class PddChildFragment extends BaseFragment {
             @Override
             public void onCopyOrderId(String oderid) {
                 if (!TextUtils.isEmpty(oderid)) {
-                    CopyTextUtil.CopyText(getActivity(),oderid);
+                    CopyTextUtil.CopyText(getActivity(), oderid);
                     showToast("复制成功");
                 }
             }
         });
+
+        mNulldata.setVisibility(View.VISIBLE);
+
         getTBOrder(orderType);
     }
 
@@ -145,9 +148,10 @@ public class PddChildFragment extends BaseFragment {
                     }
                     mNulldata.setVisibility(View.GONE);
                 } else {
-                    mNulldata.setVisibility(View.VISIBLE);
+                    if (!hasMore) {
+                        mNulldata.setVisibility(View.VISIBLE);
+                    }
                 }
-
                 refreshLayout.finishRefreshing();
                 refreshLayout.finishLoadmore();
                 hiddenLoadingView();
@@ -173,6 +177,7 @@ public class PddChildFragment extends BaseFragment {
 
     public void setOrder(String orderType) {
         this.orderType = orderType;
+        this.hasMore = false;
         refreshLayout.startRefresh();
     }
 

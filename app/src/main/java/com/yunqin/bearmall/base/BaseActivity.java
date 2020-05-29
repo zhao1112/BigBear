@@ -137,6 +137,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 WindowUtils.dismissBrightness(BaseActivity.this);
                                 return;
                             }
+                            WindowUtils.dismissBrightness(BaseActivity.this);
                             PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search, R.style.bottom_animation, 2);
                             popupWindow.getContentView().findViewById(R.id.goods_id).setVisibility(View.VISIBLE);
                             ImageView image = popupWindow.getContentView().findViewById(R.id.image);
@@ -191,6 +192,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             Log.e("onSuperSearch", data);
                             ContentInfor requestInfor = new Gson().fromJson(data, ContentInfor.class);
                             if (requestInfor != null && requestInfor.getData() != null) {
+                                WindowUtils.dismissBrightness(BaseActivity.this);
                                 PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
                                         R.style.bottom_animation, 2);
                                 popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
@@ -226,6 +228,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             Log.e("onSuperSearch", data);
                             BaseInfor baseInfor = new Gson().fromJson(data, BaseInfor.class);
                             if (baseInfor != null && baseInfor.getData() != null) {
+                                WindowUtils.dismissBrightness(BaseActivity.this);
                                 PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
                                         R.style.bottom_animation, 2);
                                 popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);

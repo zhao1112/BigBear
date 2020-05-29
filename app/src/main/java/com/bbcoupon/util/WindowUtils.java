@@ -205,7 +205,10 @@ public class WindowUtils {
      * animaton 动画
      */
     public static PopupWindow ShowSex(Activity activity, int view, int animaton, int position) {
-        popupWindow = new PopupWindow();
+        dimBackground(activity, 1.0f, 0.2f);
+        if (popupWindow == null) {
+            popupWindow = new PopupWindow();
+        }
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout linearLayout = new LinearLayout(activity);
         viewContent = inflater.inflate(view, linearLayout);
