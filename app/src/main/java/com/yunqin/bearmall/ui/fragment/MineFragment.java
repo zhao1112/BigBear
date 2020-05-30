@@ -373,12 +373,6 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
         text.setTextColor(getResources().getColor(color));
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void EventGet(PopWindowEvent event) {
-        if (isVisibility) {
-            mPresenter.initAdData(getActivity());
-        }
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(VipUpgrade vipUpgrade) {
@@ -684,36 +678,7 @@ public class MineFragment extends BaseFragment implements MineContract.UI, Reque
 
     @Override
     public void resultAdData(String key, String value, String data) {
-        PopBean popBean = new Gson().fromJson(data, PopBean.class);
-        if (popBean.getData() != null && popBean.getData().getPopupAd() != null && popBean.getData().getPopupAd().getImg() != null) {
-            SharedPreferencesManager.setParam(getActivity(), key, value);
-            new ICustomDialog.Builder(getActivity())
-                    // 设置布局
-                    .setLayoutResId(R.layout.dialog_first_ad)
-                    // 点击空白是否消失
-                    .setCanceledOnTouchOutside(false)
-                    // 点击返回键是否消失
-                    .setCancelable(true)
-                    // 设置Dialog的绝对位置
-                    .setDialogPosition(Gravity.CENTER)
-                    // 设置自定义动画
-                    .setAnimationResId(R.style.CenterAnimation)
-                    .setWindow(true)
-                    // 设置监听ID
-                    .setListenedItems(new int[]{R.id.ad_img, R.id.ad_close})
-                    .setImageViewResource(R.id.ad_img, popBean.getData().getPopupAd().getImg())
-                    // 设置回掉
-                    .setOnDialogItemClickListener((thisDialog, clickView) -> {
-                        thisDialog.dismiss();
-                        if (clickView.getId() == R.id.ad_img) {
-                            IAdvClick.click(getActivity(), popBean.getData().getPopupAd().getType(),
-                                    popBean.getData().getPopupAd().getSkipType(), popBean.getData().getPopupAd().getSource_id(),
-                                    popBean.getData().getPopupAd().getAdUrl());
-                            //TODO[点击广告]
-                            ConstantScUtil.showAd();
-                        }
-                    }).build().show();
-        }
+
     }
 
     @Override

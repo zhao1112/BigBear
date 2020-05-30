@@ -81,17 +81,10 @@ public class ProductSumFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (type == 9) {
-            selectTabIndex = getCanButIndex();
-            tablayout.getTabAt(selectTabIndex).select();
-        } else {
-            getData();
-        }
     }
 
     @Override
     public void init() {
-        showLoading();
         groupId = getArguments().getString(Constants.INTENT_KEY_ID);
         type = getArguments().getInt(Constants.INTENT_KEY_TYPE, 1);
         Keyword = getArguments().getString("KEYWORD");
@@ -236,6 +229,12 @@ public class ProductSumFragment extends BaseFragment {
             }
         });
 
+        if (type == 9) {
+            selectTabIndex = getCanButIndex();
+            tablayout.getTabAt(selectTabIndex).select();
+        } else {
+            getData();
+        }
     }
 
     private String getCanBuyStr(int target) {

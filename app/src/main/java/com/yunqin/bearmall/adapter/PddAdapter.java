@@ -107,11 +107,7 @@ public class PddAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Glide.with(mContext).load(list.get(position).getImage()).apply(mOptions).into(orderHolder.image);
                 orderHolder.price.setText("¥" + list.get(position).getPayAmount());
 
-                Double aDouble2 = Double.valueOf(list.get(position).getEffectEstimate());
-                BigDecimal bigDecimal2 = new BigDecimal(aDouble2);
-                String mon2 = bigDecimal2.setScale(2, RoundingMode.DOWN).toString();
-
-                orderHolder.commission.setText("预估返佣" + mon2 + "元");
+                orderHolder.commission.setText("预估返佣" + list.get(position).getEffectEstimate() + "元");
                 orderHolder.order.setText("订单编号：" + list.get(position).getOrderNo());
                 orderHolder.title.setText(list.get(position).getItemName());
                 orderHolder.copy.setOnClickListener(new View.OnClickListener() {
