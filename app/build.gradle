@@ -15,7 +15,7 @@ def gitVersionCode() {
 
 //release
 def SDK_VERSION_CODE = gitVersionCode()
-def SDK_VERSION_NAME = "5.1.5"
+def SDK_VERSION_NAME = "5.1.6"
 def RELEASE_TIME = releaseTimes()
 
 android {
