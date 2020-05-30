@@ -25,47 +25,47 @@
             android:background="@drawable/bg_corner_search_dialog"
             android:orientation="vertical">
 
-            <RadioGroup
+            <LinearLayout
                 android:id="@+id/order_group"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_130"
                 android:layout_margin="@dimen/dp_15"
                 android:orientation="vertical">
 
-                <RadioButton
+                <TextView
                     android:id="@+id/order_all"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:background="@color/TRANSPARENT"
-                    android:button="@null"
                     android:text="全部"
-                    android:textColor="@drawable/order_checkrbtn"
+                    android:textColor="#555555"
                     android:textSize="@dimen/sp_14"/>
 
-                <RadioButton
+                <TextView
                     android:id="@+id/order_mine"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/TRANSPARENT"
-                    android:button="@null"
+                    android:gravity="center_vertical"
                     android:text="我的订单"
-                    android:textColor="@drawable/order_checkrbtn"
+                    android:textColor="#555555"
                     android:textSize="@dimen/sp_14"/>
 
-                <RadioButton
+                <TextView
                     android:id="@+id/order_team"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:background="@color/TRANSPARENT"
-                    android:button="@null"
                     android:text="粉丝订单"
-                    android:textColor="@drawable/order_checkrbtn"
+                    android:textColor="#555555"
                     android:textSize="@dimen/sp_14"/>
 
-            </RadioGroup>
+            </LinearLayout>
 
         </LinearLayout>
 

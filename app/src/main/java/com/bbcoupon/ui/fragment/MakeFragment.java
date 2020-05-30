@@ -100,7 +100,7 @@ public class MakeFragment extends BaseFragment implements RequestContract.Reques
     ImageView make_notice;
 
     private RequestPresenter presenter;
-    private RoundedCorners roundedCorners = new RoundedCorners(15);
+    private RoundedCorners roundedCorners = new RoundedCorners(20);
     private RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
     private MakeAdapter makeAdapter;
     private MakeInfor.DataBean.TaskBean task;
@@ -283,34 +283,12 @@ public class MakeFragment extends BaseFragment implements RequestContract.Reques
             MakeInfor makeInfor = (MakeInfor) data;
             setTobData(makeInfor.getData());
             setListData(makeInfor.getData().getDayOfTask(), makeInfor.getData().getTask());
-            setTakeData(makeInfor.getData().getTask());
         }
         if (data instanceof MessageItemCount) {
             MessageItemCount messageItemCount = (MessageItemCount) data;
             mDotView.setShowNum(messageItemCount.getData().getUnreadMessageCount());
         }
         hiddenLoadingView();
-    }
-
-    //设置完成任务数量
-    private void setTakeData(MakeInfor.DataBean.TaskBean task) {
-        this.task = task;
-        int sum = 0;
-        if (task != null) {
-            if (task.getUsersRegisterFinish() == 1) {
-                sum = sum + 1;
-            }
-            if (task.getMemberShareInfoFinish() == 1) {
-                sum = sum + 1;
-            }
-            if (task.getMemberShareProductFinish() == 1) {
-                sum = sum + 1;
-            }
-            if (task.getLuckyDrawFinish() == 1) {
-                sum = sum + 1;
-            }
-        }
-        mMakeTask.setText(sum + "/5");
     }
 
     //设置基本信息
@@ -321,13 +299,19 @@ public class MakeFragment extends BaseFragment implements RequestContract.Reques
         addBannerList(data.getBanner());
         //设置糖果数
         int claimed = data.getRestReward() - data.getTodayCreditSum();
-        mMakeClaimed.setText(claimed + "");
+        if (claimed > 0) {
+            mMakeClaimed.setText(claimed + "");
+        } else {
+            mMakeClaimed.setText("0");
+        }
+
         mMakeReceive.setText(data.getTodayCreditSum() + "");
     }
 
     //设置日常任务
     private void setListData(List<MakeInfor.DataBean.DayOfTaskBean> dayOfTask, MakeInfor.DataBean.TaskBean taskList) {
         if (dayOfTask != null && dayOfTask.size() > 0 && taskList != null) {
+            this.task = taskList;
             makeAdapter.clearListData();
             makeAdapter.addListData(dayOfTask, taskList);
         }

@@ -20,7 +20,7 @@ import com.yunqin.bearmall.base.BaseFragment;
 
 import butterknife.BindView;
 
-public class PddOrderFragment extends BaseFragment {
+public class PddOrderFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.x_table_layout)
     TabLayout mXTabLayout;
@@ -31,6 +31,8 @@ public class PddOrderFragment extends BaseFragment {
 
     private static final String[] tbTabs = new String[]{"全部", "待返佣", "已到账", "已失效"};
     private PddOrderTabAdapter mTaoBaoOrderTabAdapter;
+    private int selectOrder = 1;
+    private PopupWindow mPopupWindow;
 
     @Override
     public int layoutId() {
@@ -147,52 +149,67 @@ public class PddOrderFragment extends BaseFragment {
         if (mXTabLayout.getSelectedTabPosition() == 0) {
             WindowUtils.dimBackground(getActivity(), 1.0f, 0.3f);
             View view = View.inflate(getActivity(), R.layout.item_popup_order, null);
-            PopupWindow popupWindow = new PopupWindow(view);
-            popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-            popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-            popupWindow.setFocusable(true);
-            popupWindow.setBackgroundDrawable(new ColorDrawable());//设置背景
-            popupWindow.setOutsideTouchable(true);//点击外面窗口消失
-            popupWindow.setAnimationStyle(android.R.style.Animation_Translucent);//设置动画
+            mPopupWindow = new PopupWindow(view);
+            mPopupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+            mPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+            mPopupWindow.setFocusable(true);
+            mPopupWindow.setBackgroundDrawable(new ColorDrawable());//设置背景
+            mPopupWindow.setOutsideTouchable(true);//点击外面窗口消失
+            mPopupWindow.setAnimationStyle(android.R.style.Animation_Translucent);//设置动画
             int[] location = new int[2];
             v.getLocationOnScreen(location);
-            popupWindow.showAsDropDown(v);//在v的下面
+            mPopupWindow.showAsDropDown(v);//在v的下面
             //显示在下方
-            popupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
-            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            mPopupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+            mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
                     WindowUtils.dimBackground(getActivity(), 0.5f, 1.0f);
                 }
             });
-            RadioGroup order_group = view.findViewById(R.id.order_group);
-            RadioButton order_all = view.findViewById(R.id.order_all);
-            RadioButton order_mine = view.findViewById(R.id.order_mine);
-            RadioButton order_team = view.findViewById(R.id.order_team);
-            order_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    switch (checkedId) {
-                        case R.id.order_all:
-                            initView("全部");
-                            mTaoBaoOrderTabAdapter.setOrder("0");
-                            popupWindow.dismiss();
-                            break;
-                        case R.id.order_mine:
-                            initView("我的订单");
-                            mTaoBaoOrderTabAdapter.setOrder("1");
-                            popupWindow.dismiss();
-                            break;
-                        case R.id.order_team:
-                            initView("粉丝订单");
-                            mTaoBaoOrderTabAdapter.setOrder("2");
-                            popupWindow.dismiss();
-                            break;
-                    }
-                }
-            });
+            TextView order_all = view.findViewById(R.id.order_all);
+            TextView order_mine = view.findViewById(R.id.order_mine);
+            TextView order_team = view.findViewById(R.id.order_team);
+            switch (selectOrder) {
+                case 0:
+                    order_all.setTextColor(getResources().getColor(R.color.bg_green));
+                    break;
+                case 1:
+                    order_mine.setTextColor(getResources().getColor(R.color.bg_green));
+                    break;
+                case 2:
+                    order_team.setTextColor(getResources().getColor(R.color.bg_green));
+                    break;
+            }
+            order_all.setOnClickListener(this);
+            order_mine.setOnClickListener(this);
+            order_team.setOnClickListener(this);
         } else {
             mXTabLayout.getTabAt(0).select();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.order_all:
+                selectOrder = 0;
+                initView("全部");
+                mTaoBaoOrderTabAdapter.setOrder("0");
+                mPopupWindow.dismiss();
+                break;
+            case R.id.order_mine:
+                selectOrder = 1;
+                initView("我的订单");
+                mTaoBaoOrderTabAdapter.setOrder("1");
+                mPopupWindow.dismiss();
+                break;
+            case R.id.order_team:
+                selectOrder = 2;
+                initView("粉丝订单");
+                mTaoBaoOrderTabAdapter.setOrder("2");
+                mPopupWindow.dismiss();
+                break;
         }
     }
 }

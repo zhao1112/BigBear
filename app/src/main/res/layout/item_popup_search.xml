@@ -144,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/popup_search"
-            android:visibility="gone">
+         >
 
             <TextView
                 android:id="@+id/title_2"
@@ -218,6 +218,14 @@
             </LinearLayout>
 
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/sea_close"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/dp_34"
+            android:layout_height="@dimen/dp_34"
+            android:src="@mipmap/serach_close"/>
 
     </LinearLayout>
 

@@ -187,6 +187,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                                     WindowUtils.dismissBrightness(BaseActivity.this);
                                 }
                             });
+                            popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                    clipboardManager.setText(null);
+                                    BearMallAplication.isFirst = true;
+                                    BearMallAplication.isFirst2 = true;
+                                    WindowUtils.dismissBrightness(BaseActivity.this);
+                                }
+                            });
                         }
                         if (type == 2) {
                             Log.e("onSuperSearch", data);
@@ -217,6 +227,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                                         BearMallAplication.isFirst2 = true;
                                         ProductSumActivity2.startProductSumActivity2(BaseActivity.this, requestInfor.getData(), 8, requestInfor.getData()
                                                 , "1");
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                    }
+                                });
+                                popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                        clipboardManager.setText(null);
+                                        BearMallAplication.isFirst = true;
+                                        BearMallAplication.isFirst2 = true;
                                         WindowUtils.dismissBrightness(BaseActivity.this);
                                     }
                                 });
@@ -254,6 +274,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                                         assemblyData(baseInfor.getData());
                                         ProductSumActivity2.startProductSumActivity2(BaseActivity.this, baseInfor.getData(), 8, baseInfor.getData()
                                                 , "2");
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                    }
+                                });
+                                popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                        clipboardManager.setText(null);
+                                        BearMallAplication.isFirst = true;
+                                        BearMallAplication.isFirst2 = true;
                                         WindowUtils.dismissBrightness(BaseActivity.this);
                                     }
                                 });
