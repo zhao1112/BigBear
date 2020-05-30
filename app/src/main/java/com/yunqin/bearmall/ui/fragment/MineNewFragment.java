@@ -277,7 +277,7 @@ public class MineNewFragment extends BaseFragment implements MineContract.UI {
             setViewStatus();
             if ((Boolean) SharedPreferencesHelper.get(getActivity(), "isFirstBind", false)) {
                 SharedPreferencesHelper.put(getActivity(), "isFirstBind", false);
-                DialogUtils.newUserRegiestGet(getActivity());
+//                DialogUtils.newUserRegiestGet(getActivity());
             }
         } else {
             setViewStatus();
