@@ -329,6 +329,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -337,6 +338,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/make_claimed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -348,7 +350,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text=" 个糖果待领取，现已领取 "
+                            android:text="已领取 "
                             android:textColor="#ff666666"
                             android:textSize="12sp"/>
 
@@ -357,7 +359,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:textColor="#ff666666"
+                            android:textColor="#139E65"
                             android:textSize="12sp"/>
 
                         <TextView
