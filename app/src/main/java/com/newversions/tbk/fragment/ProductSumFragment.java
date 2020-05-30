@@ -45,9 +45,9 @@ public class ProductSumFragment extends BaseFragment {
     RecyclerView rcl;
     @BindView(R.id.nulldata)
     ConstraintLayout mNulldata;
-    Unbinder unbinder;
-    private List<String> tabs = new ArrayList<>();
 
+
+    private List<String> tabs = new ArrayList<>();
     private int orderType = 2;
     private int sortType = 1;
     private int page = 1;
@@ -281,7 +281,6 @@ public class ProductSumFragment extends BaseFragment {
         //TODO[搜索按钮]
         ConstantScUtil.sebsorsSearch(type);
         // TODO: 2019/7/17 0017 获取数据
-        showLoading();
         HashMap<String, String> map = new HashMap<>();
         map.put("id", groupId);//分组ID
         map.put("type", String.valueOf(type));//入口类型
