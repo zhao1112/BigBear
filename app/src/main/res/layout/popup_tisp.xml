@@ -9,14 +9,17 @@
         android:id="@+id/top_tisp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/app_popup_tisp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/item_ts"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginTop="@dimen/dp_11"
+            android:layout_marginTop="@dimen/dp_10"
             android:text="您有一笔糖果收益已到账"
             android:textColor="#ff555555"
             android:textSize="@dimen/sp_14"/>
@@ -26,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginTop="@dimen/dp_23"
-            android:layout_marginBottom="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
             android:text="分享成功，获得0个糖果，点击查看详情>>"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_14"/>

@@ -27,6 +27,7 @@ import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.bean.SearchInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.WindowUtils;
 import com.bumptech.glide.Glide;
@@ -124,7 +125,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(content)) {
             Map<String, String> map = new HashMap<>();
             map.put("content", content);
-            RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).onSuperSearch(map), new RetrofitApi.IResponseListener() {
+            map.put("access_token", ConstantUtil.getAsetToken());
+            RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).onSuperSearch(map),
+                    new RetrofitApi.IResponseListener() {
                 @Override
                 public void onSuccess(String data) {
                     try {
@@ -138,7 +141,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 return;
                             }
                             WindowUtils.dismissBrightness(BaseActivity.this);
-                            PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search, R.style.bottom_animation, 2);
+                            PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
+                                    R.style.bottom_animation, 2);
                             popupWindow.getContentView().findViewById(R.id.goods_id).setVisibility(View.VISIBLE);
                             ImageView image = popupWindow.getContentView().findViewById(R.id.image);
                             TextView content = popupWindow.getContentView().findViewById(R.id.content);
@@ -160,7 +164,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                                     BearMallAplication.isFirst = true;
                                     BearMallAplication.isFirst2 = true;
                                     GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
-                                            searchInfor.getData().getItemId(), Constants.GOODS_TYPE_TBK_SEARCH, Constants.COMMISSION_TYPE_THREE);
+                                            searchInfor.getData().getItemId(), Constants.GOODS_TYPE_TBK_SEARCH,
+                                            Constants.COMMISSION_TYPE_THREE);
                                     WindowUtils.dismissBrightness(BaseActivity.this);
                                 }
                             });
@@ -225,7 +230,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                                         clipboardManager.setText(null);
                                         BearMallAplication.isFirst = true;
                                         BearMallAplication.isFirst2 = true;
-                                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, requestInfor.getData(), 8, requestInfor.getData()
+                                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, requestInfor.getData(), 8,
+                                                requestInfor.getData()
                                                 , "1");
                                         WindowUtils.dismissBrightness(BaseActivity.this);
                                     }
@@ -272,7 +278,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                                         BearMallAplication.isFirst = true;
                                         BearMallAplication.isFirst2 = true;
                                         assemblyData(baseInfor.getData());
-                                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, baseInfor.getData(), 8, baseInfor.getData()
+                                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, baseInfor.getData(), 8,
+                                                baseInfor.getData()
                                                 , "2");
                                         WindowUtils.dismissBrightness(BaseActivity.this);
                                     }

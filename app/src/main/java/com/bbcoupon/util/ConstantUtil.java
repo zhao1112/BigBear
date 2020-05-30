@@ -5,9 +5,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.util.CommonUtils;
 
@@ -158,6 +160,17 @@ public class ConstantUtil {
         } else {
             return false;
         }
+    }
+
+    public static String getAsetToken() {
+        if (BearMallAplication.getInstance() != null
+                && BearMallAplication.getInstance().getUser() != null
+                && BearMallAplication.getInstance().getUser().getData() != null
+                && BearMallAplication.getInstance().getUser().getData().getToken() != null
+                && BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token() != null) {
+            return BearMallAplication.getInstance().getUser().getData().getToken().getAccess_token();
+        }
+        return "";
     }
 
 }
