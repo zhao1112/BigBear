@@ -31,8 +31,6 @@ public class SwitchFragment {
     private HomeFragment_2 mHomeFragment;
     private BusinessFragment mRecommendFragment;
     private MakeFragment mMakeMoneyFragment;
-    // TODO: 2019/7/15 0015 替换成0元兑
-    private ZeroGoodsFragment mTrolleyFragment;
     private MineFragment mMineFragment;
     private FragmentManager manager;
     private Activity activity;

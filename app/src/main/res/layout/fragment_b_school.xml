@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:descendantFocusability="blocksDescendants">
-
-    <include
-        android:id="@+id/n_v_not_net"
-        layout="@layout/network_error_layout"
-        android:visibility="gone"/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        android:id="@+id/home_refreshLayout"
+        android:id="@+id/sc_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/n_v_recycler_view"
+            android:id="@+id/sc_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/TRANSPARENT">
@@ -24,7 +19,4 @@
 
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
-</RelativeLayout>
-
-
-
+</LinearLayout>

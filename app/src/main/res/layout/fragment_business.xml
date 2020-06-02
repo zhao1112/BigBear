@@ -6,12 +6,16 @@
               android:background="@color/white"
               android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_25"
+        android:background="@color/white"/>
+
     <com.androidkun.xtablayout.XTabLayout
         android:id="@+id/business_table"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_35"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_20"
         android:overScrollMode="never"
         app:xTabDisplayNum="3"
         app:xTabIndicatorColor="#24A064"

@@ -48,9 +48,9 @@
         android:name=".BearMallAplication"
         android:allowBackup="false"
         android:icon="@drawable/logo"
-        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:label="${k_appName}"
         tools:replace="android:name,android:allowBackup">
         <activity
             android:name=".ui.activity.HairCircleActivity"

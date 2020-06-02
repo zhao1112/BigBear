@@ -2,10 +2,7 @@ package com.bbcoupon.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,16 +12,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bbcoupon.base.ImageSelectInfor;
-import com.bbcoupon.ui.bean.CustomInfor;
-import com.bbcoupon.util.ImageUtil;
+import com.bbcoupon.ui.bean.ImageSelectInfor;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.newversions.tbk.utils.StringUtils;
-import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 
 import java.util.ArrayList;

@@ -13,6 +13,7 @@
         android:gravity="center"
         android:paddingLeft="@dimen/dp_13"
         android:paddingTop="@dimen/dp_3"
+        android:textColor="@color/business"
         android:paddingRight="@dimen/dp_13"
         android:paddingBottom="@dimen/dp_3"
         android:text="销量"

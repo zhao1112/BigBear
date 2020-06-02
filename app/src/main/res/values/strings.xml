@@ -132,5 +132,8 @@
     <string name="dkplayer_continue_play">继续播放</string>
     <string name="dkplayer_wifi_tip">您正在使用移动网络，继续播放将消耗流量</string>
 
+    <String name = "app_name_debug">大熊酷朋测试</String>
+
+
 
 </resources>

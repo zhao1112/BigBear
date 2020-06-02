@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.bbcoupon.ui.fragment.BusinessSchoolFragment;
 import com.yunqin.bearmall.ui.fragment.Item_Business_Fragment;
 
 
@@ -26,7 +27,11 @@ public class BusinessTableAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new Item_Business_Fragment().getInstance(position + "");
+        if (position == 2) {
+            return new BusinessSchoolFragment();
+        } else {
+            return new Item_Business_Fragment().getInstance(position + "");
+        }
     }
 
     @Override

@@ -39,7 +39,6 @@ public class Item_Business_Fragment extends BaseFragment {
     TabLayout mItemBuTable;
     @BindView(R.id.bu_paper)
     ViewPager mBuPaper;
-    Unbinder unbinder;
 
     private List<BusinessTabBean.DataBean> data = null;
     private String mBusinesstype;
@@ -73,16 +72,15 @@ public class Item_Business_Fragment extends BaseFragment {
         mItemBuTable.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
                 BusinessTabView businessTabView = (BusinessTabView) tab.getCustomView().getTag();
-                businessTabView.tabView.setTextColor(getResources().getColor(R.color.business));
+                businessTabView.tabView.setTextColor(getResources().getColor(R.color.white));
                 businessTabView.tabView.setBackground(getResources().getDrawable(R.drawable.item_bg_business));
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 BusinessTabView businessTabView = (BusinessTabView) tab.getCustomView().getTag();
-                businessTabView.tabView.setTextColor(getResources().getColor(R.color.businessno));
+                businessTabView.tabView.setTextColor(getResources().getColor(R.color.business));
                 businessTabView.tabView.setBackground(getResources().getDrawable(R.drawable.item_bg_business_transparent));
             }
 

@@ -44,6 +44,7 @@ android {
         multiDexEnabled true
         buildConfigField "boolean", "CHANNEL_UPDATE", "false"
         ndk { abiFilters "armeabi", "armeabi-v7a", "x86_64" }
+        manifestPlaceholders = [k_appName: "@string/app_name"]
     }
     productFlavors {
         official { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "official"] }  //默认渠道;
@@ -76,6 +77,9 @@ android {
             buildConfigField 'String', 'SHENC_URL', '"production"'  //神策正式数据上传地址
             buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"'  //神策正式数据上传地址
             manifestPlaceholders = [
+                    k_appName: "@string/app_name"
+            ]
+            manifestPlaceholders = [
                     GETUI_APP_ID    : "P1WZUP1CCA83TQv6ROrw09",
                     GETUI_APP_KEY   : "4Q54VC50z36Dc3jFEHrdRA",
                     GETUI_APP_SECRET: "AA8dehMQ8b5VMQfhE4zAC2",
@@ -106,6 +110,9 @@ android {
 //            buildConfigField 'String', 'BASE_URL', '"http://192.168.3.78:80"' //本地服务
             buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"' //本地服务
             buildConfigField 'String', 'SHENC_URL', '"default"'  //神策测试数据上传地址
+            manifestPlaceholders = [
+                    k_appName: "@string/app_name_debug"
+            ]
             manifestPlaceholders = [
                     GETUI_APP_ID    : "vcUoVHlgI68fEjCXcSTWt9",
                     GETUI_APP_KEY   : "tHJQEhhpFi78oh6YEjTev8",

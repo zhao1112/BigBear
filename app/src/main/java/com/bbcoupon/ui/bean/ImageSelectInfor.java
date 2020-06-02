@@ -1,4 +1,4 @@
-package com.bbcoupon.base;
+package com.bbcoupon.ui.bean;
 
 import java.io.Serializable;
 import java.util.List;
