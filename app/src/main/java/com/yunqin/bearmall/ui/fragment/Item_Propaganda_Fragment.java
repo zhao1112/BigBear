@@ -40,7 +40,6 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.tauth.Tencent;
 import com.video.videoplayer.player.PlayerActivity;
 import com.videodown.DownLoadDialog;
 import com.videodown.http.DownLoad;

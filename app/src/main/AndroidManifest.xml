@@ -48,10 +48,10 @@
         android:name=".BearMallAplication"
         android:allowBackup="false"
         android:icon="@drawable/logo"
+        android:label="${k_appName}"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:label="${k_appName}"
-        tools:replace="android:name,android:allowBackup">
+        tools:replace="android:name,android:allowBackup,android:icon,android:theme,android:label">
         <activity
             android:name=".ui.activity.HairCircleActivity"
             android:configChanges="locale|layoutDirection"
