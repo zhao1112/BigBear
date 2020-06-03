@@ -10,23 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.bbcoupon.ui.bean.SchoolInfor;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yunqin.bearmall.R;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import static com.bbcoupon.ui.adapter.SchoolAdapter.FRAGMENT_TYPE.SCHOOLBANNER;
-import static com.bbcoupon.ui.adapter.SchoolAdapter.FRAGMENT_TYPE.SCHOOLICON;
-import static com.bbcoupon.ui.adapter.SchoolAdapter.FRAGMENT_TYPE.SCHOOLLIST;
-import static com.bbcoupon.ui.adapter.SchoolAdapter.FRAGMENT_TYPE.SCHOOLSEARCH;
 
 /**
  * @author LWP

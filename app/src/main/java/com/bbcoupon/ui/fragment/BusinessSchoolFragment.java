@@ -1,8 +1,15 @@
 package com.bbcoupon.ui.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.bbcoupon.ui.activity.ArticleActivity;
+import com.bbcoupon.ui.activity.ArticleSearchActivity;
 import com.bbcoupon.ui.adapter.SchoolAdapter;
 import com.bbcoupon.ui.bean.SchoolInfor;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -15,6 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -27,6 +37,8 @@ public class BusinessSchoolFragment extends BaseFragment {
     RecyclerView mScRecycler;
     @BindView(R.id.sc_refresh)
     TwinklingRefreshLayout mScRefresh;
+
+    private SchoolAdapter schoolAdapter;
 
     @Override
     public int layoutId() {
@@ -50,8 +62,16 @@ public class BusinessSchoolFragment extends BaseFragment {
         });
 
         mScRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        SchoolAdapter schoolAdapter = new SchoolAdapter(getActivity());
+        schoolAdapter = new SchoolAdapter(getActivity());
         mScRecycler.setAdapter(schoolAdapter);
+
+        //文章詳情
+        schoolAdapter.setOnArticle(new SchoolAdapter.OnArticle() {
+            @Override
+            public void setArticle() {
+                startActivity(new Intent(getActivity(), ArticleActivity.class));
+            }
+        });
 
         SchoolInfor schoolInfor = new SchoolInfor();
         schoolInfor.setSearch(1.20);
@@ -68,7 +88,7 @@ public class BusinessSchoolFragment extends BaseFragment {
             if (i % 2 == 0) {
                 iconList.add(icon);
                 icon.setItem("http://img5.imgtn.bdimg.com/it/u=4089178969,726909818&fm=26&gp=0.jpg");
-            }else {
+            } else {
                 iconList.add(icon);
                 icon.setItem("http://img1.imgtn.bdimg.com/it/u=2326324663,2897927302&fm=26&gp=0.jpg");
             }
@@ -85,4 +105,9 @@ public class BusinessSchoolFragment extends BaseFragment {
 
     }
 
+
+    @OnClick(R.id.art_search)
+    public void onViewClicked() {
+        startActivity(new Intent(getActivity(), ArticleSearchActivity.class));
+    }
 }

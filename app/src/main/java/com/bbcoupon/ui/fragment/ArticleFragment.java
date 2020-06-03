@@ -35,7 +35,7 @@ public class ArticleFragment extends BaseFragment {
 
         mBusinessTable.addTab(mBusinessTable.newTab().setText("大熊爆款"));
         mBusinessTable.addTab(mBusinessTable.newTab().setText("宣传素材"));
-//        mBusinessTable.addTab(mBusinessTable.newTab().setText("商学院"));
+        mBusinessTable.addTab(mBusinessTable.newTab().setText("商学院"));
 
         BusinessTableAdapter businessTableAdapter = new BusinessTableAdapter(getActivity(), getChildFragmentManager());
 

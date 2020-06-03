@@ -29,7 +29,6 @@ import com.yunqin.bearmall.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bbcoupon.ui.adapter.SchoolAdapter.FRAGMENT_TYPE.SCHOOLSEARCH;
 import static com.bbcoupon.ui.adapter.SchoolAdapter.FRAGMENT_TYPE.SCHOOLBANNER;
 import static com.bbcoupon.ui.adapter.SchoolAdapter.FRAGMENT_TYPE.SCHOOLICON;
 import static com.bbcoupon.ui.adapter.SchoolAdapter.FRAGMENT_TYPE.SCHOOLLIST;
@@ -51,15 +50,13 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void addDataList(SchoolInfor schoolInfor) {
         list.clear();
-        list.add(schoolInfor.getSearch());
         list.add(new BannerList(schoolInfor.getBanner()));
         list.add(new IconList(schoolInfor.getIconList()));
         list.addAll(schoolInfor.getList());
     }
 
-    @IntDef({SCHOOLSEARCH, SCHOOLBANNER, SCHOOLICON, SCHOOLLIST})
+    @IntDef({SCHOOLBANNER, SCHOOLICON, SCHOOLLIST})
     public @interface FRAGMENT_TYPE {
-        int SCHOOLSEARCH = 0;
         int SCHOOLBANNER = 1;
         int SCHOOLICON = 2;
         int SCHOOLLIST = 3;
@@ -67,9 +64,6 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (list.get(position) instanceof Double) {
-            return SCHOOLSEARCH;
-        }
         if (list.get(position) instanceof BannerList) {
             return SCHOOLBANNER;
         }
@@ -87,9 +81,6 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
-            case SCHOOLSEARCH:
-                view = LayoutInflater.from(context).inflate(R.layout.item_school_search, parent, false);
-                return new SearchHolder(view);
             case SCHOOLBANNER:
                 view = LayoutInflater.from(context).inflate(R.layout.item_school_banner, parent, false);
                 return new BannerHolder(view);
@@ -147,18 +138,26 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
             case SCHOOLLIST:
                 ArticleHolder articleHolder = (ArticleHolder) holder;
-                if (position == 3) {
-                    String str=" 置顶 "+"  代理模式做大熊酷朋，月入 上万不是梦";
-                    int bstart=str.indexOf(" 置顶 ");
-                    int bend=bstart+" 置顶 ".length();
-                    SpannableStringBuilder style=new SpannableStringBuilder(str);
-                    style.setSpan(new BackgroundColorSpan(Color.parseColor("#E60012")),bstart,bend, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    style.setSpan(new ForegroundColorSpan(Color.WHITE),bstart,bend,Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+                if (position == 2) {
+                    String str = " 置顶 " + "  代理模式做大熊酷朋，月入 上万不是梦";
+                    int bstart = str.indexOf(" 置顶 ");
+                    int bend = bstart + " 置顶 ".length();
+                    SpannableStringBuilder style = new SpannableStringBuilder(str);
+                    style.setSpan(new BackgroundColorSpan(Color.parseColor("#E60012")), bstart, bend, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    style.setSpan(new ForegroundColorSpan(Color.WHITE), bstart, bend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
                     articleHolder.sc_title.setText(style);
                 } else {
                     articleHolder.sc_title.setText("代理模式做大熊酷朋，月入上万不 是梦");
                 }
-                
+
+                articleHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onArticle != null) {
+                            onArticle.setArticle();
+                        }
+                    }
+                });
                 break;
         }
     }
@@ -166,13 +165,6 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return list.size();
-    }
-
-    private class SearchHolder extends RecyclerView.ViewHolder {
-
-        public SearchHolder(View itemView) {
-            super(itemView);
-        }
     }
 
     private class BannerHolder extends RecyclerView.ViewHolder {
@@ -246,6 +238,16 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     .apply(new RequestOptions().placeholder(R.drawable.default_product))
                     .into(imageView);
         }
+    }
+
+    public interface OnArticle {
+        void setArticle();
+    }
+
+    public OnArticle onArticle;
+
+    public void setOnArticle(OnArticle onArticle) {
+        this.onArticle = onArticle;
     }
 
 }

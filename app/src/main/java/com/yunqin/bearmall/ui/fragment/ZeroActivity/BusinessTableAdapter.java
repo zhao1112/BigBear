@@ -18,7 +18,7 @@ import com.yunqin.bearmall.ui.fragment.Item_Business_Fragment;
 public class BusinessTableAdapter extends FragmentStatePagerAdapter {
 
     private Context context;
-    private String[] tableTitle = {"大熊爆款", "宣传素材"};
+    private String[] tableTitle = {"大熊爆款", "宣传素材","商学院"};
 
     public BusinessTableAdapter(Context context, FragmentManager fm) {
         super(fm);

@@ -47,6 +47,7 @@
     <application
         android:name=".BearMallAplication"
         android:allowBackup="false"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/logo"
         android:label="${k_appName}"
         android:supportsRtl="true"
@@ -859,6 +860,15 @@
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
         <activity
             android:name="com.bbcoupon.ui.activity.WithdrawalTipsActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.ArticleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:hardwareAccelerated="true"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.ArticleSearchActivity"
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>

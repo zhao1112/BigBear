@@ -153,9 +153,7 @@ public class RetrofitApi {
             if (listener != null) {
                 listener.onNotNetWork();
             }
-            Looper.prepare();
             Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
-            Looper.loop();
             return;
         }
         observable.subscribeOn(Schedulers.io())
@@ -221,9 +219,7 @@ public class RetrofitApi {
             if (listener != null) {
                 listener.onNotNetWork();
             }
-            Looper.prepare();
             Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
-            Looper.loop();
             return;
         }
         observable.subscribeOn(Schedulers.io())
@@ -336,9 +332,7 @@ public class RetrofitApi {
             if (listener != null) {
                 listener.onNotNetWork();
             }
-            Looper.prepare();
             Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
-            Looper.loop();
             return;
         }
         observable.subscribeOn(Schedulers.io())
@@ -400,9 +394,7 @@ public class RetrofitApi {
             if (listener != null) {
                 listener.onNotNetWork();
             }
-            Looper.prepare();
             Toast.makeText(mContext, "请检查网络!", Toast.LENGTH_SHORT).show();
-            Looper.loop();
             return;
         }
         observable.subscribeOn(Schedulers.io())
@@ -444,9 +436,7 @@ public class RetrofitApi {
     public static void requestImageCode(Context mContext, Observable<ResponseBody> observable, final ImageCodeResponseListener listener) {
         if (!NetUtils.isConnected(mContext)) {
             // TODO 无网络链接
-            Looper.prepare();
             Toast.makeText(mContext, "网络错误", Toast.LENGTH_SHORT).show();
-            Looper.loop();
             return;
         }
         observable.subscribeOn(Schedulers.io())

@@ -21,7 +21,7 @@
 
         <RelativeLayout
             android:id="@+id/sc_icon_layout"
-            android:layout_width="@dimen/dp_50"
+            android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_15"
             android:background="@drawable/item_school_false">

@@ -237,7 +237,7 @@ android {
         // 刷新
         implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
         implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-
+        //
         implementation 'com.github.chihane:JDAddressSelector:1.1.4'
         implementation 'org.greenrobot:eventbus:3.0.0'
         implementation 'com.google.android:flexbox:0.3.0-alpha2'
@@ -284,12 +284,11 @@ android {
         implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.2@aar'
         //
         implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-
+        //
         implementation 'com.youth.banner:banner:1.4.10'
         //https://mvnrepository.com/artifact/com.google.code.gson/gson
         implementation 'com.google.code.gson:gson:2.8.5'
         implementation 'com.blankj:utilcode:1.25.0'
-
         //XBanner
         implementation 'com.github.xiaohaibin:XBanner:1.7.0'
         //高斯模糊
@@ -308,6 +307,14 @@ android {
         implementation 'com.getui:mzp:1.0.9'
         implementation 'com.getui:xmp:1.0.7'
         implementation 'com.getui:hwp:1.0.6'
+        //进度条
+        implementation 'com.timqi.sectorprogressview:library:2.0.1'
+        //图片查看器
+        implementation 'com.github.SherlockGougou:BigImageViewPager:v4_6.0.0'
+        //选择器
+        implementation 'org.jaaksi:pickerview:3.0.1'
+        //点赞动画
+        implementation 'com.jaren:likeview:1.2.2'
         //阅读
         api(name: 'YmSdk20190725', ext: 'aar')
         api "com.android.support:support-compat:27.0.0"
@@ -315,11 +322,6 @@ android {
         api "com.android.support:support-fragment:27.0.0"
         implementation "com.android.support:support-v4:27.1.0"
         implementation 'com.android.support:palette-v7:27.1.1'
-        //进度条
-        implementation 'com.timqi.sectorprogressview:library:2.0.1'
-        //图片查看器
-        implementation 'com.github.SherlockGougou:BigImageViewPager:v4_6.0.0'
-        //选择器
-        implementation 'org.jaaksi:pickerview:3.0.1'
+
     }
 }
