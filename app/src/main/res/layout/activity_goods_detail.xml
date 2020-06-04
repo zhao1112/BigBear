@@ -355,10 +355,18 @@
 
                     </RelativeLayout>
 
-                    <android.support.v7.widget.RecyclerView
+                    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/rlv"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        app:shimmer_demo_angle="30"
+                        app:shimmer_demo_child_count="10"
+                        app:shimmer_demo_layout="@layout/item_dome_xiangqin"
+                        app:shimmer_demo_layout_manager_type="linear_horizontal"
+                        app:shimmer_demo_shimmer_color="#73ffffff"/>
+
 
                 </LinearLayout>
 

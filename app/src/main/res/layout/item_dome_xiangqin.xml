@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:background="@drawable/bg_gray_solid">
+
+
+        <View
+            android:id="@+id/item_home_pro_image"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_120"
+            android:background="#24000000"/>
+
+
+        <TextView
+            android:id="@+id/item_home_pro_title"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_10"
+            android:layout_below="@+id/item_home_pro_image"
+            android:layout_marginTop="@dimen/dp_6"
+            android:background="#24000000">
+
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/rl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_home_pro_title"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_5">
+
+            <TextView
+                android:id="@+id/item_home_pro_quan"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_10"
+                android:background="#24000000"
+                android:paddingLeft="@dimen/dp_6"
+                android:paddingRight="@dimen/dp_6"/>
+
+            <TextView
+                android:id="@+id/tv_commision"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="#24000000"
+                android:paddingLeft="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_3"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_home_pro_yuanjia"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_10"
+            android:layout_below="@id/rl2"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="#24000000"/>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_10"
+            android:layout_below="@id/item_home_pro_yuanjia"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="#24000000"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

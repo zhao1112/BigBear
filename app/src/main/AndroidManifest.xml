@@ -872,6 +872,16 @@
             android:configChanges="locale|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.ArticleListActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity
+            android:name="com.bbcoupon.ui.activity.ArticleListTwoActivity"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
 
     </application>
 

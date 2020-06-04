@@ -11,6 +11,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,6 +136,16 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         iconHolder.sc_icon_view.setTranslationX(scrollableDistance * proportion);
                     }
                 });
+
+                schoolIconAdapter.setOnIcon(new SchoolIconAdapter.OnIcon() {
+                    @Override
+                    public void setIcon() {
+                        if (onArticle != null) {
+                            Log.e("iconContentHolder", "onClick: 2");
+                            onArticle.setArticelIcon();
+                        }
+                    }
+                });
                 break;
             case SCHOOLLIST:
                 ArticleHolder articleHolder = (ArticleHolder) holder;
@@ -242,6 +253,8 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public interface OnArticle {
         void setArticle();
+
+        void setArticelIcon();
     }
 
     public OnArticle onArticle;

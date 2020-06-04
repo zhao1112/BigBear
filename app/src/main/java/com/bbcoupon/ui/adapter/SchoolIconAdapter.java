@@ -49,6 +49,16 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .load(list.get(position).getItem())
                 .apply(new RequestOptions().placeholder(R.drawable.default_product))
                 .into(iconContentHolder.sc_icon);
+
+        iconContentHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onIcon != null) {
+                    Log.e("iconContentHolder", "onClick: ");
+                    onIcon.setIcon();
+                }
+            }
+        });
     }
 
     @Override
@@ -65,6 +75,17 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             sc_icon = itemView.findViewById(R.id.sc_icon);
         }
 
+    }
+
+
+    public interface OnIcon {
+        void setIcon();
+    }
+
+    public OnIcon onIcon;
+
+    public void setOnIcon(OnIcon onIcon) {
+        this.onIcon = onIcon;
     }
 
 }

@@ -263,15 +263,10 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                 e.printStackTrace();
             }
             Glide.with(this)
-                    .asBitmap()
                     .load(((MeetingInfor) data).getData().getImage())
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            Bitmap bitmap = ImageUtil.ImageMatrix(resource, mMeImage);
-                            mMeImage.setImageBitmap(bitmap);
-                        }
-                    });
+                    .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                    .into(mMeImage);
+
             titile.setText(((MeetingInfor) data).getData().getTitle());
             mTaopassword.setText(((MeetingInfor) data).getData().getContnet());
             if (((MeetingInfor) data).getData().getUrl() != null) {
@@ -308,15 +303,9 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
                     dwon_share.setOnClickListener(this);
                     Log.e("imageView", ((MeetingShareInfor) data).getData());
                     Glide.with(this)
-                            .asBitmap()
                             .load(((MeetingShareInfor) data).getData()).apply(options)
-                            .into(new SimpleTarget<Bitmap>() {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    Bitmap bitmap = ImageUtil.ImageMatrix(resource, imageView);
-                                    imageView.setImageBitmap(bitmap);
-                                }
-                            });
+                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                            .into(imageView);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

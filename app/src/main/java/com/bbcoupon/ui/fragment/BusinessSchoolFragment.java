@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
 
 import com.bbcoupon.ui.activity.ArticleActivity;
+import com.bbcoupon.ui.activity.ArticleListTwoActivity;
 import com.bbcoupon.ui.activity.ArticleSearchActivity;
 import com.bbcoupon.ui.adapter.SchoolAdapter;
 import com.bbcoupon.ui.bean.SchoolInfor;
@@ -22,9 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 
 /**
@@ -70,6 +67,13 @@ public class BusinessSchoolFragment extends BaseFragment {
             @Override
             public void setArticle() {
                 startActivity(new Intent(getActivity(), ArticleActivity.class));
+            }
+
+            @Override
+            public void setArticelIcon() {
+                Log.e("iconContentHolder", "onClick: 3");
+                Bundle bundle = new Bundle();
+                ArticleListTwoActivity.openArticleListTwoActivity(getActivity(),ArticleListTwoActivity.class,bundle);
             }
         });
 

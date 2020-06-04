@@ -73,7 +73,8 @@ android {
         release {
             // 正式地址
 //            buildConfigField 'String', 'BASE_URL', '"https://testapi.bbcoupon.cn"' //国内服务
-            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'  //正式地址
+//            buildConfigField 'String', 'BASE_URL', '"https://api.bbbearmall.com"'  //正式地址
+            buildConfigField 'String', 'BASE_URL', '"https://api.bbcoupon.cn"'  //正式地址
             buildConfigField 'String', 'SHENC_URL', '"production"'  //神策正式数据上传地址
             buildConfigField 'String', 'SHENC_BASE_URL', '"http://sci.bbbearmall.com"'  //神策正式数据上传地址
             manifestPlaceholders = [
@@ -315,6 +316,8 @@ android {
         implementation 'org.jaaksi:pickerview:3.0.1'
         //点赞动画
         implementation 'com.jaren:likeview:1.2.2'
+
+        implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
         //阅读
         api(name: 'YmSdk20190725', ext: 'aar')
         api "com.android.support:support-compat:27.0.0"

@@ -1,12 +1,15 @@
 package com.bbcoupon.ui.activity;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bbcoupon.util.WindowUtils;
 import com.bbcoupon.widget.ArticleHistoryFlowLayout;
 import com.newversions.tbk.activity.ProductSumActivity2;
 import com.yunqin.bearmall.R;
@@ -26,7 +29,7 @@ import butterknife.OnClick;
  * @PACKAGE com.bbcoupon.ui.activity
  * @DATE 2020/6/3
  */
-public class ArticleSearchActivity extends BaseActivity implements TextWatcher, TextView.OnEditorActionListener {
+public class ArticleSearchActivity extends BaseActivity implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
 
     @BindView(R.id.history_flow)
     FlowLayout mHistoryFlow;
@@ -62,13 +65,24 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
 
     @OnClick({R.id.ar_back, R.id.search, R.id.clear_all})
     public void onViewClicked(View view) {
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.ar_back:
                 finish();
                 break;
             case R.id.search:
+                if (mInputContent.getText().toString().length() > 0) {
+                    bundle.putString("ARTICLECONTENT",mInputContent.getText().toString());
+                    ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this,ArticleListActivity.class,bundle);
+                }else {
+                    showToast("请输入搜索内容");
+                }
                 break;
             case R.id.clear_all:
+                PopupWindow popupWindow = WindowUtils.ShowVirtual(ArticleSearchActivity.this, R.layout.item_artsearch_popup,
+                        R.style.bottom_animation, 2);
+                popupWindow.getContentView().findViewById(R.id.arts_confirmation).setOnClickListener(this);
+                popupWindow.getContentView().findViewById(R.id.arts_cancel).setOnClickListener(this);
                 break;
         }
     }
@@ -78,6 +92,9 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
         mHistoryFlow.setOnTagClickListener(text -> {
             mInputContent.setText(text);
             mInputContent.setSelection(text.length());
+            Bundle bundle = new Bundle();
+            bundle.putString("ARTICLECONTENT",mInputContent.getText().toString());
+            ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this,ArticleListActivity.class,bundle);
         });
     }
 
@@ -86,6 +103,9 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
         mHotFlow.setOnTagClickListener(text -> {
             mInputContent.setText(text);
             mInputContent.setSelection(text.length());
+            Bundle bundle = new Bundle();
+            bundle.putString("ARTICLECONTENT",mInputContent.getText().toString());
+            ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this,ArticleListActivity.class,bundle);
         });
     }
 
@@ -153,13 +173,34 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
                     // TODO 发送请求
                     if (mInputContent.getText().toString().length() > 0) {
                         assemblyData(mInputContent.getText().toString());
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ARTICLECONTENT",mInputContent.getText().toString());
+                        ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this,ArticleListActivity.class,bundle);
+                        hiddenKeyboard();
+                    } else {
+                        showToast("请输入搜索内容");
                     }
-                    hiddenKeyboard();
                     return true;
                 default:
                     return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.arts_confirmation:
+                SharedPreferencesHelper.clearWhichOne(this, KEY);
+                historyList = getSearchData();
+                mHistoryFlow.cleanTag();
+                setList(historyList);
+                WindowUtils.dismissBrightness(ArticleSearchActivity.this);
+                break;
+            case R.id.arts_cancel:
+                WindowUtils.dismissBrightness(ArticleSearchActivity.this);
+                break;
+        }
     }
 }

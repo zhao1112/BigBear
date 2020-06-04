@@ -150,13 +150,13 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("android");
 
-        cookieManager.setCookie("https://haokan.baidu.com/v?vid=12169291957334589201&pd=bjh&fr=bjhauthor&type=video",
+        cookieManager.setCookie("http://192.168.3.77:5501/index.html",
                 stringBuffer.toString());
         cookieManager.setAcceptCookie(true);
 
         setWebview(mArWeb);
 
-        mArWeb.loadUrl("https://haokan.baidu.com/v?vid=12169291957334589201&pd=bjh&fr=bjhauthor&type=video");
+        mArWeb.loadUrl("http://192.168.3.77:5501/index.html");
 
     }
 
@@ -219,11 +219,11 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         web.setDefaultTextEncodingName("utf-8");
         // 设置可以支持缩放
         web.setSupportZoom(true);
+        web.setJavaScriptEnabled(true);  //支持js
+        web.setUseWideViewPort(true);  //将图片调整到适合webview的大小
         // 设置缓存模式
         web.setAppCacheEnabled(true);
         web.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        // //添加Javascript调用java对象
-        web.setJavaScriptEnabled(true);
         // 设置出现缩放工具
         web.setBuiltInZoomControls(true);
         web.setDisplayZoomControls(false);

@@ -51,7 +51,8 @@
         android:id="@+id/me_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:scaleType="fitXY"/>
 
     <LinearLayout
         android:id="@+id/bg_color"

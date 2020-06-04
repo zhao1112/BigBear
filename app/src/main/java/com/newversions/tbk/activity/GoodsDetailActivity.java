@@ -37,6 +37,7 @@ import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.CopyTextUtil;
 import com.bbcoupon.util.JurisdictionUtil;
 import com.bumptech.glide.Glide;
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -117,7 +118,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
     @BindView(R.id.lin_quanhoujia)
     LinearLayout linQuanhoujia;
     @BindView(R.id.rlv)
-    RecyclerView rlv;
+    ShimmerRecyclerView rlv;
     @BindView(R.id.refreshlayout)
     TwinklingRefreshLayout mTwinklingRefreshLayout;
     @BindView(R.id.rl_seller_name)
@@ -242,6 +243,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
         rlv.setLayoutManager(linearLayoutManager);
         rlv.setAdapter(homeAdapter);
+        rlv.showShimmerAdapter();
 
         banGoodsImage.setImageLoader(new GlideImageLoader());
         //设置自动轮播，默认为true
@@ -549,6 +551,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
         Log.d("TAG", "attachAddData: " + likeGuessEntity.getRecommend().size());
         mList.addAll(likeGuessEntity.getRecommend());
         homeAdapter.notifyDataSetChanged();
+        rlv.hideShimmerAdapter();
     }
 
     @Override
