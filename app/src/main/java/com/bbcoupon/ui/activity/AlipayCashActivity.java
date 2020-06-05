@@ -164,7 +164,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
             return;
         }
         //输入密码
-        PopupWindow popupWindow = WindowUtils.ShowVirtual(AlipayCashActivity.this, R.layout.item_alip_pwd,
+        PopupWindow popupWindow = WindowUtils.timeShow(AlipayCashActivity.this, R.layout.item_alip_pwd,
                 R.style.bottom_animation, 2);
         pwd_1 = popupWindow.getContentView().findViewById(R.id.pwd_1);
         pwd_2 = popupWindow.getContentView().findViewById(R.id.pwd_2);
@@ -231,7 +231,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
                 assemblePwd(-1);
                 break;
             case R.id.close:
-                WindowUtils.dismissBrightness(AlipayCashActivity.this);
+                WindowUtils.dismissOnly(AlipayCashActivity.this);
                 break;
             case R.id.p_close://忘记密码
                 WindowUtils.dismissBrightness(AlipayCashActivity.this);
@@ -295,7 +295,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
         if (data instanceof String) {
             hiddenLoadingView();
             String datas = (String) data;
-            WindowUtils.dismissBrightness(AlipayCashActivity.this);
+            WindowUtils.dismissOnly(AlipayCashActivity.this);
             try {
                 JSONObject jsonObject = new JSONObject(datas);
                 int code = jsonObject.getInt("code");
