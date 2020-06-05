@@ -1552,5 +1552,54 @@ public interface Api {
     @POST("api/dailytask/getDailyTaskAllRewardNew")
     Observable<String> onTaskAllRewardNew();
 
+    /**
+     * 商学院列表
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getAllArticleList")
+    Observable<String> onAllArticleList(@FieldMap() Map<String, String> params);
+
+    /**
+     * 根据文章类型获取列表
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getArticleList")
+    Observable<String> onArticleList(@FieldMap() Map<String, String> params);
+
+    /**
+     * 获得文章评论
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getCommentList")
+    Observable<String> onCommentList(@FieldMap() Map<String, String> params);
+
+    /**
+     * 评论数,点赞数,是否点赞
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getNumberOfDetails")
+    Observable<String> onNumberOfDetails(@FieldMap() Map<String, String> params);
+
+
+    /**
+     * 评论
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/addComment")
+    Observable<String> onaddComment(@FieldMap() Map<String, String> params);
+
+    /**
+     * 点赞或者取消点赞
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/giveTheThumbsUp")
+    Observable<String> onTheThumbsUp(@FieldMap() Map<String, String> params);
+
+    /**
+     * 点赞或者取消点赞
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getArticleListByWords")
+    Observable<String> onArticleListByWords(@FieldMap() Map<String, String> params);
 }
 

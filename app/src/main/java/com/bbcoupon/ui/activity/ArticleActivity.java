@@ -1,14 +1,18 @@
 package com.bbcoupon.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,21 +25,29 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.bbcoupon.ui.adapter.ArticleAdapter;
 import com.bbcoupon.ui.bean.ArticleInfor;
+import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.CommentInfor;
+import com.bbcoupon.ui.bean.RequestInfor;
+import com.bbcoupon.ui.contract.RequestContract;
+import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.WindowUtils;
+import com.bbcoupon.widget.RefreshSchoolView;
 import com.jaren.lib.view.LikeView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,7 +57,7 @@ import butterknife.OnClick;
  * @PACKAGE com.bbcoupon.ui.activity
  * @DATE 2020/6/2
  */
-public class ArticleActivity extends BaseActivity implements View.OnClickListener {
+public class ArticleActivity extends BaseActivity implements View.OnClickListener, RequestContract.RequestView {
 
     @BindView(R.id.ar_web)
     WebView mArWeb;
@@ -67,10 +79,25 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     ImageView mChat;
     @BindView(R.id.home_search)
     LinearLayout mHomeSearch;
+    @BindView(R.id.ar_see_sume)
+    TextView mArSeeSume;
+    @BindView(R.id.ar_like_sume)
+    TextView mArLikeSume;
 
     private ArticleAdapter articleAdapter;
     private boolean chat = true;
     private EditText ar_edit;
+    private String articleid;
+    private RequestPresenter presenter;
+    private int page = 1;
+    private String webUrl;
+
+    public static void openArticleActivity(Activity activity, Class cla, Bundle bundle) {
+        Intent intent = new Intent(activity, cla);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
 
     @Override
     public int layoutId() {
@@ -80,19 +107,35 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void init() {
 
+        articleid = getIntent().getStringExtra("ARTICLEID");
+        if (TextUtils.isEmpty(articleid)) {
+            return;
+        }
+
+        webUrl = "http://192.168.3.77:5500/index.html?id=" + articleid;
+
+        presenter = new RequestPresenter();
+        presenter.setRelation(this);
+        Map<String, String> map = new HashMap<>();
+        map.put("id", articleid);
+        presenter.onNumberOfDetails(ArticleActivity.this, map);
+
         setWeb();
 
         mARefresh.setHeaderView(new RefreshHeadView(ArticleActivity.this));
-        mARefresh.setEnableRefresh(false);
+        mARefresh.setBottomView(new RefreshBottomView(ArticleActivity.this));
         mARefresh.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-
+                page = 1;
+                articleAdapter.deleteData();
+                getData(page);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-
+                page++;
+                getData(page);
             }
         });
 
@@ -100,16 +143,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         mARecycler.setLayoutManager(new LinearLayoutManager(ArticleActivity.this));
         articleAdapter = new ArticleAdapter(ArticleActivity.this);
         mARecycler.setAdapter(articleAdapter);
-
-        ArticleInfor articleInfor = new ArticleInfor();
-        List<ArticleInfor.Data> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            ArticleInfor.Data data = new ArticleInfor.Data();
-            list.add(data);
-        }
-        articleInfor.setList(list);
-        articleAdapter.addData(articleInfor.getList());
-
 
         mScScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -126,6 +159,16 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 }
             }
         });
+
+        getData(page);
+    }
+
+    private void getData(int page) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", articleid);
+        map.put("page", page + "");
+        map.put("pageSize", "10");
+        presenter.onCommentList(ArticleActivity.this, map);
     }
 
     private void setWeb() {
@@ -150,14 +193,79 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("android");
 
-        cookieManager.setCookie("http://192.168.3.77:5501/index.html",
-                stringBuffer.toString());
+        cookieManager.setCookie(webUrl, stringBuffer.toString());
         cookieManager.setAcceptCookie(true);
 
         setWebview(mArWeb);
 
-        mArWeb.loadUrl("http://192.168.3.77:5501/index.html");
+        mArWeb.loadUrl(webUrl);
 
+    }
+
+    @Override
+    public void onSuccess(Object data) {
+        if (data instanceof CommentInfor) {
+            CommentInfor commentInfor = (CommentInfor) data;
+            if (commentInfor != null && commentInfor.getData() != null && commentInfor.getData().size() > 0) {
+                mARefresh.setBottomView(new RefreshBottomView(ArticleActivity.this));
+                articleAdapter.addData(commentInfor.getData());
+            } else {
+                mARefresh.setBottomView(new RefreshSchoolView(ArticleActivity.this));
+            }
+        }
+        if (data instanceof ArticleInfor) {
+            ArticleInfor articleInfor = (ArticleInfor) data;
+            if (articleInfor != null) {
+                if (articleInfor.getData().getComment_num() != null) {
+                    mArSeeSume.setText(articleInfor.getData().getComment_num());
+                }
+                if (articleInfor.getData().getLikes_num() != null) {
+                    mArLikeSume.setText(articleInfor.getData().getLikes_num());
+                }
+                if (articleInfor.getData().getIsGiveTheThumbsUp() == 1) {
+                    mSeLive.setChecked(true);
+//                    mSeLive.toggle();
+                } else {
+                    mSeLive.setChecked(false);
+                }
+            }
+        }
+        if (data instanceof BaseInfor) {
+            BaseInfor baseInfor = (BaseInfor) data;
+            if (baseInfor.getCode() == 1) {
+                Map<String, String> map = new HashMap<>();
+                map.put("id", articleid);
+                presenter.onNumberOfDetails(ArticleActivity.this, map);
+                page = 1;
+                articleAdapter.deleteData();
+                getData(page);
+            }
+        }
+        if (data instanceof RequestInfor) {
+            RequestInfor requestInfor = (RequestInfor) data;
+            if (requestInfor.getCode() == 1) {
+                Map<String, String> map = new HashMap<>();
+                map.put("id", articleid);
+                presenter.onNumberOfDetails(ArticleActivity.this, map);
+            }
+        }
+        hiddenLoadingView();
+        mARefresh.finishRefreshing();
+        mARefresh.finishLoadmore();
+    }
+
+    @Override
+    public void onNotNetWork() {
+        hiddenLoadingView();
+        mARefresh.finishRefreshing();
+        mARefresh.finishLoadmore();
+    }
+
+    @Override
+    public void onFail(Throwable e) {
+        hiddenLoadingView();
+        mARefresh.finishRefreshing();
+        mARefresh.finishLoadmore();
     }
 
     private class MyWebChromeClient extends WebChromeClient {
@@ -240,6 +348,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        presenter.setUntying(this);
         if (mArWeb != null) {
             try {
                 mArWeb.setVisibility(View.GONE);
@@ -253,7 +362,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             mArWeb = null;
         }
     }
-
 
     @OnClick({R.id.ar_back, R.id.ar_refresh, R.id.sc_chat, R.id.se_live, R.id.home_search})
     public void onViewClicked(View view) {
@@ -272,7 +380,14 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case R.id.se_live:
-                mSeLive.toggle();
+                Map<String, String> map = new HashMap<>();
+                map.put("id", articleid);
+                if (mSeLive.isChecked()) {
+                    map.put("type", "2");
+                } else {
+                    map.put("type", "1");
+                }
+                presenter.onTheThumbsUp(ArticleActivity.this, map);
                 break;
             case R.id.home_search:
                 PopupWindow popupWindow = WindowUtils.ShowSex(ArticleActivity.this, R.layout.item_srt_popup, mHomeSearch);
@@ -300,7 +415,14 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.ar_release:
-                showToast(ar_edit.getText().toString());
+                Map<String, String> map = new HashMap<>();
+                if (!TextUtils.isEmpty(ar_edit.getText().toString()) && ar_edit.getText().toString().length() <= 200) {
+                    map.put("id", articleid);
+                    map.put("comments", ar_edit.getText().toString());
+                    presenter.onaddComment(ArticleActivity.this, map);
+                } else {
+                    showToast("评论文字不能大于200字");
+                }
                 hiddenKeyboard();
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;

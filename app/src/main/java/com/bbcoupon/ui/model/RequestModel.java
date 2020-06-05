@@ -7,13 +7,17 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.AlipayInfor;
+import com.bbcoupon.ui.bean.ArticeleListInfor;
+import com.bbcoupon.ui.bean.ArticleInfor;
 import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.CommentInfor;
 import com.bbcoupon.ui.bean.ContentInfor;
 import com.bbcoupon.ui.bean.CustomInfor;
 import com.bbcoupon.ui.bean.MakeInfor;
 import com.bbcoupon.ui.bean.MeetingInfor;
 import com.bbcoupon.ui.bean.MeetingShareInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
+import com.bbcoupon.ui.bean.SchoolInfor;
 import com.bbcoupon.ui.bean.SearchInfor;
 import com.bbcoupon.ui.bean.TutorInfor;
 import com.bbcoupon.ui.bean.WXInfor;
@@ -771,7 +775,7 @@ public class RequestModel implements RequestContract.RequestModel {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).KeywordSearch(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                Log.e("searchData", data );
+                Log.e("searchData", data);
                 SearchData searchData = new Gson().fromJson(data, SearchData.class);
                 if (requestView != null) {
                     requestView.onSuccess(searchData);
@@ -800,7 +804,7 @@ public class RequestModel implements RequestContract.RequestModel {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onTaskAllRewardNew(), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                Log.e("searchData", data );
+                Log.e("searchData", data);
                 MakeInfor makeInfor = new Gson().fromJson(data, MakeInfor.class);
                 if (requestView != null) {
                     requestView.onSuccess(makeInfor);
@@ -831,6 +835,209 @@ public class RequestModel implements RequestContract.RequestModel {
                     @Override
                     public void onSuccess(String data) {
                         MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
+    }
+
+    //商学院列表
+    @Override
+    public void onAllArticleList(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onAllArticleList(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        SchoolInfor messageItemCount = new Gson().fromJson(data, SchoolInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
+    }
+
+    //根据文章类型获取列表
+    @Override
+    public void onArticleList(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onArticleList(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        ArticeleListInfor messageItemCount = new Gson().fromJson(data, ArticeleListInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
+    }
+
+    //获得文章评论
+    @Override
+    public void onCommentList(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onCommentList(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        CommentInfor messageItemCount = new Gson().fromJson(data, CommentInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
+    }
+
+    // //评论数,点赞数,是否点赞
+    @Override
+    public void onNumberOfDetails(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onNumberOfDetails(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        ArticleInfor messageItemCount = new Gson().fromJson(data, ArticleInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
+    }
+
+    //评论
+    @Override
+    public void onaddComment(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onaddComment(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        BaseInfor messageItemCount = new Gson().fromJson(data, BaseInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
+    }
+
+    //点赞或者取消点赞
+    @Override
+    public void onTheThumbsUp(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onTheThumbsUp(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        RequestInfor messageItemCount = new Gson().fromJson(data, RequestInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
+    }
+
+    //// 商学院关键字搜索
+    @Override
+    public void onArticleListByWords(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onArticleListByWords(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        ArticeleListInfor messageItemCount = new Gson().fromJson(data, ArticeleListInfor.class);
                         if (requestView != null) {
                             requestView.onSuccess(messageItemCount);
                         }

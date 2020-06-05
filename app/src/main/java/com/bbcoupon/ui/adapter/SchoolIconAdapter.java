@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bbcoupon.ui.bean.SchoolInfor;
 import com.bumptech.glide.Glide;
@@ -25,10 +26,10 @@ import java.util.List;
  */
 public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<SchoolInfor.Icon> list;
+    private List<SchoolInfor.Data2Bean> list;
     private Context context;
 
-    public SchoolIconAdapter(Context context, List<SchoolInfor.Icon> list) {
+    public SchoolIconAdapter(Context context, List<SchoolInfor.Data2Bean> list) {
         this.list = list;
         this.context = context;
     }
@@ -44,18 +45,17 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         IconContentHolder iconContentHolder = (IconContentHolder) holder;
-        Log.e("RecyclerView", list.get(position).getItem());
         Glide.with(context)
-                .load(list.get(position).getItem())
+                .load(list.get(position).getImage())
                 .apply(new RequestOptions().placeholder(R.drawable.default_product))
                 .into(iconContentHolder.sc_icon);
-
+        iconContentHolder.sc_title.setText(list.get(position).getName());
         iconContentHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onIcon != null) {
                     Log.e("iconContentHolder", "onClick: ");
-                    onIcon.setIcon();
+                    onIcon.setIcon(list.get(position).getId(),list.get(position).getName());
                 }
             }
         });
@@ -69,17 +69,19 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private class IconContentHolder extends RecyclerView.ViewHolder {
 
         private final ImageView sc_icon;
+        private final TextView sc_title;
 
         public IconContentHolder(View itemView) {
             super(itemView);
             sc_icon = itemView.findViewById(R.id.sc_icon);
+            sc_title = itemView.findViewById(R.id.sc_title);
         }
 
     }
 
 
     public interface OnIcon {
-        void setIcon();
+        void setIcon(int id,String title);
     }
 
     public OnIcon onIcon;

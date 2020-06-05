@@ -79,6 +79,20 @@ public class RequestContract {
         void onTaskAllRewardNew(Context context);
 
         void onMessageCount(Context context, Map<String, String> map);
+
+        void onAllArticleList(Context context, Map<String, String> map);
+
+        void onArticleList(Context context, Map<String, String> map);
+
+        void onCommentList(Context context, Map<String, String> map);
+
+        void onNumberOfDetails(Context context, Map<String, String> map);
+
+        void onaddComment(Context context, Map<String, String> map);
+
+        void onTheThumbsUp(Context context, Map<String, String> map);
+
+        void onArticleListByWords(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
@@ -137,5 +151,19 @@ public class RequestContract {
         void onTaskAllRewardNew(Context context, RequestContract.RequestView requestView);
 
         void onMessageCount(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onAllArticleList(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onArticleList(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onCommentList(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onNumberOfDetails(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onaddComment(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onTheThumbsUp(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onArticleListByWords(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

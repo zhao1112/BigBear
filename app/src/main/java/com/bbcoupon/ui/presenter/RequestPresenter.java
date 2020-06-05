@@ -254,4 +254,60 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //商学院列表
+    @Override
+    public void onAllArticleList(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onAllArticleList(context, map, requestView);
+        }
+    }
+
+    //根据文章类型获取列表
+    @Override
+    public void onArticleList(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onArticleList(context, map, requestView);
+        }
+    }
+
+    //获得文章评论
+    @Override
+    public void onCommentList(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onCommentList(context, map, requestView);
+        }
+    }
+
+    //评论数,点赞数,是否点赞
+    @Override
+    public void onNumberOfDetails(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onNumberOfDetails(context, map, requestView);
+        }
+    }
+
+    //评论
+    @Override
+    public void onaddComment(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onaddComment(context, map, requestView);
+        }
+    }
+
+    //点赞或者取消点赞
+    @Override
+    public void onTheThumbsUp(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onTheThumbsUp(context, map, requestView);
+        }
+    }
+
+    // 商学院关键字搜索
+    @Override
+    public void onArticleListByWords(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onArticleListByWords(context, map, requestView);
+        }
+    }
+
 }

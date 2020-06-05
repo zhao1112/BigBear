@@ -21,9 +21,11 @@ import android.widget.TextView;
 
 import com.bbcoupon.ui.bean.SchoolInfor;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.yunqin.bearmall.R;
 
@@ -43,6 +45,9 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private List<Object> list;
     private Context context;
+    private RoundedCorners roundedCorner = new RoundedCorners(10);
+    private RequestOptions options = RequestOptions.bitmapTransform(roundedCorner);
+
 
     public SchoolAdapter(Context context) {
         this.list = new ArrayList<>();
@@ -50,10 +55,21 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void addDataList(SchoolInfor schoolInfor) {
-        list.clear();
-        list.add(new BannerList(schoolInfor.getBanner()));
-        list.add(new IconList(schoolInfor.getIconList()));
-        list.addAll(schoolInfor.getList());
+        list.add(new BannerList(schoolInfor.getData1()));
+        list.add(new IconList(schoolInfor.getData2()));
+        if (schoolInfor.getData3() != null && schoolInfor.getData3().size() > 0) {
+            list.addAll(schoolInfor.getData3());
+        }
+        notifyDataSetChanged();
+    }
+
+    public void addBottomList(List<SchoolInfor.Data3Bean> botList) {
+        this.list.addAll(botList);
+        notifyDataSetChanged();
+    }
+
+    public void deleteDataList() {
+        this.list.clear();
     }
 
     @IntDef({SCHOOLBANNER, SCHOOLICON, SCHOOLLIST})
@@ -71,7 +87,7 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (list.get(position) instanceof IconList) {
             return SCHOOLICON;
         }
-        if (list.get(position) instanceof SchoolInfor.Data) {
+        if (list.get(position) instanceof SchoolInfor.Data3Bean) {
             return SCHOOLLIST;
         }
         return 0;
@@ -101,7 +117,19 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case SCHOOLBANNER:
                 BannerHolder bannerHolder = (BannerHolder) holder;
                 BannerList banner = (BannerList) list.get(position);
-                bannerHolder.setBannerList(banner.bannerlist);
+                List<String> bannerList = new ArrayList<>();
+                for (int i = 0; i < banner.bannerlist.size(); i++) {
+                    bannerList.add(banner.bannerlist.get(i).getImage());
+                }
+                bannerHolder.setBannerList(bannerList);
+                bannerHolder.setBannerListener(new OnBannerListener() {
+                    @Override
+                    public void OnBannerClick(int position) {
+                        if (onArticle != null) {
+                            onArticle.setBannerId(banner.bannerlist.get(position).getBusinesscollegeId());
+                        }
+                    }
+                });
                 break;
             case SCHOOLICON:
                 IconHolder iconHolder = (IconHolder) holder;
@@ -139,18 +167,19 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 schoolIconAdapter.setOnIcon(new SchoolIconAdapter.OnIcon() {
                     @Override
-                    public void setIcon() {
+                    public void setIcon(int id, String title) {
                         if (onArticle != null) {
                             Log.e("iconContentHolder", "onClick: 2");
-                            onArticle.setArticelIcon();
+                            onArticle.setArticelIcon(id, title);
                         }
                     }
                 });
                 break;
             case SCHOOLLIST:
                 ArticleHolder articleHolder = (ArticleHolder) holder;
-                if (position == 2) {
-                    String str = " 置顶 " + "  代理模式做大熊酷朋，月入 上万不是梦";
+                SchoolInfor.Data3Bean bean = (SchoolInfor.Data3Bean) list.get(position);
+                if (bean.getIsOverhead() == 1) {
+                    String str = " 置顶 " + " " + bean.getTitle();
                     int bstart = str.indexOf(" 置顶 ");
                     int bend = bstart + " 置顶 ".length();
                     SpannableStringBuilder style = new SpannableStringBuilder(str);
@@ -158,14 +187,31 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     style.setSpan(new ForegroundColorSpan(Color.WHITE), bstart, bend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
                     articleHolder.sc_title.setText(style);
                 } else {
-                    articleHolder.sc_title.setText("代理模式做大熊酷朋，月入上万不 是梦");
+                    articleHolder.sc_title.setText(bean.getTitle());
                 }
-
+                articleHolder.sc_live_sume.setText(bean.getLikes_num() + "点赞 ");
+                articleHolder.sc_see_sume.setText(" " + bean.getViews_num() + "浏览");
+                articleHolder.sc_time.setText(bean.getReleaseTime());
+                if (bean.getType() == 0) {
+                    Glide.with(context)
+                            .load(bean.getUrl())
+                            .apply(options)
+                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                            .into(articleHolder.sc_image);
+                    articleHolder.sc_video_image.setVisibility(View.GONE);
+                } else {
+                    Glide.with(context)
+                            .load(bean.getCoverimage())
+                            .apply(options)
+                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                            .into(articleHolder.sc_image);
+                    articleHolder.sc_video_image.setVisibility(View.VISIBLE);
+                }
                 articleHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (onArticle != null) {
-                            onArticle.setArticle();
+                            onArticle.setArticle(bean.getId());
                         }
                     }
                 });
@@ -198,15 +244,29 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             sc_banner.setImageLoader(new GlideImageLoader());
             sc_banner.start();
         }
+
+        public void setBannerListener(OnBannerListener listener) {
+            sc_banner.setOnBannerListener(listener);
+        }
     }
 
     private class ArticleHolder extends RecyclerView.ViewHolder {
 
         private final TextView sc_title;
+        private final TextView sc_live_sume;
+        private final TextView sc_see_sume;
+        private final TextView sc_time;
+        private final ImageView sc_image;
+        private final ImageView sc_video_image;
 
         public ArticleHolder(View itemView) {
             super(itemView);
             sc_title = itemView.findViewById(R.id.sc_title);
+            sc_live_sume = itemView.findViewById(R.id.sc_live_sume);
+            sc_see_sume = itemView.findViewById(R.id.sc_see_sume);
+            sc_time = itemView.findViewById(R.id.sc_time);
+            sc_image = itemView.findViewById(R.id.sc_image);
+            sc_video_image = itemView.findViewById(R.id.sc_video_image);
         }
     }
 
@@ -225,17 +285,17 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private class IconList {
-        List<SchoolInfor.Icon> iconList;
+        List<SchoolInfor.Data2Bean> iconList;
 
-        IconList(List<SchoolInfor.Icon> iconList) {
+        IconList(List<SchoolInfor.Data2Bean> iconList) {
             this.iconList = iconList;
         }
     }
 
     private class BannerList {
-        List<String> bannerlist;
+        List<SchoolInfor.Data1Bean> bannerlist;
 
-        BannerList(List<String> bannerlist) {
+        BannerList(List<SchoolInfor.Data1Bean> bannerlist) {
             this.bannerlist = bannerlist;
         }
     }
@@ -252,9 +312,11 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public interface OnArticle {
-        void setArticle();
+        void setArticle(int id);
 
-        void setArticelIcon();
+        void setArticelIcon(int id, String title);
+
+        void setBannerId(int id);
     }
 
     public OnArticle onArticle;

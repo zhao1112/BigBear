@@ -168,12 +168,13 @@
                                 android:src="@mipmap/art_wenzhang"/>
 
                             <TextView
+                                android:id="@+id/ar_see_sume"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:layout_marginLeft="@dimen/dp_5"
                                 android:layout_toRightOf="@id/chat"
-                                android:text="508"
+                                android:text="0"
                                 android:textColor="#ff777777"
                                 android:textSize="@dimen/dp_9"/>
 
@@ -213,11 +214,12 @@
                                 app:ringColor="#ff44ff00"/>
 
                             <TextView
+                                android:id="@+id/ar_like_sume"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginTop="@dimen/dp_15"
-                                android:text="508"
+                                android:text="0"
                                 android:textColor="#ff777777"
                                 android:textSize="@dimen/dp_9"/>
 
