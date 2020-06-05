@@ -110,7 +110,6 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
         mAlipPwd.setClickable(false);
 
         pwdTvs = new ArrayList<>();
-        newPwdStringBuffer = new StringBuffer();
     }
 
     @Override
@@ -163,6 +162,7 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
             mTipPrice.setVisibility(View.VISIBLE);
             return;
         }
+        newPwdStringBuffer = new StringBuffer();
         //输入密码
         PopupWindow popupWindow = WindowUtils.timeShow(AlipayCashActivity.this, R.layout.item_alip_pwd,
                 R.style.bottom_animation, 2);
@@ -172,6 +172,12 @@ public class AlipayCashActivity extends BaseActivity implements View.OnClickList
         pwd_4 = popupWindow.getContentView().findViewById(R.id.pwd_4);
         pwd_5 = popupWindow.getContentView().findViewById(R.id.pwd_5);
         pwd_6 = popupWindow.getContentView().findViewById(R.id.pwd_6);
+        pwd_1.setText("");
+        pwd_2.setText("");
+        pwd_3.setText("");
+        pwd_4.setText("");
+        pwd_5.setText("");
+        pwd_6.setText("");
         TextView al_name = popupWindow.getContentView().findViewById(R.id.al_name);
         al_name.setText("提现到支付宝账户（" + name + ")");
         pwdTvs.add(pwd_1);
