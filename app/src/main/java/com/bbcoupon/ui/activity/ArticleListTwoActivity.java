@@ -97,9 +97,11 @@ public class ArticleListTwoActivity extends BaseActivity implements RequestContr
 
         listAdapter.setOnArticleList(new ArticleListAdapter.OnArticleList() {
             @Override
-            public void onListId(int id) {
+            public void onListId(int id,String title,String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
+                bundle.putString("ARTICLETITLE", title);
+                bundle.putString("ARITCLEIMAGE", url);
                 ArticleActivity.openArticleActivity(ArticleListTwoActivity.this, ArticleActivity.class, bundle);
             }
         });

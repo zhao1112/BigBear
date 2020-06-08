@@ -366,12 +366,15 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
                 BalanceDetailActivity.startBalanceDetailActivity(this, balance);
                 break;
             case R.id.withdrawal://提现
-                PopupWindow popupWindow = WindowUtils.ShowVirtual(MineProfitActivity.this, R.layout.item_popup_withdrawal_options,
-                        R.style.bottom_animation, 2);
-                popupWindow.getContentView().findViewById(R.id.wit_cancel).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.wit_zfb).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.wit_wx).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.wit_yhk).setOnClickListener(this);
+//                PopupWindow popupWindow = WindowUtils.ShowVirtual(MineProfitActivity.this, R.layout.item_popup_withdrawal_options,
+//                        R.style.bottom_animation, 2);
+//                popupWindow.getContentView().findViewById(R.id.wit_cancel).setOnClickListener(this);
+//                popupWindow.getContentView().findViewById(R.id.wit_zfb).setOnClickListener(this);
+//                popupWindow.getContentView().findViewById(R.id.wit_wx).setOnClickListener(this);
+//                popupWindow.getContentView().findViewById(R.id.wit_yhk).setOnClickListener(this);
+                Map<String, String> map = new HashMap<>();
+                presenter.onWithOutAlipay(MineProfitActivity.this, map);
+                WindowUtils.dismissBrightness(MineProfitActivity.this);
                 break;
             case R.id.item_data://日
             case R.id.item_data_2:

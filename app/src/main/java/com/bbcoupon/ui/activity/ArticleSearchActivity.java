@@ -9,6 +9,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bbcoupon.ui.bean.HotSearchInfor;
+import com.bbcoupon.ui.contract.RequestContract;
+import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.WindowUtils;
 import com.bbcoupon.widget.ArticleHistoryFlowLayout;
 import com.newversions.tbk.activity.ProductSumActivity2;
@@ -29,7 +32,8 @@ import butterknife.OnClick;
  * @PACKAGE com.bbcoupon.ui.activity
  * @DATE 2020/6/3
  */
-public class ArticleSearchActivity extends BaseActivity implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+public class ArticleSearchActivity extends BaseActivity implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener,
+        RequestContract.RequestView {
 
     @BindView(R.id.history_flow)
     FlowLayout mHistoryFlow;
@@ -41,6 +45,8 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
     private static final String KEY = "HISTORYk";
     private static final String SPLIT = ",";
     private List<String> historyList;
+    private List<String> list;
+    private RequestPresenter presenter;
 
     @Override
     public int layoutId() {
@@ -50,6 +56,10 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
     @Override
     public void init() {
 
+        presenter = new RequestPresenter();
+        presenter.setRelation(this);
+        presenter.onHotSearchList(ArticleSearchActivity.this);
+
         mInputContent.addTextChangedListener(this);
         mInputContent.setOnEditorActionListener(this);
     }
@@ -58,9 +68,8 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
     protected void onResume() {
         super.onResume();
         mHistoryFlow.cleanTag();
-        historyList = getSearchData();
-        setList(historyList);
-        setHotList(historyList);
+        list = getSearchData();
+        setList(list);
     }
 
     @OnClick({R.id.ar_back, R.id.search, R.id.clear_all})
@@ -72,9 +81,10 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
                 break;
             case R.id.search:
                 if (mInputContent.getText().toString().length() > 0) {
-                    bundle.putString("ARTICLECONTENT",mInputContent.getText().toString());
-                    ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this,ArticleListActivity.class,bundle);
-                }else {
+                    assemblyData(mInputContent.getText().toString());
+                    bundle.putString("ARTICLECONTENT", mInputContent.getText().toString());
+                    ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this, ArticleListActivity.class, bundle);
+                } else {
                     showToast("请输入搜索内容");
                 }
                 break;
@@ -93,8 +103,8 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
             mInputContent.setText(text);
             mInputContent.setSelection(text.length());
             Bundle bundle = new Bundle();
-            bundle.putString("ARTICLECONTENT",mInputContent.getText().toString());
-            ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this,ArticleListActivity.class,bundle);
+            bundle.putString("ARTICLECONTENT", mInputContent.getText().toString());
+            ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this, ArticleListActivity.class, bundle);
         });
     }
 
@@ -104,8 +114,8 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
             mInputContent.setText(text);
             mInputContent.setSelection(text.length());
             Bundle bundle = new Bundle();
-            bundle.putString("ARTICLECONTENT",mInputContent.getText().toString());
-            ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this,ArticleListActivity.class,bundle);
+            bundle.putString("ARTICLECONTENT", mInputContent.getText().toString());
+            ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this, ArticleListActivity.class, bundle);
         });
     }
 
@@ -174,8 +184,8 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
                     if (mInputContent.getText().toString().length() > 0) {
                         assemblyData(mInputContent.getText().toString());
                         Bundle bundle = new Bundle();
-                        bundle.putString("ARTICLECONTENT",mInputContent.getText().toString());
-                        ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this,ArticleListActivity.class,bundle);
+                        bundle.putString("ARTICLECONTENT", mInputContent.getText().toString());
+                        ArticleListActivity.openArticleListActivity(ArticleSearchActivity.this, ArticleListActivity.class, bundle);
                         hiddenKeyboard();
                     } else {
                         showToast("请输入搜索内容");
@@ -193,14 +203,45 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
         switch (v.getId()) {
             case R.id.arts_confirmation:
                 SharedPreferencesHelper.clearWhichOne(this, KEY);
-                historyList = getSearchData();
+                list = getSearchData();
                 mHistoryFlow.cleanTag();
-                setList(historyList);
+                setList(list);
                 WindowUtils.dismissBrightness(ArticleSearchActivity.this);
                 break;
             case R.id.arts_cancel:
                 WindowUtils.dismissBrightness(ArticleSearchActivity.this);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.setUntying(this);
+    }
+
+    @Override
+    public void onSuccess(Object data) {
+        if (data instanceof HotSearchInfor) {
+            HotSearchInfor hotSearchInfor = (HotSearchInfor) data;
+            if (hotSearchInfor.getCode() == 1) {
+                String[] split = hotSearchInfor.getData().split(",");
+                historyList = new ArrayList<>();
+                for (int i = 0; i < split.length; i++) {
+                    historyList.add(split[i]);
+                }
+                setHotList(historyList);
+            }
+        }
+    }
+
+    @Override
+    public void onNotNetWork() {
+
+    }
+
+    @Override
+    public void onFail(Throwable e) {
+
     }
 }

@@ -2,9 +2,10 @@ package com.bbcoupon.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.View;
 
 import com.bbcoupon.ui.activity.ArticleActivity;
 import com.bbcoupon.ui.activity.ArticleListTwoActivity;
@@ -14,8 +15,6 @@ import com.bbcoupon.ui.bean.SchoolInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.widget.RefreshSchoolView;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yunqin.bearmall.R;
@@ -23,9 +22,7 @@ import com.yunqin.bearmall.base.BaseFragment;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -43,6 +40,8 @@ public class BusinessSchoolFragment extends BaseFragment implements RequestContr
     RecyclerView mScRecycler;
     @BindView(R.id.sc_refresh)
     TwinklingRefreshLayout mScRefresh;
+    @BindView(R.id.nulldata)
+    ConstraintLayout mNulldata;
 
     private SchoolAdapter schoolAdapter;
     private RequestPresenter presenter;
@@ -83,10 +82,12 @@ public class BusinessSchoolFragment extends BaseFragment implements RequestContr
         //文章詳情
         schoolAdapter.setOnArticle(new SchoolAdapter.OnArticle() {
             @Override
-            public void setArticle(int id) {
+            public void setArticle(int id, String title, String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
-                ArticleActivity.openArticleActivity(getActivity(),ArticleActivity.class,bundle);
+                bundle.putString("ARTICLETITLE", title);
+                bundle.putString("ARITCLEIMAGE", url);
+                ArticleActivity.openArticleActivity(getActivity(), ArticleActivity.class, bundle);
             }
 
             @Override
@@ -101,11 +102,12 @@ public class BusinessSchoolFragment extends BaseFragment implements RequestContr
             public void setBannerId(int id) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
-                ArticleActivity.openArticleActivity(getActivity(),ArticleActivity.class,bundle);
+                ArticleActivity.openArticleActivity(getActivity(), ArticleActivity.class, bundle);
             }
         });
 
         setList(page);
+        mNulldata.setVisibility(View.VISIBLE);
     }
 
 
@@ -129,6 +131,7 @@ public class BusinessSchoolFragment extends BaseFragment implements RequestContr
                         mScRefresh.setBottomView(new RefreshSchoolView(getActivity()));
                     }
                 }
+                mNulldata.setVisibility(View.GONE);
             }
         }
         hiddenLoadingView();

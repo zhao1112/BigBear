@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bbcoupon.ui.activity.ArticleActivity;
 import com.bbcoupon.util.CopyTextUtil;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.utils.MyWebViewClient;
@@ -223,6 +224,10 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         webSettings.setAllowFileAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setDatabaseEnabled(true);
+        // 启用硬件加速
+        view.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        // 自适应屏幕
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     }
 
     @OnClick({R.id.tv_top, R.id.toolbar_back, R.id.im_search, R.id.im_share, R.id.im_buy, R.id.toolbar_close, R.id.invitation_button})

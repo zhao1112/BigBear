@@ -93,6 +93,8 @@ public class RequestContract {
         void onTheThumbsUp(Context context, Map<String, String> map);
 
         void onArticleListByWords(Context context, Map<String, String> map);
+
+        void onHotSearchList(Context context);
     }
 
     public interface RequestModel {
@@ -165,5 +167,7 @@ public class RequestContract {
         void onTheThumbsUp(Context context, Map<String, String> map, RequestContract.RequestView requestView);
 
         void onArticleListByWords(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onHotSearchList(Context context, RequestContract.RequestView requestView);
     }
 }

@@ -13,6 +13,7 @@ import com.bbcoupon.ui.bean.BaseInfor;
 import com.bbcoupon.ui.bean.CommentInfor;
 import com.bbcoupon.ui.bean.ContentInfor;
 import com.bbcoupon.ui.bean.CustomInfor;
+import com.bbcoupon.ui.bean.HotSearchInfor;
 import com.bbcoupon.ui.bean.MakeInfor;
 import com.bbcoupon.ui.bean.MeetingInfor;
 import com.bbcoupon.ui.bean.MeetingShareInfor;
@@ -1030,7 +1031,7 @@ public class RequestModel implements RequestContract.RequestModel {
                 });
     }
 
-    //// 商学院关键字搜索
+    // 商学院关键字搜索
     @Override
     public void onArticleListByWords(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onArticleListByWords(map),
@@ -1058,5 +1059,35 @@ public class RequestModel implements RequestContract.RequestModel {
                     }
                 });
     }
+
+    // 商学院热门搜索
+    @Override
+    public void onHotSearchList(Context context, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onHotSearchList(),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        HotSearchInfor messageItemCount = new Gson().fromJson(data, HotSearchInfor.class);
+                        if (requestView != null) {
+                            requestView.onSuccess(messageItemCount);
+                        }
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        if (requestView != null) {
+                            requestView.onNotNetWork();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        if (requestView != null) {
+                            requestView.onFail(e);
+                        }
+                    }
+                });
+    }
+
 
 }

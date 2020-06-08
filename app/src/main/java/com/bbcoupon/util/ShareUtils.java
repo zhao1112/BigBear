@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunqin.bearmall.Constans;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,13 +22,29 @@ import cn.sharesdk.framework.ShareSDK;
  */
 public class ShareUtils {
 
+
     //分享
-    public static Platform shareContent(String platforms, String title, String content, String image) {
+    public static Platform shareContent(String platforms, String title, String content, String image, String url) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setTitle(title);
         params.setText(content);
         params.setImageUrl(image);
-        params.setShareType(Platform.SHARE_IMAGE);
+        params.setTitleUrl(url);
+        params.setUrl(url);
+        params.setShareType(Platform.SHARE_WEBPAGE);
+        Platform platform = ShareSDK.getPlatform(platforms);
+        platform.share(params);
+        return platform;
+    }
+
+    //分享
+    public static Platform shareContent(String platforms, String title, String image, String url) {
+        Platform.ShareParams params = new Platform.ShareParams();
+        params.setTitle(title);
+        params.setImageUrl(image);
+        params.setTitleUrl(url);
+        params.setUrl(url);
+        params.setShareType(Platform.SHARE_WEBPAGE);
         Platform platform = ShareSDK.getPlatform(platforms);
         platform.share(params);
         return platform;
@@ -43,7 +61,7 @@ public class ShareUtils {
     }
 
     //单图分享
-    public static Platform shareContent(String platforms, String image,String conten) {
+    public static Platform shareContent(String platforms, String image, String conten) {
         Platform.ShareParams params = new Platform.ShareParams();
         params.setImageUrl(image);
         params.setText(conten);

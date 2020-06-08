@@ -57,7 +57,7 @@ public class ArticeleListInfor {
          * url : https://shopxxbbc-test.oss-cn-beijing.aliyuncs.com/upload/image/202006/6485abf0-2c9c-4cef-ae8d-06229ec88d1c.jpg
          */
 
-        private Object coverimage;
+        private String coverimage;
         private String releaseTime;
         private int isOverhead;
         private int id;
@@ -67,11 +67,11 @@ public class ArticeleListInfor {
         private int type;
         private String url;
 
-        public Object getCoverimage() {
+        public String getCoverimage() {
             return coverimage;
         }
 
-        public void setCoverimage(Object coverimage) {
+        public void setCoverimage(String coverimage) {
             this.coverimage = coverimage;
         }
 

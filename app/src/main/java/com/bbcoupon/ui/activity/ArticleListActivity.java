@@ -3,6 +3,7 @@ package com.bbcoupon.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -45,6 +46,8 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
     RecyclerView mListRecycler;
     @BindView(R.id.list_refresh)
     TwinklingRefreshLayout mListRefresh;
+    @BindView(R.id.nulldata)
+    ConstraintLayout mNulldata;
 
     private static final String KEY = "HISTORYk";
     private static final String SPLIT = ",";
@@ -102,14 +105,17 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
 
         listAdapter.setOnArticleList(new ArticleListAdapter.OnArticleList() {
             @Override
-            public void onListId(int id) {
+            public void onListId(int id, String title, String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
-                ArticleActivity.openArticleActivity(ArticleListActivity.this,ArticleActivity.class,bundle);
+                bundle.putString("ARTICLETITLE", title);
+                bundle.putString("ARITCLEIMAGE", url);
+                ArticleActivity.openArticleActivity(ArticleListActivity.this, ArticleActivity.class, bundle);
             }
         });
 
         getData(page);
+        mNulldata.setVisibility(View.VISIBLE);
     }
 
     private void getData(int page) {
@@ -205,6 +211,7 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
             if (articeleListInfor != null && articeleListInfor.getData() != null && articeleListInfor.getData().size() > 0) {
                 mListRefresh.setBottomView(new RefreshBottomView(ArticleListActivity.this));
                 listAdapter.addData(articeleListInfor.getData());
+                mNulldata.setVisibility(View.GONE);
             } else {
                 mListRefresh.setBottomView(new RefreshSchoolView(ArticleListActivity.this));
             }

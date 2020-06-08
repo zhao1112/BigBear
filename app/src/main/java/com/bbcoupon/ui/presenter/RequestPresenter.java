@@ -310,4 +310,12 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    // 商学院热门搜索
+    @Override
+    public void onHotSearchList(Context context) {
+        if (requestView != null) {
+            requestModel.onHotSearchList(context, requestView);
+        }
+    }
+
 }

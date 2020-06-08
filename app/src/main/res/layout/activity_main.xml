@@ -78,7 +78,7 @@
                 app:iconSelected="@drawable/icon_tab_tuijian_selected"
                 app:iconWidth="@dimen/ds44"
                 app:itemMarginTop="@dimen/ds14"
-                app:itemText="素材圈"
+                app:itemText="商学院"
                 app:itemTextSize="@dimen/ds20"
                 app:openTouchBg="true"
                 app:textColorNormal="@color/home_text_unselect"

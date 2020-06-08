@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,9 +18,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -35,13 +38,16 @@ import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.util.ConstantUtil;
+import com.bbcoupon.util.ShareUtils;
 import com.bbcoupon.util.WindowUtils;
 import com.bbcoupon.widget.RefreshSchoolView;
 import com.jaren.lib.view.LikeView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.newversions.tbk.utils.MyWebViewClient;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.util.ShareUtil;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
@@ -51,6 +57,10 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 /**
  * @author LWP
@@ -87,10 +97,10 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     private ArticleAdapter articleAdapter;
     private boolean chat = true;
     private EditText ar_edit;
-    private String articleid;
+    private String articleid, aritcleimage, articletitle;
     private RequestPresenter presenter;
     private int page = 1;
-    private String webUrl;
+    private String webUrl = "http://192.168.3.77:5500/index.html?id=";
 
     public static void openArticleActivity(Activity activity, Class cla, Bundle bundle) {
         Intent intent = new Intent(activity, cla);
@@ -108,11 +118,13 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     public void init() {
 
         articleid = getIntent().getStringExtra("ARTICLEID");
+        aritcleimage = getIntent().getStringExtra("ARITCLEIMAGE");
+        articletitle = getIntent().getStringExtra("ARTICLETITLE");
         if (TextUtils.isEmpty(articleid)) {
             return;
         }
 
-        webUrl = "http://192.168.3.77:5500/index.html?id=" + articleid;
+        webUrl = webUrl + articleid;
 
         presenter = new RequestPresenter();
         presenter.setRelation(this);
@@ -199,7 +211,44 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         setWebview(mArWeb);
 
         mArWeb.loadUrl(webUrl);
+        mArWeb.addJavascriptInterface(this, "android");
+        setWebview(mArWeb);
+        mArWeb.setWebViewClient(new MyWebViewClint());
+    }
 
+    public class MyWebViewClint extends WebViewClient {
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            Log.e("MyWebViewClint", url);
+            return false;
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            Log.e("MyWebViewClint--开始", url);
+            //设定加载开始的操作
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            Log.e("MyWebViewClint--结束", url);
+            //设定加载结束的操作
+
+        }
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            Log.e("MyWebViewClint--失败", failingUrl);
+            //设定加载失败
+            super.onReceivedError(view, errorCode, description, failingUrl);
+        }
+
+        @Override
+        public void onLoadResource(WebView view, String url) {
+            Log.e("MyWebViewClint--", url);
+            //设定加载资源的操作
+        }
     }
 
     @Override
@@ -326,23 +375,45 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         WebSettings web = webview.getSettings();
         web.setDefaultTextEncodingName("utf-8");
         // 设置可以支持缩放
-        web.setSupportZoom(true);
+        web.setUserAgentString(web.getUserAgentString() + " WebView");
         web.setJavaScriptEnabled(true);  //支持js
-        web.setUseWideViewPort(true);  //将图片调整到适合webview的大小
-        // 设置缓存模式
+        web.setUseWideViewPort(false);  //将图片调整到适合webview的大小
+        web.setSupportZoom(true);  //支持缩放
+        web.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
+        web.supportMultipleWindows();  //多窗口
+        web.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //关闭webview中缓存
+        web.setAllowFileAccess(true);  //设置可以访问文件
+        web.setDomStorageEnabled(true);// 打开本地缓存提供JS调用,至关重要
+        web.setAppCacheMaxSize(1024 * 1024 * 8);// 实现8倍缓存
+        web.setAllowFileAccess(true);
         web.setAppCacheEnabled(true);
-        web.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        // 设置出现缩放工具
-        web.setBuiltInZoomControls(true);
-        web.setDisplayZoomControls(false);
-        // 扩大比例的缩放设置此属性，可任意比例缩放。
-        web.setLoadWithOverviewMode(true);
-        web.setBlockNetworkImage(false);
+        web.setDatabaseEnabled(true);
         // 启用硬件加速
         webview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         webview.setWebChromeClient(new MyWebChromeClient());
         // 自适应屏幕
         web.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+    }
+
+    @JavascriptInterface
+    public void play() {
+        int netWorkStatus = ConstantUtil.getNetWorkStatus(ArticleActivity.this);
+        switch (netWorkStatus) {
+            case 1:
+                showToast("当前是Wifi网络");
+                break;
+            case 2:
+                showToast("当前是2G网络，请注意流量消耗");
+                break;
+            case 3:
+                showToast("当前是3G网络，请注意流量消耗");
+                break;
+            case 4:
+                showToast("当前是4G网络，请注意流量消耗");
+                break;
+
+        }
+        Log.e("JavascriptInterface", "play: ");
     }
 
     @Override
@@ -363,14 +434,14 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    @OnClick({R.id.ar_back, R.id.ar_refresh, R.id.sc_chat, R.id.se_live, R.id.home_search})
+    @OnClick({R.id.ar_back, R.id.ar_refresh, R.id.sc_chat, R.id.se_live, R.id.home_search, R.id.sc_hearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ar_back:
                 finish();
                 break;
             case R.id.ar_refresh:
-                mArWeb.reload();
+                mARefresh.startRefresh();
                 break;
             case R.id.sc_chat:
                 if (chat) {
@@ -404,6 +475,15 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                     }
                 }, 500);
                 break;
+            case R.id.sc_hearch:
+                PopupWindow viewContent = WindowUtils.ShowVirtual(ArticleActivity.this, R.layout.popup_school_share,
+                        R.style.bottom_animation, 1);
+                viewContent.getContentView().findViewById(R.id.sc_clear_bus).setOnClickListener(this);
+                viewContent.getContentView().findViewById(R.id.sc_wx_share).setOnClickListener(this);
+                viewContent.getContentView().findViewById(R.id.sc_moments_share).setOnClickListener(this);
+                viewContent.getContentView().findViewById(R.id.sc_qq_share).setOnClickListener(this);
+                viewContent.getContentView().findViewById(R.id.sc_qq_moments_share).setOnClickListener(this);
+                break;
         }
     }
 
@@ -424,6 +504,25 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                     showToast("评论文字不能大于200字");
                 }
                 hiddenKeyboard();
+                WindowUtils.dismissBrightness(ArticleActivity.this);
+                break;
+            case R.id.sc_clear_bus:
+                WindowUtils.dismissBrightness(ArticleActivity.this);
+                break;
+            case R.id.sc_wx_share:
+                ShareUtils.shareContent(Wechat.NAME, articletitle, aritcleimage, webUrl);
+                WindowUtils.dismissBrightness(ArticleActivity.this);
+                break;
+            case R.id.sc_moments_share:
+                ShareUtils.shareContent(WechatMoments.NAME, articletitle, aritcleimage, webUrl);
+                WindowUtils.dismissBrightness(ArticleActivity.this);
+                break;
+            case R.id.sc_qq_share:
+                ShareUtils.shareContent(QQ.NAME, articletitle, aritcleimage, webUrl);
+                WindowUtils.dismissBrightness(ArticleActivity.this);
+                break;
+            case R.id.sc_qq_moments_share:
+                ShareUtils.shareContent(QZone.NAME, articletitle, aritcleimage, webUrl);
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
         }

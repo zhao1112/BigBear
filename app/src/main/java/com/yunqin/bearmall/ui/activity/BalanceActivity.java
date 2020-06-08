@@ -133,13 +133,15 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
                 BalanceDetailActivity.startBalanceDetailActivity(this, money);
                 break;
             case R.id.withdraw_deposit:
-
-                PopupWindow popupWindow = WindowUtils.ShowVirtual(BalanceActivity.this, R.layout.item_popup_withdrawal_options,
-                        R.style.bottom_animation, 2);
-                popupWindow.getContentView().findViewById(R.id.wit_cancel).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.wit_zfb).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.wit_wx).setOnClickListener(this);
-                popupWindow.getContentView().findViewById(R.id.wit_yhk).setOnClickListener(this);
+//                PopupWindow popupWindow = WindowUtils.ShowVirtual(BalanceActivity.this, R.layout.item_popup_withdrawal_options,
+//                        R.style.bottom_animation, 2);
+//                popupWindow.getContentView().findViewById(R.id.wit_cancel).setOnClickListener(this);
+//                popupWindow.getContentView().findViewById(R.id.wit_zfb).setOnClickListener(this);
+//                popupWindow.getContentView().findViewById(R.id.wit_wx).setOnClickListener(this);
+//                popupWindow.getContentView().findViewById(R.id.wit_yhk).setOnClickListener(this);
+                Map<String, String> map = new HashMap<>();
+                presenter.onWithOutAlipay(BalanceActivity.this, map);
+                WindowUtils.dismissBrightness(BalanceActivity.this);
                 break;
             case R.id.ti_xian_ji_lu:
                 WithdrawalRecordActivity.startActivity(this);

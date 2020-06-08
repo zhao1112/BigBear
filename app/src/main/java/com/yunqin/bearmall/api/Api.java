@@ -1601,5 +1601,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/businesscollege/getArticleListByWords")
     Observable<String> onArticleListByWords(@FieldMap() Map<String, String> params);
+
+    /**
+     * 商学院热门搜索
+     */
+    @POST("api/businesscollege/getHotSearchList")
+    Observable<String> onHotSearchList();
 }
 

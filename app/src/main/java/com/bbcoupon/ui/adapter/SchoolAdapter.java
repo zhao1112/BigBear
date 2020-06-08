@@ -211,7 +211,11 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void onClick(View v) {
                         if (onArticle != null) {
-                            onArticle.setArticle(bean.getId());
+                            if (bean.getType() == 0) {
+                                onArticle.setArticle(bean.getId(),bean.getTitle(),bean.getUrl());
+                            } else {
+                                onArticle.setArticle(bean.getId(),bean.getTitle(),bean.getCoverimage());
+                            }
                         }
                     }
                 });
@@ -312,7 +316,7 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public interface OnArticle {
-        void setArticle(int id);
+        void setArticle(int id,String title,String url);
 
         void setArticelIcon(int id, String title);
 

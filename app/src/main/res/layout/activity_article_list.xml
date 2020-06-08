@@ -64,6 +64,8 @@
 
     </LinearLayout>
 
+    <include layout="@layout/no_video_layout"/>
+
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/list_refresh"
