@@ -1607,5 +1607,13 @@ public interface Api {
      */
     @POST("api/businesscollege/getHotSearchList")
     Observable<String> onHotSearchList();
+
+    /**
+     * 商学院分享
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/giveShareSumUp")
+    Observable<String> onShareSumUp(@FieldMap() Map<String, String> params);
+
 }
 

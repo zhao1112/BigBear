@@ -377,7 +377,7 @@
             android:id="@+id/vip_logon_up"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:layout_below="@id/condition_six"
+            android:layout_below="@id/v_two2"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginRight="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_20"

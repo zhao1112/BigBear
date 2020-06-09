@@ -37,6 +37,7 @@ import com.bbcoupon.ui.adapter.ArticleAdapter;
 import com.bbcoupon.ui.bean.ArticleInfor;
 import com.bbcoupon.ui.bean.BaseInfor;
 import com.bbcoupon.ui.bean.CommentInfor;
+import com.bbcoupon.ui.bean.ContentInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
@@ -51,6 +52,7 @@ import com.newversions.tbk.utils.MyWebViewClient;
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
+import com.yunqin.bearmall.ui.activity.BCMessageActivity;
 import com.yunqin.bearmall.util.ShareUtil;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
@@ -61,6 +63,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
@@ -107,6 +111,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     private String webUrl = BuildConfig.BASE_URL + "/view/sharevideo/list?id=";
     private boolean isLike = true;
     private TextView text_conten;
+    private Platform platform;
 
 
     public static void openArticleActivity(Activity activity, Class cla, Bundle bundle) {
@@ -313,6 +318,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             BaseInfor baseInfor = (BaseInfor) data;
             if (baseInfor.getCode() == 1) {
                 showToast("评论提交成功");
+                mScScroll.scrollTo(0, mScComment.getTop());
                 Map<String, String> map = new HashMap<>();
                 map.put("id", articleid);
                 presenter.onNumberOfDetails(ArticleActivity.this, map);
@@ -321,12 +327,27 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 getData(page);
             }
         }
-        if (data instanceof RequestInfor) {
-            RequestInfor requestInfor = (RequestInfor) data;
+        if (data instanceof ContentInfor) {
+            ContentInfor requestInfor = (ContentInfor) data;
             if (requestInfor.getCode() == 1) {
                 Map<String, String> map = new HashMap<>();
                 map.put("id", articleid);
                 presenter.onNumberOfDetails(ArticleActivity.this, map);
+            }
+        }
+        if (data instanceof RequestInfor){
+            RequestInfor requestInfor = (RequestInfor) data;
+            if (requestInfor.getCode() == 1) {
+                PopupWindow popupWindow = WindowUtils.timeShowOnly(ArticleActivity.this, R.layout.popup_tisp, R.style.TispAnim, 0);
+                TextView value_tisp = popupWindow.getContentView().findViewById(R.id.value_tisp);
+                value_tisp.setText("分享成功，获得" + requestInfor.getValue() + "个糖果，点击查看详情>>");
+                popupWindow.getContentView().findViewById(R.id.top_tisp).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ArticleActivity.this.startActivity(new Intent(ArticleActivity.this, BCMessageActivity.class));
+                        WindowUtils.dismissOnly();
+                    }
+                });
             }
         }
         hiddenLoadingView();
@@ -473,6 +494,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             case R.id.ar_refresh:
                 mScScroll.fullScroll(NestedScrollView.FOCUS_UP);
                 mARefresh.startRefresh();
+                mArWeb.reload();
                 break;
             case R.id.sc_chat:
                 if (chat) {
@@ -532,7 +554,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.ar_release:
                 Map<String, String> map = new HashMap<>();
-                if (TextUtils.isEmpty(ar_edit.getText().toString())) {
+                if (TextUtils.isEmpty(ar_edit.getText().toString()) || ar_edit.getText().toString().trim().isEmpty()) {
                     showToast("评论内容不能为空");
                     return;
                 }
@@ -550,21 +572,60 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_wx_share:
-                ShareUtils.shareContent(Wechat.NAME, articletitle, aritcleimage, webUrl);
+                if (TextUtils.isEmpty(articletitle)) {
+                    articletitle = "商学院";
+                }
+                platform = ShareUtils.shareContent(Wechat.NAME, articletitle, aritcleimage, webUrl);
+                platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_moments_share:
-                ShareUtils.shareContent(WechatMoments.NAME, articletitle, aritcleimage, webUrl);
+                if (TextUtils.isEmpty(articletitle)) {
+                    articletitle = "商学院";
+                }
+                platform = ShareUtils.shareContent(WechatMoments.NAME, articletitle, aritcleimage, webUrl);
+                platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_qq_share:
-                ShareUtils.shareContent(QQ.NAME, articletitle, aritcleimage, webUrl);
+                if (TextUtils.isEmpty(articletitle)) {
+                    articletitle = "商学院";
+                }
+                platform = ShareUtils.shareContent(QQ.NAME, articletitle, aritcleimage, webUrl);
+                platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_qq_moments_share:
-                ShareUtils.shareContent(QZone.NAME, articletitle, aritcleimage, webUrl);
+                if (TextUtils.isEmpty(articletitle)) {
+                    articletitle = "商学院";
+                }
+                platform = ShareUtils.shareContent(QZone.NAME, articletitle, aritcleimage, webUrl);
+                platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
+        }
+    }
+
+    private class SchoolActionListener implements PlatformActionListener {
+        @Override
+        public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+            Map<String, String> map = new HashMap<>();
+            map.put("id", articleid);
+            presenter.onShareSumUp(ArticleActivity.this, map);
+            Map<String, String> hasMap = new HashMap<>();
+            hasMap.put("type", "2");
+            hasMap.put("content",articleid);
+            presenter.onCandySharing(ArticleActivity.this, hasMap);
+        }
+
+        @Override
+        public void onError(Platform platform, int i, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(Platform platform, int i) {
+
         }
     }
 

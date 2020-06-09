@@ -95,6 +95,8 @@ public class RequestContract {
         void onArticleListByWords(Context context, Map<String, String> map);
 
         void onHotSearchList(Context context);
+
+        void onShareSumUp(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
@@ -169,5 +171,7 @@ public class RequestContract {
         void onArticleListByWords(Context context, Map<String, String> map, RequestContract.RequestView requestView);
 
         void onHotSearchList(Context context, RequestContract.RequestView requestView);
+
+        void onShareSumUp(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

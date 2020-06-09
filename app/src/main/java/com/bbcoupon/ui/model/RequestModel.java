@@ -831,262 +831,274 @@ public class RequestModel implements RequestContract.RequestModel {
     //消息数量
     @Override
     public void onMessageCount(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getUnreadMessageCount(map),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getUnreadMessageCount(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                MessageItemCount messageItemCount = new Gson().fromJson(data, MessageItemCount.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
     }
 
     //商学院列表
     @Override
     public void onAllArticleList(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onAllArticleList(map),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        SchoolInfor messageItemCount = new Gson().fromJson(data, SchoolInfor.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onAllArticleList(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                SchoolInfor messageItemCount = new Gson().fromJson(data, SchoolInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
     }
 
     //根据文章类型获取列表
     @Override
     public void onArticleList(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onArticleList(map),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        ArticeleListInfor messageItemCount = new Gson().fromJson(data, ArticeleListInfor.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onArticleList(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                ArticeleListInfor messageItemCount = new Gson().fromJson(data, ArticeleListInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
     }
 
     //获得文章评论
     @Override
     public void onCommentList(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onCommentList(map),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        CommentInfor messageItemCount = new Gson().fromJson(data, CommentInfor.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onCommentList(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                CommentInfor messageItemCount = new Gson().fromJson(data, CommentInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
     }
 
     // //评论数,点赞数,是否点赞
     @Override
     public void onNumberOfDetails(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onNumberOfDetails(map),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        ArticleInfor messageItemCount = new Gson().fromJson(data, ArticleInfor.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onNumberOfDetails(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                ArticleInfor messageItemCount = new Gson().fromJson(data, ArticleInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
     }
 
     //评论
     @Override
     public void onaddComment(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onaddComment(map),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        BaseInfor messageItemCount = new Gson().fromJson(data, BaseInfor.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onaddComment(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                BaseInfor messageItemCount = new Gson().fromJson(data, BaseInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
     }
 
     //点赞或者取消点赞
     @Override
     public void onTheThumbsUp(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onTheThumbsUp(map),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        RequestInfor messageItemCount = new Gson().fromJson(data, RequestInfor.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onTheThumbsUp(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                ContentInfor messageItemCount = new Gson().fromJson(data, ContentInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
     }
 
     // 商学院关键字搜索
     @Override
     public void onArticleListByWords(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onArticleListByWords(map),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        ArticeleListInfor messageItemCount = new Gson().fromJson(data, ArticeleListInfor.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onArticleListByWords(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                ArticeleListInfor messageItemCount = new Gson().fromJson(data, ArticeleListInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
     }
 
     // 商学院热门搜索
     @Override
     public void onHotSearchList(Context context, RequestContract.RequestView requestView) {
-        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onHotSearchList(),
-                new RetrofitApi.IResponseListener() {
-                    @Override
-                    public void onSuccess(String data) {
-                        HotSearchInfor messageItemCount = new Gson().fromJson(data, HotSearchInfor.class);
-                        if (requestView != null) {
-                            requestView.onSuccess(messageItemCount);
-                        }
-                    }
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onHotSearchList(), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                HotSearchInfor messageItemCount = new Gson().fromJson(data, HotSearchInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
 
-                    @Override
-                    public void onNotNetWork() {
-                        if (requestView != null) {
-                            requestView.onNotNetWork();
-                        }
-                    }
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        if (requestView != null) {
-                            requestView.onFail(e);
-                        }
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //商学院分享
+    @Override
+    public void onShareSumUp(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onShareSumUp(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+
+            }
+
+            @Override
+            public void onNotNetWork() {
+
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+
+            }
+        });
     }
 
 

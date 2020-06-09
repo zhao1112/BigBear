@@ -127,7 +127,7 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void OnBannerClick(int position) {
                         if (onArticle != null) {
-                            onArticle.setBannerId(banner.bannerlist.get(position).getBusinesscollegeId());
+                            onArticle.setBannerId(banner.bannerlist.get(position).getBusinesscollegeId(),banner.bannerlist.get(position).getImage());
                         }
                     }
                 });
@@ -323,7 +323,7 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         void setArticelIcon(int id, String title);
 
-        void setBannerId(int id);
+        void setBannerId(int id,String url);
     }
 
     public OnArticle onArticle;

@@ -318,4 +318,12 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //商学院分享
+    @Override
+    public void onShareSumUp(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onShareSumUp(context, map, requestView);
+        }
+    }
+
 }

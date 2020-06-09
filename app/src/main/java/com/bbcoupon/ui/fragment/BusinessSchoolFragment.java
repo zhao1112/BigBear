@@ -99,9 +99,10 @@ public class BusinessSchoolFragment extends BaseFragment implements RequestContr
             }
 
             @Override
-            public void setBannerId(int id) {
+            public void setBannerId(int id,String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
+                bundle.putString("ARITCLEIMAGE", url);
                 ArticleActivity.openArticleActivity(getActivity(), ArticleActivity.class, bundle);
             }
         });
