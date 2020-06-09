@@ -3,9 +3,11 @@ package com.bbcoupon.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bbcoupon.ui.adapter.ArticleListAdapter;
@@ -13,7 +15,6 @@ import com.bbcoupon.ui.bean.ArticeleListInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
 import com.bbcoupon.widget.RefreshSchoolView;
-import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yunqin.bearmall.R;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -41,6 +43,8 @@ public class ArticleListTwoActivity extends BaseActivity implements RequestContr
     RecyclerView mArtwRecycler;
     @BindView(R.id.artw_refresh)
     TwinklingRefreshLayout mArtwRefresh;
+    @BindView(R.id.nulldata)
+    ConstraintLayout mNulldata;
 
     private String articleid, articletitle;
     private ArticleListAdapter listAdapter;
@@ -97,7 +101,7 @@ public class ArticleListTwoActivity extends BaseActivity implements RequestContr
 
         listAdapter.setOnArticleList(new ArticleListAdapter.OnArticleList() {
             @Override
-            public void onListId(int id,String title,String url) {
+            public void onListId(int id, String title, String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
                 bundle.putString("ARTICLETITLE", title);
@@ -107,6 +111,7 @@ public class ArticleListTwoActivity extends BaseActivity implements RequestContr
         });
 
         getData(page);
+        mNulldata.setVisibility(View.VISIBLE);
     }
 
 
@@ -122,6 +127,7 @@ public class ArticleListTwoActivity extends BaseActivity implements RequestContr
             if (articeleListInfor != null && articeleListInfor.getData() != null && articeleListInfor.getData().size() > 0) {
                 mArtwRefresh.setBottomView(new RefreshBottomView(ArticleListTwoActivity.this));
                 listAdapter.addData(articeleListInfor.getData());
+                mNulldata.setVisibility(View.GONE);
             } else {
                 mArtwRefresh.setBottomView(new RefreshSchoolView(ArticleListTwoActivity.this));
             }

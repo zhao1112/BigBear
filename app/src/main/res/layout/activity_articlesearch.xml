@@ -43,7 +43,7 @@
                 android:layout_marginRight="@dimen/dp_13"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="搜索商品名或粘贴淘宝标题"
+                android:hint="请输入想要搜索的内容"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:singleLine="true"

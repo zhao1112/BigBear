@@ -61,14 +61,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:descendantFocusability="blocksDescendants"
                     android:orientation="vertical">
 
                     <WebView
                         android:id="@+id/ar_web"
+                        android:minHeight="@dimen/dp_500"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hardwareAccelerated="true">
+                        android:layout_height="match_parent">
 
                     </WebView>
 
@@ -81,7 +80,8 @@
                         android:id="@+id/sc_comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_13"
-                    android:src="@drawable/icon_search"/>
+                    android:src="@mipmap/write"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                                 android:layout_width="@dimen/dp_22"
                                 android:layout_height="@dimen/dp_22"
                                 android:layout_centerInParent="true"
-                                android:src="@mipmap/art_wenzhang"/>
+                                android:src="@mipmap/art_chat"/>
 
                             <TextView
                                 android:id="@+id/ar_see_sume"
@@ -208,7 +208,7 @@
                                 app:checkedColor="#ff44ff00"
                                 app:checkedLikeIconRes="@mipmap/src_dianzan_true"
                                 app:cirRadius="@dimen/dp_10"
-                                app:cycleTime="2000"
+                                app:cycleTime="500"
                                 app:defaultColor="#ffcccccc"
                                 app:defaultLikeIconRes="@mipmap/art_dianzan"
                                 app:ringColor="#ff44ff00"/>
@@ -256,6 +256,8 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
 
     <FrameLayout
         android:id="@+id/flVideoContainer"

@@ -16,6 +16,7 @@ import com.bbcoupon.ui.adapter.ArticleListAdapter;
 import com.bbcoupon.ui.bean.ArticeleListInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
+import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.widget.RefreshSchoolView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -142,7 +143,9 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
                     articlecontent = mListInput.getText().toString();
                     page = 1;
                     listAdapter.deleteData();
-                    getData(page);
+                    if (ConstantUtil.isSchoolClick()) {
+                        getData(page);
+                    }
                     hiddenKeyboard();
                 } else {
                     showToast("请输入搜索内容");
@@ -162,7 +165,9 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
                         articlecontent = mListInput.getText().toString();
                         page = 1;
                         listAdapter.deleteData();
-                        getData(page);
+                        if (ConstantUtil.isSchoolClick()) {
+                            getData(page);
+                        }
                         hiddenKeyboard();
                     } else {
                         showToast("请输入搜索内容");

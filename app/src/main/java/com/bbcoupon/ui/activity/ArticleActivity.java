@@ -13,7 +13,9 @@ import android.os.Handler;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -30,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.alibaba.wireless.security.open.middletier.fc.IFCActionCallback;
 import com.bbcoupon.ui.adapter.ArticleAdapter;
 import com.bbcoupon.ui.bean.ArticleInfor;
 import com.bbcoupon.ui.bean.BaseInfor;
@@ -45,6 +48,7 @@ import com.jaren.lib.view.LikeView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.newversions.tbk.utils.MyWebViewClient;
+import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.util.ShareUtil;
@@ -67,7 +71,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  * @PACKAGE com.bbcoupon.ui.activity
  * @DATE 2020/6/2
  */
-public class ArticleActivity extends BaseActivity implements View.OnClickListener, RequestContract.RequestView {
+public class ArticleActivity extends BaseActivity implements View.OnClickListener, RequestContract.RequestView, TextWatcher {
 
     @BindView(R.id.ar_web)
     WebView mArWeb;
@@ -97,10 +101,13 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     private ArticleAdapter articleAdapter;
     private boolean chat = true;
     private EditText ar_edit;
-    private String articleid, aritcleimage, articletitle;
+    private String articleid, aritcleimage, articletitle, aritclvoide;
     private RequestPresenter presenter;
     private int page = 1;
-    private String webUrl = "http://192.168.3.77:5500/index.html?id=";
+    private String webUrl = BuildConfig.BASE_URL + "/view/sharevideo/list?id=";
+    private boolean isLike = true;
+    private TextView text_conten;
+
 
     public static void openArticleActivity(Activity activity, Class cla, Bundle bundle) {
         Intent intent = new Intent(activity, cla);
@@ -125,6 +132,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         }
 
         webUrl = webUrl + articleid;
+        Log.e("ARTICLEID", webUrl);
 
         presenter = new RequestPresenter();
         presenter.setRelation(this);
@@ -164,10 +172,10 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 mScScroll.getHitRect(scrollBounds);
                 if (mScComment.getLocalVisibleRect(scrollBounds)) {//可见
                     chat = false;
-                    mChat.setImageDrawable(getResources().getDrawable(R.mipmap.art_chat));
+                    mChat.setImageDrawable(getResources().getDrawable(R.mipmap.art_wenzhang));
                 } else {//完全不可见
                     chat = true;
-                    mChat.setImageDrawable(getResources().getDrawable(R.mipmap.art_wenzhang));
+                    mChat.setImageDrawable(getResources().getDrawable(R.mipmap.art_chat));
                 }
             }
         });
@@ -208,12 +216,25 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         cookieManager.setCookie(webUrl, stringBuffer.toString());
         cookieManager.setAcceptCookie(true);
 
-        setWebview(mArWeb);
-
         mArWeb.loadUrl(webUrl);
         mArWeb.addJavascriptInterface(this, "android");
         setWebview(mArWeb);
         mArWeb.setWebViewClient(new MyWebViewClint());
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        text_conten.setText(ar_edit.getText().toString().length() + "/200");
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 
     public class MyWebViewClint extends WebViewClient {
@@ -232,9 +253,17 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            Log.e("MyWebViewClint--结束", url);
-            //设定加载结束的操作
 
+            float v = mArWeb.getContentHeight() * mArWeb.getScale();
+
+            Log.e("MyWebViewClint--结束", v + "");
+            //设定加载结束的操作
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mScComment.setVisibility(View.VISIBLE);
+                }
+            }, 1000);
         }
 
         @Override
@@ -271,17 +300,19 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 if (articleInfor.getData().getLikes_num() != null) {
                     mArLikeSume.setText(articleInfor.getData().getLikes_num());
                 }
-                if (articleInfor.getData().getIsGiveTheThumbsUp() == 1) {
-                    mSeLive.setChecked(true);
-//                    mSeLive.toggle();
-                } else {
-                    mSeLive.setChecked(false);
+                if (isLike) {
+                    if (articleInfor.getData().getIsGiveTheThumbsUp() == 1) {
+                        mSeLive.setAllowRandomDotColor(true);
+                        mSeLive.toggleWithoutAnimator();
+                    }
+                    isLike = false;
                 }
             }
         }
         if (data instanceof BaseInfor) {
             BaseInfor baseInfor = (BaseInfor) data;
             if (baseInfor.getCode() == 1) {
+                showToast("评论提交成功");
                 Map<String, String> map = new HashMap<>();
                 map.put("id", articleid);
                 presenter.onNumberOfDetails(ArticleActivity.this, map);
@@ -422,7 +453,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         presenter.setUntying(this);
         if (mArWeb != null) {
             try {
-                mArWeb.setVisibility(View.GONE);
                 mArWeb.removeAllViews();
                 mArWeb.clearHistory();
                 mArWeb.clearCache(true);
@@ -441,6 +471,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.ar_refresh:
+                mScScroll.fullScroll(NestedScrollView.FOCUS_UP);
                 mARefresh.startRefresh();
                 break;
             case R.id.sc_chat:
@@ -451,23 +482,28 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case R.id.se_live:
-                Map<String, String> map = new HashMap<>();
-                map.put("id", articleid);
-                if (mSeLive.isChecked()) {
-                    map.put("type", "2");
-                } else {
-                    map.put("type", "1");
+                if (ConstantUtil.isSchoolClick()) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("id", articleid);
+                    if (mSeLive.isChecked()) {
+                        map.put("type", "2");
+                    } else {
+                        map.put("type", "1");
+                    }
+                    presenter.onTheThumbsUp(ArticleActivity.this, map);
+                    mSeLive.toggle();
                 }
-                presenter.onTheThumbsUp(ArticleActivity.this, map);
                 break;
             case R.id.home_search:
                 PopupWindow popupWindow = WindowUtils.ShowSex(ArticleActivity.this, R.layout.item_srt_popup, mHomeSearch);
                 popupWindow.getContentView().findViewById(R.id.ar_clear).setOnClickListener(this);
                 popupWindow.getContentView().findViewById(R.id.ar_release).setOnClickListener(this);
+                text_conten = popupWindow.getContentView().findViewById(R.id.text_conten);
                 ar_edit = popupWindow.getContentView().findViewById(R.id.ar_edit);
                 ar_edit.setFocusable(true);
                 ar_edit.setFocusableInTouchMode(true);
                 ar_edit.requestFocus();
+                ar_edit.addTextChangedListener(this);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -496,15 +532,19 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.ar_release:
                 Map<String, String> map = new HashMap<>();
-                if (!TextUtils.isEmpty(ar_edit.getText().toString()) && ar_edit.getText().toString().length() <= 200) {
+                if (TextUtils.isEmpty(ar_edit.getText().toString())) {
+                    showToast("评论内容不能为空");
+                    return;
+                }
+                if (ar_edit.getText().toString().length() <= 200) {
                     map.put("id", articleid);
                     map.put("comments", ar_edit.getText().toString());
                     presenter.onaddComment(ArticleActivity.this, map);
+                    hiddenKeyboard();
+                    WindowUtils.dismissBrightness(ArticleActivity.this);
                 } else {
-                    showToast("评论文字不能大于200字");
+                    showToast("评论过长，最多200字");
                 }
-                hiddenKeyboard();
-                WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_clear_bus:
                 WindowUtils.dismissBrightness(ArticleActivity.this);

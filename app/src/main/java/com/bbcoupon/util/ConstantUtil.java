@@ -246,4 +246,18 @@ public class ConstantUtil {
         return netWorkType;
     }
 
+    // 两次点击按钮之间的点击间隔不能少于1000毫秒
+    private static final int MIN_SCHOOL_TIME = 500;
+    private static long clickTime;
+
+    public static boolean isSchoolClick() {
+        boolean flag = false;
+        long curClickTime = System.currentTimeMillis();
+        if ((curClickTime - clickTime) >= MIN_SCHOOL_TIME) {
+            flag = true;
+        }
+        clickTime = curClickTime;
+        return flag;
+    }
+
 }

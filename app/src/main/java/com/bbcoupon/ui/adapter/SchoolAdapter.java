@@ -28,6 +28,7 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.util.CornerTransform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -307,10 +308,12 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
+            CornerTransform trans = new CornerTransform(context, dip2px(context, 10));
+            trans.setExceptCorner(false, false, false, false);
             //Glide 加载图片简单用法
             Glide.with(context)
                     .load(path)
-                    .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                    .apply(new RequestOptions().placeholder(R.drawable.default_product).transform(trans))
                     .into(imageView);
         }
     }
@@ -329,4 +332,9 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.onArticle = onArticle;
     }
 
+    //只是绘制左上角和右上角圆角
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
 }

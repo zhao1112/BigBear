@@ -292,6 +292,7 @@ public class BalanceActivity extends BaseActivity implements PlatformActionListe
         mHashMap.put("open_id", platform.getDb().get("unionid"));
         mHashMap.put("wxopen_id", platform.getDb().get("openid"));
         mHashMap.put("bindType", "1");
+        mHashMap.put("wx_accessToken", platform.getDb().getToken());
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).memberThirdPartyBind(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {

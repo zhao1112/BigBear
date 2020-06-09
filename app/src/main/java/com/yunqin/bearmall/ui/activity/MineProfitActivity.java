@@ -23,6 +23,7 @@ import com.bbcoupon.util.WindowUtils;
 import com.newversions.tbk.activity.WebActivity;
 import com.newversions.view.ICustomDialog;
 import com.yunqin.bearmall.BearMallAplication;
+import com.yunqin.bearmall.Constans;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.bean.MemberBeanResponse;
@@ -465,6 +466,7 @@ public class MineProfitActivity extends BaseActivity implements ProfitContract.U
         mHashMap.put("open_id", platform.getDb().get("unionid"));
         mHashMap.put("wxopen_id", platform.getDb().get("openid"));
         mHashMap.put("bindType", "1");
+        mHashMap.put("wx_accessToken", platform.getDb().getToken());
         presenter.onThirdPartyBind(MineProfitActivity.this, mHashMap);
         hiddenLoadingView();
     }

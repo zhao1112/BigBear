@@ -463,6 +463,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.UI,
         Constans.params.put("open_id", platform.getDb().get("unionid"));
         Constans.params.put("wxopen_id", platform.getDb().get("openid"));
         Constans.params.put("bindType", 1 + "");
+        Constans.params.put("wx_accessToken", platform.getDb().getToken());
         presenter.bindWx(this, Constans.params);
     }
 

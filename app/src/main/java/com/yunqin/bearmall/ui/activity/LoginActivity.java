@@ -197,13 +197,12 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
         if (LoginWay == 1) {
             Constans.params.put("open_id", platform.getDb().getUserId());
             Constans.params.put("loginType", 1 + "");
-            Log.e(CommonUtils.TAG, "QQ--" + "open_id--" + platform.getDb().getUserId() + "--loginType--" + 1);
         } else if (LoginWay == 2) {
             Constans.params.put("open_id", platform.getDb().get("unionid"));
             Constans.params.put("wxopen_id", platform.getDb().get("openid"));
             Constans.params.put("loginType", 2 + "");
-            Log.e(CommonUtils.TAG, "WX--" + "open_id--" + platform.getDb().get("unionid") + "--wxopen_id--" + platform.getDb().get(
-                    "openid") + "--loginType--" + 2);
+            Log.e("onComplete",platform.getDb().getToken());
+            Log.e("onComplete", platform.getDb().get("unionid") );
         }
         presenter.start(Constans.params);
         Log.e(CommonUtils.TAG, "调起登录接口");

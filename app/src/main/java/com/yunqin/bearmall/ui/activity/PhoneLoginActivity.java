@@ -339,6 +339,7 @@ public class PhoneLoginActivity extends BaseActivity implements PlatformActionLi
         map.put("wxopen_id", platform.getDb().get("openid"));
         map.put("accessToken", userInfo.getData().getToken().getAccess_token());
         map.put("bindType", 1 + "");
+        map.put("wx_accessToken",platform.getDb().getToken());
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).memberWeixinBind(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {

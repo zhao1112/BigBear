@@ -31,6 +31,8 @@
 
     </RelativeLayout>
 
+    <include layout="@layout/no_video_layout"/>
+
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/artw_refresh"
         android:layout_width="match_parent"
