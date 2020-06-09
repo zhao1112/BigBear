@@ -64,6 +64,8 @@ public class UserPromotion {
         private int weChatGroupNumber;
         private int isDisplay1;
         private int isDisplay2;
+        private int commission;
+        private int registerProfit;
         //超级会员
         private int twoLevelFans;
         private int twoLevelTotalNumber;
@@ -79,6 +81,22 @@ public class UserPromotion {
         //大团长v3
         //大团长v4
         private int ClassAVipNum;
+
+        public int getCommission() {
+            return commission;
+        }
+
+        public void setCommission(int commission) {
+            this.commission = commission;
+        }
+
+        public int getRegisterProfit() {
+            return registerProfit;
+        }
+
+        public void setRegisterProfit(int registerProfit) {
+            this.registerProfit = registerProfit;
+        }
 
         public String getIconUrl() {
             return iconUrl;

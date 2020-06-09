@@ -125,8 +125,14 @@ public class ArticleSearchActivity extends BaseActivity implements TextWatcher, 
         String data = (String) SharedPreferencesHelper.get(this, KEY, "");
         if (data.length() > 0) {
             String[] currdata = data.split(SPLIT);
-            for (String content : currdata) {
-                list.add(content);
+            if (currdata.length >= 5) {
+                for (int i = 0; i < 5;i++){{
+                    list.add(currdata[i]);
+                }}
+            } else {
+                for (String content : currdata) {
+                    list.add(content);
+                }
             }
         }
         return list;

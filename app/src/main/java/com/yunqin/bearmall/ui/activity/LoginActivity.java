@@ -115,14 +115,14 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                 }
                 break;
             case R.id.user_protocol:
-                String guidelUrl = BuildConfig.BASE_URL + "/view/getPrivacyPolicy";
+                String guidelUrl = BuildConfig.BASE_URL + "/view/getPrivacyPolicy/list";
                 VanguardListPageActivity.startH5Activity(this, guidelUrl, "用户协议");
                 break;
             case R.id.close:
                 this.finish();
                 break;
             case R.id.zhengc:
-                String guidelUrl2 = BuildConfig.BASE_URL + "/view/getPrivacyPolicy";
+                String guidelUrl2 = BuildConfig.BASE_URL + "/view/useragreementPrivacy/list";
                 VanguardListPageActivity.startH5Activity(this, guidelUrl2, "隐私政策");
                 break;
         }
@@ -203,6 +203,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             Constans.params.put("loginType", 2 + "");
             Log.e("onComplete",platform.getDb().getToken());
             Log.e("onComplete", platform.getDb().get("unionid") );
+            Log.e("onComplete", platform.getDb().get("openid") );
         }
         presenter.start(Constans.params);
         Log.e(CommonUtils.TAG, "调起登录接口");

@@ -12,7 +12,7 @@
         android:layout_marginRight="@dimen/dp_15"
         android:layout_marginBottom="@dimen/dp_15"
         android:background="@drawable/bg_corner_search_dialog"
-      >
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/top_condition"
@@ -183,11 +183,55 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/v_two3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/condition_four_text"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15">
+
+            <TextView
+                android:id="@+id/vip_tow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="或得3元佣金"
+                android:textColor="#ff303030"
+                android:textSize="@dimen/sp_12"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vip_tow3"
+                android:layout_marginTop="@dimen/dp_8"
+                android:gravity="center_vertical">
+
+                <ProgressBar
+                    android:id="@+id/vip_two_3"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="@dimen/dp_110"
+                    android:layout_height="@dimen/dp_5"
+                    android:progressDrawable="@drawable/vip_personal_center"/>
+
+                <TextView
+                    android:id="@+id/vip_text_two3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="0/3元"
+                    android:textColor="#ff555555"
+                    android:textSize="@dimen/sp_9"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/condition_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/condition_four_text"
+            android:layout_below="@id/v_two3"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_28"
             android:text="方式二"
@@ -236,7 +280,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_marginRight="@dimen/dp_15"
-            android:layout_marginBottom="@dimen/dp_20">
+            android:layout_marginBottom="@dimen/dp_10">
 
             <TextView
                 android:id="@+id/vip_logon_three_text2"
@@ -285,6 +329,50 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/v_two2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:layout_below="@id/condition_six"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15">
+
+            <TextView
+                android:id="@+id/vip_tow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="或得3元佣金"
+                android:textColor="#ff303030"
+                android:textSize="@dimen/sp_12"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vip_tow2"
+                android:layout_marginTop="@dimen/dp_8"
+                android:gravity="center_vertical">
+
+                <ProgressBar
+                    android:id="@+id/vip_two_2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="@dimen/dp_110"
+                    android:layout_height="@dimen/dp_5"
+                    android:progressDrawable="@drawable/vip_personal_center"/>
+
+                <TextView
+                    android:id="@+id/vip_text_two2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="0/3元"
+                    android:textColor="#ff555555"
+                    android:textSize="@dimen/sp_9"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
         <Button
             android:id="@+id/vip_logon_up"
             android:layout_width="match_parent"
@@ -298,7 +386,6 @@
             android:textColor="#ffffff"
             android:textSize="@dimen/sp_14"
             android:visibility="gone"/>
-
 
     </RelativeLayout>
 

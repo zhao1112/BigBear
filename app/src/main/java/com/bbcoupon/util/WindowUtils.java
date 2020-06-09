@@ -225,6 +225,12 @@ public class WindowUtils {
         popupWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
         popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         popupWindow.showAtLocation(position, Gravity.BOTTOM | Gravity.CENTER_VERTICAL, 0, 0);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                dimBackground(activity, 0.5f, 1.0f);
+            }
+        });
         return popupWindow;
     }
 
