@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.MsgInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
@@ -190,8 +191,8 @@ public class BindingAlipayActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onSuccess(Object data) {
-        if (data instanceof BaseInfor) {
-            BaseInfor baseInfor = (BaseInfor) data;
+        if (data instanceof MsgInfor) {
+            MsgInfor baseInfor = (MsgInfor) data;
             if (baseInfor.getCode() == 2) {
                 showToast(baseInfor.getMsg());
                 return;

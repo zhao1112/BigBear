@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.BaseInfor;
+import com.bbcoupon.ui.bean.MsgInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.contract.RequestContract;
 import com.bbcoupon.ui.presenter.RequestPresenter;
@@ -189,8 +190,8 @@ public class MsgCheckingActivity extends BaseActivity implements RequestContract
             ConstantUtil.showCountDown(mMCodeNew, CommonUtils.waittime, 1000, R.drawable.updata_phone, R.drawable.bg_vip_up);
             Toast.makeText(MsgCheckingActivity.this, "随机码发送成功", Toast.LENGTH_SHORT).show();
         }
-        if (data instanceof BaseInfor) {
-            BaseInfor baseInfor = (BaseInfor) data;
+        if (data instanceof MsgInfor) {
+            MsgInfor baseInfor = (MsgInfor) data;
             if (baseInfor.getCode() == 2) {
                 showToast(baseInfor.getMsg());
                 return;

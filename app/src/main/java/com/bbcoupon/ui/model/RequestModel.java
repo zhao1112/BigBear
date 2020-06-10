@@ -18,6 +18,7 @@ import com.bbcoupon.ui.bean.HotSearchInfor;
 import com.bbcoupon.ui.bean.MakeInfor;
 import com.bbcoupon.ui.bean.MeetingInfor;
 import com.bbcoupon.ui.bean.MeetingShareInfor;
+import com.bbcoupon.ui.bean.MsgInfor;
 import com.bbcoupon.ui.bean.RequestInfor;
 import com.bbcoupon.ui.bean.SchoolInfor;
 import com.bbcoupon.ui.bean.SearchInfor;
@@ -584,7 +585,8 @@ public class RequestModel implements RequestContract.RequestModel {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onBindingAlipay(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) throws JSONException {
-                BaseInfor baseInfor = new Gson().fromJson(data, BaseInfor.class);
+                Log.e("onSuccess", data);
+                MsgInfor baseInfor = new Gson().fromJson(data, MsgInfor.class);
                 if (requestView != null) {
                     requestView.onSuccess(baseInfor);
                 }
