@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,6 +106,7 @@ public class MakeFragment extends BaseFragment implements RequestContract.Reques
     private MakeAdapter makeAdapter;
     private MakeInfor.DataBean.TaskBean task;
     private List<MakeInfor.DataBean.BannerBean> bannerList;
+    private String mRule;
 
     @Override
     public int layoutId() {
@@ -281,6 +283,7 @@ public class MakeFragment extends BaseFragment implements RequestContract.Reques
     public void onSuccess(Object data) {
         if (data instanceof MakeInfor) {
             MakeInfor makeInfor = (MakeInfor) data;
+            mRule = makeInfor.getData().getRule();
             setTobData(makeInfor.getData());
             setListData(makeInfor.getData().getDayOfTask(), makeInfor.getData().getTask());
         }
@@ -376,6 +379,8 @@ public class MakeFragment extends BaseFragment implements RequestContract.Reques
                 break;
             case R.id.make_tip://规则
                 PopupWindow popupWindow = WindowUtils.ShowVirtual(getActivity(), R.layout.item_make_rule_pop, R.style.bottom_animation, 1);
+                TextView rule = popupWindow.getContentView().findViewById(R.id.rule);
+                rule.setText(mRule);
                 popupWindow.getContentView().findViewById(R.id.make_rule_cancel).setOnClickListener(this);
                 break;
         }

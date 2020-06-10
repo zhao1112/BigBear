@@ -1,9 +1,11 @@
 package com.bbcoupon.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -20,9 +22,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bbcoupon.ui.bean.SchoolInfor;
+import com.bbcoupon.util.ImageUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.donkingliang.imageselector.entry.Image;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -191,17 +197,31 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 articleHolder.sc_time.setText(bean.getReleaseTime());
                 if (bean.getType() == 0) {
                     Glide.with(context)
+                            .asBitmap()
                             .load(bean.getUrl())
                             .apply(options)
                             .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                            .into(articleHolder.sc_image);
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    Bitmap bitmap = ImageUtil.zoomImage(resource, 500, 300);
+                                    articleHolder.sc_image.setImageBitmap(bitmap);
+                                }
+                            });
                     articleHolder.sc_video_image.setVisibility(View.GONE);
                 } else {
                     Glide.with(context)
+                            .asBitmap()
                             .load(bean.getCoverimage())
                             .apply(options)
                             .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                            .into(articleHolder.sc_image);
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    Bitmap bitmap = ImageUtil.zoomImage(resource, 500, 300);
+                                    articleHolder.sc_image.setImageBitmap(bitmap);
+                                }
+                            });
                     articleHolder.sc_video_image.setVisibility(View.VISIBLE);
                 }
                 articleHolder.itemView.setOnClickListener(new View.OnClickListener() {

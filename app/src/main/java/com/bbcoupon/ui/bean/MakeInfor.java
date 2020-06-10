@@ -2,6 +2,8 @@ package com.bbcoupon.ui.bean;
 
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.themes.classic.PRTHeader;
+
 /**
  * @author LWP
  * @PACKAGE com.bbcoupon.ui.bean
@@ -81,6 +83,23 @@ public class MakeInfor {
         private int todayCreditSum;
         private List<BannerBean> banner;
         private List<DayOfTaskBean> dayOfTask;
+        private String rule;
+
+        public int getbCbanlance() {
+            return bCbanlance;
+        }
+
+        public void setbCbanlance(int bCbanlance) {
+            this.bCbanlance = bCbanlance;
+        }
+
+        public String getRule() {
+            return rule;
+        }
+
+        public void setRule(String rule) {
+            this.rule = rule;
+        }
 
         public int getRestReward() {
             return restReward;

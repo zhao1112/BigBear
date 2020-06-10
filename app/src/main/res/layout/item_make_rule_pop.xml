@@ -45,59 +45,17 @@
             android:background="#ffe1e1e1"/>
 
         <TextView
+            android:id="@+id/rule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_25"
             android:layout_marginTop="@dimen/dp_23"
             android:layout_marginRight="@dimen/dp_25"
+            android:layout_marginBottom="@dimen/dp_15"
             android:text="1. 每日签到成功可领取100个糖果"
             android:textColor="#ff272727"
             android:textSize="@dimen/sp_13"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_25"
-            android:lineSpacingMultiplier="1.3"
-            android:text="2.邀请好友下载大熊酷朋APP并注册登录后即可获得500个糖果"
-            android:textColor="#ff272727"
-            android:textSize="@dimen/sp_13"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_25"
-            android:lineSpacingMultiplier="1.3"
-            android:text="3.每日转发宣传素材文章，转发成功后可获得30个糖果，每日上限获得300个糖果（每日同一素材分享多次时，只获得一次分享糖果收益）"
-            android:textColor="#ff272727"
-            android:textSize="@dimen/sp_13"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_25"
-            android:lineSpacingMultiplier="1.3"
-            android:text="4.每日转发商品分享爆款素材，转发成功后可以提供30个糖果，每日上限获得600个糖果（每日同一素材分享多次时，只获得一次分享糖果收益）"
-            android:textColor="#ff272727"
-            android:textSize="@dimen/sp_13"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_25"
-            android:layout_marginBottom="@dimen/dp_25"
-            android:lineSpacingMultiplier="1.3"
-            android:text="5.幸运大抽奖，完成1次获得3个糖果，完成3次获得10个糖果，完成5次获得20个糖果（奖品内容为抽奖方提供，与本平台无关）"
-            android:textColor="#ff272727"
-            android:textSize="@dimen/sp_13"/>
 
     </LinearLayout>
 
