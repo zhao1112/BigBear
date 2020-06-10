@@ -338,7 +338,7 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
                 L.e("STATE_PAUSED");
                 mPlayButton.setSelected(false);
                 mStartPlayButton.setVisibility(GONE);
-                //removeCallbacks(mShowProgress);
+                removeCallbacks(mShowProgress);
                 break;
             case VideoView.STATE_PREPARING:
                 L.e("STATE_PREPARING");
@@ -346,12 +346,12 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
                 mStartPlayButton.setVisibility(GONE);
                 mStatusView.dismiss();
                 mLoadingProgress.setVisibility(VISIBLE);
-//                mThumb.setVisibility(VISIBLE);
+                mThumb.setVisibility(VISIBLE);
                 break;
             case VideoView.STATE_PREPARED:
                 L.e("STATE_PREPARED");
                 if (!mIsLive) mBottomProgress.setVisibility(VISIBLE);
-//                mLoadingProgress.setVisibility(GONE);
+                mLoadingProgress.setVisibility(GONE);
                 mStartPlayButton.setVisibility(GONE);
                 break;
             case VideoView.STATE_ERROR:
@@ -482,8 +482,8 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
                     hideAllViews();
                 }
             } else {
-//                mBottomContainer.setVisibility(VISIBLE);
-//                mBottomContainer.startAnimation(mHideAnim);
+                mBottomContainer.setVisibility(VISIBLE);
+                mBottomContainer.startAnimation(mHideAnim);
             }
             if (!mIsLive && !mIsLocked) {
                 mBottomProgress.setVisibility(VISIBLE);
@@ -496,8 +496,8 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
     private void hideAllViews() {
         mTopContainer.setVisibility(GONE);
         mTopContainer.startAnimation(mHideAnim);
-//        mBottomContainer.setVisibility(VISIBLE);
-//        mBottomContainer.startAnimation(mHideAnim);
+        mBottomContainer.setVisibility(GONE);
+        mBottomContainer.startAnimation(mHideAnim);
     }
 
     private void show(int timeout) {
@@ -513,8 +513,8 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
                     showAllViews();
                 }
             } else {
-//                mBottomContainer.setVisibility(VISIBLE);
-//                mBottomContainer.startAnimation(mShowAnim);
+                mBottomContainer.setVisibility(VISIBLE);
+                mBottomContainer.startAnimation(mShowAnim);
             }
             if (!mIsLocked && !mIsLive) {
                 mBottomProgress.setVisibility(GONE);
@@ -529,8 +529,8 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
     }
 
     private void showAllViews() {
-//        mBottomContainer.setVisibility(VISIBLE);
-//        mBottomContainer.startAnimation(mShowAnim);
+        mBottomContainer.setVisibility(VISIBLE);
+        mBottomContainer.startAnimation(mShowAnim);
         mTopContainer.setVisibility(VISIBLE);
         mTopContainer.startAnimation(mShowAnim);
     }

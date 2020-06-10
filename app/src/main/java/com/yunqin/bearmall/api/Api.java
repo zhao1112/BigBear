@@ -1615,5 +1615,12 @@ public interface Api {
     @POST("api/businesscollege/giveShareSumUp")
     Observable<String> onShareSumUp(@FieldMap() Map<String, String> params);
 
+    /**
+     * 商学院文章详情
+     */
+    @FormUrlEncoded
+    @POST("api/businesscollege/getBusinessSchoolDetails")
+    Observable<String> onSchoolDetails(@FieldMap() Map<String, String> params);
+
 }
 

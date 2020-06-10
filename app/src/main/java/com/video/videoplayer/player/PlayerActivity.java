@@ -6,11 +6,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import com.bbcoupon.ui.activity.ArticleActivity;
+import com.bbcoupon.util.ConstantUtil;
 import com.video.videocontroller.StandardVideoController;
 import com.videodown.http.DownLoad;
 import com.videodown.http.bean.DownBean;
@@ -21,6 +25,7 @@ import com.yunqin.bearmall.base.BaseActivity;
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PlayerActivity extends BaseActivity {
@@ -40,7 +45,6 @@ public class PlayerActivity extends BaseActivity {
     public void init() {
 
         if (getIntent() == null) return;
-
         video_url = getIntent().getStringExtra("VODEO_URL");
         mBearmallVideo.setUrl(video_url);
         mBearmallVideo.setVideoController(new StandardVideoController(PlayerActivity.this));
@@ -147,4 +151,5 @@ public class PlayerActivity extends BaseActivity {
         localContentValues.put("_size", Long.valueOf(paramFile.length()));
         return localContentValues;
     }
+
 }

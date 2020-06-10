@@ -85,8 +85,6 @@ public class BusinessSchoolFragment extends BaseFragment implements RequestContr
             public void setArticle(int id, String title, String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
-                bundle.putString("ARTICLETITLE", title);
-                bundle.putString("ARITCLEIMAGE", url);
                 ArticleActivity.openArticleActivity(getActivity(), ArticleActivity.class, bundle);
             }
 
@@ -102,7 +100,6 @@ public class BusinessSchoolFragment extends BaseFragment implements RequestContr
             public void setBannerId(int id,String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
-                bundle.putString("ARITCLEIMAGE", url);
                 ArticleActivity.openArticleActivity(getActivity(), ArticleActivity.class, bundle);
             }
         });

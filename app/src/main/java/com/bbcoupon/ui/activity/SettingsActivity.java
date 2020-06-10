@@ -111,10 +111,14 @@ public class SettingsActivity extends BaseActivity implements SettingContract.UI
             e.printStackTrace();
         }
 
-        String mobile = BearMallAplication.getInstance().getUser().getData().getMember().getMobile();
-        String replace = mobile.substring(3, 7);
-        String newStr = mobile.replace(replace, "****");
-        mPhoneMobie.setText(newStr);
+        try {
+            String mobile = BearMallAplication.getInstance().getUser().getData().getMember().getMobile();
+            String replace = mobile.substring(3, 7);
+            String newStr = mobile.replace(replace, "****");
+            mPhoneMobie.setText(newStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

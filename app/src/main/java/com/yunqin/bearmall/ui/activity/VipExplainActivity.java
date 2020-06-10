@@ -560,8 +560,10 @@ public class VipExplainActivity extends BaseActivity implements VipContract.UI, 
                     setTask(mVipLogonThreeText2, mVipLogonBarTwo2, mVipLogonTextTwo2, "完成" + data.getOrderTotalNumber() + "单（0元购除外）",
                             data.getOrderNumber() + "/" + data.getOrderTotalNumber() + "单", data.getOrderTotalNumber(),
                             data.getOrderNumber());
-                    setTask(vip_tow3,vip_two_3,vip_text_two3,"或得"+data.getCommission()+"元佣金",data.getRegisterProfit()+"/"+data.getCommission()+"元",data.getRegisterProfit(),data.getCommission());
-                    setTask(vip_tow2,vip_two_2,vip_text_two2,"或得"+data.getCommission()+"元佣金",data.getRegisterProfit()+"/"+data.getCommission()+"元",data.getRegisterProfit(),data.getCommission());
+                    setTask(vip_tow3, vip_two_3, vip_text_two3, "或得" + data.getCommission() + "元佣金",
+                            data.getRegisterProfit() + "/" + data.getCommission() + "元", data.getCommission(), data.getRegisterProfit());
+                    setTask(vip_tow2, vip_two_2, vip_text_two2, "或得" + data.getCommission() + "元佣金",
+                            data.getRegisterProfit() + "/" + data.getCommission() + "元", data.getCommission(), data.getRegisterProfit());
                     break;
                 case 2://超级会员
                     setTask(vip_v1_one_text, vip_v1_bar_one, vip_v1_text_one, "直邀超级会员" + data.getTotalNumber() + "人以上",

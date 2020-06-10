@@ -76,7 +76,6 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             sc_icon = itemView.findViewById(R.id.sc_icon);
             sc_title = itemView.findViewById(R.id.sc_title);
         }
-
     }
 
 

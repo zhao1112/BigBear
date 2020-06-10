@@ -64,6 +64,8 @@ public class LoginBindPhone extends BaseActivity {
     private String name;
     private String loginType;
     private String openID;
+    private String mWxopen_id;
+    private String mWx_token;
 
     @Override
     public int layoutId() {
@@ -77,6 +79,8 @@ public class LoginBindPhone extends BaseActivity {
         name = (String) bundle.get("name");
         loginType = (String) bundle.get("loginType");
         openID = (String) bundle.get("open_id");
+        mWxopen_id = (String)bundle.get("wxopen_id");
+        mWx_token = (String)bundle.get("wx_token");
         titleTextView.setText("账号绑定");
         bind_name.setText(Html.fromHtml(getResources().getString(R.string.bind_name, name)));
         Glide.with(this).setDefaultRequestOptions(BearMallAplication.getOptions(R.drawable.mine_user_icon_defult)).load(icon).into(head_img);
@@ -199,7 +203,8 @@ public class LoginBindPhone extends BaseActivity {
         mHashMap.put("iconUrl", icon);
         mHashMap.put("nickName", name);
         mHashMap.put("cid", (String) SharedPreferencesHelper.get(BearMallAplication.getInstance().getApplicationContext(), "clientid", ""));
-
+        mHashMap.put("wxopen_id",mWxopen_id);
+        mHashMap.put("wx_accessToken", mWx_token);
         RetrofitApi.request(this, RetrofitApi.createApi(Api.class).memberLoginBind(mHashMap), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {

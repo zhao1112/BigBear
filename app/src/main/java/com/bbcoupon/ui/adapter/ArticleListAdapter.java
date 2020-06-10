@@ -94,12 +94,15 @@ public class ArticleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View v) {
                 if (onArticleList != null) {
-                    if (list.get(position).getType() == 0) {
-                        onArticleList.onListId(list.get(position).getId(),list.get(position).getTitle(),list.get(position).getUrl());
-                    } else {
-                        onArticleList.onListId(list.get(position).getId(),list.get(position).getTitle(),list.get(position).getCoverimage());
+                    try {
+                        if (list.get(position).getType() == 0) {
+                            onArticleList.onListId(list.get(position).getId(),list.get(position).getTitle(),list.get(position).getUrl());
+                        } else {
+                            onArticleList.onListId(list.get(position).getId(),list.get(position).getTitle(),list.get(position).getCoverimage());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
                 }
             }
         });

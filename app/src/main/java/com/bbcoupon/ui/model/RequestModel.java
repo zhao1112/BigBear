@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.bean.AlipayInfor;
+import com.bbcoupon.ui.bean.ArticeleInfor;
 import com.bbcoupon.ui.bean.ArticeleListInfor;
 import com.bbcoupon.ui.bean.ArticleInfor;
 import com.bbcoupon.ui.bean.BaseInfor;
@@ -1097,6 +1098,35 @@ public class RequestModel implements RequestContract.RequestModel {
             @Override
             public void onFail(Throwable e) {
 
+            }
+        });
+    }
+
+    //商学院文章详情
+    @Override
+    public void onSchoolDetails(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onSchoolDetails(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                Log.e("RequestModel", data);
+                ArticeleInfor messageItemCount = new Gson().fromJson(data, ArticeleInfor.class);
+                if (requestView != null) {
+                    requestView.onSuccess(messageItemCount);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
             }
         });
     }

@@ -56,6 +56,7 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
     private ArticleListAdapter listAdapter;
     private int page = 1;
     private RequestPresenter presenter;
+    private boolean isFirst = true;
 
     public static void openArticleListActivity(Activity activity, Class cla, Bundle bundle) {
         Intent intent = new Intent(activity, cla);
@@ -109,8 +110,6 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
             public void onListId(int id, String title, String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
-                bundle.putString("ARTICLETITLE", title);
-                bundle.putString("ARITCLEIMAGE", url);
                 ArticleActivity.openArticleActivity(ArticleListActivity.this, ArticleActivity.class, bundle);
             }
         });
@@ -144,7 +143,7 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
                     page = 1;
                     listAdapter.deleteData();
                     if (ConstantUtil.isSchoolClick()) {
-                        getData(page);
+                        mListRefresh.startRefresh();
                     }
                     hiddenKeyboard();
                 } else {
@@ -166,7 +165,7 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
                         page = 1;
                         listAdapter.deleteData();
                         if (ConstantUtil.isSchoolClick()) {
-                            getData(page);
+                            mListRefresh.startRefresh();
                         }
                         hiddenKeyboard();
                     } else {
@@ -217,7 +216,11 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
                 mListRefresh.setBottomView(new RefreshBottomView(ArticleListActivity.this));
                 listAdapter.addData(articeleListInfor.getData());
                 mNulldata.setVisibility(View.GONE);
+                isFirst = false;
             } else {
+                if (isFirst) {
+                    showToast("没有搜索到相关的文章呦！");
+                }
                 mListRefresh.setBottomView(new RefreshSchoolView(ArticleListActivity.this));
             }
         }

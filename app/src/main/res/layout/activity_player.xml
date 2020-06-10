@@ -8,7 +8,6 @@
     tools:context="com.video.videoplayer.player.PlayerActivity">
 
 
-
     <com.video.videoplayer.player.VideoView
         android:id="@+id/bearmall_video"
         android:layout_width="match_parent"
@@ -46,7 +45,8 @@
             android:text="保存"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/sp_16"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
 
     </LinearLayout>

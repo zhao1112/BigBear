@@ -1,30 +1,21 @@
 package com.bbcoupon.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,8 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.alibaba.wireless.security.open.middletier.fc.IFCActionCallback;
 import com.bbcoupon.ui.adapter.ArticleAdapter;
+import com.bbcoupon.ui.bean.ArticeleInfor;
 import com.bbcoupon.ui.bean.ArticleInfor;
 import com.bbcoupon.ui.bean.BaseInfor;
 import com.bbcoupon.ui.bean.CommentInfor;
@@ -45,23 +36,28 @@ import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.ShareUtils;
 import com.bbcoupon.util.WindowUtils;
 import com.bbcoupon.widget.RefreshSchoolView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.jaren.lib.view.LikeView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.newversions.tbk.utils.MyWebViewClient;
+import com.video.videoplayer.player.PlayerActivity;
 import com.yunqin.bearmall.BuildConfig;
 import com.yunqin.bearmall.R;
+import com.yunqin.bearmall.api.Api;
+import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.BCMessageActivity;
-import com.yunqin.bearmall.util.ShareUtil;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -77,8 +73,6 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  */
 public class ArticleActivity extends BaseActivity implements View.OnClickListener, RequestContract.RequestView, TextWatcher {
 
-    @BindView(R.id.ar_web)
-    WebView mArWeb;
     @BindView(R.id.a_recycler)
     RecyclerView mARecycler;
     @BindView(R.id.a_refresh)
@@ -101,17 +95,30 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     TextView mArSeeSume;
     @BindView(R.id.ar_like_sume)
     TextView mArLikeSume;
+    @BindView(R.id.ar_title)
+    TextView mArTitle;
+    @BindView(R.id.ar_time)
+    TextView mArTime;
+    @BindView(R.id.ar_image)
+    ImageView mArImage;
+    @BindView(R.id.ar_conten)
+    TextView mArConten;
+    @BindView(R.id.ar_video)
+    ImageView mArVideo;
 
     private ArticleAdapter articleAdapter;
     private boolean chat = true;
     private EditText ar_edit;
-    private String articleid, aritcleimage, articletitle, aritclvoide;
+    private String articleid;
     private RequestPresenter presenter;
     private int page = 1;
     private String webUrl = BuildConfig.BASE_URL + "/view/sharevideo/list?id=";
     private boolean isLike = true;
     private TextView text_conten;
     private Platform platform;
+    private RoundedCorners roundedCorner = new RoundedCorners(10);
+    private RequestOptions options = RequestOptions.bitmapTransform(roundedCorner);
+    private ArticeleInfor articeleInfor;
 
 
     public static void openArticleActivity(Activity activity, Class cla, Bundle bundle) {
@@ -130,22 +137,16 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     public void init() {
 
         articleid = getIntent().getStringExtra("ARTICLEID");
-        aritcleimage = getIntent().getStringExtra("ARITCLEIMAGE");
-        articletitle = getIntent().getStringExtra("ARTICLETITLE");
         if (TextUtils.isEmpty(articleid)) {
             return;
         }
-
-        webUrl = webUrl + articleid;
-        Log.e("ARTICLEID", webUrl);
 
         presenter = new RequestPresenter();
         presenter.setRelation(this);
         Map<String, String> map = new HashMap<>();
         map.put("id", articleid);
+        getSData(map);
         presenter.onNumberOfDetails(ArticleActivity.this, map);
-
-        setWeb();
 
         mARefresh.setHeaderView(new RefreshHeadView(ArticleActivity.this));
         mARefresh.setBottomView(new RefreshBottomView(ArticleActivity.this));
@@ -154,6 +155,9 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 page = 1;
                 articleAdapter.deleteData();
+                Map<String, String> map = new HashMap<>();
+                map.put("id", articleid);
+                getSData(map);
                 getData(page);
             }
 
@@ -196,37 +200,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         presenter.onCommentList(ArticleActivity.this, map);
     }
 
-    private void setWeb() {
-
-        try {
-            if (Build.VERSION.SDK_INT >= 16) {
-                Class<?> clazz = mArWeb.getSettings().getClass();
-                Method method = clazz.getMethod("setAllowUniversalAccessFromFileURLs", boolean.class);
-                if (method != null) {
-                    method.invoke(mArWeb.getSettings(), true);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mArWeb.getSettings().setMixedContentMode(mArWeb.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-
-        CookieManager cookieManager = CookieManager.getInstance();
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("android");
-
-        cookieManager.setCookie(webUrl, stringBuffer.toString());
-        cookieManager.setAcceptCookie(true);
-
-        mArWeb.loadUrl(webUrl);
-        mArWeb.addJavascriptInterface(this, "android");
-        setWebview(mArWeb);
-        mArWeb.setWebViewClient(new MyWebViewClint());
-    }
-
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -242,48 +215,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    public class MyWebViewClint extends WebViewClient {
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.e("MyWebViewClint", url);
-            return false;
-        }
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            Log.e("MyWebViewClint--开始", url);
-            //设定加载开始的操作
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-
-            float v = mArWeb.getContentHeight() * mArWeb.getScale();
-
-            Log.e("MyWebViewClint--结束", v + "");
-            //设定加载结束的操作
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mScComment.setVisibility(View.VISIBLE);
-                }
-            }, 1000);
-        }
-
-        @Override
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            Log.e("MyWebViewClint--失败", failingUrl);
-            //设定加载失败
-            super.onReceivedError(view, errorCode, description, failingUrl);
-        }
-
-        @Override
-        public void onLoadResource(WebView view, String url) {
-            Log.e("MyWebViewClint--", url);
-            //设定加载资源的操作
-        }
-    }
 
     @Override
     public void onSuccess(Object data) {
@@ -300,10 +231,21 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             ArticleInfor articleInfor = (ArticleInfor) data;
             if (articleInfor != null) {
                 if (articleInfor.getData().getComment_num() != null) {
-                    mArSeeSume.setText(articleInfor.getData().getComment_num());
+                    if ("0".equals(articleInfor.getData().getComment_num())){
+                        mArSeeSume.setVisibility(View.GONE);
+                    }else {
+                        mArSeeSume.setVisibility(View.VISIBLE);
+                        mArSeeSume.setText(articleInfor.getData().getComment_num());
+                    }
                 }
                 if (articleInfor.getData().getLikes_num() != null) {
-                    mArLikeSume.setText(articleInfor.getData().getLikes_num());
+                    if ("0".equals(articleInfor.getData().getLikes_num())){
+                        mArLikeSume.setVisibility(View.GONE);
+                    }else {
+                        mArLikeSume.setVisibility(View.VISIBLE);
+                        mArLikeSume.setText(articleInfor.getData().getLikes_num());
+                    }
+
                 }
                 if (isLike) {
                     if (articleInfor.getData().getIsGiveTheThumbsUp() == 1) {
@@ -335,7 +277,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 presenter.onNumberOfDetails(ArticleActivity.this, map);
             }
         }
-        if (data instanceof RequestInfor){
+        if (data instanceof RequestInfor) {
             RequestInfor requestInfor = (RequestInfor) data;
             if (requestInfor.getCode() == 1) {
                 PopupWindow popupWindow = WindowUtils.timeShowOnly(ArticleActivity.this, R.layout.popup_tisp, R.style.TispAnim, 0);
@@ -369,123 +311,13 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         mARefresh.finishLoadmore();
     }
 
-    private class MyWebChromeClient extends WebChromeClient {
-        CustomViewCallback mCallback;
-
-        @Override
-        public void onShowCustomView(View view, CustomViewCallback callback) {
-            Log.i("ToVmp", "onShowCustomView");
-            fullScreen();
-            if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
-                View v = ArticleActivity.this.getWindow().getDecorView();
-                v.setSystemUiVisibility(View.GONE);
-            } else if (Build.VERSION.SDK_INT >= 19) {
-                //for new api versions.
-                View decorView = getWindow().getDecorView();
-                int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
-                decorView.setSystemUiVisibility(uiOptions);
-            }
-            mLinear.setVisibility(View.GONE);
-            mFlVideoContainer.setVisibility(View.VISIBLE);
-            mFlVideoContainer.addView(view);
-            mCallback = callback;
-            super.onShowCustomView(view, callback);
-        }
-
-        @Override
-        public void onHideCustomView() {
-            Log.i("ToVmp", "onHideCustomView");
-            fullScreen();
-            if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
-                View v = ArticleActivity.this.getWindow().getDecorView();
-                v.setSystemUiVisibility(View.VISIBLE);
-            } else if (Build.VERSION.SDK_INT >= 19) {
-                //for new api versions.
-                View decorView = getWindow().getDecorView();
-                int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                decorView.setSystemUiVisibility(uiOptions);
-            }
-            mLinear.setVisibility(View.VISIBLE);
-            mFlVideoContainer.setVisibility(View.GONE);
-            mFlVideoContainer.removeAllViews();
-            super.onHideCustomView();
-        }
-    }
-
-    private void fullScreen() {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            Log.i("ToVmp", "横屏");
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            Log.i("ToVmp", "竖屏");
-        }
-    }
-
-    @SuppressLint("JavascriptInterface")
-    public void setWebview(WebView webview) {
-        WebSettings web = webview.getSettings();
-        web.setDefaultTextEncodingName("utf-8");
-        // 设置可以支持缩放
-        web.setUserAgentString(web.getUserAgentString() + " WebView");
-        web.setJavaScriptEnabled(true);  //支持js
-        web.setUseWideViewPort(false);  //将图片调整到适合webview的大小
-        web.setSupportZoom(true);  //支持缩放
-        web.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
-        web.supportMultipleWindows();  //多窗口
-        web.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //关闭webview中缓存
-        web.setAllowFileAccess(true);  //设置可以访问文件
-        web.setDomStorageEnabled(true);// 打开本地缓存提供JS调用,至关重要
-        web.setAppCacheMaxSize(1024 * 1024 * 8);// 实现8倍缓存
-        web.setAllowFileAccess(true);
-        web.setAppCacheEnabled(true);
-        web.setDatabaseEnabled(true);
-        // 启用硬件加速
-        webview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        webview.setWebChromeClient(new MyWebChromeClient());
-        // 自适应屏幕
-        web.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-    }
-
-    @JavascriptInterface
-    public void play() {
-        int netWorkStatus = ConstantUtil.getNetWorkStatus(ArticleActivity.this);
-        switch (netWorkStatus) {
-            case 1:
-                showToast("当前是Wifi网络");
-                break;
-            case 2:
-                showToast("当前是2G网络，请注意流量消耗");
-                break;
-            case 3:
-                showToast("当前是3G网络，请注意流量消耗");
-                break;
-            case 4:
-                showToast("当前是4G网络，请注意流量消耗");
-                break;
-
-        }
-        Log.e("JavascriptInterface", "play: ");
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.setUntying(this);
-        if (mArWeb != null) {
-            try {
-                mArWeb.removeAllViews();
-                mArWeb.clearHistory();
-                mArWeb.clearCache(true);
-                mArWeb.destroy();
-            } catch (Throwable t) {
-
-            }
-            mArWeb = null;
-        }
     }
 
-    @OnClick({R.id.ar_back, R.id.ar_refresh, R.id.sc_chat, R.id.se_live, R.id.home_search, R.id.sc_hearch})
+    @OnClick({R.id.ar_back, R.id.ar_refresh, R.id.sc_chat, R.id.se_live, R.id.home_search, R.id.sc_hearch, R.id.ar_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ar_back:
@@ -494,7 +326,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             case R.id.ar_refresh:
                 mScScroll.fullScroll(NestedScrollView.FOCUS_UP);
                 mARefresh.startRefresh();
-                mArWeb.reload();
                 break;
             case R.id.sc_chat:
                 if (chat) {
@@ -542,6 +373,15 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 viewContent.getContentView().findViewById(R.id.sc_qq_share).setOnClickListener(this);
                 viewContent.getContentView().findViewById(R.id.sc_qq_moments_share).setOnClickListener(this);
                 break;
+            case R.id.ar_image:
+                if (articeleInfor.getData().getType() == 1) {
+                    Intent intent = new Intent(ArticleActivity.this, PlayerActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("VODEO_URL", articeleInfor.getData().getUrl());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+                break;
         }
     }
 
@@ -572,34 +412,38 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_wx_share:
-                if (TextUtils.isEmpty(articletitle)) {
-                    articletitle = "商学院";
+                if (articeleInfor.getData().getType() == 1) {
+                    platform = ShareUtils.shareContent(Wechat.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getCoverimage(), webUrl);
+                } else {
+                    platform = ShareUtils.shareContent(Wechat.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(), webUrl);
                 }
-                platform = ShareUtils.shareContent(Wechat.NAME, articletitle, aritcleimage, webUrl);
                 platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_moments_share:
-                if (TextUtils.isEmpty(articletitle)) {
-                    articletitle = "商学院";
+                if (articeleInfor.getData().getType() == 1) {
+                    platform = ShareUtils.shareContent(WechatMoments.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getCoverimage(), webUrl);
+                } else {
+                    platform = ShareUtils.shareContent(WechatMoments.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(), webUrl);
                 }
-                platform = ShareUtils.shareContent(WechatMoments.NAME, articletitle, aritcleimage, webUrl);
                 platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_qq_share:
-                if (TextUtils.isEmpty(articletitle)) {
-                    articletitle = "商学院";
+                if (articeleInfor.getData().getType() == 1) {
+                    platform = ShareUtils.shareContent(QQ.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getCoverimage(), webUrl);
+                } else {
+                    platform = ShareUtils.shareContent(QQ.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(), webUrl);
                 }
-                platform = ShareUtils.shareContent(QQ.NAME, articletitle, aritcleimage, webUrl);
                 platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_qq_moments_share:
-                if (TextUtils.isEmpty(articletitle)) {
-                    articletitle = "商学院";
+                if (articeleInfor.getData().getType() == 1) {
+                    platform = ShareUtils.shareContent(QZone.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getCoverimage(), webUrl);
+                } else {
+                    platform = ShareUtils.shareContent(QZone.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(), webUrl);
                 }
-                platform = ShareUtils.shareContent(QZone.NAME, articletitle, aritcleimage, webUrl);
                 platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
@@ -614,7 +458,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             presenter.onShareSumUp(ArticleActivity.this, map);
             Map<String, String> hasMap = new HashMap<>();
             hasMap.put("type", "2");
-            hasMap.put("content",articleid);
+            hasMap.put("content", articleid);
             presenter.onCandySharing(ArticleActivity.this, hasMap);
         }
 
@@ -629,13 +473,48 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && mArWeb.canGoBack()) {
-            mArWeb.goBack();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+
+    private void getSData(Map<String, String> map) {
+        RetrofitApi.request(ArticleActivity.this, RetrofitApi.createApi(Api.class).onSchoolDetails(map),
+                new RetrofitApi.IResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.e("RequestModel", data);
+                        articeleInfor = new Gson().fromJson(data, ArticeleInfor.class);
+                        if (articeleInfor != null && articeleInfor.getData() != null) {
+                            mArTitle.setText(articeleInfor.getData().getTitle());
+                            mArTime.setText(articeleInfor.getData().getReleaseTime());
+                            if (articeleInfor.getData().getType() == 1) {
+                                Glide.with(ArticleActivity.this)
+                                        .load(articeleInfor.getData().getCoverimage())
+                                        .apply(options)
+                                        .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                                        .into(mArImage);
+                                mArVideo.setVisibility(View.VISIBLE);
+                            } else {
+                                Glide.with(ArticleActivity.this)
+                                        .load(articeleInfor.getData().getUrl())
+                                        .apply(options)
+                                        .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                                        .into(mArImage);
+                                mArVideo.setVisibility(View.GONE);
+                            }
+                            mArConten.setText(Html.fromHtml(articeleInfor.getData().getContent()));
+                            mScComment.setVisibility(View.VISIBLE);
+                        }
+                        hiddenLoadingView();
+                    }
+
+                    @Override
+                    public void onNotNetWork() {
+                        hiddenLoadingView();
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        hiddenLoadingView();
+                    }
+                });
     }
 
 }

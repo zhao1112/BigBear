@@ -201,6 +201,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
             Constans.params.put("open_id", platform.getDb().get("unionid"));
             Constans.params.put("wxopen_id", platform.getDb().get("openid"));
             Constans.params.put("loginType", 2 + "");
+            Constans.params.put("wx_accessToken", platform.getDb().getToken());
             Log.e("onComplete",platform.getDb().getToken());
             Log.e("onComplete", platform.getDb().get("unionid") );
             Log.e("onComplete", platform.getDb().get("openid") );
@@ -244,6 +245,7 @@ public class LoginActivity extends BaseActivity implements loginWayCallBack, Pla
                 } else {
                     bundle.putString("open_id", platform.getDb().get("unionid"));
                     bundle.putString("wxopen_id", platform.getDb().get("openid"));
+                    bundle.putString("wx_token", platform.getDb().getToken());
                 }
                 StarActivityUtil.starActivity(this, LoginBindPhone.class, bundle);
                 Log.e(CommonUtils.TAG, "绑定手机");

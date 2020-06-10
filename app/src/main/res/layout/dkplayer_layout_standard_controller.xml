@@ -65,6 +65,7 @@
         android:layout_gravity="bottom"
         android:background="@drawable/dkplayer_shape_stardard_controller_bottom_bg"
         android:gravity="center_vertical"
+        android:visibility="visible"
         android:orientation="horizontal">
 
         <ImageView
@@ -134,8 +135,7 @@
             android:layout_width="@dimen/dp_46"
             android:layout_height="@dimen/dp_46"
             android:padding="@dimen/dp_12"
-            android:src="@drawable/dkplayer_selector_full_screen_button"
-            android:visibility="gone"/>
+            android:src="@drawable/dkplayer_selector_full_screen_button"/>
 
     </LinearLayout>
 
@@ -155,7 +155,7 @@
         android:id="@+id/bottom_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         android:layout_gravity="bottom"
         android:max="1000"
         android:progressDrawable="@drawable/dkplayer_layer_progress_bar"
@@ -181,7 +181,7 @@
             android:layout_height="@dimen/dp_46"
             android:padding="@dimen/dp_12"
             android:src="@drawable/dkplayer_ic_action_arrow_back"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:visibility="visible"/>
 
         <LinearLayout

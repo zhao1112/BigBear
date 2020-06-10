@@ -104,8 +104,6 @@ public class ArticleListTwoActivity extends BaseActivity implements RequestContr
             public void onListId(int id, String title, String url) {
                 Bundle bundle = new Bundle();
                 bundle.putString("ARTICLEID", id + "");
-                bundle.putString("ARTICLETITLE", title);
-                bundle.putString("ARITCLEIMAGE", url);
                 ArticleActivity.openArticleActivity(ArticleListTwoActivity.this, ArticleActivity.class, bundle);
             }
         });

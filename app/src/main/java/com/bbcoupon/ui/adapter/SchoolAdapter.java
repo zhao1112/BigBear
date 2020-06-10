@@ -127,7 +127,8 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void OnBannerClick(int position) {
                         if (onArticle != null) {
-                            onArticle.setBannerId(banner.bannerlist.get(position).getBusinesscollegeId(),banner.bannerlist.get(position).getImage());
+                            onArticle.setBannerId(banner.bannerlist.get(position).getBusinesscollegeId(),
+                                    banner.bannerlist.get(position).getImage());
                         }
                     }
                 });
@@ -180,16 +181,11 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ArticleHolder articleHolder = (ArticleHolder) holder;
                 SchoolInfor.Data3Bean bean = (SchoolInfor.Data3Bean) list.get(position);
                 if (bean.getIsOverhead() == 1) {
-                    String str = " 置顶 " + " " + bean.getTitle();
-                    int bstart = str.indexOf(" 置顶 ");
-                    int bend = bstart + " 置顶 ".length();
-                    SpannableStringBuilder style = new SpannableStringBuilder(str);
-                    style.setSpan(new BackgroundColorSpan(Color.parseColor("#E60012")), bstart, bend, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    style.setSpan(new ForegroundColorSpan(Color.WHITE), bstart, bend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-                    articleHolder.sc_title.setText(style);
+                    articleHolder.art_one.setVisibility(View.VISIBLE);
                 } else {
-                    articleHolder.sc_title.setText(bean.getTitle());
+                    articleHolder.art_one.setVisibility(View.GONE);
                 }
+                articleHolder.sc_title.setText(bean.getTitle());
                 articleHolder.sc_live_sume.setText(bean.getLikes_num() + "点赞 ");
                 articleHolder.sc_see_sume.setText(" " + bean.getViews_num() + "浏览");
                 articleHolder.sc_time.setText(bean.getReleaseTime());
@@ -213,9 +209,9 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     public void onClick(View v) {
                         if (onArticle != null) {
                             if (bean.getType() == 0) {
-                                onArticle.setArticle(bean.getId(),bean.getTitle(),bean.getUrl());
+                                onArticle.setArticle(bean.getId(), bean.getTitle(), bean.getUrl());
                             } else {
-                                onArticle.setArticle(bean.getId(),bean.getTitle(),bean.getCoverimage());
+                                onArticle.setArticle(bean.getId(), bean.getTitle(), bean.getCoverimage());
                             }
                         }
                     }
@@ -261,6 +257,7 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private final TextView sc_live_sume;
         private final TextView sc_see_sume;
         private final TextView sc_time;
+        private final TextView art_one;
         private final ImageView sc_image;
         private final ImageView sc_video_image;
 
@@ -272,6 +269,7 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             sc_time = itemView.findViewById(R.id.sc_time);
             sc_image = itemView.findViewById(R.id.sc_image);
             sc_video_image = itemView.findViewById(R.id.sc_video_image);
+            art_one = itemView.findViewById(R.id.art_one);
         }
     }
 
@@ -319,11 +317,11 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public interface OnArticle {
-        void setArticle(int id,String title,String url);
+        void setArticle(int id, String title, String url);
 
         void setArticelIcon(int id, String title);
 
-        void setBannerId(int id,String url);
+        void setBannerId(int id, String url);
     }
 
     public OnArticle onArticle;

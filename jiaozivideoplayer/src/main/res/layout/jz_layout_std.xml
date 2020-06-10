@@ -88,7 +88,7 @@
         android:id="@+id/bottom_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="1.5dp"
+        android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:max="100"
         android:progressDrawable="@drawable/jz_bottom_progress" />

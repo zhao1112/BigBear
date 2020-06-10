@@ -47,7 +47,7 @@
 
     <string name="app_login_tip1">已在手机QQ或浏览器购买过？</string>
     <string name="app_login_tip2">请使用其他方式登录</string>
-    <string name="app_login_tip3">【大熊酷朋用户注册协议】</string>
+    <string name="app_login_tip3">《大熊酷朋用户注册协议》</string>
 
 
     <string name="addr_name">收货人姓名（请使用真实姓名）</string>

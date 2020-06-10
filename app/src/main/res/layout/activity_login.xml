@@ -82,15 +82,16 @@
             android:layout_height="@dimen/dp_25"
             android:checked="true"
             android:scaleX="0.8"
+            android:visibility="gone"
             android:scaleY="0.8" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
-            android:text="同意"
+            android:text="登录代表您已同意"
             android:textColor="#999999"
-            android:textSize="@dimen/ds28" />
+            android:textSize="@dimen/ds20" />
 
         <TextView
             android:id="@+id/user_protocol"
@@ -98,20 +99,22 @@
             android:layout_height="wrap_content"
             android:text="@string/app_login_tip3"
             android:textColor="#35AC79"
-            android:textSize="@dimen/ds28" />
+            android:textSize="@dimen/ds20" />
 
         <TextView
-            android:layout_width="1dp"
-            android:layout_height="@dimen/dp_10"
-            android:background="#333333"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="和"
+            android:textColor="#999999"
+            android:textSize="@dimen/ds20"/>
 
         <TextView
             android:id="@+id/zhengc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="【隐私政策】"
+            android:text="《隐私政策》"
             android:textColor="#35AC79"
-            android:textSize="@dimen/ds28" />
+            android:textSize="@dimen/ds20" />
 
     </LinearLayout>
 

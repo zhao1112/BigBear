@@ -326,4 +326,12 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //商学院文章详情
+    @Override
+    public void onSchoolDetails(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onSchoolDetails(context, map, requestView);
+        }
+    }
+
 }

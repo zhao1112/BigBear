@@ -17,8 +17,8 @@
             android:id="@+id/sc_icon"
             android:layout_width="@dimen/dp_46"
             android:layout_height="@dimen/dp_46"
-            android:layout_marginLeft="@dimen/dp_21"
-            android:layout_marginRight="@dimen/dp_21"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:layout_marginRight="@dimen/dp_18"
             android:src="@drawable/n_v_1"/>
 
         <TextView
