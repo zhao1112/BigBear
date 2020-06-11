@@ -6,10 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bbcoupon.ui.bean.SchoolInfor;
@@ -55,7 +57,7 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             public void onClick(View v) {
                 if (onIcon != null) {
                     Log.e("iconContentHolder", "onClick: ");
-                    onIcon.setIcon(list.get(position).getId(),list.get(position).getName());
+                    onIcon.setIcon(list.get(position).getId(), list.get(position).getName());
                 }
             }
         });
@@ -70,17 +72,19 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private final ImageView sc_icon;
         private final TextView sc_title;
+        private final LinearLayout view_icon;
 
         public IconContentHolder(View itemView) {
             super(itemView);
             sc_icon = itemView.findViewById(R.id.sc_icon);
             sc_title = itemView.findViewById(R.id.sc_title);
+            view_icon = itemView.findViewById(R.id.view_icon);
         }
     }
 
 
     public interface OnIcon {
-        void setIcon(int id,String title);
+        void setIcon(int id, String title);
     }
 
     public OnIcon onIcon;

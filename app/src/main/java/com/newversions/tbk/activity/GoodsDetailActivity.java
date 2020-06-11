@@ -650,7 +650,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 if (BearMallAplication.getInstance().getUser() == null) {
                     LoginActivity.starActivity(this);
                 } else {
-                    //Toast.makeText(this, "正在跳转淘宝", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "正在跳转淘宝", Toast.LENGTH_SHORT).show();
                     toTaobao();
                 }
                 break;

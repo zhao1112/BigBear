@@ -11,7 +11,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_120"
+            android:layout_height="@dimen/dp_110"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -46,9 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_9"
                         android:ellipsize="end"
-                        android:lineSpacingExtra="@dimen/dp_5"
                         android:maxLines="2"
-                        android:text="1111111111111111111111111111111111"
                         android:textColor="#ff272727"
                         android:textSize="@dimen/sp_14"
                         android:textStyle="bold"/>
@@ -98,8 +96,8 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="@dimen/dp_120"
-                android:layout_height="@dimen/dp_90"
+                android:layout_width="@dimen/dp_110"
+                android:layout_height="@dimen/dp_85"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/dp_15">
 

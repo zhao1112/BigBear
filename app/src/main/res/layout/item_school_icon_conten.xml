@@ -5,7 +5,8 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/view_icon"
+        android:layout_width="@dimen/dp_86"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
@@ -17,8 +18,6 @@
             android:id="@+id/sc_icon"
             android:layout_width="@dimen/dp_46"
             android:layout_height="@dimen/dp_46"
-            android:layout_marginLeft="@dimen/dp_18"
-            android:layout_marginRight="@dimen/dp_18"
             android:src="@drawable/n_v_1"/>
 
         <TextView
