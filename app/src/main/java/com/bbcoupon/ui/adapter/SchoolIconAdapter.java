@@ -30,10 +30,12 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<SchoolInfor.Data2Bean> list;
     private Context context;
+    private int mWidth;
 
-    public SchoolIconAdapter(Context context, List<SchoolInfor.Data2Bean> list) {
+    public SchoolIconAdapter(Context context, List<SchoolInfor.Data2Bean> list, int width) {
         this.list = list;
         this.context = context;
+        this.mWidth = width;
     }
 
 
@@ -47,6 +49,11 @@ public class SchoolIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         IconContentHolder iconContentHolder = (IconContentHolder) holder;
+
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) iconContentHolder.view_icon.getLayoutParams();
+        linearParams.width = mWidth / 4;
+        iconContentHolder.view_icon.setLayoutParams(linearParams);
+
         Glide.with(context)
                 .load(list.get(position).getImage())
                 .apply(new RequestOptions().placeholder(R.drawable.default_product))

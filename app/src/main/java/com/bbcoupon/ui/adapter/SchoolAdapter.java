@@ -142,44 +142,52 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case SCHOOLICON:
                 IconHolder iconHolder = (IconHolder) holder;
                 IconList icon = (IconList) list.get(position);
-                iconHolder.sc_icon_recycle.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-                SchoolIconAdapter schoolIconAdapter = new SchoolIconAdapter(context, icon.iconList);
-                iconHolder.sc_icon_recycle.setAdapter(schoolIconAdapter);
-                //设置滑动
-                iconHolder.sc_icon_recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
-                    }
 
+                iconHolder.sc_icon_recycle.post(new Runnable() {
                     @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                        int extent = recyclerView.computeHorizontalScrollExtent();
-                        //整体的高度，注意是整体，包括在显示区域之外的。
-                        int range = recyclerView.computeHorizontalScrollRange();
-                        //已经滚动的距离，为0时表示已处于顶部。
-                        int offset = recyclerView.computeHorizontalScrollOffset();
-                        //计算出溢出部分的宽度，即屏幕外剩下的宽度
-                        float maxEndX = range - extent;
-                        //计算比例
-                        float proportion = offset / maxEndX;
-                        int layoutWidth = iconHolder.sc_icon_layout.getWidth();
-                        int indicatorViewWidth = iconHolder.sc_icon_view.getWidth();
-                        //可滑动的距离
-                        int scrollableDistance = layoutWidth - indicatorViewWidth;
-                        //设置滚动条移动
-                        iconHolder.sc_icon_view.setTranslationX(scrollableDistance * proportion);
-                    }
-                });
+                    public void run() {
+                        int width = iconHolder.sc_icon_recycle.getWidth();
 
-                schoolIconAdapter.setOnIcon(new SchoolIconAdapter.OnIcon() {
-                    @Override
-                    public void setIcon(int id, String title) {
-                        if (onArticle != null) {
-                            Log.e("iconContentHolder", "onClick: 2");
-                            onArticle.setArticelIcon(id, title);
-                        }
+                        iconHolder.sc_icon_recycle.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+                        SchoolIconAdapter schoolIconAdapter = new SchoolIconAdapter(context, icon.iconList,width);
+                        iconHolder.sc_icon_recycle.setAdapter(schoolIconAdapter);
+                        //设置滑动
+                        iconHolder.sc_icon_recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                            @Override
+                            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                                super.onScrollStateChanged(recyclerView, newState);
+                            }
+
+                            @Override
+                            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                                super.onScrolled(recyclerView, dx, dy);
+                                int extent = recyclerView.computeHorizontalScrollExtent();
+                                //整体的高度，注意是整体，包括在显示区域之外的。
+                                int range = recyclerView.computeHorizontalScrollRange();
+                                //已经滚动的距离，为0时表示已处于顶部。
+                                int offset = recyclerView.computeHorizontalScrollOffset();
+                                //计算出溢出部分的宽度，即屏幕外剩下的宽度
+                                float maxEndX = range - extent;
+                                //计算比例
+                                float proportion = offset / maxEndX;
+                                int layoutWidth = iconHolder.sc_icon_layout.getWidth();
+                                int indicatorViewWidth = iconHolder.sc_icon_view.getWidth();
+                                //可滑动的距离
+                                int scrollableDistance = layoutWidth - indicatorViewWidth;
+                                //设置滚动条移动
+                                iconHolder.sc_icon_view.setTranslationX(scrollableDistance * proportion);
+                            }
+                        });
+
+                        schoolIconAdapter.setOnIcon(new SchoolIconAdapter.OnIcon() {
+                            @Override
+                            public void setIcon(int id, String title) {
+                                if (onArticle != null) {
+                                    Log.e("iconContentHolder", "onClick: 2");
+                                    onArticle.setArticelIcon(id, title);
+                                }
+                            }
+                        });
                     }
                 });
                 break;
