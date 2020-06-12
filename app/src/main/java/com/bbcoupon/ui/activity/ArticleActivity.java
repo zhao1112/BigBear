@@ -429,7 +429,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             case R.id.sc_wx_share:
                 if (articeleInfor.getData().getType() == 1) {
                     platform = ShareUtils.shareContent(Wechat.NAME, articeleInfor.getData().getTitle(),
-                            articeleInfor.getData().getCoverimage(), webUrl);
+                            articeleInfor.getData().getCoverimages(), webUrl);
                 } else {
                     platform = ShareUtils.shareContent(Wechat.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(),
                             webUrl);
@@ -440,7 +440,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             case R.id.sc_moments_share:
                 if (articeleInfor.getData().getType() == 1) {
                     platform = ShareUtils.shareContent(WechatMoments.NAME, articeleInfor.getData().getTitle(),
-                            articeleInfor.getData().getCoverimage(), webUrl);
+                            articeleInfor.getData().getCoverimages(), webUrl);
                 } else {
                     platform = ShareUtils.shareContent(WechatMoments.NAME, articeleInfor.getData().getTitle(),
                             articeleInfor.getData().getUrl(), webUrl);
@@ -451,7 +451,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             case R.id.sc_qq_share:
                 if (articeleInfor.getData().getType() == 1) {
                     platform = ShareUtils.shareContent(QQ.NAME, articeleInfor.getData().getTitle(),
-                            articeleInfor.getData().getCoverimage(), webUrl);
+                            articeleInfor.getData().getCoverimages(), webUrl);
                 } else {
                     platform = ShareUtils.shareContent(QQ.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(),
                             webUrl);
@@ -462,7 +462,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             case R.id.sc_qq_moments_share:
                 if (articeleInfor.getData().getType() == 1) {
                     platform = ShareUtils.shareContent(QZone.NAME, articeleInfor.getData().getTitle(),
-                            articeleInfor.getData().getCoverimage(), webUrl);
+                            articeleInfor.getData().getCoverimages(), webUrl);
                 } else {
                     platform = ShareUtils.shareContent(QZone.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(),
                             webUrl);
