@@ -1,5 +1,6 @@
 package com.bbcoupon.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -14,13 +15,14 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bbcoupon.ui.adapter.ArticleAdapter;
@@ -77,8 +79,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     RecyclerView mARecycler;
     @BindView(R.id.a_refresh)
     TwinklingRefreshLayout mARefresh;
-    @BindView(R.id.flVideoContainer)
-    FrameLayout mFlVideoContainer;
     @BindView(R.id.linear)
     LinearLayout mLinear;
     @BindView(R.id.sc_comment)
@@ -101,10 +101,12 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     TextView mArTime;
     @BindView(R.id.ar_image)
     ImageView mArImage;
-    @BindView(R.id.ar_conten)
-    TextView mArConten;
     @BindView(R.id.ar_video)
     ImageView mArVideo;
+    @BindView(R.id.ar_layout)
+    RelativeLayout mArLayout;
+    @BindView(R.id.ar_web)
+    WebView mArWeb;
 
     private ArticleAdapter articleAdapter;
     private boolean chat = true;
@@ -148,6 +150,8 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         getSData(map);
         presenter.onNumberOfDetails(ArticleActivity.this, map);
 
+        setWebview(mArWeb);
+
         mARefresh.setHeaderView(new RefreshHeadView(ArticleActivity.this));
         mARefresh.setBottomView(new RefreshBottomView(ArticleActivity.this));
         mARefresh.setOnRefreshListener(new RefreshListenerAdapter() {
@@ -158,7 +162,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 Map<String, String> map = new HashMap<>();
                 map.put("id", articleid);
                 getSData(map);
-                getData(page);
             }
 
             @Override
@@ -188,8 +191,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 }
             }
         });
-
-        getData(page);
     }
 
     private void getData(int page) {
@@ -223,6 +224,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             if (commentInfor != null && commentInfor.getData() != null && commentInfor.getData().size() > 0) {
                 mARefresh.setBottomView(new RefreshBottomView(ArticleActivity.this));
                 articleAdapter.addData(commentInfor.getData());
+                mScComment.setVisibility(View.VISIBLE);
             } else {
                 mARefresh.setBottomView(new RefreshSchoolView(ArticleActivity.this));
             }
@@ -231,17 +233,17 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             ArticleInfor articleInfor = (ArticleInfor) data;
             if (articleInfor != null) {
                 if (articleInfor.getData().getComment_num() != null) {
-                    if ("0".equals(articleInfor.getData().getComment_num())){
+                    if ("0".equals(articleInfor.getData().getComment_num())) {
                         mArSeeSume.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         mArSeeSume.setVisibility(View.VISIBLE);
                         mArSeeSume.setText(articleInfor.getData().getComment_num());
                     }
                 }
                 if (articleInfor.getData().getLikes_num() != null) {
-                    if ("0".equals(articleInfor.getData().getLikes_num())){
+                    if ("0".equals(articleInfor.getData().getLikes_num())) {
                         mArLikeSume.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         mArLikeSume.setVisibility(View.VISIBLE);
                         mArLikeSume.setText(articleInfor.getData().getLikes_num());
                     }
@@ -413,36 +415,44 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.sc_wx_share:
                 if (articeleInfor.getData().getType() == 1) {
-                    platform = ShareUtils.shareContent(Wechat.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getCoverimage(), webUrl);
+                    platform = ShareUtils.shareContent(Wechat.NAME, articeleInfor.getData().getTitle(),
+                            articeleInfor.getData().getCoverimage(), webUrl);
                 } else {
-                    platform = ShareUtils.shareContent(Wechat.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(), webUrl);
+                    platform = ShareUtils.shareContent(Wechat.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(),
+                            webUrl);
                 }
                 platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_moments_share:
                 if (articeleInfor.getData().getType() == 1) {
-                    platform = ShareUtils.shareContent(WechatMoments.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getCoverimage(), webUrl);
+                    platform = ShareUtils.shareContent(WechatMoments.NAME, articeleInfor.getData().getTitle(),
+                            articeleInfor.getData().getCoverimage(), webUrl);
                 } else {
-                    platform = ShareUtils.shareContent(WechatMoments.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(), webUrl);
+                    platform = ShareUtils.shareContent(WechatMoments.NAME, articeleInfor.getData().getTitle(),
+                            articeleInfor.getData().getUrl(), webUrl);
                 }
                 platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_qq_share:
                 if (articeleInfor.getData().getType() == 1) {
-                    platform = ShareUtils.shareContent(QQ.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getCoverimage(), webUrl);
+                    platform = ShareUtils.shareContent(QQ.NAME, articeleInfor.getData().getTitle(),
+                            articeleInfor.getData().getCoverimage(), webUrl);
                 } else {
-                    platform = ShareUtils.shareContent(QQ.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(), webUrl);
+                    platform = ShareUtils.shareContent(QQ.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(),
+                            webUrl);
                 }
                 platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
                 break;
             case R.id.sc_qq_moments_share:
                 if (articeleInfor.getData().getType() == 1) {
-                    platform = ShareUtils.shareContent(QZone.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getCoverimage(), webUrl);
+                    platform = ShareUtils.shareContent(QZone.NAME, articeleInfor.getData().getTitle(),
+                            articeleInfor.getData().getCoverimage(), webUrl);
                 } else {
-                    platform = ShareUtils.shareContent(QZone.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(), webUrl);
+                    platform = ShareUtils.shareContent(QZone.NAME, articeleInfor.getData().getTitle(), articeleInfor.getData().getUrl(),
+                            webUrl);
                 }
                 platform.setPlatformActionListener(new SchoolActionListener());
                 WindowUtils.dismissBrightness(ArticleActivity.this);
@@ -485,22 +495,33 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                             mArTitle.setText(articeleInfor.getData().getTitle());
                             mArTime.setText(articeleInfor.getData().getReleaseTime());
                             if (articeleInfor.getData().getType() == 1) {
-                                Glide.with(ArticleActivity.this)
-                                        .load(articeleInfor.getData().getCoverimage())
-                                        .apply(options)
-                                        .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                                        .into(mArImage);
-                                mArVideo.setVisibility(View.VISIBLE);
+                                if (articeleInfor.getData().getCoverimages()!=null){
+                                    Glide.with(ArticleActivity.this)
+                                            .load(articeleInfor.getData().getCoverimages())
+                                            .apply(options)
+                                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                                            .into(mArImage);
+                                    mArVideo.setVisibility(View.VISIBLE);
+                                    mArLayout.setVisibility(View.VISIBLE);
+                                }else {
+                                    mArLayout.setVisibility(View.GONE);
+                                }
                             } else {
-                                Glide.with(ArticleActivity.this)
-                                        .load(articeleInfor.getData().getUrl())
-                                        .apply(options)
-                                        .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                                        .into(mArImage);
-                                mArVideo.setVisibility(View.GONE);
+                                mArLayout.setVisibility(View.GONE);
+//                                if (articeleInfor.getData().getUrl()!=null){
+//                                    Glide.with(ArticleActivity.this)
+//                                            .load(articeleInfor.getData().getUrl())
+//                                            .apply(options)
+//                                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
+//                                            .into(mArImage);
+//                                    mArVideo.setVisibility(View.GONE);
+//                                    mArLayout.setVisibility(View.VISIBLE);
+//                                }else {
+//                                    mArLayout.setVisibility(View.GONE);
+//                                }
                             }
-                            mArConten.setText(Html.fromHtml(articeleInfor.getData().getContent()));
-                            mScComment.setVisibility(View.VISIBLE);
+                            mArWeb.loadDataWithBaseURL(null, articeleInfor.getData().getContent(), "text/html", " charset=UTF-8", null);
+                            getData(page);
                         }
                         hiddenLoadingView();
                     }
@@ -515,6 +536,25 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                         hiddenLoadingView();
                     }
                 });
+    }
+
+    @SuppressLint("JavascriptInterface")
+    public void setWebview(WebView webview) {
+        webview.addJavascriptInterface(this, "android");
+        WebSettings web = webview.getSettings();
+        web.setUserAgentString(web.getUserAgentString() + " WebView");
+        web.setJavaScriptEnabled(true);  //支持js
+        web.setUseWideViewPort(false);  //将图片调整到适合webview的大小
+        web.setSupportZoom(true);  //支持缩放
+        web.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
+        web.supportMultipleWindows();  //多窗口
+        web.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //关闭webview中缓存
+        web.setAllowFileAccess(true);  //设置可以访问文件
+        web.setDomStorageEnabled(true);// 打开本地缓存提供JS调用,至关重要
+        web.setAppCacheMaxSize(1024 * 1024 * 8);// 实现8倍缓存
+        web.setAllowFileAccess(true);
+        web.setAppCacheEnabled(true);
+        web.setDatabaseEnabled(true);
     }
 
 }

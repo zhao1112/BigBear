@@ -77,6 +77,15 @@ public class ArticeleInfor {
         private int type;
         private String content;
         private String url;
+        private String coverimages;
+
+        public String getCoverimages() {
+            return coverimages;
+        }
+
+        public void setCoverimages(String coverimages) {
+            this.coverimages = coverimages;
+        }
 
         public String getCoverimage() {
             return coverimage;
