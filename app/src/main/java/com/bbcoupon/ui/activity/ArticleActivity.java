@@ -150,6 +150,8 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         getSData(map);
         presenter.onNumberOfDetails(ArticleActivity.this, map);
 
+        webUrl = webUrl + articleid;
+
         setWebview(mArWeb);
 
         mARefresh.setHeaderView(new RefreshHeadView(ArticleActivity.this));
@@ -495,7 +497,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                             mArTitle.setText(articeleInfor.getData().getTitle());
                             mArTime.setText(articeleInfor.getData().getReleaseTime());
                             if (articeleInfor.getData().getType() == 1) {
-                                if (articeleInfor.getData().getCoverimages()!=null){
+                                if (articeleInfor.getData().getCoverimages() != null) {
                                     Glide.with(ArticleActivity.this)
                                             .load(articeleInfor.getData().getCoverimages())
                                             .apply(options)
@@ -503,7 +505,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                                             .into(mArImage);
                                     mArVideo.setVisibility(View.VISIBLE);
                                     mArLayout.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     mArLayout.setVisibility(View.GONE);
                                 }
                             } else {
