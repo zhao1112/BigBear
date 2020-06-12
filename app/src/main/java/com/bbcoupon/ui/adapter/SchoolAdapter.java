@@ -1,18 +1,10 @@
 package com.bbcoupon.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bbcoupon.ui.bean.SchoolInfor;
-import com.bbcoupon.util.ImageUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.donkingliang.imageselector.entry.Image;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -52,7 +40,7 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private List<Object> list;
     private Context context;
-    private RoundedCorners roundedCorner = new RoundedCorners(10);
+    private RoundedCorners roundedCorner = new RoundedCorners(15);
     private RequestOptions options = RequestOptions.bitmapTransform(roundedCorner);
 
 
@@ -149,7 +137,7 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         int width = iconHolder.sc_icon_recycle.getWidth();
 
                         iconHolder.sc_icon_recycle.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-                        SchoolIconAdapter schoolIconAdapter = new SchoolIconAdapter(context, icon.iconList,width);
+                        SchoolIconAdapter schoolIconAdapter = new SchoolIconAdapter(context, icon.iconList, width);
                         iconHolder.sc_icon_recycle.setAdapter(schoolIconAdapter);
                         //设置滑动
                         iconHolder.sc_icon_recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -205,31 +193,17 @@ public class SchoolAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 articleHolder.sc_time.setText(bean.getReleaseTime());
                 if (bean.getType() == 0) {
                     Glide.with(context)
-                            .asBitmap()
                             .load(bean.getUrl())
                             .apply(options)
                             .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                            .into(new SimpleTarget<Bitmap>() {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    Bitmap bitmap = ImageUtil.zoomImage(resource, 500, 300);
-                                    articleHolder.sc_image.setImageBitmap(bitmap);
-                                }
-                            });
+                            .into(articleHolder.sc_image);
                     articleHolder.sc_video_image.setVisibility(View.GONE);
                 } else {
                     Glide.with(context)
-                            .asBitmap()
                             .load(bean.getCoverimage())
                             .apply(options)
                             .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                            .into(new SimpleTarget<Bitmap>() {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    Bitmap bitmap = ImageUtil.zoomImage(resource, 500, 300);
-                                    articleHolder.sc_image.setImageBitmap(bitmap);
-                                }
-                            });
+                            .into(articleHolder.sc_image);
                     articleHolder.sc_video_image.setVisibility(View.VISIBLE);
                 }
                 articleHolder.itemView.setOnClickListener(new View.OnClickListener() {

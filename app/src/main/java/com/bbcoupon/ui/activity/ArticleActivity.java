@@ -193,6 +193,13 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 }
             }
         });
+
+        mArWeb.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
     }
 
     private void getData(int page) {

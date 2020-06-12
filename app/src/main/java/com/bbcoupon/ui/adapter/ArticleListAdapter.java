@@ -33,7 +33,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private List<ArticeleListInfor.DataBean> list;
     private Context context;
-    private RoundedCorners roundedCorner = new RoundedCorners(10);
+    private RoundedCorners roundedCorner = new RoundedCorners(15);
     private RequestOptions options = RequestOptions.bitmapTransform(roundedCorner);
 
     public ArticleListAdapter(Context context) {
