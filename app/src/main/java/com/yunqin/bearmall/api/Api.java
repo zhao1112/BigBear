@@ -1596,7 +1596,7 @@ public interface Api {
     Observable<String> onTheThumbsUp(@FieldMap() Map<String, String> params);
 
     /**
-     * 点赞或者取消点赞
+     * 商学院关键字搜索
      */
     @FormUrlEncoded
     @POST("api/businesscollege/getArticleListByWords")

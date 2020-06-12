@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -140,7 +139,6 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
                 if (mListInput.getText().toString().length() > 0) {
                     assemblyData(mListInput.getText().toString());
                     articlecontent = mListInput.getText().toString();
-                    page = 1;
                     listAdapter.deleteData();
                     if (ConstantUtil.isSchoolClick()) {
                         mListRefresh.startRefresh();
@@ -162,7 +160,6 @@ public class ArticleListActivity extends BaseActivity implements TextView.OnEdit
                     if (mListInput.getText().toString().length() > 0) {
                         assemblyData(mListInput.getText().toString());
                         articlecontent = mListInput.getText().toString();
-                        page = 1;
                         listAdapter.deleteData();
                         if (ConstantUtil.isSchoolClick()) {
                             mListRefresh.startRefresh();

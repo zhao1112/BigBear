@@ -62,16 +62,13 @@ public class ArticleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ArticleListHolder articleListHolder = (ArticleListHolder) holder;
         if (list.get(position).getIsOverhead() == 1) {
-            String str = " 置顶 " + " " + list.get(position).getTitle();
-            int bstart = str.indexOf(" 置顶 ");
-            int bend = bstart + " 置顶 ".length();
-            SpannableStringBuilder style = new SpannableStringBuilder(str);
-            style.setSpan(new BackgroundColorSpan(Color.parseColor("#E60012")), bstart, bend, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            style.setSpan(new ForegroundColorSpan(Color.WHITE), bstart, bend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-            articleListHolder.sc_title.setText(style);
+            articleListHolder.art_one.setVisibility(View.VISIBLE);
         } else {
-            articleListHolder.sc_title.setText(list.get(position).getTitle());
+            articleListHolder.art_one.setVisibility(View.GONE);
         }
+
+        articleListHolder.sc_title.setText(list.get(position).getTitle());
+
         articleListHolder.sc_live_sume.setText(list.get(position).getLikes_num() + "点赞 ");
         articleListHolder.sc_see_sume.setText(" " + list.get(position).getViews_num() + "浏览");
         articleListHolder.sc_time.setText(list.get(position).getReleaseTime());
@@ -96,9 +93,10 @@ public class ArticleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (onArticleList != null) {
                     try {
                         if (list.get(position).getType() == 0) {
-                            onArticleList.onListId(list.get(position).getId(),list.get(position).getTitle(),list.get(position).getUrl());
+                            onArticleList.onListId(list.get(position).getId(), list.get(position).getTitle(), list.get(position).getUrl());
                         } else {
-                            onArticleList.onListId(list.get(position).getId(),list.get(position).getTitle(),list.get(position).getCoverimage());
+                            onArticleList.onListId(list.get(position).getId(), list.get(position).getTitle(),
+                                    list.get(position).getCoverimage());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -118,6 +116,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private final TextView sc_title;
         private final TextView sc_live_sume;
         private final TextView sc_see_sume;
+        private final TextView art_one;
         private final TextView sc_time;
         private final ImageView sc_image;
         private final ImageView sc_video_image;
@@ -130,11 +129,12 @@ public class ArticleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             sc_time = itemView.findViewById(R.id.sc_time);
             sc_image = itemView.findViewById(R.id.sc_image);
             sc_video_image = itemView.findViewById(R.id.sc_video_image);
+            art_one = itemView.findViewById(R.id.art_one);
         }
     }
 
     public interface OnArticleList {
-        void onListId(int id,String title,String url);
+        void onListId(int id, String title, String url);
     }
 
     public OnArticleList onArticleList;

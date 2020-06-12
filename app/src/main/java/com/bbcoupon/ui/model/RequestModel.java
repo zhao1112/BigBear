@@ -1033,6 +1033,7 @@ public class RequestModel implements RequestContract.RequestModel {
         RetrofitApi.request(context, RetrofitApi.createApi(Api.class).onArticleListByWords(map), new RetrofitApi.IResponseListener() {
             @Override
             public void onSuccess(String data) {
+                Log.e("ArticleListActivity", data);
                 ArticeleListInfor messageItemCount = new Gson().fromJson(data, ArticeleListInfor.class);
                 if (requestView != null) {
                     requestView.onSuccess(messageItemCount);

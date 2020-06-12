@@ -232,32 +232,36 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             }
         }
         if (data instanceof ArticleInfor) {
-            ArticleInfor articleInfor = (ArticleInfor) data;
-            if (articleInfor != null) {
-                if (articleInfor.getData().getComment_num() != null) {
-                    if ("0".equals(articleInfor.getData().getComment_num())) {
-                        mArSeeSume.setVisibility(View.GONE);
-                    } else {
-                        mArSeeSume.setVisibility(View.VISIBLE);
-                        mArSeeSume.setText(articleInfor.getData().getComment_num());
+            try {
+                ArticleInfor articleInfor = (ArticleInfor) data;
+                if (articleInfor != null) {
+                    if (articleInfor.getData().getComment_num() != null) {
+                        if ("0".equals(articleInfor.getData().getComment_num())) {
+                            mArSeeSume.setVisibility(View.GONE);
+                        } else {
+                            mArSeeSume.setVisibility(View.VISIBLE);
+                            mArSeeSume.setText(articleInfor.getData().getComment_num());
+                        }
                     }
-                }
-                if (articleInfor.getData().getLikes_num() != null) {
-                    if ("0".equals(articleInfor.getData().getLikes_num())) {
-                        mArLikeSume.setVisibility(View.GONE);
-                    } else {
-                        mArLikeSume.setVisibility(View.VISIBLE);
-                        mArLikeSume.setText(articleInfor.getData().getLikes_num());
-                    }
+                    if (articleInfor.getData().getLikes_num() != null) {
+                        if ("0".equals(articleInfor.getData().getLikes_num())) {
+                            mArLikeSume.setVisibility(View.GONE);
+                        } else {
+                            mArLikeSume.setVisibility(View.VISIBLE);
+                            mArLikeSume.setText(articleInfor.getData().getLikes_num());
+                        }
 
-                }
-                if (isLike) {
-                    if (articleInfor.getData().getIsGiveTheThumbsUp() == 1) {
-                        mSeLive.setAllowRandomDotColor(true);
-                        mSeLive.toggleWithoutAnimator();
                     }
-                    isLike = false;
+                    if (isLike) {
+                        if (articleInfor.getData().getIsGiveTheThumbsUp() == 1) {
+                            mSeLive.setAllowRandomDotColor(true);
+                            mSeLive.toggleWithoutAnimator();
+                        }
+                        isLike = false;
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         if (data instanceof BaseInfor) {
@@ -524,6 +528,9 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                             }
                             mArWeb.loadDataWithBaseURL(null, articeleInfor.getData().getContent(), "text/html", " charset=UTF-8", null);
                             getData(page);
+                        } else {
+                            showToast("文章不存在");
+                            finish();
                         }
                         hiddenLoadingView();
                     }
