@@ -413,9 +413,7 @@ public class Item_BusinessItem_Fragment extends BaseFragment implements RequestC
                 ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
                 if (shareGoodsEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
-                    AuntTao auntTao = new AuntTao();
-                    auntTao.setContext(getActivity());
-                    auntTao.AuntTabo();
+                    AuntTao.AuntTabo(getActivity());
                     return;
                 }
                 CopyTextUtil.CopyText(getActivity(), "復製这条口令" + "(" + shareGoodsEntity.getTaoToken() + "),去【tao寶】下单");

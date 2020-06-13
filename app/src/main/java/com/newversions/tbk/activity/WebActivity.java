@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bbcoupon.ui.activity.ArticleActivity;
+import com.bbcoupon.ui.activity.WebViewActivity;
+import com.bbcoupon.util.ConstantUtil;
 import com.bbcoupon.util.CopyTextUtil;
 import com.newversions.tbk.Constants;
 import com.newversions.tbk.utils.MyWebViewClient;
@@ -47,6 +50,7 @@ import com.yunqin.bearmall.ui.activity.presenter.WebPresenter;
 import com.yunqin.bearmall.util.ArouseTaoBao;
 import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.util.RSAUtil;
+import com.yunqin.bearmall.util.SharedPreferencesHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -510,9 +514,26 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             public void onSuccess(String data) throws JSONException {
                 try {
                     JSONObject object = new JSONObject(data);
-                    if (object.optInt("code") == 1 || object.optInt("code") == 2) {
-                        showToast("绑定成功", Gravity.CENTER);
-                        finish();
+                    if (object.optInt("code") == 1) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 500);
+                        showToast(object.optString("msg"), Gravity.CENTER);
+                    } else if (object.optInt("code") == 2) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 500);
+                        SharedPreferencesHelper.put(WebActivity.this, "INVITATION", "已被绑定");
+                        showToast(object.optString("msg"), Gravity.CENTER);
+                    } else {
+                        SharedPreferencesHelper.put(WebActivity.this, "INVITATION", "绑定失败");
+                        showToast(object.optString("msg"), Gravity.CENTER);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

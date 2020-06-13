@@ -128,191 +128,190 @@ public abstract class BaseActivity extends AppCompatActivity {
             map.put("access_token", ConstantUtil.getAsetToken());
             RetrofitApi.request(BaseActivity.this, RetrofitApi.createApi(Api.class).onSuperSearch(map),
                     new RetrofitApi.IResponseListener() {
-                @Override
-                public void onSuccess(String data) {
-                    try {
-                        JSONObject object = new JSONObject(data);
-                        int type = object.optInt("type");
-                        if (type == 1) {
-                            Log.e("onSuperSearch", data);
-                            SearchInfor searchInfor = new Gson().fromJson(data, SearchInfor.class);
-                            if (searchInfor == null) {
-                                WindowUtils.dismissBrightness(BaseActivity.this);
-                                return;
-                            }
-                            WindowUtils.dismissBrightness(BaseActivity.this);
-                            PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
-                                    R.style.bottom_animation, 2);
-                            popupWindow.getContentView().findViewById(R.id.goods_id).setVisibility(View.VISIBLE);
-                            ImageView image = popupWindow.getContentView().findViewById(R.id.image);
-                            TextView content = popupWindow.getContentView().findViewById(R.id.content);
-                            TextView commision = popupWindow.getContentView().findViewById(R.id.commision);
-                            TextView price = popupWindow.getContentView().findViewById(R.id.price);
-                            Glide.with(BaseActivity.this)
-                                    .load(searchInfor.getData().getImage())
-                                    .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                                    .into(image);
-                            content.setText(StringUtils.addImageLabel(BaseActivity.this, "1".equals(searchInfor.getData().getTmall()) ?
-                                    R.mipmap.icon_tmall : R.mipmap.icon_taobao1, searchInfor.getData().getTitle()));
-                            commision.setText("收益¥" + searchInfor.getData().getTkfee3());
-                            price.setText("" + searchInfor.getData().getDiscountPrice());
-                            popupWindow.getContentView().findViewById(R.id.goodsid).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                    clipboardManager.setText(null);
-                                    BearMallAplication.isFirst = true;
-                                    BearMallAplication.isFirst2 = true;
-                                    GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
-                                            searchInfor.getData().getItemId(), Constants.GOODS_TYPE_TBK_SEARCH,
-                                            Constants.COMMISSION_TYPE_THREE);
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject object = new JSONObject(data);
+                                int type = object.optInt("type");
+                                if (type == 1) {
+                                    Log.e("onSuperSearch", data);
+                                    SearchInfor searchInfor = new Gson().fromJson(data, SearchInfor.class);
+                                    if (searchInfor == null) {
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                        return;
+                                    }
                                     WindowUtils.dismissBrightness(BaseActivity.this);
-                                }
-                            });
-                            popupWindow.getContentView().findViewById(R.id.search_buy).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                    clipboardManager.setText(null);
-                                    BearMallAplication.isFirst = true;
-                                    BearMallAplication.isFirst2 = true;
-                                    if (searchInfor.getData().getUrl() != null) {
-                                        ArouseTaoBao arouseTaoBao = new ArouseTaoBao(BaseActivity.this);
-                                        if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
-                                            arouseTaoBao.openTaoBao(searchInfor.getData().getUrl());
-                                        } else {
-                                            showToast("请先下载淘宝");
-                                            hiddenLoadingView();
+                                    PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
+                                            R.style.bottom_animation, 2);
+                                    popupWindow.getContentView().findViewById(R.id.goods_id).setVisibility(View.VISIBLE);
+                                    ImageView image = popupWindow.getContentView().findViewById(R.id.image);
+                                    TextView content = popupWindow.getContentView().findViewById(R.id.content);
+                                    TextView commision = popupWindow.getContentView().findViewById(R.id.commision);
+                                    TextView price = popupWindow.getContentView().findViewById(R.id.price);
+                                    Glide.with(BaseActivity.this)
+                                            .load(searchInfor.getData().getImage())
+                                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
+                                            .into(image);
+                                    content.setText(StringUtils.addImageLabel(BaseActivity.this,
+                                            "1".equals(searchInfor.getData().getTmall()) ?
+                                                    R.mipmap.icon_tmall : R.mipmap.icon_taobao1, searchInfor.getData().getTitle()));
+                                    commision.setText("收益¥" + searchInfor.getData().getTkfee3());
+                                    price.setText("" + searchInfor.getData().getDiscountPrice());
+                                    popupWindow.getContentView().findViewById(R.id.goodsid).setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                            clipboardManager.setText(null);
+                                            BearMallAplication.isFirst = true;
+                                            BearMallAplication.isFirst2 = true;
+                                            GoodsDetailActivity.startGoodsDetailActivity(BaseActivity.this,
+                                                    searchInfor.getData().getItemId(), Constants.GOODS_TYPE_TBK_SEARCH,
+                                                    Constants.COMMISSION_TYPE_THREE);
+                                            WindowUtils.dismissBrightness(BaseActivity.this);
                                         }
+                                    });
+                                    popupWindow.getContentView().findViewById(R.id.search_buy).setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                            clipboardManager.setText(null);
+                                            BearMallAplication.isFirst = true;
+                                            BearMallAplication.isFirst2 = true;
+                                            if (searchInfor.getData().getUrl() != null) {
+                                                ArouseTaoBao arouseTaoBao = new ArouseTaoBao(BaseActivity.this);
+                                                if (arouseTaoBao.checkPackage("com.taobao.taobao")) {
+                                                    arouseTaoBao.openTaoBao(searchInfor.getData().getUrl());
+                                                } else {
+                                                    showToast("请先下载淘宝");
+                                                    hiddenLoadingView();
+                                                }
+                                            } else {
+                                                AuntTao.AuntTabo(BaseActivity.this);
+                                            }
+                                            WindowUtils.dismissBrightness(BaseActivity.this);
+                                        }
+                                    });
+                                    popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                            clipboardManager.setText(null);
+                                            BearMallAplication.isFirst = true;
+                                            BearMallAplication.isFirst2 = true;
+                                            WindowUtils.dismissBrightness(BaseActivity.this);
+                                        }
+                                    });
+                                }
+                                if (type == 2) {
+                                    Log.e("onSuperSearch", data);
+                                    ContentInfor requestInfor = new Gson().fromJson(data, ContentInfor.class);
+                                    if (requestInfor != null && requestInfor.getData() != null) {
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                        PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
+                                                R.style.bottom_animation, 2);
+                                        popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
+                                        TextView sea_conten = popupWindow.getContentView().findViewById(R.id.sea_conten);
+                                        sea_conten.setText(requestInfor.getData());
+                                        popupWindow.getContentView().findViewById(R.id.cleosn).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                                clipboardManager.setText(null);
+                                                BearMallAplication.isFirst = true;
+                                                BearMallAplication.isFirst2 = true;
+                                                WindowUtils.dismissBrightness(BaseActivity.this);
+                                            }
+                                        });
+                                        popupWindow.getContentView().findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                                clipboardManager.setText(null);
+                                                BearMallAplication.isFirst = true;
+                                                BearMallAplication.isFirst2 = true;
+                                                ProductSumActivity2.startProductSumActivity2(BaseActivity.this, requestInfor.getData(), 8,
+                                                        requestInfor.getData()
+                                                        , "1");
+                                                WindowUtils.dismissBrightness(BaseActivity.this);
+                                            }
+                                        });
+                                        popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                                clipboardManager.setText(null);
+                                                BearMallAplication.isFirst = true;
+                                                BearMallAplication.isFirst2 = true;
+                                                WindowUtils.dismissBrightness(BaseActivity.this);
+                                            }
+                                        });
                                     } else {
-                                        AuntTao auntTao = new AuntTao();
-                                        auntTao.setContext(BaseActivity.this);
-                                        auntTao.AuntTabo();
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
                                     }
-                                    WindowUtils.dismissBrightness(BaseActivity.this);
                                 }
-                            });
-                            popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                    clipboardManager.setText(null);
-                                    BearMallAplication.isFirst = true;
-                                    BearMallAplication.isFirst2 = true;
-                                    WindowUtils.dismissBrightness(BaseActivity.this);
+                                if (type == 3) {
+                                    Log.e("onSuperSearch", data);
+                                    BaseInfor baseInfor = new Gson().fromJson(data, BaseInfor.class);
+                                    if (baseInfor != null && baseInfor.getData() != null) {
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                        PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
+                                                R.style.bottom_animation, 2);
+                                        popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
+                                        TextView sea_conten = popupWindow.getContentView().findViewById(R.id.sea_conten);
+                                        sea_conten.setText(baseInfor.getData());
+                                        popupWindow.getContentView().findViewById(R.id.cleosn).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                                clipboardManager.setText(null);
+                                                BearMallAplication.isFirst = true;
+                                                BearMallAplication.isFirst2 = true;
+                                                WindowUtils.dismissBrightness(BaseActivity.this);
+                                            }
+                                        });
+                                        popupWindow.getContentView().findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                                clipboardManager.setText(null);
+                                                BearMallAplication.isFirst = true;
+                                                BearMallAplication.isFirst2 = true;
+                                                assemblyData(baseInfor.getData());
+                                                ProductSumActivity2.startProductSumActivity2(BaseActivity.this, baseInfor.getData(), 8,
+                                                        baseInfor.getData()
+                                                        , "2");
+                                                WindowUtils.dismissBrightness(BaseActivity.this);
+                                            }
+                                        });
+                                        popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
+                                                clipboardManager.setText(null);
+                                                BearMallAplication.isFirst = true;
+                                                BearMallAplication.isFirst2 = true;
+                                                WindowUtils.dismissBrightness(BaseActivity.this);
+                                            }
+                                        });
+                                    } else {
+                                        WindowUtils.dismissBrightness(BaseActivity.this);
+                                    }
                                 }
-                            });
-                        }
-                        if (type == 2) {
-                            Log.e("onSuperSearch", data);
-                            ContentInfor requestInfor = new Gson().fromJson(data, ContentInfor.class);
-                            if (requestInfor != null && requestInfor.getData() != null) {
-                                WindowUtils.dismissBrightness(BaseActivity.this);
-                                PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
-                                        R.style.bottom_animation, 2);
-                                popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
-                                TextView sea_conten = popupWindow.getContentView().findViewById(R.id.sea_conten);
-                                sea_conten.setText(requestInfor.getData());
-                                popupWindow.getContentView().findViewById(R.id.cleosn).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                        clipboardManager.setText(null);
-                                        BearMallAplication.isFirst = true;
-                                        BearMallAplication.isFirst2 = true;
-                                        WindowUtils.dismissBrightness(BaseActivity.this);
-                                    }
-                                });
-                                popupWindow.getContentView().findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                        clipboardManager.setText(null);
-                                        BearMallAplication.isFirst = true;
-                                        BearMallAplication.isFirst2 = true;
-                                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, requestInfor.getData(), 8,
-                                                requestInfor.getData()
-                                                , "1");
-                                        WindowUtils.dismissBrightness(BaseActivity.this);
-                                    }
-                                });
-                                popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                        clipboardManager.setText(null);
-                                        BearMallAplication.isFirst = true;
-                                        BearMallAplication.isFirst2 = true;
-                                        WindowUtils.dismissBrightness(BaseActivity.this);
-                                    }
-                                });
-                            } else {
-                                WindowUtils.dismissBrightness(BaseActivity.this);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
-                        if (type == 3) {
-                            Log.e("onSuperSearch", data);
-                            BaseInfor baseInfor = new Gson().fromJson(data, BaseInfor.class);
-                            if (baseInfor != null && baseInfor.getData() != null) {
-                                WindowUtils.dismissBrightness(BaseActivity.this);
-                                PopupWindow popupWindow = WindowUtils.ShowVirtual(BaseActivity.this, R.layout.item_popup_search,
-                                        R.style.bottom_animation, 2);
-                                popupWindow.getContentView().findViewById(R.id.search_conten).setVisibility(View.VISIBLE);
-                                TextView sea_conten = popupWindow.getContentView().findViewById(R.id.sea_conten);
-                                sea_conten.setText(baseInfor.getData());
-                                popupWindow.getContentView().findViewById(R.id.cleosn).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                        clipboardManager.setText(null);
-                                        BearMallAplication.isFirst = true;
-                                        BearMallAplication.isFirst2 = true;
-                                        WindowUtils.dismissBrightness(BaseActivity.this);
-                                    }
-                                });
-                                popupWindow.getContentView().findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                        clipboardManager.setText(null);
-                                        BearMallAplication.isFirst = true;
-                                        BearMallAplication.isFirst2 = true;
-                                        assemblyData(baseInfor.getData());
-                                        ProductSumActivity2.startProductSumActivity2(BaseActivity.this, baseInfor.getData(), 8,
-                                                baseInfor.getData()
-                                                , "2");
-                                        WindowUtils.dismissBrightness(BaseActivity.this);
-                                    }
-                                });
-                                popupWindow.getContentView().findViewById(R.id.sea_close).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        clipboardManager.setPrimaryClip(clipboardManager.getPrimaryClip());
-                                        clipboardManager.setText(null);
-                                        BearMallAplication.isFirst = true;
-                                        BearMallAplication.isFirst2 = true;
-                                        WindowUtils.dismissBrightness(BaseActivity.this);
-                                    }
-                                });
-                            } else {
-                                WindowUtils.dismissBrightness(BaseActivity.this);
-                            }
+
+                        @Override
+                        public void onNotNetWork() {
+                            Log.e("onSuperSearch", "onNotNetWork");
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                @Override
-                public void onNotNetWork() {
-                    Log.e("onSuperSearch", "onNotNetWork");
-                }
-
-                @Override
-                public void onFail(Throwable e) {
-                    Log.e("onSuperSearch", e.getMessage());
-                }
-            });
+                        @Override
+                        public void onFail(Throwable e) {
+                            Log.e("onSuperSearch", e.getMessage());
+                        }
+                    });
         }
     }
 

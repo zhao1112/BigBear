@@ -324,9 +324,7 @@ public class MeetingplaceActivity extends BaseActivity implements View.OnClickLi
         try {
             MeetingInfor meetingInfor = new Gson().fromJson(e.getMessage(), MeetingInfor.class);
             if (meetingInfor.getCode() == 3) {
-                AuntTao auntTao = new AuntTao();
-                auntTao.setContext(MeetingplaceActivity.this);
-                auntTao.AuntTabo();
+                AuntTao.AuntTabo(MeetingplaceActivity.this);
                 finish();
             }
             Log.e("Throwable", e.getMessage());

@@ -177,6 +177,15 @@ public class ConstantUtil {
         return "";
     }
 
+    public static String getInvitation() {
+        if (BearMallAplication.getInstance() != null
+                && BearMallAplication.getInstance().getUser() != null
+                && BearMallAplication.getInstance().getUser().getRecommendCode() != null) {
+            return BearMallAplication.getInstance().getUser().getRecommendCode();
+        }
+        return "";
+    }
+
 
     public static final int NETWORK_CLASS_UNKNOWN = 0;
 

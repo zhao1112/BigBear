@@ -115,9 +115,7 @@ public class ShareComissionActivity extends BaseActivity implements PlatformActi
             public void onSuccess(String data) throws JSONException {
                 ShareGoodsEntity shareGoodsEntity = new Gson().fromJson(data, ShareGoodsEntity.class);
                 if (shareGoodsEntity.getCode() == 2) {
-                    AuntTao auntTao = new AuntTao();
-                    auntTao.setContext(ShareComissionActivity.this);
-                    auntTao.AuntTabo();
+                    AuntTao.AuntTabo(ShareComissionActivity.this);
                     finish();
                     return;
                 }

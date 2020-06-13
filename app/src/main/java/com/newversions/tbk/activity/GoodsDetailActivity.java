@@ -373,9 +373,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
             ShareGoodsEntity entity = (ShareGoodsEntity) data;
             if (entity.getCode() == 2) {
                 showToast("未授权淘宝");
-                AuntTao auntTao = new AuntTao();
-                auntTao.setContext(GoodsDetailActivity.this);
-                auntTao.AuntTabo();
+                AuntTao.AuntTabo(GoodsDetailActivity.this);
                 return;
             } else {
                 //加载图片
@@ -603,9 +601,7 @@ public class GoodsDetailActivity extends BaseActivity implements Serializable, G
                 Log.i("onSuccess", data);
                 if (toTaoBaoEntity.getCode() == 2) {
                     // TODO: 2019/8/15 0015 shouquan
-                    AuntTao auntTao = new AuntTao();
-                    auntTao.setContext(GoodsDetailActivity.this);
-                    auntTao.AuntTabo();
+                    AuntTao.AuntTabo(GoodsDetailActivity.this);
                     return;
                 }
                 ArouseTaoBao arouseTaoBao = new ArouseTaoBao(GoodsDetailActivity.this);
