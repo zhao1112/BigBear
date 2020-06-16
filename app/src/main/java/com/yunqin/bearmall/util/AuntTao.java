@@ -79,9 +79,7 @@ public class AuntTao {
         AlibcLogin.getInstance().logout(new AlibcLoginCallback() {
             @Override
             public void onSuccess(int loginResult, String openId, String userNick) {
-                if (loginResult == 3) {
-                    Authorization(context);
-                }
+                Authorization(context);
                 Log.i(TAG, "获取淘宝用户信息: " + AlibcLogin.getInstance().getSession());
             }
 
@@ -89,6 +87,7 @@ public class AuntTao {
             public void onFailure(int code, String msg) {
                 // code：错误码  msg： 错误信息
                 Log.i(TAG, "code: " + code + "----msg" + msg);
+                Authorization(context);
             }
         });
     }

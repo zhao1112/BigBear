@@ -46,8 +46,11 @@ public class PlayerActivity extends BaseActivity {
 
         if (getIntent() == null) return;
         video_url = getIntent().getStringExtra("VODEO_URL");
+        StandardVideoController standardVideoController = new StandardVideoController(PlayerActivity.this);
+        standardVideoController.setmVideoProgress(true);
+        standardVideoController.onPositionChange(true);
         mBearmallVideo.setUrl(video_url);
-        mBearmallVideo.setVideoController(new StandardVideoController(PlayerActivity.this));
+        mBearmallVideo.setVideoController(standardVideoController);
         mBearmallVideo.start();
     }
 

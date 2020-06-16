@@ -117,5 +117,29 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <com.sunfusheng.marqueeview.MarqueeView
+            android:id="@+id/marqueeView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/ar_bg_school"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            app:mvAnimDuration="4000"
+            app:mvDirection="right_to_left"
+            app:mvInterval="5000"
+            app:mvSingleLine="true"
+            app:mvTextColor="@color/white"
+            app:mvTextSize="@dimen/sp_14"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

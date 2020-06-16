@@ -3,6 +3,7 @@ package com.yunqin.bearmall.ui.fragment;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,12 +14,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.google.gson.Gson;
 import com.newversions.IAdvClick;
 import com.newversions.util.SharedPreferencesManager;
 import com.newversions.view.ICustomDialog;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.yunqin.bearmall.BearMallAplication;
 import com.yunqin.bearmall.R;
 import com.yunqin.bearmall.adapter.HomeTabTitleAdapter;
@@ -43,7 +46,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -69,7 +74,8 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
     ImageView home_image;
     @BindView(R.id.recycle_a)
     LinearLayout mRecycleA;
-    Unbinder unbinder;
+    @BindView(R.id.marqueeView)
+    MarqueeView mMarqueeView;
 
     private HomeContract.Presenter mPresenter;
     private HomeTabTitleAdapter adapter;
@@ -85,6 +91,33 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
         EventBus.getDefault().register(this);
         mPresenter = new HomePresenter(this);
         mPresenter.start(getActivity());
+
+        List<String> messages = new ArrayList<>();
+        messages.add("1. 大家好.我是ios,我是大SB");
+        messages.add("2. 大家好.我是ios,我是大SB");
+        messages.add("3. 大家好.我是ios,我是大SB");
+        messages.add("4. 大家好.我是ios,我是大SB");
+        messages.add("5. 大家好.我是ios,我是大SB");
+        messages.add("6. 大家好.我是ios,我是大SB");
+        mMarqueeView.startWithList(messages);
+        mMarqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, TextView textView) {
+                showToast(textView.getText().toString());
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mMarqueeView.startFlipping();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mMarqueeView.stopFlipping();
     }
 
 
@@ -333,17 +366,10 @@ public class HomeFragment_2 extends BaseFragment implements HomeContract.UI {
                 });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
+
 }

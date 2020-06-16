@@ -316,8 +316,10 @@ android {
         implementation 'org.jaaksi:pickerview:3.0.1'
         //点赞动画
         implementation 'com.jaren:likeview:1.2.2'
-
+        //骨架屏
         implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+        //跑马灯
+        implementation 'com.sunfusheng:MarqueeView:1.4.1'
         //阅读
         api(name: 'YmSdk20190725', ext: 'aar')
         api "com.android.support:support-compat:27.0.0"

@@ -112,6 +112,7 @@ public class GuideListFragment extends BaseFragment {
             public void onChildViewDetachedFromWindow(View view) {
 
                 CustomVideo video = view.findViewById(R.id.guide_video);
+
                 if (video != null) {
                     Jzvd currentJzvd = JzvdMgr.getCurrentJzvd();
                     if (currentJzvd != null && currentJzvd.currentScreen != Jzvd.SCREEN_WINDOW_FULLSCREEN) {

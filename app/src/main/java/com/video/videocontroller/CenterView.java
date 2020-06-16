@@ -22,6 +22,7 @@ public class CenterView extends LinearLayout {
     private ImageView ivIcon;
     private TextView tvPercent;
     private ProgressBar proPercent;
+    private LinearLayout vide_bg;
 
     public CenterView(Context context) {
         super(context);
@@ -35,6 +36,7 @@ public class CenterView extends LinearLayout {
         ivIcon = view.findViewById(R.id.iv_icon);
         tvPercent = view.findViewById(R.id.tv_percent);
         proPercent = view.findViewById(R.id.pro_percent);
+        vide_bg = view.findViewById(R.id.vide_bg);
         setAlpha(0f);
     }
 
@@ -52,6 +54,10 @@ public class CenterView extends LinearLayout {
 
     public void setProVisibility(int visibility) {
         if (proPercent != null) proPercent.setVisibility(visibility);
+    }
+
+    public void setKuaiJin(int visibility ){
+        if (vide_bg != null) vide_bg.setVisibility(visibility);
     }
 
     @Override

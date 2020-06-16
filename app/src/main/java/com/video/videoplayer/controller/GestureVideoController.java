@@ -33,6 +33,7 @@ public abstract class GestureVideoController<T extends MediaPlayerControl> exten
     protected boolean mChangePosition;
     protected boolean mChangeBrightness;
     protected boolean mChangeVolume;
+    private boolean isonPositionChange = true;
 
     protected GestureListener mGestureListener;
 
@@ -111,7 +112,9 @@ public abstract class GestureVideoController<T extends MediaPlayerControl> exten
             mFirstTouch = false;
         }
         if (mChangePosition) {
-            slideToChangePosition(deltaX);
+            if (isonPositionChange) {
+                slideToChangePosition(deltaX);
+            }
         } else if (mChangeBrightness) {
             slideToChangeBrightness(deltaY);
         } else if (mChangeVolume) {
@@ -230,20 +233,23 @@ public abstract class GestureVideoController<T extends MediaPlayerControl> exten
 
         /**
          * 滑动调整进度
-         * @param slidePosition 滑动进度
+         *
+         * @param slidePosition   滑动进度
          * @param currentPosition 当前播放进度
-         * @param duration 视频总长度
+         * @param duration        视频总长度
          */
         void onPositionChange(int slidePosition, int currentPosition, int duration);
 
         /**
          * 滑动调整亮度
+         *
          * @param percent 亮度百分比
          */
         void onBrightnessChange(int percent);
 
         /**
          * 滑动调整音量
+         *
          * @param percent 音量百分比
          */
         void onVolumeChange(int percent);
@@ -251,5 +257,9 @@ public abstract class GestureVideoController<T extends MediaPlayerControl> exten
 
     public void setGestureListener(GestureListener gestureListener) {
         mGestureListener = gestureListener;
+    }
+
+    public void setonPositionChange(boolean isonPositionChange) {
+        this.isonPositionChange = isonPositionChange;
     }
 }

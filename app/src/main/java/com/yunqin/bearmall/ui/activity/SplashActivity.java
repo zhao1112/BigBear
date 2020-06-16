@@ -3,10 +3,13 @@ package com.yunqin.bearmall.ui.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.os.Handler;
-import android.util.Log;
+import android.view.View;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
-import com.bbcoupon.util.JurisdictionUtil;
+import com.bbcoupon.util.WindowUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.yunqin.bearmall.BearMallAplication;
@@ -32,9 +35,6 @@ import permison.listener.PermissionListener;
 public class SplashActivity extends BaseActivity {
 
     private Handler mHandler = new Handler();
-    private String mBearmall_url;
-    private String mType;
-    private String mTitle;
     private String mBearmall_url1;
     private String mType1;
     private String mTitle1;
@@ -87,7 +87,6 @@ public class SplashActivity extends BaseActivity {
             mTitle1 = data.getQueryParameter("title");
         }
 
-
         getInitMessages();
     }
 
@@ -104,12 +103,56 @@ public class SplashActivity extends BaseActivity {
                 openActivity();
                 ConstantScUtil.trackInstallation(SplashActivity.this);
             }
-        }, new String[]{Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE});
+        }, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE});
+    }
+
+    public void SplashImage() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PopupWindow popupWindow = WindowUtils.ShowSplansh(SplashActivity.this, R.layout.popup_item_splash, R.style.SplashAnim, 1);
+                TextView ad_text = popupWindow.getContentView().findViewById(R.id.ad_text);
+                countDown(6 * 1000, ad_text);
+                ad_text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        openActivity();
+                    }
+                });
+            }
+        }, 500);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
+    /**
+     * 倒计时显示
+     */
+    private void countDown(int tiem, TextView view) {
+        CountDownTimer timer = new CountDownTimer(tiem, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                view.setEnabled(true);
+                view.setText(millisUntilFinished / 1000 + "跳过广告");
+                if ((millisUntilFinished / 1000) == 1) {
+                    openActivity();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
     }
 
     public void openActivity() {
-
-        mHandler.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
@@ -119,13 +162,8 @@ public class SplashActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 1000);
+        },1000);
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
-    }
 }

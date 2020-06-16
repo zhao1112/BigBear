@@ -99,6 +99,8 @@ public class RequestContract {
         void onShareSumUp(Context context, Map<String, String> map);
 
         void onSchoolDetails(Context context, Map<String, String> map);
+
+        void onIncomeRecordList(Context context, Map<String, String> map);
     }
 
     public interface RequestModel {
@@ -177,5 +179,7 @@ public class RequestContract {
         void onShareSumUp(Context context, Map<String, String> map, RequestContract.RequestView requestView);
 
         void onSchoolDetails(Context context, Map<String, String> map, RequestContract.RequestView requestView);
+
+        void onIncomeRecordList(Context context, Map<String, String> map, RequestContract.RequestView requestView);
     }
 }

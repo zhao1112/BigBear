@@ -334,4 +334,12 @@ public class RequestPresenter implements RequestContract.RequestPresenter<Reques
         }
     }
 
+    //糖果记录
+    @Override
+    public void onIncomeRecordList(Context context, Map<String, String> map) {
+        if (requestView != null) {
+            requestModel.onIncomeRecordList(context, map, requestView);
+        }
+    }
+
 }

@@ -1026,4 +1026,5 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
         saveProgress();
         return super.onSaveInstanceState();
     }
+
 }

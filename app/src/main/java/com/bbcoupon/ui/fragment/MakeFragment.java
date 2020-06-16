@@ -1,6 +1,7 @@
 package com.bbcoupon.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.ui.activity.SweetActivity;
+import com.bbcoupon.ui.activity.SweetWalletActivity;
 import com.bbcoupon.ui.adapter.MakeAdapter;
 import com.bbcoupon.ui.bean.MakeInfor;
 import com.bbcoupon.ui.contract.RequestContract;
@@ -347,10 +350,12 @@ public class MakeFragment extends BaseFragment implements RequestContract.Reques
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_banlance://我的糖果
-                PropertyActivity.startPropertyActivity(getActivity(), 2, "", "", null, null);
+//                PropertyActivity.startPropertyActivity(getActivity(), 2, "", "", null, null);
+                getActivity().startActivity(new Intent(getActivity(), SweetWalletActivity.class));
                 break;
             case R.id.today_banlance://今天糖果
-                SweetRecordActivity.startIncomeActivity(0, null, getActivity());
+//                SweetRecordActivity.startIncomeActivity(0, null, getActivity());
+                getActivity().startActivity(new Intent(getActivity(), SweetActivity.class));
                 break;
             case R.id.new_menu_1://红包0元兑
                 EventBus.getDefault().post(new ChangeFragment(3));

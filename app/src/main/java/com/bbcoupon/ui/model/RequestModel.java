@@ -38,6 +38,7 @@ import com.yunqin.bearmall.bean.MemberBeanResponse;
 import com.yunqin.bearmall.bean.MessageItemCount;
 import com.yunqin.bearmall.bean.SearchData;
 import com.yunqin.bearmall.bean.SettingBean;
+import com.yunqin.bearmall.bean.SweetRecord;
 import com.yunqin.bearmall.ui.activity.BalanceWithdrawalWxActivity;
 import com.yunqin.bearmall.ui.activity.PhoneLoginActivity;
 import com.yunqin.bearmall.ui.activity.WithdrawActivity;
@@ -1115,6 +1116,35 @@ public class RequestModel implements RequestContract.RequestModel {
                 ArticeleInfor messageItemCount = new Gson().fromJson(data, ArticeleInfor.class);
                 if (requestView != null) {
                     requestView.onSuccess(messageItemCount);
+                }
+            }
+
+            @Override
+            public void onNotNetWork() {
+                if (requestView != null) {
+                    requestView.onNotNetWork();
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (requestView != null) {
+                    requestView.onFail(e);
+                }
+            }
+        });
+    }
+
+    //糖果记录
+    @Override
+    public void onIncomeRecordList(Context context, Map<String, String> map, RequestContract.RequestView requestView) {
+        RetrofitApi.request(context, RetrofitApi.createApi(Api.class).getIncomeRecordList(map), new RetrofitApi.IResponseListener() {
+            @Override
+            public void onSuccess(String data) {
+                Log.e("RequestModel", data);
+                SweetRecord record = new Gson().fromJson(data, SweetRecord.class);
+                if (requestView != null) {
+                    requestView.onSuccess(record);
                 }
             }
 

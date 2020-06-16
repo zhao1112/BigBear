@@ -3,22 +3,24 @@ package com.bbcoupon.ui.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -52,6 +54,7 @@ import com.yunqin.bearmall.api.Api;
 import com.yunqin.bearmall.api.RetrofitApi;
 import com.yunqin.bearmall.base.BaseActivity;
 import com.yunqin.bearmall.ui.activity.BCMessageActivity;
+import com.yunqin.bearmall.util.ConstUtils;
 import com.yunqin.bearmall.widget.RefreshBottomView;
 import com.yunqin.bearmall.widget.RefreshHeadView;
 
@@ -59,7 +62,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -95,16 +97,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     TextView mArSeeSume;
     @BindView(R.id.ar_like_sume)
     TextView mArLikeSume;
-    @BindView(R.id.ar_title)
-    TextView mArTitle;
-    @BindView(R.id.ar_time)
-    TextView mArTime;
-    @BindView(R.id.ar_image)
-    ImageView mArImage;
-    @BindView(R.id.ar_video)
-    ImageView mArVideo;
-    @BindView(R.id.ar_layout)
-    RelativeLayout mArLayout;
     @BindView(R.id.ar_web)
     WebView mArWeb;
 
@@ -118,17 +110,13 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     private boolean isLike = true;
     private TextView text_conten;
     private Platform platform;
-    private RoundedCorners roundedCorner = new RoundedCorners(10);
-    private RequestOptions options = RequestOptions.bitmapTransform(roundedCorner);
     private ArticeleInfor articeleInfor;
-
 
     public static void openArticleActivity(Activity activity, Class cla, Bundle bundle) {
         Intent intent = new Intent(activity, cla);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }
-
 
     @Override
     public int layoutId() {
@@ -153,6 +141,8 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         webUrl = webUrl + articleid;
 
         setWebview(mArWeb);
+        mArWeb.loadUrl(webUrl);
+        mArWeb.setWebViewClient(new MyWebViewClient());
 
         mARefresh.setHeaderView(new RefreshHeadView(ArticleActivity.this));
         mARefresh.setBottomView(new RefreshBottomView(ArticleActivity.this));
@@ -163,7 +153,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 articleAdapter.deleteData();
                 Map<String, String> map = new HashMap<>();
                 map.put("id", articleid);
-                getSData(map);
+                getData(page);
             }
 
             @Override
@@ -200,6 +190,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 return true;
             }
         });
+
     }
 
     private void getData(int page) {
@@ -225,7 +216,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-
     @Override
     public void onSuccess(Object data) {
         if (data instanceof CommentInfor) {
@@ -233,7 +223,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             if (commentInfor != null && commentInfor.getData() != null && commentInfor.getData().size() > 0) {
                 mARefresh.setBottomView(new RefreshBottomView(ArticleActivity.this));
                 articleAdapter.addData(commentInfor.getData());
-                mScComment.setVisibility(View.VISIBLE);
             } else {
                 mARefresh.setBottomView(new RefreshSchoolView(ArticleActivity.this));
             }
@@ -332,7 +321,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         presenter.setUntying(this);
     }
 
-    @OnClick({R.id.ar_back, R.id.ar_refresh, R.id.sc_chat, R.id.se_live, R.id.home_search, R.id.sc_hearch, R.id.ar_image})
+    @OnClick({R.id.ar_back, R.id.ar_refresh, R.id.sc_chat, R.id.se_live, R.id.home_search, R.id.sc_hearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ar_back:
@@ -387,15 +376,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 viewContent.getContentView().findViewById(R.id.sc_moments_share).setOnClickListener(this);
                 viewContent.getContentView().findViewById(R.id.sc_qq_share).setOnClickListener(this);
                 viewContent.getContentView().findViewById(R.id.sc_qq_moments_share).setOnClickListener(this);
-                break;
-            case R.id.ar_image:
-                if (articeleInfor.getData().getType() == 1) {
-                    Intent intent = new Intent(ArticleActivity.this, PlayerActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("VODEO_URL", articeleInfor.getData().getUrl());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
                 break;
         }
     }
@@ -496,7 +476,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-
     private void getSData(Map<String, String> map) {
         RetrofitApi.request(ArticleActivity.this, RetrofitApi.createApi(Api.class).onSchoolDetails(map),
                 new RetrofitApi.IResponseListener() {
@@ -505,35 +484,6 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                         Log.e("RequestModel", data);
                         articeleInfor = new Gson().fromJson(data, ArticeleInfor.class);
                         if (articeleInfor != null && articeleInfor.getData() != null) {
-                            mArTitle.setText(articeleInfor.getData().getTitle());
-                            mArTime.setText(articeleInfor.getData().getReleaseTime());
-                            if (articeleInfor.getData().getType() == 1) {
-                                if (articeleInfor.getData().getCoverimages() != null) {
-                                    Glide.with(ArticleActivity.this)
-                                            .load(articeleInfor.getData().getCoverimages())
-                                            .apply(options)
-                                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
-                                            .into(mArImage);
-                                    mArVideo.setVisibility(View.VISIBLE);
-                                    mArLayout.setVisibility(View.VISIBLE);
-                                } else {
-                                    mArLayout.setVisibility(View.GONE);
-                                }
-                            } else {
-                                mArLayout.setVisibility(View.GONE);
-//                                if (articeleInfor.getData().getUrl()!=null){
-//                                    Glide.with(ArticleActivity.this)
-//                                            .load(articeleInfor.getData().getUrl())
-//                                            .apply(options)
-//                                            .apply(new RequestOptions().placeholder(R.drawable.default_product))
-//                                            .into(mArImage);
-//                                    mArVideo.setVisibility(View.GONE);
-//                                    mArLayout.setVisibility(View.VISIBLE);
-//                                }else {
-//                                    mArLayout.setVisibility(View.GONE);
-//                                }
-                            }
-                            mArWeb.loadDataWithBaseURL(null, articeleInfor.getData().getContent(), "text/html", " charset=UTF-8", null);
                             getData(page);
                         } else {
                             showToast("文章不存在");
@@ -571,6 +521,30 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         web.setAllowFileAccess(true);
         web.setAppCacheEnabled(true);
         web.setDatabaseEnabled(true);
+    }
+
+    @JavascriptInterface
+    public void play(String url) {
+        Log.e("JavascriptInterface", url);
+        Intent intent = new Intent(ArticleActivity.this, PlayerActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("VODEO_URL", url);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public class MyWebViewClient extends WebViewClient {
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            mScComment.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            super.onReceivedError(view, errorCode, description, failingUrl);
+        }
     }
 
 }

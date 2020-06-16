@@ -10,6 +10,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -652,4 +653,33 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
             mCenterView.setVisibility(GONE);
         }
     }
+
+    public void setmVideoProgress(boolean isVisible) {
+        if (isVisible) {
+            mVideoProgress.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return false;
+                }
+            });
+        } else {
+            mVideoProgress.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+        }
+    }
+
+    public void onPositionChange(boolean Change) {
+        if (Change) {
+            mCenterView.setKuaiJin(VISIBLE);
+        } else {
+            mCenterView.setKuaiJin(GONE);
+        }
+        setonPositionChange(Change);
+    }
+
+
 }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bbcoupon.ui.activity.SweetWalletActivity;
 import com.google.gson.Gson;
 import com.newversions.CardListWebActivity;
 import com.yunqin.bearmall.AdConstants;
@@ -138,8 +139,9 @@ public class PropertyActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.property_layout:
 //                StarActivityUtil.starActivity(this,SweetRecordWithTypeActivity.class);
-                SweetRecordWithTypeActivity.startSweetRecordWithTypeActivity(this, totalSweetTextView.getText().toString(),
-                        todaySweetTextView.getText().toString());
+//                SweetRecordWithTypeActivity.startSweetRecordWithTypeActivity(this, totalSweetTextView.getText().toString(),
+//                        todaySweetTextView.getText().toString());
+                startActivity(new Intent(PropertyActivity.this, SweetWalletActivity.class));
                 break;
             case R.id.toolbar_right_text:
                 SweetRecordActivity.startIncomeActivity(2, null, this);
