@@ -295,7 +295,7 @@ public class BearMallAplication extends MobApplication {
 
     public void setNullUser() {
         user = null;
-        if (FilePutGetUtils.exists(this.getApplicationContext(), "app_user.json")) {
+        if (FilePutGetUtils.exists(this.getApplicationContextx(), "app_user.json")) {
             FilePutGetUtils.deleteFile(this.getApplicationContext(), "app_user.json");
         }
     }
